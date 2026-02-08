@@ -24,8 +24,21 @@ body:
   - type: textarea
     id: description
     attributes:
-      label: 📋 Proposed Solution
-      description: Describe what needs to be done.
+      label: 📝 Description
+      description: Describe the problem, task, or feature.
+      placeholder: |
+        Provide context, background, and why this task is needed.
+
+        Example:
+        The current login system does not meet accessibility standards and needs improvement.
+    validations:
+      required: true
+
+  - type: textarea
+    id: implementation_plan
+    attributes:
+      label: 🛠️ Implementation Plan
+      description: Describe how this task or feature should be implemented.
       placeholder: |
         - UI elements must be properly labeled and accessible via screen readers.
         - Forms should be fully navigable via keyboard.
@@ -37,7 +50,7 @@ body:
   - type: textarea
     id: acceptance_criteria
     attributes:
-      label: ✅ Success Criteria
+      label: ✅ Acceptance Criteria
       description: Define what must be true for this issue to be considered complete.
       placeholder: |
         - All input fields and interactive elements are screen reader-friendly.
@@ -48,6 +61,26 @@ body:
     validations:
       required: true
 
+  - type: textarea
+    id: testing_plan
+    attributes:
+      label: 🧪 Testing Plan
+      description: How will this be tested?
+      placeholder: |
+        - Unit tests for login function
+        - Manual testing with valid and invalid credentials
+        - Verify session persistence
+    validations:
+      required: true
+
+  - type: input
+    id: timeframe
+    attributes:
+      label: ⏱️ Timeframe
+      description: Estimated completion time
+      placeholder: e.g., 3 days / 1 week
+    validations:
+      required: false
 
   - type: dropdown
     id: urgency
