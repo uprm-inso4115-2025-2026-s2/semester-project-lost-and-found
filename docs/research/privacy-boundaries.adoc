@@ -1,0 +1,178 @@
+= Research: Privacy Boundaries and Data Exposure in the UPRM Lost & Found Platform
+Author: Anthony Harriel
+Date: February 2026
+:toc:
+
+== 1. Introduction
+
+This research explores privacy considerations and data exposure boundaries for the proposed UPRM Lost & Found platform.
+
+The A3 highlights safety, accessibility, and admin oversight as core goals of the system. However, it does not explicitly define what information should be public, restricted, or private. Establishing clear privacy boundaries is essential to prevent misuse, scams, and exposure of sensitive information while still enabling successful item recovery.
+
+This document identifies system data types, classifies privacy levels, analyzes risks, and proposes recommendations aligned with the A3 objectives.
+
+== 2. Types of Data in the System
+
+Based on the A3 and user flow, the platform would handle the following categories of data:
+
+=== 2.1 User Data
+* Name
+* UPR institutional email
+* Phone number (optional)
+* Account ID
+* User role (student, admin)
+
+=== 2.2 Item Data
+* Item name/title
+* Description
+* Category
+* Photos
+* Serial number
+* Distinguishing marks
+
+=== 2.3 Location Data
+* Where the item was found
+* Where the owner believes it was lost
+* Date and time
+
+=== 2.4 Communication Data
+* Messages between users
+* Claim requests
+* Contact information exchange
+
+Each of these data types carries different levels of sensitivity and risk.
+
+== 3. Privacy Classification Model
+
+To balance usability and security, three privacy levels are proposed.
+
+=== Level 1 – Public Information
+
+Information visible to all users (potentially even without login).
+
+Examples:
+* Item category
+* General description (non-specific details)
+* General location (e.g., "Centro de Estudiantes, Segundo Piso")
+* Date found
+
+Sensitive details such as full serial numbers or identifying marks must never be included at this level.
+
+Purpose:
+Allow browsing and discovery without exposing sensitive information.
+
+=== Level 2 – Authenticated Users Only
+
+Information visible only to users logged in with an official UPR account.
+
+Examples:
+* More detailed item descriptions
+* Partial serial numbers (masked)
+* Limited item images
+* Access to messaging features
+
+Purpose:
+Reduce anonymous misuse while allowing legitimate students to interact with the system.
+
+=== Level 3 – Restricted / Admin Only
+
+Information accessible only to administrators or during verification.
+
+Examples:
+* Full serial numbers
+* Full identifying details
+* Verification responses
+* Private user contact information
+
+Purpose:
+Protect highly sensitive information and support secure claim verification.
+
+== 4. Definition of Sensitive Items
+
+Certain items require stricter handling due to identity theft or fraud risks.
+
+Examples of sensitive items include:
+* Government IDs
+* Driver’s licenses
+* Student IDs
+* Credit or debit cards
+* Laptops
+* Mobile phones
+* Keys with identifiable tags
+* Medical devices
+
+For these items:
+* Detailed photos should not be publicly displayed.
+* Verification should require specific identifying information.
+* Admin oversight may be required before transfer.
+
+== 5. Risk and Misuse Scenarios
+
+The A3 identifies risks such as scams and platform misuse. Below are key privacy-related risks.
+
+=== 5.1 False Ownership Claims
+
+A user may attempt to claim an item without being the rightful owner.
+
+Mitigation:
+* Require verification questions not visible publicly.
+* Request partial serial number confirmation.
+* Use admin mediation for sensitive items.
+
+=== 5.2 Exposure of Personal Data
+
+Publishing full ID photos or personal contact information may result in identity theft.
+
+Mitigation:
+* Automatically blur sensitive fields.
+* Restrict detailed item information.
+* Keep contact details private within the system.
+
+=== 5.3 Harassment or Off-Platform Contact
+
+Users may misuse visible contact information.
+
+Mitigation:
+* Provide in-app messaging only.
+* Do not publicly display phone numbers or emails.
+
+== 6. Trade-Off Analysis
+
+Privacy decisions impact both security and recovery efficiency.
+
+|===
+| Decision | Benefit | Risk
+
+| More public information
+| Faster matching
+| Higher scam risk
+
+| Stricter privacy controls
+| Increased safety
+| Slower recovery
+
+| Admin mediation
+| More secure verification
+| Increased administrative workload
+|===
+
+A balanced approach is recommended to maintain both trust and usability.
+
+== 7. Final Recommendations
+
+To align with A3 safety and trust objectives, the following measures are recommended:
+
+* Require UPR authentication for posting, claiming, and messaging.
+* Automatically mask sensitive item information.
+* Implement sensitivity-based item classification.
+* Keep user contact information private.
+* Require admin review for sensitive item transfers.
+* Store verification data securely.
+
+== 8. Conclusion
+
+Privacy boundaries are critical for the success and adoption of the UPRM Lost & Found platform. Without clear data exposure rules, the system risks misuse, reduced trust, and potential harm to users.
+
+By defining privacy levels, identifying sensitive items, and proposing structured safeguards, this research supports the A3 goals of safety, accessibility, and responsible platform management.
+
+This framework provides a foundation for future design and implementation decisions.
