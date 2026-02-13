@@ -1,6 +1,6 @@
 # Milestone Data
 
-## Date Generated: 2026-02-12
+## Date Generated: 2026-02-13
 | Developer | Points Closed | Percent Contribution | Indivudal Grade | Milestone Grade | Lecture Topic Tasks |
 | --------- | ------------- | -------------------- | --------------- | --------------- | ------------------- |
 | abby-1b | 0.0 | 0.0% | 0.0% | 40.0% | 0 |
@@ -69,35 +69,35 @@
 
 | Developer | Week #1 | Week #2 | Week #3 | Week #4 | Penalty |
 |---|---|---|---|---|---|
-| andres-cruz-zapata | Yes | No | No | No | 9.0 |
 | leanelys | Yes | No | No | No | 9.0 |
-| Fernando18Torres | Yes | No | No | No | 9.0 |
-| nelsoncaban | No | No | No | No | 14.0 |
-| tasnim2204 | Yes | No | No | No | 9.0 |
-| Adriel-bracero | Yes | No | No | No | 9.0 |
-| vmmo | No | No | No | No | 14.0 |
-| JoelTorres20 | Yes | No | No | No | 9.0 |
-| FabianAcevedo1 | Yes | No | No | No | 9.0 |
-| Adiel-Soto | No | No | No | No | 14.0 |
-| Adriana-Isabel | Yes | No | No | No | 9.0 |
-| omar-cordero | Yes | No | No | No | 9.0 |
-| keisanabria | Yes | No | No | No | 9.0 |
-| abby-1b | Yes | No | No | No | 9.0 |
-| iralys-sanchez18 | Yes | No | No | No | 9.0 |
-| noelcolon | No | No | No | No | 14.0 |
-| Dylan-Oliver04 | Yes | No | No | No | 9.0 |
-| IvanierB | No | No | No | No | 14.0 |
-| anthonyharriel | Yes | No | No | No | 9.0 |
-| AlbertoRodriguez10 | Yes | No | No | No | 9.0 |
-| LianetteAlberto | No | No | No | No | 14.0 |
 | angelvillegas1 | Yes | No | No | No | 9.0 |
-| SebastianSuarez0429 | Yes | No | No | No | 9.0 |
-| NathBat09 | No | No | No | No | 14.0 |
-| Naedra | Yes | No | No | No | 9.0 |
+| Dylan-Oliver04 | Yes | No | No | No | 9.0 |
+| iralys-sanchez18 | Yes | No | No | No | 9.0 |
+| NathBat09 | No | Yes | No | No | 7.0 |
+| anthonyharriel | Yes | No | No | No | 9.0 |
+| Adriana-Isabel | No | No | No | No | 14.0 |
+| vmmo | No | No | No | No | 14.0 |
+| tasnim2204 | Yes | No | No | No | 9.0 |
+| andres-cruz-zapata | Yes | No | No | No | 9.0 |
 | JeanSanchezFelix | No | No | No | No | 14.0 |
-| TomasGomez04 | Yes | No | No | No | 9.0 |
+| nelsoncaban | No | Yes | No | No | 7.0 |
+| LianetteAlberto | No | No | No | No | 14.0 |
+| noelcolon | No | No | No | No | 14.0 |
+| Adiel-Soto | No | No | No | No | 14.0 |
+| omar-cordero | Yes | No | No | No | 9.0 |
+| SebastianSuarez0429 | Yes | No | No | No | 9.0 |
+| FabianAcevedo1 | Yes | No | No | No | 9.0 |
+| abby-1b | Yes | No | No | No | 9.0 |
+| Adriel-bracero | Yes | No | No | No | 9.0 |
 | Dieg0Rios | Yes | No | No | No | 9.0 |
+| Fernando18Torres | Yes | No | No | No | 9.0 |
+| Naedra | Yes | No | No | No | 9.0 |
+| TomasGomez04 | Yes | No | No | No | 9.0 |
+| IvanierB | No | Yes | No | No | 7.0 |
 | jose-valentin | Yes | No | No | No | 9.0 |
+| JoelTorres20 | Yes | No | No | No | 9.0 |
+| AlbertoRodriguez10 | Yes | No | No | No | 9.0 |
+| keisanabria | Yes | No | No | No | 9.0 |
 
 ## Point Percent by Label
 
@@ -109,7 +109,9 @@ There are no labels assigned to any issue
 | INFO: Found Project(name='Lost and Found', number=5, url='https://github.com/orgs/uprm-inso4115-2025-2026-s2/projects/5', public=False) |
 | WARNING: Project visibility is set to private. This can lead to issues not being found if the Personal Access Token doesn't have permissions for viewing private projects. |
 | WARNING: [Issue #56](https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/56) was closed by non-manager anthonyharriel. Only issues closed by managers are accredited. Managers for this project are: ['iralys-sanchez18', 'TomasGomez04'] |
-| WARNING: [Issue #68](https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/68) is not associated with a milestone. |
+| WARNING: [Issue #74](https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/74) is not associated with a milestone. |
+| WARNING: [Issue #75](https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/75) is not associated with a milestone. |
+| WARNING: [Issue #76](https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/76) is not associated with a milestone. |
 | WARNING: abby-1b hasn't completed the minimum 1 task(s) required for sprint 2026/02/04-2026/02/16 |
 | WARNING: vmmo hasn't completed the minimum 1 task(s) required for sprint 2026/02/04-2026/02/16 |
 | WARNING: omar-cordero hasn't completed the minimum 1 task(s) required for sprint 2026/02/04-2026/02/16 |
