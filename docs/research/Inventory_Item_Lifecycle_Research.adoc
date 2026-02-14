@@ -1,0 +1,225 @@
+= Inventory and Item Lifecycle Research
+  
+Adriel Bracero Gonzalez
+
+== Summary
+
+This document provides a concise concept for the inventory and item lifecycle of 
+the Lost and Found app. It defines a recommended data model, item lifecycle states, 
+chain-of-custody logging, retention/disposition policies, small Python examples, and a 
+test plan. The recommendations draw on evidence-management guidance and best 
+inventory practices.  
+
+
+== Scope and Objectives
+
+Objective: Produce an actionable specification to implement item inventory, 
+custody tracking, and retention workflows so the application supports real-world 
+operations (campus or venue lost and found).  
+
+Audience: Developers, managers, theoretical/venue stakeholders, and personnel who will 
+interact with found items.  
+
+
+== Key Definitions
+
+Item record — A digital representation of a found object, including descriptive metadata, photos, and location/time information.
+
+Custody log — A timestamped record of every physical or administrative transfer or action performed on an item (who, when, why). 
+
+Retention / Holding period — The amount of time an item is kept before intermediate or final disposition (examples:  donation, return to finder, destruction).
+
+
+
+
+== Recommended Data Model
+
+ The data model below is intentionally simple, extensible, and suitable for 
+relational or document databases. Field names are descriptive; types in parentheses are suggestions.  
+Item (table/document):  
+- item_id: string / UUID — unique identifier  
+- title: string — short readable title  
+- description: text — free-text description  
+- category: enum — electronics, wallet, keys, clothing, ID, etc.  
+- tags: array of strings — user or controlled tags  
+- photos: array of image URLs or storage references  
+- found_at_time: datetime
+- found_at_location: geo-point (latitude, longitude) or textual location
+- storage_location_id: string — physical locker/room identifier
+- status: enum — reported, cataloged, stored, claimed, disposed , etc.
+- reporter_id: string — user or staff who reported the item
+- reported_at: datetime
+- expected_hold_until: datetime — computed by app
+- custody_log: array of custody entries (see below)
+- sensitive_flag: boolean — marks items requiring special handling
+
+
+
+
+== Custody Log (Chain of Custody)
+
+Every action that meaningfully changes an item's physical or legal status must 
+append a custody log entry. The chain-of-custody preserves integrity and accountability.  
+Recommended custody entry fields:  
+
+- timestamp: datetime
+- actor_id: string — user/staff identifier
+- action: enum — intake, transfer, photo_added, claim_started, claim_completed, dispose
+- from_location: string — optional
+- to_location: string — optional
+- notes: text — optional
+- attachments: array — photos or signatures
+
+
+
+== Item Lifecycle States and Transitions
+
+A clear finite state machine (FSM) limits errors and enforces authorization. 
+
+Suggested states (with short descriptions): 
+
+- reported: Item has been reported via app but not processed
+- cataloged: Staff reviewed, added photos, assigned storage  
+- stored: Physically in storage and available for claims  
+- pending_claim: A claim has been made and is under verification  
+- claimed: Ownership verified; item released to owner  
+- unclaimed: Holding period expired and no successful claim  
+- disposed: Item disposed (donated, sold, recycled, destroyed)
+
+Transitions should be explicit and require actor roles (examples: volunteer/staff). 
+Example transition rules: reported → cataloged (staff only); cataloged → stored (staff); 
+stored → pending_claim (owner initiates); pending_claim → claimed (after verification); 
+stored → unclaimed (after hold expiry).  
+
+
+== Retention and Disposition Policy (Recommendations)
+
+Holding periods vary by institution. University examples range from 30 to 120+ 
+days. Consider offering configurable policies per region or venue.  
+Suggested default policy tiers:  
+
+- Tier A (High-value or sensitive items): hold 90–120 days; require staff verification for disposal.  
+
+- Tier B (Everyday items: keys, clothing): hold 30–60 days; then donate or recycle.  
+
+- Tier C (Perishable or illegal items): follow local laws and escalate to authorities immediately. 
+
+Automated actions at hold expiry should either notify for manual disposition or follow 
+preconfigured disposal actions. Always store a disposal record in the custody_log.  
+
+
+== API and Backend Sketch
+
+Below are minimal endpoints to support inventory operations. These are sketches— exact fields may differ by framework.  
+ 
+POST / items  
+- Create a new item record (reporter creates).  
+ 
+GET/items / item_id  
+- Retrieve an item with custody log.  
+ 
+PATCH / items / item_ id/status  
+- Update status (requires authorization). Example payload: { 'status': 'cataloged' }  
+
+ 
+POST / items / item_id / custody  
+- Append a custody_log entry.  
+ 
+GET / items? Status = stored and near = true 
+- Search items by status and proximity.  
+ 
+POST / items / item_id / claim  
+- Start a claim process. Creates a pending_claim entry and triggers verification 
+workflow.  
+
+
+== Small Python Examples
+
+Example: Minimal data model objects and custody append function (illustrative):  
+ 
+[source,python]
+----
+from datetime import datetime
+from uuid import uuid4
+def make_item(title, description, found_time, lat, lon, reporter_id):
+    return {
+        "item_id": str(uuid4()),
+        "title": title,
+        "description": description,
+        "found_at_time": found_time.isoformat(),
+        "found_at_location": {"lat": lat, "lon": lon},
+        "status": "reported",
+        "reporter_id": report er_id,
+        "reported_at": datetime.utcnow().isoformat(),
+        "custody_log": []
+    }
+----
+
+
+
+[source,python]
+----
+def append_custody(item, actor_id, action, notes=None, to_location=None):
+    entry = {
+        "timestamp": datetime.utcnow().isoformat(),
+        "actor_id": ac tor_id,
+        "action": action,
+        "from_location": item.get("storage_location_id"),
+        "to_location": to_location,
+        "notes": notes
+    }
+    item.setdefault("custody_log", []).append(entry)
+    return item
+----
+
+
+#Example: Computing expected_hold_until according to policy:  
+ 
+[source,python]
+----
+from datetime import datetime, timedelta
+def compute_hold_until(reported_at, tier="B"):
+    reported = datetime.fromisoformat(reported_at)
+    if tier == "A":
+        days = 90
+    elif tier == "B":
+        days = 30
+    else:
+        days = 14
+    return (reported + timedelta(days=days)).isoformat()
+----
+
+
+
+== UX and Operational Notes
+
+Intake flow (recommended): Reporter submits report → Staff reviews and catalogs → Item assigned storage label → Photos and short form added → Item status becomes 'stored'.
+
+Claim flow (recommended): Owner searches (keywords, filters, proximity) → Initiates claim → Verification step (staff asks for identifying details) → On success, staff records custody transfer and marks 'claimed'.
+
+Suggestions for verification: Ask for at least two of (photo on phone showing the item, description of unique markings, date/time/place last seen, serial number). Avoid requesting sensitive personal information.  
+
+
+== Security and Privacy Considerations
+
+Minimize personally identifiable information (PII) stored on public item records. 
+Use hashed/verifiable secrets for claim verification (example, token sent to reporter's 
+phone/email), and mark sensitive items for restricted handling. Store photos and 
+attachments in access-controlled object storage. Log all accesses to item records for 
+auditability.  
+
+
+== References
+
+National Institute of Standards and Technology. "Chain of custody." NIST Computer 
+Security Resource Center, https://csrc.nist.gov/glossary/term/chain_of_custody
+
+D’Anna, T. "The Chain of Custody in the Era of Modern Forensics." PubMed Central, 
+2023, https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10000967/
+
+NetSuite. "Inventory Control Defined: Best Practices, Systems, & Software." NetSuite 
+Resource Articles, 29 Jan. 2024, 
+https://www.netsuite.com/portal/resource/articles/inventory-management/what-are-inventory-management-controls.shtml 
+
+George Mason University. "Unclaimed Personal Property - University Policy." 
+UniversityPolicy.gmu.edu, https://universitypolicy.gmu.edu/policies/unclaimed-personal-property/
