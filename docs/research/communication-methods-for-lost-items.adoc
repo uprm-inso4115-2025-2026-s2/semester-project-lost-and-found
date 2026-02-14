@@ -1,0 +1,33 @@
+= Communication Methods for Lost Items
+Sebastian G. Suarez Robles
+:date: February 13, 2026
+
+== Introduction
+
+When items are lost and retrieved by someone else, the hardest part is often finding a convenient time and place to recover them. This research explores effective methods for facilitating the return of lost items.
+
+== Recommended Retrieval Locations
+
+*Library*:  
+The library is an ideal location for item retrieval. The building counts with many employees and secure rooms suitable for storing lost items. The person who found the item can leave it at the library, allowing the owner to pick it up at their convenience.
+
+*Centro de Estudiantes*:  
+If the library is not available, the Centro de Estudiantes front desk can serve as an alternative. The same process and verification methods apply.
+
+== Communication Methods
+
+- Messaging
+- Phone calls
+- In-person meetups
+
+Regardless of the method, the item should be left at the designated location for flexibility. The person who found the lost item must provide the contact number of the person who will come and retrieve the item, ensuring proper identification and confirmation.
+
+== Verification Process
+
+To confirm the identity of the person retrieving the item:
+- The person who found it provides the contact number of the owner.
+- Staff can use that number to call or message the owner to verify and arrange pickup.
+
+== Suggestions
+
+These are the locations currently considered for item retrieval. Suggestions for additional locations or improved methods are welcome.
