@@ -1,0 +1,83 @@
+= [Research] Research Existing Lost and Found Platforms #26
+
+== Goal
+Identify and analyze existing lost and found platforms to understand common features,
+user journeys, and UI/UX design that can inform the design of our own platform.
+
+== Proposed Solution
+* Research lost and found platforms.
+* Identify core features such as item reporting, search/filtering, user accounts,
+notifications, and moderation.
+* Document how users report lost vs. found items.
+* Analyze UI/UX patterns.
+* Note any unique or innovative features worth considering.
+* Summarize findings in a shared document or GitHub comment.
+
+== Success Criteria
+* At least 3–5 existing lost-and-found platforms are reviewed.
+** https://www.lostings.com/
+** https://www.kanpid.com/
+** https://troov.com/en
+
+* A clear list of common and optional features is documented.
+** Accounts to keep track of who lost or found the items.
+*** Name.
+*** Contact information. (phone number, email address, etc.)
+** Categories for commonly lost items. (Optionally include images for those
+categories)
+** Separation between lost and found items:
+*** Lost items
+**** Location where it was lost
+**** Image of item
+**** Brand of item
+**** Color of item (Primary and Secondary)
+**** Date lost
+**** Time lost
+**** Section for additional information
+*** Found items
+**** Location where it was found
+**** Image of item
+**** Brand of item
+**** Color of item (Primary and Secondary)
+**** Date found
+**** Time found
+**** Section for additional information
+** Can view all lost and found items together with identifying markers on the images
+if still lost or found.
+** Including an authentication question from the person who lost the item to prove
+it's theirs.
+** Alerting the owner that their item was found through the lost post.
+** A google map incorporated into where the item was located.
+
+* Strengths and weaknesses of each platform are identified.
+** Strengths:
+*** Can view recently lost items.
+*** Map to indicate where it was located.
+*** Images for categories to quickly identify distinct sections.
+*** Thorough description of items based on the common fields.
+*** Notifying the user of the lost item being found.
+** Weaknesses:
+*** No filtering:
+**** per item category.
+**** per date.
+**** by priority.
+*** No Moderation.
+
+* Feature ideas relevant to a campus environment are highlighted.
+** Per building having a designated location for the lost and found to centralize and
+facilitate recovery, including a field where it was dropped off within the platform.
+** After a certain period of time archiving the items that were returned to the owner.
+** Dashboard to keep track of items recovered and returned to the owner.
+** Viewability of items in a social media format, such as instagram 3 columns and
+the information field format in common functionalities.
+
+* Findings are shared with the team and accessible in the repository.
+
+=== Urgency
+3 – Normal
+
+=== Difficulty
+2 - Easy
+
+== Recommended Assigned Developer
+Victoria Miranda Osuna
