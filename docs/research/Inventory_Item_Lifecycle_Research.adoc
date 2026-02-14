@@ -162,7 +162,7 @@ def make_item(title, description, found_time, lat, lon, reporter_id):
 def append_custody(item, actor_id, action, notes=None, to_location=None):
     entry = {
         "timestamp": datetime.utcnow().isoformat(),
-        "actor_id": ac tor_id,
+        "actor_id": actor_id,
         "action": action,
         "from_location": item.get("storage_location_id"),
         "to_location": to_location,
