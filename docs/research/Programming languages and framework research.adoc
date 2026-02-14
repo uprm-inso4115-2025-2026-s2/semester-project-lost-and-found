@@ -1,0 +1,67 @@
+The purpose of this research is to help on the selection of the most appropiate programming language and backend platform for 
+the development of the lost and found project. This research compares JavaScript with TypeScript and Firebase with Supabase, since
+these languages and frameworks seem the most relevant for the project.
+
+JavaScript vs TypeScript
+
+    JavaScript:
+
+    Pros
+    - Simpler to start with
+    - No compilation step
+    - Flexible and fast for prototyping
+
+    Cons
+    - No static typing (which can lead to more runtime errors)
+    - Harder to maintain in large projects
+    - Refactoring can be risky
+
+    TypeScript:
+
+    Pros
+    - Static typing
+    - Better IDE support and autocompletion
+    - Safer Refactoring
+
+    Cons
+    - Has a slightly bigger learning curve
+    - Requires compilation step
+    - More initial setup
+
+    At a small scale JavaScript works fine, but as features grow, the risk of bugs
+    increases without type safety
+
+Firebase vs Supabase
+
+    Firebase:
+
+    Pros
+    - Mature ecosystem
+    - Easy authentication setup
+    - Scales well
+    - Has a big community
+
+    Cons
+    - NoSQL (Firestore) by default
+    - Less SQL flexibility
+    - Pricing can become expensive at scale
+
+    Supabase:
+
+    Pros
+    - SQL-based
+    - Open Source
+    - Built in authentication
+    - Row-level security
+    - More transparent Pricing
+
+    Cons
+    - Smaller ecosystem than Firebase
+    - Newer platform in comparison
+
+    PostgreSQL (Supabase) handles relational data better than Firestore
+
+Between JavaScript and TypeScript,TypeScriptis recommended due to its static typing system, maintainability and
+better scalability for team based development.
+
+Between Firebase and Supabase, Supabase is recommended due to its PostgreSQL system and its open source nature.
