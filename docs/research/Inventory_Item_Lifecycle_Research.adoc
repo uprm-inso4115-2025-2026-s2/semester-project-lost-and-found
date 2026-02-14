@@ -112,23 +112,23 @@ preconfigured disposal actions. Always store a disposal record in the custody_lo
 
 Below are minimal endpoints to support inventory operations. These are sketches— exact fields may differ by framework.  
  
-POST / items  
+POST /items  
 - Create a new item record (reporter creates).  
  
-GET/items / item_id  
+GET /items/{item_id}  
 - Retrieve an item with custody log.  
  
-PATCH / items / item_ id/status  
+PATCH /items/{item_id}/status  
 - Update status (requires authorization). Example payload: { 'status': 'cataloged' }  
 
  
-POST / items / item_id / custody  
+POST /items/{item_id}/custody  
 - Append a custody_log entry.  
  
-GET / items? Status = stored and near = true 
+GET /items?status=stored&near=true 
 - Search items by status and proximity.  
  
-POST / items / item_id / claim  
+POST /items/{item_id}/claim  
 - Start a claim process. Creates a pending_claim entry and triggers verification 
 workflow.  
 
