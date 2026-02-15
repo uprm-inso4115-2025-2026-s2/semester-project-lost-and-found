@@ -1,0 +1,214 @@
+= Database Selection & Data Modeling Strategy
+:author: Ivanier Bellido
+:issue: #93
+:status: Proposed
+
+== 1. Objective
+
+The goal of this document is to choose an appropriate database and storage architecture for the Lost & Found platform.  
+The decision is based on the needs identified in the A3 analysis and the expected behavior of the system.
+
+Rather than selecting a technology only based on popularity or ease of use, we evaluated which option best supports the problem the project is trying to solve.
+
+---
+
+== 2. Relation to the A3 Analysis
+
+From the A3 document we identified several important conditions:
+
+[cols="1,2"]
+|===
+|A3 Observation | System Requirement
+
+|Students frequently lose items across campus
+|The system must handle frequent report creation
+
+|Users cannot easily verify ownership
+|Items must be searchable using description and category
+
+|Current recovery process depends on manual communication
+|A structured messaging relationship is required
+
+|Matching depends on time and location context
+|Database must support filtering and relational queries
+
+|Users need a quick reporting process
+|Backend responses must be efficient and simple
+|===
+
+Because of these points, the system benefits from structured and consistent data rather than loosely structured records.
+
+---
+
+== 3. Expected Usage
+
+[cols="1,1"]
+|===
+|Metric |Estimated Value
+
+|Users
+|5,000 – 15,000
+
+|Reports per week
+|50 – 200
+
+|Images per report
+|1 – 3
+
+|Search frequency
+|High
+
+|Messaging frequency
+|Moderate
+|===
+
+This suggests the platform behaves more like a transactional system than a simple content feed.
+
+---
+
+== 4. Technologies Considered
+
+We compared four possible approaches:
+
+* PostgreSQL
+* MongoDB
+* Firebase (Firestore)
+* Supabase (managed PostgreSQL)
+
+---
+
+== 5. Comparison
+
+[cols="1,1,1,1,1"]
+|===
+|Criteria |PostgreSQL |MongoDB |Firebase |Supabase
+
+|Relational structure
+|Strong
+|Weak
+|Limited
+|Strong
+
+|Filtering and search
+|Strong
+|Moderate
+|Limited
+|Strong
+
+|Matching logic
+|Clear implementation
+|More complex
+|Limited queries
+|Clear implementation
+
+|Development speed
+|Moderate
+|Moderate
+|Fast
+|Fast
+
+|Realtime capability
+|Manual
+|Manual
+|Built-in
+|Built-in
+
+|Scalability
+|High
+|High
+|High
+|High
+
+|Vendor dependency
+|None
+|None
+|High
+|Low
+|===
+
+---
+
+== 6. Decision
+
+The selected solution is **Supabase (PostgreSQL)**.
+
+This option provides relational consistency, which helps model the relationships between users, reports, and messages.  
+At the same time, it avoids the setup complexity of managing a database server manually.
+
+This directly supports the A3 objective of improving item recovery by allowing reliable filtering and matching of reports.
+
+---
+
+== 7. Image Storage
+
+Images will not be stored directly in the database.
+
+Instead:
+* Files stored in Supabase Storage
+* Database stores only the image URL
+
+Reasons:
+* Reduces database size
+* Improves query performance
+* Allows CDN delivery
+* Easier scaling
+
+---
+
+== 8. Data Model
+
+Core entities identified:
+
+* User
+* Report
+* Item
+* Category
+* Location
+* Message
+* ReportImage
+
+---
+
+== 9. ERD
+
+[mermaid]
+....
+erDiagram
+  USER ||--o{ REPORT : creates
+  USER ||--o{ MESSAGE : sends
+  REPORT ||--o{ MESSAGE : has
+  CATEGORY ||--o{ ITEM : classifies
+  LOCATION ||--o{ REPORT : occurs_at
+  REPORT ||--|| ITEM : describes
+  REPORT ||--o{ REPORT_IMAGE : includes
+....
+
+---
+
+== 10. Future Work Supported
+
+This structure allows future additions without redesign:
+
+* Automatic matching logic
+* Notifications
+* Moderation tools
+* Usage analytics
+
+---
+
+== 11. References
+
+Supabase Documentation  
+https://supabase.com/docs
+
+PostgreSQL Documentation  
+https://www.postgresql.org/docs/
+
+Firebase Documentation  
+https://firebase.google.com/docs/firestore
+
+MongoDB Documentation  
+https://www.mongodb.com/docs/
+
+Large Object Storage Strategy  
+https://aws.amazon.com/blogs/database/large-object-storage-strategies/
