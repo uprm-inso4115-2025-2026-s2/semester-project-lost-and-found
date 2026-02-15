@@ -1,0 +1,162 @@
+= Location Architecture & Campus Zoning Strategy +
+by: Noel Colon Mena
+
+== Introduction
+
+Location data is a foundational component of the Lost & Found Platform. The accuracy, structure, and privacy of location information directly impact the system’s ability to match lost and found items, enable effective filtering, and maintain user trust.
+
+This research evaluates multiple approaches for collecting, structuring, storing, and utilizing location data within the system. The goal is to determine an architecture that balances:
+
+* Usability
+* Matching effectiveness
+* Backend efficiency
+
+== Location Input Methods Analysis
+
+=== 1. Free Text Input
+
+Users manually type where the item was lost or found
+
+*Pros*
+
+* Easy to implement
+* Low development complexity
+
+*Cons*
+
+* Difficult to filter
+* High inconsistency
+* Limited matching logic support
+
+=== 2. Dropdown Model
+
+Structured selection format:
+
+Campus -> Building -> Floor -> Room
+
+*Pros*
+
+* Clean  structure
+* Easy filtering
+* Works indoors
+* Allows extra information via comments
+
+*Cons*
+
+* Higher development complexity
+* May feel restrictive to users
+
+=== 3. Map-Based Selection
+
+Users select a location using an interactive campus map.
+
+*Pros*
+
+* Intuitive interface
+* Enables coordinate storage
+* Supports proximity-based search
+
+*Cons*
+
+* Higher development & implementation complexity
+* Indoor precision limitations
+* Possible API requirements
+
+
+=== Comparison Summary
+
+[cols="1,1,1,1,1", options="header"]
+|===
+|Method |Structure |Matching Support |Privacy Risk |Complexity
+|Free Text |Low |Low |Low |Low
+|Hierarchical |High |High |Medium |Medium
+|Map-Based |Medium/High |High |Medium |High
+|===
+
+== Backend Architecture Models
+
+=== Model A – Structured Hierarchical Model
+
+[source,json]
+----
+{
+  "building": "Stefani",
+  "floor": 2,
+  "room": "S-205"
+}
+----
+
+*Pros*
+
+* Efficient querying
+* Strong filtering support
+* Easy Readabilitty
+* Easy to Implement
+
+*Cons*
+
+* Requires a structured database
+
+
+=== Model B – Coordinate Based Model
+
+[source,json]
+----
+{
+  "latitude": 18.211,
+  "longitude": -67.140
+}
+----
+
+*Pros*
+
+* Allows for precise location information
+
+*Cons*
+
+* Is unreliable indoors
+* Harder to interpret for users
+* Requires a more complex filtering system
+
+=== Model C – Hybrid Model
+
+Structured building-level data plus optional coordinates.
+
+[source,json]
+----
+{
+  "building": "Stefani",
+  "room": "S-205",
+  "latitude": 18.211,
+  "longitude": -67.140
+}
+----
+
+*Pros*
+
+* Combines structured filtering and proximity features
+* Easy to interpret by users while still giving precise location
+
+
+*Cons*
+
+* More complex implementation
+* Could cause filtering issues
+
+
+=== Architecture Comparison
+
+[cols="1,1,1,1", options="header"]
+|===
+|Model |Query Efficiency |Matching Capability |Readability
+|Structured |High |Medium  |High
+|Coordinates |Medium |High | Low
+|Hybrid |High |High  | Medium
+|===
+
+== Conclusion
+
+After evaluating multiple location input methods and backend architecture models, the recommended approach for the Lost and Found project is:
+
+*Location Input:*  Dropdown Model + 
+*Backend Architecture:* Hybrid Model
