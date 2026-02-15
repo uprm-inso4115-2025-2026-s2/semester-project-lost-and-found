@@ -1,0 +1,60 @@
+= Research: User Verification & Account Creation Strategies
+Author: Diego A Rios Morales 
+Date: February 2026
+
+== Risks of No Accounts
+* Anonymous false claims
+* Difficulty returning items
+* No accountability for misuse
+
+== User Verification Methods
+== 1. Email Verification
+Users confirm identity by clicking a verification link sent to their email.
+Pros
+* Easy to implement
+* Familiar to users
+* Prevents fake registrations
+
+Cons
+* Multiple emails can be created
+* Lower identity assurance
+
+== 2. Phone Number Verification 
+Pros
+* Stronger identity proof than email
+* Reduces fake accounts
+* Enables SMS notifications
+
+Cons
+* Requires phone access
+* SMS costs may apply
+
+== 3.  Social Login (Google / Apple / Facebook)
+Users sign in using an existing account.
+
+Pros
+* Fast signup
+* Reduced password management
+* Trusted identity providers
+
+Cons
+* Requires third-party integration
+* Privacy concerns for some users
+
+== Recommended Approach
+
+Phase 1 (Minimum Viable Implementation)
+*Email verification required  
+*Phone verification for claiming items  
+*Basic user accounts  
+
+Phase 2 (Improved UX & Security) 
+*Social login integration  
+*Optional MFA for admins  
+
+Phase 3 (Future Enhancement)
+Passwordless authentication (magic links or passkeys)
+
+
+== Conclusion
+User verification is essential to ensure trust, accountability, and reliability in the Lost and Found platform. A layered approach combining email verification, phone verification, and optional social login provides the best balance between security, usability, and implementation simplicity.
