@@ -1,1 +1,63 @@
+= [Research] Duplicate Report Detection – Team 3
+:sectnums:
+
+== Goal
+Prevent multiple identical reports from the same user.
+
+== Description
+Research and define logic to detect potential duplicate reports during submission based on:
+* Title
+* Location
+* Date
+* Category
+
+The system should check existing reports from the same user and determine if a similar report already exists before creating a new one.
+
+== 🔎 Proposed Approach
+
+* When user clicks "Submit", query reports created by the same user.
+* Filter by:
+** Same category
+** Same or very close date
+** Same location (or same location ID)
+* Compare normalized titles (lowercase, remove punctuation).
+* If strong match → mark as potential duplicate.
+
+== Detection Logic (Simple Rule-Based)
+
+Duplicate is triggered if:
+* Category matches
+* Location matches
+* Date matches (same day)
+* Title is highly similar or identical
+
+If 3–4 of these match → show duplicate warning.
+
+== User Flow
+
+1. User submits report.
+2. System checks for duplicates.
+3. If duplicate found:
+   * Show warning message.
+   * Display existing similar report(s).
+   * Allow user to:
+     - Cancel submission
+     - Continue with justification
+
+== Database Considerations
+
+Add fields:
+* duplicateFlag (boolean)
+* duplicateOfReportId (nullable)
+* duplicateJustification (nullable)
+
+Duplicate reports should be linked using the original report ID.
+
+== Acceptance Criteria
+
+* System detects potential duplicates before submission.
+* User is warned before creating duplicate.
+* User can override with justification.
+* Duplicate flag is stored in database.
+* Duplicate reports are linked together.
 
