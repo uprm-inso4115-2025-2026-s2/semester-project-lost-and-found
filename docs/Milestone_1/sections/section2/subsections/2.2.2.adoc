@@ -1,1 +1,53 @@
 ==== *Personas*
+
+A persona is a fictional yet plausible representation of the goals, needs, and expectations of any person within the project's domain. These don't have to just be direct users of the platform; anyone who benefits from the project's goals in one way or another can be a good persona. These personas serve to guide development in such a way where users are kept in mind when creating, developing, and refining features.
+
+The following personas represent direct users of the platform:
+
+*Mateo Rivera*
+
+- *Age:* 18 years old
+- *Occupation:* Freshman computer science student at UPRM
+- *Build / Appearance:* Average height, medium build, dark and curly short hair, always wearing a baseball cap and baggy jeans, slightly sleep-deprived look
+- *Personality:* Distracted, tech-savvy, over-achiever
+
+Mateo just started university with an 18 credit semester and is still adjusting to the new pace. He moves between classes, the library, and study groups constantly. One afternoon, he realizes he left his laptop charger in a classroom and he has a programming assignment due tomorrow afternoon. He has no spare charger and his laptop is nearly out of battery. His work was saved locally on his laptop and he needs it to complete and submit the assignment.
+
+- *Goals:* Recover lost items as quickly as possible
+- *Pain Points:* Doesn't know where to check for lost items, fears items being stolen
+- *Needs:* Fast search functionality, clear item categorization (electronics, notebooks, etc.), timestamp and location information
+- *Platform Interaction:* Filters search to look only for lost electronics, accessing the platform from his phone
+- *Keep Mateo in mind when:* Designing search filters, category tags, and mobile responsiveness
+
+
+*Valeria Santiago*
+
+- *Age:* 21 years old
+- *Occupation:* Biology student & lab assistant
+- *Build / Appearance:* Short, small build, brunette straight hair with blonde tips, carries a reusable water bottle everywhere
+- *Personality:* Responsible, detail-oriented, empathetic
+
+Valeria occasionally finds lost items in the lab rooms she frequents; some are more important such as car keys and pen drives; others less so, such as water bottles and calculators. Regardless of importance, she feels guilty simply leaving the lost items alone knowing they could be stolen by someone, but there is no lost and found office near her labs.
+
+- *Goals:* Quickly report found items so the owner can reclaim them
+- *Pain Points:* Reporting a lost item is inaccessible or, at best, very inconvenient
+- *Needs:* Simple and quick submission form, ability to upload a photo of the lost item, minimal required fields
+- *Platform Interaction:* Submits reports from her laptop after finishing a lab shift
+- *Keep Valeria in mind when:* Designing the user flow for reporting a found item
+
+As mentioned, it's not just direct users of the platform that benefit from it; other people within the domain can also benefit from the platform's goals. The following personas pertain to the project's domain:
+
+*Camila López*
+
+- *Age:* 19 years old
+- *Occupation:* Student working at the univeristy’s library part-time
+- *Build / Appearance:* Tall, average build, short and wavy hair in a pixie cut, often seen wearing a sweater
+- *Personality:* Shy, humble, warm personality
+
+Camila works a part-time job at the university's library on the third floor office where study room reservations and lost items are handled. Students frequently bring in found items to the security office such as water bottles, ID cards, keychains, and even electronics. Managing these items manually creates clutter and confusion. Students often ask her if someone reported a lost item, but she has no proper way to keep track. Camila does not personally use the platform daily, but its existence directly impacts her workflow by reducing the number of items she has to manage.
+
+- *Goals:* Reduce physical storage of lost items, avoid disputes over ownership, improve campus trust and accountability
+- *Pain Points:* Manual logging of items, students arguing over ownership, lack of structure
+- *Needs:* Reduced reliance on the library's third-floor office as the “default” lost & found, a system that minimizes false claims
+- *Platform Interaction:* Indirect stakeholder affected by how students use the system
+- *Keep Camila in mind when:* Defining ownership verification rules and dispute scenarios
