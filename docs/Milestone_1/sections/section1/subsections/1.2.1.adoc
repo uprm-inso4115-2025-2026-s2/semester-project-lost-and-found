@@ -1,30 +1,3 @@
 === *Current Situation, Needs, Ideas*
 
 ==== *Current Situation*
-
-The early-career and new-graduate job market has become increasingly competitive and uncertain, creating significant challenges for students transitioning from education into professional roles. Recent economic revisions show that job growth in 2025 was weaker than initially reported, particularly affecting industries that traditionally hire recent graduates, such as technology, business services, and finance.
-
-Studies indicate that young college graduates are experiencing higher unemployment rates than the overall workforce, and many who do find employment are underemployed working in roles that do not require a college degree. This underemployment has long-term consequences, as a graduate’s first job often influences future career trajectory and earning potential.
-
-At the same time, entry-level hiring practices are changing. Employers increasingly prioritize demonstrable skills, practical experience, and clear evidence of job readiness over coursework alone. However, the availability of true entry-level roles varies significantly by industry and competition per job posting has increased leading students to submit more applications while receiving fewer offers on average.
-
-Professional development support for students has not evolved at the same pace as these market changes. While job boards and university career services provide access to postings and general guidance they often lack the structure, scalability, and continuity needed to help students translate their skills into a tangible proof of readiness. As a result, many students struggle to understand what employers expect and how to stand out.
-
-This combination of a tighter labor market, shifting employer expectations, and fragmented development resources creates a clear gap between student preparation and the employer's needs.
-
-===== Alternatives
-
-Several existing solutions attempt to address challenges faced by new graduates entering the job market. However, each alternative presents limitations that prevent it from fully solving the problem.
-
-Job Boards (e.g., LinkedIn, Indeed, Handshake)
-These platforms provide access to job postings and application tracking tools. They mainly focus on job discovery rather than structured professional development. Students are responsible for independently preparing resumes, portfolios, and interview strategies which makes it so that these platforms do not actively guide users in building actual skills or translating academic experience into something more valued by the employer.
-
-University Career Services
-Most universities offer resume reviews, workshops, mock interviews, and career fairs. Although valuable, these services often have limited scalability due to staffing constraints. Engagement tends to be inconsistent, and support may be reactive rather than continuous.
-
-Professional Networking Platforms
-Networking platforms allow students to build connections and showcase profiles. However, they emphasize visibility rather than structured readiness. Simply having a profile does not ensure skill development, targeted preparation, or strategic application management.
-
-==== Gap in Existing Alternatives
-
-Although current solutions offer partial support such as job listings, resume advice, or networking opportunities none provide an integrated, structured system that guides students step-by-step through skill development and evidence creation, connects professional development activities directly to measurable job readiness and bridges the expectations between employers, students, and institutions.
