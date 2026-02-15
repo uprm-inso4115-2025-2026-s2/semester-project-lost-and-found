@@ -1,0 +1,113 @@
+= User Authentication and Permissions for the UPRM Lost and Found Platform
+Natanael Batista Alvarez
+University of Puerto Rico at Mayagüez
+February 2026
+
+== Introduction
+
+This document describes the authentication and authorization system proposed for the UPRM Lost and Found platform. It explains how users will access the system and what permissions they will have.
+
+== Authentication Method
+
+Several authentication methods were analyzed for the development of the UPRM Lost and Found platform. Each method presents different advantages in terms of security, usability, and implementation complexity.
+
+The primary proposed method is institutional email-based registration. Users create an account using their official university email address ending in @uprm.edu and a personal password. Account activation requires email verification, and passwords are stored using secure hashing techniques.
+
+Another possible method is authentication through a username and password associated with a verified institutional email. This approach provides additional flexibility in user identification while maintaining restricted access.
+
+Third-party authentication using external providers such as Google or Microsoft was also considered. This method allows users to log in using existing accounts managed by these providers. Authentication is handled externally, and the platform receives confirmation of the user’s identity without storing passwords.
+
+For accounts with higher privileges, such as administrators and moderators, multi-factor authentication may be implemented. This method requires an additional verification step beyond the standard password.
+
+The selection of authentication methods was based on balancing security requirements, ease of implementation, and system maintenance. The institutional email-based approach is considered the most practical option for initial deployment, while other methods may be considered for future system expansion.
+
+== User Registration Process
+
+Users access the platform through the official website.
+
+After successful authentication, a user profile is created containing:
+
+* Name
+* Email address
+* Role
+* Registration date
+* Status (active, pending, suspended, or disabled)
+
+== Authorization Model
+
+The platform uses a Role-Based Access Control system.
+
+Each user is assigned a role that determines available permissions.
+
+== User Roles and Permissions
+
+=== Regular Users
+
+Regular users include students and staff.
+
+Permissions include:
+
+* Reporting lost items
+* Reporting found items
+* Editing own reports
+* Searching items
+* Messaging users
+* Receiving notifications
+
+Restrictions:
+
+* Cannot edit other users’ reports
+* No administrative access
+
+=== Moderators
+
+Moderators assist in content management.
+
+Permissions include:
+
+* Reviewing flagged content
+* Hiding inappropriate posts
+* Suspending accounts temporarily
+
+Restrictions:
+
+* No system configuration access
+
+=== Administrators
+
+Administrators manage the platform.
+
+Permissions include:
+
+* Managing users
+* Assigning roles
+* Monitoring security
+* Accessing analytics
+* Performing backups
+
+Administrators must use multi-factor authentication.
+
+== Security and Privacy
+
+The system must implement the following measures:
+
+* HTTPS encryption
+* Encrypted databases
+* Activity logs
+* Intrusion detection
+* Regular security updates
+
+Sensitive data requires additional verification.
+
+== Data Protection
+
+User data must follow university policies.
+
+Users must be informed about:
+
+* Data collection
+* Storage methods
+* Usage purposes
+* Retention period
+
+A privacy policy must be available.
