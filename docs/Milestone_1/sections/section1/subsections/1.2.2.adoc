@@ -1,1 +1,11 @@
 ==== *Need*
+
+Lost personal belongings such as keys, identification cards, wallets, laptops, and academic materials are a frequent occurrence within the university environment. Despite how common these situations are, there is no clear, consistent, or trusted process that allows individuals to report lost items, discover found belongings, or follow the progress of recovery efforts. As a result, many lost items are never returned to their owners.
+
+Students and staff experience unnecessary stress, frustration, and loss of time when attempting to recover missing belongings. Current informal approaches—such as word of mouth, scattered social media posts, or visiting multiple campus offices—lack visibility, reliability, and coordination. This fragmentation creates uncertainty about whether an item has been found and discourages both reporting and follow-through.
+
+From an organizational perspective, campus entities responsible for handling found items lack a standardized method for recording reports, managing information, and ensuring accountability. The absence of a structured process increases manual effort, introduces communication gaps, and reduces trust in the overall lost-and-found experience.
+
+There is therefore a clear need to support a more transparent, coordinated, and dependable way for the campus community to report, track, and recover lost belongings. Addressing this need would reduce unresolved losses, lower frustration for students and staff, and improve confidence in how lost items are managed within the university environment.
+
+Additionally, stakeholders involved in developing and maintaining such support require a clear understanding of the domain, actors, and operational constraints surrounding lost-and-found activities. Establishing this shared understanding is necessary to define appropriate requirements, ensure alignment with real user needs, and guide the project toward meaningful and sustainable impact.
