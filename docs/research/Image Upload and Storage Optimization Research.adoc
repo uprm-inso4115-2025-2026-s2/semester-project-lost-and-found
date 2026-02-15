@@ -1,0 +1,131 @@
+= Image Upload and Storage Optimization Research
+Author: Jose Valentin
+Date: February 14, 2026
+
+== Recommended Solution: Supabase Storage
+
+=== Why Supabase
+* Already using Supabase for database and auth
+* Built on AWS S3 with simpler interface
+* Built in CDN and image transformations
+* Free tier: 1 GB storage, 2 GB bandwidth/month
+* Direct uploads from JavaScript client
+
+=== Image Transformations via URL
+----
+// Thumbnail: ?width=200&quality=80
+// Preview: ?width=800&quality=85
+----
+
+== Image Compression Strategy
+
+=== Client-Side Compression
+Use browser image compression library:
+
+* Compress to max 2MB before upload
+* Reduces bandwidth and server costs
+* Faster user experience
+
+[source,javascript]
+----
+import imageCompression from 'browser-image-compression';
+
+const compressed = await imageCompression(file, {
+  maxSizeMB: 2,
+  maxWidthOrHeight: 1920
+});
+----
+
+=== Storage Approach
+* Upload compressed version to Supabase
+* Generate thumbnails/previews on-demand via URL parameters
+* Store original in case high-res needed later
+
+== Upload Implementation
+
+[source,javascript]
+----
+// 1. Compress
+const compressed = await imageCompression(file, { maxSizeMB: 2 });
+
+// 2. Upload to Supabase
+const { data } = await supabase.storage
+  .from('lost-found-items')
+  .upload(`items/${userId}/${Date.now()}.jpg`, compressed);
+
+// 3. Get URL and save to database
+const { data: { publicUrl } } = supabase.storage
+  .from('lost-found-items')
+  .getPublicUrl(data.path);
+
+await supabase.from('items').insert({
+  image_url: publicUrl,
+  // ... other fields
+});
+----
+
+== Visual Similarity Detection (Phase 2)
+
+=== TensorFlow.js + MobileNet
+* Extract image features in browser or Edge Functions
+* Store feature vectors in PostgreSQL (pgvector extension)
+* Compare new uploads against existing items
+
+=== Alternative: AWS Rekognition
+* Call from Supabase Edge Functions
+* More accurate but costs ~$1 per 1000 images
+
+====
+Recommendation: Add visual matching in Phase 2 after you have real user data to test with.
+====
+
+== Platform: Progressive Web App
+
+=== Tech Stack
+* *Frontend:* Next.js (React framework)
+* *Backend:* Supabase (database, auth, storage)
+* *Styling:* TailwindCSS
+* *Language:* JavaScript/TypeScript
+
+=== Why PWA
+* Single codebase for web and mobile
+* Camera access via `<input type="file" capture="camera">`
+* No app store approval needed
+* Fast development
+
+== Cost Estimate
+
+*Supabase Free Tier:*
+
+* Good for ~500 images and initial testing
+* Upgrade to Pro ($25/month) when you hit 400-500 images
+
+== Final Recommendation
+
+[cols="1,2"]
+|===
+|Component |Solution
+
+|*Storage*
+|Supabase Storage
+
+|*Compression*
+|browser-image-compression (client) + URL parameters
+
+|*Platform*
+|Progressive Web App (Next.js)
+
+|*Visual Matching*
+|Phase 2 - TensorFlow.js or AWS Rekognition
+
+|*Language*
+|JavaScript/TypeScript
+|===
+
+=== Rationale
+Keeps everything in JavaScript ecosystem. Supabase handles storage + database + auth in one place. Client-side compression saves costs. PWA gives mobile functionality without separate apps.
+
+== References
+* Supabase Storage Documentation: https://supabase.com/docs/guides/storage
+* browser-image-compression: https://www.npmjs.com/package/browser-image-compression
+* TensorFlow.js: https://www.tensorflow.org/js
