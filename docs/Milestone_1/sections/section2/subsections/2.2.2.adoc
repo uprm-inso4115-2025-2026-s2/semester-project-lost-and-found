@@ -1,53 +1,190 @@
 ==== *Personas*
 
-A persona is a fictional yet plausible representation of the goals, needs, and expectations of any person within the project's domain. These don't have to just be direct users of the platform; anyone who benefits from the project's goals in one way or another can be a good persona. These personas serve to guide development in such a way where users are kept in mind when creating, developing, and refining features.
+A persona is a fictional yet plausible representation of the goals, needs, and expectations of any person within the project's domain. These don't just have to be direct users of the platform; anyone who benefits from the project's goals in one way or another can be a good persona. These personas serve to guide development in such a way where users are kept in mind when creating, developing, and refining features.
 
 The following personas represent direct users of the platform:
 
-*Mateo Rivera*
+// ==========================================================================================
 
-- *Age:* 18 years old
-- *Occupation:* Freshman computer science student at UPRM
-- *Build / Appearance:* Average height, medium build, dark and curly short hair, always wearing a baseball cap and baggy jeans, slightly sleep-deprived look
-- *Personality:* Distracted, tech-savvy, over-achiever
+[%autowidth]
+|===
+| *Name* | Mateo Rivera
 
-Mateo just started university with an 18 credit semester and is still adjusting to the new pace. He moves between classes, the library, and study groups constantly. One afternoon, he realizes he left his laptop charger in a classroom and he has a programming assignment due tomorrow afternoon. He has no spare charger and his laptop is nearly out of battery. His work was saved locally on his laptop and he needs it to complete and submit the assignment.
+| *Age* | 18 years old
 
-- *Goals:* Recover lost items as quickly as possible
-- *Pain Points:* Doesn't know where to check for lost items, fears items being stolen
-- *Needs:* Fast search functionality, clear item categorization (electronics, notebooks, etc.), timestamp and location information
-- *Platform Interaction:* Filters search to look only for lost electronics, accessing the platform from his phone
-- *Keep Mateo in mind when:* Designing search filters, category tags, and mobile responsiveness
+| *Occupation* | Freshman computer science student at UPRM
+
+| *Appearance* | Average height, medium build, dark and curly short hair, always wearing a baseball cap and baggy jeans, slightly sleep-deprived look
+
+| *Hobbies* | Basketball, game development, playing video games
+
+| *Personality* | Distracted, tech-savvy, over-achiever
+
+| *Tech setup* | Gaming setup at his dorm with a large monitor, MacBook for schoolwork, and an iPhone 15
+
+| *Story* | Mateo just started university with an 18 credit semester and is still adjusting to the new pace. He moves between classes, the library, and study groups constantly. One afternoon, he realizes he left his laptop charger in a classroom and he has a programming assignment due tomorrow afternoon. He has no spare charger and his laptop is nearly out of battery. His work was saved locally on his laptop and he needs it to complete and submit the assignment.
+
+| *Goals* | Recover lost items as quickly as possible
+
+| *Pain Points* | Doesn't know where to check for lost items, fears items being stolen
+
+| *Needs* a| 
+* Fast search functionality 
+* Clear item categorization (electronics, notebooks, etc.)
+* Timestamp and location information
+
+| *Platform Interaction* | Filters search to look only for lost electronics, accessing the platform from his phone
+
+| *Keep in mind when* a| 
+* Designing search filters
+* Category tags
+* Mobile responsiveness
+|===
+
+// ==========================================================================================
+
+[%autowidth]
+|===
+| *Name* | Valeria Santiago
+
+| *Age* | 21 years old
+
+| *Occupation* | Biology student and lab assistant
+
+| *Appearance* | Short, small build, brunette straight hair with blonde tips, carries a reusable water bottle everywhere
+
+| *Hobbies* | Creating mocktail recipes, jogging, dancing
+
+| *Personality* | Responsible, detail-oriented, empathetic
+
+| *Tech setup* | Uses an older MacBook for schoolwork and an iPhone 17
+
+| *Story* | Valeria occasionally finds lost items in the lab rooms she frequents; some are more important such as car keys and pen drives; others less so, such as water bottles and calculators. Regardless of importance, she feels guilty simply leaving the lost items alone knowing they could be stolen by someone, but there is no lost and found office near her labs.
+
+| *Goals* | Quickly report found items so the owner can reclaim them
+
+| *Pain Points* | Reporting a lost item is inaccessible or, at best, very inconvenient
+
+| *Needs* a| 
+* Simple and quick submission form
+* Ability to upload a photo of the lost item
+* Minimal required fields
+
+| *Platform Interaction* | Submits reports from her laptop after finishing a lab shift
+
+| *Keep in mind when* | Designing the user flow for reporting a found item
+|===
+
+// ==========================================================================================
+
+[%autowidth]
+|===
+| *Name* | Daniel Torres
+
+| *Age* | 24 years old
+
+| *Occupation* | Graduate student and TA (Teaching Assistant) for a physics course
+
+| *Appearance* | Large build, tall, short and straight hair, organized, usually wearing a hoodie and black backpack
+
+| *Hobbies* | Sculpture painting, tinkering with cars, reading
+
+| *Personality* | Practical, skeptical, passionate, values privacy
+
+| *Tech setup* | Mid-end desktop in his home for everyday use and an iPhone 12
+
+| *Story* | On his way back to his car after a class, Daniel finds a phone on the ground that clearly fell out of someone's bag. Having heard of the lost and found platform, he decides to submit it to the platform. He gets an institutional email from someone claiming the phone is theirs. He is, however, slightly skeptical of this given that the phone has little to no information that could help identify the person as the rightful owner.
+
+| *Goals* | Ensure the lost item is being returned to its true owner 
+
+| *Pain Points* a| 
+* Difficulty verifying the legitimacy of ownership claims
+* Fear of giving a lost item to the wrong person
+* Lack of guidance on how to confirm ownership safely
+* Concern about exposing his own personal contact information
+
+| *Needs* a| 
+* Institutional email restriction
+* A way to inform of scammers/impersonators
+* Clear ownership verification guidelines (e.g., ask claimant to describe lock screen, phone case, distinguishing features)
+
+| *Platform Interaction* | Submits the found item through his desktop later that evening and communicates via institutional email, carefully reviewing responses before arranging a handoff
+
+| *Keep in mind when* | Defining authentication requirements, claim verification processes, and privacy constraints
+|===
 
 
-*Valeria Santiago*
+[%autowidth]
+|===
+| *Name* | Luis Iglesias
 
-- *Age:* 21 years old
-- *Occupation:* Biology student & lab assistant
-- *Build / Appearance:* Short, small build, brunette straight hair with blonde tips, carries a reusable water bottle everywhere
-- *Personality:* Responsible, detail-oriented, empathetic
+| *Age* | 34 years old
 
-Valeria occasionally finds lost items in the lab rooms she frequents; some are more important such as car keys and pen drives; others less so, such as water bottles and calculators. Regardless of importance, she feels guilty simply leaving the lost items alone knowing they could be stolen by someone, but there is no lost and found office near her labs.
+| *Occupation* | Graduate student doing a masters degree in Finance
 
-- *Goals:* Quickly report found items so the owner can reclaim them
-- *Pain Points:* Reporting a lost item is inaccessible or, at best, very inconvenient
-- *Needs:* Simple and quick submission form, ability to upload a photo of the lost item, minimal required fields
-- *Platform Interaction:* Submits reports from her laptop after finishing a lab shift
-- *Keep Valeria in mind when:* Designing the user flow for reporting a found item
+| *Appearance* | Average height, fit build, neatly trimmed beard, usually dressed in business-casual attire with a leather messenger bag
 
-As mentioned, it's not just direct users of the platform that benefit from it; other people within the domain can also benefit from the platform's goals. The following personas pertain to the project's domain:
+| *Hobbies* | Politics, running, watching basketball, budgeting and personal finance planning
 
-*Camila López*
+| *Personality* | Analytical, calm, detail-oriented
 
-- *Age:* 19 years old
-- *Occupation:* Student working at the univeristy’s library part-time
-- *Build / Appearance:* Tall, average build, short and wavy hair in a pixie cut, often seen wearing a sweater
-- *Personality:* Shy, humble, warm personality
+| *Tech setup* | Mid-end laptop used for classwork and more serious affairs and Google Pixel phone
 
-Camila works a part-time job at the university's library on the third floor office where study room reservations and lost items are handled. Students frequently bring in found items to the security office such as water bottles, ID cards, keychains, and even electronics. Managing these items manually creates clutter and confusion. Students often ask her if someone reported a lost item, but she has no proper way to keep track. Camila does not personally use the platform daily, but its existence directly impacts her workflow by reducing the number of items she has to manage.
+| *Story* | Luis has mild color vision deficiency (red-green color blindness) and is sensitive to overly bright or low-contrast interfaces. He frequently uses his phone outdoors where glare makes low-contrast text difficult to read. This causes him issues with not being able to comfortably use platforms where color contrast isn't properly considered. When Luis loses his keys around campus, he decides to use the lost and found platform and finds he is able to navigate it just fine despite his vision deficiency.
 
-- *Goals:* Reduce physical storage of lost items, avoid disputes over ownership, improve campus trust and accountability
-- *Pain Points:* Manual logging of items, students arguing over ownership, lack of structure
-- *Needs:* Reduced reliance on the library's third-floor office as the “default” lost & found, a system that minimizes false claims
-- *Platform Interaction:* Indirect stakeholder affected by how students use the system
-- *Keep Camila in mind when:* Defining ownership verification rules and dispute scenarios
+| *Goals* | Read and navigate through content easily despite visual impairment
+
+| *Pain Points* a| 
+* Low contrast between text and background
+* Status indicators shown only through color (e.g., “red = lost”, “green = found”)
+
+| *Needs* a| 
+* High-contrast, accessible color palette
+* Clear typography hierarchy
+* Labels and icons in addition to color indicators
+
+| *Platform Interaction* | Uses his phone outdoors and his laptop at night
+
+| *Keep in mind when* | Choosing the color palette and designing UI elements
+|===
+
+As mentioned, it's not just direct users of the platform that benefit from it; other people within the domain can also benefit from the platform's goals. The following persona pertains to the project's domain:
+
+// ==========================================================================================
+
+[%autowidth]
+|===
+| *Name* | Camila López
+
+| *Age* | 19 years old
+
+| *Occupation* | Student working at the university’s library part-time
+
+| *Appearance* | Tall, average build, short and wavy hair in a pixie cut, often seen wearing a sweater
+
+| *Hobbies* | Sewing plushies, illustrative work, reading
+
+| *Personality* | Shy, humble, warm personality
+
+| *Tech setup* | Low-end laptop used almost exclusively for schoolwork and a Samsung Galaxy phone
+
+| *Story* | Camila works a part-time job at the university's library on the third floor office where study room reservations and lost items are handled. Students frequently bring in found items to the security office such as water bottles, ID cards, keychains, and even electronics. Managing these items manually creates clutter and confusion. Students often ask her if someone reported a lost item, but she has no proper way to keep track. Camila does not personally use the platform daily, but its existence directly impacts her workflow by reducing the number of items she has to manage.
+
+| *Goals* a| 
+* Reduce physical storage of lost items
+* Avoid disputes over ownership
+* Improve campus trust and accountability
+
+| *Pain Points* a| 
+* Manual logging of items
+* Students arguing over ownership
+* Lack of structure
+
+| *Needs* a| 
+* Reduced reliance on the library's third-floor office as the “default” lost & found
+* A system that minimizes false claims
+
+| *Platform Interaction* | Indirect stakeholder affected by how students use the system
+
+| *Keep in mind when* | Defining ownership verification rules and dispute scenarios
+|===
