@@ -1,0 +1,30 @@
+= Value of UI Perception
+
+Author: Andres Cruz Zapata +
+Date: February 14, 2026
+
+== The Human Eye
+The area where the human eye can focus, called foveal vision, is very small compared to the entire field of view. When designing UI it is important to keep related features together and relevant messages close to the area of interaction. For example, if a user is logging into a website and makes a mistake while typing their password, the error message displayed must be close to the section where they typed their password so they can quickly notice it. This is especially important when dealing with more complex user interfaces; it will ensure that the user spends less time scanning or searching for what went wrong and keeps them more informed of what is happening in the website.
+
+
+== Using Motion
+As interfaces get more complex and more elements and details are added, error messages or important notices can be missed easily. The user cannot see the full page at the same time, because of this it is easy to go over an important message without noticing, causing frustration. Additionally, the user can be distracted with other parts of the design that can interfere with their perception of what is happening leading them to miss subtle details. This is called "perceptual blindness", which is a state in which the brain experiences a heavy perceptual load and does not notice things in plain sight. When something moves it is far more likely to be visible than when it doesn't, especially when the object is in a person's peripheral vision. Most of the time it helps to make notices or messages have animations or slight movements so they are more visible.
+
+
+== Visual recognition
+Throughout our lives we gather a large amount of experience and knowledge that creates patterns to be able to recognize objects, symbols, or shapes more easily. For example, the color red is often associated with danger or a warning. Using symbols with a higher recognition change can help a user identify options within the interface.
+
+
+== First Impressions
+When people look at a website or an application the first thing they see is the design of the user interface and judge the entire application with that first impression. A negative reaction in this first impression can lower the perceived value of the site, which can make a user avoid the site entirely. On the other hand, if the page fulfils or exceeds expectations a user can assign a high value to the application or website.
+
+
+== Perceived Cost
+Having an interface that is easy to use is important; however, a user can often judge a website's utility by how complex they expect it to be to perform a certain action. Even if the application is incredibly easy to use if the perceived cost of using the application does not match the ease of use, it can be hard to convince a user to keep using the application. It is important to convey ease of use as much as it is important to have the ease of use.
+
+
+== Perceived Value
+On a website, the visual characteristics such as the graphical elements, quality, photos, and colors used in the design have an impact on the perception of the website. The most important thing to take into consideration is to have the website match the type of service the website provides. For example, if a website's main point is that its prices are cheap, having an interface that portrays luxury is an ineffective way to attract customers for the low prices. Some may turn away because their impression may be that they cannot afford the items sold on the website. Having an interface that matches the main point of the website and having color combinations and a design that convey the quality of service are very important to the user's perceived value of the website.
+
+
+
