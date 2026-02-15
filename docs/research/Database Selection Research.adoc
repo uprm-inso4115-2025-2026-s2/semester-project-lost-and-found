@@ -144,10 +144,12 @@ This directly supports the A3 objective of improving item recovery by allowing r
 Images will not be stored directly in the database.
 
 Instead:
+
 * Files stored in Supabase Storage
 * Database stores only the image URL
 
 Reasons:
+
 * Reduces database size
 * Improves query performance
 * Allows CDN delivery
