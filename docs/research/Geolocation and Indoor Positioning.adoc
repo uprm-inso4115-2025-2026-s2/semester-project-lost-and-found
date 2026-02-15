@@ -1,0 +1,149 @@
+= Geolocation and Indoor Positioning Research
+Author: Jose Valentin
+Date: February 15, 2026
+
+== Recommended Solution: Manual Location Selection
+
+=== Why Manual Selection
+* Zero cost 
+* Works on web and mobile
+* Most reliable - users know where they lost/found items
+* No privacy concerns
+* Simple to implement
+* No hardware or infrastructure needed
+
+=== How It Works
+User selects location from predefined campus options:
+
+. Building name (dropdown)
+. Floor/Area (dropdown)
+
+== Indoor Positioning Alternatives (Not Recommended)
+
+=== GPS
+*Accuracy:* 10-20m outdoors, poor indoors
+
+*Issues:*
+
+* Doesn't work inside buildings
+* Battery drain
+* Privacy concerns
+
+=== Wi-Fi Triangulation
+*Accuracy:* 5-15m
+
+*Issues:*
+
+* Requires complex setup and fingerprinting
+* High implementation complexity
+* Not worth it for class project scope
+
+=== Bluetooth Beacons
+*Accuracy:* 1-3m
+
+*Issues:*
+
+* Costs $1,000+ for campus coverage
+* Requires physical installation
+
+=== QR Code Tags
+*Accuracy:* Exact location
+
+*Pros:* Cheap (~$25 for 50 codes)
+
+*Cons:* Requires printing and posting around campus
+
+== Comparison
+
+[cols="1,1,1,1"]
+|===
+|Method |Cost |Complexity |Works for Class Project?
+
+|Manual Selection
+|$0
+|Low
+| Yes - Best choice
+
+|GPS
+|$0
+|Low
+| Doesn't work indoors
+
+|QR Codes
+|~$25
+|Low
+| Possible
+
+|Wi-Fi/BLE
+|$500+
+|High
+| Too expensive/complex
+|===
+
+== Recommended Precision Level
+
+*Building + Floor is sufficient:*
+
+* "Lost in Library - 2nd Floor"
+* "Found near Student Center entrance"
+
+*Room level precision:* Optional but not necessary
+
+== Implementation Approach
+
+=== Location Selector
+* Dropdown menu for building selection
+* Dropdown menu for floor/area selection
+* Text field for additional details
+
+=== Data Storage
+* Create locations table in Supabase with predefined campus buildings
+* Link items to location entries
+* Store optional text description with each item
+
+=== Search Functionality
+* Allow users to filter items by building
+* Filter by floor within building
+* Search by text description
+
+== Privacy Approach
+
+*Store:*
+
+* Building/floor selection (user chosen)
+* Optional text description
+
+*Do NOT store:*
+
+* Precise GPS coordinates
+* User location tracking
+* Location history
+
+== Final Recommendation
+
+[cols="1,2"]
+|===
+|Component |Solution
+
+|*Primary Method*
+|Manual location selection
+
+|*Precision*
+|Building + floor level
+
+|*Cost*
+|$0
+
+|*Platform*
+|Works on web and mobile (Next.js + Supabase)
+
+|*Privacy*
+|User controlled, no tracking
+|===
+
+=== Rationale
+Manual selection is the only realistic option for the project. It costs nothing, is easy to implement, works everywhere, and is actually more reliable than automatic positioning since students know exactly where they lost/found items.
+
+== References
+* W3C Geolocation API: https://www.w3.org/TR/geolocation-API/
+* Indoor Positioning Overview: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7085850/
