@@ -1,0 +1,39 @@
+= Empty States and User Feedback for Lost & Found System
+
+== Goal
+
+Define simple empty-state screens and feedback messages so users always understand what is happening.
+
+== Scenarios and Recommended Messages
+
+=== 1. No search results
+
+Message: "No results found."
+
+Hint: "Try different keywords or remove filters."
+
+=== 2. No items posted yet
+
+Message: "No items posted yet."
+
+Hint: "Be the first to post a lost or found item."
+
+=== 3. Post created successfully
+
+Message: "Post submitted successfully."
+
+=== 4. Post submission failed
+
+Message: "Something went wrong. Please try again."
+
+=== 5. Claim request pending
+
+Message: "Claim request sent. Waiting for response."
+
+=== 6. Claim rejected
+
+Message: "Claim request rejected."
+
+== Notes
+
+Messages should be short, clear, and non-technical.
