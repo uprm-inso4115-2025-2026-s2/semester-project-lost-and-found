@@ -1,0 +1,161 @@
+= Image Upload & Delivery Architecture (MVP)
+:author: Ivanier Bellido
+:issue: #95
+:status: Proposed
+
+== 1. Objective
+
+Define a simple and secure backend architecture for uploading, storing, and serving images for Lost & Found reports.
+
+This document focuses on *MVP infrastructure only*:
+* Where images are stored
+* How users upload images
+* How the UI retrieves images
+* Access rules and basic validation
+
+Advanced processing (AI similarity, complex compression pipelines, mobile optimization) is covered in a separate research task.
+
+---
+
+== 2. Why this is needed (project context)
+
+Photos are important because they help users confirm whether an item is theirs.  
+The system must support image uploads without making the database heavy or slow.
+
+Main constraints:
+* Many uploads over the semester
+* Users may upload large images
+* We must avoid storing binary images inside the database
+
+---
+
+== 3. Recommended approach
+
+=== Selected storage interaction model
+Use *Supabase Storage* (object storage) for image files + store only image metadata/URLs in PostgreSQL.
+
+Reason:
+* Object storage is designed for files (cheap, scalable)
+* Database remains optimized for queries (reports, matching, search)
+* Easy integration with Supabase Auth and Row Level Security (RLS)
+
+---
+
+== 4. Storage design
+
+=== Bucket strategy
+Create a bucket named: `report-images`
+
+Folder/key structure recommendation:
+* `reports/{report_id}/{uuid}.jpg`
+
+This keeps images organized by report and avoids naming collisions.
+
+---
+
+== 5. Database reference strategy
+
+We store references to images rather than the file itself.
+
+Proposed table: `report_images`
+* `id` (uuid, pk)
+* `report_id` (uuid, fk -> reports.id)
+* `storage_path` (text)  // e.g. reports/<report_id>/<uuid>.jpg
+* `public_url` (text, optional) OR generate signed URL at runtime
+* `created_at` (timestamp)
+
+Relationship:
+* One report can have many images (1–3 typical, but flexible)
+
+---
+
+== 6. Access and security policy
+
+=== Recommended rule for MVP
+*Allow uploads only for authenticated users.*
+For reads, choose one of these depending on privacy decision:
+
+Option A (simpler MVP): Public read
+* Images can be read publicly (anyone with the URL)
+* Faster UI integration, fewer edge cases
+
+Option B (more secure): Signed URLs
+* Images are private in storage
+* Backend generates signed URLs for authorized reads
+* Better privacy, slightly more implementation work
+
+Recommendation:
+*Start with Option B (signed URLs) if time allows; otherwise use Option A for MVP and upgrade later.*
+
+=== Storage policies (high-level)
+* Insert (upload): only authenticated users
+* Read:
+  - Public bucket OR signed URL generation
+* Delete: only the report owner (or admin/moderator role)
+
+---
+
+== 7. Upload workflow
+
+=== Workflow (client -> storage)
+1. User creates a report (lost/found)
+2. Backend returns `report_id`
+3. Client uploads image(s) to Supabase Storage under `reports/{report_id}/...`
+4. Client (or backend) inserts rows into `report_images` with `report_id` and `storage_path`
+5. UI fetches report + image references and displays images via public URL or signed URL
+
+---
+
+== 8. Validation rules (MVP)
+
+Recommended checks:
+* File type: `image/jpeg`, `image/png`, `image/webp`
+* Max file size: 3–5 MB per image
+* Max images per report: 3 for MVP (configurable later)
+
+Where to validate:
+* Client-side validation (fast feedback)
+* Server-side verification (security)
+
+---
+
+== 9. Architecture diagram
+
+[mermaid]
+....
+flowchart LR
+  U[User] --> FE[Frontend]
+  FE --> AUTH[Supabase Auth]
+  FE --> ST[Supabase Storage]
+  FE --> DB[(Supabase Postgres)]
+  DB --> FE
+
+  FE -- create report --> DB
+  FE -- upload image --> ST
+  FE -- insert image metadata --> DB
+  FE -- fetch report + images --> DB
+  FE -- signed/public URL --> ST
+....
+
+---
+
+== 10. Testing plan (basic)
+
+Simulate the following:
+* Upload 1–3 images for a report and verify they display in UI
+* Confirm unauthenticated users cannot upload
+* Confirm deletion rules work (owner only)
+* Confirm signed URLs expire if using private read
+
+---
+
+== 11. References
+
+Supabase Storage Docs  
+https://supabase.com/docs/guides/storage
+
+Supabase Auth Docs  
+https://supabase.com/docs/guides/auth
+
+Supabase Row Level Security (RLS)  
+https://supabase.com/docs/guides/database/postgres/row-level-security
