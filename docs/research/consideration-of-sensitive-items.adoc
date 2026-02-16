@@ -1,0 +1,254 @@
+= Sensitive vs Non-Sensitive Items Research
+:toc:
+:toclevels: 3
+
+== 1. Introduction
+
+Anything can get lost, but not every item carries the same level of risk.  
+This document classifies items into *Sensitive* and *Non-Sensitive* categories and proposes handling strategies for sensitive items within a lost-and-found system.
+
+The goal is to improve security, reduce risk, and implement responsible return procedures.
+
+---
+
+== 2. Definition of Sensitive vs Non-Sensitive Items
+
+=== Sensitive Items
+
+An item is considered *Sensitive* if losing it can:
+
+* Expose personal identity
+* Provide access to financial resources
+* Contain private or confidential data
+* Create legal consequences
+* Create safety or health risks
+* Be extremely difficult or dangerous to replace
+
+These items require enhanced handling and verification procedures.
+
+=== Non-Sensitive Items
+
+An item is considered *Non-Sensitive* if losing it:
+
+* Does not expose personal data
+* Does not provide access to accounts or property
+* Does not pose legal or safety risks
+* Is easily replaceable
+
+These items can follow a standard return process.
+
+---
+
+== 3. Sensitive Item Categories
+
+=== 3.1 Government and Identity Documents
+
+Examples:
+
+* Passport
+* Driver’s License
+* Social Security Card
+* National ID
+* Birth Certificate
+
+Risk:
+
+* Identity theft
+* Fraud
+* Legal implications
+
+Handling Recommendations:
+
+* Do not publicly display full identifying information
+* Blur sensitive details in photos
+* Require identity verification before return
+* Consider routing through official authorities when appropriate
+
+---
+
+=== 3.2 Financial Items
+
+Examples:
+
+* Credit or Debit Cards
+* Checkbooks
+* Bank Documents
+* Cryptocurrency Hardware Wallets
+
+Risk:
+
+* Immediate financial fraud
+* Unauthorized transactions
+
+Handling Recommendations:
+
+* Do not display card numbers or financial information
+* Encourage immediate contact with financial institutions
+* Require strong ownership verification before return
+
+---
+
+=== 3.3 Digital Devices
+
+Examples:
+
+* Smartphones
+* Laptops
+* Tablets
+* USB Drives
+* External Hard Drives
+
+Risk:
+
+* Exposure of personal data
+* Access to accounts
+* Privacy violations
+
+Handling Recommendations:
+
+* Do not access device contents
+* Verify ownership through lock screen proof or serial number
+* Encourage secure recovery procedures
+
+---
+
+=== 3.4 Medical Items
+
+Examples:
+
+* Prescription Medication
+* Insulin
+* EpiPen
+* Medical Devices
+
+Risk:
+
+* Health emergencies
+* Immediate safety concerns
+
+Handling Recommendations:
+
+* Mark as high priority
+* Accelerate return process
+* Contact authorities or medical providers if necessary
+
+---
+
+=== 3.5 Personal Access Items
+
+Examples:
+
+* House Keys
+* Car Keys
+* Access Cards
+* Garage Openers
+
+Risk:
+
+* Property theft
+* Unauthorized access
+
+Handling Recommendations:
+
+* Avoid sharing exact item location publicly
+* Require ownership verification
+* Recommend lock changes if security is compromised
+
+---
+
+== 4. Non-Sensitive Item Examples
+
+Examples:
+
+* Clothing
+* Water Bottles
+* Books
+* Umbrellas
+* Hats
+* Basic Toys
+* Non-valuable accessories
+
+Handling Approach:
+
+* Standard claim and return process
+* Basic item description verification
+
+---
+
+== 5. Gray Area Items
+
+Some items require context-based evaluation:
+
+* Backpacks
+* Wallets
+* Smartwatches
+* Business Documents
+
+Recommendation:
+
+Containers should be treated as sensitive until safely reviewed.
+If uncertain, classify as sensitive to minimize risk.
+
+---
+
+== 6. Proposed System Implementation
+
+=== 6.1 Classification System
+
+When reporting a lost item:
+
+* User selects a category
+* System automatically labels item as Sensitive or Non-Sensitive
+* Sensitive items trigger enhanced handling protocols
+
+---
+
+=== 6.2 Restricted Visibility
+
+For sensitive items:
+
+* Display general description only
+* Hide identifying details from public view
+
+Example:
+
+Incorrect:
+Black wallet with ID belonging to John Smith
+
+Correct:
+Black wallet found near main entrance
+
+---
+
+=== 6.3 Enhanced Verification
+
+For sensitive items:
+
+* Require proof of ownership
+* Require description of unique identifiers
+* Allow in-person verification if needed
+
+---
+
+=== 6.4 Priority Tagging
+
+Sensitive items such as medical or financial objects should:
+
+* Be marked as urgent
+* Trigger priority notifications
+* Be escalated when necessary
+
+---
+
+== 7. Conclusion
+
+Not all lost items present the same level of risk.  
+By distinguishing between sensitive and non-sensitive items, a lost-and-found system can:
+
+* Improve user safety
+* Reduce fraud and identity theft
+* Protect private information
+* Provide responsible item recovery procedures
+
+Implementing structured classification and enhanced handling for sensitive items strengthens overall system reliability and trust.
+
