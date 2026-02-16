@@ -1,39 +1,105 @@
 = Empty States and User Feedback for Lost & Found System
+Author: Alberto Rodríguez
+:toc:
 
-== Goal
+== Introduction
 
-Define simple empty-state screens and feedback messages so users always understand what is happening.
+In a Lost and Found system, users interact with the platform to search for items, report lost objects, or claim found items. During these interactions, users may encounter situations where no information is available or where the system must communicate the result of an action (success or failure). These situations are known as *empty states* or *system feedback states*.
 
-== Scenarios and Recommended Messages
+Designing clear and informative feedback is essential to ensure users understand what is happening within the system and what actions they can take next.
 
-=== 1. No search results
+== Background
+
+Empty states occur when a user interface has no content to display. Examples include:
+
+* No search results returned
+* No posts created yet
+* Failed submission attempts
+* Pending or rejected claim requests
+
+Research in user experience design shows that unclear or missing feedback can lead to user frustration, confusion, and abandonment of the platform. In a Lost and Found context, this is especially important because users may already be under stress due to losing personal belongings.
+
+Providing clear feedback messages improves usability, trust, and overall user satisfaction.
+
+== Why This Matters for the Lost & Found System
+
+Considering empty states is important for several reasons:
+
+* Helps users understand system status immediately
+* Reduces confusion when no data is available
+* Encourages users to take the next action (e.g., create a post)
+* Improves perceived reliability of the platform
+* Supports accessibility and inclusive design
+
+For example, if a user searches for a lost item and sees a blank screen with no explanation, they may assume the system is broken. A simple message such as "No results found" with suggestions prevents this misunderstanding.
+
+== How This Research Can Be Used
+
+The recommendations from this research can be used by:
+
+* UI/UX designers to design interface screens
+* Developers to implement system messages
+* Product planners to define user flows
+* Testers to validate system behavior under edge cases
+
+These messages can be integrated into:
+
+* Search result pages
+* Submission forms
+* Claim request workflows
+* Notification components
+* Dashboard views
+
+== Recommended Scenarios and Messages
+
+=== No search results
 
 Message: "No results found."
 
 Hint: "Try different keywords or remove filters."
 
-=== 2. No items posted yet
+=== No items posted yet
 
 Message: "No items posted yet."
 
 Hint: "Be the first to post a lost or found item."
 
-=== 3. Post created successfully
+=== Post created successfully
 
 Message: "Post submitted successfully."
 
-=== 4. Post submission failed
+=== Post submission failed
 
 Message: "Something went wrong. Please try again."
 
-=== 5. Claim request pending
+=== Claim request pending
 
 Message: "Claim request sent. Waiting for response."
 
-=== 6. Claim rejected
+=== Claim rejected
 
 Message: "Claim request rejected."
 
-== Notes
+== Risks and Considerations
 
-Messages should be short, clear, and non-technical.
+Several risks should be considered when designing empty states and feedback:
+
+* Messages that are too technical may confuse users
+* Lack of feedback may lead users to believe the system is broken
+* Overly generic error messages may reduce trust
+* Incorrect feedback may mislead users about system status
+* Poorly designed states may reduce engagement with the platform
+
+It is also important to avoid exposing sensitive information in error messages, especially in authentication or claim verification scenarios.
+
+== Recommendations
+
+* Keep messages short and easy to understand
+* Provide guidance for the next possible action
+* Use consistent language across the system
+* Avoid technical jargon
+* Include optional visual cues (icons or illustrations) where appropriate
+
+== Conclusion
+
+Empty states and system feedback are small but critical components of the user experience in a Lost and Found platform. Properly designed feedback improves usability, trust, and engagement while reducing confusion and frustration. Incorporating these considerations early in the system design process will contribute to a more effective and user-friendly application.
