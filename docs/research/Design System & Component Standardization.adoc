@@ -1,0 +1,86 @@
+What is a Design System?
+
+    A design system is a collection of visual guideliness, reusable components and documented standards that show how a digital product
+    (in this case the web-app) should look and behave.
+
+    This includes:
+        Typography rules
+        Color palette
+        Spacing and layout standards
+        Reusable UI components
+
+    The purpose of Design system is to:
+        Ensure visual consistency
+        Reduce ambiguity in implementation
+        Increase development effieciency
+        Improve usability
+    
+    A design system is used so that different developers style components in the same manner.
+
+
+Benefits of Component Standardization
+
+    Consistency - so that user feels comfortable navigating the ui of the web-app
+
+    Faster Development - Developers can reuse predefined component structures instead of redesigning them repetedly
+
+    Maintainability - If there needs to be a visual change, it can be applied consistently on all components
+
+
+UI Elements that need to be standardized
+
+    Buttons:
+        Primary button (main action like "Post Item)
+        Secondary button (cancel or a different input)
+        Disabled state
+    
+    Buttons need to maintain consistent shape, size, font style and color scheme
+
+    Input Fields and Forms:
+        Label placement
+        Border style
+        Error Message style
+        Required field indicators
+    
+    Item Cards:
+        Item image
+        Title 
+        Location
+        Date
+    
+    Navigation Bar:
+        Logo and app name
+        Main navigation links
+        Login/Profile access
+    
+
+Recommended Typography
+    Recommended levels:
+        H1 - Page titles
+        H2 - Section titles
+        H3 - Item card titles
+        Body text - descriptions
+
+
+Recommended Color System
+
+    Primary color (main actions)
+    Secondary color (highlights)
+    Neutral background colors
+    Status colors
+
+    Suggested logic:
+        Red -> Lost
+        Green -> Found
+        Yellow/Orange -> Claim
+
+
+Recommended Spacing and Layout
+
+    Use a base spacing unit(4px or 8px)
+    Recommended scale:
+        Small spacing - 8px
+        Medium spacing - 16x
+        Large spacing - 24-32px
+
+Layouts should have clear section separation and consistent margins
