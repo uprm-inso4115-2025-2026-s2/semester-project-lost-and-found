@@ -76,7 +76,8 @@ This template has some mandatory fields such as:
 * Pickup Location 
 * Contact Information:(email, phone number, full name)
 
-*DeliverBack:*
+=== DeliverBack:
+
 Since  this platform provides Lost and Found services to multiple types of establishments, users must select first where the r item was lost(Hotel, airport, car rental, hospital, Arb&b,etc)
 
 For this analysis I am using the Hotel report as a reference:
