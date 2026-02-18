@@ -10,7 +10,7 @@ Specify how the system updates report state, sends warnings, and moves expired r
 This is a research/specification task (no coding).
 
 Proposed Rules:
-- Reports expire after X days of inactivity (default: 30 days).
+-Reports expire after X days of inactivity (default: 30 days).
 - Inactivity = no edits or status updates.
 - System automatically changes state from ACTIVE → EXPIRED.
 - User receives warning notification before expiration (ex: 3 days prior).
