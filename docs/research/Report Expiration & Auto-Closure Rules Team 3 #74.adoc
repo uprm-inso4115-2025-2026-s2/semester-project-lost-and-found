@@ -10,24 +10,24 @@ Specify how the system updates report state, sends warnings, and moves expired r
 This is a research/specification task (no coding).
 
 Proposed Rules:
--Reports expire after X days of inactivity (default: 30 days).
-- Inactivity = no edits or status updates.
-- System automatically changes state from ACTIVE → EXPIRED.
-- User receives warning notification before expiration (ex: 3 days prior).
-- Expired reports move to Archive and are not shown in default search.
-- Users can manually reactivate expired reports (rules defined by team).
+* Reports expire after X days of inactivity (default: 30 days).
+* Inactivity = no edits or status updates.
+* System automatically changes state from ACTIVE → EXPIRED.
+* User receives warning notification before expiration (ex: 3 days prior).
+* Expired reports move to Archive and are not shown in default search.
+* Users can manually reactivate expired reports (rules defined by team).
 
 Acceptance Criteria
-- Expiration timeframe is configurable.
-- System auto-updates state after expiration.
-- User is warned before expiration.
-- Expired reports only visible in Archive.
-- Manual reactivation rules are clearly defined.
+* Expiration timeframe is configurable.
+* System auto-updates state after expiration.
+* User is warned before expiration.
+* Expired reports only visible in Archive.
+* Manual reactivation rules are clearly defined.
 
 == References
 
-- Fowler, M. (2002). _Patterns of Enterprise Application Architecture_. Addison-Wesley.
+* Fowler, M. (2002). _Patterns of Enterprise Application Architecture_. Addison-Wesley.
   Discusses lifecycle management, state transitions, and business rule enforcement.
 
-- Evans, E. (2003). _Domain-Driven Design: Tackling Complexity in Software_. Addison-Wesley.
+* Evans, E. (2003). _Domain-Driven Design: Tackling Complexity in Software_. Addison-Wesley.
   Explains entity states and domain-level business rules such as expiration logic.
