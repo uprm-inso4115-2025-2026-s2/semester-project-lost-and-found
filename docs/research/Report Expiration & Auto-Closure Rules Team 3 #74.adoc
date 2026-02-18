@@ -1,15 +1,15 @@
 = [Research] Report Expiration & Auto-Closure Rules (Team 3)
 
-Goal
+= Goal
 Automatically manage stale or inactive reports.
 
-Description
+= Description
 Define rules for automatic report expiration (ex: 30 days of inactivity).
 Specify how the system updates report state, sends warnings, and moves expired reports to an archive.
 
 This is a research/specification task (no coding).
 
-Proposed Rules:
+= Proposed Rules:
 * Reports expire after X days of inactivity (default: 30 days).
 * Inactivity = no edits or status updates.
 * System automatically changes state from ACTIVE → EXPIRED.
@@ -17,7 +17,7 @@ Proposed Rules:
 * Expired reports move to Archive and are not shown in default search.
 * Users can manually reactivate expired reports (rules defined by team).
 
-Acceptance Criteria
+= Acceptance Criteria
 * Expiration timeframe is configurable.
 * System auto-updates state after expiration.
 * User is warned before expiration.
