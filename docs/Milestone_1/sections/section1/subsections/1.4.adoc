@@ -1,1 +1,34 @@
 === *Other Activities than Just Developing Source Code*
+
+==== Documentation and Knowledge Management
+
+    * Maintain comprehensive project documentation aligned with the project outline and evolving design decisions.
+    *Standardize terminology, data fields, and structural conventions across all components. 
+    * Record architectural decisions, workflows, and integration points to support maintainability.
+    * Keep documentation continuously updated in parallel with development progress.
+
+==== Testing and Quality Assurance
+
+    * Define testing strategies for core features such as reporting, search, communication, and authentication.
+    * Perform functional, usability, and data-handling validation before feature acceptance.
+    * Track defects, regressions, and resolution status in a shared system.
+    * Validate performance indicators identified in the A3 document, including recovery rate and time-to-match.
+
+==== Version Control and Review Processes
+
+    * Use structured version control workflows to manage collaborative development.
+    * Require peer review before merging major changes.
+    * Maintain traceability between requirements, implementation changes, and resolved issues.
+    * Protect stability of the main project branch through controlled integration.
+
+==== Project Coordination and Communication
+
+    * Organize regular team check-ins to monitor progress, blockers, and dependencies.
+    * Coordinate across functional teams to prevent duplicated work or integration conflicts.
+    * Ensure alignment between documentation, development, and testing activities.
+    * Track milestones and deliverables according to the project timeline.
+
+==== Parallel Execution with Development
+
+    Many supporting activities occur simultaneously with coding rather than afterward.  
+    Documentation updates, testing preparation, peer review, and coordination meetings will proceed in parallel with feature implementation to maintain project momentum and reduce late-stage risk. Together, these supporting efforts provide the structure necessary to deliver a reliable, maintainable, and well-coordinated lost-and-found support system for the university community.
