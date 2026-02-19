@@ -1,1 +1,32 @@
-==== *Terminology*
+=== *Terminology*
+
+This section defines key concepts within the lost-and-found domain. 
+Each term is annotated with its **type** (entity, event, behavior, function) and the **phase** in which it primarily appears (domain, requirements, implementation).
+
+==== Type= Entity & Phase= Domain 
+
+- **Lost Item**: a personal belonging whose owner no longer knows its location and intends to recover it.
+- **Found Item**: a personal belonging discovered by someone other than its owner, with the possibility of being returned.
+- **Report**: a recorded description of a lost or found item, including relevant details that support identification and recovery.
+- **Owner**: the individual who possesses legitimate claim over a lost item.
+- **Finder**: the individual who discovers a lost item and may enable its return to the owner.
+
+==== Type= Event & Phase= Domain
+
+- **Recovery**: the moment in which a lost item is successfully returned to its owner.
+- **Closure**: the conclusion of a report’s lifecycle, either because the item was recovered or further recovery is no longer expected.
+
+==== Type= Behavior & Phase= Domain
+
+- **Claim Verification**: the process of determining whether a person asserting ownership of an item is legitimately entitled to receive it.
+- **Matching**: the act of determining that a reported lost item and a reported found item correspond to the same physical object based on descriptive evidence.
+- *Tracking*: the ongoing observation of a reported item’s status from initial report through recovery or closure.
+
+==== Type= Function & Phase= Domain
+
+- **Reporting**: the action of documenting the existence of a lost or found item so that recovery becomes possible.
+
+==== Type= Function & Phase= Requirements
+
+- **Notification**: a system-supported action that informs relevant individuals about events such as matches, status changes, or recovery progress.
+- **Authentication**: a mechanism used to confirm the identity of a person interacting with the system before allowing restricted actions.
