@@ -1,1 +1,201 @@
 ==== *Function Signatures*
+
+== User & Identity Management
+
+=== 1. Register User
+
+*Event / Trigger:
+*A user submits the registration form. +
+*System Behavior:
+*The system creates a new user account with the specified role (patient, provider, staff, admin). +
+*Function Signature:*
+async function registerUser(email, password, role) : Promise<User> {}
+
+=== 2. Authenticate User
+
+*Event / Trigger:
+*User submits login credentials. +
+*System Behavior:
+*System validates credentials and generates an authentication token. +
+*Function Signature:*
+async function authenticateUser(email, password) : Promise<AuthToken> {}
+
+=== 3. Get User Profile
+
+*Event / Trigger:
+*User accesses profile page. +
+*System Behavior:
+*System retrieves stored profile information. +
+*Function Signature:*
+async function getUserProfile(userId) : Promise<UserProfile> {}
+
+=== 4. Update User Profile
+
+*Event / Trigger:
+*User submits profile update form. +
+*System Behavior:
+*System validates and updates profile data. +
+*Function Signature:*
+async function updateUserProfile(userId, profileData) : Promise<UserProfile> {}
+
+=== 5. Verify Provider License
+
+*Event / Trigger:
+*Provider submits license verification. +
+*System Behavior:
+*System validates license information. +
+*Function Signature:*
+async function verifyProviderLicense(providerId, licenseNumber) : Promise<boolean> {}
+
+== Location & Provider Search
+
+
+=== 6. Search Providers by Location
+
+*Event / Trigger:
+*Patient enters location or enables GPS. +
+*System Behavior:
+*System retrieves providers within radius. +
+*Function Signature:*
+async function searchProvidersByLocation(latitude, longitude, radiusKm) : Promise<Provider[]> {}
+
+=== 7. Filter Providers by Specialty
+
+*Event / Trigger:
+*User selects specialty filter. +
+*System Behavior:
+*System filters provider list. +
+*Function Signature:*
+function filterProvidersBySpecialty(providers, specialty) : Provider[] {}
+
+=== 8. Get Provider Details
+
+*Event / Trigger:
+*User clicks on a provider profile. +
+*System Behavior:
+*System retrieves provider’s detailed profile. +
+*Function Signature:*
+async function getProviderDetails(providerId) : Promise<Provider> {}
+
+== Availability & Scheduling
+
+
+=== 9. Create Availability
+
+*Event / Trigger:
+*Provider posts available time slots. +
+*System Behavior:
+*System stores availability slot. +
+*Function Signature:*
+async function createAvailability(providerId, startTime, endTime) : Promise<AvailabilitySlot> {}
+
+=== 10. Update Availability
+
+*Event / Trigger:
+*Provider edits availability slot. +
+*System Behavior:
+*System updates slot information. +
+*Function Signature:*
+async function updateAvailability(slotId, newStart, newEnd) : Promise<AvailabilitySlot> {}
+
+=== 11. Get Provider Availability
+
+*Event / Trigger:
+*Patient views provider calendar. +
+*System Behavior:
+*System retrieves available slots for selected date. +
+*Function Signature:*
+async function getProviderAvailability(providerId, date) : Promise<AvailabilitySlot[]> {}
+
+== Appointment Management
+
+
+=== 12. Book Appointment
+
+*Event / Trigger:
+*Patient selects time slot and selects to book. +
+*System Behavior:
+*System validates availability and creates appointment record. +
+*Function Signature:*
+async function bookAppointment(patientId, providerId, slotId) : Promise<Appointment> {}
+
+=== 13. Cancel Appointment
+
+*Event / Trigger:
+*User clicks the button to cancel appointment. +
+*System Behavior:
+*System marks appointment as cancelled. +
+*Function Signature:*
+async function cancelAppointment(appointmentId, cancelledBy) : Promise<boolean> {}
+
+=== 14. Reschedule Appointment
+
+*Event / Trigger:
+*User selects the button to reschedule. +
+*System Behavior:
+*System cancels old slot and books new slot atomically. +
+*Function Signature:*
+async function rescheduleAppointment(appointmentId, newSlotId) : Promise<Appointment> {}
+
+=== 15. Get User Appointments
+
+*Event / Trigger:
+*User views the page of their appointments. +
+*System Behavior:
+*System retrieves upcoming and past appointments. +
+*Function Signature:*
+async function getUserAppointments(userId) : Promise<Appointment[]> {}
+
+== Clinic-Level Operations
+
+
+=== 16. Assign Provider to Clinic
+
+*Event / Trigger:
+*Admin assigns provider to clinic. +
+*System Behavior:
+*System links provider and clinic records. +
+*Function Signature:*
+async function assignProviderToClinic(providerId, clinicId) : Promise<boolean> {}
+
+=== 17. Get Clinic Providers
+
+*Event / Trigger:
+*User views clinic profile. +
+*System Behavior:
+*System retrieves associated providers. +
+*Function Signature:*
+async function getClinicProviders(clinicId) : Promise<Provider[]> {}
+
+== Role-Based Access Control
+
+
+=== 18. Authorize Action
+
+*Event / Trigger:
+*User attempts restricted action. +
+*System Behavior:
+*System checks role-based permissions. +
+*Function Signature:*
+async function authorizeAction(userId, action, resourceId) : Promise<boolean> {}
+
+== Notifications
+
+
+=== 19. Send Appointment Confirmation
+
+*Event / Trigger:
+*Appointment successfully created. +
+*System Behavior:
+*System sends confirmation notification. +
+*Function Signature:*
+async function sendAppointmentConfirmation(appointmentId) : Promise<void> {}
+
+=== 20. Send Appointment Reminder
+
+*Event / Trigger:
+*Scheduled reminder time reached. +
+*System Behavior:
+*System sends reminder notification. +
+*Function Signature:*
+async function sendAppointmentReminder(appointmentId) : Promise<void> {}
