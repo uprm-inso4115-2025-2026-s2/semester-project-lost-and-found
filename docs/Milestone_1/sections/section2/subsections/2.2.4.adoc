@@ -1,1 +1,214 @@
 ==== *Interface Requirements*
+
+_This section provides a complete interface specification that can be reviewed, approved, and used as a reference during development and testing phases._
+
+## Interface Requirements Specification
+
+### 1. User Interface (UI/UX) Requirements
+
+#### 1.1 General UI Requirements
+- **Mobile-Responsive Design**: All interfaces must adapt seamlessly to desktop, tablet, and mobile viewports.
+- **Consistent Branding**: Utilize university color scheme and logo placement across all pages.
+- **Accessibility**: Comply with WCAG 2.1 AA standards (proper contrast, keyboard navigation, screen reader compatibility).
+- **Loading States**: Display skeleton screens or spinners during data fetches.
+- **Error Handling**: User-friendly error messages with clear recovery actions.
+
+#### 1.2 Public (Unauthenticated) View
+| Element | Requirement |
+|--------|-------------|
+| Homepage | Search bar, featured recent items, stats overview, call-to-action to log in |
+| Search Results | Grid/list toggle, filter sidebar, pagination/infinite scroll |
+| Item Detail | Public fields only (category, description, photos, general location); Login prompt to contact owner |
+| Login Page | UPR.edu authentication redirect; Info about required access for interactions |
+
+#### 1.3 Authenticated User View
+**Dashboard (My Reports)**
+- Tabs: Lost Reports, Found Reports, Messages
+- Each report card shows: Status badge (Active/Returned/Closed), photo thumbnail, date, edit/close buttons
+- Quick stats: My active reports, unread messages
+
+**Report Creation Forms**
+- **Lost Report Form**:
+  - Category dropdown (from taxonomy)
+  - Description (rich text optional)
+  - Location picker (map or text input with autocomplete)
+  - Photo uploader (drag & drop, multiple images, preview)
+  - Private fields section (collapsible): Name, Email, Serial Numbers
+  - Submit button with validation summary
+- **Found Report Form**:
+  - Similar structure, but includes "Current Location" field
+  - Option to flag if item seems valuable/sensitive
+
+**Messaging Interface**
+- Inbox view: Conversation list with preview, unread indicators
+- Conversation view: Message thread, reply box (character limit), report abuse option
+- System notifications that email was sent to the other party
+
+**Admin Panel**
+- **Dashboard**: Key metrics cards, pending moderation queue count
+- **Reports Queue**: Table of flagged reports with status, flag reason, approve/reject/edit buttons
+- **User Management**: Search users, view reports by user, suspend/restore accounts
+- **System Logs**: Audit trail of moderation actions
+
+### 2. System Interface & API Requirements
+
+#### 2.1 API Architecture
+- RESTful API design with JSON payloads
+- Base URL pattern: `/api/v1/{resource}`
+- Authentication: JWT tokens obtained via UPR.edu OAuth flow
+- Rate limiting: 100 requests/minute per authenticated user, 20/minute for unauthenticated
+
+#### 2.2 Core API Endpoints
+
+**Authentication**
+```
+POST   /api/v1/auth/login          // Initiate UPR OAuth flow
+GET    /api/v1/auth/callback       // OAuth callback handler
+POST   /api/v1/auth/logout         
+GET    /api/v1/auth/me             // Get current user profile
+```
+
+**Reports**
+```
+GET    /api/v1/reports             // List reports (query params for filters)
+POST   /api/v1/reports             // Create new report (Lost/Found type)
+GET    /api/v1/reports/{id}        // Get single report (fields filtered by auth)
+PUT    /api/v1/reports/{id}        // Update report
+PATCH  /api/v1/reports/{id}/status // Update status only
+DELETE /api/v1/reports/{id}        // Soft delete (admin only hard delete)
+```
+
+**Search**
+```
+GET    /api/v1/search?q={query}&filters={...} // Unified search endpoint
+GET    /api/v1/categories                      // List taxonomy
+```
+
+**Messages**
+```
+GET    /api/v1/conversations                    // List user conversations
+GET    /api/v1/conversations/{id}/messages      
+POST   /api/v1/conversations/{id}/messages      // Send message
+POST   /api/v1/reports/{id}/contact             // Initiate contact
+```
+
+**Admin**
+```
+GET    /api/v1/admin/metrics                     // Dashboard stats
+GET    /api/v1/admin/moderation/queue            // Flagged content
+POST   /api/v1/admin/moderation/{id}/approve     
+POST   /api/v1/admin/moderation/{id}/reject      
+GET    /api/v1/admin/users                       // User management
+```
+
+**Images**
+```
+POST   /api/v1/uploads/images                    // Upload image (returns URL)
+DELETE /api/v1/uploads/images/{id}                // Remove image
+```
+
+#### 2.3 Data Models (Interface Contracts)
+
+**Report Object**
+```typescript
+interface Report {
+  id: string;
+  type: 'lost' | 'found';
+  status: 'active' | 'returned' | 'closed';
+  categoryId: string;
+  description: string;
+  location: string;          // public location description
+  images: string[];           // URLs
+  createdAt: datetime;
+  updatedAt: datetime;
+  // Private fields (only visible to owner/admin)
+  owner?: {
+    name: string;
+    email: string;
+    serialNumbers?: string[];
+  };
+  // Flags for moderation
+  flagged: boolean;
+  flagReason?: string;
+}
+```
+
+**User Object**
+```typescript
+interface User {
+  id: string;
+  email: string;
+  role: 'user' | 'admin';
+  uprId: string;              // from UPR authentication
+  createdAt: datetime;
+  lastActive: datetime;
+  reportCount: number;
+  returnCount: number;
+}
+```
+
+#### 2.4 Communication Between Components
+
+**Frontend ↔ Backend**
+- All data fetching via API client (fetch/axios)
+- Request/response validation using TypeScript interfaces shared between layers
+- Form data encoded as `multipart/form-data` for image uploads
+
+**Backend Services**
+- **Auth Service**: Validates UPR tokens, issues JWT
+- **Report Service**: CRUD operations, ownership validation
+- **Search Service**: Elasticsearch/PostgreSQL full-text search
+- **Notification Service**: Queue-based email dispatch
+- **Moderation Service**: Flag processing, admin notifications
+- **Analytics Service**: Aggregates metrics from events
+
+**Event-Driven Communication**
+```typescript
+// Events emitted to trigger notifications/analytics
+interface SystemEvent {
+  type: 'REPORT_CREATED' | 'STATUS_CHANGED' | 'MESSAGE_SENT' | 'ITEM_MATCHED';
+  timestamp: datetime;
+  data: {
+    reportId?: string;
+    userId?: string;
+    matchScore?: number;
+    // other relevant fields
+  };
+}
+```
+
+**Email Integration**
+- Transactional emails via SMTP/email service provider
+- Templates for:
+  - Match notification
+  - New message alert
+  - Status change confirmation
+  - Moderation action taken
+- All emails sent from `noreply@upr.edu` with reply-to configured appropriately
+
+### 3. Traceability Matrix
+
+| Interface Requirement | Related User Stories/Features |
+|----------------------|-------------------------------|
+| Mobile-responsive UI | All features (university students use mobile devices) |
+| UPR authentication UI | I. User Access and Authentication |
+| Public/Private field visibility | III. Report and Object Management, Secure data handling |
+| Report forms with validation | III. Report Creation |
+| Messaging inbox | IV. Communication System |
+| Admin dashboard | V. Administrative and Moderation System |
+| Analytics charts | VI. Dashboard and Analytics |
+| Category taxonomy UI | VII. Categorization System |
+| Notification preferences | VIII. Notification System |
+| Search API with filtering | II. Search and Discovery System |
+| Image upload endpoint | Image upload system requirement |
+| Event system for notifications | Match notifications, Status changes |
+
+### 4. Success Criteria Validation
+
+| Criteria | Validation Method |
+|---------|-------------------|
+| Clear and testable requirements | Each requirement has acceptance criteria in traceability matrix |
+| UI coverage | All user-facing features have corresponding UI descriptions |
+| API coverage | All core operations have defined endpoints with request/response formats |
+| Component communication | Event system and service interactions are documented |
+| Traceability | Every interface element links back to a core feature/user story |
