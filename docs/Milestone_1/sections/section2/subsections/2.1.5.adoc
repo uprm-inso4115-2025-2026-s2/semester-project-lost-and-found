@@ -2,7 +2,7 @@
 
 == I. User Access & Authentication
 
-
+[discrete]
 === 1. Authenticate with UPR
 
 *Event / Trigger:
@@ -18,7 +18,7 @@
 * AuthSession
 *Function Signature:*
 def authenticate_with_upr(upr_email: str, upr_token: str) -> AuthSession
-
+[discrete]
 === 2. Authorize User Action
 
 *Event / Trigger:
@@ -37,7 +37,7 @@ def authorize_user_action(user_id: str, action: str) -> bool
 
 == II. Report Creation & Management
 
-
+[discrete]
 === 3. Create Lost Report
 
 *Event / Trigger:
@@ -53,7 +53,7 @@ def authorize_user_action(user_id: str, action: str) -> bool
 * Report
 *Function Signature:*
 def create_lost_report(user_id: str, report_data: dict) -> Report
-
+[discrete]
 === 4. Create Found Report
 
 *Event / Trigger:
@@ -69,7 +69,7 @@ def create_lost_report(user_id: str, report_data: dict) -> Report
 * Report
 *Function Signature:*
 def create_found_report(user_id: str, report_data: dict) -> Report
-
+[discrete]
 === 5. Edit Report
 
 *Event / Trigger:
@@ -85,7 +85,7 @@ def create_found_report(user_id: str, report_data: dict) -> Report
 * Report
 *Function Signature:*
 def edit_report(report_id: str, updated_data: dict) -> Report
-
+[discrete]
 === 6. Update Report Status
 
 *Event / Trigger:
@@ -104,7 +104,7 @@ def update_report_status(report_id: str, new_status: str) -> Report
 
 == III. Ownership Verification
 
-
+[discrete]
 === 7. Validate Item Ownership
 
 *Event / Trigger:
@@ -124,7 +124,7 @@ def validate_item_ownership(report_id: str, claimant_id: str, verification_data:
 
 == IV. Search & Discovery
 
-
+[discrete]
 === 8. Search Reports by Keyword
 
 *Event / Trigger:
@@ -139,7 +139,7 @@ def validate_item_ownership(report_id: str, claimant_id: str, verification_data:
 * list[Report]
 *Function Signature:*
 def search_reports_by_keyword(query: str) -> list[Report]
-
+[discrete]
 === 9. Filter Reports
 
 *Event / Trigger:
@@ -160,7 +160,7 @@ def filter_reports(status: str, category: str, location: str, date_range: tuple)
 
 == V. Communication System
 
-
+[discrete]
 === 10. Send Secure Message
 
 *Event / Trigger:
@@ -180,7 +180,7 @@ def send_secure_message(sender_id: str, report_id: str, message: str) -> Message
 
 == VI. Moderation & Admin System
 
-
+[discrete]
 === 11. Flag Report
 
 *Event / Trigger:
@@ -197,7 +197,7 @@ def send_secure_message(sender_id: str, report_id: str, message: str) -> Message
 * Flag
 *Function Signature:*
 def flag_report(report_id: str, flagged_by: str, reason: str) -> Flag
-
+[discrete]
 === 12. Moderate Report
 
 *Event / Trigger:
@@ -217,7 +217,7 @@ def moderate_report(report_id: str, admin_id: str, action: str) -> Report
 
 == VII. Categorization System
 
-
+[discrete]
 === 13. Assign Category to Report
 
 *Event / Trigger:
@@ -236,7 +236,7 @@ def assign_category_to_report(report_id: str, category_id: str) -> Report
 
 == VIII. Notification System
 
-
+[discrete]
 === 14. Notify User of Match
 
 *Event / Trigger:
@@ -255,7 +255,7 @@ def notify_user_of_match(user_id: str, matched_report_id: str) -> None
 
 == IX. Dashboard & Analytics
 
-
+[discrete]
 === 15. Calculate Return Success Rate
 
 *Event / Trigger:
