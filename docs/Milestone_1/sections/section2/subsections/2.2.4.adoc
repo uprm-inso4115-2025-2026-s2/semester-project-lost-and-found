@@ -1,101 +1,95 @@
 ==== *Interface Requirements*
 
-[[anchor-requirements]]
-== Hardware, Software, and Environmental Requirements
-
-[[requirements-table]]
-.Hardware, Software, and Environmental Requirements
-[cols="1,3,3,3", options="header"]
 |===
 | ID | Description | Linked User Stories/Epics | Verification Tests
 
-| HWRQ-001
-| The system must support client access from desktop/laptop devices with modern web browsers and minimum 1 Mbps internet connection.
-| US-Platform-001: Web-Based Access, US-Perf-002: Performance Standards
-| T-PERF-005, T-COMP-010
+| IR001
+| The system must provide a structured form during registration for new recruiters to initialize their profile (capturing company name, professional email, and job role).
+| US-Auth-002: Register as Recruiter
+| T-UI-010, T-FE-001
 
-| HWRQ-002
-| The system must support client access from mobile devices (smartphones/tablets) with responsive design at minimum 320px screen width.
-| US-Platform-001: Web-Based Access, US-UI-003: Mobile Responsiveness
-| T-UI-015, T-RESP-001
+| IR002
+| All interfaces must adapt seamlessly to desktop, tablet, and mobile viewports (mobile-responsive design).
+| All features (university students use mobile devices)
+| T-UI-011, T-RES-001
 
-| SWRQ-001
-| The frontend must be developed using TypeScript 5.0+ and React 18.2+ with Node.js 18.0+ runtime.
-| US-Auth-001: Authentication System, US-Report-001: Report Creation
-| T-COMP-001, T-BUILD-001
+| IR003
+| The UI must consistently utilize the university color scheme and logo placement across all pages.
+| Branding Guidelines
+| T-UI-012
 
-| SWRQ-002
-| The system must integrate Supabase JavaScript SDK 2.0+ for backend services including authentication, database, and storage.
-| US-Auth-001: Authentication System, US-Report-002: Database Storage
-| T-API-001, T-DB-001
+| IR004
+| All interfaces must comply with WCAG 2.1 AA standards for accessibility.
+| Accessibility Standards
+| T-ACC-001, T-ACC-002
 
-| SWRQ-003
-| The system must utilize TailwindCSS 3.0+ for responsive UI implementation.
-| US-UI-001: User Interface Design, US-UI-003: Mobile Responsiveness
-| T-UI-010, T-UI-011
+| IR005
+| The homepage must include a search bar, featured recent items, a statistics overview, and a call-to-action to log in.
+| II. Search and Discovery, VI. Dashboard and Analytics
+| T-HP-001, T-SRCH-001
 
-| SWRQ-004
-| The system must implement form validation using React Hook Form with Zod or Yup schema validation.
-| US-Report-003: Form Validation, US-Report-004: Data Integrity
-| T-FE-005, T-VALID-001
+| IR006
+| The system must provide a public view for item details showing only public fields (category, description, photos, general location) and a prompt to log in to contact the owner.
+| III. Report and Object Management, Secure data handling
+| T-DET-001, T-AUTH-003
 
-| SWRQ-005
-| The system must support image upload functionality with file size limit of 10MB per image for JPEG, PNG, and GIF formats.
-| US-Report-005: Image Upload, US-Sec-003: File Security
-| T-UPLOAD-001, T-SEC-008
+| IR007
+| The login page must initiate the UPR.edu authentication redirect and inform users about required access for interactions.
+| I. User Access and Authentication
+| T-AUTH-001, T-AUTH-002
 
-| SWRQ-006
-| The development environment must include Jest, React Testing Library, and Cypress/Playwright for testing.
-| US-QA-001: Testing Requirements, US-QA-002: Quality Assurance
-| T-TEST-001, T-TEST-002
+| IR008
+| The authenticated user dashboard ("My Reports") must display tabs for Lost Reports, Found Reports, and Messages, along with quick stats.
+| III. Report and Object Management, IV. Communication System, VI. Dashboard and Analytics
+| T-DASH-001, T-MSG-001
 
-| ENVRQ-001
-| The system must maintain API response latency under 500ms for standard operations under normal load.
-| US-Perf-001: System Performance, US-Perf-002: Performance Standards
-| T-PERF-001, T-PERF-002
+| IR009
+| Report creation forms (Lost/Found) must include structured fields with validation, such as category dropdown, description, location picker, photo uploader, and private fields.
+| III. Report Creation, VII. Categorization System
+| T-FE-002, T-VAL-001
 
-| ENVRQ-002
-| The system must support concurrent users with minimum 100 simultaneous active sessions.
-| US-Perf-003: Scalability, US-Perf-004: Load Handling
-| T-PERF-010, T-SCALE-001
+| IR010
+| The messaging interface must include an inbox view with conversation previews and a conversation view with a message thread and reply box.
+| IV. Communication System
+| T-MSG-002, T-MSG-003
 
-| ENVRQ-003
-| The system must enforce HTTPS-only communication with WSS for real-time features.
-| US-Sec-001: Data Security, US-Sec-002: Secure Communication
-| T-SEC-001, T-SEC-002
+| IR011
+| The admin panel must include a dashboard with key metrics, a reports queue for moderation, user management, and system logs.
+| V. Administrative and Moderation System
+| T-ADMIN-001, T-MOD-001
 
-| ENVRQ-004
-| The system must support latest 2 versions of Chrome, Firefox, Safari, and Edge browsers on desktop and mobile.
-| US-COMP-001: Browser Compatibility, US-UI-003: Mobile Responsiveness
-| T-COMP-005, T-COMP-006
+| IR012
+| The system must provide a RESTful API with JSON payloads, using JWT tokens obtained via UPR.edu OAuth for authentication.
+| I. User Access and Authentication
+| T-API-AUTH-001
 
-| ENVRQ-005
-| The system must integrate with UPR.edu authentication system via SSO/OAuth protocols.
-| US-Auth-002: UPR Authentication, US-Auth-003: SSO Integration
-| T-AUTH-010, T-AUTH-011
+| IR013
+| An API endpoint `GET /api/v1/reports` must be available to list reports with support for query parameters for filtering.
+| II. Search and Discovery System
+| T-API-RPT-001
 
-| ENVRQ-006
-| The system must implement Row Level Security (RLS) policies in PostgreSQL for all data access.
-| US-Sec-004: Access Control, US-Sec-005: Data Privacy
-| T-SEC-015, T-DB-010
+| IR014
+| An API endpoint `POST /api/v1/reports` must be available to create a new report (Lost/Found type).
+| III. Report Creation
+| T-API-RPT-002
 
-| ENVRQ-007
-| The system must achieve page load time under 3 seconds and search query responses under 2 seconds.
-| US-Perf-001: System Performance, US-Search-003: Search Optimization
-| T-PERF-003, T-PERF-004
+| IR015
+| An API endpoint `GET /api/v1/search` must be available for unified searching with query and filter parameters.
+| II. Search and Discovery System
+| T-API-SRCH-001
 
-| ENVRQ-008
-| The system must comply with FERPA regulations and university data protection policies for student information.
-| US-COMP-002: Regulatory Compliance, US-Sec-006: Privacy Compliance
-| T-COMP-020, T-SEC-020
+| IR016
+| An API endpoint `POST /api/v1/uploads/images` must be available to upload images, returning a URL for the stored image.
+| Image upload system requirement
+| T-API-IMG-001
 
-| ENVRQ-009
-| The system must implement rate limiting on all API endpoints to prevent abuse.
-| US-Sec-007: Security Hardening, US-Sec-008: Abuse Prevention
-| T-SEC-025, T-SEC-026
+| IR017
+| The system must implement event-driven communication between backend services (Auth, Report, Search, Notification, Moderation, Analytics) to handle processes like notifications and analytics.
+| Match notifications, Status changes
+| T-EVT-001, T-NOT-001
 
-| ENVRQ-010
-| The system must support email notifications through configured SMTP with templated messaging.
-| US-Notif-001: Email Notifications, US-Comm-003: System Communications
-| T-NOTIF-001, T-EMAIL-001
+| IR018
+| The system must integrate with an email service to send transactional emails using predefined templates (e.g., match notification, new message alert).
+| VIII. Notification System
+| T-EMAIL-001
 |===
