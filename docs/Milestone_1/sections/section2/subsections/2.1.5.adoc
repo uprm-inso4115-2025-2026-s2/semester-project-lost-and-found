@@ -1,1 +1,272 @@
 ==== *Function Signatures*
+
+== I. User Access & Authentication
+
+[discrete]
+=== 1. Authenticate with UPR
+
+*Event / Trigger:
+*User attempts to log in using their official UPR.edu account. +
+*System Behavior:
+*System validates credentials through UPR authentication integration and creates an authenticated session. +
+*Inputs:*
+
+* upr_email: str
+* upr_token: str
+*Output:*
+
+* AuthSession
+*Function Signature:*
+def authenticate_with_upr(upr_email: str, upr_token: str) -> AuthSession
+[discrete]
+=== 2. Authorize User Action
+
+*Event / Trigger:
+*User attempts a restricted action (e.g., reporting an item). +
+*System Behavior:
+*System verifies whether the user role permits the requested action. +
+*Inputs:*
+
+* user_id: str
+* action: str
+*Output:*
+
+* bool
+*Function Signature:*
+def authorize_user_action(user_id: str, action: str) -> bool
+
+== II. Report Creation & Management
+
+[discrete]
+=== 3. Create Lost Report
+
+*Event / Trigger:
+*User submits the Lost Item form. +
+*System Behavior:
+*System validates fields, saves report, and sets status to “Active.” +
+*Inputs:*
+
+* user_id: str
+* report_data: dict
+*Output:*
+
+* Report
+*Function Signature:*
+def create_lost_report(user_id: str, report_data: dict) -> Report
+[discrete]
+=== 4. Create Found Report
+
+*Event / Trigger:
+*User submits the Found Item form. +
+*System Behavior:
+*System validates fields, saves report, and sets status to “Active.” +
+*Inputs:*
+
+* user_id: str
+* report_data: dict
+*Output:*
+
+* Report
+*Function Signature:*
+def create_found_report(user_id: str, report_data: dict) -> Report
+[discrete]
+=== 5. Edit Report
+
+*Event / Trigger:
+*User edits an existing report. +
+*System Behavior:
+*System updates report fields and maintains data integrity. +
+*Inputs:*
+
+* report_id: str
+* updated_data: dict
+*Output:*
+
+* Report
+*Function Signature:*
+def edit_report(report_id: str, updated_data: dict) -> Report
+[discrete]
+=== 6. Update Report Status
+
+*Event / Trigger:
+*User or admin changes report status (Active / Returned / Closed). +
+*System Behavior:
+*System updates report lifecycle state. +
+*Inputs:*
+
+* report_id: str
+* new_status: str
+*Output:*
+
+* Report
+*Function Signature:*
+def update_report_status(report_id: str, new_status: str) -> Report
+
+== III. Ownership Verification
+
+[discrete]
+=== 7. Validate Item Ownership
+
+*Event / Trigger:
+*User claims ownership of an item. +
+*System Behavior:
+*System compares private verification fields (e.g., serial number, email) before allowing status change. +
+*Inputs:*
+
+* report_id: str
+* claimant_id: str
+* verification_data: dict
+*Output:*
+
+* bool
+*Function Signature:*
+def validate_item_ownership(report_id: str, claimant_id: str, verification_data: dict) -> bool
+
+== IV. Search & Discovery
+
+[discrete]
+=== 8. Search Reports by Keyword
+
+*Event / Trigger:
+*User enters search keywords. +
+*System Behavior:
+*System returns matching lost or found reports. +
+*Inputs:*
+
+* query: str
+*Output:*
+
+* list[Report]
+*Function Signature:*
+def search_reports_by_keyword(query: str) -> list[Report]
+[discrete]
+=== 9. Filter Reports
+
+*Event / Trigger:
+*User applies filters (status, category, location, date). +
+*System Behavior:
+*System returns filtered results. +
+*Inputs:*
+
+* status: str
+* category: str
+* location: str
+* date_range: tuple
+*Output:*
+
+* list[Report]
+*Function Signature:*
+def filter_reports(status: str, category: str, location: str, date_range: tuple) -> list[Report]
+
+== V. Communication System
+
+[discrete]
+=== 10. Send Secure Message
+
+*Event / Trigger:
+*User contacts another user regarding a report. +
+*System Behavior:
+*System mediates communication without exposing private email addresses. +
+*Inputs:*
+
+* sender_id: str
+* report_id: str
+* message: str
+*Output:*
+
+* Message
+*Function Signature:*
+def send_secure_message(sender_id: str, report_id: str, message: str) -> Message
+
+== VI. Moderation & Admin System
+
+[discrete]
+=== 11. Flag Report
+
+*Event / Trigger:
+*User flags inappropriate or suspicious content. +
+*System Behavior:
+*System records flag for admin review. +
+*Inputs:*
+
+* report_id: str
+* flagged_by: str
+* reason: str
+*Output:*
+
+* Flag
+*Function Signature:*
+def flag_report(report_id: str, flagged_by: str, reason: str) -> Flag
+[discrete]
+=== 12. Moderate Report
+
+*Event / Trigger:
+*Admin reviews flagged report. +
+*System Behavior:
+*Admin edits, removes, or approves report content. +
+*Inputs:*
+
+* report_id: str
+* admin_id: str
+* action: str
+*Output:*
+
+* Report
+*Function Signature:*
+def moderate_report(report_id: str, admin_id: str, action: str) -> Report
+
+== VII. Categorization System
+
+[discrete]
+=== 13. Assign Category to Report
+
+*Event / Trigger:
+*User selects category during report creation. +
+*System Behavior:
+*System links report to standardized taxonomy category. +
+*Inputs:*
+
+* report_id: str
+* category_id: str
+*Output:*
+
+* Report
+*Function Signature:*
+def assign_category_to_report(report_id: str, category_id: str) -> Report
+
+== VIII. Notification System
+
+[discrete]
+=== 14. Notify User of Match
+
+*Event / Trigger:
+*System detects a potential match between lost and found reports. +
+*System Behavior:
+*System generates notification alert for the user. +
+*Inputs:*
+
+* user_id: str
+* matched_report_id: str
+*Output:*
+
+* None
+*Function Signature:*
+def notify_user_of_match(user_id: str, matched_report_id: str) -> None
+
+== IX. Dashboard & Analytics
+
+[discrete]
+=== 15. Calculate Return Success Rate
+
+*Event / Trigger:
+*Admin views dashboard analytics. +
+*System Behavior:
+*System computes percentage of returned objects relative to total reports. +
+*Inputs:*
+
+* None
+*Output:*
+
+* float
+*Function Signature:*
+def calculate_return_success_rate() -> float
