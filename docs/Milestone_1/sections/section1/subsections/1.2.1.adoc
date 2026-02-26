@@ -24,6 +24,6 @@ Most universities offer resume reviews, workshops, mock interviews, and career f
 Professional Networking Platforms
 Networking platforms allow students to build connections and showcase profiles. However, they emphasize visibility rather than structured readiness. Simply having a profile does not ensure skill development, targeted preparation, or strategic application management.
 
-==== Gap in Existing Alternatives
+===== Gap in Existing Alternatives
 
 Although current solutions offer partial support such as job listings, resume advice, or networking opportunities none provide an integrated, structured system that guides students step-by-step through skill development and evidence creation, connects professional development activities directly to measurable job readiness and bridges the expectations between employers, students, and institutions.
