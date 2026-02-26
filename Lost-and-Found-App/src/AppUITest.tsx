@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
 import "./App.css";
 import { ItemCard } from "./components/ItemCard";
+import walletImg from "./assets/sample/wallet.jpeg";
+import bottleImg from "./assets/sample/bottle.jpeg";
 
 type TabKey = "Lost" | "Found" | "Claimed";
 
@@ -28,6 +30,7 @@ export default function App() {
           dateLabel: "Feb 26, 2026",
           locationLabel: "UPRM Library",
           status: "Lost",
+            imageUrl: walletImg,
         },
         {
           id: "l2",
@@ -36,6 +39,7 @@ export default function App() {
             "Blue bottle with multiple stickers. Might have been left near benches.",
           dateLabel: "Feb 25, 2026",
           status: "Lost",
+            imageUrl: bottleImg,
         },
       ],
       Found: [
