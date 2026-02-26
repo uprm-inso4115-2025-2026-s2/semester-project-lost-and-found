@@ -1,272 +1,359 @@
-==== *Function Signatures*
+==== Function Signatures
 
-== I. User Access & Authentication
+===== I. User Access & Authentication
 
-[discrete]
-=== 1. Authenticate with UPR
+====== 1. Authenticate with UPR
 
-*Event / Trigger:
-*User attempts to log in using their official UPR.edu account. +
-*System Behavior:
-*System validates credentials through UPR authentication integration and creates an authenticated session. +
+*Event / Trigger:*  
+User attempts to log in using their official `upr.edu` account.
+
+*System Behavior:*  
+- Validates credentials through UPR authentication integration.  
+- Creates an authenticated session upon success.
+
 *Inputs:*
+- `upr_email: str` — User’s official UPR email address  
+- `upr_token: str` — Authentication token issued by UPR  
 
-* upr_email: str
-* upr_token: str
 *Output:*
+- `AuthSession`
 
-* AuthSession
 *Function Signature:*
+[source,python]
+----
 def authenticate_with_upr(upr_email: str, upr_token: str) -> AuthSession
-[discrete]
-=== 2. Authorize User Action
+----
 
-*Event / Trigger:
-*User attempts a restricted action (e.g., reporting an item). +
-*System Behavior:
-*System verifies whether the user role permits the requested action. +
+====== 2. Authorize User Action
+
+*Event / Trigger:*  
+User attempts to perform a restricted action (e.g., reporting an item).
+
+*System Behavior:*  
+- Verifies whether the user’s role permits the requested action.
+
 *Inputs:*
+- `user_id: str`
+- `action: str`
 
-* user_id: str
-* action: str
 *Output:*
+- `bool`
 
-* bool
 *Function Signature:*
+[source,python]
+----
 def authorize_user_action(user_id: str, action: str) -> bool
+----
 
-== II. Report Creation & Management
+===== II. Report Creation & Management
 
-[discrete]
-=== 3. Create Lost Report
+====== 3. Create Lost Report
 
-*Event / Trigger:
-*User submits the Lost Item form. +
-*System Behavior:
-*System validates fields, saves report, and sets status to “Active.” +
+*Event / Trigger:*  
+User submits the Lost Item form.
+
+*System Behavior:*  
+- Validates required fields.  
+- Saves report.  
+- Sets status to "Active".
+
 *Inputs:*
+- `user_id: str`
+- `report_data: dict`
 
-* user_id: str
-* report_data: dict
 *Output:*
+- `Report`
 
-* Report
 *Function Signature:*
+[source,python]
+----
 def create_lost_report(user_id: str, report_data: dict) -> Report
-[discrete]
-=== 4. Create Found Report
+----
 
-*Event / Trigger:
-*User submits the Found Item form. +
-*System Behavior:
-*System validates fields, saves report, and sets status to “Active.” +
+====== 4. Create Found Report
+
+*Event / Trigger:*  
+User submits the Found Item form.
+
+*System Behavior:*  
+- Validates required fields.  
+- Saves report.  
+- Sets status to "Active".
+
 *Inputs:*
+- `user_id: str`
+- `report_data: dict`
 
-* user_id: str
-* report_data: dict
 *Output:*
+- `Report`
 
-* Report
 *Function Signature:*
+[source,python]
+----
 def create_found_report(user_id: str, report_data: dict) -> Report
-[discrete]
-=== 5. Edit Report
+----
 
-*Event / Trigger:
-*User edits an existing report. +
-*System Behavior:
-*System updates report fields and maintains data integrity. +
+====== 5. Edit Report
+
+*Event / Trigger:*  
+User edits an existing report.
+
+*System Behavior:*  
+- Updates report fields.  
+- Preserves data integrity.
+
 *Inputs:*
+- `report_id: str`
+- `updated_data: dict`
 
-* report_id: str
-* updated_data: dict
 *Output:*
+- `Report`
 
-* Report
 *Function Signature:*
+[source,python]
+----
 def edit_report(report_id: str, updated_data: dict) -> Report
-[discrete]
-=== 6. Update Report Status
+----
 
-*Event / Trigger:
-*User or admin changes report status (Active / Returned / Closed). +
-*System Behavior:
-*System updates report lifecycle state. +
+====== 6. Update Report Status
+
+*Event / Trigger:*  
+User or admin changes report status (Active / Returned / Closed).
+
+*System Behavior:*  
+- Updates report lifecycle state.
+
 *Inputs:*
+- `report_id: str`
+- `new_status: str`
 
-* report_id: str
-* new_status: str
 *Output:*
+- `Report`
 
-* Report
 *Function Signature:*
+[source,python]
+----
 def update_report_status(report_id: str, new_status: str) -> Report
+----
 
-== III. Ownership Verification
+===== III. Ownership Verification
 
-[discrete]
-=== 7. Validate Item Ownership
+====== 7. Validate Item Ownership
 
-*Event / Trigger:
-*User claims ownership of an item. +
-*System Behavior:
-*System compares private verification fields (e.g., serial number, email) before allowing status change. +
+*Event / Trigger:*  
+User claims ownership of a found item.
+
+*System Behavior:*  
+- Compares private verification fields (e.g., serial number, identifying details).  
+- Allows status change only if validation succeeds.
+
 *Inputs:*
+- `report_id: str`
+- `claimant_id: str`
+- `verification_data: dict`
 
-* report_id: str
-* claimant_id: str
-* verification_data: dict
 *Output:*
+- `bool`
 
-* bool
 *Function Signature:*
-def validate_item_ownership(report_id: str, claimant_id: str, verification_data: dict) -> bool
+[source,python]
+----
+def validate_item_ownership(
+    report_id: str,
+    claimant_id: str,
+    verification_data: dict
+) -> bool
+----
 
-== IV. Search & Discovery
+===== IV. Search & Discovery
 
-[discrete]
-=== 8. Search Reports by Keyword
+====== 8. Search Reports by Keyword
 
-*Event / Trigger:
-*User enters search keywords. +
-*System Behavior:
-*System returns matching lost or found reports. +
+*Event / Trigger:*  
+User enters search keywords.
+
+*System Behavior:*  
+- Returns matching lost or found reports.
+
 *Inputs:*
+- `query: str`
 
-* query: str
 *Output:*
+- `list[Report]`
 
-* list[Report]
 *Function Signature:*
+[source,python]
+----
 def search_reports_by_keyword(query: str) -> list[Report]
-[discrete]
-=== 9. Filter Reports
+----
 
-*Event / Trigger:
-*User applies filters (status, category, location, date). +
-*System Behavior:
-*System returns filtered results. +
+====== 9. Filter Reports
+
+*Event / Trigger:*  
+User applies filters (status, category, location, date range).
+
+*System Behavior:*  
+- Returns filtered report results.
+
 *Inputs:*
+- `status: str`
+- `category: str`
+- `location: str`
+- `date_range: tuple`
 
-* status: str
-* category: str
-* location: str
-* date_range: tuple
 *Output:*
+- `list[Report]`
 
-* list[Report]
 *Function Signature:*
-def filter_reports(status: str, category: str, location: str, date_range: tuple) -> list[Report]
+[source,python]
+----
+def filter_reports(
+    status: str,
+    category: str,
+    location: str,
+    date_range: tuple
+) -> list[Report]
+----
 
-== V. Communication System
+===== V. Communication System
 
-[discrete]
-=== 10. Send Secure Message
+====== 10. Send Secure Message
 
-*Event / Trigger:
-*User contacts another user regarding a report. +
-*System Behavior:
-*System mediates communication without exposing private email addresses. +
+*Event / Trigger:*  
+User contacts another user regarding a report.
+
+*System Behavior:*  
+- Mediates communication internally.  
+- Prevents exposure of private email addresses.
+
 *Inputs:*
+- `sender_id: str`
+- `report_id: str`
+- `message: str`
 
-* sender_id: str
-* report_id: str
-* message: str
 *Output:*
+- `Message`
 
-* Message
 *Function Signature:*
-def send_secure_message(sender_id: str, report_id: str, message: str) -> Message
+[source,python]
+----
+def send_secure_message(
+    sender_id: str,
+    report_id: str,
+    message: str
+) -> Message
+----
 
-== VI. Moderation & Admin System
+===== VI. Moderation & Admin System
 
-[discrete]
-=== 11. Flag Report
+====== 11. Flag Report
 
-*Event / Trigger:
-*User flags inappropriate or suspicious content. +
-*System Behavior:
-*System records flag for admin review. +
+*Event / Trigger:*  
+User flags inappropriate or suspicious content.
+
+*System Behavior:*  
+- Records flag for administrative review.
+
 *Inputs:*
+- `report_id: str`
+- `flagged_by: str`
+- `reason: str`
 
-* report_id: str
-* flagged_by: str
-* reason: str
 *Output:*
+- `Flag`
 
-* Flag
 *Function Signature:*
+[source,python]
+----
 def flag_report(report_id: str, flagged_by: str, reason: str) -> Flag
-[discrete]
-=== 12. Moderate Report
+----
 
-*Event / Trigger:
-*Admin reviews flagged report. +
-*System Behavior:
-*Admin edits, removes, or approves report content. +
+====== 12. Moderate Report
+
+*Event / Trigger:*  
+Administrator reviews flagged report.
+
+*System Behavior:*  
+- Edits, removes, or approves report content.
+
 *Inputs:*
+- `report_id: str`
+- `admin_id: str`
+- `action: str`
 
-* report_id: str
-* admin_id: str
-* action: str
 *Output:*
+- `Report`
 
-* Report
 *Function Signature:*
+[source,python]
+----
 def moderate_report(report_id: str, admin_id: str, action: str) -> Report
+----
 
-== VII. Categorization System
+===== VII. Categorization System
 
-[discrete]
-=== 13. Assign Category to Report
+====== 13. Assign Category to Report
 
-*Event / Trigger:
-*User selects category during report creation. +
-*System Behavior:
-*System links report to standardized taxonomy category. +
+*Event / Trigger:*  
+User selects category during report creation.
+
+*System Behavior:*  
+- Links report to standardized taxonomy category.
+
 *Inputs:*
+- `report_id: str`
+- `category_id: str`
 
-* report_id: str
-* category_id: str
 *Output:*
+- `Report`
 
-* Report
 *Function Signature:*
+[source,python]
+----
 def assign_category_to_report(report_id: str, category_id: str) -> Report
+----
 
-== VIII. Notification System
+===== VIII. Notification System
 
-[discrete]
-=== 14. Notify User of Match
+====== 14. Notify User of Match
 
-*Event / Trigger:
-*System detects a potential match between lost and found reports. +
-*System Behavior:
-*System generates notification alert for the user. +
+*Event / Trigger:*  
+System detects a potential match between lost and found reports.
+
+*System Behavior:*  
+- Generates a notification alert for the user.
+
 *Inputs:*
+- `user_id: str`
+- `matched_report_id: str`
 
-* user_id: str
-* matched_report_id: str
 *Output:*
+- `None`
 
-* None
 *Function Signature:*
+[source,python]
+----
 def notify_user_of_match(user_id: str, matched_report_id: str) -> None
+----
 
-== IX. Dashboard & Analytics
+===== IX. Dashboard & Analytics
 
-[discrete]
-=== 15. Calculate Return Success Rate
+====== 15. Calculate Return Success Rate
 
-*Event / Trigger:
-*Admin views dashboard analytics. +
-*System Behavior:
-*System computes percentage of returned objects relative to total reports. +
-*Inputs:*
+*Event / Trigger:*  
+Administrator views dashboard analytics.
 
-* None
+*System Behavior:*  
+- Computes percentage of returned items relative to total reports.
+
+*Inputs:*  
+- None
+
 *Output:*
+- `float`
 
-* float
 *Function Signature:*
+[source,python]
+----
 def calculate_return_success_rate() -> float
+----

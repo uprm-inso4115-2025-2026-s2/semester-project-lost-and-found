@@ -1,6 +1,7 @@
-= Professional Portfolio Application Proposal 
+= Lost & Found Proposal
 First Milestone - Software Requirements - INSO 4115
 Prof. Marko Schütz-Schmuck 
+:imagesdir: ../Images
 :doctype: book
 :toc:
 :sectnums:

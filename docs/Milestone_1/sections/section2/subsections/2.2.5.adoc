@@ -1,8 +1,5 @@
 ==== *Machine Requirements*
 
-[[anchor-requirements]]
-== Hardware, Software, and Environmental Requirements
-
 [[requirements-table]]
 .Hardware, Software, and Environmental Requirements
 [cols="1,3,3,3", options="header"]

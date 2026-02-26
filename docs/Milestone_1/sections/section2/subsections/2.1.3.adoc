@@ -1,5 +1,5 @@
 ==== *Narrative*
-Within the university environment, personal belongings frquently change hands unintentionally. A student may leave a backpack in a classroom, misplace keys in a laboratory, or forget an ID card in the library. In each of these situations, the items becomes a **Lost Item** from the perspective of its **Owner**. The owner's primary concern is **Recovery** — retrieving the belonging safely and efficiently. 
+Within the university environment, personal belongings frequently change hands unintentionally. A student may leave a backpack in a classroom, misplace keys in a laboratory, or forget an ID card in the library. In each of these situations, the items becomes a **Lost Item** from the perspective of its **Owner**. The owner's primary concern is **Recovery** — retrieving the belonging safely and efficiently. 
 
 At the same time, another individual may encounter the same object. This person becomes the **Finder**. The finder now faces a decision: whether and how to initiate **Reporting** so that the item can be returned. Without a coordinated process, the finder may rely on informal communication, such as word of mouth or scattered announcements, which limits visibility and reduces the likelihood of **Recovery**.
 
