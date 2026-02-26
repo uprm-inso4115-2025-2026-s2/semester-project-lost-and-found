@@ -1,0 +1,50 @@
+= Research Document: Smart Matching Logic
+
+== 1. Item Attributes (Critical vs. Secondary)
+To calculate a match, the system must prioritize certain details over others. We divide attributes into two tiers to prevent the system from matching a "black phone" with a "black jacket."
+
+* *Critical Attributes (Must Match)*
+** *Category:* (e.g., Electronics, Keys, Clothing). If the category doesn't match, the score is automatically 0.
+** *Date Logic:* The `Date Found` must be equal to or after the `Date Lost`. An item cannot be found before it was lost.
+
+* *Secondary Attributes (Fuzzy Match)*
+** *Location:* How close the "found" spot is to the "lost" spot.
+** *Time Proximity:* How much time passed between the item being lost and found.
+** *Color & Brand:* Matches in descriptive tags.
+
+== 2. The Matching Formula (Scoring System)
+
+Assuming the Critical Attributes match, the system will calculate a score out of 100 points based on the Secondary Attributes:
+
+* *Location (Max 40 Points):*
+** Exact same building/zone (e.g., both in Stefani Building): +40 points
+** Adjacent building/zone: +20 points
+** Different side of campus: +0 points
+
+* *Timeframe (Max 30 Points):*
+** Found within 24 hours of being lost: +30 points
+** Found within 1 to 3 days: +15 points
+** Found after 3 days: +5 points
+
+* *Keywords, Color, and Brand (Max 30 Points):*
+** Exact color match: +15 points
+** Brand/Keyword match (e.g., "Apple" or "Hydro Flask"): +15 points
+
+_Example Calculation:_ A phone lost in Stefani and found in Stefani 2 hours later with the same color gets 40 (Location) + 30 (Time) + 15 (Color) = 85% Match Score.
+
+== 3. Algorithm Recommendations
+To implement this in the backend, we should look into the following methods:
+
+* *Text Similarity:* Instead of checking if descriptions match exactly, we should use a "Levenshtein distance" algorithm or Trigram indexing in the database. This allows the system to realize that a typo like "Iphone" and "iPohn" are highly likely to be the same word.
+
+
+* *Geospatial Matching:* If we use map coordinates, we can use a bounding box query or a distance function (like PostGIS if using a PostgreSQL database) to calculate if two coordinates are within a 100-meter radius of each other.
+
+
+== 4. Notification Thresholds
+
+To avoid spamming users with false alarms, the system will use the final Match Score to trigger different actions:
+
+* *80% - 100% (High Confidence):* Send an immediate Push Notification and Email to the user ("We think we found your item!").
+* *50% - 79% (Possible Match):* Do not send a notification, but place the item in a "Suggested Matches" tab on the user's dashboard for them to review manually.
+* *Below 50% (Low Confidence):* Ignore. The system will not connect the two items.
