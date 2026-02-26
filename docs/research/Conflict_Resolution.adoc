@@ -1,0 +1,211 @@
+= Conflict Resolution Protocol Research
+Author: Jose Valentin
+Date: February 26, 2026
+
+== Goal
+Define a clear and fair process for handling situations where multiple users claim the same lost item.
+
+== Core Problem
+When more than one person claims an item, the system must:
+- Identify the real owner
+- Prevent fraud
+- Keep the process fair and efficient
+- Avoid overwhelming admins
+
+---
+
+== Common Conflict Scenarios
+
+1. Multiple users claim the same item.
+2. A claimant cannot describe the item clearly.
+3. Finder and claimant disagree.
+4. A new claim appears after the item was marked returned.
+
+---
+
+== Possible Approaches
+
+=== Option 1: First-Come, First-Served
+First claimant wins.
+
+Pros:
+- Very simple
+- Fast
+
+Cons:
+- Unfair
+- Encourages spam
+- High fraud risk
+
+Not recommended.
+
+---
+
+=== Option 2: Finder Decides
+Finder asks verification questions and selects the best match.
+
+Pros:
+- Simple
+- No admin needed
+- Quick resolution
+
+Cons:
+- Finder may choose incorrectly
+- No neutral oversight
+
+Works for low value items, but risky for expensive ones.
+
+---
+
+=== Option 3: Admin Review
+Admin reviews all claims and makes the final decision.
+
+Pros:
+- Neutral evaluation
+- Strong fraud prevention
+- More fair
+
+Cons:
+- Slower
+- Requires moderation resources
+
+Best for high value or sensitive items.
+
+---
+
+=== Option 4: Hybrid Approach (Recommended)
+Use different rules depending on item value.
+
+Low value items:
+- Finder reviews claims and chooses.
+
+Medium value items:
+- Finder reviews claims.
+- Can escalate to admin if unsure.
+
+High value items:
+- Automatic admin review when multiple claims exist.
+
+This balances fairness and efficiency.
+
+---
+
+== Recommended Conflict Protocol
+
+Step 1: Claim Submission
+- User submits detailed claim.
+- If more than one claim exists, conflict process starts.
+
+Step 2: Evidence Collection
+Claimants provide:
+- Detailed description (color, brand, condition)
+- Unique identifiers (scratches, stickers, serial numbers)
+- Proof of ownership (photo, receipt if possible)
+- Approximate loss location
+
+Step 3: Review Process
+
+For Low/Medium Value:
+- Finder compares claims side by side.
+- Can ask follow up questions.
+- Selects most credible claimant.
+- Can escalate to admin if unsure.
+
+For High Value:
+- Admin reviews all evidence.
+- Admin can request additional proof.
+- Admin makes final decision.
+
+Step 4: Notification
+- Selected claimant notified.
+- Other claimants informed.
+- 24-hour appeal window available.
+
+---
+
+== Item Status Flow
+
+- Available
+- Single Claim
+- Multiple Claims (conflict detected)
+- Under Review
+- Matched
+- Returned
+- Disputed
+
+When a second claim appears:
+- Status changes to "Multiple Claims"
+- New claims are temporarily locked
+- Finder/admin has 3 days to decide
+
+---
+
+== Fraud Prevention
+
+During Claims:
+- Verified email required
+- Limit 3 active claims per user
+- Generic descriptions flagged
+- Track suspicious claim patterns
+
+After Match:
+- 24 hour appeal window
+- Late strong evidence can reopen case
+- Repeat fraud reports lead to restrictions
+
+Claims auto expire after 30 days.
+
+---
+
+== Value Categories (Suggested)
+
+Low Value:
+- Water bottles, notebooks, hats
+- Under $20
+- No personal data
+
+Medium Value:
+- Jackets, backpacks, textbooks
+- $20–$100
+
+High Value:
+- Phones, laptops, tablets, jewelry
+- Over $100
+- Items with personal data or access keys
+
+---
+
+== Final Recommendation
+
+Primary Model:
+Hybrid system (finder handles low value, admin reviews high value)
+
+Conflict Trigger:
+Automatically when 2+ claims exist
+
+Decision Time:
+3 days
+
+Appeal Window:
+24 hours
+
+This approach protects valuable items while keeping most cases simple and fast.
+
+---
+
+== Implementation Phases
+
+Phase 1 (MVP):
+- Detect multiple claims
+- Finder selects claimant
+- Basic notifications
+
+Phase 2:
+- Admin review system
+- Evidence upload
+- Appeals
+
+Phase 3:
+- Fraud detection algorithms
+- Reputation system
+- Automated claim scoring
