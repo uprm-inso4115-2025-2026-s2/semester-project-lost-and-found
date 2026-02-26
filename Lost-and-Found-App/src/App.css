@@ -9,7 +9,69 @@
   height: 6em;
   padding: 1.5em;
   will-change: filter;
-  transition: filter 300ms;
+  transition: filter 300ms;.page {
+  min-height: 100vh;
+  background: #0b1020;
+  background: radial-gradient(1200px 600px at 20% 0%, rgba(59,130,246,0.25), transparent),
+              radial-gradient(900px 500px at 80% 20%, rgba(16,185,129,0.18), transparent),
+              #0b1020;
+  padding: 28px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.header h1 {
+  margin: 0;
+  color: white;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.sub {
+  margin: 8px 0 0;
+  color: rgba(255,255,255,0.7);
+  font-weight: 600;
+}
+
+.tabs {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.tabBtn {
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.9);
+  padding: 9px 14px;
+  border-radius: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 120ms ease, background 120ms ease;
+}
+
+.tabBtn:hover {
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.14);
+}
+
+.tabBtn.active {
+  background: white;
+  color: #0b1020;
+}
+
+.grid {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
 }
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
