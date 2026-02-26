@@ -1,0 +1,106 @@
+= [Research] Brainstorm design and description of team 3 object management
+
+== Goal
+Brainstorming to identify the user interface for lost and found forms, as well as elaborating on the core functionalities.
+
+== Proposed Solution
+Created discussion on github to receive feedback from team.
+
+== Success Criteria
+Updated document based on team feedback.
+
+=== Document Details: V2 Team 3 Reports and Object Management
+==== Report Dashboard Includes:
+* Amounts
+-Lost items
+-Found items
+-Recuperated items
+--(Removed based on feedback) location with highest frequency of lost/found items. (My original idea for including [4] was to be able to find a way to bring attention to students that items are frequently lost and to be aware they have their belongings.)
+
+==== Categorization system:
+* Technology
+** USB
+** Powerbanks
+** Headphones
+** Computers
+** Chargers
+** Tablets
+
+* School supplies
+** Notebooks
+** Pens/pencils
+** Calculators
+** Erasers
+** Textbooks
+
+* Personal items
+** Wallet (credit, debit cards, cash)
+** Purse
+** Umbrellas
+** Backpack
+** Water bottles
+** Jackets, hats, sunglasses, glasses
+** Watches, jewelry
+** IDs (university ID, license)
+** Keys (car keys, house keys, bike lock keys, keycard digital for Pecera and Lab Stefani)
+
+===== Overall categories
+* Technology
+* Personal items
+* School supplies
+* Other (Including a category of other in case we missed an item. Eventually we could include frequent items from the other category into one of the existing categories or create a new category.)
+
+==== Report states
+* Active/resolved. Give access to university admin of lost and found recovery locations to edit if resolved. (My suggestion would be to have a centralized location per building to return items. My reasoning is that it would avoid putting students in dangerous situations by meeting up at unknown locations off university grounds.
+We can add into the form a drop-off location that they can edit once they have left the found item.)
+* Allow users to confirm if resolved.
+
+==== Report-related search filters
+* Date
+* Location
+* Drop-off location
+* Items
+* Lost or found
+* Categories
+
+* Report
+** Registration
+*** Name
+*** Phone number
+*** Email
+
+** Editing
+*** Allow users to edit the complete form (Helps with avoiding duplicates if someone uploaded incorrect information.)
+
+** Closure
+*** Related to report states
+
+==== Creation of form for lost and found objects
+===== LOST FORM
+* Location
+* Date
+* Brand
+* Color
+** Primary
+** Secondary
+* Additional comment
+
+===== FOUND FORM
+* Location
+* Drop off location
+* Date
+* Brand
+* Color
+** Primary
+** Secondary
+* Additional comment
+
+
+=== Urgency
+5 – Normal
+
+=== Difficulty
+4 – Moderate
+
+== Recommended Assigned Developer
+Victoria Miranda Osuna
