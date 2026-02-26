@@ -1,0 +1,113 @@
+= Edit Report and History Management #125
+
+== A) Different edit history mechanisms and version control strategies
+
+=== 1. Edit History Mechanisms:
+*Change Logging*:: recording all changes or modifications made to a report
+*User Attribution* :: assigning specific editing actions to an individual user for accountability (In our project case the person who made the report should be the one with the specific editing actions on their post)
+*Version Recovery* :: Ability to restore previous versions
+*Filter and Search*:: targeted search within the edit history using dates to filter the changes 
+*Version Control* :: Automatic saving of editing states along with timestamps and user information to preserve a chronological history of changes
+
+=== 2. Content Version Control Strategies:
+
+Version control mechanisms typically includes:
+
+-  Timestamps: recording when changes occurred
+- Automatic saving of changes
+- Saving the user information(user identification metadata)
+
+*Some strategies used to implement version control include:* 
+
+
+*Strategy 1: Coping the files into new location*
+
+Each updated version is stored as a separate copy.
+
+*But there are some Cons:*
+
+-  Could be error prone if storage locations are inconsistent
+- Not the most space- efficient
+- Correct date could be error prone, since manual timestamp management may lead to inaccuracies
+
+
+*Strategy 2: Managing two metadata fields in a dataset* :
+
+- This strategy involves maintaining two metadata fields in a dataset  “valid_from”, “valid_to”.
+According to Paul Sigman (2025)::
+   “A more space-efficient and incremental approach to versioning works by adding and maintaining two metadata fields in a tabular dataset, 
+often named valid_from and valid_to. When updating a record in this dataset, we make sure to never overwrite an existing record.
+Instead, we append new records and update the valid_to field to the current timestamp for any record that would have been overwritten.”
+
+Parting from this strategy, for our website using Supabase, we could implement two append only tables, one that stores the new current/latest valued and another one that stores the full history of changes.
+When a user selects the edit button, the old values automatically are  stored in the history changes table and the new values are stored in the current table. We could add some features to see the history of changes values such: as 
+view previous version or restore previous version.
+
+=== Different models for tracking changes
+
+Change-tracking systems can generally follow one of the conceptual models:
+
+1.*Snap Shot Model* : Each edit creates a new full version of the report
+
+2.*Delta Model*:  Only differences between the changes are stored
+
+3.*Event Based Model*: Each modification is stored as a domain event
+
+=== What data should be stored?
+
+For our team implementation I think the following data should be stored for each change:
+
+-  Edited by {name of user or ID}
+-  Data before and after (History of changes)
+- Timestamps
+
+
+=== Challenges or risks of Implementing an Edit Report Feature
+
+Implementing version control introduces some implications on supporting subsystems, specially  if  the original report is modified. Some of the Risks could be:
+
+
+*1. Impact on Search Filters*: 
+
+If a report is modified, the search filters may produce different results, since changing the filters will affect the search results, it will require re index requirements and it may produce temporary inconsistencies. 
+For example: If a user reports an object as Lost at a certain location, but later edits the location, search filters based on location will change. 
+
+*2. Impact on Matching Algorithms* : 
+
+The edits may have an impact on the keywords used to match objects 
+This edits  also could affect  the similarity matching between lost and found objects 
+The system may need some time to reprocess and locate the item on the corresponding area after edits. This may produce temporary mismatches.
+
+
+=== Risks:
+
+- If other features depend on the report content : catching layers may serve outdated versions
+- External integrations may not immediately  reflect the changes 
+- If multiple users are editing simultaneously, conflicting updates may occur
+
+
+=== Important Areas to consider
+
+Another important aspect is to determine:
+
+- For how long historical data should be stored (data retention period) 
+- The total volume of versioned data the system is expected to manage.
+
+Because versioning system historical data could continuously grow as edits occur; over time, this may impact storage requirements. The Microsoft Learn site documentation on  retention of historical data in system-versioned temporal tables,
+recommends  managing historical data using the table partitioning approach. 
+
+According to  Microsoft Learn::
+ ” Partitioning Tables can make large tables more manageable and scalable. With the table partitioning approach, you can implement custom data cleanup, or offline archival, based on a time condition. Table partitioning also gives you performance benefits when querying temporal tables on a subset of data history, by using partition elimination. “
+
+Even though our system is implemented using Supabase, the architectural principle remains the same. 
+
+=== References:
+
+Softguide, “Edit History” , [Online] Available: https://www.softguide.com/function/edit-history
+
+Git, “1.1 Getting Started - About Version Control” [Online] Available:
+https://git-scm.com/book/ms/v2/Getting-Started-About-Version-Control
+
+Singman, Paul, lakeFS, “Data Versioning Explained: Guide, Examples & Best Practices”, [Online] Available: https://lakefs.io/blog/data-versioning/
+
+Microsoft Learn, “Manage retention of historical data in system-versioned temporal tables” [Online] Available: https://learn.microsoft.com/en-us/sql/relational-databases/tables/manage-retention-of-historical-data-in-system-versioned-temporal-tables?view=sql-server-ver17
