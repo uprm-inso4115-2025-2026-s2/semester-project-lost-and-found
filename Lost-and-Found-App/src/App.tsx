@@ -3,80 +3,174 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-// !Default generated Application. Any assets used by this can be removed. //
-function App() {
-  const [count, setCount] = useState(0)
+
+type Item = {
+  id: string;
+  title: string;
+  location: string;
+  date: string;
+  desc: string;
+  ImageUrl?: string;
+};
+
+const PLACEHOLDER: Item[] = [
+  { id: "1", title: "Key Ring", location: "Stefani S-113", date: "2026-02-24",  desc: "Test description 1, purposely left without a Picture for testing purposes" ,ImageUrl: ""},
+  { id: "2", title: "AirPods (white case)", location: "Centro de Estudiantes", date: "2026-02-22", desc: "Test description 2. this one is way way way longer to test text wrapping and marging" , ImageUrl: "https://media.cnn.com/api/v1/images/stellar/prod/190328162927-3-underscored-new-airpods-review.jpg?q=w_1600,h_900,x_0,y_0,c_fill"},
+  { id: "3", title: "EL-W516XG Calculator", location: "Chardon CH121", date: "2026-02-20", desc: "test desc. 3" ,ImageUrl: "https://i.redd.it/found-lost-calculator-v0-tfsrvgxplx1g1.jpg?width=3024&format=pjpg&auto=webp&s=72dca371a76719972f3952e2be57f0bde68b919c"},
+];
+
+
+// export default App
+type Tab = "Lost" | "Claimed" | "Returned";
+export default function App() {
+  const [tab, setTab] = useState<Tab>("Lost");
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div style={{ maxWidth: 900, margin: "40px auto", fontFamily: "system-ui" }}>
+      <h1>UPRM: Lost & Found</h1>
+
+
+      <div style={{ display: "center", gap: 8, marginBottom: 16 }}>
+        <button
+          onClick={() => setTab("Lost")}
+          style={{
+            padding: "30px 50px",
+            background: tab === "Lost" ? "#D75858" : "#D75858",
+            cursor: "pointer",
+          }}
+        >
+          Lost
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <button
+          onClick={() => setTab("Claimed")}
+          style={{
+            padding: "30px 50px",
+            background: tab === "Claimed" ? "#DACD68" : "#DACD68",
+            cursor: "pointer",
+          }}
+        >
+          Claimed
+        </button>
+       <button
+          onClick={() => setTab("Returned")}
+          style={{
+            padding: "30px 50px",
+            background: tab === "Returned" ? "#7FDE67" : "#7FDE67",
+            cursor: "pointer",
+          }}
+        >
+          Returned
+        </button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+      {/* Tab content */}
+      <div style={{ padding: 20, border: "10px solid #014d0c"}}>
+        {tab === "Lost" && <LostTab />}
+        {tab === "Claimed" && <ClaimTab />}
+        {tab === "Returned" && <ReturnTab />}
+        
+      </div>
+    </div>
+  );
 }
 
-export default App
+function LostTab() {
+  return (
+    <>
+      <h2>Lost Items</h2>
+      <p>Show items users reported as lost.</p>
+    </>
+  );
+}
 
-// !Database Sync Test //
-// import { useEffect, useState } from "react";
-// import { createClient } from "@supabase/supabase-js";
-// const supabase = createClient(
-//   import.meta.env.VITE_SUPABASE_URL,
-//   import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
-// );
 
-// type Example = {
-//   id: number;
-//   name: string;
-// };
+function ClaimTab() {
+  return (
+    <div>
+      <h2 style={{ marginTop: 1 }}>Claimed Items</h2>
 
-// function App() {
-//   const [examples, setExamples] = useState<Example[]>([]);
+      <div style={{ display: "grid", gap: 12, justifyItems: "center" }}>
+        {PLACEHOLDER.map((item) => (
+          <ImageCard key={item.id} item={item} />
+        ))}
+      </div>
+    </div>
+  );
+}
 
-//   useEffect(() => {
-//     getExamples();
-//   }, []);
+function ReturnTab() {
+  return (
+    <>
+      <h2>Found Items</h2>
+      <p>Show items users reported as returned.</p>
+    </>
+  );
+}
 
-//   async function getExamples() {
-//     const { data, error } = await supabase
-//       .from("Example")
-//       .select();
+function ImageCard({ item }: { item: Item }) {
+  return (
+    <div
+      style={{
+        border: "10px solid #828282",
+        padding: 20,
+        background: "white",
+        display: "flex",
+        gap: 26,
+        alignItems: "flex-start",
+        width: "min(750px, 100%)",
+        boxSizing: "border-box",
+        minHeight: 150,
+        maxWidth: 500,
+      }}
+    >
+      {item.ImageUrl ? (
+        <img
+          src={item.ImageUrl}
+          alt={item.title}
+          referrerPolicy="no-referrer"
+          onError={(err) => {
+          //failsafe
+            err.currentTarget.style.display = "none";
+          }}
+          style={{
+            width: 90,
+            height: 90,
+            objectFit: "cover",
+            border: "10px solid #828282",
+            flex: "0 0 auto",
+          }}
+        />
+      ) : (
+        <div
+          style={{
+            width: 90,
+            height: 90,
+            border: "10px solid #828282",
+            background: "#F7F7F7",
+            display: "grid",
+            placeItems: "center",
+            flex: "0 0 auto",
+            fontSize: 12,
+            color: "#828282",
+          }}
+        >
+          No image
+        </div>
+      )}
 
-//     if (error) {
-//       console.error(error);
-//       return;
-//     }
 
-//     if (data) {
-//       setExamples(data);
-//     }
-//   }
-
-//   return (
-//     <ul>
-//       {examples.map((example) => (
-//         <li key={example.id}>{example.name}</li>
-//       ))}
-//     </ul>
-//   );
-// }
-
-// export default App;
+      <div style={{ flex: 1 }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+          <div>
+            <div style={{ textAlign: "left" }}>
+            <div style={{ fontWeight: 1000, marginTop: 4, fontSize: 16, color: "#000000" }}>{item.title}</div>
+            <div style={{ opacity: 0.8, marginTop: 4, color: "black" }}>{item.location}</div>
+            <div style={{ opacity: 0.8, marginTop: 0, fontSize: 12, color: "black" }}>{item.desc}</div>
+            <div style={{ marginRight: "auto", fontSize: 10, color: "black", opacity: 0.8, whiteSpace: "nowrap" }}>{item.date}</div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
