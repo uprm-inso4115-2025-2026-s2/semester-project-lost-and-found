@@ -1,1 +1,174 @@
 === *Validation and Verification*
+
+The purpose of this section is to document how the team validates and verifies the domain concepts, requirements, and design decisions of the *Lost & Found* system.
+
+==== *Validation Strategy*
+
+Validation activities focus on confirming that the modeled concepts (*Report*, *User*, *Ownership*, *Lifecycle State*, *Image Asset*, etc.) correspond to real-world behavior and expectations. Rather than relying on abstract flows, validation is grounded in concrete, persona-driven scenarios that simulate realistic interactions.
+
+These scenario walkthroughs are used during feedback sessions with students, teaching assistants, and administrative staff to surface overlooked edge cases and feature ideas.
+
+===== Scenario 1: María — Reporting a Lost Laptop
+
+María is a third-year Computer Science student. After studying in the university library until late evening, she realizes the next morning that she left her silver laptop in a group study room.
+
+She logs into the Lost & Found platform using her university credentials. She clicks “Report Lost Item” and fills in:
+
+- Title: “Silver HP Laptop”
+- Category: Electronics
+- Location: Library, 2nd floor, Study Room 3
+- Description: “Sticker with RUMblebots logo on the back.”
+- Uploads two photos of the laptop.
+
+When she submits the form:
+
+1. The system validates required fields.
+2. Her authenticated session automatically binds her `user_id` to the report.
+3. The report is stored with status `"active"`.
+4. Images are stored separately in object storage.
+
+Later, she notices a typo in the description and edits her report. She can modify it because she is the owner.
+
+*Validation Points:*
+
+- Confirms that *Ownership* is enforced correctly.
+- Validates input constraints (required fields, structured categories).
+- Verifies that lifecycle begins in `"active"` state.
+- Reveals usability concerns (e.g., should editing be time-limited?).
+
+Stakeholders suggested an additional feature during this walkthrough: automatic email confirmation after submission.
+
+===== Scenario 2: Javier — Reporting a Found Wallet
+
+Javier, a first-year engineering student, finds a brown wallet near the cafeteria. It contains a student ID but no contact information.
+
+He opens the platform and selects “Report Found Item.” He fills in:
+
+- Title: “Brown leather wallet”
+- Category: Personal Items
+- Location: Main Cafeteria entrance
+- Description: “Contains student ID with initials A.R.”
+
+He uploads one image (without revealing sensitive information). Upon submission, the report is marked `"active"` and visible in the public feed.
+
+Later, Ana (the owner) searches for “wallet cafeteria” and finds the listing. She uses the provided contact option to reach Javier. After recovering the wallet, Javier marks the report as `"resolved"`.
+
+*Validation Points:*
+
+- Confirms search relevance based on keywords.
+- Tests transition from `"active"` to `"resolved"`.
+- Surfaces privacy considerations (should ID numbers be blurred automatically?).
+- Suggests need for a structured “mark as resolved” confirmation step.
+
+===== Scenario 3: Professor Rivera — Moderation and Policy Enforcement
+
+Professor Rivera is temporarily assigned administrative privileges to moderate reports.
+
+He reviews newly created reports and identifies one suspicious post containing inappropriate language. Using the admin interface, he changes its lifecycle state to `"removed"`.
+
+He verifies that:
+
+- Regular users cannot modify reports they do not own.
+- Only administrators can remove reports globally.
+- Removed reports are no longer visible in public search results.
+
+*Validation Points:*
+
+- Validates *Role-Based Access Control*.
+- Confirms that lifecycle state affects visibility logic.
+- Tests Supabase Row Level Security (RLS) alignment with documentation.
+
+This walkthrough raised an important design insight: administrators may need a reason field when removing a report to provide transparency.
+
+===== Scenario 4: Daniel — Searching for a Missing ID
+
+Daniel lost his student ID card but does not know exactly where.
+
+He logs in and filters by:
+
+- Category: Personal Items
+- Status: Active
+- Keywords: “ID”
+
+He scrolls through image previews. The thumbnail view allows him to quickly inspect visual similarities before opening details.
+
+*Validation Points:*
+
+- Confirms that *Image Asset* separation still supports efficient preview rendering.
+- Validates search + filtering requirements.
+- Surfaces performance questions (indexing, pagination).
+
+Stakeholders suggested adding sorting by most recent reports.
+
+Each scenario is explicitly linked to requirements and domain concepts:
+
+- Reporting Flow → *Report*, *Ownership*, *Lifecycle State*
+- Searching → *Item Metadata*, *Image Asset*, *Indexing*
+- Moderation → *Role*, *Lifecycle State*, *Access Control*
+
+Concrete personas increased the likelihood of stakeholders identifying missing constraints and feature opportunities.
+
+==== *Verification Strategy*
+
+Verification activities focus on internal consistency, completeness, and traceability.
+
+===== Peer Reviews
+
+Each documentation subsection (Terminology, Concept Analysis, Requirements, Implementation Fragments) is reviewed by at least one team member not primarily responsible for writing it.
+
+Verification checks include:
+
+- Every requirement uses defined domain terminology.
+- No undefined or ambiguous terms appear.
+- Implementation fragments reflect documented architectural decisions (React + Supabase, RLS, storage separation).
+
+During early review, an inconsistency was found between “delete” and “archive,” which was resolved by formally distinguishing lifecycle states.
+
+===== Documentation Checklists
+
+A structured checklist is applied at milestone review:
+
+- Every domain concept appears in at least one requirement.
+- Every requirement traces back to at least one project goal.
+- Each requirement is testable and measurable.
+- Ownership and RLS enforcement are documented both conceptually and technically.
+- Lifecycle transitions are explicitly defined.
+
+===== Traceability Matrix
+
+A lightweight traceability matrix links:
+
+- Goals → Requirements
+- Requirements → Domain Concepts
+- Requirements → Design Elements (database schema, RLS policies, React components)
+- Requirements → Verification Method (test case, walkthrough, inspection)
+
+Example:
+
+Requirement: “Users can only edit their own reports.”
+
+- Concept: Ownership
+- Design: `user_id` bound to session + RLS policy
+- Verification: Attempt cross-user modification test
+
+===== Scenario-Based Requirement Verification
+
+Each validation scenario is also used as a structured verification test.
+
+Example — María’s Laptop Case:
+
+1. Submit valid report → Expect status `"active"`.
+2. Attempt edit as same user → Expect success.
+3. Attempt edit as different user → Expect failure.
+4. Admin removes report → Expect invisibility in public feed.
+
+These steps transform narrative validation into executable verification procedures.
+
+===== Walkthrough Inspections
+
+A team member simulates an external reviewer and checks:
+
+- Does each requirement reference defined terminology?
+- Are lifecycle states consistently used?
+- Do implementation fragments match conceptual models?
+- Are there contradictions between RLS policies and documented access rules?
