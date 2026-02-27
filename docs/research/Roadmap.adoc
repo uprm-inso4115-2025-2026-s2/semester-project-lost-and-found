@@ -1,0 +1,55 @@
+= Roadmap – Lost & Found
+Author: Lianette Alberto
+Date: February 2026
+:toc:
+:toclevels: 2
+
+== Phase 1 – Foundation & System Architecture
+
+Goal: Establish a secure and user-centered system architecture with clearly defined functionality and governance standards.
+
+* Define core platform capabilities (reporting, search, messaging, notifications).
+* Establish user authentication and access control standards (UPRM email-based access).
+* Design item categorization and tagging framework.
+* Define privacy, safety, and moderation policies.
+* Document expected system behavior under normal campus usage conditions.
+
+== Phase 2 – Platform Development & Core Features
+
+Goal: Ensure platform usability, accuracy, and performance before campus-wide deployment.
+
+* Implement lost and found item submission system (photo, description, location).
+* Develop search and filtering capabilities.
+* Integrate secure messaging between finders and owners.
+* Implement notification system for matched items.
+* Ensure secure data storage and user information protection.
+
+== Phase 3 – Testing, Validation & User Experience Optimization
+
+Goal: Ensure platform usability, accuracy, and performance before campus-wide deployment.
+
+* Conduct usability testing with student pilot group.
+* Validate search accuracy and matching effectiveness.
+* Measure average time from report submission to item recovery.
+* Collect structured user feedback on clarity and trust.
+* Refine interface and workflows based on pilot results.
+
+== Phase 4 – Campus Launch & Adoption
+
+Goal: Establish the platform as the primary Lost & Found channel at UPRM.
+
+* Achieve strong student onboarding and awareness.
+* Integrate platform link into official UPRM website or student portal.
+* Monitor adoption rate and active usage percentage.
+* Track reduction in permanently lost items (target: ≥ 40% per semester).
+* Build trust through transparent reporting of recovery success metrics.
+
+== Phase 5 – Monitoring, Governance & Continuous Improvement
+
+Goal: Institutionalize the platform for long-term sustainability and community trust.
+
+* Assign permanent administrative ownership (IT or campus entity).
+* Standardize moderation and dispute-resolution procedures.
+* Continuously monitor system performance and recovery metrics.
+* Improve notification accuracy and matching logic over time.
+* Expand platform capabilities (e.g., critical alerts for IDs or laptops).
