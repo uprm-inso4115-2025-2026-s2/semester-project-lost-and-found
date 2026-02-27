@@ -1,3 +1,83 @@
 === *Requirements*
 
 ==== *User Stories, Epics, Features*
+
+These epics represent high-level objectives within the project that cannot be completed within a single sprint. They provide overall direction for development and group related work under a shared purpose. Each epic is decomposed into smaller user stories that capture specific stakeholder needs. 
+
+The user stories express functionality from the perspective of a stakeholder. They are small enough in scope that they are able to be implemented within a sprint and collectively contribute to fulfilling their corresponding epic.
+
+The features describe the functional capabilities the system must provide in order to satisfy the user stories and achieve the goals defined by the epics.
+
+---
+
+==== *Epic 1: Reporting Lost and Found Items*
+*Goal:* Provide a structured and reliable way for users to report lost or found items within the campus environment.
+
+*User Stories:*
+
+* As a person who found an item, I want to submit a description of the item so that the rightful owner can identify it.
+* As a person who found an item, I want to upload a photo so that the listing is clearer and more informative.
+* As a person who lost an item, I want to report where and when I last saw it so that others can help locate it.
+
+*Features:*
+
+* Structured submission form for lost and found items respectively
+* Optional image upload
+* Required fields (category, location, date)
+* Edit or delete own listing
+
+---
+
+==== *Epic 2: Search and Discovery of Items*
+*Goal:* Allow users to efficiently locate relevant listings in order to reduce the time and stress associated with lost belongings.
+
+*User Stories:*
+
+* As a user, I want to filter listings by category so that I can narrow down the results to what I want (e.g., electronics, keys, ID cards).
+* As a user, I want to search listings using keywords so that I can quickly find items matching a particular description.
+* As a user, I want to sort listings by date so that I can prioritize recent reports.
+* As a user, I want clear labels indicating whether an item is “Lost” or “Found” so that I can immediately understand its status.
+
+*Features:*
+
+* Category-based filtering
+* Keyword search functionality
+* Sorting by date
+* Clearly labeled item status indicators
+
+---
+
+==== *Epic 3: Safe Claim and Ownership Verification*
+*Goal:* Support safe and responsible return of items while minimizing disputes and fraudulent claims.
+
+*User Stories:*
+
+* As a person who found an item, I want guidance on how to verify ownership so that I can avoid returning an item to the wrong person.
+* As a person who lost an item, I want to contact the finder through institutional email so that communication remains within a trusted environment.
+* As a user, I want to report suspicious behavior so that potential misuse can be addressed.
+
+*Features:*
+
+* Ownership verification guidelines displayed on listings
+* Institutional email based contact mechanism
+* Report suspicious listing/claim option
+* Clear safety instructions for handoff
+
+---
+
+==== *Epic 4: Accessibility and Usability*
+*Goal:* Ensure the platform is usable and accessible to a diverse university population with varying devices and abilities.
+
+*User Stories:*
+
+* As a user with visual impairments, I want high-contrast text and backgrounds so that content is readable.
+* As a colorblind user, I want status indicators to include both text and icons so that meaning is not conveyed by color alone.
+* As a mobile user, I want the interface to be responsive so that I can use the platform on my phone while on campus.
+* As a user, I want a clean and consistent layout so that I can quickly understand how to navigate the platform.
+
+*Functional Features:*
+
+* Good contrast ratios
+* Text labels paired with icons
+* Responsive design for mobile and desktop
+* Clear typography hierarchy and spacing
