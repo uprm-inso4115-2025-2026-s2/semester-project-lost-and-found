@@ -1,0 +1,294 @@
+== Sensitive Item Classification and Access Restrictions
+
+=== Goal
+
+Define what should be considered a *sensitive item* in the UPRM Lost & Found platform and establish access restrictions for each category in order to protect user privacy, reduce fraud/misuse, and still support effective item recovery.
+
+=== Problem Context
+
+The A3 mentions admin oversight and handling of sensitive reports, but it does not clearly define:
+
+* what counts as a sensitive item
+* what information about those items can be shown publicly
+* who should be allowed to view or manage the full details of those reports
+
+Without a clear policy, the platform may accidentally expose information that can be used for fraud (e.g., claiming an item without proof) or privacy violations (e.g., exposing personal information on IDs or devices).
+
+=== Research Objective
+
+This research proposes a practical classification system for lost-and-found items based on sensitivity and risk, along with role-based access restrictions for each level.
+
+The proposal is designed to support the project goals of:
+
+* safety
+* trust
+* privacy
+* admin oversight
+* successful item recovery
+
+=== Definition: Sensitive vs Non-Sensitive Items
+
+A *non-sensitive item* is an item whose basic description can be shown with low risk of privacy harm, identity theft, or fraudulent claiming.
+
+A *sensitive item* is an item that, if too much information is exposed, may create a significant risk of:
+
+* identity theft
+* privacy invasion
+* unauthorized access to personal accounts/devices
+* fraudulent item claims
+* personal safety concerns
+
+Sensitivity depends on both the *item type* and the *details revealed* in the report.
+
+For example, a backpack may be moderately sensitive if it contains identifying documents, while a plain water bottle is usually low sensitivity.
+
+=== Common Lost & Found Item Types (Observed / Expected)
+
+Typical item categories in lost-and-found systems include:
+
+* IDs and official documents
+* Wallets / purses
+* Keys and access devices
+* Phones / laptops / tablets / smartwatches
+* Backpacks and bags
+* Clothing
+* Books and notebooks
+* Water bottles / lunch containers
+* Jewelry and valuables
+* Medical items
+* Cash
+* Miscellaneous personal belongings
+
+These categories do not all carry the same risk and should not be treated equally.
+
+=== Risk Analysis (Why Sensitivity Matters)
+
+If sensitive item details are overexposed, the following problems may happen:
+
+* *Fraudulent claims*: someone uses visible details (brand, color, case, sticker, ID number, etc.) to pretend they are the owner.
+* *Identity exposure*: names, student IDs, addresses, or account-related information become visible.
+* *Security risk*: keys, access cards, or credentials can be misused.
+* *Targeted misuse*: location/time details combined with item type can expose behavior patterns.
+* *Loss of trust*: users may avoid reporting or using the system if they fear privacy leaks.
+
+Because of this, item reports should follow a *minimum necessary disclosure* approach.
+
+=== Proposed Item Sensitivity Classification
+
+==== Level 0 - Non-Sensitive (Public-Safe)
+
+Items with low risk if basic details are shown.
+
+Examples:
+* water bottles
+* umbrellas
+* generic clothing (without unique personal identifiers)
+* lunch containers
+* basic school supplies
+
+Recommended public visibility:
+* general item type
+* broad color
+* found date (approximate)
+* general location (broad area, not exact if unnecessary)
+
+==== Level 1 - Low/Moderate Sensitivity (Limited Public Detail)
+
+Items that are not highly sensitive by themselves but may become easy to fraudulently claim if too many details are shown.
+
+Examples:
+* backpacks
+* notebooks
+* books
+* headphones
+* reusable bags
+* jackets with distinctive features
+
+Recommended public visibility:
+* generic category (e.g., "Backpack", "Notebook")
+* limited descriptors (e.g., color family)
+* broad found location
+* found date
+
+Restricted details (not public by default):
+* unique stickers/marks
+* full brand/model
+* serial-like identifiers
+* contents of bag/notebook
+
+==== Level 2 - Sensitive (Restricted Access)
+
+Items that may contain personal data, financial value, or account/device access risk.
+
+Examples:
+* wallets
+* purses
+* keys
+* access cards / student ID cards
+* electronics (phones, tablets, laptops)
+* smartwatches
+* jewelry
+* medical items
+* prescription-related containers
+
+Recommended public visibility:
+* only generic category (e.g., "Phone", "Wallet", "Keys")
+* high-level found area (e.g., "Library area", "Engineering building")
+* report status (found / in review / claimed)
+
+Restricted details (admin + authorized staff only):
+* brand/model
+* lock screen image or visible names
+* ID number / student number
+* card details
+* key type/count specifics
+* unique engravings/serial numbers
+* exact storage location
+
+==== Level 3 - Highly Sensitive / Critical (Strictly Controlled)
+
+Items with very high privacy, security, legal, or safety implications.
+
+Examples:
+* passports
+* driver’s licenses
+* government IDs
+* social security-related documents
+* bank cards
+* cash (especially large amounts)
+* confidential documents
+* items containing personal records
+* suspicious or potentially dangerous items (requires escalation)
+
+Recommended public visibility:
+* no item-specific details beyond a minimal notice such as:
+  "Sensitive item found. Contact administration for verification."
+
+Restricted details:
+* all identifying information
+* all document/account numbers
+* all exact found/stored locations
+* images of the item (unless sanitized and approved)
+
+These items should require admin oversight and stronger verification before release.
+
+=== Proposed Access Control Rules by Role
+
+==== Roles Considered
+
+* *Guest / Public user* (not logged in)
+* *Registered user / Reporter* (logged in user who reports or searches)
+* *Owner claimant* (user attempting to claim an item)
+* *Staff / Moderator* (authorized personnel handling reports)
+* *Administrator* (full oversight role)
+
+==== Access Rules (By Sensitivity Level)
+
+===== Level 0 (Non-Sensitive)
+* Public: may view basic details.
+* Registered users: may view and submit claim/contact.
+* Staff/Admin: full operational details for handling and status updates.
+
+===== Level 1 (Low/Moderate Sensitivity)
+* Public: limited summary only.
+* Registered users: limited summary + claim request workflow.
+* Staff/Admin: full details for verification and handling.
+* Exact identifying marks shown only during verification process (not in public listings).
+
+===== Level 2 (Sensitive)
+* Public: category + broad location + status only.
+* Registered users: same as public, plus secure claim request submission.
+* Staff/Moderator: full details for verification and communication.
+* Admin: full access, audit oversight, and escalation handling.
+* Claimant must provide proof of ownership before sensitive details are confirmed.
+
+===== Level 3 (Highly Sensitive / Critical)
+* Public: minimal notice only (or hidden from public listing if policy requires).
+* Registered users: no additional sensitive details; only secure contact/request path.
+* Staff: access only if assigned/authorized.
+* Admin: full access and release authority.
+* Mandatory verification and logging before any item release.
+
+=== Recommended Verification Rules for Claims
+
+To reduce false claims, the platform should require claimants to provide ownership evidence *before* revealing restricted details.
+
+Examples of acceptable proof (depending on item type):
+* describe unique marks/stickers/case
+* identify contents of bag/wallet
+* provide approximate loss time/location
+* unlock device or identify lock screen
+* match name on ID (handled by staff/admin, not public)
+* provide accessory details (charger, keychain, cover)
+
+The system should avoid exposing the expected answer in the listing itself.
+
+=== Information Exposure Guidelines (Practical UI Recommendations)
+
+==== Public Listing Should Prefer
+* generic item category
+* broad color / general appearance
+* approximate date
+* broad location (building/zone)
+* status (found, pending verification, claimed)
+
+==== Public Listing Should Avoid (Especially for Sensitive Items)
+* full names
+* student numbers / ID numbers
+* exact serial numbers
+* exact brand/model if it makes claiming easier
+* exact storage location
+* clear images showing identifying information
+* item contents (wallet, bag, folder, etc.)
+
+=== Special Cases and Notes
+
+==== Electronics
+Electronics should generally be treated as at least *Level 2 (Sensitive)* because they may expose personal data and are frequent fraud targets.
+
+==== IDs and Official Documents
+IDs and official documents should generally be treated as *Level 3 (Highly Sensitive)* due to privacy and identity theft risk.
+
+==== Bags and Backpacks
+Bags may start as *Level 1*, but if staff confirms they contain IDs, devices, or personal records, they should be upgraded to *Level 2 or Level 3*.
+
+==== Medical Items
+Medical items can reveal health-related information and should be treated as *Level 2* or *Level 3* depending on the type and labels visible.
+
+=== Alignment with A3 Safety and Trust Goals
+
+This proposal supports the A3 goals by:
+
+* *Safety*: reduces misuse of sensitive reports and limits harmful disclosure.
+* *Trust*: users can report/find items with more confidence in privacy handling.
+* *Admin oversight*: clearly defines which cases require stronger control.
+* *Recovery effectiveness*: enough information remains visible for legitimate owners to identify likely matches without exposing too much detail.
+
+=== Validation and Testing Plan (Policy Review)
+
+==== 1. Validate Against A3 Use Cases
+Review typical report and claim scenarios and confirm that the proposed levels fit expected platform flows.
+
+==== 2. Misuse/Fraud Scenario Review
+Test examples such as:
+* fake claimant using visible item details
+* public viewing of ID information
+* over-detailed electronics listing
+* exact location exposure misuse
+
+Confirm the policy prevents or reduces these risks.
+
+==== 3. Peer Review (Team Feasibility Check)
+Review the classification and access rules with team members to confirm:
+* clarity
+* implementation feasibility
+* consistency with UI and admin workflows
+
+=== Final Recommendation
+
+Adopt a *4-level sensitivity classification* (Level 0 to Level 3) and apply *role-based access restrictions* to item reports by default.
+
+Key recommendation:
+*Use minimum necessary disclosure in public listings and shift sensitive detail verification to staff/admin workflows.*
+
+This provides a good balance between privacy, safety, and successful item recovery for the UPRM Lost & Found platform.
