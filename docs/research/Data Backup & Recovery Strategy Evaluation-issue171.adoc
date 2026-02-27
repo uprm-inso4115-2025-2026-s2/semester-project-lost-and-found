@@ -1,0 +1,117 @@
+= Data Backup & Recovery Strategy Evaluation
+== Focus
+Reliable data protection and system recovery planning
+
+== Project
+UPRM Lost & Found Platform
+
+== Purpose
+
+This research defines a structured and practical data backup and recovery strategy for the UPRM Lost & Found platform.
+
+The objective is to ensure critical system data (reports, users, claims, and image references) can be restored in case of failure, corruption, or accidental deletion.
+
+The evaluation focuses on reliability, simplicity, scalability, and feasibility within the academic scope of the project.
+
+== Problem Overview
+
+The platform stores important relational data including:
+
+* User accounts
+* Reports
+* Status history
+* Claim records
+* Image references
+
+Without a defined backup strategy, risks include:
+
+* Permanent data loss
+* Extended downtime
+* Loss of user trust
+* Inability to restore system state after failure
+
+== Backup Strategy Options
+
+=== Option 1 – Manual Backups
+
+*Pros:*  
+Simple, no automation required.
+
+*Cons:*  
+High human error risk, inconsistent timing.
+
+_Not recommended._
+
+=== Option 2 – Scheduled Full Backups
+
+*Pros:*  
+Reliable, easy restoration.
+
+*Cons:*  
+Larger storage usage.
+
+=== Option 3 – Full + Incremental Backups (Recommended)
+
+Weekly full backup + Daily incremental backups.
+
+*Pros:*  
+Efficient storage use, balanced performance.
+
+*Cons:*  
+Slightly more configuration required.
+
+== Recommended Backup Policy
+
+=== Database Backups
+
+* Weekly full backup
+* Daily incremental backups
+* Automated scheduling via hosting provider
+
+=== Image Storage Backups
+
+* Enable storage redundancy
+* Enable versioning if available
+* Store image references within database backups
+
+== Recovery Objectives
+
+*Recovery Time Objective (RTO):*  
+24 hours maximum downtime.
+
+*Recovery Point Objective (RPO):*  
+Maximum 24 hours of potential data loss.
+
+== Disaster Recovery Scenarios
+
+* Database corruption
+* Accidental deletion
+* Server crash
+* Cloud outage
+* Image storage failure
+
+== Recovery Process
+
+. Identify failure cause
+. Restore latest full backup
+. Apply incremental backups
+. Verify data integrity
+. Reconnect application
+
+For image storage, restore using object storage versioning.
+
+== Technical Feasibility
+
+Most cloud providers support automated backups.
+
+Requires enabling backup scheduling and storage redundancy.
+
+Implementation complexity: Moderate.
+
+== Final Recommendation
+
+Weekly full database backups + Daily incremental backups  
++ Cloud-based redundancy  
++ Defined RTO (24h) and RPO (24h)
+
+This approach balances reliability, maintainability, and feasibility for the academic project scope.
