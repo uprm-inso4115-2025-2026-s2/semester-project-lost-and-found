@@ -1,0 +1,35 @@
+Homepage UI Concept #1 Breakdown
+
+
+    It uses a placeholder UPRM logo until the official Lost & Found logo is made.
+
+
+    This homepage concept use mostly uses shades of green and white so that is somewhat themed around UPRM
+    This Concept uses dark green (419D55) for the header and the lower end of the screen to highlight the logo, the app name, the options menu and
+    the 3 main tabs.
+
+    The "Lost" tab is red for urgency and is the where the app opens to call attention to the lost items, "Return" tab is a bright green (7FDE67) as the 
+    conflict has been resolve (item has been returned) and the claimed tab is yellow (DACD68) because it's a "pending" state where someone claims that an 
+    item belongs to them and are in the process that item returned to them. 
+
+    The middle of the screen is (7FDE67) green but has a transparent layer over it (color 67AEA6) to hightlight where the items are being displayed
+
+    The images are displayed to the left and the title card stretches to right to show the name of the post and the date and location.
+
+Homepage UI Concept #2 Breakdown
+
+    Uses the same placeholder logo
+
+    For this homepage concept Green (419D55) is used in the header to contrast with the app settings and notification.
+    The 3 main tabs of the app are smaller and colored a lighter shade of green (45B349) with (3FDB52) as a border. This only when the tab is not selected.
+
+    When a user selects a tab it turns white to highlight the users input.
+
+    The original colors (red,yellow,green) are used for tags, where every report on each tab (Lost,claimed, returned) to highlight the state of each item/report.
+    For this concept, in the "Lost" tab reports are showed in bubbles that contain the photo and item description, highlighted in grey (8C7E7E) so that 
+    reports don't blend with the background
+
+    Features like the search bar, user profile, home button and the report button have been moved to the lower end of the screen so that the upper end of the
+    screen isn't cluttered.
+
+    The color palette for this concept may be slightly altered to avoid a monotonous look
