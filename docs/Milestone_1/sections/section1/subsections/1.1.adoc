@@ -1,6 +1,6 @@
-== 1 Informative Part
+== *Informative Part*
 
-=== 1.1 Team
+=== Team
 
 The Official Lost and Found (LnF) project is organized into four functional teams and two project managers. All team members listed below are active contributors to the project and are considered confirmed partners because they are directly involved in planning, implementation, documentation, and delivery.
 
@@ -42,7 +42,7 @@ Team members and partners are not always exactly the same. In this project, the 
 * Victoria M Miranda-Osuna
 
 ===== Team 4 - Documentation and Standardization
-* Jeanpiere I Sanchez-Felix (Team Leader)
+* Jean P. I Sanchez-Felix (Team Leader)
 * Anthony H Martinez-Gomez
 * Keishlyany M Sanabria-Santana
 * Leanelys A Gonzalez-Orama
@@ -62,6 +62,4 @@ Team members and partners are not always exactly the same. In this project, the 
 * *Possible external partners (not yet confirmed)*:
   may include course staff, domain advisors, or institutional representatives. Their responsibilities would include clarifying requirements, validating project scope, and providing feedback on whether the system meets expected needs.
 
-==== Notes on Partners vs. Customers/Users
-
-Customers or end users of a Lost and Found system are not automatically considered partners. A partner has a stronger and more direct involvement in the project (e.g., coordination, validation, or decision-making). At this stage, no external customer-side partner has been formally identified.
+NOTE: Customers or end users of a Lost and Found system are not automatically considered partners. A partner has a stronger and more direct involvement in the project (e.g., coordination, validation, or decision-making). At this stage, no external customer-side partner has been formally identified.
