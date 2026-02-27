@@ -1,3 +1,104 @@
 == *Analytic Part*
 
 === *Concept Analysis*
+
+This section refines the raw material from the descriptive part into a structured set of domain concepts, abstractions, and relationships. The process began by reviewing unprocessed notes such as “students post lost items,” “admins verify suspicious reports,” “images must be uploaded,” and “users should only edit their own reports.” Recurring patterns were abstracted into domain-level concepts that clarify structure and responsibility.
+
+The result is a shared vocabulary that supports requirements engineering, architecture decisions (React + Supabase), and future evolution of the system.
+
+==== Method
+
+We systematically reviewed raw descriptions from Section 2, including:
+
+* Informal interview fragments (e.g., “I lost my AirPods in the library,” “People post fake found items”).
+* Brainstormed terminology (lost item, found item, claimant, verification, report status).
+* Early UI sketches (form submission, image upload, dashboard view).
+* Functional expectations (authentication required, ownership enforcement, admin moderation).
+
+Each recurring entity, event, or behavior was evaluated to determine whether it represents:
+
+* A persistent domain entity,
+* A domain event,
+* A lifecycle state,
+* A system behavior or policy.
+
+Ambiguous terms were clarified and generalized where possible to ensure consistency across the team.
+
+==== Key Concepts Identified
+
+*Item*:
+Raw descriptions referenced “lost phone,” “found wallet,” “missing ID,” etc. These were abstracted into the general concept of an *Item*, representing the physical object being reported. The system does not model the object itself physically, but rather its reported representation.
+
+*Report*:
+Users consistently described “posting” or “submitting” something. This led to the abstraction of a *Report*, a structured digital record describing a lost or found item. The report contains metadata such as title, description, category, location, timestamp, and images.
+
+The report is distinct from the item itself: the item exists in the real world, while the report is its system representation.
+
+*User*:
+Interview notes distinguished between regular users and administrators. We generalized this into the concept of a *User*, representing any authenticated actor in the system.
+
+Subtypes include:
+
+* Regular user (student/community member),
+* Administrator (moderation authority).
+
+*Ownership*:
+Several requirements stated that “users can only edit their own posts.” This was abstracted as *Ownership*, a relationship between a User and a Report. Ownership is enforced at insertion time (user_id bound to session) and protected through Supabase Row Level Security (RLS).
+
+*Image Asset*:
+Raw notes frequently mentioned uploading photos separately from form data. This led to the abstraction of an *Image Asset* as a distinct concept stored in object storage.
+
+Images are associated with reports but managed independently at the infrastructure level.
+
+*Report Type*:
+Users described either “lost” or “found” posts. Instead of modeling two separate entities, we abstracted this into a *Report Type* attribute with values `{lost, found}`.
+
+This preserves structural simplicity while maintaining semantic clarity.
+
+*Status / Lifecycle State*:
+Notes such as “mark as resolved,” “archive old posts,” and “remove inappropriate reports” led to the abstraction of a *Lifecycle State*.
+
+A report begins as `"active"` and may transition to states such as:
+
+* `resolved`
+* `archived`
+* `removed`
+
+This clarifies that reports evolve over time rather than remaining static records.
+
+*Claim / Recovery Event*:
+Some narratives included “I contacted the person and got my item back.” This was abstracted as a *Recovery Event*, representing the transition from active to resolved state, triggered by successful coordination between users.
+
+*Moderation*:
+Concerns about spam or malicious posts were generalized into the concept of *Moderation*, a privileged capability assigned to administrators. Moderation affects report lifecycle and visibility.
+
+==== Clarifications and Resolutions
+
+* “Lost item” and “Found item” are not separate entities; both are modeled as *Report* instances with different types.
+* “Post” and “Report” are treated synonymously, but “Report” is adopted as the formal domain term.
+* “Delete” is distinguished from “Archive.” Deletion removes data; archiving preserves it but limits visibility.
+* “Owner” refers strictly to the authenticated user who created the report, not the original owner of the physical object.
+
+These clarifications prevent semantic confusion in later design and implementation phases.
+
+==== Relationships and Abstractions
+
+* A *User* creates one or more *Reports*.
+* Each *Report* is associated with exactly one *Owner* (user_id).
+* A *Report* may have multiple *Image Assets*.
+* A *Report* has one *Report Type* (`lost` or `found`).
+* A *Report* has one *Lifecycle State* at any time.
+* An *Administrator* can modify lifecycle states of any report.
+* A *Recovery Event* transitions a report from `"active"` to `"resolved"`.
+
+These relationships formalize previously informal interactions and map directly to database structure (tables, foreign keys, RLS policies).
+
+==== Reasoning and Process
+
+This concept analysis is grounded in real user narratives and early design discussions. For example:
+
+* Repeated references to “my post,” “their post,” and “editing rights” led to the formalization of *Ownership* as a first-class concept.
+* Concerns about inappropriate or outdated posts led to modeling *Lifecycle State* explicitly instead of treating reports as immutable.
+* Infrastructure discussions about Supabase Storage motivated separating *Image Asset* from *Report*.
+
+Through this analysis, the initially scattered descriptions of lost objects, posts, uploads, and permissions have been transformed into a coherent conceptual structure. These domain concepts now form the vocabulary that guides requirements, database schema design, access control policies, and frontend architecture.
