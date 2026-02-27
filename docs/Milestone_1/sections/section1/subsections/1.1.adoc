@@ -1,6 +1,6 @@
 == *Informative Part*
 
-=== Team
+=== *Team*
 
 The Official Lost and Found (LnF) project is organized into four functional teams and two project managers. All team members listed below are active contributors to the project and are considered confirmed partners because they are directly involved in planning, implementation, documentation, and delivery.
 
