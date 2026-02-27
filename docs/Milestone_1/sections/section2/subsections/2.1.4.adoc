@@ -1,1 +1,114 @@
 ==== *Events, Actions, and Behaviors*
+
+===== *Events*
+The following events represent meaningful state changes within the domain:
+
+*User Authenticated*:: 
+Recorded when a university member gains access using valid institutional credentials.
+
+*Lost Item Reported*::
+Recorded when a lost item submission becomes publicly visible.
+
+*Found Item Reported*::
+Recorded when a found item submission becomes publicly visible.
+
+*Report Modified*:: 
+Recorded when attributes of a report are altered.
+
+*Claim Request Sent*::
+Recorded when a user initiates contact regarding a listed item.
+
+*Report Resolved*::
+Recorded when a listing is marked as completed or no longer active.
+
+*Report Flagged*::
+Recorded when a listing is formally identified as suspicious or inappropriate.
+
+---
+
+===== *Actions*
+Actions are intentional operations performed by authenticated users.  
+Some actions trigger domain events, while others retrieve information without changing system state.
+
+*Log In*::
+* A university member enters institutional credentials to access the platform.
+* Triggers _User Authenticated_ event.
+
+*Submit Lost Item*::
+* A user provides required information (description, category, date, location) to report a lost item.
+* Triggers _Lost Item Reported_ event.
+
+*Submit Found Item*::
+* A user provides required information to report a found item.
+* Triggers _Found Item Reported_ event.
+
+*Edit Listing*::
+* A user modifies previously submitted item information.
+* Triggers _Report Modified_ event.
+
+*Search Listings*::
+* A user browses or filters available reports.  
+* Triggers nothing, simply a query action
+
+*Initiate Contact*::
+* A claimant sends an institutional email to the reporter of a listing.  
+* Triggers _Claim Initiated_ event.
+
+*Mark as Resolved*::  
+* A reporter closes a listing after the item has been returned or is no longer relevant.  
+* Triggers _Report Resolved_ event.
+
+*Report Suspicion*::  
+* A user flags a listing or interaction for review.  
+* Triggers _Report Flagged_ event.
+
+---
+
+===== *Behaviors*
+While events are instantaneous and actions are discrete, behaviors describe how these interactions unfold over time within the campus environment.
+
+*Reporting Behavior*
+
+This behavior begins when a community member loses or finds an item. The individual authenticates, submits a structured report, and optionally refines the information afterward.
+
+Typical progression:
+
+1. Access platform -> *User Authenticated*
+2. Create lost or found item report -> *Lost Item Reported* / *Found Item Reported*
+3. (Optional) Update existing report -> *Report Modified*
+
+---
+
+*Search and Match Behavior*
+
+When a user attempts to recover a lost belonging, they repeatedly consult the system until a relevant listing is discovered.
+
+Typical progression:
+
+1. Access platform -> *User Authenticated*
+2. Search or filter reports
+3. Identify potential match
+4. Send claim message -> *Claim Initiated*
+
+---
+
+*Verification and Return Behavior*
+
+After a claim request is sent, communication typically continues outside the platform via institutional email. If ownership is confirmed, the listing is formally closed.
+
+Typical progression:
+
+1. Send claim message via email -> *Claim Initiated*
+2. External verification between users
+3. Mark report as resolved -> *Report Resolved*
+
+---
+
+*Oversight Behavior*
+
+To preserve trust within the system, users may intervene when misuse is suspected.
+
+Typical progression:
+
+1. Flag report -> *Report Flagged*
+2. Administrative or institutional review (external process)
