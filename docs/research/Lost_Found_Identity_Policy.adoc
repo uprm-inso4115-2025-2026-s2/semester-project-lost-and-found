@@ -1,0 +1,175 @@
+= Lost & Found System – Identity & Anonymity Policy Research
+Author: System Policy Proposal
+Date: 2026-02-26
+:toc:
+:sectnums:
+
+== 1. Objective
+
+Determine whether the Lost & Found system should allow anonymous reports and define the minimum identity requirements for users performing the following actions:
+
+* Reporting a Lost Item
+* Reporting a Found Item
+* Claiming an Item
+
+The goal is to balance privacy, user participation, accountability, and fraud prevention.
+
+== 2. Privacy vs. Accountability Tradeoff
+
+=== Privacy Benefits
+* Encourages higher participation.
+* Reduces fear of retaliation or social exposure.
+* Supports users uncomfortable sharing personal information publicly.
+* Aligns with modern data-minimization practices.
+
+=== Accountability Benefits
+* Reduces fraudulent claims.
+* Enables verification of item ownership.
+* Prevents abuse and spam.
+* Increases trust in the system.
+* Allows moderation and dispute resolution.
+
+=== Key Risk Areas
+* False claims of ownership.
+* Fake lost or found reports.
+* Harassment through anonymous messaging.
+* Legal liability if high-value items are mishandled.
+
+A well-designed system should minimize identity exposure publicly while maintaining backend accountability.
+
+== 3. Review of Similar Campus Systems
+
+Most university Lost & Found systems follow these patterns:
+
+1. Authentication Required (via student ID or institutional login).
+2. Public anonymity allowed (name not shown publicly).
+3. Identity verification required when claiming items.
+4. Administrative oversight for dispute handling.
+
+Examples (general patterns observed):
+* Universities often require login through institutional email.
+* Public listings typically hide personal contact details.
+* Claimants must verify identity and describe the item accurately.
+* High-value items require in-person ID verification.
+
+Conclusion: Full anonymity is rarely allowed. Controlled or partial anonymity is common.
+
+== 4. Policy Recommendation
+
+=== Final Recommendation: PARTIALLY ALLOW ANONYMITY
+
+Allow anonymity at the public display level, but require verified identity in the backend for all actions.
+
+This balances privacy and accountability.
+
+== 5. Identity Requirements by Action
+
+=== 5.1 Reporting a Lost Item
+
+* Minimum Requirement:
+  - Verified campus login (student/staff account).
+  - Institutional email required.
+* Public Display:
+  - Name hidden by default.
+  - Optional display name (first name only or username).
+
+* Justification:
+  - Prevents spam and fake reports.
+  - Allows administrators to contact the reporter.
+  - Protects user privacy from public exposure.
+
+Policy Decision: Allow public anonymity, require verified backend identity.
+
+=== 5.2 Reporting a Found Item
+
+* Minimum Requirement:
+  - Verified campus login.
+  - Institutional email required.
+* Public Display:
+  - Reporter identity hidden.
+  - Messaging routed through internal system.
+
+* Justification:
+  - Prevents malicious or fake listings.
+  - Protects finder from harassment.
+  - Maintains traceability for item custody.
+
+Policy Decision: Allow public anonymity, require verified backend identity.
+
+=== 5.3 Claiming an Item
+
+* Minimum Requirement:
+  - Verified campus login.
+  - Must provide:
+    * Detailed description of item
+    * Distinguishing features
+    * Approximate date and location lost
+  - For high-value items: in-person ID verification required.
+
+* Public Display:
+  - Claimant identity never public.
+
+* Justification:
+  - Highest fraud risk occurs during claim.
+  - Protects rightful owners.
+  - Reduces false claims.
+  - Ensures institutional compliance and liability protection.
+
+Policy Decision: Disallow anonymous claims. Full identity verification required.
+
+== 6. Summary of Identity Policy
+
+[cols="1,1,1,1"]
+|===
+| Action | Public Anonymity | Backend Identity Required | Extra Verification
+
+| Report Lost
+| Yes
+| Yes (Campus Login)
+| No
+
+| Report Found
+| Yes
+| Yes (Campus Login)
+| No
+
+| Claim Item
+| Yes (Not Public)
+| Yes (Campus Login)
+| Yes (Ownership Verification)
+|===
+
+== 7. Risk Mitigation Measures
+
+* Internal messaging system (no direct email exposure).
+* Admin moderation dashboard.
+* Rate limiting to prevent spam.
+* Audit logs for all claims.
+* Escalation protocol for disputes.
+* Automatic flagging of high-value items.
+
+== 8. Final Justification
+
+This partial anonymity model:
+
+* Encourages user participation.
+* Protects student privacy.
+* Maintains institutional accountability.
+* Reduces fraud risk.
+* Aligns with common university best practices.
+* Supports dispute resolution and administrative oversight.
+
+Full anonymity would increase fraud risk and reduce system trust.
+Full identity exposure would reduce participation and create privacy concerns.
+
+Therefore, a controlled, authenticated-but-publicly-anonymous system is the optimal balance.
+
+== 9. Final Decision
+
+Anonymity Policy: PARTIALLY ALLOW
+
+* Public anonymity: Allowed
+* Backend identity verification: Required for all actions
+* Claim identity verification: Mandatory and strict
+
+This approach maximizes trust, usability, and security.
