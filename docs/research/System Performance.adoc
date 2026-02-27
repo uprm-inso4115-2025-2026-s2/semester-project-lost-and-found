@@ -1,0 +1,102 @@
+= System Performance #145
+
+*Brief Definition:*
+
+*System Performance*:: Refers to the way that a computer system behaves in response to a particular workload.
+
+== Factors That Affect the System Performance:
+*(Specifically when using Supabase and TypeScript)*
+
+=== 1. Number of processors:
+If we increase the number of cores(processing units), there will be an increase in system performance
+
+
+
+=== 2. Cache Memory(L1,L2,L3):
+Insufficient cache can lead to slower performance due to frequent main memory access. 
+
+*Possible Solution*:
+Consider using in memory catching to reduce redundant database calls 
+
+=== 3. Unoptimized queries
+Complex or poorly written queries increase database load and response time.
+
+*Possible Solution*:
+Optimize queries using Supabase filters. Fetch only necessary columns to reduce load and avoid unnecessary data retrieval.
+
+=== 4. Poor indexation
+Missing indexes result in slower data retrieval 
+
+*Possible Solution*:
+Add indexes to frequently queried columns to improve performance
+
+=== 5. Query Optimization
+Unoptimized queries affect performance
+
+*Possible Solution*:
+Use batch fetching functions in Supabase to avoid N+1 queries
+
+=== 6. Database schema design
+A poorly structured schema design can significatly degrade performance.
+
+*Possible Solution*:
+Denormalization for hot paths to reduce joins 
+
+[NOTE] : Denormalization improve read performance but may complicate writes and data consistency
+
+Other options:
+- Normalization with proper indexing
+- Partitioning
+- Caching Layer
+
+== How System Performance Should be Measured?
+=== Response time
+Response time measures the overall performance taken for the system to respond to a user request.
+
+=== Throughput
+Measures the overall performance of the system (number of transactions or requests)
+
+=== Supabase Dashboard
+Supabase provides monitoring tools that detect slow queries 
+
+
+
+== How large numbers of concurrent submissions affect the system  performance:
+High concurrent submissions can cause server overload, database contention and increased response times. 
+
+== Implications of spam on performance(server response time)
+Spam   and duplicate submissions, increase unnecesary workload,consuming CPU, memory and database writes. Producing slower response times and potentially affecting service stability. 
+
+== How the system should manage high volumes of spam reports and duplicates:
+1. Implement detection checks to identify duplicate submissions before insertion
+2. Limit the number of submissions per users per time interval, implement rate limiting in TypeScript
+3. Process submissions in batches to reduce server workload
+4. Detect duplicates using Supabase queries before inserting new records
+
+
+
+
+== How Large Numbers of Submissions Should be Handled?
+
+*Implement Load Testing* - Simulate high traffic scenarios to identify weak spots on the platform
+
+*Implement auto scaling* -to adjust system  resources dynamically to handle trafic spikes
+
+*Database Optimization* - use indexes, query caching an dconnection pooling
+
+*Handle non critical tasks/jobs in the background  to avod blocking user requests. 
+
+
+
+
+
+
+== References
+
+IBM, "Performannce Overview", (2026),[Online], Available: https://www.ibm.com/docs/en/db2/12.1.x?topic=started-performance-tuning
+
+BBC,"Factors affecting computer system performance",[Online], Available:  https://www.bbc.co.uk/bitesize/guides/zr8kt39/revision/5
+
+supabaseDOCS, "Performance Tuning", [Online], Available: https://supabase.com/docs/guides/platform/performance
+
+IBM, "Measurements of performance" (2026),[Online], Available: https://www.ibm.com/docs/en/informix-servers/15.0.x?topic=basics-measurements-performance 
