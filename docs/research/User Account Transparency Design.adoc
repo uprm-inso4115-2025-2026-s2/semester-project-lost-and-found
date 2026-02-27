@@ -1,0 +1,77 @@
+= Research: Trust-Focused User Profile Structure (Transparency + Privacy)
+Author: Diego A Rios Morales
+Date: February 26, 2026
+
+== Goal
+Define how user profiles should be structured to maximize trust, transparency, and clarity while protecting user privacy.
+
+== Proposed Solution
+Design a clean, trust-focused profile that prioritizes credibility indicators at the top (Verified badge, Member since date, Activity summary) while keeping sensitive information private by default.
+
+== Design rules
+* Transparency-first layout: trust indicators appear above bio/content
+* Minimal clutter: show only what helps users assess credibility quickly
+* Clear public vs private separation: no “grey area” fields
+* Consistent labels and icons for trust signals (Verified, Member since, Reports, Confirmations)
+
+== Public vs Private information
+
+=== Public (OK to show)
+* Display name + @handle
+* Verified badge (if applicable) + what it means (tooltip)
+* Member since (account creation month/year)
+* Activity summary (counts): reports submitted, confirmations, accuracy rate (if supported)
+* Reputation/trust status (e.g., Trusted Reporter) if your system uses roles
+* Public contributions list (recent public reports / confirmations)
+
+=== Private (Never show)
+* Email, phone number, exact address, precise location history
+* Login/device/IP/security details
+* Government ID / verification documents
+* Private reports or sensitive categories
+* Hidden moderation notes, internal flags, or enforcement reasons
+
+
+== Wireframe (Profile section) TEMPLATE
+
+----
+[Profile Header]
+[Avatar]  Display Name (@handle)        [Verified Badge]
+Member since: Feb 2026
+
+[Trust Snapshot]
+Reports: 12   Confirmations: 34   Resolved: 7
+Role: Trusted Reporter (optional)
+
+-----------------------------------------
+About
+Short bio (optional)
+
+-----------------------------------------
+Recent Public Activity
+• Confirmed — "Keys found near Student Center"   View →
+• Report submitted — "Blue backpack near UPRM library"  View →
+• Report resolved — "Water bottle left in gym"   View →
+
+[ Show more ]
+Note: Private information and private actions are never displayed.
+----
+
+== Generative AI Use Disclosure
+
+=== Did you use any generative AI tools (e.g., ChatGPT, Claude, Gemini, Copilot) for this assignment?
+Yes, ChatGPT.
+
+=== At what stages did you use AI?
+* Brainstorming
+* Light editing (formatting for .adoc file)
+* Template making
+
+=== What did you do yourself, and what was generated or significantly shaped by AI?
+I created the core ideas and requirements for the trust-focused profile structure. AI helped organize those ideas into a clear outline and format them into an .adoc document, including the wireframe layout.
+
+=== How did you verify, evaluate, or fact-check AI-generated content?
+I reviewed the AI output to ensure it matched original ideas. Since AI mainly structured my own ideas, no external fact-checking was required.
+
+=== What did you learn from using (or choosing not to use) AI in this project?
+I learned that AI is useful for quickly turning rough ideas into a clean adoc file. 
