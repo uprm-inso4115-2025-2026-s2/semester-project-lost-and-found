@@ -1,114 +1,152 @@
 ==== *Events, Actions, and Behaviors*
 
-===== *Events*
-The following events represent meaningful state changes within the domain:
+The following structure refines events, actions, and behaviors in the domain using a consistent hybrid classification (event / action / entity where applicable). Each element specifies trigger, immediate response, postcondition, and reference to the domain sketch.
 
-*User Authenticated*:: 
-Recorded when a university member gains access using valid institutional credentials.
+===== *Behavioral Patterns*
 
-*Lost Item Reported*::
-Recorded when a lost item submission becomes publicly visible.
+While events are instantaneous and actions are discrete, behaviors describe structured sequences unfolding over time within the campus Lost & Found environment. They capture typical user workflows and system interactions, such as reporting, searching, claiming, verifying, and moderating. Each behavior is defined by its constituent events and actions, expected outcomes, and reference to real-world scenarios.
 
-*Found Item Reported*::
-Recorded when a found item submission becomes publicly visible.
+====== User authenticated (event / operation)
 
-*Report Modified*:: 
-Recorded when attributes of a report are altered.
+- Type: hybrid — operation (authentication attempt) and event (session established)
+- Label: user just authenticated
+- Triggered by: University member logging in via institutional SSO.
+- Immediate response: Authenticated session created; user identity bound to session context.
+- Expected outcome/postcondition: User gains access to protected actions (submit, edit, resolve, flag).
+- Reference to sketch: Platform restricted to verified university community members.
 
-*Claim Request Sent*::
-Recorded when a user initiates contact regarding a listed item.
+====== Lost item report submitted (event / action)
 
-*Report Resolved*::
-Recorded when a listing is marked as completed or no longer active.
+- Type: hybrid — action (submission) and event (report recorded)
+- Label: lost item report just published
+- Triggered by: Authenticated user submitting structured lost item form.
+- Immediate response: Input validated; report stored with `status = "active"`; ownership bound to user_id.
+- Expected outcome/postcondition: Report becomes visible in searchable listings.
+- Reference to sketch: Students describe posting lost laptops, IDs, electronics.
 
-*Report Flagged*::
-Recorded when a listing is formally identified as suspicious or inappropriate.
+====== Found item report submitted (event / action)
 
----
+- Type: hybrid — action (submission) and event (report recorded)
+- Label: found item report just published
+- Triggered by: Authenticated user submitting structured found item form.
+- Immediate response: Input validated; report stored with `status = "active"`; ownership assigned.
+- Expected outcome/postcondition: Listing becomes publicly searchable for potential claimants.
+- Reference to sketch: Community members report found wallets and IDs.
 
-===== *Actions*
-Actions are intentional operations performed by authenticated users.  
-Some actions trigger domain events, while others retrieve information without changing system state.
+====== Report updated (event / operation)
 
-*Log In*::
-* A university member enters institutional credentials to access the platform.
-* Triggers _User Authenticated_ event.
+- Type: hybrid — operation (edit) and event (modification recorded)
+- Label: report just modified
+- Triggered by: Owner editing description, location, images, or metadata.
+- Immediate response: Updated fields persisted; modification timestamp refreshed.
+- Expected outcome/postcondition: Search results and visible details reflect new information.
+- Reference to sketch: Users correcting typos or adding clarifying details.
 
-*Submit Lost Item*::
-* A user provides required information (description, category, date, location) to report a lost item.
-* Triggers _Lost Item Reported_ event.
+====== Claim contact initiated (event / action)
 
-*Submit Found Item*::
-* A user provides required information to report a found item.
-* Triggers _Found Item Reported_ event.
+- Type: hybrid — action (contact initiation) and event (claim request recorded)
+- Label: claim request just initiated
+- Triggered by: User contacting reporter regarding a listing.
+- Immediate response: Institutional email channel opened or contact metadata recorded.
+- Expected outcome/postcondition: External verification conversation begins.
+- Reference to sketch: Owners contacting finders after discovering matching listing.
 
-*Edit Listing*::
-* A user modifies previously submitted item information.
-* Triggers _Report Modified_ event.
+====== Report marked resolved (event / operation)
 
-*Search Listings*::
-* A user browses or filters available reports.  
-* Triggers nothing, simply a query action
+- Type: hybrid — operation (status change) and event (resolution recorded)
+- Label: report just resolved
+- Triggered by: Owner marking listing as completed after recovery.
+- Immediate response: Lifecycle state updated from `"active"` to `"resolved"`.
+- Expected outcome/postcondition: Listing excluded from active search results.
+- Reference to sketch: Students closing listings after item recovery.
 
-*Initiate Contact*::
-* A claimant sends an institutional email to the reporter of a listing.  
-* Triggers _Claim Initiated_ event.
+====== Report flagged for review (event / action)
 
-*Mark as Resolved*::  
-* A reporter closes a listing after the item has been returned or is no longer relevant.  
-* Triggers _Report Resolved_ event.
+- Type: hybrid — action (flagging) and event (flag recorded)
+- Label: report just flagged
+- Triggered by: User identifying suspicious or inappropriate listing.
+- Immediate response: Flag metadata recorded; administrative review process notified.
+- Expected outcome/postcondition: Listing enters moderation workflow.
+- Reference to sketch: Concerns about spam or malicious reports.
 
-*Report Suspicion*::  
-* A user flags a listing or interaction for review.  
-* Triggers _Report Flagged_ event.
+====== Report removed by administrator (event / operation)
 
----
+- Type: hybrid — operation (removal) and event (removal recorded)
+- Label: report just removed
+- Triggered by: Administrator enforcing policy violation.
+- Immediate response: Lifecycle state set to `"removed"`; listing hidden from public feed.
+- Expected outcome/postcondition: Platform integrity preserved.
+- Reference to sketch: Oversight behavior ensuring trust within system.
 
-===== *Behaviors*
-While events are instantaneous and actions are discrete, behaviors describe how these interactions unfold over time within the campus environment.
 
-*Reporting Behavior*
 
-This behavior begins when a community member loses or finds an item. The individual authenticates, submits a structured report, and optionally refines the information afterward.
+===== Reporting behavior
+
+- Type: composite behavioral sequence
+- Label: user reporting workflow
 
 Typical progression:
 
-1. Access platform -> *User Authenticated*
-2. Create lost or found item report -> *Lost Item Reported* / *Found Item Reported*
-3. (Optional) Update existing report -> *Report Modified*
+1. Authenticate → *User authenticated*
+2. Submit lost/found form → *Lost item report submitted* / *Found item report submitted*
+3. Optional edit → *Report updated*
+4. Listing remains `"active"` until resolved or removed
 
----
+Expected outcome: Structured, searchable representation of real-world lost/found item.
 
-*Search and Match Behavior*
+Reference to sketch: Community members formalize informal notice-board behavior through digital submission.
 
-When a user attempts to recover a lost belonging, they repeatedly consult the system until a relevant listing is discovered.
+===== Search and claim behavior
+
+- Type: composite behavioral sequence
+- Label: recovery attempt workflow
 
 Typical progression:
 
-1. Access platform -> *User Authenticated*
-2. Search or filter reports
+1. Authenticate → *User authenticated*
+2. Search/filter listings (query operation; no event)
 3. Identify potential match
-4. Send claim message -> *Claim Initiated*
+4. Initiate contact → *Claim contact initiated*
 
----
+Expected outcome: Off-platform verification conversation begins.
 
-*Verification and Return Behavior*
+Reference to sketch: Students repeatedly checking listings to locate missing belongings.
 
-After a claim request is sent, communication typically continues outside the platform via institutional email. If ownership is confirmed, the listing is formally closed.
+===== Verification and return behavior
 
-Typical progression:
-
-1. Send claim message via email -> *Claim Initiated*
-2. External verification between users
-3. Mark report as resolved -> *Report Resolved*
-
----
-
-*Oversight Behavior*
-
-To preserve trust within the system, users may intervene when misuse is suspected.
+- Type: composite behavioral sequence
+- Label: recovery completion workflow
 
 Typical progression:
 
-1. Flag report -> *Report Flagged*
-2. Administrative or institutional review (external process)
+1. Claim contact initiated
+2. External identity verification between users
+3. Owner marks listing resolved → *Report marked resolved*
+
+Expected outcome: Lifecycle transition from `"active"` to `"resolved"`; search space reduced.
+
+Reference to sketch: Users confirming identity before returning wallet or device.
+
+===== Oversight and moderation behavior
+
+- Type: composite behavioral sequence
+- Label: trust preservation workflow
+
+Typical progression:
+
+1. User flags suspicious listing → *Report flagged for review*
+2. Administrative evaluation
+3. Admin removes listing if necessary → *Report removed by administrator*
+
+Expected outcome: Platform integrity maintained; inappropriate content removed.
+
+Reference to sketch: Need for moderation to prevent misuse or fraudulent claims.
+
+
+This revised structure distinguishes clearly between:
+
+- Operations (intentional user/system actions),
+- Events (state changes recorded in the domain),
+- Composite behaviors (temporal interaction patterns).
+
+It aligns domain concepts such as *Report*, *Ownership*, and *Lifecycle State* with concrete operational flows, ensuring structural consistency across terminology, requirements, and implementation.

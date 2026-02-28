@@ -1,6 +1,6 @@
 ==== Function Signatures
 
-===== I. User Access & Authentication
+===== User Access & Authentication
 
 ====== 1. Authenticate with UPR
 
@@ -40,12 +40,12 @@ User attempts to perform a restricted action (e.g., reporting an item).
 - `bool`
 
 *Function Signature:*
-[source,python]
+[source,js]
 ----
-def authorize_user_action(user_id: str, action: str) -> bool
+export async function authorizeUserAction(userId: string, action: string) -> bool
 ----
 
-===== II. Report Creation & Management
+===== Report Creation & Management
 
 ====== 3. Create Lost Report
 
@@ -65,9 +65,9 @@ User submits the Lost Item form.
 - `Report`
 
 *Function Signature:*
-[source,python]
+[source,js]
 ----
-def create_lost_report(user_id: str, report_data: dict) -> Report
+export async function createLostReport(userId: string, reportData: dict) -> Report
 ----
 
 ====== 4. Create Found Report
@@ -88,9 +88,9 @@ User submits the Found Item form.
 - `Report`
 
 *Function Signature:*
-[source,python]
+[source,js]
 ----
-def create_found_report(user_id: str, report_data: dict) -> Report
+export async function createFoundReport(userId: string, reportData: dict) -> Report
 ----
 
 ====== 5. Edit Report
@@ -110,9 +110,9 @@ User edits an existing report.
 - `Report`
 
 *Function Signature:*
-[source,python]
+[source,js]
 ----
-def edit_report(report_id: str, updated_data: dict) -> Report
+export async function editReport(reportId: string, updatedData: dict) -> Report
 ----
 
 ====== 6. Update Report Status
@@ -131,12 +131,12 @@ User or admin changes report status (Active / Returned / Closed).
 - `Report`
 
 *Function Signature:*
-[source,python]
+[source,js]
 ----
-def update_report_status(report_id: str, new_status: str) -> Report
+export async function updateReportStatus(reportId: string, newStatus: string) -> Report
 ----
 
-===== III. Ownership Verification
+===== Ownership Verification
 
 ====== 7. Validate Item Ownership
 
@@ -156,16 +156,16 @@ User claims ownership of a found item.
 - `bool`
 
 *Function Signature:*
-[source,python]
+[source,js]
 ----
-def validate_item_ownership(
-    report_id: str,
-    claimant_id: str,
-    verification_data: dict
+export async function validateItemOwnership(
+    reportId: string,
+    claimantId: string,
+    verificationData: dict
 ) -> bool
 ----
 
-===== IV. Search & Discovery
+===== Search & Discovery
 
 ====== 8. Search Reports by Keyword
 
@@ -182,9 +182,9 @@ User enters search keywords.
 - `list[Report]`
 
 *Function Signature:*
-[source,python]
+[source,js]
 ----
-def search_reports_by_keyword(query: str) -> list[Report]
+export async function searchReportsByKeyword(query: string) -> list[Report]
 ----
 
 ====== 9. Filter Reports
@@ -205,17 +205,17 @@ User applies filters (status, category, location, date range).
 - `list[Report]`
 
 *Function Signature:*
-[source,python]
+[source,js]
 ----
-def filter_reports(
-    status: str,
-    category: str,
-    location: str,
+export async function filterReports(
+    status: string,
+    category: string,
+    location: string,
     date_range: tuple
 ) -> list[Report]
 ----
 
-===== V. Communication System
+===== Communication System
 
 ====== 10. Send Secure Message
 
@@ -235,16 +235,16 @@ User contacts another user regarding a report.
 - `Message`
 
 *Function Signature:*
-[source,python]
+[source,js]
 ----
-def send_secure_message(
-    sender_id: str,
-    report_id: str,
-    message: str
+export async function sendSecureMessage(
+    senderId: string,
+    reportId: string,
+    message: string
 ) -> Message
 ----
 
-===== VI. Moderation & Admin System
+===== Moderation & Admin System
 
 ====== 11. Flag Report
 
@@ -263,9 +263,9 @@ User flags inappropriate or suspicious content.
 - `Flag`
 
 *Function Signature:*
-[source,python]
+[source,js]
 ----
-def flag_report(report_id: str, flagged_by: str, reason: str) -> Flag
+export async function flagReport(reportId: string, flaggedBy: string, reason: string) -> Flag
 ----
 
 ====== 12. Moderate Report
@@ -285,12 +285,12 @@ Administrator reviews flagged report.
 - `Report`
 
 *Function Signature:*
-[source,python]
+[source,js]
 ----
-def moderate_report(report_id: str, admin_id: str, action: str) -> Report
+export async function moderateReport(reportId: string, adminId: string, action: string) -> Report
 ----
 
-===== VII. Categorization System
+===== Categorization System
 
 ====== 13. Assign Category to Report
 
@@ -308,12 +308,12 @@ User selects category during report creation.
 - `Report`
 
 *Function Signature:*
-[source,python]
+[source,js]
 ----
-def assign_category_to_report(report_id: str, category_id: str) -> Report
+export async function assignCategoryToReport(reportId: string, categoryId: string) -> Report
 ----
 
-===== VIII. Notification System
+===== Notification System
 
 ====== 14. Notify User of Match
 
@@ -331,12 +331,12 @@ System detects a potential match between lost and found reports.
 - `None`
 
 *Function Signature:*
-[source,python]
+[source,js]
 ----
-def notify_user_of_match(user_id: str, matched_report_id: str) -> None
+export async function notifyUserOfMatch(userId: string, matchedReportId: string) -> None
 ----
 
-===== IX. Dashboard & Analytics
+===== Dashboard & Analytics
 
 ====== 15. Calculate Return Success Rate
 
@@ -353,7 +353,7 @@ Administrator views dashboard analytics.
 - `float`
 
 *Function Signature:*
-[source,python]
+[source,js]
 ----
-def calculate_return_success_rate() -> float
+export async function calculateReturnSuccessRate() -> float
 ----

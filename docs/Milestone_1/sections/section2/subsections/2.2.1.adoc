@@ -2,82 +2,276 @@
 
 ==== *User Stories, Epics, Features*
 
-These epics represent high-level objectives within the project that cannot be completed within a single sprint. They provide overall direction for development and group related work under a shared purpose. Each epic is decomposed into smaller user stories that capture specific stakeholder needs. 
+[NOTE]
+This subsection defines the product scope of the system from a user-value perspective. It organizes the solution into Epics that capture high-level campus goals and Features that realize those goals in the system.
 
-The user stories express functionality from the perspective of a stakeholder. They are small enough in scope that they are able to be implemented within a sprint and collectively contribute to fulfilling their corresponding epic.
+[discrete]
+==== Abbreviations and ID Conventions:
 
-The features describe the functional capabilities the system must provide in order to satisfy the user stories and achieve the goals defined by the epics.
+[cols="1,3",options="header,autowidth"]
+|===
+|Abbrev. |Meaning
+|US |User Story: a user-centered need framed as intent and value.
+|E |Epic: a high-level goal that groups related features and stories.
+|F |Feature: a concrete capability that realizes part of an epic.
+|ReqRef |Requirement Reference: the requirement ID(s) a story or feature maps to.
+|REQ |Requirement: a functional or non-functional specification with a stable ID.
+|===
 
----
+[discrete]
+==== Identifier Formats:
 
-==== *Epic 1: Reporting Lost and Found Items*
+[cols="1,2,3,2",options="header,autowidth"]
+|===
+|Type |Format |Components |Example
+|User Story ID:
+|`US.AREA.NN`
+|`AREA` = functional area (`AUTH`, `REPORT`, `SEARCH`, `CLAIM`, `ADMIN`, `UX`)
+|`US.REPORT.01`
+|Epic ID:
+|`E#` or “Epic E#: Title”
+|`#` = epic number
+|`E1`
+|Feature ID:
+|`F#.N`
+|`#` = epic number; `N` = feature sequence
+|`F1.1`
+|Requirement ID:
+|`REQ-AREA-TYPE-NN`
+|`TYPE` = `F` (Functional) or `NF` (Non-functional)
+|`REQ-REPORT-F-01`
+|===
+
+&#160;
+
+[discrete]
+===== *_Epic E1: Reporting Lost and Found Items_*
+
 *Goal:* Provide a structured and reliable way for users to report lost or found items within the campus environment.
 
-*User Stories:*
+*Problem/value:* Without a structured reporting mechanism, lost and found items are handled informally, increasing recovery time and confusion.
 
-* As a person who found an item, I want to submit a description of the item so that the rightful owner can identify it.
-* As a person who found an item, I want to upload a photo so that the listing is clearer and more informative.
-* As a person who lost an item, I want to report where and when I last saw it so that others can help locate it.
+*Features (F1):*
 
-*Features:*
+- F1.1 Structured lost item submission
+- F1.2 Structured found item submission
+- F1.3 Image upload support
+- F1.4 Edit and manage own reports
+- F1.5 Automatic ownership binding (user-session association)
 
-* Structured submission form for lost and found items respectively
-* Optional image upload
-* Required fields (category, location, date)
-* Edit or delete own listing
+[discrete]
+===== _US.REPORT.01: Submit a lost item report | ReqRef: REQ-REPORT-F-01_
 
----
+_"As a user who lost an item, I want to submit structured information about it so that others can help locate it."_
 
-==== *Epic 2: Search and Discovery of Items*
-*Goal:* Allow users to efficiently locate relevant listings in order to reduce the time and stress associated with lost belongings.
+*Acceptance criteria:*
 
-*User Stories:*
+[cols="1,1,2",options="header,autowidth"]
+|===
+|Given |When |Then
+|Valid report data |Form is submitted |Report is created with status "active".
+|Missing required fields |Submission attempted |Validation errors are displayed.
+|===
 
-* As a user, I want to filter listings by category so that I can narrow down the results to what I want (e.g., electronics, keys, ID cards).
-* As a user, I want to search listings using keywords so that I can quickly find items matching a particular description.
-* As a user, I want to sort listings by date so that I can prioritize recent reports.
-* As a user, I want clear labels indicating whether an item is “Lost” or “Found” so that I can immediately understand its status.
+[discrete]
+===== _US.REPORT.02: Submit a found item report | ReqRef: REQ-REPORT-F-02_
 
-*Features:*
+_"As a user who found an item, I want to describe and upload photos so that the rightful owner can identify it."_
 
-* Category-based filtering
-* Keyword search functionality
-* Sorting by date
-* Clearly labeled item status indicators
+*Acceptance criteria:*
 
----
+[cols="1,1,2",options="header,autowidth"]
+|===
+|Given |When |Then
+|Valid data and optional image |Form submitted |Report and image references are stored.
+|===
 
-==== *Epic 3: Safe Claim and Ownership Verification*
-*Goal:* Support safe and responsible return of items while minimizing disputes and fraudulent claims.
+[discrete]
+===== E1 Traceability (Stories → Features → Requirements):
 
-*User Stories:*
+[cols="1,2,2,2",options="header,autowidth"]
+|===
+|Story ID |Feature |ReqRef |Notes
+|US-REPORT-01 |F1.1, F1.5 |REQ-REPORT-F-01 |Ownership bound to session.
+|US-REPORT-02 |F1.2, F1.3 |REQ-REPORT-F-02 |Image storage separation.
+|===
 
-* As a person who found an item, I want guidance on how to verify ownership so that I can avoid returning an item to the wrong person.
-* As a person who lost an item, I want to contact the finder through institutional email so that communication remains within a trusted environment.
-* As a user, I want to report suspicious behavior so that potential misuse can be addressed.
+&#160;
 
-*Features:*
+[discrete]
+===== *_Epic E2: Search and Discovery of Reports_*
 
-* Ownership verification guidelines displayed on listings
-* Institutional email based contact mechanism
-* Report suspicious listing/claim option
-* Clear safety instructions for handoff
+*Goal:* Allow users to efficiently locate relevant listings.
 
----
+*Problem/value:* Users need quick filtering and search capabilities to reduce stress and time spent locating items.
 
-==== *Epic 4: Accessibility and Usability*
-*Goal:* Ensure the platform is usable and accessible to a diverse university population with varying devices and abilities.
+*Features (F2):*
 
-*User Stories:*
+    - F2.1 Category filtering
+    - F2.2 Keyword search
+    - F2.3 Sorting by date
+    - F2.4 Clear Lost/Found labeling
+    - F2.5 Status-based filtering (active/resolved)
 
-* As a user with visual impairments, I want high-contrast text and backgrounds so that content is readable.
-* As a colorblind user, I want status indicators to include both text and icons so that meaning is not conveyed by color alone.
-* As a mobile user, I want the interface to be responsive so that I can use the platform on my phone while on campus.
-* As a user, I want a clean and consistent layout so that I can quickly understand how to navigate the platform.
+[discrete]
+===== _US.SEARCH.01: Filter reports by category | ReqRef: REQ-SEARCH-F-01_
 
-*Functional Features:*
+_"As a user, I want to filter listings by category so that I can narrow down results."_
 
-* Good contrast ratios
-* Text labels paired with icons
-* Responsive design for mobile and desktop
-* Clear typography hierarchy and spacing
+*Acceptance criteria:*
+
+[cols="1,1,2",options="header,autowidth"]
+|===
+|Given |When |Then
+|Reports exist |Category selected |Only matching reports are displayed.
+|===
+
+[discrete]
+===== _US.SEARCH.02: Search by keyword | ReqRef: REQ-SEARCH-F-02_
+
+_"As a user, I want to search using keywords so that I can quickly find relevant reports."_
+
+*Acceptance criteria:*
+
+[cols="1,1,2",options="header,autowidth"]
+|===
+|Given |When |Then
+|Keyword entered |Search executed |Matching reports are displayed.
+|===
+
+[discrete]
+===== E2 Traceability (Stories → Features → Requirements):
+
+[cols="1,2,2,2",options="header,autowidth"]
+|===
+|Story ID |Feature |ReqRef |Notes
+|US-SEARCH-01 |F2.1 |REQ-SEARCH-F-01 |Category filtering logic.
+|US-SEARCH-02 |F2.2, F2.3 |REQ-SEARCH-F-02 |Search and sorting.
+|===
+
+&#160;
+
+[discrete]
+===== *_Epic E3: Safe Claim and Ownership Verification_*
+
+*Goal:* Support safe and responsible item recovery.
+
+*Problem/value:* Returning items without verification may result in disputes or misuse.
+
+*Features (F3):*
+
+- F3.1 Institutional contact mechanism
+- F3.2 Ownership verification guidance
+- F3.3 Mark report as resolved
+- F3.4 Report suspicious listing
+
+[discrete]
+===== _US.CLAIM.01: Contact finder securely | ReqRef: REQ-CLAIM-F-01_
+
+_"As a user who lost an item, I want to contact the finder through institutional channels so that communication remains trusted."_
+
+*Acceptance criteria:*
+
+[cols="1,1,2",options="header,autowidth"]
+|===
+|Given |When |Then
+|Active report |Contact initiated |Message is sent via institutional email.
+|===
+
+[discrete]
+===== _US.CLAIM.02: Mark item as resolved | ReqRef: REQ-CLAIM-F-02_
+
+_"As a report owner, I want to mark an item as resolved so that others know it has been returned."_
+
+*Acceptance criteria:*
+
+[cols="1,1,2",options="header,autowidth"]
+|===
+|Given |When |Then
+|Active owned report |Status changed to resolved |Report no longer appears in active search.
+|===
+
+[discrete]
+===== E3 Traceability (Stories → Features → Requirements):
+
+[cols="1,2,2,2",options="header,autowidth"]
+|===
+|Story ID |Feature |ReqRef |Notes
+|US-CLAIM-01 |F3.1 |REQ-CLAIM-F-01 |Secure communication.
+|US-CLAIM-02 |F3.3 |REQ-CLAIM-F-02 |Lifecycle transition.
+|===
+
+&#160;
+
+[discrete]
+===== *_Epic E4: Accessibility and Usability_*
+
+*Goal:* Ensure the platform is accessible and usable by the university community.
+
+*Problem/value:* Students and staff use different devices and may have accessibility needs.
+
+*Features (F4):*
+
+- F4.1 High contrast UI
+- F4.2 Text + icon status indicators
+- F4.3 Responsive design
+- F4.4 Clear visual hierarchy
+
+[discrete]
+===== _US.UX.01: Use platform on mobile | ReqRef: REQ-UX-NF-01_
+
+_"As a mobile user, I want the interface to be responsive so that I can use it on campus."_
+
+*Acceptance criteria:*
+
+[cols="1,1,2",options="header,autowidth"]
+|===
+|Given |When |Then
+|Mobile device |Page loaded |Layout adapts without horizontal scrolling.
+|===
+
+[discrete]
+===== E4 Traceability (Stories → Features → Requirements):
+
+[cols="1,2,2,2",options="header,autowidth"]
+|===
+|Story ID |Feature |ReqRef |Notes
+|US-UX-01 |F4.3 |REQ-UX-NF-01 |Responsive design rule.
+|===
+
+&#160;
+
+[discrete]
+===== *_Epic E5: Administrative Oversight_*
+
+*Goal:* Maintain platform integrity and moderation control.
+
+*Problem/value:* The system must prevent abuse and ensure trustworthy listings.
+
+*Features (F5):*
+
+- F5.1 View all reports
+- F5.2 Remove inappropriate reports
+- F5.3 Role-based access control (RLS enforcement)
+
+[discrete]
+===== _US.ADMIN.01: Moderate reports | ReqRef: REQ-ADMIN-F-01_
+
+_"As an administrator, I want to remove inappropriate listings so that the platform remains safe and trustworthy."_
+
+*Acceptance criteria:*
+
+[cols="1,1,2",options="header,autowidth"]
+|===
+|Given |When |Then
+|Admin privileges |Report marked as removed |Report is hidden from public listings.
+|===
+
+[discrete]
+===== E5 Traceability (Stories → Features → Requirements):
+
+[cols="1,2,2,2",options="header,autowidth"]
+|===
+|Story ID |Feature |ReqRef |Notes
+|US-ADMIN-01 |F5.2, F5.3 |REQ-ADMIN-F-01 |Admin lifecycle control and RLS.
+|===

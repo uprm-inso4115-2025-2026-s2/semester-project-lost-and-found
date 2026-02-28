@@ -18,5 +18,5 @@ Because the system serves a diverse academic community, it must be intuitive and
 ==== Support Sustainable Development and Maintainability
 The project should be structured to allow future teams to understand, maintain, and extend the platform if needed. Clear documentation, architectural planning, version control practices, and coordinated teamwork are essential supporting goals.
 
-=== Encourage Collaborative Team Execution
+==== Encourage Collaborative Team Execution
 Given the division of responsibilities across multiple teams (authentication, search, reporting, moderation, documentation), coordination and integration are critical goals. Parallel documentation, testing, and review processes must support development rather than follow it.

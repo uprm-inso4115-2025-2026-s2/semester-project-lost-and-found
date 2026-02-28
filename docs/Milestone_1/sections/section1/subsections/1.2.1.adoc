@@ -1,29 +1,52 @@
 === *Current Situation, Needs, Ideas*
 
 ==== *Current Situation*
-The early-career and new-graduate job market has become increasingly competitive and uncertain, creating significant challenges for students transitioning from education into professional roles. Recent economic revisions show that job growth in 2025 was weaker than initially reported, particularly affecting industries that traditionally hire recent graduates, such as technology, business services, and finance.
 
-Studies indicate that young college graduates are experiencing higher unemployment rates than the overall workforce, and many who do find employment are underemployed working in roles that do not require a college degree. This underemployment has long-term consequences, as a graduate’s first job often influences future career trajectory and earning potential.
+===== Informal and Fragmented Lost & Found Practices on Campus
 
-At the same time, entry-level hiring practices are changing. Employers increasingly prioritize demonstrable skills, practical experience, and clear evidence of job readiness over coursework alone. However, the availability of true entry-level roles varies significantly by industry and competition per job posting has increased leading students to submit more applications while receiving fewer offers on average.
+Within the university environment, the handling of lost and found items is largely informal and decentralized. When students lose personal belongings such as laptops, ID cards, wallets, or keys, they typically rely on word of mouth, group chats, or social media posts to attempt recovery. Some departments maintain physical lost-and-found boxes, but there is no unified digital system that aggregates reports across campus locations.
 
-Professional development support for students has not evolved at the same pace as these market changes. While job boards and university career services provide access to postings and general guidance they often lack the structure, scalability, and continuity needed to help students translate their skills into a tangible proof of readiness. As a result, many students struggle to understand what employers expect and how to stand out.
+As a result, information about lost or found items is scattered across different channels, making it difficult for affected individuals to know where to look or whom to contact.
 
-This combination of a tighter labor market, shifting employer expectations, and fragmented development resources creates a clear gap between student preparation and the employer's needs.
+===== Manual Handling and Limited Traceability
 
-===== Alternatives
+In many cases, found items are turned in to security offices or administrative departments. These offices may log items manually or keep handwritten records. However, these records are not always publicly searchable, and access may require visiting the office in person during business hours.
 
-Several existing solutions attempt to address challenges faced by new graduates entering the job market. However, each alternative presents limitations that prevent it from fully solving the problem.
+Because processes are manual:
 
-Job Boards (e.g., LinkedIn, Indeed, Handshake)
-These platforms provide access to job postings and application tracking tools. They mainly focus on job discovery rather than structured professional development. Students are responsible for independently preparing resumes, portfolios, and interview strategies which makes it so that these platforms do not actively guide users in building actual skills or translating academic experience into something more valued by the employer.
+- There is limited visibility into which items have already been reported.
+- There is no standardized format for describing items.
+- There is no automated way to track the lifecycle of an item (e.g., reported, claimed, archived).
 
-University Career Services
-Most universities offer resume reviews, workshops, mock interviews, and career fairs. Although valuable, these services often have limited scalability due to staffing constraints. Engagement tends to be inconsistent, and support may be reactive rather than continuous.
+This lack of traceability can lead to duplicated efforts, unclaimed items, and unnecessary frustration.
 
-Professional Networking Platforms
-Networking platforms allow students to build connections and showcase profiles. However, they emphasize visibility rather than structured readiness. Simply having a profile does not ensure skill development, targeted preparation, or strategic application management.
+===== Lack of Ownership Enforcement and Accountability
 
-===== Gap in Existing Alternatives
+When lost-and-found interactions occur through social media or messaging platforms, there is often no structured mechanism to verify ownership or authenticity. Posts may be edited, deleted, or buried in feeds. There is no reliable way to ensure that only the original poster can modify a report, nor is there a formal moderation process to remove inappropriate or fraudulent listings.
 
-Although current solutions offer partial support such as job listings, resume advice, or networking opportunities none provide an integrated, structured system that guides students step-by-step through skill development and evidence creation, connects professional development activities directly to measurable job readiness and bridges the expectations between employers, students, and institutions.
+This creates potential risks:
+
+- False claims of ownership.
+- Malicious or spam posts.
+- Exposure of sensitive personal information.
+
+===== Limited Search and Discovery Capabilities
+
+Students searching for a lost item must manually scroll through posts, check multiple group chats, or visit different offices. There is typically no filtering by category, date, or location, and no consistent use of tags or metadata.
+
+Without structured search capabilities:
+
+- Matching lost and found reports is inefficient.
+- Recently reported items may go unnoticed.
+- Users cannot sort or filter based on relevant criteria.
+
+===== Partial Digital Attempts and Their Limitations
+
+Some informal digital attempts exist, such as shared spreadsheets or temporary messaging groups for specific events. While these efforts demonstrate a need for coordination, they lack:
+
+- Authentication and access control.
+- Structured data validation.
+- Persistent lifecycle management.
+- Integrated image handling and secure storage.
+
+Because these solutions are ad hoc and isolated, they do not provide a sustainable or secure campus-wide solution.
