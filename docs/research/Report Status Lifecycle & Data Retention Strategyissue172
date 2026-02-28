@@ -1,0 +1,123 @@
+= Report Status Lifecycle & Data Retention Strategy
+
+
+== Project
+UPRM Lost & Found Platform
+
+== Issue
+#172
+
+== Author
+Javier Ventosa
+== Goal
+
+Research and define a clear data retention strategy for lost and found reports, including when and how reports should be archived, deactivated, or permanently deleted.
+
+== Purpose
+
+This research establishes structured lifecycle rules for report management within the UPRM Lost & Found platform.
+
+The objective is to balance usability, privacy protection, and system maintainability by defining time-based transitions between report states.
+
+Without defined retention rules, the system risks accumulating outdated reports, exposing user information unnecessarily, and degrading search quality.
+
+== Key Areas Researched
+
+* Retention duration options (30, 60, 90 days)
+* Automatic archiving vs manual closure
+* Handling stale or abandoned reports
+* Data privacy considerations over time
+* Archived visibility policy
+* Technical feasibility within current architecture
+
+== Retention Duration Analysis
+
+=== 30-Day Retention
+
+*Pros:* Keeps system current, reduces database growth.  
+*Cons:* May be too short for item recovery.
+
+=== 60-Day Retention (Recommended)
+
+*Pros:* Balanced duration, reasonable recovery window.  
+*Cons:* Some inactive reports may accumulate.
+
+=== 90-Day Retention
+
+*Pros:* Extended recovery opportunity.  
+*Cons:* Greater privacy exposure, larger database size.
+
+== Recommended Retention Rule
+
+Default Active Duration: *60 days*
+
+This duration balances usability and system maintainability.
+
+== Automatic Archiving vs Manual Resolution
+
+=== Automatic Archiving
+
+*Pros:* Reduces administrative overhead.  
+*Cons:* May archive relevant reports.
+
+=== Manual Resolution
+
+*Pros:* User-controlled and accurate.  
+*Cons:* Users may forget to update status.
+
+=== Recommended Hybrid Model
+
+* Users may manually resolve reports at any time.
+* System automatically archives after 60 days of inactivity.
+
+== Proposed Lifecycle Model
+
+Open → Matched → Resolved → Archived → Deleted
+
+=== State Definitions
+
+*Open*:: Active and searchable.  
+*Matched*:: Potential match identified.  
+*Resolved*:: Item returned or confirmed closed.  
+*Archived*:: Inactive but preserved.  
+*Deleted*:: Permanently removed.
+
+== Archived Report Visibility
+
+Recommended: Archived reports remain searchable but clearly labeled as "Archived."
+
+== Privacy Considerations
+
+* Automatically archive inactive reports
+* After 180 days archived → eligible for permanent deletion
+* Limit exposure of personal contact details in archived state
+
+== Time-Based Rules Summary
+
+* Open → Active up to 60 days
+* After 60 days inactivity → Archived
+* After 180 days archived → Eligible for deletion
+* Manual resolution allowed anytime
+
+== Technical Feasibility Assessment
+
+=== Backend
+
+* Add `status` field
+* Add `last_updated` timestamp
+* Add `archived_at` and `deleted_at` timestamps
+* Implement scheduled job (cron) for inactivity checks
+
+=== Frontend
+
+* Display status clearly
+* Visually distinguish archived reports
+* Optionally disable editing when archived
+
+Integration Complexity: Moderate
+
+== Final Recommendation
+
+60-day active retention + automatic archiving + manual resolution option + searchable archived reports + permanent deletion after 180 days.
+
+This approach controls data growth, improves search relevance, and protects user privacy.
