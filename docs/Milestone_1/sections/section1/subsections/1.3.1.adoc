@@ -1,0 +1,20 @@
+=== *Scope, Span, and Synopsis*
+
+==== *Scope & Span*
+
+The Lost and Found project falls under the broad domain of university community support systems and digital resource coordination platforms. Its primary concern is supporting the report and recovery of misplaced or "lost" personal belongings within the University of Puerto Rico Mayagüez (UPRM) campus through a centralized online platform. The scope of this project encompasses:
+
+- Domain analysis, including identification of stakeholders such as students, faculty, and staff at UPRM.
+- Requirements engineering, focusing on usability, accessibility, privacy protection, authentication constraints, and misuse prevention.
+- System modeling and architectural planning, ensuring that the platform supports secure and structured interaction without entirely replacing existing physical recovery procedures.
+- Policy alignment, particularly regarding institutional email restrictions, minimal data exposure, and responsible handling of user-submitted information.
+
+The project is concerned with designing and documenting a platform that facilitates reporting and discovery. It does not aim to manage physical storage of items, mediate disputes directly, or extend beyond the institutional community. Communication between parties occurs outside the system via official institutional email accounts.
+
+While the scope describes the general domain, the span defines the concrete boundaries and operational characteristics of this particular system. The platform is restricted to both students and faculty of the University of Puerto Rico Mayagüez who possess valid institutional email credentials. Its context is limited to campus-related environments such as classrooms, study areas, student centers, and other spaces within the physical boundaries of the UPRM campus. Within this setting, the system specifically supports:
+
+- Submission of lost and found item reports within the UPRM campus.
+- Browsing and searching mechanisms that allow users to filter items by category, location, date, etc.
+- Controlled visibility of information to prevent unnecessary disclosure of personal details.
+
+The span deliberately excludes broader ambitions such as public access, collaboration with other university campuses within Puerto Rico, integrated messaging systems, financial exchanges, shipment coordination, or automated identity verification beyond institutional email validation.

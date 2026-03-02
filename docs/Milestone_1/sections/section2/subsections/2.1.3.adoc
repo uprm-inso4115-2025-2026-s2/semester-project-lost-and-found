@@ -1,0 +1,10 @@
+==== *Narrative*
+Within the university environment, personal belongings frequently change hands unintentionally. A student may leave a backpack in a classroom, misplace keys in a laboratory, or forget an ID card in the library. In each of these situations, the items becomes a **Lost Item** from the perspective of its **Owner**. The owner's primary concern is **Recovery** — retrieving the belonging safely and efficiently. 
+
+At the same time, another individual may encounter the same object. This person becomes the **Finder**. The finder now faces a decision: whether and how to initiate **Reporting** so that the item can be returned. Without a coordinated process, the finder may rely on informal communication, such as word of mouth or scattered announcements, which limits visibility and reduces the likelihood of **Recovery**.
+
+When a **Report** is created for a **Lost Item** or a **Found Item**, the possibility of **Matching** arises. Matching is the behavior through which descriptions of lost and found objects are compared to determine whether they refer to the same physical item. If a plausible match is identified, **Claim Verification** must occur. This ensures that the person asserting ownership is legitimately entitled to the item, protecting against wrongful claims.
+
+If verification is successful, a **Recovery** event occurs: the **Lost Item** is returned to its **Owner**. The report may then reach **Closure**, concluding its lifecycle. In some cases, however, no match is found, or the item remains unclaimed, resulting in eventual closure without recovery.
+
+Throughout this domain, **Tracking** plays an important role. **Owners** want to know whether their **Lost Item** has been found. **Finders** may want confirmation that their effort contributed to a successful **Recovery**. The overall domain is therefore characterized by a cycle of loss, discovery, reporting, matching, verification, recovery, and closure.
