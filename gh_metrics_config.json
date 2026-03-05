@@ -4,18 +4,18 @@
   "managers": ["iralys-sanchez18", "TomasGomez04"],
   "milestones": {
     "Milestone #1": {
-      "startDate": "2026-02-04T08:00:00-04:00",
+      "startDate": "2026-02-02T08:00:00-04:00",
       "endDate": "2026-02-27T23:59:59-04:00",
       "projectedGroupGrade": 100.0
     },
     "Milestone #2": {
-      "startDate": "2026-03-12",
-      "endDate": "2026-03-20",
+      "startDate": "2026-03-03T08:00:00-04:00",
+      "endDate": "2026-04-03T23:59:59-04:00",
       "projectedGroupGrade": 100.0
     },
     "Milestone #3": {
-      "startDate": "2026-04-11",
-      "endDate": "2026-04-20",
+      "startDate": "2026-04-07T08:00:00-04:00",
+      "endDate": "2026-05-08T23:59:59-04:00",
       "projectedGroupGrade": 100.0
     }
   },
