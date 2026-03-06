@@ -1,0 +1,214 @@
+= Hidden Field Strategy for Claim Verification
+ 
+by: Omar A. Cordero Maldonado (omar-cordero)
+
+== 1. Overview
+
+This research explores the effectiveness of implementing a *Hidden Field Strategy* for ownership verification within our Lost and Found project.
+
+Instead of relying solely on public fields, this approach introduces *structured hidden attributes* collected during report creation. These attributes are stored privately and later used to validate claim authenticity.
+
+The objective is to determine whether this method can:
+
+* Reduce false claims
+* Improve verification confidence
+* Maintain acceptable user experience
+
+---
+
+== 2. What Are Hidden Fields?
+
+Hidden fields are structured, private attributes collected when a user creates a Lost or Found report.
+
+They are:
+
+* Not displayed publicly
+* Only visible to admins
+* Used only during claim verification
+* Stored securely in the database
+
+Examples:
+
+* "What is one unique detail about this item?"
+* "What was inside the bag?"
+* "Are there any identifying marks?"
+* "Does the item have visible damage?"
+* "What is the exact model/version?"
+
+These details act as *verification proof* during claim evaluation.
+
+---
+
+== 3. Industry Parallels
+
+While not always explicitly labeled as “hidden fields,” similar concepts are used in:
+
+* Airport lost-and-found systems
+* Uber recovery flow
+* Found Hero
+* Account recovery systems (security questions)
+
+These systems rely on private knowledge that only the true owner is likely to know.
+
+Key observation:
+Hidden attribute verification is widely used in practice, even if implemented differently across systems.
+
+---
+
+== 4. Benefits of Hidden Field Strategy
+
+=== 4.1 Stronger Ownership Validation
+
+Hidden details reduce reliance on publicly visible descriptions.  
+A claimant cannot simply copy information from the listing.
+
+=== 4.2 Reduced False Claims
+
+False claimants often rely on guessing.  
+Structured hidden questions make guessing significantly harder.
+
+=== 4.3 Improved Auditability
+
+Each claim attempt can be logged against hidden answers, enabling:
+
+* Fraud monitoring
+* Dispute resolution
+* Analytics on claim accuracy
+
+---
+
+== 5. Risks & Challenges
+
+=== 5.1 Increased Form Difficulty
+
+More required fields may:
+
+* Reduce report completion rates
+* Frustrate users in emotional situations (after losing an item)
+
+Mitigation:
+Keep hidden questions limited and category-specific.
+
+=== 5.2 Vague or Low-Quality Answers
+
+Users may submit:
+
+* “Black”
+* “Stuff inside”
+* “Normal scratches”
+
+Mitigation:
+Encourage specificity via prompts or minimum character limits.
+
+=== 5.3 Information Leakage Risk
+
+Hidden details must never appear:
+
+* In logs exposed to users
+* In admin views without restriction
+
+Strict data separation is required.
+
+---
+
+== 6. Design Considerations
+
+=== 6.1 Required vs Optional
+
+Options:
+
+* Mandatory hidden field for all reports
+* Mandatory only for high-value categories
+* Optional but recommended
+
+Recommendation:
+Category-based requirement (e.g., required for electronics, optional for clothing).
+
+=== 6.2 Category-Based Hidden Attributes
+
+Electronics:
+
+* Model/version
+* Visible damage
+* Lock screen description
+
+Bags:
+
+* Contents
+* Interior color
+* Keychains
+
+Jewelry:
+
+* Engraving text
+* Material
+
+IDs:
+
+* Issuing authority
+* Expiration year
+
+Structured questions improve answer quality.
+
+---
+
+== 7. Integration
+
+=== 7.1 Form Handling
+
+Hidden fields would be added to:
+
+* Lost Report Form
+* Found Report Form
+
+They must be validated before submission.
+
+=== 7.2 Database Storage
+
+Hidden attributes should:
+
+* Be stored in private columns
+* Not be included in public query responses
+* Be logged when accessed during claim review
+
+---
+
+== 8. Impact on User Experience
+
+Positive:
+
+* Increases trust in system fairness
+* Gives owners confidence in protection
+
+Negative:
+
+* Adds slight complexity to report creation
+* Requires thoughtful UI design
+
+
+---
+
+== 9. Effectiveness Assessment
+
+To measure impact, track:
+
+* False claim rate
+* Claim rejection rate
+* Admin escalations
+* Report completion rate
+* Average time to return
+
+---
+
+== 10. Final Recommendation
+
+The Hidden Field Strategy is:
+
+* Very feasible
+* Low-to-moderate implementation effort
+* Strongly aligned with our fraud reduction goals
+
+Recommendation:
+Proceed with a structured, category-based hidden field model using limited, well-designed private questions to balance security and report-making difficulty.
+
+This approach enhances verification strength without significantly increasing system complexity.

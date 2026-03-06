@@ -1,0 +1,207 @@
+*Ownership Verification in Lost-and-Found Platforms*
+
+By: Omar A. Cordero Maldonado (omar-cordero)
+
+*Goal:* Prevent false claims while keeping the recovery process fast and
+user-friendly.
+
+Below is a breakdown of real-world platforms and the verification
+techniques they use, followed by a comparison and practical
+recommendations.
+
+*Platforms Reviewed*
+
+* Apple: Find My network
+* Tile
+* Uber: Lost Item system
+* Changi Airport’s Lost and Found system
+* Found Hero
+
+*Common Ownership Verification Methods*
+
+*1. Description Matching (Most Universal)*
+
+Claimants must describe the item without seeing public details:
+
+* color
+* brand/model
+* identifying marks
+* contents (for bags)
+
+Used by
+
+* Uber
+* Airports (including Changi)
+* Found Hero
+
+*Effectiveness*
+
+Pros:
+
+* Very easy to implement
+* Low friction for users
+
+Cons:
+
+* Weak against lucky guesses or vague items
+
+*2. Photo Proof*
+
+*How it works* +
+Claimant uploads:
+
+* an old photo of the item
+* receipt/box photo
+* serial number image
+
+Admins manually compare photos.
+
+*Used by*
+
+* Found Hero
+* Many airport systems
+
+*Effectiveness*
+
+Pros:
+
+* Much harder to fake
+* Good for electronics or unique items
+
+Cons:
+
+* Slower due to manual review
+* Users often don’t have photos ready
+
+*3. Account-Based Ownership (Device Ecosystems)*
+
+*How it works* +
+Ownership is tied to a user account. Only the logged-in owner can mark
+items as lost or recovered.
+
+*Used by*
+
+* Apple Find My
+* Tile
+
+*Effectiveness*
+
+Pros:
+
+* Extremely secure
+* Fully automated
+
+Cons:
+
+* Only works for registered/trackable devices
+* Not applicable to generic items (clothes, bags, etc.)
+
+*4. Security Questions / Hidden Attributes*
+
+*How it works* +
+System stores private details (not publicly visible):
+
+* exact contents
+* lock-screen wallpaper
+* engraving text
+
+Claimant must answer correctly.
+
+*Used by*
+
+* Airports
+* Found Hero
+
+*Effectiveness*
+
+Pros:
+
+* Strong verification
+* Still relatively user-friendly
+
+Cons:
+
+* Requires structured report from the finder
+
+*5. Admin / Staff Review (Human-in-the-loop)*
+
+*How it works* +
+When automated checks aren’t sufficient, moderators compare:
+
+* descriptions
+* photos
+* timestamps
+* location data
+
+*Used by*
+
+* Uber
+* Airports
+* Found Hero
+
+*Effectiveness*
+
+Pros:
+
+* Best accuracy
+
+Cons:
+
+* Doesn’t scale well as the platform grows
+* Slower resolution time
+
+*Strengths & Weaknesses Comparison*
+
+[width="99%",cols="33%,17%,17%,20%,13%",options="header",]
+|===
+|*Method* |*Security* |*User Effort* |*Dev Complexity* |*Scalability*
+|*Description matching* |Low–Medium |Low |Low |High
+|*Photo proof* |Medium–High |Medium |Medium |Medium
+|*Account-based ownership* |Very High |Very Low |Impossible |High
+|*Security questions* |High |Low–Medium |Medium |High
+|Admin review |Very High |High |Low |Low
+|===
+
+*Important Takeaways and Recommendations*
+
+Serious platforms don’t rely on only one method, we need at least two.
+
+*Primary Layer (automatic)*
+
+Claimant must correctly answer 2–3 questions about hidden details
+
+* exact color shade
+* contents
+* unique marks
+
+
+If this first layer is failed, ask the user to provide any additional
+details about the item that were not previously requested, and an admin
+will be used to confirm.
+
+*Secondary Layer (conditional)*
+
+Require photo proof for:
+
+* electronics
+* high-value items
+* failed first attempt
+
+*Fallback*
+
+Admin/mod review when:
+
+* multiple claimants exist
+* answers partially match
+
+*Measuring Success*
+
+Track:
+
+* % of rejected claims
+* average return time
+* number of admin escalations
+* confirmed false positives
+
+These metrics are exactly what Uber and airport systems monitor
+internally.

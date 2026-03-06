@@ -1,0 +1,48 @@
+= Community Validation Model for Reports
+Author: Diego A Rios Morales
+Date: February 26, 2026
+
+== Goal
+Explore how LOST AND FOUND users can participate in confirming report accuracy while maintaining credibility and preventing misuse.
+
+== What “validation” means on LOST & FOUND
+Users are not confirming ownership. They are confirming *observable details* such as:
+* sighting/location accuracy
+* turned-in confirmation 
+* duplicate/resolved status 
+Users should *not* validate: “this belongs to X.”
+
+== Proposed Solution
+Add two structured actions on each post:
+* *Confirm* (I can verify this is accurate)
+* *Flag* (this seems wrong/suspicious)
+
+== Abuse Prevention (simple rules)
+* One action per user per post + rate limits
+* Weight validation internally using trust signals (account age + verified status)
+* If a post gets flagged a lot → switch to “Under Review” and request more evidence (better photo/details)
+
+== Wireframe (what to draw)
+On each post card:
+* Status badge near the title
+* Buttons: Confirm | Flag
+* Link: “Why this status?” → small panel explaining the badge in 1 sentence
+
+
+
+== Generative AI Use Disclosure 
+1. Did you use any generative AI tools (e.g., ChatGPT, Claude, Gemini, Copilot) for this assignment?
+* Yes — ChatGPT.
+
+2. At what stages did you use AI? 
+  * Brainstorming  
+  * Light editing (formating for adoc file)
+
+3. What did you do yourself, and what was generated or signifcantly shaped by AI?
+  * I did all the research and came up with all the core ideas. AI helped with the actual structuring of those ideas and the formating of the adoc file. 
+
+4. How did you verify, evalute, or fact-check AI-generated content?
+  * I did not have to verify the AI generated content since what it did was mostly formating the data I had already researched. 
+
+5.What did you learn from using (or choosing not to use) AI in this project?
+  * I learned that it was quite easy to implement the adoc struture. 

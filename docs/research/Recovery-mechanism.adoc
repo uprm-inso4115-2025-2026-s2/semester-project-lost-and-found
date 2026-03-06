@@ -1,0 +1,100 @@
+= Research: Account Recovery Mechanisms for the UPRM Lost & Found Platform
+Author: Angel Villegas
+Date: February 2026
+
+
+== 1. Introduction
+
+This research evaluates account recovery mechanisms suitable for the UPRM Lost & Found platform.
+
+A secure authentication system must include a reliable recovery process to allow users to regain access if they forget their password, lose device access, or experience login issues. Recovery mechanisms must balance usability, security, and integration with the existing Firebase Authentication system.
+
+This document analyzes common recovery approaches, associated security considerations, and their relevance to the platform.
+
+== 2. Account Recovery Requirements
+
+Based on platform objectives and security goals, the recovery system must:
+
+* Allow secure password reset
+* Verify user identity during recovery
+* Prevent unauthorized account takeover
+* Protect against phishing and spoofing attempts
+* Integrate with Firebase Authentication
+
+The mechanism must be simple for users while maintaining adequate security protections.
+
+== 3. Email-Based Password Recovery
+
+Email-based password reset is the most common recovery mechanism in modern authentication systems.
+
+In this process, a user requests a password reset. The system generates a secure, time-limited token and sends a reset link to the registered email address. The user verifies the token and sets a new password.
+
+Security considerations include:
+
+* Tokens must expire after a short period
+* Reset links must use HTTPS
+* Tokens must be cryptographically secure
+* Email compromise can lead to account compromise
+
+From an integration perspective, Firebase Authentication provides built-in support for secure password reset workflows, reducing implementation complexity.
+
+Email-based recovery offers high usability and is widely understood by users, making it appropriate for simple authentication systems.
+
+== 4. Multifactor Authentication MFA Recovery
+
+Multifactor authentication recovery requires additional verification beyond a password reset. This may include:
+
+* Email verification codes
+* SMS one-time passcodes
+* Authenticator applications
+* Passkeys or device-based authentication
+
+MFA significantly reduces the risk of unauthorized access if credentials are compromised. However, some methods such as SMS-based recovery are vulnerable to SIM-swapping attacks.
+
+Passkeys and device-based authentication provide stronger protection against phishing and credential theft. These methods bind authentication to a specific device or cryptographic key, increasing security.
+
+While MFA enhances security, it introduces additional setup requirements and slightly increases complexity for users.
+
+Firebase supports MFA integration, allowing future expansion if stronger security controls are required.
+
+== 5. Security Considerations
+
+Account recovery introduces potential security risks that must be mitigated.
+
+Phishing attacks may attempt to trick users into clicking fake reset links. To reduce this risk:
+
+* Use official domain links only
+* Enforce HTTPS encryption
+* Set short expiration times for recovery tokens
+
+Email compromise remains a primary risk in email-based recovery systems. Encouraging users to enable MFA on their email accounts improves overall security.
+
+SMS-based recovery is vulnerable to SIM-swapping, where attackers hijack phone numbers. For this reason, SMS should not be the sole recovery mechanism.
+
+Recovery mechanisms must always validate user identity before allowing credential changes.
+
+== 6. Recommendations
+
+For the UPRM Lost & Found platform, the recommended recovery strategy is:
+
+* Implement email-based password reset as the primary recovery mechanism.
+* Use secure, time-limited reset tokens.
+* Enforce HTTPS for all recovery flows.
+* Consider optional multifactor authentication for increased protection in future phases.
+
+This approach maintains usability while providing reasonable security and scalability.
+
+== 7. Conclusion
+
+A secure account recovery system is essential for maintaining platform reliability and user trust.
+
+Email-based password reset provides a simple and effective recovery mechanism suitable for the platform’s initial implementation. Multifactor authentication can be introduced later to strengthen protection against account takeover.
+
+A layered recovery strategy ensures both usability and security as the platform evolves.
+
+== 8. References
+
+* Google LLC. n.d. Firebase Authentication documentation. https://firebase.google.com/docs/auth
+* Google LLC. n.d.. Reset passwords and manage users. https://firebase.google.com/docs/auth/web/manage-users
+* National Institute of Standards and Technology NIST. 2017. Digital Identity Guidelines SP 800-63B. https://pages.nist.gov/800-63-3/sp800-63b.html
+* Microsoft. n.d.. Account recovery best practices. https://learn.microsoft.com/security

@@ -1,0 +1,67 @@
+= Research: Public Transparency Log (Profile Audit Trail)
+Author: Diego A Rios Morales
+Date: February 26, 2026
+
+== Goal
+Add a public "Transparency Log" to user profiles that shows a chronological history of public actions to increase accountability and trust.
+
+== Design rules 
+* Default sort: Newest to Oldest
+* Each entry shows: Action,Time,Object title/type and Link (if still public)
+* Filters: All / Reports / Confirmations / Verification-Roles
+
+== Public vs Private actions
+
+=== Public (OK to show)
+* Report submitted
+* Report updated (show “edited” + safe field names only not raw old content)
+* Report confirmed (prefer countsover naming confirmers)
+* Report resolved/closed
+* Verification granted/removed
+* Role granted/removed (Trusted Reporter, Moderator, etc.)
+
+=== Private (Never show)
+* Login/device/IP/security events
+* Email/phone/password changes
+* Private report categories 
+* Internal moderation notes and internal reason codes
+* Full edit diffs or deleted content
+
+== Wireframe (Profile section)
+[Profile Header]
+
+Transparency Log   (i)
+[Filter: All ▾]  [Sort: Newest ▾]
+
+Feb 26, 2026
+• Report Confirmed — "Blue backpack near UPRM library"
+  Community confirmations: 3   View →
+
+Feb 25, 2026
+• Report Updated — "Blue backpack near UPRM library"
+  Updated: location, photo     View →
+
+Feb 25, 2026
+• Report Submitted — "Blue backpack near UPRM library"
+  View →
+
+[ Show more ]
+Note: Only public activity is displayed.
+
+== Generative AI Use Disclosure
+
+== Did you use any generative AI tools (e.g., ChatGPT, Claude, Gemini, Copilot) for this assignment?
+Yes, ChatGPT.
+
+== At what stages did you use AI?
+* Brainstorming
+* Light editing (formatting for .adoc file)
+
+== What did you do yourself, and what was generated or significantly shaped by AI?
+I did all the research and came up with all the core ideas. AI helped with structuring those ideas. AI also helped me with the template for the profile.
+
+== How did you verify, evaluate, or fact-check AI-generated content?
+I did not have to verify AI-generated content since it was mostly formatting information I had already researched.
+
+== What did you learn from using (or choosing not to use) AI in this project?
+I learned that AI is a valuable tool if used correctly. 

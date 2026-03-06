@@ -1,0 +1,175 @@
+= Research: “Remember Me” Session Persistence for the UPRM Lost & Found Platform
+Author: Angel Villegas
+Date: February 2026
+
+
+== 1. Introduction
+
+This research evaluates the implementation of a “Remember Me” functionality for the UPRM Lost & Found platform.
+
+A “Remember Me” feature allows users to remain signed in across browser sessions without re-entering credentials. While this improves usability, it introduces security considerations that must be carefully evaluated.
+
+This document analyzes session persistence strategies, Firebase Authentication support for persistent sessions, associated risks, and recommendations aligned with the platform’s security objectives.
+
+== 1.1 supabase context
+Following for the project purposes. the platform is transitioning to Supabase as the primary backend and authentication provider. Therefore, this research includes Supabase-specific session persistence capabilities alongside general best practices.
+
+
+== 2. Session Persistence Requirements
+
+The platform requires:
+
+* Secure user login and logout
+* Configurable session duration
+* Protection against unauthorized access on shared devices
+* Secure handling of authentication tokens
+* Integration with Firebase Authentication
+
+The solution must balance convenience and security.
+
+== 3. How “Remember Me” Works
+
+The “Remember Me” functionality extends the lifetime of a user session by storing authentication state across browser restarts.
+
+Modern authentication systems typically use:
+
+* ID tokens for authentication
+* Refresh tokens for session renewal
+* Secure cookies or browser storage to maintain login state
+
+When “Remember Me” is enabled, authentication tokens are stored in persistent storage. When disabled, session data is cleared when the browser closes.
+
+== 4. Firebase Authentication Session Options
+
+Firebase Authentication provides built-in session persistence modes for web applications:
+
+* *Local* – The user remains signed in even after closing and reopening the browser.
+* *Session* – The user remains signed in only while the tab is open.
+* *None* – The user must log in again after refresh or reload.
+
+These persistence settings can be configured programmatically, allowing the application to simulate a “Remember Me” checkbox.
+
+Firebase automatically manages ID and refresh tokens, reducing backend complexity and minimizing manual session handling.
+
+=== 4.1 Supabase Session Persistence
+
+Supabase Auth is built on GoTrue and uses JWT-based authentication.
+
+By default, Supabase:
+
+* Stores session data in local storage for web applications.
+* Automatically refreshes access tokens using refresh tokens.
+* Maintains persistent login across browser reloads.
+
+Supabase allows configuration of:
+
+* Auto-refresh behavior
+* Session persistence
+* Secure cookie-based authentication (especially in SSR environments)
+
+To implement a “Remember Me” feature with Supabase, the application can:
+
+* Use default persistent sessions when enabled.
+* Manually clear sessions or configure alternative storage when disabled.
+
+== 5. Security Considerations
+
+While persistent sessions improve user experience, they introduce potential risks.
+
+=== 5.1 Shared Devices
+
+If a user enables “Remember Me” on a public or shared computer, unauthorized users may gain access.
+
+Mitigation:
+
+* Provide clear warnings on shared devices.
+* Offer session-only persistence as default in sensitive environments.
+
+=== 5.2 Token Theft
+
+If tokens stored in browser storage are compromised, attackers may hijack sessions.
+
+Mitigation:
+
+* Enforce HTTPS for all communications.
+* Rely on Firebase’s secure token lifecycle management.
+* Avoid exposing tokens in insecure storage mechanisms.
+
+=== 5.3 Session Expiration
+
+Long-lived sessions increase exposure time.
+
+Mitigation:
+
+* Use reasonable token expiration times.
+* Allow manual logout.
+* Invalidate sessions upon password changes.
+
+Proper configuration significantly reduces these risks.
+
+=== 5.4 Supabase-Specific Security Considerations
+
+Since Supabase stores JWT access tokens and refresh tokens on the client side by default, it is important to:
+
+* Protect against Cross-Site Scripting (XSS) vulnerabilities.
+* Consider HTTP-only secure cookies in production environments.
+* Configure appropriate JWT expiration policies in Supabase settings.
+* Use refresh token rotation when available.
+
+
+== 6. Usability vs Security Trade-Off
+
+Persistent login sessions:
+
+* Improve user convenience.
+* Reduce login friction.
+* Enhance user retention.
+
+However:
+
+* Increase exposure risk on shared devices.
+* Require careful session management.
+
+A configurable persistence option allows users to choose based on their environment.
+
+=== 6.1 Supabase Usability Considerations
+
+Supabase simplifies persistent sessions by automatically handling token refresh and storage. This reduces backend complexity and improves developer efficiency.
+
+However, because persistence is enabled by default, the application must intentionally implement logic to disable persistence when “Remember Me” is not selected.
+
+== 7. Recommendations
+
+For the UPRM Lost & Found platform, the recommended approach is:
+
+* Implement a “Remember Me” checkbox during login.
+* Use Firebase local persistence when enabled.
+* Use session persistence when not enabled.
+* Enforce HTTPS and secure token handling.
+* Provide clear logout functionality.
+
+This approach balances usability and security while leveraging Firebase’s built-in session management.
+
+=== 7.1 Supabase Implementation Strategy
+
+Implementation should:
+
+* Leverage Supabase's built-in session management.
+* Configure JWT expiration appropriately.
+* Use secure cookie-based authentication in production if possible.
+* Validate authentication status before sensitive operations.
+
+== 8. Conclusion
+
+A “Remember Me” feature enhances user experience by allowing persistent login sessions.
+
+Firebase Authentication provides secure, configurable session persistence mechanisms that align with the platform’s needs.
+
+With proper configuration and security controls, persistent sessions can be implemented safely and effectively.
+
+== 9. References
+
+* Google LLC. (n.d.). Firebase Authentication documentation. https://firebase.google.com/docs/auth
+* Google LLC. (n.d.). Manage authentication state persistence. https://firebase.google.com/docs/auth/web/auth-state-persistence
+* OWASP Foundation. (n.d.). Session Management Cheat Sheet. https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html
+* Microsoft. (n.d.). Authentication and session management best practices. https://learn.microsoft.com/security

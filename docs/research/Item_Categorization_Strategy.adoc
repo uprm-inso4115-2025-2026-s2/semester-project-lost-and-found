@@ -1,0 +1,127 @@
+## Item Categorization Strategy
+
+### Goal
+
+Design an effective and intuitive way to categorize lost and found items to improve searchability, reporting, and user experience within a campus-wide system.
+
+### Description
+
+Lost and found systems face a classification challenge similar to those found in e-commerce and inventory management platforms. Items must be categorized in a way that balances simplicity for users submitting items and precision for users searching them.
+
+This section examines how common systems structure categories, compares flat and hierarchical approaches, and proposes a category structure suitable for a campus lost and found system.
+
+### Categorization Approaches
+
+#### Approach 1: Flat Categories
+
+In a flat categorization system, all categories exist at a single level with no parent-child relationships.
+
+**Example:**
+
+- Electronics  
+- Clothing  
+- Accessories  
+- Documents  
+- Personal Items  
+- Bags  
+
+**Advantages**
+- Simple to implement and maintain  
+- Easy for users to understand  
+- Faster item submission  
+
+**Disadvantages**
+- Limited precision when searching  
+- Categories may become too broad  
+- Difficult to scale as item variety grows  
+
+#### Approach 2: Hierarchical Categories
+
+Hierarchical categorization organizes items into parent categories with nested subcategories.
+
+**Example:**
+
+- Electronics  
+  - Phones  
+  - Laptops  
+  - Chargers  
+- Clothing  
+  - Jackets  
+  - Shirts  
+  - Hats  
+
+**Advantages**
+- More precise classification  
+- Improves filtering and search accuracy  
+- Scales well as the system grows  
+
+**Disadvantages**
+- Slightly more complex to design  
+- Requires clearer guidance during item submission  
+- Deeper hierarchies may overwhelm some users  
+
+#### Approach 3: Hybrid (Hierarchical + Attributes)
+
+This approach combines a shallow hierarchy with descriptive attributes (tags or item properties).
+
+**Example:**
+
+- Category: Electronics > Phone  
+- Attributes:
+  - Brand  
+  - Color  
+  - Condition  
+  - Location Found  
+
+**Advantages**
+- High flexibility and accuracy  
+- Supports advanced filtering  
+- Avoids overly deep category trees  
+
+**Disadvantages**
+- More complex data model  
+- Requires consistent attribute definitions  
+
+### Proposed Category Structure
+
+A shallow hierarchical structure is recommended for a campus lost and found system, as it balances usability and precision.
+
+**Top-level categories:**
+
+- Electronics  
+- Clothing & Accessories  
+- Bags & Containers  
+- Documents & IDs  
+- Keys  
+- Personal Items  
+- Miscellaneous  
+
+### Example Category Tree
+
+- Electronics  
+  - Phones  
+  - Laptops & Tablets  
+  - Chargers & Accessories  
+- Clothing & Accessories  
+  - Jackets & Hoodies  
+  - Hats  
+  - Jewelry  
+- Bags & Containers  
+  - Backpacks  
+  - Handbags  
+  - Lunchboxes  
+- Documents & IDs  
+  - Student IDs  
+  - Passports  
+  - Licenses  
+- Keys  
+  - Single Keys  
+  - Keychains  
+- Personal Items  
+  - Water Bottles  
+  - Glasses  
+  - Umbrellas  
+
+### Conclusion
+
+Compared to a flat category system, a shallow hierarchical approach provides better organization and search accuracy without introducing excessive complexity. This structure supports both efficient item submission and effective item discovery, making it well-suited for a campus lost and found application.

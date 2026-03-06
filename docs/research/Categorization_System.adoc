@@ -1,0 +1,150 @@
+= Item Categorization System Research
+Author: Jose Valentin
+Date: February 25, 2026
+
+== Goal
+Determine the best way to organize lost and found items to ensure clarity, scalability, and efficient search functionality.
+
+== Categorization Approaches
+
+=== Option 1: Flat Categories
+*Structure:* One level categories only.
+
+*Examples:*
+- Electronics
+- Clothing
+- Personal Items
+- Books & Supplies
+- Keys & Cards
+- Other
+
+*Pros:*
+- Very simple
+- Easy to implement
+- Fast database queries
+- Low maintenance
+
+*Cons:*
+- Too general as system grows
+- Limited search precision
+- Hard to expand without adding many new top level categories
+
+---
+
+=== Option 2: Hierarchical Categories
+*Structure:* Main category → Subcategory.
+
+*Example:*
+- Electronics
+  - Laptop
+  - Phone
+  - Charger
+- Clothing
+  - Jacket
+  - Shoes
+
+*Pros:*
+- Better organization
+- More precise filtering
+- Scales well
+
+*Cons:*
+- Slightly more complex
+- Requires managing category tree
+
+---
+
+=== Option 3: Tag-Based System
+*Structure:* Flexible keywords.
+
+*Example:*
+#black, #apple, #library, #charger-included
+
+*Pros:*
+- Very flexible
+- Describes items in detail
+- Useful for search refinement
+
+*Cons:*
+- Can become inconsistent
+- Hard to control without moderation
+- More complex database queries
+
+---
+
+=== Option 4: Hybrid Approach (Recommended)
+*Structure:* Category + Subcategory + Optional Tags
+
+*Example:*
+Category: Electronics → Laptop  
+Tags: #black, #apple, #charger-included
+
+*Pros:*
+- Structured browsing + flexible search
+- Scalable
+- Maintains clean database
+- Supports future matching improvements
+
+*Cons:*
+- Slightly more complex to implement
+
+---
+
+== Database Considerations
+
+Flat:
+- Single category field
+- Very simple queries
+
+Hierarchical:
+- Main category + subcategory fields
+- Still efficient with indexing
+
+Tag-Based:
+- Separate tags table
+- Many-to many relationship
+- More complex joins
+
+Hybrid:
+- Category fields for fast filtering
+- Tags table for refinement
+- Best balance of performance and flexibility
+
+---
+
+== Recommended Approach: Hybrid System
+
+=== Implementation Plan
+1. User selects main category (required).
+2. User selects subcategory (required).
+3. User adds optional tags (suggested, not free text unlimited).
+
+=== Suggested Main Categories
+- Electronics
+- Clothing & Accessories
+- Books & School Supplies
+- Personal Items
+- Sports & Recreation
+- Keys & ID Cards
+- Other
+
+---
+
+== Why Hybrid is Best
+
+- Categories keep the system organized.
+- Tags allow detailed descriptions.
+- Users can browse easily.
+- Search remains precise.
+- Database remains scalable.
+
+This structure supports growth without needing major redesign later.
+
+---
+
+== Team Meeting Discussion Points
+
+- Final list of main categories
+- Should tags be optional or required?
+- Should we launch with categories first, then add tags later?
+- Who manages future category changes?

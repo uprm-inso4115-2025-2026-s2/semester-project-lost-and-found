@@ -1,0 +1,170 @@
+= Authentication & Security Strategy (MVP)
+:author: Ivanier Bellido
+:issue: #94
+:status: Proposed
+
+== 1. Objective
+
+Define how the Lost & Found platform verifies a user’s identity and maintains a secure login session.
+
+Scope:
+* Authentication (who the user is)
+* Session security (how login stays valid)
+* Account verification basics
+
+Out of scope:
+* Authorization (roles/permissions) is handled separately in Issue #30.
+
+---
+
+== 2. Why authentication is needed in this project
+
+Users must be authenticated before they can:
+* Create lost/found reports
+* Upload images
+* Message other users
+
+Security goals for the MVP:
+* Reduce fake/spoofed accounts
+* Avoid exposing session tokens
+* Ensure unauthenticated users cannot access protected actions
+
+---
+
+== 3. Options considered
+
+Because the project is aligned with Supabase, the main options are:
+
+* Supabase Auth (email/password, OAuth providers, session management)
+* External auth providers (Auth0 / custom backend auth)
+
+For MVP, external providers are not recommended due to added setup cost and complexity compared to Supabase’s built-in solution.
+
+---
+
+== 4. Recommendation (MVP)
+
+=== 4.1 Authentication methods
+Recommended:
+1) Email + password (with email verification enabled)
+2) Google OAuth (optional but recommended if the team enables it)
+
+Future enhancement (not required for MVP):
+* Institutional login (UPRM/Microsoft SSO)
+
+Rationale:
+* Email/password is the simplest baseline and works well with Supabase.
+* Google OAuth improves user experience and reduces friction.
+* Institutional SSO usually requires extra configuration and coordination, so it is better as a later improvement.
+
+---
+
+== 5. Session handling strategy
+
+=== Recommendation
+Use Supabase Auth sessions (JWT-based access token + refresh token) using the official Supabase client libraries.
+
+MVP approach:
+* Use the frontend framework’s recommended secure storage method supported by Supabase.
+* Do not manually implement token creation/validation unless required.
+
+Notes:
+* Access tokens should be treated as sensitive.
+* Refresh tokens keep sessions alive and should also be protected.
+
+---
+
+== 6. Login and session flow
+
+[mermaid]
+....
+sequenceDiagram
+  participant U as User
+  participant FE as Frontend
+  participant SA as Supabase Auth
+  participant DB as Supabase Postgres
+
+  U->>FE: Sign up (email + password)
+  FE->>SA: signUp()
+  SA-->>U: Verification email sent
+  U->>SA: Click verification link
+  U->>FE: Sign in
+  FE->>SA: signInWithPassword() / signInWithOAuth()
+  SA-->>FE: Session (JWT + refresh token)
+  FE->>DB: Authenticated requests (RLS checks)
+  U->>FE: Sign out
+  FE->>SA: signOut()
+....
+
+---
+
+== 7. Account verification
+
+MVP requirement:
+* Enable email verification for email/password users.
+
+Optional policy (only if required by the team):
+* Restrict signups to specific domains (e.g., *@upr.edu).
+
+Recommendation:
+* Enable email verification by default.
+* Only add domain restrictions if the project explicitly requires it, because it may block legitimate users.
+
+---
+
+== 8. Minimal identity data stored in the application database
+
+Supabase stores user credentials in its auth system. The app database should store only what the application needs.
+
+Proposed table: `profiles` (or `users`)
+* `id` (uuid, primary key; matches auth.user.id)
+* `name` (text)
+* `email` (text; optional if already available through auth)
+* `created_at` (timestamp)
+
+Important:
+* Do not store passwords in the application database.
+* Use the auth user id as the link for all user-owned data (reports, messages, images).
+
+---
+
+== 9. Security considerations (MVP)
+
+*Risk: Fake accounts / impersonation*
+* Mitigation: email verification + optional OAuth provider login
+
+*Risk: Session token leakage*
+* Mitigation: use HTTPS; avoid logging tokens; follow Supabase secure session handling practices; keep access tokens short-lived
+
+*Risk: Unauthorized read/write access to user data*
+* Mitigation: enforce Postgres Row Level Security (RLS) policies and storage policies (upload/read/delete rules)
+
+*Risk: Web vulnerabilities (XSS/CSRF)*
+* Mitigation: sanitize user input; use framework defaults; avoid storing tokens in insecure locations; prefer secure cookie-based patterns if supported by the chosen stack
+
+---
+
+== 10. Testing plan (basic)
+
+Simulate and verify:
+* Signup sends verification email
+* Verified user can sign in
+* Session persists on refresh and expires correctly
+* Unauthenticated users cannot create reports, upload images, or send messages
+* (Once implemented) RLS policies prevent a user from reading/modifying another user’s data
+
+---
+
+== 11. References
+
+Supabase Auth Documentation  
+https://supabase.com/docs/guides/auth
+
+Supabase Social Login (OAuth providers)  
+https://supabase.com/docs/guides/auth/social-login
+
+Supabase Row Level Security (RLS)  
+https://supabase.com/docs/guides/database/postgres/row-level-security
+
+OWASP Session Management Cheat Sheet  
+https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html

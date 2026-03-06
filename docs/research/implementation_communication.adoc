@@ -1,0 +1,93 @@
+= Possible ways to Implement Communication between Users and Report Authors
+
+Author: Dylan Oliver Martinez
+Date: February 22, 2026
+
+== On-Platform Private Messaging
+
+An internal messaging system where users can send direct messages to report authors within the platform.
+
+=== Pros
+
+* Protects user privacy
+* Centralized communication history
+
+=== Cons
+
+* Needs real-time updates or polling
+* Higher maintenance complexity
+
+
+== Email Relay System
+
+Users contact report authors via a form. The platform forwards the message to the author’s email without exposing their real address.
+
+=== Pros
+
+* Easier to implement than full messaging system
+* Protects email privacy
+
+=== Cons
+
+* No centralized message history
+* Harder to moderate
+* Slower back-and-forth conversations
+
+
+== Direct Email Display
+
+Display the report author's email publicly on the report page.
+
+=== Pros
+
+* Simple to implement
+* No backend logic required
+* Instant communication
+
+=== Cons
+
+* Major privacy concerns
+* High spam risk
+* No moderation
+
+
+== Phone Number Sharing
+
+Users share phone numbers in reports so others can call or message directly.
+
+=== Pros
+
+* Immediate contact
+
+=== Cons
+
+* Strong privacy concerns
+* No moderation
+
+
+== Comment Section Under Reports
+
+Public comment thread under each lost/found report.
+
+=== Pros
+
+* Easy to implement
+* Public visibility
+* Encourages community interaction
+
+=== Cons
+
+* Not private
+* Sensitive information may be exposed
+* Requires moderation
+
+
+== Summary of Findings
+
+* Direct Email Display and Phone Number Sharing are the simplest to implement but introduce serious privacy risks and high spam potential.
+
+* Comment Sections encourage community engagement but lack privacy and require active moderation. They are better suited as a complementary feature rather than a primary communication method.
+
+* Email Relay Systems provide a good balance between simplicity and privacy. They are relatively easy to implement and protect user email addresses.
+
+* On-Platform Private Messaging Systems provide strong privacy protection, moderation capabilities, centralized communication, improved user retention, and future extensibility, but require more development effort.
