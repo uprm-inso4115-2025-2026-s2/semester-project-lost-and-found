@@ -20,8 +20,7 @@ const PLACEHOLDER: Item[] = [
 ];
 
 
-// export default App
-type Tab = "Lost" | "Claimed" | "Returned";
+type Tab = "Lost" | "Found" | "Returned";
 export default function App() {
   const [tab, setTab] = useState<Tab>("Lost");
 
@@ -30,43 +29,58 @@ export default function App() {
       <h1>UPRM: Lost & Found</h1>
 
 
-      <div style={{ display: "center", gap: 8, marginBottom: 16 }}>
+      <div role="tablist" style={{ display: "flex", gap: 8, marginBottom: 16 }}>
         <button
+          role="tab"
+          aria-selected={tab === "Lost"}
           onClick={() => setTab("Lost")}
           style={{
             padding: "30px 50px",
-            background: tab === "Lost" ? "#D75858" : "#D75858",
+            background: "#D75858",
             cursor: "pointer",
+            fontWeight: tab === "Lost" ? 700 : 400,
+            border: "none",
+            borderBottom: tab === "Lost" ? "4px solid #7a1a1a" : "4px solid transparent",
           }}
         >
-          Lost
+          &#10007; Lost
         </button>
         <button
-          onClick={() => setTab("Claimed")}
+          role="tab"
+          aria-selected={tab === "Found"}
+          onClick={() => setTab("Found")}
           style={{
             padding: "30px 50px",
-            background: tab === "Claimed" ? "#DACD68" : "#DACD68",
+            background: "#DACD68",
             cursor: "pointer",
+            fontWeight: tab === "Found" ? 700 : 400,
+            border: "none",
+            borderBottom: tab === "Found" ? "4px solid #7a6e1a" : "4px solid transparent",
           }}
         >
-          Claimed
+          &#10003; Found
         </button>
-       <button
+        <button
+          role="tab"
+          aria-selected={tab === "Returned"}
           onClick={() => setTab("Returned")}
           style={{
             padding: "30px 50px",
-            background: tab === "Returned" ? "#7FDE67" : "#7FDE67",
+            background: "#7FDE67",
             cursor: "pointer",
+            fontWeight: tab === "Returned" ? 700 : 400,
+            border: "none",
+            borderBottom: tab === "Returned" ? "4px solid #2a6e1a" : "4px solid transparent",
           }}
         >
-          Returned
+          &#8617; Returned
         </button>
       </div>
 
       {/* Tab content */}
       <div style={{ padding: 20, border: "10px solid #014d0c"}}>
         {tab === "Lost" && <LostTab />}
-        {tab === "Claimed" && <ClaimTab />}
+        {tab === "Found" && <FoundTab />}
         {tab === "Returned" && <ReturnTab />}
         
       </div>
@@ -84,10 +98,10 @@ function LostTab() {
 }
 
 
-function ClaimTab() {
+function FoundTab() {
   return (
     <div>
-      <h2 style={{ marginTop: 1 }}>Claimed Items</h2>
+      <h2 style={{ marginTop: 1 }}>Found Items</h2>
 
       <div style={{ display: "grid", gap: 12, justifyItems: "center" }}>
         {PLACEHOLDER.map((item) => (
