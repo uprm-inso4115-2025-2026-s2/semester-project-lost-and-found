@@ -1,6 +1,6 @@
 name: 🛠️ Developer Issue
 description: Use this template to define a development task or feature clearly.
-title: "📝 [Feature] "
+title: "[Feature] "
 labels: ["task"]
 
 body:
