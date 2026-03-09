@@ -1,0 +1,35 @@
+= GUIDELINES AND ADVICE ON THE PROJECT DOCUMENTATION
+Second Milestone
+Marko Schütz-Schmuck
+
+These guidelines will be used to evaluate each project's submission. The whole project is still in progress, so we still do not need to see any type of _completeness_. However, we do want to see some progress (not necessarily the same amount) on _each_ of those aspects. By now we do want to see at least some fruits on all of the branches, e.g. from domain description to implementation and verification and validation. The guidelines and examples are more detailed than what would easily fit into the format of rubrics, so the guidelines are stated separately and the rubrics then are quite generic.
+ 
+ • Changes to the previous submission must be clearly visible. Use a different background color, change bars in the page margin, or other ways to clearly indicate the changes. 
+ • The log book gives an overview of the changes (but not the full changed content) since the last submission. You can include a link to the issues in your GitHub repository for the full detail, so full detail is not needed here. 
+ • The actual changes, new developments, etc are integrated into the overall document. Do NOT use a separate part of the document for "new stuff"… 
+ • All the criteria where the previous submission did not follow the guidelines have been improved. 
+ • Any additions and changes follow the guidelines already established for the milestone 1 submission. 
+ • Progress in the implementation has been made: there are completed features that are implemented end-to-end and that have a high value to the users. The completion of the feature is evidenced by passing acceptance/end-to-end tests. Do not show the full implementation in your document, but you can show high-lights. 
+ • Progress has been made in all phases of development: domain description, requirements prescription, design, … All these phases evolve WITH one another, do not make the mistake of treating e.g. domain description as a fire-and-forget activity. Evolve all these aspects of your project together.
+
+ • Application of topics, techniques, tools, methods, … from the lectures:
+
+== The following rubrics will have a higher weight than those above. These following should be merged into their corresponding sections of your document.
+
+ • The project reviewed the requirements documentation and ensures: 
+- that the requirements stakeholders are properly documented: who, why these, how related to the project… 
+- that acquisition and the rest of the elicitation are SEPARATE 
+- that at least one meaningful questionnaire for requirements acquisition is included
+
+ • The project reviewed their requirements analysis and ensures: 
+- that they are analyzing inconsistencies for the specific types of clashes 
+- that they are including at least five weak inconsistency together with the boundary condition that makes it inconsistent 
+- that they are identifying some competing goals together with examples of derived requirements 
+
+ • In dealing with inconsistencies the project has generated several candidate resolutions. They show at least three cases where they applied further elicitation to get to candidate resolutions and at least three cases where they used the resolution tactics 
+ • The project shows at least three cases of risk identification using FMEA and at least three cases where they used guidewords together with the risks that they generated. It's recommended that they use scenarios to illustrate these risks. 
+ • The project shows their assessment of some of all their risks with some justification/discussion.
+
+ • The project shows at least three risks where they generated several candidate countermeasures, some of which they obtained using the risk reduction tactics. 
+ • The project shows evaluation criteria and how they arrived at these using each team member's input. And then use these criteria to prioritize their requirements again using each team member's input. They use AHP for both of this. For example, using the tool <https://github.com/gluc/ahp> in R by following the "vacation" example there. 
+ • The project shows at least three example requirements where they discuss satisfiability and feasibility.
