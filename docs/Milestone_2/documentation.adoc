@@ -5,6 +5,13 @@ Prof. Marko Schütz-Schmuck
 :doctype: book
 :toc:
 :sectnums:
+:pdf-themesdir: {docdir}/build
+:pdf-theme: highlighting-theme.yml
+
+// Role highlight usage (inline):
+// [.removed]#deleted intent#
+// [.changed]#modified intent#
+// [.added]#added intent#
 
 include::sections/section1/section.adoc[]
 
