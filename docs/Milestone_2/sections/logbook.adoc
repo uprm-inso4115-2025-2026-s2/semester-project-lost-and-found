@@ -1,7 +1,13 @@
 
-=== Logbook 
+[.discrete]
+== *Logbook*
 
-[%header]
+[cols="3,^2,5",options="header",]
 |===
+| Name | Section | Added/Modified
+
+| Jean P. I. Sánchez
+| 5.
+| Added
 
 |===
