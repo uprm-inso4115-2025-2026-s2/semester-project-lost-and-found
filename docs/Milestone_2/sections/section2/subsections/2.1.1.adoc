@@ -5,7 +5,6 @@
 
 
 [discrete]
-[.added]
 ==== Lost Item Owners (Students / Staff)
 
 *Student (Mateo, freshman, engineering)*:
