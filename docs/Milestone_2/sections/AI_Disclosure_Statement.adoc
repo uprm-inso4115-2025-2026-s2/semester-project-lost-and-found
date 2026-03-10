@@ -1,0 +1,123 @@
+:!sectnums: 
+
+== *Appendix*
+
+=== *AI Disclosure Statement*
+
+==== Tools Used
+
+Our team used *Artificial Intelligence* tools to help with the *Lost & Found* project. We used these tools:
+
+* *ChatGPT (GPT-5.2 Plus tier)*: This tool helped us organize our documentation make sense of concepts like *Report* *Ownership* and *Lifecycle State*. It also helped us write better and make our AsciiDoc files clearer. We even used it to discuss how to integrate *React* and *Supabase*.
+
+* *GitHub Copilot*: This tool helped us write code faster by suggesting completions making *React* components and helping with *Supabase* queries and *TypeScript* types.
+
+These tools made it easier for us to work write clearly. Be organized.. They didn't make any big decisions or build the system on their own.
+
+==== Stages of AI Usage
+
+We used *AI* tools at stages of the project.
+
+*Learning & Setup*
+
+*AI* helped us fix problems with *React* *TypeScript* *Supabase* authentication and *Row Level Security (RLS)*. It helped us understand how to use these tools and find ways to implement them.
+
+*Brainstorming & Domain Modeling*
+
+*AI* helped us think of ideas for the *Lost & Found* domain, like *Report* *Ownership* and *Lifecycle State*. We used these ideas as starting points. Made them better as a team.
+
+*Requirements & Concept Structuring*
+
+*AI* helped us:
+
+- Make our requirements clearer
+
+- Use the terms throughout
+
+- Organize our analysis and validation sections
+
+- Format our *PlantUML* and *AsciiDoc* sections
+
+We reviewed and validated all requirements before including them.
+
+*Implementation Support*
+
+*AI* helped us:
+
+- Plan *React* component structures
+
+- Write *Supabase* queries and insertion logic
+
+- Explore *RLS* policy examples
+
+- Refine *TypeScript* interfaces
+
+We reviewed tested and adapted all suggested code before integrating it.
+
+*Documentation*
+
+*AI* helped us:
+
+- Write clearly and correctly
+
+- Use domain terms consistently
+
+- Organize our traceability matrices and validation sections
+
+- Format our *AsciiDoc* and source code blocks
+
+We reviewed edited and approved all documentation.
+
+==== Human vs AI Contributions
+
+*AI* tools gave us suggestions draft text and example structures.
+
+* The team came up with all domain concepts. Checked them against real *Lost & Found* scenarios.
+
+* The team made all decisions (*React* frontend, *Supabase* backend, storage separation, *RLS* enforcement).
+
+* The team built, tested and debugged all integration logic.
+
+* The team designed lifecycle transitions and moderation policies.
+
+* The team. Refined all diagrams and validation scenarios.
+
+We always reviewed, corrected and adapted *AI*-generated material to fit the goals of the *Lost & Found* project.
+
+There were tasks where *AI* wasn't used, like:
+
+- Fixing state management issues
+
+- Checking *RLS* edge cases
+
+- Resolving authentication flow inconsistencies
+
+- Final review for milestone alignment
+
+==== Verification and Conflict Resolution
+
+We checked all *AI*-assisted outputs carefully:
+
+* We checked requirements against milestone guidelines.
+
+* We -referenced technical suggestions with official *React* and *Supabase* documentation.
+
+* We tested all code suggestions locally before integrating them.
+
+* At one team member reviewed documentation changes.
+
+When *AI*-generated structures didn't match our naming conventions or domain vocabulary we revised them manually.
+
+==== Reflection
+
+*AI* tools helped us draft faster format and brainstorm ideas. However we noticed that:
+
+* *AI*-generated *AsciiDoc* formatting needed manual fixing.
+
+* Some technical suggestions were general and needed domain-specific refinement.
+
+* Human validation was crucial to ensure alignment with university *Lost & Found* workflows.
+
+We learned that *AI* is most helpful as a productivity and drafting assistant not, as a decision-maker. It supported our work. Didn't replace critical thinking domain understanding or collaborative decision-making.
+
+The *Lost & Found* project is a team-driven effort. *AI* tools were one of tools used to improve efficiency and clarity while all final design, analysis and implementation decisions were made by the team.

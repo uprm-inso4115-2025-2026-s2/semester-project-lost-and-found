@@ -1,0 +1,65 @@
+== *Informative Part*
+
+=== *Team*
+
+The Official Lost and Found (LnF) project is organized into four functional teams and two project managers. All team members listed below are active contributors to the project and are considered confirmed partners because they are directly involved in planning, implementation, documentation, and delivery.
+
+Team members and partners are not always exactly the same. In this project, the confirmed partners currently match the project team members. However, additional external partners may be identified later (for example, course staff or institutional/domain advisors) if requirements clarification or validation is needed.
+
+==== Confirmed Partners (Current Project Team)
+
+===== Project Managers
+* Iralys Sanchez
+* Tomas Gomez
+
+===== Team 1 - Core System, Base UI, Search and Administration
+* Fabian A Acevedo-Martinez (Team Leader)
+* Abdiel Cotto-Claudio
+* Alberto J Rodriguez-Nogueras
+* Diego A Rios-Morales
+* Ivaner Bellido-Traverzo
+* Joel R Torres-Cruz
+* Natanael Batista-Alvarez
+* Noel A Colon-Mena
+
+===== Team 2 - Authentication, Communication and Notifications
+* Sebastian G Suarez-Robles (Team Leader)
+* Abby Gotay-Almonte
+* Angel A Villegas-Colon
+* Dylan M Oliver-Martinez
+* Fernando A Torres-Delgado
+* Javier A Ventosa-Maldonado
+* Lianette Alberto-Munoz
+
+===== Team 3 - Reports and Object Management
+* Andres A Cruz-Zapata (Team Leader)
+* Adiel Soto-Rodriguez
+* Adriel Bracero-Gonzalez
+* Jose E Valentin-Cortes
+* Naedra J Feliciano-Agostini
+* Nelson J Caban-Rodriguez
+* Omar A Cordero-Maldonado
+* Victoria M Miranda-Osuna
+
+===== Team 4 - Documentation and Standardization
+* Jean P. I Sanchez-Felix (Team Leader)
+* Anthony H Martinez-Gomez
+* Keishlyany M Sanabria-Santana
+* Leanelys A Gonzalez-Orama
+* Taismin Said-Khader
+
+==== Partner Roles and Responsibilities (Current and Possible)
+
+* *Project Managers*:
+  coordinate the project across teams, follow progress, support communication, and help ensure deliverables are completed.
+
+* *Team Leaders*:
+  organize team-level work, coordinate tasks within their team, and help align deliverables with project goals.
+
+* *Developers*:
+  implement assigned tasks, collaborate with teammates, and contribute to testing, documentation, or integration as needed.
+
+* *Possible external partners (not yet confirmed)*:
+  may include course staff, domain advisors, or institutional representatives. Their responsibilities would include clarifying requirements, validating project scope, and providing feedback on whether the system meets expected needs.
+
+NOTE: Customers or end users of a Lost and Found system are not automatically considered partners. A partner has a stronger and more direct involvement in the project (e.g., coordination, validation, or decision-making). At this stage, no external customer-side partner has been formally identified.

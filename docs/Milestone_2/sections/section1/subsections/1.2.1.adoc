@@ -1,0 +1,52 @@
+=== *Current Situation, Needs, Ideas*
+
+==== *Current Situation*
+
+===== Informal and Fragmented Lost & Found Practices on Campus
+
+Within the university environment, the handling of lost and found items is largely informal and decentralized. When students lose personal belongings such as laptops, ID cards, wallets, or keys, they typically rely on word of mouth, group chats, or social media posts to attempt recovery. Some departments maintain physical lost-and-found boxes, but there is no unified digital system that aggregates reports across campus locations.
+
+As a result, information about lost or found items is scattered across different channels, making it difficult for affected individuals to know where to look or whom to contact.
+
+===== Manual Handling and Limited Traceability
+
+In many cases, found items are turned in to security offices or administrative departments. These offices may log items manually or keep handwritten records. However, these records are not always publicly searchable, and access may require visiting the office in person during business hours.
+
+Because processes are manual:
+
+- There is limited visibility into which items have already been reported.
+- There is no standardized format for describing items.
+- There is no automated way to track the lifecycle of an item (e.g., reported, claimed, archived).
+
+This lack of traceability can lead to duplicated efforts, unclaimed items, and unnecessary frustration.
+
+===== Lack of Ownership Enforcement and Accountability
+
+When lost-and-found interactions occur through social media or messaging platforms, there is often no structured mechanism to verify ownership or authenticity. Posts may be edited, deleted, or buried in feeds. There is no reliable way to ensure that only the original poster can modify a report, nor is there a formal moderation process to remove inappropriate or fraudulent listings.
+
+This creates potential risks:
+
+- False claims of ownership.
+- Malicious or spam posts.
+- Exposure of sensitive personal information.
+
+===== Limited Search and Discovery Capabilities
+
+Students searching for a lost item must manually scroll through posts, check multiple group chats, or visit different offices. There is typically no filtering by category, date, or location, and no consistent use of tags or metadata.
+
+Without structured search capabilities:
+
+- Matching lost and found reports is inefficient.
+- Recently reported items may go unnoticed.
+- Users cannot sort or filter based on relevant criteria.
+
+===== Partial Digital Attempts and Their Limitations
+
+Some informal digital attempts exist, such as shared spreadsheets or temporary messaging groups for specific events. While these efforts demonstrate a need for coordination, they lack:
+
+- Authentication and access control.
+- Structured data validation.
+- Persistent lifecycle management.
+- Integrated image handling and secure storage.
+
+Because these solutions are ad hoc and isolated, they do not provide a sustainable or secure campus-wide solution.
