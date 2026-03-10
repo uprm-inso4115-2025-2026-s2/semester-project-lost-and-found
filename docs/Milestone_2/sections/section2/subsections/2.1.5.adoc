@@ -1,0 +1,359 @@
+==== Function Signatures
+
+===== User Access & Authentication
+
+====== 1. Authenticate with UPR
+
+*Event / Trigger:*  
+User attempts to log in using their official `upr.edu` account.
+
+*System Behavior:*  
+- Validates credentials through UPR authentication integration.  
+- Creates an authenticated session upon success.
+
+*Inputs:*
+- `upr_email: str` — User’s official UPR email address  
+- `upr_token: str` — Authentication token issued by UPR  
+
+*Output:*
+- `AuthSession`
+
+*Function Signature:*
+[source,python]
+----
+def authenticate_with_upr(upr_email: str, upr_token: str) -> AuthSession
+----
+
+====== 2. Authorize User Action
+
+*Event / Trigger:*  
+User attempts to perform a restricted action (e.g., reporting an item).
+
+*System Behavior:*  
+- Verifies whether the user’s role permits the requested action.
+
+*Inputs:*
+- `user_id: str`
+- `action: str`
+
+*Output:*
+- `bool`
+
+*Function Signature:*
+[source,js]
+----
+export async function authorizeUserAction(userId: string, action: string) -> bool
+----
+
+===== Report Creation & Management
+
+====== 3. Create Lost Report
+
+*Event / Trigger:*  
+User submits the Lost Item form.
+
+*System Behavior:*  
+- Validates required fields.  
+- Saves report.  
+- Sets status to "Active".
+
+*Inputs:*
+- `user_id: str`
+- `report_data: dict`
+
+*Output:*
+- `Report`
+
+*Function Signature:*
+[source,js]
+----
+export async function createLostReport(userId: string, reportData: dict) -> Report
+----
+
+====== 4. Create Found Report
+
+*Event / Trigger:*  
+User submits the Found Item form.
+
+*System Behavior:*  
+- Validates required fields.  
+- Saves report.  
+- Sets status to "Active".
+
+*Inputs:*
+- `user_id: str`
+- `report_data: dict`
+
+*Output:*
+- `Report`
+
+*Function Signature:*
+[source,js]
+----
+export async function createFoundReport(userId: string, reportData: dict) -> Report
+----
+
+====== 5. Edit Report
+
+*Event / Trigger:*  
+User edits an existing report.
+
+*System Behavior:*  
+- Updates report fields.  
+- Preserves data integrity.
+
+*Inputs:*
+- `report_id: str`
+- `updated_data: dict`
+
+*Output:*
+- `Report`
+
+*Function Signature:*
+[source,js]
+----
+export async function editReport(reportId: string, updatedData: dict) -> Report
+----
+
+====== 6. Update Report Status
+
+*Event / Trigger:*  
+User or admin changes report status (Active / Returned / Closed).
+
+*System Behavior:*  
+- Updates report lifecycle state.
+
+*Inputs:*
+- `report_id: str`
+- `new_status: str`
+
+*Output:*
+- `Report`
+
+*Function Signature:*
+[source,js]
+----
+export async function updateReportStatus(reportId: string, newStatus: string) -> Report
+----
+
+===== Ownership Verification
+
+====== 7. Validate Item Ownership
+
+*Event / Trigger:*  
+User claims ownership of a found item.
+
+*System Behavior:*  
+- Compares private verification fields (e.g., serial number, identifying details).  
+- Allows status change only if validation succeeds.
+
+*Inputs:*
+- `report_id: str`
+- `claimant_id: str`
+- `verification_data: dict`
+
+*Output:*
+- `bool`
+
+*Function Signature:*
+[source,js]
+----
+export async function validateItemOwnership(
+    reportId: string,
+    claimantId: string,
+    verificationData: dict
+) -> bool
+----
+
+===== Search & Discovery
+
+====== 8. Search Reports by Keyword
+
+*Event / Trigger:*  
+User enters search keywords.
+
+*System Behavior:*  
+- Returns matching lost or found reports.
+
+*Inputs:*
+- `query: str`
+
+*Output:*
+- `list[Report]`
+
+*Function Signature:*
+[source,js]
+----
+export async function searchReportsByKeyword(query: string) -> list[Report]
+----
+
+====== 9. Filter Reports
+
+*Event / Trigger:*  
+User applies filters (status, category, location, date range).
+
+*System Behavior:*  
+- Returns filtered report results.
+
+*Inputs:*
+- `status: str`
+- `category: str`
+- `location: str`
+- `date_range: tuple`
+
+*Output:*
+- `list[Report]`
+
+*Function Signature:*
+[source,js]
+----
+export async function filterReports(
+    status: string,
+    category: string,
+    location: string,
+    date_range: tuple
+) -> list[Report]
+----
+
+===== Communication System
+
+====== 10. Send Secure Message
+
+*Event / Trigger:*  
+User contacts another user regarding a report.
+
+*System Behavior:*  
+- Mediates communication internally.  
+- Prevents exposure of private email addresses.
+
+*Inputs:*
+- `sender_id: str`
+- `report_id: str`
+- `message: str`
+
+*Output:*
+- `Message`
+
+*Function Signature:*
+[source,js]
+----
+export async function sendSecureMessage(
+    senderId: string,
+    reportId: string,
+    message: string
+) -> Message
+----
+
+===== Moderation & Admin System
+
+====== 11. Flag Report
+
+*Event / Trigger:*  
+User flags inappropriate or suspicious content.
+
+*System Behavior:*  
+- Records flag for administrative review.
+
+*Inputs:*
+- `report_id: str`
+- `flagged_by: str`
+- `reason: str`
+
+*Output:*
+- `Flag`
+
+*Function Signature:*
+[source,js]
+----
+export async function flagReport(reportId: string, flaggedBy: string, reason: string) -> Flag
+----
+
+====== 12. Moderate Report
+
+*Event / Trigger:*  
+Administrator reviews flagged report.
+
+*System Behavior:*  
+- Edits, removes, or approves report content.
+
+*Inputs:*
+- `report_id: str`
+- `admin_id: str`
+- `action: str`
+
+*Output:*
+- `Report`
+
+*Function Signature:*
+[source,js]
+----
+export async function moderateReport(reportId: string, adminId: string, action: string) -> Report
+----
+
+===== Categorization System
+
+====== 13. Assign Category to Report
+
+*Event / Trigger:*  
+User selects category during report creation.
+
+*System Behavior:*  
+- Links report to standardized taxonomy category.
+
+*Inputs:*
+- `report_id: str`
+- `category_id: str`
+
+*Output:*
+- `Report`
+
+*Function Signature:*
+[source,js]
+----
+export async function assignCategoryToReport(reportId: string, categoryId: string) -> Report
+----
+
+===== Notification System
+
+====== 14. Notify User of Match
+
+*Event / Trigger:*  
+System detects a potential match between lost and found reports.
+
+*System Behavior:*  
+- Generates a notification alert for the user.
+
+*Inputs:*
+- `user_id: str`
+- `matched_report_id: str`
+
+*Output:*
+- `None`
+
+*Function Signature:*
+[source,js]
+----
+export async function notifyUserOfMatch(userId: string, matchedReportId: string) -> None
+----
+
+===== Dashboard & Analytics
+
+====== 15. Calculate Return Success Rate
+
+*Event / Trigger:*  
+Administrator views dashboard analytics.
+
+*System Behavior:*  
+- Computes percentage of returned items relative to total reports.
+
+*Inputs:*  
+- None
+
+*Output:*
+- `float`
+
+*Function Signature:*
+[source,js]
+----
+export async function calculateReturnSuccessRate() -> float
+----

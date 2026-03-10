@@ -1,0 +1,152 @@
+==== *Events, Actions, and Behaviors*
+
+The following structure refines events, actions, and behaviors in the domain using a consistent hybrid classification (event / action / entity where applicable). Each element specifies trigger, immediate response, postcondition, and reference to the domain sketch.
+
+===== *Behavioral Patterns*
+
+While events are instantaneous and actions are discrete, behaviors describe structured sequences unfolding over time within the campus Lost & Found environment. They capture typical user workflows and system interactions, such as reporting, searching, claiming, verifying, and moderating. Each behavior is defined by its constituent events and actions, expected outcomes, and reference to real-world scenarios.
+
+====== User authenticated (event / operation)
+
+- Type: hybrid — operation (authentication attempt) and event (session established)
+- Label: user just authenticated
+- Triggered by: University member logging in via institutional SSO.
+- Immediate response: Authenticated session created; user identity bound to session context.
+- Expected outcome/postcondition: User gains access to protected actions (submit, edit, resolve, flag).
+- Reference to sketch: Platform restricted to verified university community members.
+
+====== Lost item report submitted (event / action)
+
+- Type: hybrid — action (submission) and event (report recorded)
+- Label: lost item report just published
+- Triggered by: Authenticated user submitting structured lost item form.
+- Immediate response: Input validated; report stored with `status = "active"`; ownership bound to user_id.
+- Expected outcome/postcondition: Report becomes visible in searchable listings.
+- Reference to sketch: Students describe posting lost laptops, IDs, electronics.
+
+====== Found item report submitted (event / action)
+
+- Type: hybrid — action (submission) and event (report recorded)
+- Label: found item report just published
+- Triggered by: Authenticated user submitting structured found item form.
+- Immediate response: Input validated; report stored with `status = "active"`; ownership assigned.
+- Expected outcome/postcondition: Listing becomes publicly searchable for potential claimants.
+- Reference to sketch: Community members report found wallets and IDs.
+
+====== Report updated (event / operation)
+
+- Type: hybrid — operation (edit) and event (modification recorded)
+- Label: report just modified
+- Triggered by: Owner editing description, location, images, or metadata.
+- Immediate response: Updated fields persisted; modification timestamp refreshed.
+- Expected outcome/postcondition: Search results and visible details reflect new information.
+- Reference to sketch: Users correcting typos or adding clarifying details.
+
+====== Claim contact initiated (event / action)
+
+- Type: hybrid — action (contact initiation) and event (claim request recorded)
+- Label: claim request just initiated
+- Triggered by: User contacting reporter regarding a listing.
+- Immediate response: Institutional email channel opened or contact metadata recorded.
+- Expected outcome/postcondition: External verification conversation begins.
+- Reference to sketch: Owners contacting finders after discovering matching listing.
+
+====== Report marked resolved (event / operation)
+
+- Type: hybrid — operation (status change) and event (resolution recorded)
+- Label: report just resolved
+- Triggered by: Owner marking listing as completed after recovery.
+- Immediate response: Lifecycle state updated from `"active"` to `"resolved"`.
+- Expected outcome/postcondition: Listing excluded from active search results.
+- Reference to sketch: Students closing listings after item recovery.
+
+====== Report flagged for review (event / action)
+
+- Type: hybrid — action (flagging) and event (flag recorded)
+- Label: report just flagged
+- Triggered by: User identifying suspicious or inappropriate listing.
+- Immediate response: Flag metadata recorded; administrative review process notified.
+- Expected outcome/postcondition: Listing enters moderation workflow.
+- Reference to sketch: Concerns about spam or malicious reports.
+
+====== Report removed by administrator (event / operation)
+
+- Type: hybrid — operation (removal) and event (removal recorded)
+- Label: report just removed
+- Triggered by: Administrator enforcing policy violation.
+- Immediate response: Lifecycle state set to `"removed"`; listing hidden from public feed.
+- Expected outcome/postcondition: Platform integrity preserved.
+- Reference to sketch: Oversight behavior ensuring trust within system.
+
+
+
+===== Reporting behavior
+
+- Type: composite behavioral sequence
+- Label: user reporting workflow
+
+Typical progression:
+
+1. Authenticate → *User authenticated*
+2. Submit lost/found form → *Lost item report submitted* / *Found item report submitted*
+3. Optional edit → *Report updated*
+4. Listing remains `"active"` until resolved or removed
+
+Expected outcome: Structured, searchable representation of real-world lost/found item.
+
+Reference to sketch: Community members formalize informal notice-board behavior through digital submission.
+
+===== Search and claim behavior
+
+- Type: composite behavioral sequence
+- Label: recovery attempt workflow
+
+Typical progression:
+
+1. Authenticate → *User authenticated*
+2. Search/filter listings (query operation; no event)
+3. Identify potential match
+4. Initiate contact → *Claim contact initiated*
+
+Expected outcome: Off-platform verification conversation begins.
+
+Reference to sketch: Students repeatedly checking listings to locate missing belongings.
+
+===== Verification and return behavior
+
+- Type: composite behavioral sequence
+- Label: recovery completion workflow
+
+Typical progression:
+
+1. Claim contact initiated
+2. External identity verification between users
+3. Owner marks listing resolved → *Report marked resolved*
+
+Expected outcome: Lifecycle transition from `"active"` to `"resolved"`; search space reduced.
+
+Reference to sketch: Users confirming identity before returning wallet or device.
+
+===== Oversight and moderation behavior
+
+- Type: composite behavioral sequence
+- Label: trust preservation workflow
+
+Typical progression:
+
+1. User flags suspicious listing → *Report flagged for review*
+2. Administrative evaluation
+3. Admin removes listing if necessary → *Report removed by administrator*
+
+Expected outcome: Platform integrity maintained; inappropriate content removed.
+
+Reference to sketch: Need for moderation to prevent misuse or fraudulent claims.
+
+
+This revised structure distinguishes clearly between:
+
+- Operations (intentional user/system actions),
+- Events (state changes recorded in the domain),
+- Composite behaviors (temporal interaction patterns).
+
+It aligns domain concepts such as *Report*, *Ownership*, and *Lifecycle State* with concrete operational flows, ensuring structural consistency across terminology, requirements, and implementation.

@@ -1,0 +1,34 @@
+==== *Domain Requirements*
+
+This section defines functional requirements that arise directly from the lost-and-found domain described in the narrative. Each requirement supports core domain behaviors such as **Reporting**, **Matching**, **Claim Verification**, **Recovery**, and **Closure** within the UPRM campus context.
+
+===== Reporting Requirements
+* The system shall allow a registered UPRM community member to create a **Report** for a **Lost Item**.
+* The system shall allow a registered UPRM community member to create a **Report** for a **Found Item**.
+* Each **Report** shall include sufficient descriptive information to support **Matching** (e.g., category, description, general location, date).
+* The system shall distinguish between public descriptive information and private verification information within each **Report**.
+* Upon creation, each Report shall be assigned an initial status of "Active."
+
+===== Search and Discovery Requirements
+* The system shall allow users to search **Reports** based on keywords related to the item description.
+* The system shall allow filtering of **Reports** by category, general location, date, and status.
+* The system shall present search results in a manner that supports comparison between **Lost Item** and **Found Item** Reports for **Matching** purposes.
+
+===== Matching and Tracking Requirements
+* The system shall support the identification of potential matches between **Lost Item** and **Found Item** Reports.
+* The system shall allow the **Owner** of a **Lost Item** to monitor the status of their **Report** (Active, Returned, Closed).
+* The system shall record status transitions from **Active** to **Returned** or **Closed**.
+
+===== Claim Verification and Recovery Requirements
+* The system shall restrict marking an item as **Returned** to authenticated users involved in the **Report**.
+* The system shall support the use of private verification information to validate ownership before **Recovery** is confirmed.
+* Once **Recovery** occurs, the corresponding **Report** shall transition to "Returned" status.
+
+===== Closure Requirements
+* The system shall allow a **Report** to be manually closed if **Recovery** is no longer expected.
+* **Closed Reports** shall remain recorded for reference but shall be clearly distinguishable from **Active Reports** in search results.
+
+===== Administrative Oversight Requirements
+* The system shall allow authorized administrators to review **Reports** for inappropriate or misleading content.
+* **Administrators** shall be able to modify or remove **Reports** that violate institutional guidelines.
+* **Administrators** shall be able to override **Report** status in cases of misuse or verified dispute.
