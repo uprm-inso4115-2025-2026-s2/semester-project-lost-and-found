@@ -1,4 +1,4 @@
-= Lost & Found Proposal
+= Lost & Found
 First Milestone - Software Requirements - INSO 4115
 Prof. Marko Schütz-Schmuck 
 :imagesdir: ../Images
