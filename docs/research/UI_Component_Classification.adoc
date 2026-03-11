@@ -1,0 +1,31 @@
+= UI Component Classification: Statics vs. Dynamics
+:toc:
+
+== 1. Overview
+To ensure our interface architecture aligns with formal domain engineering principles, this document categorizes the UPRM Lost & Found platform's UI components based on their temporal behavior and interaction attributes. The interface elements are divided into three formal classifications: Static, Dynamic Inert, and Dynamic Reactive.
+
+== 2. Static UI Components
+*Definition:* Static phenomena are not time-dependent, are not affected by events, and experience no changes. In the context of our UI, these are read-only elements that remain constant throughout the user session regardless of user action or system state.
+
+* *UPRM Branding & Logos:* The university logo and official application header displayed on the navigation bar.
+* *Footer Information:* Fixed copyright text, university contact links, and institutional policies at the bottom of the page.
+* *Form Field Labels:* The unchanging text descriptors above input fields (e.g., "Item Description," "Date Lost," "Location").
+* *Static Advisory Warnings:* The permanent "Safety Tips" text displayed on the meetup coordination screen indicating users should meet in public locations.
+
+== 3. Dynamic Inert UI Components
+*Definition:* Dynamic inert phenomena change their value or state *only* upon an external stimulus. In the context of our UI, these elements remain completely idle until the user explicitly clicks, types, or interacts with them.
+
+* *Category Dropdown Menus:* The selection menus used to filter or categorize items (e.g., clicking to select "Electronics" or "Keys").
+* *Text Input Fields:* The search bar and report description boxes that only update their visual state and data when the user types into them.
+* *Action Buttons:* Buttons such as "Submit Report," "Mark as Resolved," or "Contact Finder" which execute a function strictly when triggered by a user click.
+* *Image Upload Target:* The designated box for users to attach a photo of a found item, which only changes state when a file is dropped or selected.
+* *Dark Mode Toggle:* The interface switch that changes the CSS theme of the application strictly upon the user clicking it.
+
+== 4. Dynamic Reactive UI Components
+*Definition:* Dynamic reactive phenomena perform actions in response to external stimuli or the environment. In the context of our UI, these elements observe the system state or background data and update themselves automatically without requiring direct user interaction.
+
+
+* *Toast Notifications:* Slide-in alerts that appear automatically when the background smart-matching algorithm detects a potential match for a user's lost item.
+* *Live Status Badges:* The colored tags on item cards (e.g., "Active" in red, "Resolved" in green) that automatically update if an Admin or the opposing party changes the item's database status.
+* *Relative Timestamps:* The text on a lost item post displaying the time elapsed (e.g., "Lost 2 hours ago," automatically updating to "Lost 3 hours ago" as time passes).
+* *Unread Message Indicators:* The notification pill or counter on the navigation bar that increments dynamically when the system receives a new chat message from another user.
