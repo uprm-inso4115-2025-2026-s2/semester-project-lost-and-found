@@ -1,3 +1,72 @@
 == *Specific Class Topics*
 
 === *Domain Engineering*
+
+==== Domain Attributes of Lost and Found Reports
+Domain phenomena and concepts have diverse attributes that affect the modeling of these concepts as code. This section describes the attributes of reports in the lost and found application, covering the continuity, discreteness, hybridicity, chaos, statics and dynamics,  tangibility, and dimensionality of said reports.
+
+==== Discreteness:
+Reports can be viewed as discrete phenomena, taking on specific values for each instance and having their state (ie. open, claimed, returned/closed) change depending on the current state and the external inputs received over time. For example, a lost report might change its state from open to claimed after a user claims the item and it is verified by an admin of the application.
+
+Additionally, within these reports, attributes can be found that can be unique to each instance of a report:
+
+* Report ID
+** A unique identifier for each report.
+* Category
+** ie. personal, electronic, other.
+* Report Type
+** Lost or Found.
+* Status
+** The current state of the report; open, claimed, or closed.
+* User Id
+** The unique id of the user that created the report.
+
+==== Statics and Dynamics:
+Static attributes are attributes that generally remain unchanged after creation, while Dynamic attributes can change over time. Reports have both static and dynamic attributes:
+
+* Static
+** Item Description
+** Item Category
+** Location
+** Report Creator
+
+* Dynamic
+** Report Status
+
+For example, a report's item description should remain static during the full lifecycle of the report. There can be exceptions, such as the description having typos or lacking clarification; in such cases the user may be allowed to edit the report. On the other hand, the report's status will always change over time whether that is when the item is claimed or when the report expires.
+
+Furthermore, a report experiences dynamic inert behavior, which is when a phenomenon changes due to external inputs rather than changing independently over time. Reports can have their status change due to the application's administration verifying and updating the report's status.
+
+==== Tangibility and Intangibility:
+Tangible attributes correspond to real physical properties of a phenomenon while intangible attributes correspond to characteristics that only exist within the application's system. Reports have both tangible and intangible attributes:
+
+* Tangible
+** Item Photo
+** Item Description
+** Location Found or Lost
+
+These properties correspond to the real life lost item and therefore considered tangible attributes.
+
+* Intangible
+** Report ID
+** Report Status
+
+These only exist within the system and have no real ties to the physical item.
+
+==== Dimensionality:
+Dimensionality refers to the structural complexity of domain information, ranging from simple atomic values to more complex relationships and data structures.
+
+* Atomic: These are attributes that can be described with simple data types and are composed of single values. Examples:
+** Status
+** Category
+** Date Created
+
+* Linear: These are attributes that relate to each other from forward and backwards references. Example:
+** Tags
+*** Contain a list of keywords related to the item lost/found.
+
+* Multi-Dimensional: These are concepts that require forward and backward references and/or recursion. Example:
+** User-Report Relationship
+*** At a higher level, references from both reports and users are needed to tie these phenomena together in order to create relationships, such as ownership or claims.
+
+
