@@ -1,3 +1,195 @@
 == *Specific Class Topics*
 
 === *Domain Engineering*
+
+==== Domain Attributes - Profile
+:author: Keishlyany Sanabria (@keisanabria)
+
+:toc: left
+:toclevels: 3
+:icons: font
+:source-highlighter: highlight.js
+
+*Framework:* Schütz-Schmuck, M. (2021). _Domain Attributes_. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+---
+
+== Overview
+
+This document characterizes the domain attributes of the app's *Profile* section using the four-category framework from the UPRM domain attributes lecture. The app is a campus lost & found platform. A user's profile consists of four fields: *name*, *email*, *password*, and *phone number*. The analysis guides future modeling and design decisions by identifying how each field behaves with respect to continuity, dynamics, tangibility, and dimensionality.
+
+A user's *email domain* also determines their permission tier: users who register with an institutional email address (`@upr.edu`) are granted full permissions, while users with a non-institutional email are restricted to view-only access. This distinction is documented where it affects each attribute category below.
+
+---
+
+== Continuity vs. Discreteness
+
+All profile fields are *discrete*. Each holds a value from a countable domain and only changes when the user explicitly submits a change. No profile field varies smoothly or continuously over time.
+
+[cols="1,1,2", options="header"]
+|===
+| Field | Sub-type | Domain
+
+| Name
+| Textual (string)
+| Non-empty Unicode string; constrained by length and character set.
+
+| Email
+| Textual (formatted string)
+| RFC 5321-compliant address; membership in the set of syntactically valid email strings. The domain part additionally determines permission tier: institutional domain, gives full access; all other domains, gives view-only.
+
+| Password
+| Textual (opaque string)
+| Arbitrary string subject to minimum-length and complexity rules; stored as a hash, never as plaintext.
+
+| Phone number
+| Textual / numeric (formatted string)
+| E.164-formatted digit string; membership in the set of valid phone number patterns.
+|===
+
+NOTE: *Modeling implication:* All four fields map to constrained string types. Validation is rule-based (regex patterns, length bounds, format checks) rather than range-based or continuous. No interpolation or sampling logic is needed.
+
+---
+
+== Statics vs. Dynamics
+
+=== Static fields
+
+No profile field is fully static in the strict sense, a user can change any of them. However, *name* is the most stable in practice: users rarely change their name and typically do so only under exceptional circumstances (legal name change, correction of a typo at registration). It sits at the static end of the spectrum.
+
+[cols="1,2", options="header"]
+|===
+| Field | Rationale
+
+| Name
+| Set at registration; changes are rare, deliberate, and typically require re-verification. Treated as near-static for modeling purposes.
+|===
+
+=== Dynamic inert fields
+
+The remaining three fields are *dynamic inert*: they hold a stable value indefinitely and transition only when the user explicitly navigates to account settings and submits a change.
+
+[cols="1,2", options="header"]
+|===
+| Field | Stimulus
+
+| Email
+| User submits a new email address and confirms via verification link. Changing from a non-institutional to an institutional address (or vice versa) also triggers a permission tier change: full access from/to view-only.
+
+| Password
+| User submits current password and a new password through the change-password flow.
+
+| Phone number
+| User edits the phone number field and saves the change.
+|===
+
+NOTE: *Modeling implication:* All dynamic inert fields are safely stored in a persistent user record (for example, a `users` database table). No polling, background sync, or event streaming is needed to keep them current. Each change is fully determined by a user-initiated write operation. Email and phone number changes should trigger a re-verification step before the new value becomes active. Because the email domain drives the permission tier, any email change must also re-evaluate and update the user's `role` or `permission_level` field atomically, the two values should never be out of sync.
+
+=== Dynamic active fields (not applicable)
+
+No profile field changes autonomously or without a direct user action. If a future feature were to auto-populate the phone number from a campus directory or sync the name from an institutional identity provider, those sub-systems would be classified as *dynamic active programmable*, but the stored profile values themselves would remain inert.
+
+---
+
+== Tangibility
+
+All four profile fields are *intangible and precise*. They are abstract data values with no physical manifestation (they cannot be sensed or measured with an instrument), and their validity is fully determined by formal rules.
+
+[cols="1,1,2", options="header"]
+|===
+| Field | Tangibility classification | Implication for validation and storage
+
+| Name
+| Intangible precise (free-form string)
+| Validated by length bounds and permitted character set. No sensor noise; exact string comparison applies. Must support Unicode for international names.
+
+| Email
+| Intangible precise (formatted string)
+| Validated by RFC 5321 syntax rules and confirmed by a verification email. Stored and compared case-insensitively for the domain part. The domain portion is additionally checked against the set of recognized institutional domains to determine permission tier (`full` vs. `view-only`); this check is exact and rule-based.
+
+| Password
+| Intangible precise (opaque string)
+| Never stored in plaintext; stored as a salted hash (for example, bcrypt). Validated at entry by complexity rules; authenticated by hash comparison, not direct equality.
+
+| Phone number
+| Intangible precise (formatted string)
+| Validated against E.164 format. Stored in a canonical normalized form to avoid duplicates from formatting variants (for example, `+17871234567` vs. `787-123-4567`).
+|===
+
+NOTE: *Storage implication:* Because all fields are intangible and precise, validation is entirely rule-based with no need to account for measurement uncertainty or sensor error. The most important implications are: (1) *password* must never be persisted as plaintext, only its hash; (2) *email* carries a secondary responsibility beyond identity, its domain part is the sole input to the permission-tier decision, so its canonical form must be stored consistently (case-normalized, verified) to ensure that permission derivation is deterministic and auditable.
+
+---
+
+== Dimensionality
+
+=== Zero-dimensional fields (atomic values)
+
+All four profile fields are *zero-dimensional*: each holds a single, indivisible value with no meaningful internal structure from the profile domain's perspective.
+
+[cols="1,1,1", options="header"]
+|===
+| Field | Type | Example value
+
+| Name
+| String
+| `"Ana Rodríguez"`
+
+| Email
+| String (formatted)
+| `"ana.rodriguez@upr.edu"`
+
+| Password
+| String → stored as Hash
+| `"$2b$12$eW3fBs..."` (bcrypt hash)
+
+| Phone number
+| String (formatted)
+| `"+17871234567"`
+|===
+
+=== One-dimensional fields (not present in current profile)
+
+The current profile has no collection-valued fields. A future extension (such as a list of lost/found item reports submitted by the user) would be one-dimensional: an ordered sequence of report references linked to the profile record.
+
+=== Multi-dimensional fields (flagged for future review)
+
+If the app later surfaces a full history of a user's reported items, each with nested details (description, photos, status updates, timestamps), that structure would become multi-dimensional. It should be modeled as a separate `reports` entity related to the profile by a foreign key, rather than embedded directly in the profile record.
+
+---
+
+== Summary Table
+
+[cols="1,1,1,1,1", options="header"]
+|===
+| Field | Continuity | Dynamics | Tangibility | Dimensionality
+
+| Name
+| Discrete (String)
+| Near-static
+| Intangible precise
+| Zero-dimensional
+
+| Email
+| Discrete (String)
+| Dynamic inert (triggers permission tier change)
+| Intangible precise
+| Zero-dimensional
+
+| Password
+| Discrete (String / Hash)
+| Dynamic inert
+| Intangible precise
+| Zero-dimensional
+
+| Phone number
+| Discrete (String)
+| Dynamic inert
+| Intangible precise
+| Zero-dimensional
+|===
+
+---
+
+== References
+
+Schütz-Schmuck, M. (2021). _Domain Attributes_ [Lecture slides]. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
