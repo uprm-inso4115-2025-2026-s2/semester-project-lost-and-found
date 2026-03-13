@@ -90,17 +90,7 @@ export default function AppUITest() {
               setReports((prev) =>
                 prev.map((r) =>
                   r.id === editingReport.id
-                    ? Report.create({
-                        title: updatedRow.title,
-                        description: updatedRow.description,
-                        dateFound: updatedRow.date_found
-                          ? new Date(updatedRow.date_found)
-                          : editingReport.dateFound,
-                        location: updatedRow.location,
-                        categories: updatedRow.categories ?? [],
-                        imageUrl: updatedRow.image_url ?? undefined,
-                        createdBy: editingReport.createdBy,
-                      })
+                    ? Report.fromRow(updatedRow)
                     : r
                 )
               );
