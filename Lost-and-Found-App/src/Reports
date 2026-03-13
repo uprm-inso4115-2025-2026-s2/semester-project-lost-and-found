@@ -154,6 +154,7 @@ export class Report {
   }
 }
 
+// dummy data to test each variable works correctly
 const report = Report.create({
   title: 'I Phone 6 Million',
   description: 'FUN EVENT',
