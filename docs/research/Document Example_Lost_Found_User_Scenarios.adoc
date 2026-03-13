@@ -1,0 +1,56 @@
+= Lost & Found System – Example User Scenarios
+Diego A Rios Morales
+March 13, 2026
+
+== Introduction
+
+This document describes example user interaction scenarios for the Lost & Found system. These scenarios illustrate common behaviors within the platform, including reporting lost items, posting found items, submitting claims, and reviewing claims.
+
+== Scenario 1: Reporting a Lost Item
+
+Actor: User
+
+1. A user logs into the Lost & Found platform.
+2. The user selects "Report Lost Item".
+3. The user enters item details such as description, location, and date lost.
+4. The system saves the lost item report and makes it searchable.
+
+Result:
+The lost item is stored in the system and can be matched with found items.
+
+== Scenario 2: Posting a Found Item
+
+Actor: Finder (User)
+
+1. A user finds an item on campus.
+2. The user logs into the platform.
+3. The user selects "Post Found Item".
+4. The user enters details about the item and where it was found.
+5. The system publishes the found item listing.
+
+Result:
+The found item becomes visible to users searching for lost items.
+
+== Scenario 3: Submitting an Item Claim
+
+Actor: User
+
+1. A user searches the platform for a lost item.
+2. The user finds a listing that matches their item.
+3. The user submits a claim request.
+4. The system records the claim and sends it for review.
+
+Result:
+The claim is stored in the system and awaits verification.
+
+== Scenario 4: Admin Reviews a Claim
+
+Actor: Administrator
+
+1. The administrator reviews submitted claim requests.
+2. The administrator verifies the claim information.
+3. The administrator decides whether the claim is valid.
+4. The claim is approved or rejected.
+
+Result:
+If approved, the item can be returned to the owner.
