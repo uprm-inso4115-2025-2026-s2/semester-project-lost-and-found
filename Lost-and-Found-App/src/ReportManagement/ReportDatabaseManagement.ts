@@ -68,7 +68,7 @@ export async function getReport(id: string): Promise<Report> {
     const prop = {
         title: data.title,
         description: data.description,
-        dateFound: data.dateFound,
+        dateFound: new Date(data.dateFound),
         location: data.location,
         category: category,
         tags: data.tags,
@@ -100,7 +100,7 @@ export async function getAllReports(): Promise<Report[]> {
 
         let status: ReportStatus = 'ACTIVE';
         if (data[i].status === "Resolved") { status = 'RESOLVED'; }
-        else if (data[i].status === "CLaimed") { status = 'CLAIMED'; }
+        else if (data[i].status === "Claimed") { status = 'CLAIMED'; }
 
         let type: ReportType = 'LOST';
         if (data[i].type === "Found") { type = 'FOUND'; }
@@ -108,7 +108,7 @@ export async function getAllReports(): Promise<Report[]> {
         const prop = {
             title: data[i].title,
             description: data[i].description,
-            dateFound: data[i].dateFound,
+            dateFound: new Date(data[i].dateFound),
             location: data[i].location,
             category: category,
             tags: data[i].tags,
