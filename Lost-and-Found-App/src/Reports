@@ -1,5 +1,3 @@
-
-// to decide the status of the report
 export type ReportStatus = 'ACTIVE' | 'RESOLVED' | 'ARCHIVED';
 
 export interface CreateReportProps {
@@ -11,6 +9,7 @@ export interface CreateReportProps {
   imageUrl?: string;
   createdBy: string;
 }
+
 export interface UpdateReportProps {
   title?: string;
   description?: string;
@@ -19,6 +18,7 @@ export interface UpdateReportProps {
   categories?: string[];
   imageUrl?: string | null;
 }
+
 export interface ReportRow {
   id: string;
   title: string;
@@ -30,7 +30,7 @@ export interface ReportRow {
   created_by: string;
   status: ReportStatus;
 }
-// read only prevents the fields being empty after creatioon
+
 export class Report {
   public readonly id: string;
   public readonly title: string;
@@ -58,15 +58,16 @@ export class Report {
     this.status = status;
   }
 
-  // method to create a report dummy
   static create(props: CreateReportProps): Report {
     const id =
       typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
         ? crypto.randomUUID()
         : `report_${Date.now()}`;
+
     return new Report(id, props, 'ACTIVE');
   }
-static fromRow(row: ReportRow): Report {
+
+  static fromRow(row: ReportRow): Report {
     return new Report(
       row.id,
       {
@@ -108,63 +109,67 @@ static fromRow(row: ReportRow): Report {
       dateFound: this.dateFound,
       location: this.location,
       categories: this.categories,
-      imageUrl: this.imageUrl ?? "",
+      imageUrl: this.imageUrl ?? '',
     };
   }
 
   canBeEditedBy(userId: string | null | undefined) {
     return Boolean(userId) && this.createdBy === userId;
   }
-}
 
   getId(): string {
     return this.id;
   }
+
   getTitle(): string {
     return this.title;
   }
+
   getDescription(): string {
     return this.description;
   }
+
   getDateFound(): Date {
     return this.dateFound;
   }
+
   getLocation(): string {
     return this.location;
   }
+
   getCategories(): string[] {
     return this.categories;
   }
+
   getImageUrl(): string | undefined {
     return this.imageUrl;
   }
+
   getCreatedBy(): string {
     return this.createdBy;
   }
+
   getStatus(): ReportStatus {
     return this.status;
   }
 }
 
-//dummy data to test each variable works correctly 
 const report = Report.create({
-    title: 'I Phone 6 Million',
-    description: 'FUN EVENT',
-    dateFound: new Date('2026-02-26'),
-    location: 'Choliseo',
-    categories: ['Electronics', 'Clothing'],
-    imageUrl: undefined,
-    createdBy: 'Sasuke',
-  });
+  title: 'I Phone 6 Million',
+  description: 'FUN EVENT',
+  dateFound: new Date('2026-02-26'),
+  location: 'Choliseo',
+  categories: ['Electronics', 'Clothing'],
+  imageUrl: undefined,
+  createdBy: 'Sasuke',
+});
 
-  console.log('ID:', report.getId());
-  console.log('Title:', report.getTitle());
-  console.log('Description:', report.getDescription());
-  console.log('Date Found:', report.getDateFound());
-  console.log('Location:', report.getLocation());
-  console.log('Categories:', report.getCategories());
-  console.log('Image URL:', report.getImageUrl());
-  console.log('Created By:', report.getCreatedBy());
-  console.log('Status:', report.getStatus());
-  
-   
+console.log('ID:', report.getId());
+console.log('Title:', report.getTitle());
+console.log('Description:', report.getDescription());
+console.log('Date Found:', report.getDateFound());
+console.log('Location:', report.getLocation());
+console.log('Categories:', report.getCategories());
+console.log('Image URL:', report.getImageUrl());
+console.log('Created By:', report.getCreatedBy());
+console.log('Status:', report.getStatus());
