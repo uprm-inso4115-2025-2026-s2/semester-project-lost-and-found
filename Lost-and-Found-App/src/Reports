@@ -11,6 +11,25 @@ export interface CreateReportProps {
   imageUrl?: string;
   createdBy: string;
 }
+export interface UpdateReportProps {
+  title?: string;
+  description?: string;
+  dateFound?: Date;
+  location?: string;
+  categories?: string[];
+  imageUrl?: string | null;
+}
+export interface ReportRow {
+  id: string;
+  title: string;
+  description: string;
+  date_found: string;
+  location: string;
+  categories: string[] | null;
+  image_url: string | null;
+  created_by: string;
+  status: ReportStatus;
+}
 // read only prevents the fields being empty after creatioon
 export class Report {
   public readonly id: string;
@@ -47,6 +66,56 @@ export class Report {
         : `report_${Date.now()}`;
     return new Report(id, props, 'ACTIVE');
   }
+static fromRow(row: ReportRow): Report {
+    return new Report(
+      row.id,
+      {
+        title: row.title,
+        description: row.description,
+        dateFound: new Date(row.date_found),
+        location: row.location,
+        categories: row.categories ?? [],
+        imageUrl: row.image_url ?? undefined,
+        createdBy: row.created_by,
+      },
+      row.status
+    );
+  }
+
+  toUpdateRow(updates: UpdateReportProps) {
+    return {
+      ...(updates.title !== undefined ? { title: updates.title.trim() } : {}),
+      ...(updates.description !== undefined
+        ? { description: updates.description.trim() }
+        : {}),
+      ...(updates.dateFound !== undefined
+        ? { date_found: updates.dateFound.toISOString() }
+        : {}),
+      ...(updates.location !== undefined
+        ? { location: updates.location.trim() }
+        : {}),
+      ...(updates.categories !== undefined
+        ? { categories: updates.categories }
+        : {}),
+      ...(updates.imageUrl !== undefined ? { image_url: updates.imageUrl } : {}),
+    };
+  }
+
+  getEditableFields() {
+    return {
+      title: this.title,
+      description: this.description,
+      dateFound: this.dateFound,
+      location: this.location,
+      categories: this.categories,
+      imageUrl: this.imageUrl ?? "",
+    };
+  }
+
+  canBeEditedBy(userId: string | null | undefined) {
+    return Boolean(userId) && this.createdBy === userId;
+  }
+}
 
   getId(): string {
     return this.id;
