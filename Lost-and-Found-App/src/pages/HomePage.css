@@ -1,0 +1,50 @@
+.homeHeader {
+  background: #17a45b;
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerLeft h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.statusTabs {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+}
+
+.statusBtn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  background: #e5e5e5;
+  cursor: pointer;
+}
+
+.statusBtn.active {
+  background: #17a45b;
+  color: white;
+}
+
+.itemsGrid {
+  padding: 16px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  padding: 12px;
+  border-top: 1px solid #ddd;
+}
