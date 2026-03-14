@@ -1,3 +1,13 @@
+.homePage {
+  max-width: 435px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: white;
+
+  display: flex;
+  flex-direction: column;
+}
+
 .homeHeader {
   background: #17a45b;
   color: white;
@@ -33,6 +43,7 @@
 
 .itemsGrid {
   padding: 16px;
+  padding-bottom: 80px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
@@ -41,10 +52,14 @@
 .bottomNav {
   position: fixed;
   bottom: 0;
+
   width: 100%;
+  max-width: 420px;
+
   background: white;
   display: flex;
   justify-content: space-around;
   padding: 12px;
+
   border-top: 1px solid #ddd;
 }

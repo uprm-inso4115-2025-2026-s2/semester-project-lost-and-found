@@ -1,5 +1,5 @@
-import AppUITest from "./AppUITest";
+import HomePage from "./pages/HomePage";
 
 export default function App() {
-  return <AppUITest />;
+  return <HomePage />;
 }
