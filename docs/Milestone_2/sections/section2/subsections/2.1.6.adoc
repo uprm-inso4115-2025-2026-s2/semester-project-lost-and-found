@@ -1,0 +1,59 @@
+==== *Domain Acquisition Strategy*
+
+The domain description presented in Sections 2.1.1–2.1.5 was produced using a structured domain acquisition approach consistent with the Domain Acquisition lecture methodology.
+
+Rather than beginning with predefined entities or database structures, the acquisition process began with constructed stakeholder personas and simulated campus scenarios. These personas were designed to represent realistic behavioral patterns within a university lost-and-found environment.
+
+The acquisition process followed a staged refinement strategy:
+
+1. Constructed Persona Narratives  
+   Informal first-person accounts were written to simulate real-world experiences of:
+   - Lost item owners
+   - Finders
+   - Administrative staff
+   - Environmental observers
+
+2. Observation Extraction  
+   Each narrative was decomposed into explicit observations. These observations avoided interpretation and focused on factual behavioral statements (e.g., delayed reporting, informal communication, storage inconsistency).
+
+3. Derived Concept Formation  
+   Observations were abstracted into reusable domain concepts (e.g., _search ambiguity_, _retention window_, _platform fragmentation_).  
+   This step prevented premature system design assumptions and allowed patterns to emerge organically.
+
+4. Concept Consolidation  
+   Repeated themes across personas were analyzed to detect:
+   - Lifecycle inconsistencies
+   - Communication gaps
+   - Behavioral asymmetries
+   - Trust and verification concerns
+
+5. Formal Domain Structuring  
+   Only after concept stabilization were formal classifications introduced:
+   - Entity definitions (Lost Item, Report, Owner, Finder)
+   - Event definitions (Recovery, Closure)
+   - Behavioral constructs (Matching, Claim Verification, Tracking)
+   - Operational abstractions (Function Signatures)
+
+This progressive refinement ensured that the domain model was grounded in realistic campus dynamics rather than speculative feature assumptions.
+
+Accuracy was improved by:
+- Capturing multiple perspectives (owners, finders, staff, environment)
+- Avoiding early abstraction before pattern detection
+- Distinguishing observations from interpretations
+
+Completeness was improved by:
+- Including behavioral, spatial, and communication dimensions
+- Identifying non-reporting tendencies and informal recovery attempts
+- Recognizing lifecycle states beyond simple “lost” and “found”
+
+The structured acquisition strategy directly informed:
+
+- Terminology standardization
+- Event classification consistency
+- Behavior modeling sequences
+- Lifecycle state formalization
+- Function signature abstraction
+
+Thus, Sections 2.1.1–2.1.5 represent not isolated descriptions, but the outcome of a deliberate domain acquisition methodology aligned with lecture theory.
+
+The domain description is therefore traceable to structured conceptual extraction rather than arbitrary modeling decisions.
