@@ -1,3 +1,59 @@
 == *Specific Class Topics*
 
 === *Domain Engineering*
+
+
+
+==== *Domain Attributes*
+
+===== Domain Attributes in Authentication
+Author: Dylan M. Oliver Martinez
+Date: March 11, 2026
+
+==== User
+Person using the platform. Could be because they lost an item or found an item.
+
+===== Characteristics
+* *Discrete:* A user is a distinct entity with a unique account.
+* *Dynamic:* User status, actions, posts, and interactions change over time.
+* *Chaotic:* User behavior is unpredictable (they may lose items or find items).
+* *Intangible:* In the system, the user is represented digitally as a profile.
+* *Multi-dimensionality:* Users have multiple attributes (e.g., name, email, posts).
+
+==== Password
+Code selected by the user utilized to confirm the identity of the user.
+
+===== Characteristics
+* *Discrete:* A password is a specific string value.
+* *Static:* It remains the same until the user changes it.
+* *Intangible:* Exists only as data in the system.
+* *One-dimensionality:* Usually a single attribute (string value), though it has properties like length and complexity.
+
+==== Admin
+User with the ability to ban other users, delete posts and accounts, and manually change data from profiles.
+
+===== Characteristics
+* *Discrete:* Admins are distinct user accounts with elevated privileges.
+* *Dynamic:* Admins perform actions like banning users or deleting posts.
+* *Intangible:* Represented digitally in the platform.
+* *Multi-dimensionality:* Includes user attributes plus administrative permissions.
+
+==== Guest
+Users that can only view certain posts but cannot interact with them. Given to users that do not have an official UPR account.
+
+===== Characteristics
+* *Discrete:* Guests are a defined category of user.
+* *Static:* Their permissions remain limited unless they create an account.
+* *Dynamic:* They can browse content over time.
+* *Intangible:* Represented as a temporary or restricted digital user state.
+* *One-dimensionality:* Few attributes compared to registered users.
+
+==== Item
+An object that has either been lost by a user or found by a user.
+
+===== Characteristics
+* *Discrete:* Each item is a specific object.
+* *Dynamic:* Item status can change (e.i., lost, found, returned).
+* *Tangible:* The item exists physically in the real world.
+* *Chaotic:* Items can be lost or discovered unpredictably.
+* *Multi-dimensionality:* Attributes may include name, location, description, time lost/found, and owner.
