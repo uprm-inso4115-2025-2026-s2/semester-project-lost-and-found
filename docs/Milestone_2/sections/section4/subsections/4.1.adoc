@@ -2,25 +2,16 @@
 
 === *Domain Engineering*
 
-==== [LTT] Domain Attributes - Settings
+==== Domain Attributes - Settings
 :author: Keishlyany Sanabria (@keisanabria)
-
-:toc: left
-:toclevels: 3
-:icons: font
-:source-highlighter: highlight.js
 
 *Framework:* Schütz-Schmuck, M. (2021). _Domain Attributes_. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
 
----
-
-== Overview
+===== Overview
 
 This document characterizes the domain attributes of the app's *Settings* section using the four-category framework from the UPRM domain attributes lecture. The analysis guides future modeling and design decisions by identifying how each setting field behaves with respect to continuity, dynamics, tangibility, and dimensionality.
 
----
-
-== Continuity vs. Discreteness
+===== Continuity vs. Discreteness
 
 The lecture defines *discrete* phenomena as those modeled by a map (function on a countable set), where the domain takes on specific values at given states, with transitions triggered by input stimuli. *Continuous* phenomena, by contrast, are modeled by functions over uncountable domains (for example, time). *Hybrid* phenomena combine both.
 
@@ -47,10 +38,7 @@ The discrete settings break down into three sub-types:
 
 NOTE: *Modeling implication:* Discrete settings map naturally to `Boolean`, `enum`, and bounded `int`/`float` types. No continuous sampling or interpolation logic is needed.
 
----
-
-
-== Statics vs. Dynamics
+===== Statics vs. Dynamics
 
 The lecture positions statics and dynamics on a spectrum:
 
@@ -58,7 +46,7 @@ The lecture positions statics and dynamics on a spectrum:
 * *Dynamic inert*: changes value only upon an external stimulus; no internal impulse.
 * *Dynamic active*: can change on its own internal impulse (autonomous, biddable, or programmable).
 
-=== Static settings (rarely or never change)
+====== Static settings (rarely or never change)
 
 These settings capture facts about the user's account or device that are either immutable or change only through a formal process outside the app itself.
 
@@ -76,7 +64,7 @@ These settings capture facts about the user's account or device that are either 
 | Determined by device capabilities; the app surfaces but does not control these.
 |===
 
-=== Dynamic inert settings (change on user action only)
+====== Dynamic inert settings (change on user action only)
 
 The majority of user-facing preferences are *dynamic inert*: they hold a stable value indefinitely and transition to a new value only when the user explicitly acts (taps a toggle, selects from a list, saves a form).
 
@@ -100,13 +88,12 @@ The majority of user-facing preferences are *dynamic inert*: they hold a stable 
 
 NOTE: *Modeling implication:* Dynamic inert settings do not need polling or background sampling. A persistent key-value store (for example, `SharedPreferences`, `UserDefaults`, a `settings` database table) is sufficient. Change events are fully determined by user-initiated write operations.
 
-=== Dynamic active settings (not applicable)
+====== Dynamic active settings (not applicable)
 
 No settings in this section exhibit autonomous or biddable behavior, settings do not change themselves in the background without a user action. If a future feature were to sync settings from a remote profile, that sub-system could be classified as *dynamic active programmable*, but the settings values themselves remain inert from the UI domain's perspective.
 
----
 
-== Tangibility
+===== Tangibility
 
 The lecture distinguishes:
 
@@ -135,9 +122,8 @@ Settings data is *intangible and precise*. Each setting is an abstract configura
 
 NOTE: *Storage implication:* Because settings are intangible and precise, they can be stored and retrieved without lossy encoding. Validation rules are strict and machine-checkable (type checks, range checks, membership checks against enum sets). There is no need to account for measurement uncertainty.
 
----
 
-== Dimensionality
+===== Dimensionality
 
 The lecture defines three levels:
 
@@ -145,7 +131,7 @@ The lecture defines three levels:
 * *One-dimensional (linear sequence)*: an ordered collection of constituents with forward/backward references; modeled with sets, tuples, or sequences.
 * *Multi-dimensional*: recursive or graph-structured; requires forward and backward references and/or recursion.
 
-=== Zero-dimensional settings (atomic values)
+====== Zero-dimensional settings (atomic values)
 
 Most settings are *zero-dimensional*, they hold a single atomic value with no internal structure.
 
@@ -166,7 +152,7 @@ Most settings are *zero-dimensional*, they hold a single atomic value with no in
 | `"es-PR"`
 |===
 
-=== One-dimensional settings (structured but non-recursive)
+====== One-dimensional settings (structured but non-recursive)
 
 A small number of settings are *one-dimensional* because their value is a tuple or a bounded collection rather than a single scalar.
 
@@ -185,13 +171,12 @@ A small number of settings are *one-dimensional* because their value is a tuple 
 
 NOTE: *Modeling implication:* One-dimensional settings require a small record or array type rather than a plain scalar. They should be stored as a single logical unit (for example, a JSON object or a dedicated sub-table) to preserve the relationship between their constituent values.
 
-=== Multi-dimensional settings (not present / flag for review)
+====== Multi-dimensional settings (not present / flag for review)
 
 No current settings field requires recursive or graph-structured modeling. However, if a future "notification rules" feature allowed conditional logic (for example, "if event type X and time is Y, then do Z"), that field would cross into multi-dimensional territory and would need a more expressive model (for example, a rule tree).
 
----
 
-== Summary Table
+====== Summary Table
 
 [cols="2,1,1,1,1", options="header"]
 |===
@@ -234,14 +219,19 @@ No current settings field requires recursive or graph-structured modeling. Howev
 | One-dimensional (flat set)
 |===
 
----
 
-== References
+===== References
 
 Schütz-Schmuck, M. (2021). _Domain Attributes_ [Lecture slides]. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+---
+
 ==== Domain Attributes of Lost and Found Reports
+:author: Andres Cruz Zapata
+
 Domain phenomena and concepts have diverse attributes that affect the modeling of these concepts as code. This section describes the attributes of reports in the lost and found application, covering the continuity, discreteness, hybridicity, chaos, statics and dynamics,  tangibility, and dimensionality of said reports.
 
+[discrete]
 ==== Discreteness:
 Reports can be viewed as discrete phenomena, taking on specific values for each instance and having their state (ie. open, claimed, returned/closed) change depending on the current state and the external inputs received over time. For example, a lost report might change its state from open to claimed after a user claims the item and it is verified by an admin of the application.
 
@@ -258,6 +248,7 @@ Additionally, within these reports, attributes can be found that can be unique t
 * User Id
 ** The unique id of the user that created the report.
 
+[discrete]
 ==== Statics and Dynamics:
 Static attributes are attributes that generally remain unchanged after creation, while Dynamic attributes can change over time. Reports have both static and dynamic attributes:
 
@@ -274,6 +265,7 @@ For example, a report's item description should remain static during the full li
 
 Furthermore, a report experiences dynamic inert behavior, which is when a phenomenon changes due to external inputs rather than changing independently over time. Reports can have their status change due to the application's administration verifying and updating the report's status.
 
+[discrete]
 ==== Tangibility and Intangibility:
 Tangible attributes correspond to real physical properties of a phenomenon while intangible attributes correspond to characteristics that only exist within the application's system. Reports have both tangible and intangible attributes:
 
@@ -290,6 +282,7 @@ These properties correspond to the real life lost item and therefore considered 
 
 These only exist within the system and have no real ties to the physical item.
 
+[discrete]
 ==== Dimensionality:
 Dimensionality refers to the structural complexity of domain information, ranging from simple atomic values to more complex relationships and data structures.
 
@@ -306,4 +299,5 @@ Dimensionality refers to the structural complexity of domain information, rangin
 ** User-Report Relationship
 *** At a higher level, references from both reports and users are needed to tie these phenomena together in order to create relationships, such as ownership or claims.
 
+---
 
