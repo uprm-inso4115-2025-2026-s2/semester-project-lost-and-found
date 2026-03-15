@@ -1,0 +1,21 @@
+==== *Domain Facet Analysis*
+
+The domain of the Lost & Found system can be clarified by applying the concept of domain facets as introduced in the Overview of Domain Engineering lecture. Domain facets categorize domain knowledge into structured perspectives, allowing different aspects of the system to be analyzed without conceptual overlap.
+
+Rather than treating the domain as a single undifferentiated structure, facet analysis separates it into distinct viewpoints such as intrinsics, business procedures, rules and regulations, support technology, management and organization, and human behavior. This structured categorization improves conceptual clarity and reduces ambiguity.
+
+The intrinsics facet captures the fundamental elements of the domain. In the Lost & Found context, this includes core entities such as Lost Item, Found Item, Report, Owner, and Finder. These elements define what exists within the domain independently of system implementation.
+
+The business procedures facet captures the operational workflows that structure interactions. This includes reporting, searching, matching, claim verification, recovery, and closure. These procedures describe how the domain evolves over time through structured interaction sequences.
+
+The rules and regulations facet represents constraints governing behavior within the domain. Examples include restrictions on who may submit reports, requirements for claim verification before item return, and moderation requirements for suspicious activity. These rules define permissible and impermissible actions.
+
+The support technology facet represents enabling mechanisms that allow domain activities to occur in a structured environment. This includes authentication mechanisms, notification processes, searchable storage, and lifecycle tracking. These mechanisms support but do not define the domain itself.
+
+The management and organization facet captures oversight responsibilities such as moderation, retention decisions, and administrative review processes. These elements preserve trust and maintain institutional consistency.
+
+Finally, the human behavior facet captures observed patterns such as delayed reporting, informal communication attempts, non-reporting tendencies, urgency escalation due to perceived theft risk, and privacy hesitation. These behaviors influence how the domain functions in practice and must be recognized independently from formal procedures.
+
+Applying domain facets clarifies the Lost & Found system by separating fundamental domain elements from workflows, constraints, technological support, and human behavioral influences. This separation prevents mixing implementation decisions with domain logic and ensures that the domain description remains conceptually coherent.
+
+Through facet analysis, the Lost & Found domain becomes structured rather than fragmented. Each perspective contributes to a clearer understanding of how loss, discovery, reporting, verification, recovery, and closure interact within the university environment.
