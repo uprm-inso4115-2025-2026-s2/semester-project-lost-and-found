@@ -1,0 +1,1 @@
+=== *Modeling Conceptual Objects with Class Diagrams*
