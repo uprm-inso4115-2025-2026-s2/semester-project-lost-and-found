@@ -307,3 +307,124 @@ Dimensionality refers to the structural complexity of domain information, rangin
 *** At a higher level, references from both reports and users are needed to tie these phenomena together in order to create relationships, such as ownership or claims.
 
 
+---
+
+==== [LTT] Domain Acquisition Strategy for the Lost & Found System
+:author: Angel Villegas (@angelvillegas1)
+
+:toc: left
+:toclevels: 3
+:icons: font
+:source-highlighter: highlight.js
+
+*Framework:* Schütz-Schmuck, M. (2021). _Domain Acquisition_. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+---
+
+== Overview
+
+This Lecture Topic Task applies the concept of structured domain acquisition to the Lost & Found system. Domain acquisition refers to the systematic elicitation and refinement of domain knowledge before formal modeling begins.
+
+The objective is to demonstrate how structured acquisition improves both accuracy and completeness in the resulting domain description.
+
+---
+
+== Domain Acquisition Approach
+
+Rather than beginning with predefined entities or database structures, the acquisition process began with constructed stakeholder personas representing realistic university scenarios. These personas included lost item owners, finders, administrative staff, and environmental observers.
+
+The process followed a staged refinement strategy:
+
+=== 1. Constructed Persona Narratives
+
+Informal first-person accounts were created to simulate real-world campus experiences. These narratives captured behaviors such as delayed realization of loss, informal communication attempts, storage inconsistencies, and verification hesitation.
+
+=== 2. Observation Extraction
+
+Each narrative was decomposed into explicit observations. Observations focused on factual behavioral patterns rather than interpretation. This prevented premature abstraction and preserved raw domain characteristics.
+
+=== 3. Derived Concept Formation
+
+From repeated observations, reusable domain concepts were extracted (e.g., search ambiguity, retention window, platform fragmentation). This allowed patterns to emerge organically rather than imposing system assumptions too early.
+
+=== 4. Concept Consolidation
+
+Recurring themes were analyzed to detect lifecycle inconsistencies, communication gaps, behavioral asymmetries, and trust-related concerns.
+
+=== 5. Formal Structuring
+
+Only after concept stabilization were formal classifications introduced, including entity definitions, event definitions, behavioral constructs, and operational abstractions.
+
+---
+
+== Contribution to Accuracy and Completeness
+
+Accuracy was improved by capturing multiple perspectives and distinguishing observations from interpretations.
+
+Completeness was improved by incorporating behavioral, spatial, communication, and lifecycle dimensions rather than focusing solely on object tracking.
+
+The resulting domain description is therefore traceable to structured conceptual extraction rather than arbitrary system modeling.
+
+---
+
+==== [LTT] Domain Facet Analysis for the Lost & Found System
+:author: Angel Villegas (@angelvillegas1)
+
+:toc: left
+:toclevels: 3
+:icons: font
+:source-highlighter: highlight.js
+
+*Framework:* Schütz-Schmuck, M. (2021). _Domain Engineering_. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+---
+
+== Overview
+
+This Lecture Topic Task applies the concept of domain facets to the Lost & Found system. Domain facets categorize domain knowledge into structured perspectives, allowing different aspects of the system to be analyzed without conceptual overlap.
+
+---
+
+== Domain Facets Explained
+
+Domain facets separate domain knowledge into distinct viewpoints rather than treating it as a single undifferentiated structure. Common facets include intrinsics, business procedures, rules and regulations, support technology, management and organization, and human behavior.
+
+---
+
+== Application to the Lost & Found System
+
+=== Intrinsics
+
+The intrinsics facet captures fundamental domain elements such as Lost Item, Found Item, Report, Owner, and Finder. These elements define what exists in the domain independently of system implementation.
+
+=== Business Procedures
+
+This facet captures operational workflows including reporting, searching, matching, claim verification, recovery, and closure. These procedures describe how the domain evolves over time.
+
+=== Rules and Regulations
+
+This facet represents constraints governing behavior, such as authentication requirements, verification conditions before item return, and moderation policies.
+
+=== Support Technology
+
+Support technology includes enabling mechanisms such as authentication systems, notification processes, searchable storage, and lifecycle tracking. These mechanisms support domain operations but do not define domain meaning.
+
+=== Management and Organization
+
+This facet captures oversight responsibilities such as moderation, retention decisions, and administrative review processes that preserve institutional trust.
+
+=== Human Behavior
+
+The human behavior facet captures observed patterns including delayed reporting, informal communication attempts, privacy hesitation, urgency escalation, and non-reporting tendencies.
+
+---
+
+== Contribution to Domain Clarity
+
+Applying domain facets clarifies the Lost & Found system by separating fundamental elements, workflows, constraints, technological mechanisms, oversight processes, and behavioral patterns.
+
+This separation prevents mixing implementation decisions with domain logic and ensures conceptual coherence.
+
+Through facet analysis, the domain becomes structured rather than fragmented, strengthening overall domain understanding.
+
+---
