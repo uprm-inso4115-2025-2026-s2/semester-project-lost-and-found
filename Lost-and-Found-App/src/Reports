@@ -1,0 +1,101 @@
+
+// to decide the status of the report
+export type ReportStatus = 'ACTIVE' | 'RESOLVED' | 'ARCHIVED';
+
+export interface CreateReportProps {
+  title: string;
+  description: string;
+  dateFound: Date;
+  location: string;
+  categories?: string[];
+  imageUrl?: string;
+  createdBy: string;
+}
+// read only prevents the fields being empty after creatioon
+export class Report {
+  public readonly id: string;
+  public readonly title: string;
+  public readonly description: string;
+  public readonly dateFound: Date;
+  public readonly location: string;
+  public readonly categories: string[];
+  public readonly imageUrl?: string;
+  public readonly createdBy: string;
+  public readonly status: ReportStatus;
+
+  private constructor(
+    id: string,
+    props: CreateReportProps,
+    status: ReportStatus
+  ) {
+    this.id = id;
+    this.title = props.title.trim();
+    this.description = props.description.trim();
+    this.dateFound = props.dateFound;
+    this.location = props.location.trim();
+    this.categories = props.categories ?? [];
+    this.imageUrl = props.imageUrl;
+    this.createdBy = props.createdBy.trim();
+    this.status = status;
+  }
+
+  // method to create a report dummy
+  static create(props: CreateReportProps): Report {
+    const id =
+      typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+        ? crypto.randomUUID()
+        : `report_${Date.now()}`;
+    return new Report(id, props, 'ACTIVE');
+  }
+
+  getId(): string {
+    return this.id;
+  }
+  getTitle(): string {
+    return this.title;
+  }
+  getDescription(): string {
+    return this.description;
+  }
+  getDateFound(): Date {
+    return this.dateFound;
+  }
+  getLocation(): string {
+    return this.location;
+  }
+  getCategories(): string[] {
+    return this.categories;
+  }
+  getImageUrl(): string | undefined {
+    return this.imageUrl;
+  }
+  getCreatedBy(): string {
+    return this.createdBy;
+  }
+  getStatus(): ReportStatus {
+    return this.status;
+  }
+}
+
+//dummy data to test each variable works correctly 
+const report = Report.create({
+    title: 'I Phone 6 Million',
+    description: 'FUN EVENT',
+    dateFound: new Date('2026-02-26'),
+    location: 'Choliseo',
+    categories: ['Electronics', 'Clothing'],
+    imageUrl: undefined,
+    createdBy: 'Sasuke',
+  });
+
+  console.log('ID:', report.getId());
+  console.log('Title:', report.getTitle());
+  console.log('Description:', report.getDescription());
+  console.log('Date Found:', report.getDateFound());
+  console.log('Location:', report.getLocation());
+  console.log('Categories:', report.getCategories());
+  console.log('Image URL:', report.getImageUrl());
+  console.log('Created By:', report.getCreatedBy());
+  console.log('Status:', report.getStatus());
+  
+   
