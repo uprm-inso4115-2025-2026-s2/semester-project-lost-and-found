@@ -1,5 +1,5 @@
 .homePage {
-  max-width: 445px;
+  max-width: 550px;
   margin: 0 auto;
   min-height: 100vh;
   background: white;
@@ -23,6 +23,21 @@
 .headerLeft h1 {
   margin: 0;
   font-size: 22px;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.headerLogo {
+  width: 55px;
+  height: 55px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
 }
 
 .statusTabs {
@@ -65,7 +80,7 @@
   bottom: 0;
 
   width: 100%;
-  max-width: 445px;
+  max-width: 550px;
 
   background: white;
 

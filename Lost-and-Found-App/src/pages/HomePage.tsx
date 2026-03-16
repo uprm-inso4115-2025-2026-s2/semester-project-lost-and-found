@@ -1,3 +1,4 @@
+import logo from "../assets/Lost&Found-Logo.jpeg"
 import "./HomePage.css";
 import { useState } from "react";
 import { ItemCard} from "../components/ItemCard";
@@ -37,8 +38,18 @@ export default function HomePage() {
       {/* HEADER */}
       <header className="homeHeader">
         <div className="headerLeft">
-          <h1>Lost & Found</h1>
-          <span>UPRM</span>
+
+          <img
+            src={logo}
+            alt="Lost and Found Logo"
+            className="headerLogo"
+          />
+
+          <div className="headerText">
+            <h1>Lost & Found</h1>
+            <span>UPRM</span>
+          </div>
+
         </div>
 
         <div className="headerIcons">
