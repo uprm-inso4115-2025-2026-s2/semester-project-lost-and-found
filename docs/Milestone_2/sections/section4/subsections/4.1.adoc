@@ -306,4 +306,76 @@ Dimensionality refers to the structural complexity of domain information, rangin
 ** User-Report Relationship
 *** At a higher level, references from both reports and users are needed to tie these phenomena together in order to create relationships, such as ownership or claims.
 
+---
 
+==== [Lecture Topic Task] Business Procedures Facet Analysis
+:author: Omar A. Cordero Maldonado (omar-cordero)
+
+The business procedures facet describes the operational workflows used to manage items within the Lost & Found platform. These procedures define how users interact with the system and how items flow through the platform from the moment they are reported lost or found until they are returned.
+
+Understanding these procedures helps ensure the system supports consistent, reliable, and efficient handling of lost property.
+
+===== Lost Item Reporting Procedure
+
+The lost item reporting procedure describes how a user reports an item they have lost.
+
+Steps typically include:
+
+* The user logs into the platform.
+* The user submits a Lost Item Report.
+* The report includes relevant information such as item type, description, location, and date and time.
+* The system stores the report in the database.
+* The system may attempt to identify possible matches with existing found item reports.
+
+This procedure allows users to notify the system that an item is missing and provides information that can later be used to match found items.
+
+*Realistic Example:* A student leaves their calculator behind after a CIIC 3015 exam in the Stefani building. Later that afternoon, they log into the Lost and Found platform and submit a Lost Item Report describing it as a black TI-84 Plus with an anime sticker on the back, last seen in room S-113 on Tuesday at 11:00 AM. The system stores the report and flags a potential match with a found item submitted earlier that day by another studentr who turned in a calculator found in the same room.
+
+===== Found Item Submission Procedure
+
+The found item submission procedure describes how users or staff report items that have been discovered.
+
+Typical steps include:
+
+* A user logs into the platform.
+* The finder submits a Found Item Report.
+* The report includes details such as the description of the item, location where it was found, date and time found, and an optional photo.
+* The system stores the found item entry.
+* The item may be physically delivered to a Lost and Found office for storage.
+
+This procedure allows items to enter the Lost and Found system so that owners can locate them.
+
+*Realistic Example:* A student finds an unattended backpack in the bathroom inside the Chardón building after classes. They take it to the Office of Student Affairs and a staff member logs into the platform to submit a Found Item Report. The report notes a black JanSport backpack containing notebooks and a Math Book, found on Wednesday at 2:30 PM in the bathroom near the building entrance. A photo of the backpack is attached to help the owner identify it.
+
+===== Ownership Claim Procedure
+
+The ownership claim procedure describes how users request to retrieve an item they believe belongs to them.
+
+Typical steps include:
+
+* A user searches the platform for items that match their lost item.
+* The user submits a Claim Request.
+* The claim may require additional verification details such as unique identifying characteristics, serial numbers, or private descriptions not visible in the listing.
+* Moderators or staff review the claim.
+* If the claim is verified, the item is marked as claimed.
+
+This procedure helps prevent fraudulent claims and ensures items are returned to their rightful owners.
+
+*Realistic Example:* A student searching the platform finds an entry matching their missing backpack. They submit a Claim Request and provide additional details not shown in the public listing, including what's insaide, a keychain attached to the zipper, and the name of the book inside. A staff member reviews the claim, confirms the details match, and marks the item as Claimed.
+
+===== Item Return Procedure
+
+Once ownership has been verified, the item can be returned to the owner.
+
+Typical steps include:
+
+* The owner arranges to retrieve the item.
+* Staff verifies the user's identity if necessary.
+* The item is returned to the owner.
+* The system updates the item status to returned.
+
+Recording returned items ensures the platform accurately reflects the status of each item.
+
+*Campus Example:* The student whose claim was approved visits the Office of Student Affairs during office hours. The staff member verifies their UPRM student ID, retrieves the backpack from storage, and returns it to the student. The system entry for the item is updated to Returned, closing the case.
+
+---
