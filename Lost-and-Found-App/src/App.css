@@ -1,0 +1,301 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.page {
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 600px at 20% 0%, rgba(59, 130, 246, 0.25), transparent),
+    radial-gradient(900px 500px at 80% 20%, rgba(16, 185, 129, 0.18), transparent),
+    #0b1020;
+  padding: 28px;
+}
+
+.container {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  text-align: left;
+}
+
+.header h1 {
+  margin: 0;
+  color: white;
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.sub {
+  margin: 8px 0 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(10px);
+}
+
+.controlsPanel {
+  margin-top: 18px;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 14px;
+  text-align: left;
+}
+
+.controlBlock,
+.formGrid label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: white;
+  font-weight: 700;
+}
+
+.helperText {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.banner {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  text-align: left;
+  font-weight: 700;
+}
+
+.noticeBanner {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #d1fae5;
+}
+
+.errorBanner {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.32);
+  color: #fee2e2;
+}
+
+.tabs {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.tabBtn,
+.primaryBtn,
+.secondaryBtn,
+.ghostBtn,
+.editBtn {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 120ms ease, background 120ms ease, opacity 120ms ease;
+}
+
+.tabBtn,
+.ghostBtn,
+.secondaryBtn {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.primaryBtn,
+.editBtn {
+  background: white;
+  color: #0b1020;
+}
+
+.tabBtn:hover,
+.primaryBtn:hover,
+.secondaryBtn:hover,
+.ghostBtn:hover,
+.editBtn:hover {
+  transform: translateY(-1px);
+}
+
+.tabBtn.active {
+  background: white;
+  color: #0b1020;
+}
+
+.disabledBtn {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.reportsGrid {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.reportShell {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.reportMeta {
+  padding: 14px;
+  text-align: left;
+  color: white;
+}
+
+.reportMeta p {
+  margin: 0 0 8px;
+  line-height: 1.45;
+}
+
+.editorLayout {
+  margin-top: 20px;
+}
+
+.editorPanel {
+  padding: 20px;
+  text-align: left;
+}
+
+.editorPanel h2 {
+  margin-top: 0;
+  color: white;
+}
+
+.lockedFields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.lockedFields span {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px dashed rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.85);
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(11, 16, 32, 0.72);
+  color: white;
+  padding: 11px 12px;
+  font: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.actionRow {
+  margin-top: 18px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.emptyState {
+  margin-top: 18px;
+  padding: 24px;
+  color: white;
+}
+
+@media (max-width: 720px) {
+  #root {
+    padding: 0;
+  }
+
+  .page {
+    padding: 18px;
+  }
+
+  .header {
+    flex-direction: column;
+  }
+
+  .actionRow {
+    flex-direction: column;
+  }
+}
