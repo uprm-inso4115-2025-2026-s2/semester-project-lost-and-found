@@ -1,6 +1,7 @@
-=== *Requirements Engineering*
+=== *Requirements Evaluation*
 
-=== Temporal Aspects of the Lost and Found Domain
+==== Temporal Aspects of the Lost and Found Domain
+:author: Jose Valentin
 
 Time plays an important role in how a lost and found system operates. Most actions in the domain occur at a 
 specific moment and the system must keep track of when those events happen. Reports are created at a 

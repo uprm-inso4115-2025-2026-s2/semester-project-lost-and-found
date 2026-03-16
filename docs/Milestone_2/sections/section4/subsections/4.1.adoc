@@ -2,25 +2,16 @@
 
 === *Domain Engineering*
 
-==== [LTT] Domain Attributes - Settings
+==== Domain Attributes - Settings
 :author: Keishlyany Sanabria (@keisanabria)
-
-:toc: left
-:toclevels: 3
-:icons: font
-:source-highlighter: highlight.js
 
 *Framework:* Schütz-Schmuck, M. (2021). _Domain Attributes_. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
 
----
-
-== Overview
+===== Overview
 
 This document characterizes the domain attributes of the app's *Settings* section using the four-category framework from the UPRM domain attributes lecture. The analysis guides future modeling and design decisions by identifying how each setting field behaves with respect to continuity, dynamics, tangibility, and dimensionality.
 
----
-
-== Continuity vs. Discreteness
+===== Continuity vs. Discreteness
 
 The lecture defines *discrete* phenomena as those modeled by a map (function on a countable set), where the domain takes on specific values at given states, with transitions triggered by input stimuli. *Continuous* phenomena, by contrast, are modeled by functions over uncountable domains (for example, time). *Hybrid* phenomena combine both.
 
@@ -47,10 +38,7 @@ The discrete settings break down into three sub-types:
 
 NOTE: *Modeling implication:* Discrete settings map naturally to `Boolean`, `enum`, and bounded `int`/`float` types. No continuous sampling or interpolation logic is needed.
 
----
-
-
-== Statics vs. Dynamics
+===== Statics vs. Dynamics
 
 The lecture positions statics and dynamics on a spectrum:
 
@@ -58,7 +46,7 @@ The lecture positions statics and dynamics on a spectrum:
 * *Dynamic inert*: changes value only upon an external stimulus; no internal impulse.
 * *Dynamic active*: can change on its own internal impulse (autonomous, biddable, or programmable).
 
-=== Static settings (rarely or never change)
+====== Static settings (rarely or never change)
 
 These settings capture facts about the user's account or device that are either immutable or change only through a formal process outside the app itself.
 
@@ -76,7 +64,7 @@ These settings capture facts about the user's account or device that are either 
 | Determined by device capabilities; the app surfaces but does not control these.
 |===
 
-=== Dynamic inert settings (change on user action only)
+====== Dynamic inert settings (change on user action only)
 
 The majority of user-facing preferences are *dynamic inert*: they hold a stable value indefinitely and transition to a new value only when the user explicitly acts (taps a toggle, selects from a list, saves a form).
 
@@ -100,13 +88,12 @@ The majority of user-facing preferences are *dynamic inert*: they hold a stable 
 
 NOTE: *Modeling implication:* Dynamic inert settings do not need polling or background sampling. A persistent key-value store (for example, `SharedPreferences`, `UserDefaults`, a `settings` database table) is sufficient. Change events are fully determined by user-initiated write operations.
 
-=== Dynamic active settings (not applicable)
+====== Dynamic active settings (not applicable)
 
 No settings in this section exhibit autonomous or biddable behavior, settings do not change themselves in the background without a user action. If a future feature were to sync settings from a remote profile, that sub-system could be classified as *dynamic active programmable*, but the settings values themselves remain inert from the UI domain's perspective.
 
----
 
-== Tangibility
+===== Tangibility
 
 The lecture distinguishes:
 
@@ -135,9 +122,8 @@ Settings data is *intangible and precise*. Each setting is an abstract configura
 
 NOTE: *Storage implication:* Because settings are intangible and precise, they can be stored and retrieved without lossy encoding. Validation rules are strict and machine-checkable (type checks, range checks, membership checks against enum sets). There is no need to account for measurement uncertainty.
 
----
 
-== Dimensionality
+===== Dimensionality
 
 The lecture defines three levels:
 
@@ -145,7 +131,7 @@ The lecture defines three levels:
 * *One-dimensional (linear sequence)*: an ordered collection of constituents with forward/backward references; modeled with sets, tuples, or sequences.
 * *Multi-dimensional*: recursive or graph-structured; requires forward and backward references and/or recursion.
 
-=== Zero-dimensional settings (atomic values)
+====== Zero-dimensional settings (atomic values)
 
 Most settings are *zero-dimensional*, they hold a single atomic value with no internal structure.
 
@@ -166,7 +152,7 @@ Most settings are *zero-dimensional*, they hold a single atomic value with no in
 | `"es-PR"`
 |===
 
-=== One-dimensional settings (structured but non-recursive)
+====== One-dimensional settings (structured but non-recursive)
 
 A small number of settings are *one-dimensional* because their value is a tuple or a bounded collection rather than a single scalar.
 
@@ -185,13 +171,12 @@ A small number of settings are *one-dimensional* because their value is a tuple 
 
 NOTE: *Modeling implication:* One-dimensional settings require a small record or array type rather than a plain scalar. They should be stored as a single logical unit (for example, a JSON object or a dedicated sub-table) to preserve the relationship between their constituent values.
 
-=== Multi-dimensional settings (not present / flag for review)
+====== Multi-dimensional settings (not present / flag for review)
 
 No current settings field requires recursive or graph-structured modeling. However, if a future "notification rules" feature allowed conditional logic (for example, "if event type X and time is Y, then do Z"), that field would cross into multi-dimensional territory and would need a more expressive model (for example, a rule tree).
 
----
 
-== Summary Table
+====== Summary Table
 
 [cols="2,1,1,1,1", options="header"]
 |===
@@ -234,14 +219,19 @@ No current settings field requires recursive or graph-structured modeling. Howev
 | One-dimensional (flat set)
 |===
 
----
 
-== References
+===== References
 
 Schütz-Schmuck, M. (2021). _Domain Attributes_ [Lecture slides]. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+---
+
 ==== Domain Attributes of Lost and Found Reports
+:author: Andres Cruz Zapata
+
 Domain phenomena and concepts have diverse attributes that affect the modeling of these concepts as code. This section describes the attributes of reports in the lost and found application, covering the continuity, discreteness, hybridicity, chaos, statics and dynamics,  tangibility, and dimensionality of said reports.
 
+[discrete]
 ==== Discreteness:
 Reports can be viewed as discrete phenomena, taking on specific values for each instance and having their state (ie. open, claimed, returned/closed) change depending on the current state and the external inputs received over time. For example, a lost report might change its state from open to claimed after a user claims the item and it is verified by an admin of the application.
 
@@ -258,6 +248,7 @@ Additionally, within these reports, attributes can be found that can be unique t
 * User Id
 ** The unique id of the user that created the report.
 
+[discrete]
 ==== Statics and Dynamics:
 Static attributes are attributes that generally remain unchanged after creation, while Dynamic attributes can change over time. Reports have both static and dynamic attributes:
 
@@ -274,6 +265,7 @@ For example, a report's item description should remain static during the full li
 
 Furthermore, a report experiences dynamic inert behavior, which is when a phenomenon changes due to external inputs rather than changing independently over time. Reports can have their status change due to the application's administration verifying and updating the report's status.
 
+[discrete]
 ==== Tangibility and Intangibility:
 Tangible attributes correspond to real physical properties of a phenomenon while intangible attributes correspond to characteristics that only exist within the application's system. Reports have both tangible and intangible attributes:
 
@@ -290,6 +282,7 @@ These properties correspond to the real life lost item and therefore considered 
 
 These only exist within the system and have no real ties to the physical item.
 
+[discrete]
 ==== Dimensionality:
 Dimensionality refers to the structural complexity of domain information, ranging from simple atomic values to more complex relationships and data structures.
 
@@ -379,3 +372,113 @@ Recording returned items ensures the platform accurately reflects the status of 
 *Campus Example:* The student whose claim was approved visits the Office of Student Affairs during office hours. The staff member verifies their UPRM student ID, retrieves the backpack from storage, and returns it to the student. The system entry for the item is updated to Returned, closing the case.
 
 ---
+
+==== Domain Attributes in Authentication
+:author: Dylan M. Oliver Martinez
+
+
+===== User
+Person using the platform. Could be because they lost an item or found an item.
+
+====== Characteristics
+* *Discrete:* A user is a distinct entity with a unique account.
+* *Dynamic:* User status, actions, posts, and interactions change over time.
+* *Chaotic:* User behavior is unpredictable (they may lose items or find items).
+* *Intangible:* In the system, the user is represented digitally as a profile.
+* *Multi-dimensionality:* Users have multiple attributes (e.g., name, email, posts).
+
+===== Password
+Code selected by the user utilized to confirm the identity of the user.
+
+====== Characteristics
+* *Discrete:* A password is a specific string value.
+* *Static:* It remains the same until the user changes it.
+* *Intangible:* Exists only as data in the system.
+* *One-dimensionality:* Usually a single attribute (string value), though it has properties like length and complexity.
+
+===== Admin
+User with the ability to ban other users, delete posts and accounts, and manually change data from profiles.
+
+====== Characteristics
+* *Discrete:* Admins are distinct user accounts with elevated privileges.
+* *Dynamic:* Admins perform actions like banning users or deleting posts.
+* *Intangible:* Represented digitally in the platform.
+* *Multi-dimensionality:* Includes user attributes plus administrative permissions.
+
+===== Guest
+Users that can only view certain posts but cannot interact with them. Given to users that do not have an official UPR account.
+
+====== Characteristics
+* *Discrete:* Guests are a defined category of user.
+* *Static:* Their permissions remain limited unless they create an account.
+* *Dynamic:* They can browse content over time.
+* *Intangible:* Represented as a temporary or restricted digital user state.
+* *One-dimensionality:* Few attributes compared to registered users.
+
+===== Item
+An object that has either been lost by a user or found by a user.
+
+====== Characteristics
+* *Discrete:* Each item is a specific object.
+* *Dynamic:* Item status can change (e.i., lost, found, returned).
+* *Tangible:* The item exists physically in the real world.
+* *Chaotic:* Items can be lost or discovered unpredictably.
+* *Multi-dimensionality:* Attributes may include name, location, description, time lost/found, and owner.
+
+---
+
+==== Domain Concept Formation and Abstraction
+:author: Tasnim Said-Khader
+
+During the domain acquisition phase, several concrete entities and events were identified in relation to the lost-and-found process. These include specific types of items (like wallets, keys, laptops), location (like classrooms, libraries, study areas), and roles (like students, faculty, staff). While these domain description units are useful for understanding the problem space, repeatedly referencing each individual phenomenom can make the domain narrative unnecessarily detailed and difficult to maintain. 
+
+To simplify the domain model and improve clarity across project documentation, these raw domain phenomena are abstracted into higher level domain concepts. These abstractions capture shared properties and behaviors among related entities and events, allowing the system domain to be described in a more concise and consistent manner.
+
+===== Identified Abstractions
+* Item
+
+- *Type:* Entity
+- *Phase:* Domain
+
+An Item represents any personal object that may be misplaced or discovered within the campus environment.  
+This abstraction groups specific belongings such as keys, identification cards, electronics, backpacks, and other personal property.
+
+* Participant
+
+- *Type:* Entity  
+- *Phase:* Domain  
+
+A Participant represents any individual who interacts with the lost-and-found process.  
+This abstraction includes students, faculty members, and staff who may act as *Owners* of lost items, *Finders* of discovered items, or claimants seeking to recover belongings.
+
+* Campus Location
+
+- *Type:* Entity  
+- *Phase:* Domain  
+
+A Campus Location represents any physical area within the UPRM campus where an item may be lost or found.  
+Examples include classrooms, study areas, libraries, laboratories, and common campus facilities.
+
+* Item Report
+
+- *Type:* Entity  
+- *Phase:* Domain  
+
+An Item Report represents the recorded description of a *Lost Item* or *Found Item* within the lost-and-found process.  
+This abstraction consolidates the information necessary to enable identification, Matching, and eventual Recovery.
+
+* Custody Context
+
+- *Type:* Behavior  
+- *Phase:* Domain  
+
+The Custody Context represents the state in which an item is temporarily held or documented while awaiting identification or recovery by its rightful *Owner*.
+
+* Recovery Process
+
+- *Type:* Behavior  
+- *Phase:* Domain  
+
+The Recovery Process represents the sequence of actions through which a *Lost Item* progresses from initial *Reporting*, through *Matching* and *Claim Verification*, until *Recovery* or *Closure* occurs.
+
+By introducing these abstractions, the Lost & Found domain can be described using consistent and reusable concepts rather than repeatedly referencing individual cases or object types. This improves the readability of the domain narrative and strengthens the conceptual structure of the system model. 
