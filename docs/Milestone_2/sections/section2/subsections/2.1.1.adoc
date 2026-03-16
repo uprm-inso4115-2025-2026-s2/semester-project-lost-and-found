@@ -1,0 +1,185 @@
+== *Descriptive Part*
+=== *Domain Description*
+
+==== *Domain Rough Sketches*
+
+
+[discrete]
+==== Lost Item Owners (Students / Staff)
+
+*Student (Mateo, freshman, engineering)*:
+
+“I left my charger in a classroom. I realized at night.  
+I didn’t know who to ask.  
+I checked a couple of group chats, but nobody replied.”
+
+- -> Observation: Loss is often discovered hours later, outside administrative hours.
+- -> Derived concepts: _delayed realization_, _informal search attempt_, _peer-network reliance_, _after-hours uncertainty_, _ad-hoc communication_.
+
+
+*Graduate Student (Luis, 34)*:
+
+“I lost my keys somewhere between the parking lot and the business building.  
+I wasn’t sure if I should check security, the library, or just retrace my steps.  
+There’s no clear starting point.”
+
+- -> Observation: No standardized entry point for recovery process.
+- -> Derived concepts: _search ambiguity_, _recovery path uncertainty_, _multi-location probability_, _process opacity_, _spatial retracing_.
+
+
+*Undergraduate (Valeria, lab assistant)*:
+
+“My ID card fell out of my pocket once.  
+I canceled it immediately because I was scared someone would misuse it.  
+Later I found out someone had turned it in to the library.”
+
+- -> Observation: Defensive actions taken before confirming recovery.
+- -> Derived concepts: _preventive cancellation_, _identity risk perception_, _premature replacement_, _information delay_, _security anxiety_.
+
+
+*Student (Anonymous quote overheard in hallway)*:
+
+“I posted on Instagram that I lost my AirPods.  
+Someone replied saying they found some, but it wasn’t mine.”
+
+- -> Observation: Social media used as informal lost-and-found channel.
+- -> Derived concepts: _platform fragmentation_, _false positive match_, _public broadcast attempt_, _unverified claim_, _informal matching_.
+
+
+*Exchange Student (Sofia, 20)*:
+
+“I don’t know where the lost and found office is.  
+Back home, there’s always one central place.”
+
+- -> Observation: Assumption of centralized infrastructure that may not exist.
+- -> Derived concepts: _centralization expectation_, _physical office dependency_, _campus navigation gap_, _institutional assumption mismatch_.
+
+
+[discrete]
+==== Finders (Students / Staff Who Discover Items)
+
+*Student (Daniel, TA)*:
+
+“I found a phone outside the physics building.  
+I didn’t want to just leave it there.  
+But I also didn’t want to give it to the wrong person.”
+
+- -> Observation: Ethical hesitation and ownership uncertainty.
+- -> Derived concepts: _finder responsibility_, _ownership doubt_, _misdelivery fear_, _verification hesitation_, _custodial ambiguity_.
+
+
+*Library Employee (Camila, part-time worker)*:
+
+“Students bring water bottles, chargers, USB drives, everything.  
+We just put them in a drawer with sticky notes.  
+Sometimes people argue over who it belongs to.”
+
+- -> Observation: Manual storage and informal labeling.
+- -> Derived concepts: _manual logging_, _physical clutter accumulation_, _informal tagging_, _ownership dispute_, _storage overflow_.
+
+
+*Campus Security Staff (informal interview note)*:
+
+“We keep items in the office for a few weeks.  
+If nobody claims them, they get discarded or stored somewhere else.  
+There’s no consistent tracking system.”
+
+- -> Observation: Time-based retention without structured tracking.
+- -> Derived concepts: _retention window_, _unclaimed disposal_, _record absence_, _lifecycle inconsistency_, _institutional variance_.
+
+
+*Student (heard in lab)*:
+
+“I didn’t report the calculator I found.  
+I just left it on the desk where I found it.”
+
+- -> Observation: Non-reporting behavior due to low perceived value or effort.
+- -> Derived concepts: _non-reporting tendency_, _effort aversion_, _value-based prioritization_, _passive return attempt_, _engagement barrier_.
+
+
+[discrete]
+==== Physical Environment (Campus Context)
+
+*Observation (classroom building, evening)*:
+
+Multiple empty classrooms with unattended items (notebooks, bottles, jackets).  
+No signage indicating what to do if an item is found.
+
+- -> Derived concepts: _unattended object frequency_, _instruction absence_, _behavioral ambiguity_, _environmental normalcy of loss_.
+
+
+*Observation (library third floor office)*:
+
+Drawer labeled “Lost & Found” contains mixed items with handwritten notes.  
+No consistent format for notes (some have dates, some don’t).
+
+- -> Derived concepts: _metadata inconsistency_, _informal documentation_, _date omission_, _traceability gap_, _storage heterogeneity_.
+
+
+*Observation (parking lot)*:
+
+Keys found near vehicles.  
+High traffic area, low traceability.
+
+- -> Derived concepts: _high-mobility zone_, _low-identifiability object_, _spatial anonymity_, _retrieval difficulty_, _public exposure risk_.
+
+
+[discrete]
+==== Communication Patterns
+
+*Student Group Chat Screenshot (note excerpt)*:
+
+“Anyone lose a blue Hydro Flask?”  
+“Where?”  
+“Near Chem building.”  
+“No idea whose it is.”
+
+- -> Observation: Broadcast without structured follow-up.
+- -> Derived concepts: _ephemeral notification_, _non-persistent record_, _limited audience reach_, _context decay_, _informal broadcast loop_.
+
+
+*Library Worker (Camila)*:
+
+“People come asking, ‘Has anyone reported a MacBook?’  
+I can’t check anything except the drawer.”
+
+- -> Observation: Query without searchable record.
+- -> Derived concepts: _search absence_, _manual lookup limitation_, _inventory invisibility_, _query frustration_, _information bottleneck_.
+
+
+*Student (Mateo)*:
+
+“I wouldn’t put my phone number publicly.  
+I don’t want random people contacting me.”
+
+- -> Observation: Privacy concerns in open reporting.
+- -> Derived concepts: _contact exposure risk_, _privacy hesitation_, _identity boundary_, _communication mediation need_, _trust sensitivity_.
+
+
+[discrete]
+==== Behavioral Patterns Around Loss
+
+*Observation (multiple interviews)*:
+
+People often retrace steps physically before asking anyone.  
+Only after failing do they ask peers or offices.
+
+- -> Derived concepts: _physical retracing priority_, _self-recovery attempt_, _delayed reporting_, _effort escalation_, _search fatigue_.
+
+
+*Student Comment (hallway conversation)*:
+
+“I assumed someone would steal it if I didn’t find it quickly.”
+
+- -> Observation: Perceived theft risk influences urgency.
+- -> Derived concepts: _theft anxiety_, _urgency escalation_, _trust deficit_, _loss finality assumption_, _campus risk perception_.
+
+
+*Repeated Theme (brainstorming session note)*:
+
+- Items frequently lost: keys, ID cards, chargers, water bottles, USB drives, headphones.
+- High-value electronics trigger faster reporting.
+- Low-value items often abandoned.
+- No unified visibility across departments.
+
+- -> Derived concepts: _value-based reporting threshold_, _object category frequency_, _departmental isolation_, _visibility fragmentation_, _reporting asymmetry_.

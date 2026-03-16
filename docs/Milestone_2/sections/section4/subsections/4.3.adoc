@@ -1,0 +1,39 @@
+=== *Requirements Engineering*
+
+=== Temporal Aspects of the Lost and Found Domain
+
+Time plays an important role in how a lost and found system operates. Most actions in the domain occur at a 
+specific moment and the system must keep track of when those events happen. Reports are created at a 
+certain time, items remain unclaimed for a period of time, and status changes occur as time passes. 
+Because of this, the system must handle several temporal characteristics in order to function properly and keep information accurate.
+
+One important temporal element is the timestamp of a report. When a user submits a report for a lost or found item, the system records the exact date and time of creation. 
+This timestamp allows the system to keep reports organized chronologically and helps users determine how recent the information is. 
+For example, a report created a few hours ago is likely more relevant than one created several weeks earlier. 
+Timestamps also help the system maintain a history of actions performed on each report.
+
+Another aspect is the time associated with when an item was lost or found. In many situations the user may report an item some time after the actual event occurred. 
+Because of this, the system should store both the time when the report was submitted and the time when the item was believed to be lost or found.
+Keeping these values separate helps the system represent real world situations more accurately.
+
+Item expiration is another important temporal behavior. Lost and found systems cannot keep reports active forever. 
+After a certain period of time, items may be removed from storage or transferred to another process according to institutional policies.
+The system therefore needs a way to detect reports that have existed for too long and mark them as archived.
+This prevents outdated reports from cluttering the active listings and improves the overall usability of the system.
+
+Claim deadlines are also related to time. When someone reports that they have found an item, the original owner may need to claim it within a specific time window.
+If the item is not claimed within that period, the item may be handled differently according to the rules of the lost and found service. 
+The system may support this behavior by storing a claim deadline or by calculating one based on the report creation time.
+
+Status changes within the system are another example of temporal behavior. Reports usually begin in an active state when they are first created. 
+If the owner retrieves the item, the report transitions to a resolved state. Later on, if the report becomes outdated or the item is no longer available, it may be moved to an archived state.
+Although these changes may be triggered by user actions, they are also influenced by how much time has passed since the report was created.
+
+Notifications can also depend on time. For instance, the system could notify users when a newly reported item matches a report they previously submitted.
+It could also send reminders if an item is close to reaching its claim deadline. 
+In these cases timing is important because the information must reach users while the report is still relevant.
+
+Temporal considerations influence the design of the domain model and the overall system architecture. 
+The report entity must include attributes such as creation timestamps and possibly expiration related data. 
+The system may also need periodic checks that identify outdated reports and automatically update their status.
+By incorporating these temporal characteristics into the system design, the lost and found platform can more accurately reflect the way lost item management works in real life.
