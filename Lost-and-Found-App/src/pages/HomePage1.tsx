@@ -1,8 +1,8 @@
 import logo from "../assets/Lost&Found-Logo.jpeg"
 import "./HomePage.css";
 import { useState } from "react";
-import { ItemCard} from "../components/ItemCard";
-import type {ItemStatus } from "../components/ItemCard";
+import { ItemCard} from "../components/ItemCard1";
+import type {ItemStatus } from "../components/ItemCard1";
 import walletImg from "../assets/sample/wallet.jpeg";
 import bottleImg from "../assets/sample/bottle.jpeg";
 
