@@ -69,4 +69,32 @@ Dimensionality refers to the structural complexity of domain information, rangin
 ** User-Report Relationship
 *** At a higher level, references from both reports and users are needed to tie these phenomena together in order to create relationships, such as ownership or claims.
 
+---
 
+==== Domain concept and inconsistencies with lost and found platform
+:author: Victoria Miranda Osuna
+
+===== Goal
+Apply domain analysis techniques to identify and evaluate inconsistencies in the lost and found
+system requirements, using the systematic evaluation methods discussed in class.
+===== Proposed Solution
+* Review the lost and found domain description units and form abstract domain concepts.
+* Additionally identifying and classifying inconsistencies.
+===== Success Criteria
+* At least 5 domain concepts correctly identified and abstracted.
+- Reports: an abstract entity that generalizes lost and found submissions. (active → resolved)
+- Location type: a typed location reference.
+- Recovery status tracking: a composite status across related reports. (lost → found → resolved)
+- Search criteria: a query parameter criteria.
+- Item category hierarchy: a classification structure with inheritance.
+* Minimum 4 inconsistency types classified with resolutions (Note: these inconsistencies are in
+reference to the brainstorm in issue 159)
+- Terminology clash: referring to the “drop off location” in the found forms versus “centralized
+location per building”
+- Designation clash: both lost and found utilizing “location” for where it was lost and where it was
+found.
+- Weak conflict: users having control to edit the forms versus the administration when
+considering the resolution of the item.
+- Strong conflict: users versus administration confirming if the issue has been resolved.
+
+---
