@@ -1,7 +1,5 @@
-import AppDefault from "./AppDefault";
-import AppUITest from "./AppUITest";
+import HomePage from "./pages/HomePage";
 
 export default function App() {
-  const useUiTest = import.meta.env.VITE_UI_TEST === "true";
-  return useUiTest ? <AppUITest /> : <AppDefault />;
+  return <HomePage />;
 }
