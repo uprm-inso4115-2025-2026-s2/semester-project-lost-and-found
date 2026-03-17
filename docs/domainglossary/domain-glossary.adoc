@@ -1,0 +1,140 @@
+= Domain Glossary & Shared Vocabulary (UPRM Lost & Found)
+
+This glossary defines and standardizes the vocabulary used in the UPRM Lost & Found platform.
+Its purpose is to reduce ambiguity across requirements, UI text, API docs, and implementation work.
+
+== Usage Rules (Preferred Terms)
+
+* Use *Report* for the act of submitting information into the system (lost or found).
+* Use *Listing* for an entry that is visible in browse/search results (may be created from a report).
+* Use *Claim Request* for a user’s request to retrieve an item.
+* Use *Verification* for proof-checking before approving a claim request.
+* Use *Sensitive item* and *Sensitivity level* for privacy/fraud-driven restrictions.
+* Use *Admin* for the highest-privilege oversight role.
+* Use *Staff/Moderator* for roles that assist with handling/verification but may have limited authority.
+
+== Glossary
+
+=== Access Control
+Rules that determine who can view information or perform actions in the platform, usually based on user role and item sensitivity.
+
+=== Admin
+A privileged role responsible for platform oversight (moderation, sensitive item handling, approvals, disputes, and policy enforcement).
+
+=== Archived
+A status indicating an item/listing is no longer active for recovery workflows (e.g., resolved, expired, disposed, or removed by policy).
+
+=== Audit Log
+A record of important events (e.g., edits, approvals, rejections, status changes) kept for accountability and dispute resolution.
+
+=== Claim
+The act of successfully retrieving an item after approval.
+Do not confuse with: *Claim Request* (the request step) and *Claimed* (the final status).
+
+=== Claim Request
+A user-submitted request to retrieve an item. Typically includes proof-of-ownership details and is reviewed by staff/admin.
+
+=== Claimed
+A status indicating an item has been released/returned to the verified owner.
+
+=== Claimant
+The user attempting to claim an item (the person submitting the claim request).
+
+=== Confidential Detail
+Information that should not be publicly shown due to privacy, safety, or fraud risk (e.g., ID numbers, serial numbers, exact storage location).
+
+=== Dispute
+A situation where multiple parties claim the same item or ownership is unclear and requires admin/staff resolution.
+
+=== Found Item
+An item that someone found and is reporting to the system for return to the owner.
+
+=== Found Item Report
+A report submitted by a user indicating they found an item (includes when/where and limited item description).
+
+=== Guest
+A user who is not logged in. Typically has the most restricted access.
+
+=== Item
+A physical object being tracked by the platform.
+
+=== Item Category
+A classification for items (e.g., electronics, documents, keys) used for filtering and for applying sensitivity rules.
+
+=== Listing
+An entry visible to users in browse/search results.
+Do not confuse with: *Report* (submission) vs *Listing* (published entry).
+
+=== Listing Details
+The set of fields shown to a viewer. For sensitive items, listing details may be limited based on role and sensitivity level.
+
+=== Location (Broad)
+A general location (e.g., building/area/zone) suitable for public display (example: "Library", "Engineering Building").
+
+=== Location (Exact)
+A specific location detail (e.g., room number, desk, exact coordinates, storage cabinet).
+Often restricted to staff/admin to prevent misuse.
+
+=== Lost Item
+An item that the owner believes they lost and is trying to recover.
+
+=== Lost Item Report
+A report submitted by a user indicating they lost an item and providing identifying details they remember.
+
+=== Minimum Necessary Disclosure
+A principle that public listings should reveal only the minimum information needed for recovery, reducing fraud and privacy risks.
+
+=== Moderator / Staff
+A role that can help handle reports and verification processes, typically with less authority than Admin (depending on implementation).
+
+=== Owner
+The legitimate person the item belongs to.
+
+=== Pending Verification
+A status indicating an item is in a review stage (e.g., a claim request exists and requires proof checking).
+
+=== Proof of Ownership
+Information a claimant provides to demonstrate the item is theirs (e.g., unique marks, contents, unlocking device, accessory details).
+
+=== Report
+A submission entered into the system describing a lost or found item.
+Do not confuse with: *Listing* (public entry) and *Claim Request* (request to retrieve).
+
+=== Reporter
+The user who submitted a report (lost or found).
+
+=== Restricted Field
+A specific piece of data that is hidden from certain roles (field-level restrictions), such as serial number or ID details.
+
+=== Role
+A permission group assigned to users that determines what they can see/do (e.g., Guest, Registered User, Staff/Moderator, Admin).
+
+=== Sensitive Item
+An item that requires special handling because exposing details can create privacy, security, or fraud risks (e.g., IDs, keys, wallets, electronics).
+
+=== Sensitivity Level
+A classification describing how restricted an item’s information should be.
+Example scheme: Level 0 (non-sensitive) to Level 3 (highly sensitive).
+
+=== Status
+A state representing where an item/listing is in its lifecycle (e.g., Available, Pending Verification, Claimed, Archived).
+
+=== Verification
+The process of checking proof-of-ownership before approving a claim request.
+
+=== Verification Question
+A detail asked during verification that should not be publicly visible (e.g., "What sticker is on the laptop?", "What’s inside the wallet?").
+
+=== Visibility Rules
+Rules that define what information is visible to each role, often influenced by sensitivity level.
+
+=== Workflow
+A defined sequence of actions in the platform (example: Report -> Listing -> Claim Request -> Verification -> Claimed/Closed).
+
+== Common Confusions 
+
+* *Report* vs *Listing*: Report is what a user submits; listing is what others browse/search.
+* *Claim Request* vs *Claim*: request is the approval step; claim is the successful return.
+* *Found* vs *Lost*: found is submitted by finder; lost is submitted by owner.
+* *Location (Broad)* vs *Location (Exact)*: broad can be public; exact is usually restricted.
+* *Sensitive item* depends on both item type and details exposed (not only item type).
