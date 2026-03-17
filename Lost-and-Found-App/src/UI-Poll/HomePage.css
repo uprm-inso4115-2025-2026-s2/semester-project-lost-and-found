@@ -1,0 +1,101 @@
+.homePage {
+  max-width: 550px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: white;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.homeHeader {
+  background: #17a45b;
+  color: white;
+
+  padding: 20px;
+  padding-bottom: 60px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerLeft h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.headerLogo {
+  width: 55px;
+  height: 55px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+}
+
+.statusTabs {
+  display: flex;
+  gap: 10px;
+
+  padding: 14px;
+
+  margin-top: -60px;
+}
+
+.statusBtn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+
+  background: #2db86d;
+  color: white;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.statusBtn.active {
+  background: white;
+  color: #17a45b;
+}
+
+.itemsGrid {
+  padding: 16px;
+  padding-bottom: 80px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+
+  width: 100%;
+  max-width: 550px;
+
+  background: white;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  padding: 14px 0;
+
+  border-top: 1px solid #ddd;
+}
+
+.bottomNav button {
+  background: transparent;
+  border: none;
+  padding: 8px;
+  font-size: 22px;
+}
