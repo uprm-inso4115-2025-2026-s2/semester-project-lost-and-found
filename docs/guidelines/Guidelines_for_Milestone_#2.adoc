@@ -37,41 +37,41 @@ These guidelines will be used to evaluate each project's submission. The whole p
 
 == Rubrics
 
-Changes to the previous submission must be clearly visible. 	
+- Changes to the previous submission must be clearly visible. 	
 
-The log book gives an overview of the changes (but not the full changed content). 	
+- The log book gives an overview of the changes (but not the full changed content). 	
 
-The actual changes, new developments, etc are integrated into the overall document. 	
+- The actual changes, new developments, etc are integrated into the overall document. 	
 
-All the criteria where the previous submission did not follow the guidelines have been improved. 	
+- All the criteria where the previous submission did not follow the guidelines have been improved. 	
 
-Any additions and changes follow the guidelines already established for the milestone 1 submission. 	
+- Any additions and changes follow the guidelines already established for the milestone 1 submission. 	
 
-Progress in the implementation has been made: there are completed features that are implemented end-to-end and that have a high value to the users. 	
+- Progress in the implementation has been made: there are completed features that are implemented end-to-end and that have a high value to the users. 	
 
-Progress has been made in all phases of development: domain description, requirements prescription, design, ... 	
+- Progress has been made in all phases of development: domain description, requirements prescription, design, ... 	
 
-The requirements stakeholders are properly documented.	
+- The requirements stakeholders are properly documented.	
 
-Acquisition and the rest of the elicitation are separate.
+- Acquisition and the rest of the elicitation are separate.
 
-At least one meaningful questionnaire for requirements acquisition is included.
+- At least one meaningful questionnaire for requirements acquisition is included.
 
-The project analyses requirements inconsistencies for the specific types of clashes.
+- The project analyses requirements inconsistencies for the specific types of clashes.
 
-The documentation includes at least five weak inconsistency together with the boundary condition that makes it inconsistent. 	
+- The documentation includes at least five weak inconsistency together with the boundary condition that makes it inconsistent. 	
 
-The documentation identifies some competing goals together with examples of derived requirements.	
+- The documentation identifies some competing goals together with examples of derived requirements.	
 
-The project generates candidate resolutions using further elicitation as well as using the resolution tactics.	
+- The project generates candidate resolutions using further elicitation as well as using the resolution tactics.	
 
-The project shows risks identification through FMEA as well as through guide words.	
+- The project shows risks identification through FMEA as well as through guide words.	
 
-The project shows some risk assessment.	
+- The project shows some risk assessment.	
 
-The project shows application of risk reduction tactics.	
+- The project shows application of risk reduction tactics.	
 
-The project shows use of AHP for prioritizing criteria and then requirements.
+- The project shows use of AHP for prioritizing criteria and then requirements.
 
-The project discusses requirements satisfiability and feasibility.
+- The project discusses requirements satisfiability and feasibility.
 
