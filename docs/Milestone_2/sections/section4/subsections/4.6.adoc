@@ -66,7 +66,7 @@ placeholders IDs are being used to facilitate linking and tracking. These placeh
 solely for traceability purposes of this issue.
 ====
 
- *Reporting Requirements*
+*Reporting Requirements*
  
  - DOMREP01: The system shall allow a registered UPRM community member to create a Report for a Lost Item
  - DOMREP03:Each Report shall include sufficient descriptive information to support Matching (e.g., category, description, general location, date).
@@ -74,7 +74,7 @@ solely for traceability purposes of this issue.
  - DOMREP05: Upon creation, each Report shall be assigned an initial status of "Active."
 
 
- *Search and Discovery Requirements*
+*Search and Discovery Requirements*
 
  - DOMSD01: The system shall allow users to search Reports based on keywords related to the item description.
  - DOMSD02: The system shall allow filtering of Reports by category, general location, date, and status.
