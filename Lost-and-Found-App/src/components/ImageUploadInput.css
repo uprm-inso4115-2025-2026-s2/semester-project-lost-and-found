@@ -1,0 +1,158 @@
+/* src/components/ImageUploadInput.css */
+
+/* ── Wrapper ── */
+.imageUpload {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+/* ── Drop zone / label ── */
+.imageUpload__zone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 170px;
+  border-radius: 16px;
+  border: 2px dashed rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #f2f3f7, #e7e9f0);
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 180ms ease, background 180ms ease;
+  position: relative;
+}
+
+.imageUpload__zone:hover {
+  border-color: rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, #eaebf0, #dde0ea);
+}
+
+/* Hide the native file input but keep it accessible */
+.imageUpload__nativeInput {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Placeholder (idle state) ── */
+.imageUpload__placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+  text-align: center;
+  padding: 12px;
+}
+
+.imageUpload__icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.imageUpload__hint {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.imageUpload__formats {
+  font-size: 12px;
+  color: rgba(15, 23, 42, 0.5);
+  font-weight: 500;
+}
+
+/* ── Preview (valid state) ── */
+.imageUpload__preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  pointer-events: none;
+}
+
+/* ── Error banner ── */
+.imageUpload__error {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+}
+
+.imageUpload__errorIcon {
+  font-size: 20px;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.imageUpload__errorBody {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.imageUpload__errorTitle {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 800;
+  color: #b91c1c;
+}
+
+.imageUpload__errorSub {
+  margin: 0;
+  font-size: 13px;
+  color: #991b1b;
+  line-height: 1.45;
+}
+
+.imageUpload__errorSub strong {
+  font-weight: 700;
+}
+
+/* ── Actions row (shown after valid file picked) ── */
+.imageUpload__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(15, 23, 42, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.imageUpload__fileName {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(15, 23, 42, 0.75);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.imageUpload__clearBtn {
+  flex-shrink: 0;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid #fca5a5;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.imageUpload__clearBtn:hover {
+  background: #fee2e2;
+}
