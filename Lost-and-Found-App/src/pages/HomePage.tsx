@@ -5,6 +5,7 @@ import { ItemCard} from "../components/ItemCard";
 import type {ItemStatus } from "../components/ItemCard";
 import walletImg from "../assets/sample/wallet.jpeg";
 import bottleImg from "../assets/sample/bottle.jpeg";
+import CategoryDropdown from '../components/CategoryDropdown';
 
 type TabKey = ItemStatus;
 
@@ -69,6 +70,11 @@ export default function HomePage() {
             {tab}
           </button>
         ))}
+        <CategoryDropdown 
+          onCategoryChange={(category) => {
+            console.log("Category selected:", category);
+          }} 
+        />
       </div>
 
       {/* GRID */}
