@@ -604,3 +604,264 @@ This separation prevents mixing implementation decisions with domain logic and e
 Through facet analysis, the domain becomes structured rather than fragmented, strengthening overall domain understanding.
 
 ---
+
+---
+
+==== [Lecture Topic Task] Domain Glossary & Shared Vocabulary for the Lost & Found System
+:author: Anthony H Martinez-Gomez
+
+*Framework:* Schütz-Schmuck, M. (2021). _Domain Engineering_. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+===== Overview
+
+As the Lost & Found project grows, teams can unintentionally use different words for the same concept (e.g., "report" vs "listing", "claim" vs "request"). This creates ambiguity in requirements, UI text, and implementation. This Lecture Topic Task defines a shared vocabulary so that all documentation and development work uses consistent domain terms.
+
+===== Naming Rules (Preferred Terms)
+
+* Use *Report* for the act of submitting information into the system (lost or found).
+* Use *Listing* for an entry that is visible in browse/search results (may be created from a report).
+* Use *Claim Request* for a user’s request to retrieve an item.
+* Use *Verification* for proof-checking before approving a claim request.
+* Use *Sensitive item* and *Sensitivity level* for privacy/fraud-driven restrictions.
+* Use *Admin* for the highest-privilege oversight role.
+* Use *Staff/Moderator* for roles that assist with handling/verification but may have limited authority than Admin.
+
+===== Glossary
+
+====== Access Control
+Rules that determine who can view information or perform actions in the platform, usually based on user role and item sensitivity.
+
+====== Admin
+A privileged role responsible for platform oversight (moderation, sensitive item handling, approvals, disputes, and policy enforcement).
+
+====== Archived
+A status indicating an item/listing is no longer active for recovery workflows (e.g., resolved, expired, disposed, or removed by policy).
+
+====== Audit Log
+A record of important events (e.g., edits, approvals, rejections, status changes) kept for accountability and dispute resolution.
+
+====== Claim
+The act of successfully retrieving an item after approval. +
+*Do not confuse with:* *Claim Request* (the request step) and *Claimed* (the final status).
+
+====== Claim Request
+A user-submitted request to retrieve an item. Typically includes proof-of-ownership details and is reviewed by staff/admin.
+
+====== Claimed
+A status indicating an item has been released/returned to the verified owner.
+
+====== Claimant
+The user attempting to claim an item (the person submitting the claim request).
+
+====== Confidential Detail
+Information that should not be publicly shown due to privacy, safety, or fraud risk (e.g., ID numbers, serial numbers, exact storage location).
+
+====== Dispute
+A situation where multiple parties claim the same item or ownership is unclear and requires staff/admin resolution.
+
+====== Found Item
+An item that someone found and is reporting to the system for return to the owner.
+
+====== Found Item Report
+A report submitted by a user indicating they found an item (includes when/where and limited item description).
+
+====== Guest
+A user who is not logged in. Typically has the most restricted access.
+
+====== Item
+A physical object being tracked by the platform.
+
+====== Item Category
+A classification for items (e.g., electronics, documents, keys) used for filtering and for applying sensitivity rules.
+
+====== Listing
+An entry visible to users in browse/search results. +
+*Do not confuse with:* *Report* (submission) vs *Listing* (published entry).
+
+====== Listing Details
+The set of fields shown to a viewer. For sensitive items, listing details may be limited based on role and sensitivity level.
+
+====== Location (Broad)
+A general location (e.g., building/area/zone) suitable for public display (example: "Library", "Engineering Building").
+
+====== Location (Exact)
+A specific location detail (e.g., room number, desk, exact coordinates, storage cabinet). Often restricted to staff/admin.
+
+====== Lost Item
+An item that the owner believes they lost and is trying to recover.
+
+====== Lost Item Report
+A report submitted by a user indicating they lost an item and providing identifying details they remember.
+
+====== Minimum Necessary Disclosure
+A principle that public listings should reveal only the minimum information needed for recovery, reducing fraud and privacy risks.
+
+====== Moderator / Staff
+A role that can help handle reports and verification processes, typically with less authority than Admin (depending on implementation).
+
+====== Owner
+The legitimate person the item belongs to.
+
+====== Pending Verification
+A status indicating an item is in a review stage (e.g., a claim request exists and requires proof checking).
+
+====== Proof of Ownership
+Information a claimant provides to demonstrate the item is theirs (e.g., unique marks, contents, unlocking device, accessory details).
+
+====== Report
+A submission entered into the system describing a lost or found item. +
+*Do not confuse with:* *Listing* (public entry) and *Claim Request* (request to retrieve).
+
+====== Reporter
+The user who submitted a report (lost or found).
+
+====== Restricted Field
+A specific piece of data that is hidden from certain roles (field-level restrictions), such as serial number or ID details.
+
+====== Role
+A permission group assigned to users that determines what they can see/do (e.g., Guest, Registered User, Staff/Moderator, Admin).
+
+====== Sensitive Item
+An item that requires special handling because exposing details can create privacy, security, or fraud risks (e.g., IDs, keys, wallets, electronics).
+
+====== Sensitivity Level
+A classification describing how restricted an item’s information should be (example: Level 0 non-sensitive through Level 3 highly sensitive).
+
+====== Status
+A state representing where an item/listing is in its lifecycle (e.g., Available, Pending Verification, Claimed, Archived).
+
+====== Verification
+The process of checking proof-of-ownership before approving a claim request.
+
+====== Verification Question
+A detail asked during verification that should not be publicly visible (e.g., "What sticker is on the laptop?", "What’s inside the wallet?").
+
+====== Visibility Rules
+Rules that define what information is visible to each role, often influenced by sensitivity level.
+
+====== Workflow
+A defined sequence of actions in the platform (example: Report -> Listing -> Claim Request -> Verification -> Claimed/Closed).
+
+===== Common Confusions (Quick Reference)
+
+* *Report* vs *Listing*: Report is what a user submits; listing is what others browse/search.
+* *Claim Request* vs *Claim*: request is the approval step; claim is the successful return.
+* *Found* vs *Lost*: found is submitted by finder; lost is submitted by owner.
+* *Location (Broad)* vs *Location (Exact)*: broad can be public; exact is usually restricted.
+* *Sensitive item* depends on both item type and details exposed (not only item type).
+
+---
+
+==== [Lecture Topic Task] Domain Exceptions, Edge Cases, and Failure Scenarios for the Lost & Found System
+:author: Anthony H Martinez-Gomez
+
+*Framework:* Schütz-Schmuck, M. (2021). _Domain Engineering_. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+===== Overview
+
+Real Lost & Found workflows are not always "happy path". People provide incomplete information, multiple users may claim the same item, and sensitive items create privacy and fraud risks. This Lecture Topic Task documents realistic exceptions and failure scenarios and defines expected system behavior for each case to reduce ambiguity and domain incompleteness.
+
+===== Assumptions (Policy / System)
+
+* The platform supports both *Lost Item Reports* and *Found Item Reports*.
+* Items can be classified by *sensitivity level*; sensitive items expose limited public details.
+* Claims follow a *Claim Request -> Verification -> Approve/Reject* model.
+* Admin oversight exists for moderation, disputes, and sensitive items.
+
+If the current implementation differs, adjust expected behavior accordingly.
+
+===== Edge Cases and Expected Behavior
+
+====== EC-01: Multiple claim requests for the same item
+*Scenario:* Two or more users submit claim requests for the same listing. +
+*Risk:* Fraud or confusion; wrong owner may receive the item. +
+*Expected behavior:*
+* Item becomes *Pending Verification* after the first claim request.
+* Additional claim requests are allowed but marked as *Queued/Under Review*.
+* Staff/Admin reviews requests in order (or by strongest proof).
+* Only one claim can be approved; the rest are rejected with a reason.
+*Roles involved:* Claimants, Staff/Moderator, Admin.
+
+====== EC-02: Claimant provides weak or generic proof
+*Scenario:* Claimant only repeats public details and provides no unique proof. +
+*Risk:* Easy fraudulent claims. +
+*Expected behavior:*
+* Staff/Admin requests additional proof using non-public verification questions.
+* If proof remains insufficient, reject the claim.
+* Listing returns to *Available* (or stays active) after rejection.
+*Roles involved:* Claimant, Staff/Moderator, Admin.
+
+====== EC-03: Sensitive item posted with too many details
+*Scenario:* Report exposes ID numbers, names, serial numbers, or personal data. +
+*Risk:* Privacy violation, identity theft. +
+*Expected behavior:*
+* System blocks submission or prompts redaction for restricted fields (if validation exists).
+* If already submitted, Staff/Admin redacts and limits public visibility.
+* Moderation action should be logged (audit trail if available).
+*Roles involved:* Reporter, Staff/Moderator, Admin.
+
+====== EC-04: Found bag contains nested sensitive contents
+*Scenario:* A backpack is found but contains wallet/ID/keys inside. +
+*Risk:* Bag treated as non-sensitive; contents exposed or misused. +
+*Expected behavior:*
+* Staff/Admin upgrades sensitivity level (e.g., Level 1 -> Level 2/3).
+* Public listing remains generic and does not list contents.
+* Contents are used for private verification questions.
+*Roles involved:* Reporter, Staff/Moderator, Admin.
+
+====== EC-05: Reporter enters wrong category or location
+*Scenario:* Item category/location is incorrect due to mistake. +
+*Risk:* Owners cannot find item; search quality drops. +
+*Expected behavior:*
+* Reporter can edit report fields when no claim exists (or limited edits if claim exists).
+* Staff/Admin can correct and add internal notes if needed.
+*Roles involved:* Reporter, Staff/Moderator, Admin.
+
+====== EC-06: Listing edited after a claim request exists
+*Scenario:* Reporter edits description after someone submits a claim request. +
+*Risk:* Proof can be exposed/manipulated; fairness issues. +
+*Expected behavior:*
+* Lock or restrict edits to sensitive/proof-related fields once a claim exists.
+* Preserve prior version or log edits for staff/admin review.
+*Roles involved:* Reporter, Claimant, Staff/Moderator, Admin.
+
+====== EC-07: Duplicate reports for the same item
+*Scenario:* Multiple users report the same found item separately. +
+*Risk:* Confusing duplicates; wasted verification effort. +
+*Expected behavior:*
+* Staff/Admin merges duplicates or links them.
+* Keep one canonical listing; close others as duplicates.
+*Roles involved:* Reporters, Staff/Moderator, Admin.
+
+====== EC-08: Item returned offline (outside the platform)
+*Scenario:* Item is returned without using claim flow. +
+*Risk:* Platform remains outdated; item appears available. +
+*Expected behavior:*
+* Staff/Admin marks listing as *Closed (Returned Offline)* or *Claimed*.
+* Optional internal-only note explains closure.
+*Roles involved:* Staff/Moderator, Admin.
+
+====== EC-09: False report / spam / inappropriate content
+*Scenario:* User submits fake listings or abusive content. +
+*Risk:* Trust damage, clutter, harassment. +
+*Expected behavior:*
+* Staff/Admin removes listing and may flag/suspend account.
+* Apply anti-abuse controls if patterns appear (rate limit, verification).
+*Roles involved:* Reporter, Staff/Moderator, Admin.
+
+====== EC-10: Dispute after rejection
+*Scenario:* Claimant disputes rejection and escalates. +
+*Risk:* Harassment; unsafe interactions. +
+*Expected behavior:*
+* Admin has final decision authority.
+* Keep communication in-platform; avoid exposing personal contact info.
+* Optionally freeze claim/listing during dispute review.
+*Roles involved:* Claimant, Staff/Moderator, Admin.
+
+===== Implementation Notes (Cross-Team)
+
+* Prefer field-level visibility rules (public vs staff/admin) instead of hiding entire listings.
+* Use minimum necessary disclosure for sensitive items to reduce fraud.
+* If possible, log moderation actions (edits/redactions/approve/reject/status changes).
+
+---
