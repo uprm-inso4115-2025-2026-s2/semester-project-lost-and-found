@@ -38,3 +38,64 @@ Temporal considerations influence the design of the domain model and the overall
 The report entity must include attributes such as creation timestamps and possibly expiration related data. 
 The system may also need periodic checks that identify outdated reports and automatically update their status.
 By incorporating these temporal characteristics into the system design, the lost and found platform can more accurately reflect the way lost item management works in real life.
+
+
+
+---
+
+==== Lost & Found System – Example User Scenarios
+:author: Diego A. Ríos Morales
+:date: March 13, 2026
+
+This section describes example user interaction scenarios for the Lost & Found system. These scenarios illustrate common behaviors within the platform, including reporting lost items, posting found items, submitting claims, and reviewing claims.
+
+===== Introduction
+
+The Lost & Found system supports multiple types of user interactions related to reporting, searching, and recovering items. The following scenarios present common flows that help define how users and administrators are expected to interact with the system.
+
+===== Scenario 1: Reporting a Lost Item
+
+*Actor:* User
+
+. A user logs into the Lost & Found platform.
+. The user selects "Report Lost Item."
+. The user enters item details such as description, location, and date lost.
+. The system saves the lost item report and makes it searchable.
+
+*Result:* The lost item is stored in the system and can later be matched with found items.
+
+===== Scenario 2: Posting a Found Item
+
+*Actor:* Finder (User)
+
+. A user finds an item on campus.
+. The user logs into the platform.
+. The user selects "Post Found Item."
+. The user enters details about the item and where it was found.
+. The system publishes the found item listing.
+
+*Result:* The found item becomes visible to users searching for lost items.
+
+===== Scenario 3: Submitting an Item Claim
+
+*Actor:* User
+
+. A user searches the platform for a lost item.
+. The user finds a listing that matches their item.
+. The user submits a claim request.
+. The system records the claim and sends it for review.
+
+*Result:* The claim is stored in the system and awaits verification.
+
+===== Scenario 4: Admin Reviews a Claim
+
+*Actor:* Administrator
+
+. The administrator reviews submitted claim requests.
+. The administrator verifies the claim information.
+. The administrator decides whether the claim is valid.
+. The claim is approved or rejected.
+
+*Result:* If approved, the item can be returned to the owner.
+
+---
