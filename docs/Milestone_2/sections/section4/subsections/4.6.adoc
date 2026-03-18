@@ -57,7 +57,7 @@ The Report Lost Item requirement interacts with multiple components of the syste
 - ENVRQ006 : The system must implement Row Level Security (RLS) policies in PostgreSQL for all data access.
 - ENVRQ009 : The system must implement rate limiting on all API endpoints to prevent abuse
 
-*Domain Requirements *
+*Domain Requirements*
 
 [NOTE]
 ====
