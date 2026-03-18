@@ -604,7 +604,79 @@ This separation prevents mixing implementation decisions with domain logic and e
 Through facet analysis, the domain becomes structured rather than fragmented, strengthening overall domain understanding.
 
 ---
+==== [Lecture Topic Task] Domain Rules for the Lost & Found System
+:author: Noel Colon Mena
 
+===== Overview
+
+This Lecture Topic Task defines the domain rules that govern how the Lost & Found system operates.
+
+These rules help ensure that lost items are managed fairly, that claims are verified properly,
+and that the system maintains consistent and reliable information.
+
+===== Domain Rules
+
+====== Rule 1: Item Status Consistency
+
+An item must have exactly one status at any time.
+
+Possible statuses include:
+
+* Lost
+* Claimed
+* Returned
+* Archived
+
+_An item cannot be marked as both Lost and Claimed simultaneously._
+
+====== Rule 2: Authenticated Reporting
+
+Only authenticated users may report lost or found items.
+
+_Users must be logged into the system before submitting item reports._
+
+====== Rule 3: Single Claim per Item
+
+An item may only be claimed by one user.
+
+_Once a claim has been approved and the item has been returned, no additional claims can be submitted for that item._
+
+====== Rule 4: Claim Verification
+
+All claims must be verified before an item is returned.
+
+_Verification must be performed by an administrator or Lost & Found member._
+
+====== Rule 5: Claim-Item Relationship
+
+Every claim must reference an existing item.
+
+_A claim cannot exist without being associated with a previously reported item._
+
+====== Rule 6: Reporter Cannot Claim Item
+
+The user who reports a found item cannot claim ownership of that same item.
+
+====== Rule 7: Required Item Information
+
+Each item report must include minimum identifying information:
+
+* Item Description
+* Item Category
+* Location where the Item was Lost/Found
+* Date of the Report
+
+_Reports missing required information cannot be submitted._
+
+====== Rule 8: Archiving Unclaimed Items
+
+Items that remain unclaimed for an extended period must be archived.
+
+_Archived items remain stored in the system but are no longer visible in active search results._
+
+===== Summary
+
+These rules define key constraints for the Lost & Found domain. They help ensure that item reporting, claiming, and verification processes are handled consistently and securely.
 ---
 
 ==== [Lecture Topic Task] Domain Glossary & Shared Vocabulary for the Lost & Found System
