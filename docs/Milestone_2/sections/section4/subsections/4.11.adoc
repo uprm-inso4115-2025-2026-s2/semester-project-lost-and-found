@@ -1,1 +1,49 @@
 === *Requirements Satisfiability and Feasibility*
+---
+==== Notification System Feasibility Analysis
+:author: Fernando Torres
+===== Introduction
+
+This section evaluates the feasibility and satisfiability of implementing an email-based notification system in the Lost and Found platform.
+
+===== Functional Feasibility
+
+The notification system is feasible because it relies on well-established technologies such as email services and backend event handling.
+
+The system can generate notifications based on user actions such as account creation or item interaction.
+
+===== Technical Feasibility
+
+The system can be implemented using technologies such as Supabase and external email services.
+
+The required infrastructure does not introduce significant technical complexity.
+
+===== Data Requirements
+
+The system requires:
+
+* User email address
+* Event type
+* Notification content
+
+===== Constraints
+
+* Dependency on external email services
+* Possible delays in delivery
+* Invalid or missing user email data
+
+===== Satisfiability
+
+The system satisfies the requirement of informing users about important events in a timely manner.
+
+===== Risks
+
+* Duplicate notifications
+* Emails marked as spam
+* Failed delivery without retry
+
+===== Conclusion
+
+The notification system is feasible and can be implemented effectively with proper handling of constraints and risks.
+
+---
