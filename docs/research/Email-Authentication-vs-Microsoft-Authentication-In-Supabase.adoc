@@ -1,0 +1,44 @@
+= Email Authentication vs Microsoft Authentication in Supabase
+
+Abby Gotay Almonte
+
+
+== Overview
+
+We need a simple way for users to sign in and manage their posts. Supabase
+offers multiple authentication options, including basic email/password login and
+third-party providers like Apple, Google, GitHub, Microsoft, among others. To
+keep it simple, we'll only be considering email and Microsoft authentication.
+
+== Email Authentication
+
+Email authentication is easy to set up and works for anyone with an email
+address. Users can sign up, log in, and recover their account with standard
+features like password reset. It does not require linking to any external
+service, keeping the user flow simple and easy to implement.
+
+== Microsoft Authentication
+
+Microsoft authentication allows users to sign in with an existing Microsoft
+account. This can be convenient for some users, especially in a university
+setting where most users already have this set up. However, it adds extra setup
+on our side, including app registration and handling provider-specific behavior.
+It also depends on users having and wanting to use a Microsoft account.
+
+== Comparison
+
+- Setup: Email authentication is quicker to set up. Microsoft authentication
+  requires more configuration.
+- User Access: Email works for all users, while Microsoft is limited to those
+  with accounts.
+- Maintenance: Email authentication has fewer moving parts, making it easier to
+  maintain.
+- User Experience: Microsoft login can be faster for some users, but it adds
+  another choice that may not be necessary.
+
+
+== Conclusion
+
+For this project, email authentication is enough. It covers all users, keeps the
+system simple, and avoids extra setup work. Microsoft authentication could be
+added later if needed, but it would only complicate the current workflow.
