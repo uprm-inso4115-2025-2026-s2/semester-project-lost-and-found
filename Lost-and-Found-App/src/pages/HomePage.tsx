@@ -39,24 +39,51 @@ export default function HomePage() {
 
   return (
     <div style={{ maxWidth: 900, margin: "40px auto", padding: "0 16px", fontFamily: "system-ui" }}>
-      <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
+      <div role="tablist" style={{ display: "flex", gap: 8, marginBottom: 16, justifyContent: "center" }}>
         <button
+          role="tab"
+          aria-selected={tab === "Lost"}
           onClick={() => setTab("Lost")}
-          style={{ padding: "30px 50px", background: "#D75858", cursor: "pointer" }}
+          style={{
+            padding: "30px 50px",
+            background: "#D75858",
+            cursor: "pointer",
+            fontWeight: tab === "Lost" ? 700 : 400,
+            border: "none",
+            borderBottom: tab === "Lost" ? "4px solid #7a1a1a" : "4px solid transparent",
+          }}
         >
-          Lost
+          &#10007; Lost
         </button>
         <button
+          role="tab"
+          aria-selected={tab === "Claimed"}
           onClick={() => setTab("Claimed")}
-          style={{ padding: "30px 50px", background: "#DACD68", cursor: "pointer" }}
+          style={{
+            padding: "30px 50px",
+            background: "#DACD68",
+            cursor: "pointer",
+            fontWeight: tab === "Claimed" ? 700 : 400,
+            border: "none",
+            borderBottom: tab === "Claimed" ? "4px solid #7a6e1a" : "4px solid transparent",
+          }}
         >
-          Claimed
+          &#10003; Claimed
         </button>
         <button
+          role="tab"
+          aria-selected={tab === "Returned"}
           onClick={() => setTab("Returned")}
-          style={{ padding: "30px 50px", background: "#7FDE67", cursor: "pointer" }}
+          style={{
+            padding: "30px 50px",
+            background: "#7FDE67",
+            cursor: "pointer",
+            fontWeight: tab === "Returned" ? 700 : 400,
+            border: "none",
+            borderBottom: tab === "Returned" ? "4px solid #2a6e1a" : "4px solid transparent",
+          }}
         >
-          Returned
+          &#8617; Returned
         </button>
       </div>
 
@@ -98,7 +125,7 @@ function ClaimTab({ items }: { items: Item[] }) {
 function ReturnTab() {
   return (
     <>
-      <h2>Found Items</h2>
+      <h2>Returned Items</h2>
       <p>Show items users reported as returned.</p>
     </>
   );
