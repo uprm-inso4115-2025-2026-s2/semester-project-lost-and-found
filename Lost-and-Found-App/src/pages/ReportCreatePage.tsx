@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from "react";
 import "./ReportCreatePage.css";
 import {Report, type Category, type ReportType} from "../ReportManagement/Reports";
+import { useNavigate } from "react-router-dom";
+import { storeReport } from "../ReportManagement/ReportDatabaseManagement";
 
 const CATEGORIES: Category[] = [
   "ELECTRONICS",
@@ -29,6 +31,7 @@ export function ReportCreatePage() {
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<string[]>(["urgent", "campus"]);
   const [type, setType] = useState<ReportType>("LOST");
+  const navigate = useNavigate();
 
   const isFormReady = useMemo(
     () => Boolean(title && date && location && description && category),
@@ -65,16 +68,9 @@ export function ReportCreatePage() {
       type,
     });
   
-    console.log("Created report:", newReport);
-    console.log("Title:", newReport.getTitle());
-    console.log("Description:", newReport.getDescription());
-    console.log("Date:", newReport.getDateFound());
-    console.log("Location:", newReport.getLocation());
-    console.log("Category:", newReport.getCategory());
-    console.log("Tags:", newReport.getTags());
-    console.log("Created By:", newReport.getCreatedBy());
-    console.log("Status:", newReport.getStatus());
-    console.log("Type:", newReport.getType());
+    storeReport(newReport);
+    
+    navigate("/");
   };
 
   return (
@@ -87,7 +83,6 @@ export function ReportCreatePage() {
             Keep it concise and clear so others can help return items faster.
           </p>
         </div>
-        <div className="stepChip">Step 1 of 1</div>
       </header>
 
       <section className="panel">
@@ -99,7 +94,6 @@ export function ReportCreatePage() {
               Title, date, and location help match items quickly. Add tags to make it searchable.
             </p>
           </div>
-          <button className="ghostBtn">Save draft</button>
         </div>
 
         <div className="formGrid">
@@ -206,7 +200,7 @@ export function ReportCreatePage() {
         </div>
 
         <div className="actions">
-          <button className="ghostBtn">Cancel</button>
+          <button onClick={() => navigate("/")}>Cancel</button>
           <button
             type="button"
             className="primaryBtn"
