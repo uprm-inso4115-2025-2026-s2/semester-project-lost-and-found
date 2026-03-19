@@ -205,7 +205,7 @@ The same steps are used for both value and cost: a comparison matrix is created 
 
 Using the relative values and cost for each feature/epic, the following value-cost diagram is obtained:
 
-// image::Value-Cost-Diagram-Epics.jpg[Authentication Flow, align=center, pdfwidth=80%]
+image::Value-Cost-Diagram-Epics.jpg[Authentication Flow, align=center, pdfwidth=80%]
 
 Using this diagram, we can infer the following information:
 
