@@ -1,0 +1,95 @@
+== Data Consistency and Conflict Resolution in Multi-User Systems
+
+=== Overview
+
+In multi-user systems, data consistency refers to keeping information accurate, coherent, and synchronized when multiple users interact with the same data. If the system does not handle concurrent actions properly, it may display contradictory information or allow invalid states.
+
+For the Lost and Found platform, consistency is important because users may report similar items, update the same record, or attempt to claim an item at the same time.
+
+=== Relevance to the Lost and Found System
+
+The Lost and Found platform depends on user-generated information. This means the system must handle situations where different users submit overlapping or conflicting data.
+
+Examples include:
+
+- two users posting the same lost item
+- multiple users claiming ownership of the same found item
+- a user editing item details while another user is reviewing or claiming it
+- outdated information remaining visible after a status change
+
+If these situations are not handled correctly, the platform may confuse users, reduce trust, and make ownership verification harder.
+
+=== Common Conflict Scenarios
+
+==== Duplicate Item Reports
+
+Two or more users may submit reports describing the same lost or found item. The system should avoid presenting these as completely unrelated records when there is strong similarity.
+
+==== Conflicting Ownership Claims
+
+More than one user may claim the same found item. The system must prevent the item from being simultaneously assigned to multiple claimants.
+
+==== Simultaneous Updates
+
+An item record may be updated by one user while another user is still working with older information. This can create inconsistent views of item status or description.
+
+==== Status Conflicts
+
+A found item may be marked as returned while another user is still attempting to claim or edit it. The system should enforce a clear and valid status progression.
+
+=== Reliability Considerations
+
+Conflict handling is directly related to system reliability. A reliable Lost and Found platform should behave predictably when inconsistent or competing actions occur.
+
+This means the system should:
+
+- prevent contradictory states
+- preserve the most current valid information
+- record important actions for traceability
+- communicate conflicts clearly to users
+- require verification before final ownership decisions are made
+
+=== Possible Handling Strategies
+
+==== Duplicate Detection
+
+The system can compare item descriptions, categories, dates, and locations to identify possible duplicates and flag them for review.
+
+==== Controlled Claim Workflow
+
+Claims should follow a structured process instead of immediately changing ownership. This reduces the risk of assigning the same item to multiple users.
+
+==== Record Locking or Update Validation
+
+When a record is being modified, the system may need validation checks to ensure that another action has not already changed its status.
+
+==== Audit Trail
+
+Important actions such as item creation, updates, and claims should be logged so conflicts can be reviewed and resolved.
+
+=== Example Scenario
+
+[cols="1,2,2"]
+|===
+| Scenario | Risk | Expected System Behavior
+
+| Two users post the same lost item
+| Duplicate records
+| Flag possible duplicate and request review
+
+| Two users claim the same found item
+| Conflicting ownership
+| Allow only one active claim process at a time
+
+| Item is edited while another user is viewing it
+| Outdated information
+| Refresh or validate before confirming actions
+
+| Item is marked returned during active claim
+| Invalid status conflict
+| Block conflicting action and notify user
+|===
+
+=== Conclusion
+
+Data consistency and conflict resolution are essential for maintaining trust and correctness in the Lost and Found platform. By defining how the system should respond to duplicate reports, competing claims, and simultaneous updates, the project can establish requirements that support reliable and predictable behavior.
