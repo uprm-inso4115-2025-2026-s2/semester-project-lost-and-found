@@ -962,3 +962,99 @@ If the current implementation differs, adjust expected behavior accordingly.
 * If possible, log moderation actions (edits/redactions/approve/reject/status changes).
 
 ---
+---
+
+==== Domain Analysis of Access Levels for Institutional and Non-Institutional Users
+:author: jventosa28
+
+===== Purpose
+
+This lecture topic task corresponds to *Domain Engineering* and *Requirements Analysis and Concept Formation*, as it defines user roles, permissions, and domain constraints for the system.
+
+The objective is to formalize how different types of users interact with the platform and how access control should be structured to support security, trust, and usability.
+
+===== Domain Concepts
+
+*Institutional User*::
+User with a verified university email (e.g., @upr.edu).
+
+*Non-Institutional User*::
+User with an external email (e.g., Gmail, Outlook).
+
+*Full Access*::
+Permission to create, edit, delete, and claim reports.
+
+*View-Only Access*::
+Permission limited to browsing and searching reports.
+
+===== Requirements Analysis
+
+* The system must detect the email domain during registration or login.
+* The system must classify users into institutional or non-institutional categories.
+* The system must assign access levels based on user type.
+* The system must restrict actions according to assigned permissions.
+
+===== Business Rules
+
+* Only institutional users may create, modify, or claim reports.
+* Non-institutional users are restricted to read-only actions.
+* Access level must be assigned during authentication.
+* Access control must be enforced at the backend level.
+
+===== Access Control Model
+
+[cols="1,1,1"]
+|===
+|Action |Institutional User |Non-Institutional User
+
+|View reports
+|Yes
+|Yes
+
+|Search and filter
+|Yes
+|Yes
+
+|Create reports
+|Yes
+|No
+
+|Edit reports
+|Yes
+|No
+
+|Delete reports
+|Yes
+|No
+
+|Claim items
+|Yes
+|No
+|===
+
+===== Domain Rationale
+
+This model is justified by the university context of the platform.
+
+* Institutional users are part of a trusted environment.
+* Restricting write actions reduces fraud and misuse.
+* The system maintains integrity by limiting who can modify data.
+
+===== Impact on the System
+
+*Security*::
+Reduces risk of fraudulent reports and claims.
+
+*Usability*::
+Allows external users to browse while protecting system actions.
+
+*System Integrity*::
+Ensures only trusted users can modify data.
+
+===== Conclusion
+
+Differentiating users based on institutional and non-institutional emails provides a clear and effective domain model for access control.
+
+This approach supports security, trust, and maintainability while aligning with the platform’s purpose.
+
+---
