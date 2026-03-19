@@ -98,4 +98,125 @@ The Lost & Found system supports multiple types of user interactions related to 
 
 *Result:* If approved, the item can be returned to the owner.
 
+
+---
+
+
+==== Value-Cost Feature Prioritization using AHP
+:author: Leanelys González Orama
+:date: March 18, 2026
+
+Using AHP (Analytic Hierarchy Process), we will determine the relative proportion each requirement contributes to a criterion (Value or Cost). These features will be derived from Epics 1 through 5 (E1-E5). For both value and cost, the following scale is utilized:
+
+- 1 - contributes/costs equally
+- 3 - contributes/costs slightly more
+- 5 - contributes/costs strongly more
+- 7 - contributes/costs very strongly more
+- 9 - contributes/costs extremely more
+
+The same steps are used for both value and cost: a comparison matrix is created and later normalized to obtain the relative value and relative cost of each respective feature in order to plot the value-cost diagram.
+
+
+[discrete]
+===== *Value*
+
+.Value comparison matrix
+[%autowidth]
+|===
+| Epic | E1 (Reporting) | E2 (Search) | E3 (Safe Claim) | E4 (Accessibility) | E5 (Admin)
+
+| E1 | 1 | 3 | 5 | 7 | 7
+
+| E2 | 1/3 | 1 | 3 | 5 | 5
+
+| E3 | 1/5 | 1/3 | 1 | 3 | 3
+
+| E4 | 1/7 | 1/5 | 1/3 | 1 | 1
+
+| E5 | 1/7 | 1/5 | 1/3 | 1 | 1
+|===
+
+*E1 (Reporting) vs. E2 (Search) [Value: 3]:* E1 is "Slightly more valuable". As identified in the concept analysis, the Report is the fundamental "system representation" of a lost item. While Search (E2) is critical for discovery, it is functionally dependent on the existence of a structured database created by E1.
+
+*E1 (Reporting) vs. E3 (Safe Claim) [Value: 5]:* E1 is "Strongly more valuable". The primary operational goal is to increase successful returns. Establishing visibility through reporting is a prerequisite for the entire recovery lifecycle; Safe Claim (E3) is a secondary security layer that only becomes relevant after a successful match has been initiated.
+
+*E1 (Reporting) vs. E4 (Accessibility) [Value: 7]:* E1 is "Very strongly more valuable". E1 directly enables the core "Reporting" function that satisfies the primary need for coordination. The system can technically facilitate a recovery with poor UI, but it cannot facilitate any recovery without the data provided by E1.
+
+*E1 (Reporting) vs. E5 (Admin) [Value: 7]:* E1 is "Very strongly more valuable" than E5. While E5 (Admin) is necessary for maintaining transparency and trust, it is a supporting function intended to prevent misuse rather than a primary driver of successful returns.
+
+.Normalized values and Relative Values
+[%autowidth]
+|===
+| Epic | E1 (Reporting) | E2 (Search) | E3 (Safe Claim) | E4 (Accessibility) | E5 (Admin) | Relative Value
+
+| E1 | 0.55 | 0.63 | 0.52 | 0.41 | 0.41 | 0.50
+
+| E2 | 0.18 | 0.21 | 0.31 | 0.29 | 0.29 | 0.26
+
+| E3 | 0.11 | 0.07 | 0.10 | 0.18 | 0.18 | 0.13
+
+| E4 | 0.08 | 0.04 | 0.03 | 0.06 | 0.06 | 0.05
+
+| E5 | 0.08 | 0.04 | 0.03 | 0.06 | 0.06 | 0.05
+|===
+
+[discrete]
+===== *Cost*
+
+.Cost Comparison Matrix
+[%autowidth]
+|===
+| Epic | E1 (Reporting) | E2 (Search) | E3 (Safe Claim) | E4 (Accessibility) | E5 (Admin)
+
+| E1 | 1 | 1/3 | 1/7 | 1/5 | 1
+
+| E2 | 3 | 1 | 1/3 | 1/3 | 3
+
+| E3 | 7 | 3 | 1 | 3 | 5
+
+| E4 | 5 | 3 | 1/3 | 1 | 3
+
+| E5 | 1 | 1/3 | 1/5 | 1/3 | 1
+|===
+
+*E1 (Reporting) vs. E2 (Search) [Value: 3]:* E2 is "Slightly more expensive". Implementing keyword search and multi-parameter filters (category, location, date range) is more technically involved than the straightforward data entry of E1.
+
+*E1 (Reporting) vs. E3 (Safe Claim) [Value: 7]:* E3 is "Very strongly more expensive". While E1 involves standard form submission, E3 requires building complex secure internal messaging and custom ownership validation logic that must interact with private database fields.
+
+*E1 (Reporting) vs. E4 (Usability) [Value: 5]:* E4 is "Strongly more expensive". Meeting accessibility standards across all interfaces such as including high-contrast palettes and responsive layouts for mobile requires significantly more front-end engineering than the basic CRUD functionality of reporting.
+
+*E1 (Reporting) vs. E5 (Admin) [Value: 1]:* These are considered equal in cost. Both rely on standard Supabase features; E1 uses basic table insertions while E5 leverages built-in Row Level Security (RLS) policies and simple administrative overrides (moderateReport).
+
+.Normalized Values and Relative Costs
+[%autowidth]
+|===
+| Epic | E1 (Reporting) | E2 (Search) | E3 (Safe Claim) | E4 (Accessibility) | E5 (Admin) | Relative Cost
+
+| E1 | 0.06 | 0.04 | 0.07 | 0.04 | 0.08 | 0.06
+
+| E2 | 0.18 | 0.13 | 0.17 | 0.07 | 0.23 | 0.15
+
+| E3 | 0.41 | 0.39 | 0.50 | 0.62 | 0.38 | 0.46
+
+| E4 | 0.29 | 0.39 | 0.17 | 0.21 | 0.23 | 0.26
+
+| E5 | 0.06 | 0.04 | 0.10 | 0.07 | 0.08 | 0.07
+|===
+
+Using the relative values and cost for each feature/epic, the following value-cost diagram is obtained:
+
+image::Value-Cost-Diagram-Epics.jpg[Authentication Flow, align=center, pdfwidth=80%]
+
+Using this diagram, we can infer the following information:
+
+- *High Priority*
+* E1: Reporting Lost and Found Items: Extremely high value with the lowest relative cost. This is the core engine of the platform.
+* E2: Search and Discovery of Reports: High value/Medium cost. Essential to move beyond "ephemeral notification" patterns seen in current campus behavior.
+- *Medium Priority*
+* E3: Safe Claim and Ownership Verification: High value but also high cost. The initial implementation should focus on the basic item ownership validation rather than complex mediation.
+- *Low Priority*
+* E4: Accessibility and Usability: This feature represents a high cost for a lower relative contribution to the immediate recovery goal.
+* E5: Administrative Oversight: While important for long-term platform integrity, it is less critical for initial testing on campus.
+
+
 ---
