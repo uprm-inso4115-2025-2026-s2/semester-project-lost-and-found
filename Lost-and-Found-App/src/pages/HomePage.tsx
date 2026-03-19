@@ -5,11 +5,17 @@ import { ItemCard} from "../components/ItemCard";
 import type {ItemStatus } from "../components/ItemCard";
 import walletImg from "../assets/sample/wallet.jpeg";
 import bottleImg from "../assets/sample/bottle.jpeg";
+import { useNavigate } from "react-router-dom";
 
 type TabKey = ItemStatus;
 
 export default function HomePage() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabKey>("Lost");
+
+  const handleCreateReport = () => {
+    navigate("/create-report");
+  };
 
   const items = [
     {
@@ -82,7 +88,8 @@ export default function HomePage() {
       <nav className="bottomNav">
         <button>🏠</button>
         <button>🔍</button>
-        <button>➕</button>
+        <button
+        onClick={handleCreateReport}>➕</button>
         <button>👤</button>
       </nav>
 
