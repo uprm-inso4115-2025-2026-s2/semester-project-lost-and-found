@@ -1,24 +1,34 @@
 import React, { useMemo, useState } from "react";
 import "./ReportCreatePage.css";
+import {Report, type Category, type ReportType} from "../ReportManagement/Reports";
 
-const CATEGORIES = [
-  "Electronics",
-  "Wallets & IDs",
-  "Clothing",
-  "Bags",
-  "Keys",
-  "Jewelry",
-  "Other",
+const CATEGORIES: Category[] = [
+  "ELECTRONICS",
+  'PERSONAL',
+  'OFFICE SUPPLIES',
+  'OTHER',
 ];
+const categoryLabels: Record<Category, string> = {
+  ELECTRONICS: "Electronics",
+  PERSONAL: "Personal",
+  "OFFICE SUPPLIES": "Office Supplies",
+  OTHER: "Other",
+};
+const REPORT_TYPES: ReportType[] = ["LOST", "FOUND"];
+const reportTypeLabels: Record<ReportType, string> = {
+  LOST: "Lost",
+  FOUND: "Found",
+};
 
 export function ReportCreatePage() {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState(CATEGORIES[0]);
+  const [category, setCategory] = useState<Category>(CATEGORIES[0]);
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<string[]>(["urgent", "campus"]);
+  const [type, setType] = useState<ReportType>("LOST");
 
   const isFormReady = useMemo(
     () => Boolean(title && date && location && description && category),
@@ -41,6 +51,30 @@ export function ReportCreatePage() {
 
   const removeTag = (tag: string) => {
     setTags((prev) => prev.filter((t) => t !== tag));
+  };
+
+  const handleSubmit = () => {
+    const newReport = Report.Create({
+      title,
+      description,
+      dateFound: new Date(date),
+      location,
+      category,
+      tags,
+      createdBy: "temporary-user",
+      type,
+    });
+  
+    console.log("Created report:", newReport);
+    console.log("Title:", newReport.getTitle());
+    console.log("Description:", newReport.getDescription());
+    console.log("Date:", newReport.getDateFound());
+    console.log("Location:", newReport.getLocation());
+    console.log("Category:", newReport.getCategory());
+    console.log("Tags:", newReport.getTags());
+    console.log("Created By:", newReport.getCreatedBy());
+    console.log("Status:", newReport.getStatus());
+    console.log("Type:", newReport.getType());
   };
 
   return (
@@ -76,6 +110,21 @@ export function ReportCreatePage() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
+          </label>
+          <label>
+            <span>Report Type</span>
+            <div className="pillGrid">
+              {REPORT_TYPES.map((reportType) => (
+                <button
+                  key={reportType}
+                  type="button"
+                  className={`pill ${type===reportType ? "active" : ""}`}
+                  onClick={()=> setType(reportType)}
+                >
+                  {reportTypeLabels[reportType]}
+                </button>
+              ))}
+            </div>
           </label>
 
           <label>
@@ -116,7 +165,7 @@ export function ReportCreatePage() {
                   className={`pill ${category === cat ? "active" : ""}`}
                   onClick={() => setCategory(cat)}
                 >
-                  {cat}
+                  {categoryLabels[cat]}
                 </button>
               ))}
             </div>
@@ -140,7 +189,12 @@ export function ReportCreatePage() {
                 {tags.map((tag) => (
                   <span className="chip" key={tag}>
                     #{tag}
-                    <button className="chipClose" onClick={() => removeTag(tag)} aria-label={`Remove ${tag}`}>
+                    <button
+                      type="button"
+                      className="chipClose"
+                      onClick={() => removeTag(tag)}
+                      aria-label={`Remove ${tag}`}
+                    >
                       ×
                     </button>
                   </span>
@@ -153,7 +207,12 @@ export function ReportCreatePage() {
 
         <div className="actions">
           <button className="ghostBtn">Cancel</button>
-          <button className="primaryBtn" disabled={!isFormReady}>
+          <button
+            type="button"
+            className="primaryBtn"
+            disabled={!isFormReady}
+            onClick={handleSubmit}
+          >
             Submit report
           </button>
         </div>
