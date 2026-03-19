@@ -8,7 +8,11 @@ import bottleImg from "../assets/sample/bottle.jpeg";
 
 type TabKey = ItemStatus;
 
-export default function HomePage() {
+type HomePageProps = {
+  onCreateClick?: () => void;
+};
+
+export default function HomePage({ onCreateClick }: HomePageProps) {
   const [activeTab, setActiveTab] = useState<TabKey>("Lost");
 
   const items = [
@@ -82,7 +86,7 @@ export default function HomePage() {
       <nav className="bottomNav">
         <button>🏠</button>
         <button>🔍</button>
-        <button>➕</button>
+        <button onClick={onCreateClick}>➕</button>
         <button>👤</button>
       </nav>
 
