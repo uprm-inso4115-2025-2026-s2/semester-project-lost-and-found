@@ -1,15 +1,16 @@
 import React, { useRef, useState } from "react";
 import "./ImageUploadInput.css";
+import { supabase } from "../supabaseClient.ts";
 
 // Formats considered valid for item images
 const ACCEPTED_MIME_TYPES = new Set([
   "image/jpeg",
   "image/png",
-  "image/webp",
-  "image/gif",
+  "image/gif"
+  
 ]);
 
-const ACCEPTED_EXTENSIONS = ".jpg, .jpeg, .png, .webp, .gif";
+const ACCEPTED_EXTENSIONS = ".jpg, .jpeg, .png, .gif";
 
 export interface ImageUploadInputProps {
   /**
@@ -19,7 +20,7 @@ export interface ImageUploadInputProps {
    * call to Supabase Storage and pass back the resulting public URL instead.
    * The `file` parameter is the raw File object ready to be uploaded.
    */
-  onValidFile: (file: File, previewUrl: string) => void;
+  onValidFile?: (url: string) => void;
 
   /** Called when the selection is cleared. */
   onClear?: () => void;
@@ -28,6 +29,7 @@ export interface ImageUploadInputProps {
 type UploadState =
   | { kind: "idle" }
   | { kind: "invalid"; fileName: string }
+  | { kind: "upload-error" ; fileName : string}
   | { kind: "valid"; previewUrl: string; fileName: string };
 
 export const ImageUploadInput: React.FC<ImageUploadInputProps> = ({
@@ -37,15 +39,19 @@ export const ImageUploadInput: React.FC<ImageUploadInputProps> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const [state, setState] = useState<UploadState>({ kind: "idle" });
 
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+  async function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
 
+    
     if (!file) {
       setState({ kind: "idle" });
       return;
     }
 
-    if (!ACCEPTED_MIME_TYPES.has(file.type)) {
+   
+    const isValidExtension = /\.(jpg|jpeg|png|gif)$/i.test(file.name);
+
+    if (!ACCEPTED_MIME_TYPES.has(file.type) || !isValidExtension) {
       setState({ kind: "invalid", fileName: file.name });
       // Reset the native input so the same invalid file can be re-selected
       // after the user dismisses the error and tries again.
@@ -54,11 +60,33 @@ export const ImageUploadInput: React.FC<ImageUploadInputProps> = ({
     }
 
     const previewUrl = URL.createObjectURL(file);
-    setState({ kind: "valid", previewUrl, fileName: file.name });
+
+    try{
+      const fileName = `${Date.now()}-${file.name}`;
+      
+      const { error } = await supabase.storage.from("reports-images").upload(fileName,file);
+
+      if(error){
+        throw error;
+      }
+     const { data } = supabase.storage.from("reports-images").getPublicUrl(fileName);
+
+     
+     setState({ kind: "valid", previewUrl, fileName: file.name });
 
     // TODO (backend): upload `file` to Supabase Storage here and pass the
     // returned public URL to `onValidFile` instead of the local blob URL.
-    onValidFile(file, previewUrl);
+     onValidFile?.(data.publicUrl);
+
+
+    }
+
+    catch(err){
+      console.error(err);
+
+      setState({ kind: "upload-error", fileName: file.name});
+    }
+
   }
 
   function handleClear() {
@@ -118,6 +146,11 @@ export const ImageUploadInput: React.FC<ImageUploadInputProps> = ({
               the asset is ready. */}
         </div>
       )}
+
+      {state.kind === "upload-error" &&(<div className="imageUpload__error">
+        <p> Failed to upload image, Try again. </p>
+        <p>{state.fileName} </p>
+        </div> ) }
 
       {/* ── Clear button (shown when a valid file is loaded) ── */}
       {state.kind === "valid" && (
