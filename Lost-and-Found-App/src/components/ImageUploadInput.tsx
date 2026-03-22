@@ -64,12 +64,15 @@ export const ImageUploadInput: React.FC<ImageUploadInputProps> = ({
     try{
       const fileName = `${Date.now()}-${file.name}`;
       
-      const { error } = await supabase.storage.from("reports-images").upload(fileName,file);
+      const { error } = await supabase.storage.from("ReportImages").upload(fileName,file);
+      console.log(error);
 
       if(error){
         throw error;
       }
-     const { data } = supabase.storage.from("reports-images").getPublicUrl(fileName);
+     const { data } = supabase.storage.from("ReportImages").getPublicUrl(fileName);
+     console.log("UPLOAD ERROR:", error);
+     console.log("URL ERROR:", URIError);
 
      
      setState({ kind: "valid", previewUrl, fileName: file.name });

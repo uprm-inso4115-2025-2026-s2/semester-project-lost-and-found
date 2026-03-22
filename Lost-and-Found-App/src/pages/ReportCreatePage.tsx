@@ -4,6 +4,9 @@ import {Report, type Category, type ReportType} from "../ReportManagement/Report
 import { useNavigate } from "react-router-dom";
 import { storeReport } from "../ReportManagement/ReportDatabaseManagement";
 
+import { ImageUploadInput } from "../components/ImageUploadInput";
+
+
 const CATEGORIES: Category[] = [
   "ELECTRONICS",
   'PERSONAL',
@@ -31,11 +34,15 @@ export function ReportCreatePage() {
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<string[]>(["urgent", "campus"]);
   const [type, setType] = useState<ReportType>("LOST");
+
+  const[imageUrl, setImageUrl] = useState<string | undefined>(undefined);
   const navigate = useNavigate();
 
+
+
   const isFormReady = useMemo(
-    () => Boolean(title && date && location && description && category),
-    [title, date, location, description, category]
+    () => Boolean(title && date && location && description && category && imageUrl),
+    [title, date, location, description, category, imageUrl]
   );
 
   const handleAddTag = () => {
@@ -66,6 +73,8 @@ export function ReportCreatePage() {
       tags,
       createdBy: "temporary-user",
       type,
+      
+      imageUrl,
     });
   
     storeReport(newReport);
@@ -148,6 +157,17 @@ export function ReportCreatePage() {
               onChange={(e) => setDescription(e.target.value)}
             />
           </label>
+
+
+          <label className="fullWidth">
+            <span>Image</span>
+            <ImageUploadInput
+              onValidFile={(url) => setImageUrl(url)}
+              onClear={() => setImageUrl(undefined)}
+              
+            />
+          </label>     
+
 
           <label>
             <span>Category</span>
