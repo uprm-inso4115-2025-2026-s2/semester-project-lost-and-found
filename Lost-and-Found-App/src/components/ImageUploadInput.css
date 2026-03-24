@@ -77,46 +77,204 @@
   pointer-events: none;
 }
 
-/* ── Error banner ── */
-.imageUpload__error {
+/* ── Invalid drop-zone state ── */
+.imageUpload__zone[data-state="invalid"] {
+  border-color: #fca5a5;
+  background: linear-gradient(135deg, #fff5f5, #fef2f2);
+}
+
+/* ── Inline error strip (shown after popup is dismissed) ── */
+.imageUpload__errorStrip {
   display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 14px 16px;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
   border-radius: 12px;
   background: #fef2f2;
   border: 1px solid #fca5a5;
+  font-size: 13px;
+  color: #991b1b;
+  font-weight: 600;
 }
 
-.imageUpload__errorIcon {
-  font-size: 20px;
-  line-height: 1;
+.imageUpload__errorStrip strong {
+  font-weight: 800;
+}
+
+.imageUpload__stripRetry {
+  margin-left: auto;
   flex-shrink: 0;
-  margin-top: 1px;
+  background: none;
+  border: 1px solid #fca5a5;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #b91c1c;
+  cursor: pointer;
+  transition: background 150ms ease;
 }
 
-.imageUpload__errorBody {
+.imageUpload__stripRetry:hover {
+  background: #fee2e2;
+}
+
+/* ── Popup overlay ── */
+@keyframes imageUploadFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes imageUploadSlideUp {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+}
+
+.imageUpload__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(13, 27, 24, 0.45);
+  backdrop-filter: blur(4px);
+  animation: imageUploadFadeIn 180ms ease both;
+}
+
+.imageUpload__popup {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  background: white;
+  border-radius: 20px;
+  padding: 32px 28px 28px;
+  box-shadow:
+    0 24px 64px rgba(13, 27, 24, 0.18),
+    0 4px 16px rgba(13, 27, 24, 0.08);
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  animation: imageUploadSlideUp 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.imageUpload__errorTitle {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 800;
+/* Close (X) button — top-right */
+.imageUpload__popupClose {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(15, 23, 42, 0.06);
+  border: none;
+  border-radius: 999px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: rgba(15, 23, 42, 0.55);
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.imageUpload__popupClose:hover {
+  background: #fee2e2;
   color: #b91c1c;
 }
 
-.imageUpload__errorSub {
-  margin: 0;
-  font-size: 13px;
-  color: #991b1b;
-  line-height: 1.45;
+/* Warning icon circle */
+.imageUpload__popupIconWrap {
+  width: 68px;
+  height: 68px;
+  border-radius: 999px;
+  background: #fef2f2;
+  border: 2px solid #fca5a5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
 }
 
-.imageUpload__errorSub strong {
+.imageUpload__popupBigIcon {
+  font-size: 30px;
+  line-height: 1;
+}
+
+/* Title */
+.imageUpload__popupTitle {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #0d3f2b;
+  letter-spacing: -0.01em;
+}
+
+/* Filename */
+.imageUpload__popupFile {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  padding: 4px 10px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Body text */
+.imageUpload__popupBody {
+  margin: 0;
+  font-size: 14px;
+  color: rgba(15, 27, 24, 0.62);
+  line-height: 1.5;
+}
+
+/* Format pills row */
+.imageUpload__popupFormats {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.imageUpload__formatPill {
+  background: #eef8f1;
+  color: #0d3f2b;
+  border: 1px solid rgba(13, 63, 43, 0.14);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 12px;
   font-weight: 700;
+}
+
+/* "Got it" dismiss button */
+.imageUpload__popupBtn {
+  margin-top: 8px;
+  width: 100%;
+  padding: 13px;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(135deg, #17a45b, #2db86d);
+  color: white;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(23, 164, 91, 0.28);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.imageUpload__popupBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 36px rgba(23, 164, 91, 0.35);
 }
 
 /* ── Actions row (shown after valid file picked) ── */

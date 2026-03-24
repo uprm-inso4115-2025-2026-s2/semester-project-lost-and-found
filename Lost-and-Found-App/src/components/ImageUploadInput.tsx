@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import "./ImageUploadInput.css";
 import { supabase } from "../supabaseClient.ts";
 
+const ACCEPTED_FORMATS = [".jpg", ".jpeg", ".png", ".gif"];
+
 // Formats considered valid for item images
 const ACCEPTED_MIME_TYPES = new Set([
   "image/jpeg",
@@ -38,6 +40,7 @@ export const ImageUploadInput: React.FC<ImageUploadInputProps> = ({
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [state, setState] = useState<UploadState>({ kind: "idle" });
+  const [showPopup, setShowPopup] = useState(false);
 
   async function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
@@ -53,6 +56,7 @@ export const ImageUploadInput: React.FC<ImageUploadInputProps> = ({
 
     if (!ACCEPTED_MIME_TYPES.has(file.type) || !isValidExtension) {
       setState({ kind: "invalid", fileName: file.name });
+      setShowPopup(true);
       // Reset the native input so the same invalid file can be re-selected
       // after the user dismisses the error and tries again.
       if (inputRef.current) inputRef.current.value = "";
@@ -102,72 +106,135 @@ export const ImageUploadInput: React.FC<ImageUploadInputProps> = ({
   }
 
   return (
-    <div className="imageUpload">
-      {/* ── Drop zone / trigger ── */}
-      <label className="imageUpload__zone" data-state={state.kind}>
-        <input
-          ref={inputRef}
-          type="file"
-          accept={ACCEPTED_EXTENSIONS}
-          className="imageUpload__nativeInput"
-          onChange={handleChange}
-          aria-label="Upload item image"
-        />
-
-        {state.kind === "valid" ? (
-          <img
-            src={state.previewUrl}
-            alt="Selected preview"
-            className="imageUpload__preview"
+    <>
+      <div className="imageUpload">
+        {/* ── Drop zone / trigger ── */}
+        <label className="imageUpload__zone" data-state={state.kind}>
+          <input
+            ref={inputRef}
+            type="file"
+            accept={ACCEPTED_EXTENSIONS}
+            className="imageUpload__nativeInput"
+            onChange={handleChange}
+            aria-label="Upload item image"
           />
-        ) : (
-          <div className="imageUpload__placeholder">
-            <span className="imageUpload__icon">🖼️</span>
-            <span className="imageUpload__hint">
-              Click to upload an image
+
+          {state.kind === "valid" ? (
+            <img
+              src={state.previewUrl}
+              alt="Selected preview"
+              className="imageUpload__preview"
+            />
+          ) : (
+            <div className="imageUpload__placeholder">
+              <span className="imageUpload__icon">🖼️</span>
+              <span className="imageUpload__hint">
+                {state.kind === "invalid"
+                  ? "Try again with a supported format"
+                  : "Click to upload an image"}
+              </span>
+              <span className="imageUpload__formats">{ACCEPTED_EXTENSIONS}</span>
+            </div>
+          )}
+        </label>
+
+        {/* ── Inline strip shown after popup is dismissed ── */}
+        {state.kind === "invalid" && !showPopup && (
+          <div className="imageUpload__errorStrip" role="alert">
+            <span>⚠️</span>
+            <span>
+              <strong>{state.fileName}</strong> is not a supported format.
             </span>
-            <span className="imageUpload__formats">
-              {ACCEPTED_EXTENSIONS}
-            </span>
+            <button
+              type="button"
+              className="imageUpload__stripRetry"
+              onClick={() => setState({ kind: "idle" })}
+            >
+              Dismiss
+            </button>
           </div>
         )}
-      </label>
 
-      {/* ── Error state ── */}
-      {state.kind === "invalid" && (
-        <div className="imageUpload__error" role="alert">
-          <span className="imageUpload__errorIcon">⚠️</span>
-          <div className="imageUpload__errorBody">
-            <p className="imageUpload__errorTitle">Unsupported file format</p>
-            <p className="imageUpload__errorSub">
-              <strong>{state.fileName}</strong> is not a supported image type.
-              Please upload a {ACCEPTED_EXTENSIONS} file.
-            </p>
+        {state.kind === "upload-error" && (
+          <div className="imageUpload__errorStrip" role="alert">
+            <span>⚠️</span>
+            <span>Failed to upload <strong>{state.fileName}</strong>. Try again.</span>
           </div>
-          {/* TODO (UI): replace this text-based error with the designed
-              error image/graphic from the poll-winner style guide once
-              the asset is ready. */}
-        </div>
-      )}
+        )}
 
-      {state.kind === "upload-error" &&(<div className="imageUpload__error">
-        <p> Failed to upload image, Try again. </p>
-        <p>{state.fileName} </p>
-        </div> ) }
+        {/* ── Clear button (shown when a valid file is loaded) ── */}
+        {state.kind === "valid" && (
+          <div className="imageUpload__actions">
+            <span className="imageUpload__fileName">{state.fileName}</span>
+            <button
+              type="button"
+              className="imageUpload__clearBtn"
+              onClick={handleClear}
+            >
+              Remove
+            </button>
+          </div>
+        )}
+      </div>
 
-      {/* ── Clear button (shown when a valid file is loaded) ── */}
-      {state.kind === "valid" && (
-        <div className="imageUpload__actions">
-          <span className="imageUpload__fileName">{state.fileName}</span>
-          <button
-            type="button"
-            className="imageUpload__clearBtn"
-            onClick={handleClear}
+      {/* ── Invalid-format popup ── */}
+      {showPopup && state.kind === "invalid" && (
+        <div
+          className="imageUpload__overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="imgErr-title"
+          onClick={() => setShowPopup(false)}
+        >
+          <div
+            className="imageUpload__popup"
+            onClick={(e) => e.stopPropagation()}
           >
-            Remove
-          </button>
+            {/* Close (X) button */}
+            <button
+              type="button"
+              className="imageUpload__popupClose"
+              onClick={() => setShowPopup(false)}
+              aria-label="Dismiss"
+            >
+              ✕
+            </button>
+
+            {/* Icon */}
+            <div className="imageUpload__popupIconWrap">
+              <span className="imageUpload__popupBigIcon">⚠️</span>
+            </div>
+
+            {/* Text */}
+            <h3 id="imgErr-title" className="imageUpload__popupTitle">
+              Unsupported File Format
+            </h3>
+            <p className="imageUpload__popupFile">"{state.fileName}"</p>
+            <p className="imageUpload__popupBody">
+              This file type cannot be uploaded. Please choose one of the
+              supported formats:
+            </p>
+
+            {/* Format pills */}
+            <div className="imageUpload__popupFormats">
+              {ACCEPTED_FORMATS.map((fmt) => (
+                <span key={fmt} className="imageUpload__formatPill">
+                  {fmt}
+                </span>
+              ))}
+            </div>
+
+            {/* Dismiss button */}
+            <button
+              type="button"
+              className="imageUpload__popupBtn"
+              onClick={() => setShowPopup(false)}
+            >
+              Got it
+            </button>
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
