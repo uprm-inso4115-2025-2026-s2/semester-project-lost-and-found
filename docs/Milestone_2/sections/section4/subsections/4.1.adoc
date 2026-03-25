@@ -1144,6 +1144,7 @@ Ensure clear user feedback when conflicts occur to maintain transparency and tru
 ---
 [discrete]
 ==== [Lecture Topic Task]: Formulate Domain Narratives for Key UI Workflows
+:author: Joel Torres Cruz
 
 ===== 1. Overview and Concept Formation:
 In accordance with the domain analysis process, raw domain description units must be abstracted into formal concepts and subsequently rewritten into a cohesive domain narrative. Before translating the UI workflows, we must establish the formalized domain terminology abstracted from the UPRM Lost & Found environment:
