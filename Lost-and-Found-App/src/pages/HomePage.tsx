@@ -1,10 +1,14 @@
-import logo from "../assets/Lost&Found-Logo.jpeg"
+import logo from "../assets/Lost&Found-Logo.jpeg";
 import "./HomePage.css";
 import { useState, useEffect } from "react";
-import { ItemCard} from "../components/ItemCard";
-import type {ItemStatus } from "../components/ItemCard";
+import { useNavigate } from "react-router-dom";
+
+import { ItemCard } from "../components/ItemCard";
+import type { ItemStatus } from "../components/ItemCard";
+
 import CategoryDropdown from "../components/CategoryDropdown";
 import type { CategoryFilter } from "../components/CategoryDropdown";
+
 import { getAllReports } from "../ReportManagement/ReportDatabaseManagement";
 import type { Report } from "../ReportManagement/Reports";
 
@@ -18,6 +22,7 @@ function toItemStatus(reportStatus: string): ItemStatus | null {
 }
 
 export default function HomePage() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabKey>("Lost");
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>("ALL");
   const [reports, setReports] = useState<Report[]>([]);
@@ -29,6 +34,10 @@ export default function HomePage() {
       .finally(() => setLoading(false));
   }, []);
 
+  const handleCreateReport = () => {
+    navigate("/create-report");
+  };
+
   const filteredReports = reports.filter((report) => {
     const itemStatus = toItemStatus(report.getStatus());
     const statusMatch = itemStatus === activeTab;
@@ -39,11 +48,9 @@ export default function HomePage() {
 
   return (
     <div className="homePage">
-
       {/* HEADER */}
       <header className="homeHeader">
         <div className="headerLeft">
-
           <img
             src={logo}
             alt="Lost and Found Logo"
@@ -54,7 +61,6 @@ export default function HomePage() {
             <h1>Lost & Found</h1>
             <span>UPRM</span>
           </div>
-
         </div>
 
         <div className="headerIcons">
@@ -105,10 +111,9 @@ export default function HomePage() {
       <nav className="bottomNav">
         <button>🏠</button>
         <button>🔍</button>
-        <button>➕</button>
+        <button onClick={handleCreateReport}>➕</button>
         <button>👤</button>
       </nav>
-
     </div>
   );
 }
