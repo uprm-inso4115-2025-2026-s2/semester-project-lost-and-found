@@ -48,6 +48,86 @@ The notification system is feasible and can be implemented effectively with prop
 
 ---
 
+==== Requirement Stability Classification
+:author: Ivanier Bellido
+
+This section presents a classification of system requirements based on their stability and importance during the requirements engineering phase. According to lecture principles on requirements satisfiability, stability refers to the classification of requirements based on their importance and resistance to change during the requirements engineering process.
+
+Essential requirements are those that must be implemented for the system to function correctly. Worthwhile requirements significantly improve the system but are not strictly required for core functionality. Optional requirements provide additional enhancements but can be deferred without affecting system viability.
+
+The following classification applies these concepts to the Lost & Found system:
+
+[discrete]
+===== Requirement Classification Table
+
+[cols="1,3,1,4"]
+|===
+| ID | Requirement | Category | Justification
+
+| R1
+| Users must be able to report lost items
+| Essential
+| Core functionality of the system; without reporting, the platform cannot fulfill its purpose.
+
+| R2
+| Users must be able to report found items
+| Essential
+| Required to enable matching between lost and found items.
+
+| R3
+| Users must be authenticated using institutional email
+| Essential
+| Ensures system security, trust, and restriction to UPRM community.
+
+| R4
+| Users must be able to search and filter items by category, date, or location
+| Essential
+| Necessary for efficient discovery and recovery of items.
+
+| R5
+| Users can upload images of items
+| Worthwhile
+| Improves identification accuracy but system can function without images.
+
+| R6
+| System sends notifications for potential matches
+| Worthwhile
+| Enhances user experience and recovery speed but not strictly required.
+
+| R7
+| Administrative moderation of reports
+| Worthwhile
+| Helps maintain data quality and prevent misuse, but basic system can operate without it initially.
+
+| R8
+| System provides advanced filtering and sorting options
+| Optional
+| Improves usability but basic search functionality is sufficient for initial operation.
+
+| R9
+| Users receive automated alerts for new matching items
+| Optional
+| Adds convenience but does not affect core reporting and searching workflow.
+
+| R10
+| System supports analytics such as recovery rate or usage trends
+| Optional
+| Useful for evaluation and improvement but not required for system functionality.
+
+|===
+
+[discrete]
+===== Discussion
+
+The classification highlights that essential requirements are primarily related to core system operations such as reporting, authentication, and search capabilities. These form the minimum viable system.
+
+Worthwhile requirements focus on improving usability, trust, and efficiency, such as notifications, moderation, and image support. These features enhance the system but can be implemented incrementally.
+
+Optional requirements are mainly related to advanced features and analytics, which provide additional value but are not necessary during early development stages.
+
+This classification supports better decision-making during development, helps prevent scope creep, and aligns implementation efforts with project priorities.
+---
+
 ==== Implicit and Derivative Goals Traceback
 :author: Ivanier Bellido
 
