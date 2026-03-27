@@ -126,6 +126,7 @@ Worthwhile requirements focus on improving usability, trust, and efficiency, suc
 Optional requirements are mainly related to advanced features and analytics, which provide additional value but are not necessary during early development stages.
 
 This classification supports better decision-making during development, helps prevent scope creep, and aligns implementation efforts with project priorities.
+
 ---
 
 ==== Implicit and Derivative Goals Traceback
@@ -196,4 +197,5 @@ Implicit goals provide a higher-level perspective on system success and help eva
 This traceback analysis helps validate that the system is not only functionally correct but also aligned with broader objectives such as usability, trust, and effectiveness.
 
 By explicitly documenting these relationships, the project improves traceability, supports better design decisions, and ensures that development efforts remain aligned with the intended purpose of the Lost & Found platform.
+
 ---
