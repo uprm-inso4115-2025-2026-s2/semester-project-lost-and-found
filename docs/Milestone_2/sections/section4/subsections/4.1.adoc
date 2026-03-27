@@ -325,7 +325,7 @@ found.
 - Weak conflict: users having control to edit the forms versus the administration when
 considering the resolution of the item.
 - Strong conflict: users versus administration confirming if the issue has been resolved.
-=======
+
 ==== [Lecture Topic Task] Business Procedures Facet Analysis
 :author: Omar A. Cordero Maldonado (omar-cordero)
 
@@ -1142,6 +1142,34 @@ Maintain logs or audit trails for updates and moderation actions when possible.
 Ensure clear user feedback when conflicts occur to maintain transparency and trust.
 
 ---
+[discrete]
+==== [Lecture Topic Task]: Formulate Domain Narratives for Key UI Workflows
+:author: Joel Torres Cruz
+
+===== 1. Overview and Concept Formation:
+In accordance with the domain analysis process, raw domain description units must be abstracted into formal concepts and subsequently rewritten into a cohesive domain narrative. Before translating the UI workflows, we must establish the formalized domain terminology abstracted from the UPRM Lost & Found environment:
+
+- *Property*: The abstract concept representing physical objects (e.g., phones, keys, water bottles) that are either lost or found.
+
+- *Actors*: The individuals interacting with the system, further classified into Finders (those who locate Property) and Owners (those who lost Property).
+
+- *Custodial Hubs*: The abstracted concept for designated physical locations where Property can be securely surrendered or claimed (e.g., Guardia Universitaria, Library Front Desk, Department Offices).
+
+- *Match Event*: A dynamic reactive occurrence where the system correlates a Lost Property report with a Found Property report.
+
+===== 2. Domain Narratives for Key UI Workflows:
+
+===== Workflow A: Reporting and Surrendering Found Property
+- *UI Interaction*: The user clicks the "Report Found Item" button, fills out a form specifying the item's category, location found, and photo. The user then selects a radio button indicating they will drop it off at Campus Security, and clicks "Submit".
+
+- *Domain Narrative*:
+The Finder interacts with the system to record a newly discovered unit of Property. The Finder provides the intrinsic attributes of the Property (category, visual evidence, and discovery location) into the system. Next, the Finder selects a specific Custodial Hub where they intend to physically surrender the Property. Upon submission, the system registers the Found Property and transitions its state to pending surrender at the designated Custodial Hub.
+
+===== Workflow B: Smart Match Notification and Claim Initiation
+- *UI Interaction*: A student receives a push notification saying "Potential Match Found!". They tap the notification, opening a detailed view of a found item currently located at the Library. They click the "Initiate Claim" button to alert the system they are on their way to pick it up.
+
+- *Domain Narrative*:
+The system autonomously evaluates records and generates a Match Event between a recorded Lost Property and a newly registered Found Property. The system acts dynamically and reactively to alert the Owner of the Match Event. The Owner accesses the interface to review the Match Event details, which display the attributes of the Found Property and the specific Custodial Hub currently holding it. Concluding the flow, the Owner submits a formal claim request, signaling their intent to travel to the Custodial Hub to verify ownership and retrieve the Property.
 
 ==== Domain Attributes - Profile
 :author: Keishlyany Sanabria (@keisanabria)
