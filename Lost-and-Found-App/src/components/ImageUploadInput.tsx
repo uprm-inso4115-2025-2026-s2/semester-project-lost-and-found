@@ -1,28 +1,22 @@
 import React, { useRef, useState } from "react";
 import "./ImageUploadInput.css";
-import { supabase } from "../supabaseClient.ts";
 
-const ACCEPTED_FORMATS = [".jpg", ".jpeg", ".png", ".gif"];
+
+const ACCEPTED_FORMATS = [ ".jpeg", ".png"];
 
 // Formats considered valid for item images
 const ACCEPTED_MIME_TYPES = new Set([
   "image/jpeg",
   "image/png",
-  "image/gif"
+  
   
 ]);
 
-const ACCEPTED_EXTENSIONS = ".jpg, .jpeg, .png, .gif";
+const ACCEPTED_EXTENSIONS = ".jpeg,.png,";
 
 export interface ImageUploadInputProps {
-  /**
-   * Called when the user picks a valid image file.
-   *
-   * TODO (backend): replace the `previewUrl` parameter with a real upload
-   * call to Supabase Storage and pass back the resulting public URL instead.
-   * The `file` parameter is the raw File object ready to be uploaded.
-   */
-  onValidFile?: (url: string) => void;
+  
+  onValidFile?: (file: File) => void;
 
   /** Called when the selection is cleared. */
   onClear?: () => void;
@@ -42,17 +36,16 @@ export const ImageUploadInput: React.FC<ImageUploadInputProps> = ({
   const [state, setState] = useState<UploadState>({ kind: "idle" });
   const [showPopup, setShowPopup] = useState(false);
 
-  async function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
 
     
     if (!file) {
-      setState({ kind: "idle" });
       return;
     }
 
    
-    const isValidExtension = /\.(jpg|jpeg|png|gif)$/i.test(file.name);
+    const isValidExtension = /\.(jpeg|png)$/i.test(file.name);
 
     if (!ACCEPTED_MIME_TYPES.has(file.type) || !isValidExtension) {
       setState({ kind: "invalid", fileName: file.name });
@@ -65,36 +58,22 @@ export const ImageUploadInput: React.FC<ImageUploadInputProps> = ({
 
     const previewUrl = URL.createObjectURL(file);
 
-    try{
-      const fileName = `${Date.now()}-${file.name}`;
-      
-      const { error } = await supabase.storage.from("ReportImages").upload(fileName,file);
-      //console.log(error);
-
-      if(error){
-        throw error;
-      }
-     const { data } = supabase.storage.from("ReportImages").getPublicUrl(fileName);
+    
      //console.log("UPLOAD ERROR:", error);
      //console.log("URL ERROR:", error);
 
      
      setState({ kind: "valid", previewUrl, fileName: file.name });
 
-    // TODO (backend): upload `file` to Supabase Storage here and pass the
-    // returned public URL to `onValidFile` instead of the local blob URL.
-     onValidFile?.(data.publicUrl);
+    
+     onValidFile?.(file);
 
 
     }
 
-    catch(err){
-      console.error(err);
+    
 
-      setState({ kind: "upload-error", fileName: file.name});
-    }
-
-  }
+  
 
   function handleClear() {
     if (state.kind === "valid") {

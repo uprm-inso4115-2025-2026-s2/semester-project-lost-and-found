@@ -4,6 +4,8 @@ import {Report, type Category, type ReportType} from "../ReportManagement/Report
 import { useNavigate } from "react-router-dom";
 import { storeReport } from "../ReportManagement/ReportDatabaseManagement";
 
+import { supabase } from "../supabaseClient.ts";
+
 import { ImageUploadInput } from "../components/ImageUploadInput";
 
 
@@ -35,14 +37,15 @@ export function ReportCreatePage() {
   const [tags, setTags] = useState<string[]>(["urgent", "campus"]);
   const [type, setType] = useState<ReportType>("LOST");
 
-  const[imageUrl, setImageUrl] = useState<string | undefined>(undefined);
+  const[imageFile, setImageFile] = useState<File | undefined>(undefined);
+  const[imageUrl, setImageUrl] = useState<string| undefined>(undefined);
   const navigate = useNavigate();
 
 
 
   const isFormReady = useMemo(
-    () => Boolean(title && date && location && description && category && imageUrl),
-    [title, date, location, description, category, imageUrl]
+    () => Boolean(title && date && location && description && category),
+    [title, date, location, description, category]
   );
 
   const handleAddTag = () => {
@@ -63,7 +66,21 @@ export function ReportCreatePage() {
     setTags((prev) => prev.filter((t) => t !== tag));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    let uploadedImageUrl : string | undefined =undefined;
+
+    if(imageFile){
+      const FileName = `${Date.now()}-${imageFile.name}`;
+
+      const { error } = await supabase.storage.from("ReportImages").upload(FileName, imageFile);
+
+      if(error){
+        console.error("Upload Error:", error);
+        return
+      }
+      const{data} = supabase.storage.from("ReportImages").getPublicUrl(FileName);
+      uploadedImageUrl =data.publicUrl;
+    }
     const newReport = Report.Create({
       title,
       description,
@@ -74,7 +91,7 @@ export function ReportCreatePage() {
       createdBy: "temporary-user",
       type,
       
-      imageUrl,
+      imageUrl : uploadedImageUrl,
     });
   
     storeReport(newReport);
@@ -162,8 +179,8 @@ export function ReportCreatePage() {
           <label className="fullWidth">
             <span>Image</span>
             <ImageUploadInput
-              onValidFile={(url) => setImageUrl(url)}
-              onClear={() => setImageUrl(undefined)}
+              onValidFile={(file) => setImageFile(file)}
+              onClear={() => {setImageFile(undefined); setImageUrl(undefined)}}
               
             />
           </label>     
