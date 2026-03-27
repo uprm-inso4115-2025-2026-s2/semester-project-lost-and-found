@@ -47,3 +47,73 @@ The system satisfies the requirement of informing users about important events i
 The notification system is feasible and can be implemented effectively with proper handling of constraints and risks.
 
 ---
+
+==== Implicit and Derivative Goals Traceback
+:author: Ivanier Bellido
+
+This section analyzes implicit and derivative goals of the Lost & Found system and establishes their relationship with explicitly defined requirements. According to lecture principles, implicit or derivative goals are objectives that are not directly specified as requirements but are expected outcomes of the system.
+
+These goals typically originate from stakeholder needs, domain assumptions, and overall system intentions rather than from individual functional requirements.
+
+The following analysis identifies key implicit goals and traces how they are supported by existing system requirements.
+
+[discrete]
+===== Identified Implicit Goals
+
+The Lost & Found system is expected to achieve the following implicit goals:
+
+* Increase recovery success rate of lost items  
+* Reduce user frustration during the recovery process  
+* Improve institutional trust in lost-and-found handling  
+* Enhance coordination across campus entities  
+* Promote consistent and structured reporting behavior  
+
+[discrete]
+===== Goal-to-Requirement Traceability
+
+[cols="1,3,4"]
+|===
+| Goal | Supporting Requirements | Explanation
+
+| Increase recovery success rate
+| Item reporting (lost & found), search & filtering, image upload
+| These requirements enable matching between lost and found items, increasing the likelihood of recovery.
+
+| Reduce user frustration
+| Search functionality, filtering, notification system
+| Efficient search and timely updates reduce uncertainty and improve user experience.
+
+| Improve institutional trust
+| Authentication with institutional email, controlled visibility, moderation
+| Ensures secure access, prevents misuse, and promotes confidence in the system.
+
+| Enhance coordination across campus
+| Centralized reporting platform, standardized data structure
+| Provides a unified system that replaces fragmented communication channels.
+
+| Promote structured reporting behavior
+| Defined reporting forms, required data fields
+| Encourages consistency and completeness in submitted reports.
+
+|===
+
+[discrete]
+===== Analysis of Coverage
+
+The mapping shows that most implicit goals are reasonably supported by existing requirements. Core functionalities such as reporting, authentication, and search directly contribute to achieving the system’s intended outcomes.
+
+However, some gaps can be identified:
+
+* Coordination across campus may depend on user adoption and integration with existing processes, which are not fully enforced by requirements.  
+* Reduction of user frustration depends not only on functionality but also on usability and interface design, which may require further refinement.  
+* Institutional trust also depends on consistent moderation and enforcement policies beyond basic technical constraints.  
+
+[discrete]
+===== Discussion
+
+Implicit goals provide a higher-level perspective on system success and help evaluate whether the requirements collectively achieve meaningful outcomes. While individual requirements define system behavior, implicit goals ensure alignment with stakeholder expectations and domain needs.
+
+This traceback analysis helps validate that the system is not only functionally correct but also aligned with broader objectives such as usability, trust, and effectiveness.
+
+By explicitly documenting these relationships, the project improves traceability, supports better design decisions, and ensures that development efforts remain aligned with the intended purpose of the Lost & Found platform.
+---
