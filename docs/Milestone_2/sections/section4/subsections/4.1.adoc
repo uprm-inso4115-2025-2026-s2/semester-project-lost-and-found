@@ -1352,3 +1352,98 @@ If the app later surfaces a full history of a user's reported items, each with n
 Schütz-Schmuck, M. (2021). _Domain Attributes_ [Lecture slides]. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
 
 ---
+
+==== Domain Analysis of Account Creation 
+:author: Sebastian G Suarez Robles
+
+===== Overview
+
+This lecture topic task corresponds to *Domain Engineering* and *Requirements Analysis and Concept Formation*, as it defines the domain concepts, rules, and exceptions related to the account creation process in the Lost & Found system. The analysis identifies key entities (User, Account, Email), their relationships, and the business rules governing account creation.
+
+===== Domain Concepts
+
+*User*: An individual who interacts with the Lost & Found system. Users can be categorized as institutional (with `@upr.edu` email) or non-institutional (with external email).
+
+*Account*: A digital identity created for a user to access the Lost & Found platform. An account includes credentials (email and password) and profile information.
+
+*Registration Credential*: The email address used during account creation, which determines the user's access level (full access for institutional emails, view-only for non-institutional emails).
+
+*Registration Action*: The process of submitting information to create an account, including providing an email, password, and optional profile details.
+
+*Domain Constraint*: The rule that only institutional email addresses grant full access to the platform, while non-institutional emails result in view-only access.
+
+===== Requirements Analysis
+
+1. The system must allow users to create an account by providing a valid email address and password.
+
+2. The system must validate the email format and ensure it is unique in the database.
+
+3. The system must classify users based on their email domain: institutional emails (`@upr.edu`) receive full access, while non-institutional emails receive view-only access.
+
+4. The system must enforce password complexity requirements for security.
+
+5. The system must provide feedback to users during registration, including error messages for invalid input and confirmation of successful account creation.
+
+===== Domain Narrative (Account Creation Workflow)
+
+The account creation process is a sequence of actions that transition a `User` and their `Registration Credential` through a series of states, governed by the `Domain Constraint` on email domains.
+
+1. **Initiation**: A `User` begins the account creation process by providing their `Registration Credential` email and a password. The system performs initial validation on the email format and password complexity.
+
+2. **Uniqueness Check**: The system checks if the provided email already exists in the database. If it does, the user receives an error message prompting them to use a different email.
+
+3. **Account Creaton**: If the email is valid and unique, the system creates an `Account` for the user. The system then evaluates the email domain to determine the user's access level. If the email domain is `@upr.edu`, the user is classified as an institutional user and granted full access. If the email domain is external, the user is classified as a non-institutional user and granted view-only access.
+
+4. **Verification**: The system may send a verification email to confirm the user's email address. The account should become active only after successful verification.
+
+5. **Activation**: Once the account is created and verified, the user can log in and access the platform according to their assigned access level.
+
+===== Buisness Rules
+
+* **Rule 1 (Uniqueness)**: Each email address must be unique across all accounts. Duplicate emails are not allowed.
+
+* **Rule 2 (Verification)**: Accounts must be verified through email confirmation before they become active.
+
+* **Rule 3 (Domain Classification)**: The system classifies users based on their email domain, granting full access to institutional emails and view-only access to non-institutional emails.
+
+===== Account State Model
+
+This model represents the states and transitions of a user's account during the creation process:
+
+[cols="1,2"]
+|===
+|Account State |Description
+
+|`PendingVerification`
+|The initial state after submission. The user has provided credentials, but the ownership of the email has not been confirmed. The account is dormant and has no active permissions.
+
+|`Active`
+|The final state after successful email verification. The account is fully functional, and all permissions (based on email domain classification) are enabled.
+|===
+
+===== Domain Rationale
+
+This model is justified by security and access control requirements.
+
+* **Verification Requirement**: Ensures that users have control over the email address they provide, reducing the risk of fraudulent accounts.
+
+* **Uniqueness Constraint**: Prevents confusion and ensures that each user has a distinct identity in the system.
+
+* **Early Classification**: Determining the user type (institutional vs. non-institutional) at account creation allows for consistent access control throughout the user's lifecycle.
+
+===== Impact on the System
+
+*Security*: Enforcing email verification and password complexity enhances the security of user accounts.
+
+*Data Integrity*: Unique email constraints maintain the integrity of user data and prevent duplicate accounts.
+
+*Usability*: Providing clear feedback during registration improves the user experience and reduces frustration.
+
+===== Conclusion
+
+By applying domain analysis and concept formation, the account creation module is structures into a clear and consistent model that supports the system's security and access control requirements while providing a smooth user experience. This approach is a state-driven process that ensures all accounts are verified and classified appropriately from the moment of creation.
+
+===== References
+
+Schütz-Schmuck, M. (2021). _Domain Analysis and Concept Formation_ [Lecture slides]. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
