@@ -4,6 +4,11 @@ import {Report, type Category, type ReportType} from "../ReportManagement/Report
 import { useNavigate } from "react-router-dom";
 import { storeReport } from "../ReportManagement/ReportDatabaseManagement";
 
+import { supabase } from "../supabaseClient.ts";
+
+import { ImageUploadInput } from "../components/ImageUploadInput";
+
+
 const CATEGORIES: Category[] = [
   "ELECTRONICS",
   'PERSONAL',
@@ -31,7 +36,12 @@ export function ReportCreatePage() {
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<string[]>(["urgent", "campus"]);
   const [type, setType] = useState<ReportType>("LOST");
+
+  const[imageFile, setImageFile] = useState<File | undefined>(undefined);
+  const[imageUrl, setImageUrl] = useState<string| undefined>(undefined);
   const navigate = useNavigate();
+
+
 
   const isFormReady = useMemo(
     () => Boolean(title && date && location && description && category),
@@ -56,7 +66,21 @@ export function ReportCreatePage() {
     setTags((prev) => prev.filter((t) => t !== tag));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    let uploadedImageUrl : string | undefined =undefined;
+
+    if(imageFile){
+      const FileName = `${Date.now()}-${imageFile.name}`;
+
+      const { error } = await supabase.storage.from("ReportImages").upload(FileName, imageFile);
+
+      if(error){
+        console.error("Upload Error:", error);
+        return
+      }
+      const{data} = supabase.storage.from("ReportImages").getPublicUrl(FileName);
+      uploadedImageUrl =data.publicUrl;
+    }
     const newReport = Report.Create({
       title,
       description,
@@ -66,6 +90,8 @@ export function ReportCreatePage() {
       tags,
       createdBy: "temporary-user",
       type,
+      
+      imageUrl : uploadedImageUrl,
     });
   
     storeReport(newReport);
@@ -148,6 +174,17 @@ export function ReportCreatePage() {
               onChange={(e) => setDescription(e.target.value)}
             />
           </label>
+
+
+          <label className="fullWidth">
+            <span>Image</span>
+            <ImageUploadInput
+              onValidFile={(file) => setImageFile(file)}
+              onClear={() => {setImageFile(undefined); setImageUrl(undefined)}}
+              
+            />
+          </label>     
+
 
           <label>
             <span>Category</span>
