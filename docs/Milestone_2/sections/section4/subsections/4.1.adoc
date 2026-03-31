@@ -1537,3 +1537,128 @@ This classification impacts system design in several ways:
 ===== References
 
 *Framework:* Schütz-Schmuck, M. (2021). _Domain Attributes_. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+---
+
+==== Data Consistency and System Guarantees in the Lost and Found Platform
+:author: Jose Valentin (@jose-valentin)
+
+The Lost and Found platform relies on consistent data and well defined system guarantees to ensure that reports behave predictably throughout their lifecycle. This section analyzes how consistency is maintained across the system and how guarantees are enforced to prevent invalid states and conflicting operations.
+
+===== Overview
+
+Data consistency refers to the requirement that all parts of the system reflect the same valid and up to date information at any given time. This includes consistency between the frontend interface, backend logic, and database storage.
+
+System guarantees define the rules that ensure the system behaves correctly under normal operation. These guarantees restrict how data can change and ensure that all reports remain in valid states.
+
+===== Consistency in Report Data
+
+Reports are central entities in the system and must maintain consistent data across all interactions.
+
+Key consistency requirements include:
+
+* Frontend and backend consistency  
+All data displayed to users must match the data stored in the backend. Any update performed through the interface must be validated and persisted correctly.
+
+* Database consistency  
+The database must always store valid and complete report data. Partial updates or invalid values must not be saved.
+
+* Synchronization between users  
+When multiple users interact with the same report, they must observe the same current state. The system must ensure that updates are reflected consistently for all users.
+
+===== Report Lifecycle Consistency
+
+Each report follows a defined lifecycle composed of discrete states:
+
+* ACTIVE
+* RESOLVED
+* CLAIMED
+
+These states represent the progression of a report from creation to completion.
+
+Valid transitions include:
+
+* ACTIVE to RESOLVED  
+* ACTIVE to CLAIMED  
+* RESOLVED to CLAIMED  
+
+Invalid transitions must be prevented. For example:
+
+* CLAIMED to ACTIVE  
+* CLAIMED to RESOLVED  
+
+Such transitions would violate the logical progression of the system and lead to inconsistent data.
+
+These constraints are enforced through controlled state transition logic implemented in the backend.
+
+===== Statics and Dynamics in Consistency
+
+Consistency is closely related to how report attributes behave over time.
+
+* Static attributes  
+These values are expected to remain stable after creation:
+** Title  
+** Description  
+** Category  
+** Location  
+
+* Dynamic attributes  
+These values change over time and must be controlled:
+** Status  
+
+The report status exhibits dynamic inert behavior, meaning it only changes in response to external actions such as user interaction or administrative verification.
+
+Ensuring consistency requires that dynamic attributes follow strict transition rules.
+
+===== Scenarios Requiring Strong Consistency
+
+Several scenarios require careful enforcement of consistency:
+
+* Simultaneous updates  
+Multiple users may attempt to update a report at the same time. The system must ensure that only valid updates are applied.
+
+* Report modification after creation  
+Edits must not violate existing constraints or create conflicting data.
+
+* Status updates  
+Changes to report status must follow valid transitions and reflect the correct lifecycle stage.
+
+* Database interaction  
+When inserting or updating reports, the system must ensure that the stored data matches the application state.
+
+===== Mechanisms for Enforcing Consistency
+
+The system enforces consistency through several mechanisms:
+
+* Validation rules  
+All input data is validated before being accepted. This prevents invalid or incomplete reports.
+
+* Controlled state transitions  
+The system restricts how report statuses can change, ensuring valid lifecycle progression.
+
+* Backend verification  
+Before applying updates, the backend checks the current state of the report to confirm that the operation is allowed.
+
+* Atomic operations  
+Updates are treated as single complete operations to prevent partial or inconsistent changes.
+
+===== Impact on System Design
+
+Consistency and system guarantees influence several aspects of the platform:
+
+* Data integrity  
+Ensures that all stored information remains accurate and meaningful.
+
+* User trust  
+Users depend on the system to provide correct and reliable information when reporting or claiming items.
+
+* System reliability  
+A consistent system behaves predictably, reducing unexpected errors and simplifying maintenance.
+
+===== Conclusion
+
+Data consistency and system guarantees are essential for maintaining a reliable Lost and Found platform. By enforcing validation rules, controlling state transitions, and ensuring synchronization between system components, the platform can maintain correct behavior and provide a dependable experience for its users.
+
+===== References
+
+Schütz-Schmuck, M. (2021). _Domain Attributes_ [Lecture slides]. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
