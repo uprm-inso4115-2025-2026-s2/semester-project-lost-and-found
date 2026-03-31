@@ -155,3 +155,45 @@ For the Lost and Found system, this is especially useful because features like c
 - "System Requirements Definition." *Systems Engineering Body of Knowledge (SEBoK)*, https://sebokwiki.org/wiki/System_Requirements_Definition.
 - "Requirements Management." *Systems Engineering Body of Knowledge (SEBoK)*, https://sebokwiki.org/wiki/Requirements_Management.
 - "Requirements in Model-Based Systems Engineering (MBSE)." *Software Engineering Institute Blog*, Carnegie Mellon University, 22 Feb. 2021, https://www.sei.cmu.edu/blog/requirements-in-model-based-systems-engineering-mbse/.
+
+
+
+
+===== State Machine Diagram for Authentication/Verification
+Author: Dylan M. Oliver Martinez
+Date: March 30, 2026
+
+====== Functions
+sign up: refers to the action of a new user creating an account
+
+create account:   function that creates a new user account; this account uses the phenomena of username, email, phone number, and password 
+
+check duplicate details: function that checks if there exists another of a username, email, or phone number in the database
+
+verify email: function that sends an email to the users email address, to verify that the account belongs to the owner of the specified email address 
+
+log in: refers to the action of an already existing user accessing their account
+
+====== Phenomena 
+
+account:  person using the platform; could be because they lost an item or found an item
+
+username: the string that would be used an account
+
+email: digital address that will be used to identify an account and for other users to communicate with each other
+
+phone number: string that will be utilized to identify an account and for other users to communicate with each other
+
+password: code selected by the user utilized to confirm the user's identity 
+
+====== Other Concepts:
+
+enter: type a username, email, or phone number into its respective field. When the account is created, it will be registered  into the database
+
+duplicate: a given username, email, or phone number already exists in the database
+
+====== State Machine Diagram
+
+Below is the state machine diagram that demonstrates the behavior of the sign up/ log in and authentication for users.
+
+image::state_machinediagram_authentication.png[caption="State Machine Diagram for Authentication/Verification",width=800,align ="center"]
