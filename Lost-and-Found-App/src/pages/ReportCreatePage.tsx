@@ -50,7 +50,7 @@ export function ReportCreatePage() {
 
   const handleAddTag = () => {
     const trimmed = tagInput.trim();
-    if (!trimmed || tags.includes(trimmed)) return;
+    if (!trimmed || tags.includes(trimmed) || tags.length >= 10) return;
     setTags((prev) => [...prev, trimmed]);
     setTagInput("");
   };
@@ -209,7 +209,7 @@ export function ReportCreatePage() {
                 <input
                   placeholder="Add tag and press Enter"
                   value={tagInput}
-                  onChange={(e) => setTagInput(e.target.value)}
+                  onChange={(e) => {if (e.target.value.length <= 12) { setTagInput(e.target.value) }}}
                   onKeyDown={handleTagKey}
                 />
                 <button type="button" className="miniBtn" onClick={handleAddTag}>
