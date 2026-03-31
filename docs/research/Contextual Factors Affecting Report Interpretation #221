@@ -1,0 +1,104 @@
+= [Lecture Topic Task]: Contextual Factors Affecting Report Interpretation
+
+== Goal
+Analyze how context (time, place, and situation) changes how reports are understood and used in the Lost & Found system.
+
+== Proposed Solution
+
+=== Key Idea
+A report does not always mean the same thing. Its meaning depends on context like location, time, and the person viewing it.
+
+---
+
+=== Contextual Factors
+
+1. Location
+- Where the item was lost or found
+- Affects how likely it is to recover
+
+Example:
+- Classroom - easier to find
+- Public area - harder to find
+
+---
+
+2. Time
+- When the item was lost or reported
+- How recent the report is
+
+Example:
+- Lost today - high chance of match
+- Lost weeks ago - low chance
+
+---
+
+3. Item Type
+- What kind of item it is
+
+Example:
+- Phone - high priority
+- Water bottle - low priority
+
+---
+
+4. Environment
+- What was happening around that time
+
+Example:
+- Big event - many similar reports
+- Normal day - fewer reports
+
+---
+
+5. User Perspective
+- Different users see the report differently
+
+Example:
+- Claimant - wants item back
+- Finder - trying to identify owner
+- Admin - checking if claim is valid
+
+---
+
+=== Impact on Reports
+
+Example Report:
+"Black backpack lost near library at 3PM"
+
+Different meanings:
+- Claimant - urgent personal loss
+- Finder - possible match
+- Admin - needs verification (many similar items)
+
+---
+
+=== Scenarios
+
+Scenario 1: Easy Match
+- Unique item
+- Clear location
+- Recent time
+
+- High confidence match
+
+---
+
+Scenario 2: Difficult Match
+- Common item
+- Vague location
+- Unknown time
+
+- Low confidence match
+
+---
+
+=== Conclusion
+
+Context affects:
+- How reports are understood
+- How matches are made
+- How admins make decisions
+
+Reports should not be analyzed alone, but with their context.
+
+---
