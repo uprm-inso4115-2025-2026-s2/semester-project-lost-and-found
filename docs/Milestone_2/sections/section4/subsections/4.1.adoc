@@ -1447,3 +1447,93 @@ By applying domain analysis and concept formation, the account creation module i
 
 Schütz-Schmuck, M. (2021). _Domain Analysis and Concept Formation_ [Lecture slides]. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
 
+==== Classification of Static vs Dynamic Domain Elements in the Lost and Found System
+:author: Iralys Sánchez Milián
+
+===== 1. Introduction
+
+In domain engineering, phenomena can be classified based on whether they change over time. Static elements do not change, while dynamic elements evolve due to events or internal behavior. Dynamic elements can further be categorized as inert (reacting only to external stimuli) or active (capable of initiating changes themselves).
+
+This classification is essential for understanding system behavior, state transitions, and design decisions in the Lost & Found system.
+
+===== 2. Domain Element Classification
+
+[options="header"]
+|===
+| Domain Element | Type | Subtype | Justification
+
+| Item Category
+| Static
+| N/A
+| Categories (e.g., electronics, clothing) are predefined and do not change frequently or as part of system behavior.
+
+| Report (Lost/Found Item)
+| Dynamic
+| Inert
+| A report changes state (e.g., open, matched, resolved) only when users or admins perform actions.
+
+| User Account
+| Dynamic
+| Inert
+| User data (profile info, activity) changes only when the user or system updates it externally.
+
+| Notification
+| Dynamic
+| Active
+| Notifications can be generated automatically by the system (e.g., match found), without direct user action.
+
+| Search Results
+| Dynamic
+| Inert
+| Results change based on user queries or filters; they do not update unless triggered by input.
+
+| Moderation Process
+| Dynamic
+| Active
+| The system can automatically flag or process reports (e.g., spam detection), showing internal system-driven behavior.
+|===
+
+===== 3. Explanation of Classification
+
+====== 3.1 Static Elements
+
+Static elements are not time-dependent and are not affected by events. In this system, item categories remain constant and serve as reference data.
+
+====== 3.2 Dynamic Inert Elements
+
+Dynamic inert elements change only when triggered by external stimuli (e.g., user actions or admin input). Examples include reports, user accounts, and search results.
+
+These elements:
+
+- Require explicit input to change
+- Do not evolve independently
+- Represent controlled state transitions
+
+====== 3.3 Dynamic Active Elements
+
+Dynamic active elements can change based on internal system logic or autonomous behavior.
+
+Examples include:
+
+- Notifications generated automatically
+- Moderation systems that flag inappropriate content
+
+These elements:
+
+- May act without direct user input
+- Require monitoring and system logic
+- Introduce complexity in system design
+
+===== 4. Design Implications
+
+This classification impacts system design in several ways:
+
+- *State Management*: Dynamic elements require well-defined states and transitions.
+- *Event Handling*: Inert elements rely on external triggers, while active elements require internal event mechanisms.
+- *Automation*: Active elements necessitate background processes (e.g., notification services, moderation checks).
+- *Data Modeling*: Static elements can be stored as fixed reference tables, while dynamic elements require lifecycle tracking.
+- *Testing*: Active behaviors require additional testing for automated workflows and edge cases.
+
+===== References
+
+*Framework:* Schütz-Schmuck, M. (2021). _Domain Attributes_. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
