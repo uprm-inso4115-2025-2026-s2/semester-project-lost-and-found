@@ -122,3 +122,25 @@ export async function getAllReports(): Promise<Report[]> {
     
     return reports;
 }
+
+import { checkForDuplicates, type DuplicateCheckResult } from "./DuplicateVerification.ts";
+
+
+ // Store a report after checking for duplicates
+ // Returns duplicate warning if similar reports found (but doesn't block storage)
+ 
+export async function storeReportWithDuplicateCheck(report: Report): Promise<{
+  success: boolean;
+  duplicateWarning: DuplicateCheckResult;
+}> {
+  // Check for potential duplicates
+  const duplicateWarning = await checkForDuplicates(report);
+
+  // Always store the report
+  const success = await storeReport(report);
+
+  return {
+    success: success,
+    duplicateWarning: duplicateWarning
+  };
+}
