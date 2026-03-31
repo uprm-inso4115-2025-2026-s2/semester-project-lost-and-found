@@ -1,50 +1,56 @@
-import logo from "../assets/Lost&Found-Logo.jpeg"
+import logo from "../assets/Lost&Found-Logo.jpeg";
 import "./HomePage.css";
-import { useState } from "react";
-import { ItemCard} from "../components/ItemCard";
-import type {ItemStatus } from "../components/ItemCard";
-import walletImg from "../assets/sample/wallet.jpeg";
-import bottleImg from "../assets/sample/bottle.jpeg";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { ItemCard } from "../components/ItemCard";
+import type { ItemStatus } from "../components/ItemCard";
+
+import CategoryDropdown from "../components/CategoryDropdown";
+import type { CategoryFilter } from "../components/CategoryDropdown";
+
+import { getAllReports } from "../ReportManagement/ReportDatabaseManagement";
+import type { Report } from "../ReportManagement/Reports";
+
 type TabKey = ItemStatus;
+
+function toItemStatus(reportStatus: string): ItemStatus | null {
+  if (reportStatus === "Active") return "Lost";
+  if (reportStatus === "Claimed") return "Claimed";
+  if (reportStatus === "Resolved") return "Returned";
+  return null;
+}
 
 export default function HomePage() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabKey>("Lost");
+  const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>("ALL");
+  const [reports, setReports] = useState<Report[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getAllReports()
+      .then(setReports)
+      .finally(() => setLoading(false));
+  }, []);
 
   const handleCreateReport = () => {
     navigate("/create-report");
   };
 
-  const items = [
-    {
-      title: "Bottle of Water",
-      description: "Found near FB building",
-      dateLabel: "Jan 22",
-      locationLabel: "FB",
-      status: "Lost" as TabKey,
-      imageUrl: bottleImg
-    },
-    {
-      title: "Leather Wallet",
-      description: "Brown leather wallet",
-      dateLabel: "Feb 30",
-      locationLabel: "Library - 1st floor",
-      status: "Lost" as TabKey,
-      imageUrl: walletImg
-    }
-  ];
-
-  const filteredItems = items.filter(i => i.status === activeTab);
+  const filteredReports = reports.filter((report) => {
+    const itemStatus = toItemStatus(report.getStatus());
+    const statusMatch = itemStatus === activeTab;
+    const categoryMatch =
+      categoryFilter === "ALL" || report.getRawCategory() === categoryFilter;
+    return statusMatch && categoryMatch;
+  });
 
   return (
     <div className="homePage">
-
       {/* HEADER */}
       <header className="homeHeader">
         <div className="headerLeft">
-
           <img
             src={logo}
             alt="Lost and Found Logo"
@@ -55,7 +61,6 @@ export default function HomePage() {
             <h1>Lost & Found</h1>
             <span>UPRM</span>
           </div>
-
         </div>
 
         <div className="headerIcons">
@@ -64,9 +69,9 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* STATUS FILTER */}
+      {/* STATUS FILTER AND CATEGORY DROPDOWN */}
       <div className="statusTabs">
-        {(["Lost", "Claimed", "Returned"] as TabKey[]).map(tab => (
+        {(["Lost", "Claimed", "Returned"] as TabKey[]).map((tab) => (
           <button
             key={tab}
             className={`statusBtn ${activeTab === tab ? "active" : ""}`}
@@ -75,24 +80,40 @@ export default function HomePage() {
             {tab}
           </button>
         ))}
+        <CategoryDropdown onCategoryChange={setCategoryFilter} />
       </div>
 
       {/* GRID */}
       <section className="itemsGrid">
-        {filteredItems.map((item, index) => (
-          <ItemCard key={index} {...item} />
-        ))}
+        {loading ? (
+          <p className="emptyMessage">Loading reports…</p>
+        ) : filteredReports.length === 0 ? (
+          <p className="emptyMessage">No reports found for this filter.</p>
+        ) : (
+          filteredReports.map((report) => (
+            <ItemCard
+              key={report.getID()}
+              title={report.getTitle()}
+              description={report.getDescription()}
+              dateLabel={report.getDateFound().toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+              })}
+              locationLabel={report.getLocation()}
+              status={toItemStatus(report.getStatus()) ?? "Lost"}
+              imageUrl={report.getImageURL() || undefined}
+            />
+          ))
+        )}
       </section>
 
       {/* BOTTOM NAV */}
       <nav className="bottomNav">
         <button>🏠</button>
         <button>🔍</button>
-        <button
-        onClick={handleCreateReport}>➕</button>
+        <button onClick={handleCreateReport}>➕</button>
         <button>👤</button>
       </nav>
-
     </div>
   );
 }
