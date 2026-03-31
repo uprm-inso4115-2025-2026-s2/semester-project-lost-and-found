@@ -3,6 +3,7 @@ import "./ReportCreatePage.css";
 import {Report, type Category, type ReportType} from "../ReportManagement/Reports";
 import { useNavigate } from "react-router-dom";
 import { storeReport } from "../ReportManagement/ReportDatabaseManagement";
+import { sendReportCreatedEmail } from "../UserProfilesAccount/NotificationService";
 
 import { supabase } from "../supabaseClient.ts";
 
@@ -94,8 +95,18 @@ export function ReportCreatePage() {
       imageUrl : uploadedImageUrl,
     });
   
-    storeReport(newReport);
-    
+    await storeReport(newReport);
+
+  // notify creator by email about report submission
+    const user = await supabase.auth.getUser();
+    if (user?.data?.user?.email) {
+      try {
+        await sendReportCreatedEmail(user.data.user.email, newReport.title);
+      } catch (err) {
+        console.warn("Failed to send report created email", err);
+      }
+    }
+
     navigate("/");
   };
 
