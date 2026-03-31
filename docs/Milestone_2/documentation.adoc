@@ -1,5 +1,5 @@
 = Lost & Found
-First Milestone - Software Requirements - INSO 4115
+Second Milestone - Software Requirements - INSO 4115
 Prof. Marko Schütz-Schmuck 
 :imagesdir: ../Images
 :doctype: book
