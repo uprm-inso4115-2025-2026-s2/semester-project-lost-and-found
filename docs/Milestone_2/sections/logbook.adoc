@@ -11,3 +11,12 @@
 | Added
 
 |===
+
+[cols="3,^2,5",options="header",]
+|===
+| Name | Section | Added/Modified
+
+| Abby Gotay Almonte
+| 2.1.4
+| Modified
+|===

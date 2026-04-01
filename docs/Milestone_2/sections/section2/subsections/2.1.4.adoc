@@ -1,152 +1,308 @@
 ==== *Events, Actions, and Behaviors*
 
-The following structure refines events, actions, and behaviors in the domain using a consistent hybrid classification (event / action / entity where applicable). Each element specifies trigger, immediate response, postcondition, and reference to the domain sketch.
+[.changed]#This section integrates domain events, actions, and typical behaviors into the Ubiquitous Language for the campus Lost & Found domain. All entries are system-independent, classified strictly as Event or Action, and linked to domain entities. Scenario analysis is included to surface missing or implied domain concepts.#
 
-===== *Behavioral Patterns*
+===== [.removed]#*Behavioral Patterns*#
 
-While events are instantaneous and actions are discrete, behaviors describe structured sequences unfolding over time within the campus Lost & Found environment. They capture typical user workflows and system interactions, such as reporting, searching, claiming, verifying, and moderating. Each behavior is defined by its constituent events and actions, expected outcomes, and reference to real-world scenarios.
+[.removed]#While events are instantaneous and actions are discrete, behaviors describe structured sequences unfolding over time within the campus Lost & Found environment. They capture typical user workflows and system interactions, such as reporting, searching, claiming, verifying, and moderating. Each behavior is defined by its constituent events and actions, expected outcomes, and reference to real-world scenarios.#
 
-====== User authenticated (event / operation)
+====== [.removed]#User authenticated (event / operation)#
 
-- Type: hybrid — operation (authentication attempt) and event (session established)
-- Label: user just authenticated
-- Triggered by: University member logging in via institutional SSO.
-- Immediate response: Authenticated session created; user identity bound to session context.
-- Expected outcome/postcondition: User gains access to protected actions (submit, edit, resolve, flag).
-- Reference to sketch: Platform restricted to verified university community members.
+- [.removed]#Type: hybrid — operation (authentication attempt) and event (session established)#
+- [.removed]#Label: user just authenticated#
+- [.removed]#Triggered by: University member logging in via institutional SSO.#
+- [.removed]#Immediate response: Authenticated session created; user identity bound to session context.#
+- [.removed]#Expected outcome/postcondition: User gains access to protected actions (submit, edit, resolve, flag).#
+- [.removed]#Reference to sketch: Platform restricted to verified university community members.#
 
-====== Lost item report submitted (event / action)
+====== [.removed]#Lost item report submitted (event / action)#
 
-- Type: hybrid — action (submission) and event (report recorded)
-- Label: lost item report just published
-- Triggered by: Authenticated user submitting structured lost item form.
-- Immediate response: Input validated; report stored with `status = "active"`; ownership bound to user_id.
-- Expected outcome/postcondition: Report becomes visible in searchable listings.
-- Reference to sketch: Students describe posting lost laptops, IDs, electronics.
+- [.removed]#Type: hybrid — action (submission) and event (report recorded)#
+- [.removed]#Label: lost item report just published#
+- [.removed]#Triggered by: Authenticated user submitting structured lost item form.#
+- [.removed]#Immediate response: Input validated; report stored with `status = "active"`; ownership bound to user_id.#
+- [.removed]#Expected outcome/postcondition: Report becomes visible in searchable listings.#
+- [.removed]#Reference to sketch: Students describe posting lost laptops, IDs, electronics.#
 
-====== Found item report submitted (event / action)
+====== [.removed]#Found item report submitted (event / action)#
 
-- Type: hybrid — action (submission) and event (report recorded)
-- Label: found item report just published
-- Triggered by: Authenticated user submitting structured found item form.
-- Immediate response: Input validated; report stored with `status = "active"`; ownership assigned.
-- Expected outcome/postcondition: Listing becomes publicly searchable for potential claimants.
-- Reference to sketch: Community members report found wallets and IDs.
+- [.removed]#Type: hybrid — action (submission) and event (report recorded)#
+- [.removed]#Label: found item report just published#
+- [.removed]#Triggered by: Authenticated user submitting structured found item form.#
+- [.removed]#Immediate response: Input validated; report stored with `status = "active"`; ownership assigned.#
+- [.removed]#Expected outcome/postcondition: Listing becomes publicly searchable for potential claimants.#
+- [.removed]#Reference to sketch: Community members report found wallets and IDs.#
 
-====== Report updated (event / operation)
+====== [.removed]#Report updated (event / operation)#
 
-- Type: hybrid — operation (edit) and event (modification recorded)
-- Label: report just modified
-- Triggered by: Owner editing description, location, images, or metadata.
-- Immediate response: Updated fields persisted; modification timestamp refreshed.
-- Expected outcome/postcondition: Search results and visible details reflect new information.
-- Reference to sketch: Users correcting typos or adding clarifying details.
+- [.removed]#Type: hybrid — operation (edit) and event (modification recorded)#
+- [.removed]#Label: report just modified#
+- [.removed]#Triggered by: Owner editing description, location, images, or metadata.#
+- [.removed]#Immediate response: Updated fields persisted; modification timestamp refreshed.#
+- [.removed]#Expected outcome/postcondition: Search results and visible details reflect new information.#
+- [.removed]#Reference to sketch: Users correcting typos or adding clarifying details.#
 
-====== Claim contact initiated (event / action)
+====== [.removed]#Claim contact initiated (event / action)#
 
-- Type: hybrid — action (contact initiation) and event (claim request recorded)
-- Label: claim request just initiated
-- Triggered by: User contacting reporter regarding a listing.
-- Immediate response: Institutional email channel opened or contact metadata recorded.
-- Expected outcome/postcondition: External verification conversation begins.
-- Reference to sketch: Owners contacting finders after discovering matching listing.
+- [.removed]#Type: hybrid — action (contact initiation) and event (claim request recorded)#
+- [.removed]#Label: claim request just initiated#
+- [.removed]#Triggered by: User contacting reporter regarding a listing.#
+- [.removed]#Immediate response: Institutional email channel opened or contact metadata recorded.#
+- [.removed]#Expected outcome/postcondition: External verification conversation begins.#
+- [.removed]#Reference to sketch: Owners contacting finders after discovering matching listing.#
 
-====== Report marked resolved (event / operation)
+====== [.removed]#Report marked resolved (event / operation)#
 
-- Type: hybrid — operation (status change) and event (resolution recorded)
-- Label: report just resolved
-- Triggered by: Owner marking listing as completed after recovery.
-- Immediate response: Lifecycle state updated from `"active"` to `"resolved"`.
-- Expected outcome/postcondition: Listing excluded from active search results.
-- Reference to sketch: Students closing listings after item recovery.
+- [.removed]#Type: hybrid — operation (status change) and event (resolution recorded)#
+- [.removed]#Label: report just resolved#
+- [.removed]#Triggered by: Owner marking listing as completed after recovery.#
+- [.removed]#Immediate response: Lifecycle state updated from `"active"` to `"resolved"`.#
+- [.removed]#Expected outcome/postcondition: Listing excluded from active search results.#
+- [.removed]#Reference to sketch: Students closing listings after item recovery.#
 
-====== Report flagged for review (event / action)
+====== [.removed]#Report flagged for review (event / action)#
 
-- Type: hybrid — action (flagging) and event (flag recorded)
-- Label: report just flagged
-- Triggered by: User identifying suspicious or inappropriate listing.
-- Immediate response: Flag metadata recorded; administrative review process notified.
-- Expected outcome/postcondition: Listing enters moderation workflow.
-- Reference to sketch: Concerns about spam or malicious reports.
+- [.removed]#Type: hybrid — action (flagging) and event (flag recorded)#
+- [.removed]#Label: report just flagged#
+- [.removed]#Triggered by: User identifying suspicious or inappropriate listing.#
+- [.removed]#Immediate response: Flag metadata recorded; administrative review process notified.#
+- [.removed]#Expected outcome/postcondition: Listing enters moderation workflow.#
+- [.removed]#Reference to sketch: Concerns about spam or malicious reports.#
 
-====== Report removed by administrator (event / operation)
+====== [.removed]#Report removed by administrator (event / operation)#
 
-- Type: hybrid — operation (removal) and event (removal recorded)
-- Label: report just removed
-- Triggered by: Administrator enforcing policy violation.
-- Immediate response: Lifecycle state set to `"removed"`; listing hidden from public feed.
-- Expected outcome/postcondition: Platform integrity preserved.
-- Reference to sketch: Oversight behavior ensuring trust within system.
-
-
-
-===== Reporting behavior
-
-- Type: composite behavioral sequence
-- Label: user reporting workflow
-
-Typical progression:
-
-1. Authenticate → *User authenticated*
-2. Submit lost/found form → *Lost item report submitted* / *Found item report submitted*
-3. Optional edit → *Report updated*
-4. Listing remains `"active"` until resolved or removed
-
-Expected outcome: Structured, searchable representation of real-world lost/found item.
-
-Reference to sketch: Community members formalize informal notice-board behavior through digital submission.
-
-===== Search and claim behavior
-
-- Type: composite behavioral sequence
-- Label: recovery attempt workflow
-
-Typical progression:
-
-1. Authenticate → *User authenticated*
-2. Search/filter listings (query operation; no event)
-3. Identify potential match
-4. Initiate contact → *Claim contact initiated*
-
-Expected outcome: Off-platform verification conversation begins.
-
-Reference to sketch: Students repeatedly checking listings to locate missing belongings.
-
-===== Verification and return behavior
-
-- Type: composite behavioral sequence
-- Label: recovery completion workflow
-
-Typical progression:
-
-1. Claim contact initiated
-2. External identity verification between users
-3. Owner marks listing resolved → *Report marked resolved*
-
-Expected outcome: Lifecycle transition from `"active"` to `"resolved"`; search space reduced.
-
-Reference to sketch: Users confirming identity before returning wallet or device.
-
-===== Oversight and moderation behavior
-
-- Type: composite behavioral sequence
-- Label: trust preservation workflow
-
-Typical progression:
-
-1. User flags suspicious listing → *Report flagged for review*
-2. Administrative evaluation
-3. Admin removes listing if necessary → *Report removed by administrator*
-
-Expected outcome: Platform integrity maintained; inappropriate content removed.
-
-Reference to sketch: Need for moderation to prevent misuse or fraudulent claims.
+- [.removed]#Type: hybrid — operation (removal) and event (removal recorded)#
+- [.removed]#Label: report just removed#
+- [.removed]#Triggered by: Administrator enforcing policy violation.#
+- [.removed]#Immediate response: Lifecycle state set to `"removed"`; listing hidden from public feed.#
+- [.removed]#Expected outcome/postcondition: Platform integrity preserved.#
+- [.removed]#Reference to sketch: Oversight behavior ensuring trust within system.#
 
 
-This revised structure distinguishes clearly between:
 
-- Operations (intentional user/system actions),
-- Events (state changes recorded in the domain),
-- Composite behaviors (temporal interaction patterns).
+===== [.removed]#Reporting behavior#
 
-It aligns domain concepts such as *Report*, *Ownership*, and *Lifecycle State* with concrete operational flows, ensuring structural consistency across terminology, requirements, and implementation.
+- [.removed]#Type: composite behavioral sequence#
+- [.removed]#Label: user reporting workflow#
+
+[.removed]#Typical progression:#
+
+1. [.removed]#Authenticate → *User authenticated*#
+2. [.removed]#Submit lost/found form → *Lost item report submitted* / *Found item report submitted*#
+3. [.removed]#Optional edit → *Report updated*#
+4. [.removed]#Listing remains `"active"` until resolved or removed#
+
+[.removed]#Expected outcome: Structured, searchable representation of real-world lost/found item.#
+
+[.removed]#Reference to sketch: Community members formalize informal notice-board behavior through digital submission.#
+
+===== [.removed]#Search and claim behavior#
+
+- [.removed]#Type: composite behavioral sequence#
+- [.removed]#Label: recovery attempt workflow#
+
+[.removed]#Typical progression:#
+
+1. [.removed]#Authenticate → *User authenticated*#
+2. [.removed]#Search/filter listings (query operation; no event)#
+3. [.removed]#Identify potential match#
+4. [.removed]#Initiate contact → *Claim contact initiated*#
+
+[.removed]#Expected outcome: Off-platform verification conversation begins.#
+
+[.removed]#Reference to sketch: Students repeatedly checking listings to locate missing belongings.#
+
+===== [.removed]#Verification and return behavior#
+
+- [.removed]#Type: composite behavioral sequence#
+- [.removed]#Label: recovery completion workflow#
+
+[.removed]#Typical progression:#
+
+1. [.removed]#Claim contact initiated#
+2. [.removed]#External identity verification between users#
+3. [.removed]#Owner marks listing resolved → *Report marked resolved*#
+
+[.removed]#Expected outcome: Lifecycle transition from `"active"` to `"resolved"`; search space reduced.#
+
+[.removed]#Reference to sketch: Users confirming identity before returning wallet or device.#
+
+===== [.removed]#Oversight and moderation behavior#
+
+- [.removed]#Type: composite behavioral sequence#
+- [.removed]#Label: trust preservation workflow#
+
+[.removed]#Typical progression:#
+
+1. [.removed]#User flags suspicious listing → *Report flagged for review*#
+2. [.removed]#Administrative evaluation#
+3. [.removed]#Admin removes listing if necessary → *Report removed by administrator*#
+
+[.removed]#Expected outcome: Platform integrity maintained; inappropriate content removed.#
+
+[.removed]#Reference to sketch: Need for moderation to prevent misuse or fraudulent claims.#
+
+
+[.removed]#This revised structure distinguishes clearly between:#
+
+- [.removed]#Operations (intentional user/system actions),#
+- [.removed]#Events (state changes recorded in the domain),#
+- [.removed]#Composite behaviors (temporal interaction patterns).#
+
+[.removed]#It aligns domain concepts such as *Report*, *Ownership*, and *Lifecycle State* with concrete operational flows, ensuring structural consistency across terminology, requirements, and implementation.#
+
+===== Domain Events
+
+Events are observable facts that have occurred in the domain. They are immutable records of domain reality (what happened), not prescriptions for how a system must implement them.
+
+[cols="1,3,2,2", options="header"]
+|===
+| *Event* | *Definition* | *Trigger* | *Observable Condition / Resulting State*
+
+| Lost item reported
+| A member declares that an identifiable item has been lost.
+| A member provides a description, approximate location, and time of loss.
+| A Lost Item report exists with status **active**; report contains description, time, and location.
+
+| Found item reported
+| A member declares that an identifiable item has been found.
+| A member provides a description of the found item, location found, and time found.
+| A Found Item report exists with status **active**; report contains description, location, and time.
+
+| Claim initiated
+| A member expresses intent to recover an item associated with a report.
+| A member contacts the reporter or otherwise signals intent to claim/return the item.
+| A claim record or contact metadata exists; an off-platform or in-person recovery process begins.
+
+| Claim verified
+| The parties have established sufficient evidence or mutual confirmation that the claimant is the rightful owner.
+| Parties perform identity/ownership confirmation (e.g., matching unique details, in-person ID check).
+| A verification note or record exists indicating verification succeeded; parties proceed to transfer.
+
+| Item returned
+| Physical possession of the item transfers from the finder to the owner.
+| Finder and owner complete a physical handover.
+| A return record exists; custody of the item is with the owner; associated report may be updated.
+
+| Report resolved
+| The matter associated with a report is considered closed (item returned, owner gives up, or other resolution).
+| Owner or finder declares closure, or parties agree resolution through other means.
+| Report status changes to **resolved**; no further recovery actions are expected.
+
+| Report challenged
+| A member raises a domain-level concern about a report (suspicion of fraud, duplicate, or inappropriate content).
+| A member identifies an issue and communicates the concern to an oversight actor.
+| A challenge record exists; the report enters a review workflow.
+
+| Report removed
+| A report is permanently withdrawn from public circulation due to policy or community enforcement.
+| An authorized reviewer determines removal is warranted after review.
+| Report status changes to **removed**; the report is no longer visible to the community.
+|===
+
+===== Domain Actions
+
+Actions are intentional activities performed by domain actors. Actions are distinct from events: actions describe what actors do; events describe what is observed.
+
+[cols="1,2,3,1", options="header"]
+|===
+| *Action* | *Actor* | *Description* | *Primary Related Entities*
+
+| Submit lost report
+| Member
+| Provide a factual description of a lost item (what, where, when) and declare the loss to the community.
+| Member; LostItemReport
+
+| Submit found report
+| Member
+| Provide a factual description of a found item (what, where, when) and declare the finding to the community.
+| Member; FoundItemReport
+
+| Update report
+| Member
+| Amend or add details to an existing report (e.g., additional identifying marks, corrected location).
+| Report; Member
+
+| Initiate claim
+| Member
+| Express intent to recover an item by contacting the reporter or otherwise signaling a claim.
+| Claim; Member; Report
+
+| Verify claim (external identity verification)
+| Members involved in a claim
+| Confirm identity or ownership through domain-level means (in-person ID, unique item detail, institutional credential).
+| Claim; Member
+
+| Transfer item custody (handover)
+| Finder and Owner
+| Physically hand the item from finder to owner, including any agreed verification steps.
+| Item; Member
+
+| Mark resolved
+| Owner or Finder
+| Declare that the report's matter is closed (item returned, owner withdraws claim, or other agreed resolution).
+| Report; Member
+
+| Challenge report
+| Member
+| Raise a domain concern about a report's legitimacy or content.
+| Report; Challenge; Member
+
+| Review challenge
+| Administrator or designated reviewer
+| Examine a challenged report and decide whether to clear the challenge or remove the report.
+| Report; Challenge; Administrator
+
+| Remove report
+| Administrator or designated reviewer
+| Permanently withdraw a report from community circulation following review and policy enforcement.
+| Report; Administrator
+|===
+
+===== Behaviors (Scenarios)
+
+Behaviors are composite sequences of actions and events that represent typical domain workflows. Each step maps to a defined domain action or event. These scenarios are system-independent: they describe what happens in the community, not how a system must implement it.
+
+====== Reporting an Item
+
+1. Action: Submit lost report or Submit found report
+2. Event: Lost item reported or Found item reported
+3. Action (optional): Update report
+
+*Outcome:* A public domain report exists and is discoverable by other members.
+
+*Notes:* Reporting actors are responsible for the accuracy of details. Updates are domain actions that produce observable modifications.
+
+====== Finding and Claiming an Item
+
+1. Action: Member searches available reports (informational activity; not an event)
+2. Action: Initiate claim
+3. Event: Claim initiated
+4. Action: Verify claim (external identity verification)
+5. Event: Claim verified
+6. Action: Transfer item custody (handover)
+7. Event: Item returned
+8. Action: Mark resolved
+9. Event: Report resolved
+
+*Outcome:* Item custody transfers to the rightful owner and the report is closed.
+
+*Notes:* Verification is a social/domain action that may use institutional credentials or unique item details; it is outside system enforcement unless the community defines a domain-level verification protocol.
+
+====== Return and Resolution without Handover
+
+1. Action: Owner locates item independently (not via the finder)
+2. Action: Owner marks resolved
+3. Event: Report resolved
+
+*Outcome:* Report closes without an Item returned event involving the finder. This scenario distinguishes the resolution from the physical return.
+
+====== Moderation and Trust Management
+
+1. Action: Challenge report
+2. Event: Report challenged
+3. Action: Review challenge
+4. If valid: Action: Clear challenge → Event: Flag cleared (report remains active)
+5. If invalid: Action: Remove report → Event: Report removed
+
+*Outcome:* Community integrity is preserved through domain review and enforcement.
