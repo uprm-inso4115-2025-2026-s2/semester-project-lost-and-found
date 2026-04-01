@@ -3,10 +3,22 @@ import { useNavigate } from "react-router-dom";
 import logo from "../assets/Lost&Found-Logo.jpeg";
 import "./ProfilePage.css";
 
-export default function ProfilePage() {
+export type ProfilePageProps = {
+  firstName?: string;
+  lastName?: string;
+  username?: string;
+  email?: string;
+  avatarUrl?: string | null;
+};
+
+export default function ProfilePage({ firstName, lastName, username, email, avatarUrl: initialAvatar }: ProfilePageProps) {
   const navigate = useNavigate();
-  const [avatarUrl, setAvatarUrl] = useState<string | null>(logo);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(initialAvatar ?? logo);
   const [uploadedAt, setUploadedAt] = useState<Date | null>(null);
+  const displayFirstName = firstName ?? "";
+  const displayLastName = lastName ?? "";
+  const displayUsername = username ?? "";
+  const displayEmail = email ?? "";
   const fileRef = useRef<HTMLInputElement | null>(null);
   const prevRef = useRef<string | null>(null);
 
@@ -44,8 +56,9 @@ export default function ProfilePage() {
           </div>
         </div>
         <div className="profileText">
-          <div className="name">Juanjo Santiago</div>
-          <div className="email">juanjo.santiago23@upr.edu</div>
+          <div className="name">{(displayFirstName || displayLastName) ? `${displayFirstName} ${displayLastName}`.trim() : "Your name"}</div>
+          <div className="username">{displayUsername ? `@${displayUsername}` : "username"}</div>
+          <div className="email">{displayEmail || "your.email@example.com"}</div>
         </div>
         <button className="editBtn">Edit Profile</button>
       </div>
