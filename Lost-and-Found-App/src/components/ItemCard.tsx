@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import "./ItemCard.css";
 
-export type ItemStatus = "Lost" | "Claimed" | "Returned";
+export type ItemStatus = "Lost" | "Found" | "Claimed" | "Returned";
 
 export interface ItemCardProps {
   imageUrl?: string;
@@ -20,6 +20,11 @@ const STATUS_THEME: Record<
     bar: "#ef4444",
     dot: "#ef4444",
     text: "#b91c1c",
+  },
+  Found: {
+    bar: "#10b981",
+    dot: "#10b981",
+    text: "#047857",
   },
   Claimed: {
     bar: "#3b82f6",

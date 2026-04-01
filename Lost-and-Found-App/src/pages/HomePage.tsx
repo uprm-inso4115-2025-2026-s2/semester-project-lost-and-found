@@ -1,10 +1,11 @@
 import logo from "../assets/Lost&Found-Logo.jpeg";
 import "./HomePage.css";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-
 import { ItemCard } from "../components/ItemCard";
 import type { ItemStatus } from "../components/ItemCard";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "../supabaseClient";
+import { deleteUserAndReports, signOut } from "../UserProfilesAccount/UserAccountManagement";
 
 import CategoryDropdown from "../components/CategoryDropdown";
 import type { CategoryFilter } from "../components/CategoryDropdown";
@@ -24,6 +25,7 @@ function toItemStatus(reportStatus: string): ItemStatus | null {
 export default function HomePage() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabKey>("Lost");
+  const [showProfilePanel, setShowProfilePanel] = useState(false);
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>("ALL");
   const [reports, setReports] = useState<Report[]>([]);
   const [loading, setLoading] = useState(true);
@@ -37,6 +39,44 @@ export default function HomePage() {
   const handleCreateReport = () => {
     navigate("/create-report");
   };
+
+  const handleDeleteAccount = async () => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete your account? This cannot be undone."
+    );
+
+    if (!confirmDelete) return;
+
+    setLoading(true);
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      alert(
+        "Account deletion is not available yet. Please log in once authentication is implemented."
+      );
+      setLoading(false);
+      return;
+    }
+
+    const result = await deleteUserAndReports(user.id);
+
+    if (!result.success) {
+      alert(
+        "Account deletion feature is still being finalized. Please try again later."
+      );
+      setLoading(false);
+      return;
+    }
+
+    await signOut();
+
+    alert("Account deleted successfully.");
+    window.location.href = "/";
+  };
+
 
   const filteredReports = reports.filter((report) => {
     const itemStatus = toItemStatus(report.getStatus());
@@ -83,7 +123,6 @@ export default function HomePage() {
         <CategoryDropdown onCategoryChange={setCategoryFilter} />
       </div>
 
-      {/* GRID */}
       <section className="itemsGrid">
         {loading ? (
           <p className="emptyMessage">Loading reports…</p>
@@ -107,12 +146,60 @@ export default function HomePage() {
         )}
       </section>
 
-      {/* BOTTOM NAV */}
+      {showProfilePanel && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            backgroundColor: "white",
+            zIndex: 1000,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <button
+            onClick={() => setShowProfilePanel(false)}
+            style={{
+              position: "absolute",
+              top: "20px",
+              right: "20px",
+              background: "none",
+              border: "none",
+              fontSize: "24px",
+              cursor: "pointer",
+              color: "black",
+            }}
+          >
+            ✕
+          </button>
+
+          <h2 style={{ marginBottom: "20px", color: "black" }}>Profile</h2>
+
+          <button
+            onClick={handleDeleteAccount}
+            disabled={loading}
+            style={{
+              backgroundColor: "red",
+              color: "white",
+              padding: "12px 20px",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+              fontWeight: "bold",
+            }}
+          >
+            {loading ? "Deleting..." : "Delete Account"}
+          </button>
+        </div>
+      )}
+
       <nav className="bottomNav">
         <button>🏠</button>
         <button>🔍</button>
         <button onClick={handleCreateReport}>➕</button>
-        <button>👤</button>
+        <button onClick={() => setShowProfilePanel(true)}>👤</button>
       </nav>
     </div>
   );
