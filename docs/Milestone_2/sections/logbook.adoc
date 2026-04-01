@@ -10,4 +10,8 @@
 | 5.
 | Added
 
+| Leanelys González
+| 1.5
+| Modified
+
 |===
