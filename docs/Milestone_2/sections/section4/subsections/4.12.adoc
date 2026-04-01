@@ -1,1 +1,30 @@
 === *Requirements Engineering Process Model*
+
+= [Lecture Topic Task] Requirements Engineering Process Model for the Lost & Found System 
+:author: Tomás Esteban Gómez Mojica
+
+
+The most appropriate Requirements Engineering (RE) process model for developing the university's Lost & Found platform is the Agile and Iterative Model. This methodological approach treats requirements not as a static document, but as a living product that evolves in parallel with the software development process.
+
+== Core Phases of the Agile Model
+Instead of defining all functionalities at the start of the project, this model divides the process into development cycles and includes the following central phases:
+
+- *Continuous elicitation*: Needs are constantly gathered through direct communication and feedback from users and administrators.
+
+- *Incremental specification*: Requirements are documented using prioritized user stories in a product backlog, detailing only what is necessary for the next work cycle.
+
+- *Iterative validation*: Prototypes or functional increments are built periodically for stakeholders to test, validate, and approve.
+
+- *Dynamic requirement management*: The team maintains traceability and adapts requirement priorities based on the operational value each feature brings to the campus.
+
+=== Justification Over the Sequential Model
+A strict *sequential* approach, like the Waterfall model, assumes that requirements will not change, which is *unrealistic* in a dynamic university environment. The *iterative* model is superior for the Lost & Found app because it allows the development team to adapt to unforeseen factors without derailing the project. For example, if campus security updates its protocols for handling valuable or electronic items, the team can immediately integrate these new rules into the next cycle. 
+
+Furthermore, releasing early versions allows the team to observe how students actually *interact* with the reporting interface. This direct feedback ensures the final application is truly intuitive and solves the core problem, rather than blindly following an initial document that might be outdated.
+
+=== Handling Changes During Development
+In an iterative model, the evolution of requirements is an expected and planned advantage, not a methodological obstacle. If an administrator requests a new feature mid-development, such as adding an automated email notification system, the change process is structured yet highly flexible.
+
+The development team captures the new request, analyzes its technical feasibility, and transforms it into a clear user story. This story is then inserted into the backlog, and its priority level is evaluated against the remaining work. If the administrator determines the feature is urgent, the team simply includes it in the planning phase for the very next programming cycle. In this way, the platform absorbs new institutional needs in a controlled manner, ensuring changes are implemented without disrupting the current architecture.
+
+---
