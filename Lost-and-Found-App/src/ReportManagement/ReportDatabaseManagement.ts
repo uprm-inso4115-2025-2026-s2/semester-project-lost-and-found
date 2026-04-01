@@ -136,3 +136,63 @@ export async function getAllReports(): Promise<Report[]> {
     
     return reports;
 }
+
+/*User History Filtering*/
+
+//Filter reports based on the user ID
+export async function getReportByUser(id: string): Promise<Report[]> { 
+
+    //Query the database
+    const {data, error} = await supabase
+        .from('reports')
+        .select()
+        .eq('createdBy', id) //createdBy = id, get from the database the specific report that matches the user ID
+        .order('dateFound', { ascending: false }); //Sort the reports by date found, most recent first
+
+    //Error handling
+    if (!data || error) {
+        console.error(error);
+        return [];
+    }
+    
+    //Empty array to store reports
+    let reports: Report[] = [];
+
+    //Iterates through each row from the database
+    for (let i = 0; i < data.length; i++) {
+
+        //Categories stored in database
+        let category: Category = 'OTHER';
+        if (data[i].category === "Electronics") { category = 'ELECTRONICS'; }
+        else if (data[i].category === "Personal") { category = 'PERSONAL'; }
+        else if (data[i].category === "Office Supplies") { category = 'OFFICE SUPPLIES'; }
+
+        //Status stored in database
+        let status: ReportStatus = 'ACTIVE';
+        if (data[i].status === "Resolved") { status = 'RESOLVED'; }
+        else if (data[i].status === "Claimed") { status = 'CLAIMED'; }
+
+        //Type stored in database
+        let type: ReportType = 'LOST';
+        if (data[i].type === "Found") { type = 'FOUND'; }
+
+        //Report object
+        const prop = {
+            title: data[i].title,
+            description: data[i].description,
+            dateFound: new Date(data[i].dateFound),
+            location: data[i].location,
+            category: category,
+            tags: data[i].tags,
+            imageUrl: data[i].imageURL,
+            createdBy: data[i].createdBy,
+            type: type
+        }
+
+        //Creates a report object and pushes it to the array
+        reports.push(Report.fromSupabase(data[i].id, prop, status));
+    }
+
+    //Returns the final result of the array of reports that match the user ID
+    return reports;
+}
