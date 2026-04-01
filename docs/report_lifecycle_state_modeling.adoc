@@ -1,0 +1,137 @@
+= Report Lifecycle State Modeling in the Lost & Found System
+:toc:
+
+== 🎯 Goal
+Analyze how reports transition through different states in the Lost & Found system, and how these states affect object management and user interactions.
+
+== 📋 Report Lifecycle Overview
+
+The lifecycle of a report represents the sequence of states a report goes through from creation to resolution. This lifecycle ensures proper tracking, validation, and management of lost and found items.
+
+The key states are:
+
+1. Draft / Submitted  
+2. Visible (Stored & Published)  
+3. Matched  
+4. Claim Initiated  
+5. Resolved (Claimed, Rejected, or Expired)  
+
+---
+
+== 🔄 Lifecycle Steps with Domain Classification
+
+[cols="1,2,2", options="header"]
+|===
+| Step | Description | Domain Classification
+
+| Report Created
+| A user creates a report describing a lost or found item.
+| Event
+
+| Report Stored & Visible
+| The system saves the report and makes it accessible to other users.
+| Function
+
+| Report Matched
+| The system compares reports and suggests potential matches.
+| Behavior
+
+| Claim Initiated
+| A user submits a claim for a report.
+| Event
+
+| Report Resolved
+| The report reaches a final state (claimed, rejected, or expired).
+| Behavior
+|===
+
+---
+
+== ⚙️ State Transitions and System Enforcement
+
+The system enforces valid transitions between states to maintain consistency and prevent invalid operations.
+
+Valid transitions include:
+- Draft → Visible  
+- Visible → Matched  
+- Matched → Claim Initiated  
+- Claim Initiated → Resolved  
+
+Invalid transitions are restricted, such as:
+- Draft → Resolved (without submission)
+- Resolved → Matched (cannot reopen automatically)
+- Claim Initiated → Draft  
+
+The system enforces these transitions using:
+- Validation rules before state changes  
+- Permission checks (only owners/admins can perform certain actions)  
+- Status flags stored in the database  
+
+---
+
+== 🤖 System vs 👤 Human Responsibilities
+
+=== System-Driven Actions
+- Storing and retrieving reports  
+- Matching reports based on attributes (location, description, category)  
+- Enforcing valid state transitions  
+- Expiring inactive reports automatically  
+
+=== Human-Driven Actions
+- Creating and editing reports  
+- Submitting claims  
+- Providing evidence for ownership  
+- Reviewing and approving/rejecting claims (admin or owner)  
+
+---
+
+== ⚠️ Complex Scenarios
+
+=== Scenario 1: Expired Report
+
+A report remains unclaimed for a long period and is automatically marked as expired.
+
+Challenges:
+- Prevent users from submitting claims on expired reports  
+- Decide whether expired reports can be reactivated  
+
+System Handling:
+- Automatically transition report to "Expired" state  
+- Disable claim functionality  
+- Allow optional admin reactivation  
+
+---
+
+=== Scenario 2: Multiple Claims for the Same Item
+
+Multiple users submit claims for the same report.
+
+Challenges:
+- Determining the rightful owner  
+- Preventing conflicts between claimants  
+
+System Handling:
+- Allow multiple claims but flag the report as "Under Review"  
+- Require evidence submission from each claimant  
+- Admin or report owner selects the valid claim  
+- Reject all other claims  
+
+---
+
+== 📊 Impact on System Behavior
+
+The report lifecycle directly influences how the system behaves:
+
+- Ensures structured progression of reports  
+- Prevents invalid or inconsistent operations  
+- Supports fair and transparent claim handling  
+- Improves user trust through controlled workflows  
+- Enables automation (matching, expiration) while maintaining human oversight  
+
+By clearly defining lifecycle states and transitions, the system achieves both reliability and scalability in managing lost and found items.
+
+---
+
+== ✅ Conclusion
+
+The report lifecycle provides a structured model for managing reports from creation to resolution. By combining system automation with human decision-making, the Lost & Found platform ensures accurate tracking, fair claim validation, and consistent object management.
