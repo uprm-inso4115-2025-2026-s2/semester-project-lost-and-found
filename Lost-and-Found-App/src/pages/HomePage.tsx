@@ -2,15 +2,10 @@ import logo from "../assets/Lost&Found-Logo.jpeg";
 import "./HomePage.css";
 import { ItemCard } from "../components/ItemCard";
 import type { ItemStatus } from "../components/ItemCard";
-import walletImg from "../assets/sample/wallet.jpeg";
-import bottleImg from "../assets/sample/bottle.jpeg";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import { deleteUserAndReports, signOut } from "../UserProfilesAccount/UserAccountManagement";
-
-import { ItemCard } from "../components/ItemCard";
-import type { ItemStatus } from "../components/ItemCard";
 
 import CategoryDropdown from "../components/CategoryDropdown";
 import type { CategoryFilter } from "../components/CategoryDropdown";
