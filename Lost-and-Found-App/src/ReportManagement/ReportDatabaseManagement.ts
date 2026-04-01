@@ -122,9 +122,3 @@ export async function getAllReports(): Promise<Report[]> {
     
     return reports;
 }
-
-export function filterForTags(filterTags: string[], reports: Report[]): Report[] {
-    return reports.filter(report =>
-                report.getTags().some(tag => filterTags.includes(tag))
-            );
-}
