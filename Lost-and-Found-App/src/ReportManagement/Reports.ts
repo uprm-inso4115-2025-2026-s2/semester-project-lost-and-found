@@ -47,6 +47,8 @@ export class Report {
   public getDescription(): string { return this.description; }
   public getDateFound(): Date { return this.dateFound; }
   public getLocation(): string { return this.location; }
+  
+  public getRawCategory(): Category { return this.category; }
 
   public getCategory(): string { 
     switch (this.category) {
