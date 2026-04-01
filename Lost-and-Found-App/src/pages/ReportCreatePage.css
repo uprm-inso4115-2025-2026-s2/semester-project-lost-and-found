@@ -255,3 +255,9 @@ textarea {
     padding: 16px;
   }
 }
+
+.TagLimitError {
+  color: #d32f2f;        /* red text */
+  font-size: 0.9rem;
+  margin-top: 6px;
+}
