@@ -1662,3 +1662,43 @@ Data consistency and system guarantees are essential for maintaining a reliable 
 ===== References
 
 Schütz-Schmuck, M. (2021). _Domain Attributes_ [Lecture slides]. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+==== [Lecture Topic Task]: Report Verification as a Domain Process
+:author: Natanael Batista Alvarez
+===== Overview
+
+Report verification and item claiming in the Lost & Found system can be understood as a domain process composed of interacting entities, events, functions, and behaviors. This process ensures that items are returned to their rightful owners while maintaining system consistency and preventing fraudulent claims. It combines structured system logic with human decision-making, reflecting both formal and informal aspects of the domain.
+
+===== Verification Workflow and Domain Classification
+
+The process begins when an item is reported. This is an event that creates a report entity within the system. The report contains relevant attributes such as item description, category, and location, forming part of the domain description. 
+
+A user then submits a claim for the item. This is another event that introduces a new entity, the claim request, which is associated with the existing report. This establishes a relationship between two domain entities and initiates the verification process.
+
+The claimant provides evidence to support ownership. This step functions as a function, since it transforms user-provided input into structured data that can be evaluated. Examples include identifying details or hidden characteristics of the item.
+
+Next, the claim is reviewed. This step represents a behavior, as it involves a sequence of actions combining system operations and human judgment. The system organizes and displays the relevant data, while a moderator or staff member evaluates whether the evidence is sufficient to confirm ownership. This reflects a dynamic domain process where decisions depend on context rather than fixed rules.  
+
+Finally, the system records the outcome as either approval or rejection. This is an event that causes a state transition in the report entity, such as moving from “pending verification” to “claimed” or remaining available. These transitions must follow controlled rules to maintain consistency across the system.  
+
+===== System and Human Responsibilities
+
+The system is responsible for handling structured and deterministic tasks. These include storing reports and claims, linking related entities, validating input data, and enforcing valid state transitions. These operations ensure that the domain remains consistent and that invalid states are prevented.
+
+Human actors, such as moderators or staff, are responsible for evaluating evidence and making final decisions in ambiguous situations. Ownership cannot always be determined through automated logic, especially when information is incomplete or subjective. This introduces decision-based behavior that depends on human reasoning rather than purely formal rules.  
+
+===== Challenging Scenarios
+
+One challenging scenario occurs when multiple users submit claims for the same item. This creates a conflict where the system must manage multiple claim entities while ensuring that only one can be approved. The system maintains consistency by enforcing constraints, while human reviewers compare evidence and determine which claim is valid.
+
+Another scenario arises when the item description is vague or incomplete. In this case, the system cannot reliably verify ownership using stored data alone. The process then depends more heavily on human judgment, requiring additional verification steps such as private questions or detailed descriptions. The system supports this by limiting visible information and requesting further input.
+
+===== Impact on System Behavior
+
+The verification process directly affects system behavior by controlling how reports transition between states and how conflicts are resolved. It ensures that only valid claims lead to ownership transfer, maintaining both data integrity and user trust. At the same time, it highlights the need for a balance between automated system logic and human decision-making within the domain.
+
+===== References
+
+Schütz-Schmuck, M. (2021). Domain Engineering. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez. 
+
+Schütz-Schmuck, M. (2021). Domain Attributes. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
