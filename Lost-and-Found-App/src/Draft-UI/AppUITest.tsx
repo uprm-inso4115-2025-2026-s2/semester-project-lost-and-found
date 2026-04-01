@@ -1,18 +1,18 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
-import { ItemCard } from "./components/ItemCard";
+import { ItemCard } from "../components/ItemCard";
 import {
   editReport,
   getAllReports,
-} from "./ReportManagement/ReportDatabaseManagement";
+} from "../ReportManagement/ReportDatabaseManagement";
 import {
   Report,
   type Category,
   type ReportStatus,
   type ReportType,
-} from "./ReportManagement/Reports";
-import walletImg from "./assets/sample/wallet.jpeg";
-import bottleImg from "./assets/sample/bottle.jpeg";
+} from "../ReportManagement/Reports";
+import walletImg from "../assets/sample/wallet.jpeg";
+import bottleImg from "../assets/sample/bottle.jpeg";
 
 type TabKey = "All" | "Lost" | "Found" | "Claimed";
 
