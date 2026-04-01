@@ -1,0 +1,129 @@
+==== Domain Description Units for Lost & Found
+:author: Abdiel Cotto
+
+=== Definition of Domain Description Units
+
+A domain description unit (DDU) is a small, source-traceable statement that captures one domain fact at a time. Each unit isolates a single fact and tags it with metadata so the fact can be analyzed, reviewed, compared, and reused without mixing several ideas together.
+
+For this Lost & Found system, each DDU includes:
+
+- `ID` for traceability
+- `Stakeholder source` showing where the fact came from
+- `Kind` to classify the fact as an `entity`, `function`, `event`, or `behavior`
+- `Attribute` to indicate whether the fact is mainly `passive`, `active`, or `reactive`
+- `Facet classification` to group the fact by domain concern
+- `Fact` as the atomic domain statement
+
+=== Structured Units
+
+[cols="1,3,1,1,2,4",options="header"]
+|===
+|ID |Stakeholder source |Kind |Attribute |Facet classification |Fact
+
+|`DDU-01`
+|Mateo rough sketch and terminology (`2.1.1`, `2.1.2`)
+|Entity
+|Passive
+|Item state
+|A lost item is a personal belonging whose owner no longer knows its location and intends to recover.
+
+|`DDU-02`
+|Daniel rough sketch and terminology (`2.1.1`, `2.1.2`)
+|Entity
+|Passive
+|Item state
+|A found item is a personal belonging discovered by someone other than its owner and may be returned.
+
+|`DDU-03`
+|Camila library workflow note and terminology (`2.1.1`, `2.1.2`)
+|Entity
+|Passive
+|Record management
+|A report is the structured record that describes a lost or found item and supports identification and recovery.
+
+|`DDU-04`
+|Valeria persona and reporting requirements (`2.2.1`, `2.2.2`)
+|Function
+|Active
+|Reporting
+|Reporting is the action by which a user documents a lost or found item so recovery becomes possible.
+
+|`DDU-05`
+|Mateo persona and search epic (`2.2.1`, `2.2.2`)
+|Function
+|Active
+|Discovery
+|Users browse and filter reports by attributes such as category, location, date, and status to narrow the search space.
+
+|`DDU-06`
+|Domain narrative and terminology (`2.1.2`, `2.1.3`)
+|Behavior
+|Reactive
+|Matching
+|Matching compares descriptions of lost and found items to determine whether they refer to the same physical object.
+
+|`DDU-07`
+|Daniel persona and ownership verification signature (`2.1.5`, `2.2.2`)
+|Behavior
+|Reactive
+|Ownership verification
+|Claim verification checks whether a person asserting ownership is legitimately entitled to receive the item.
+
+|`DDU-08`
+|Domain narrative (`2.1.3`)
+|Event
+|Reactive
+|Recovery lifecycle
+|Recovery occurs when a lost item is successfully returned to its owner.
+
+|`DDU-09`
+|Campus security interview note and terminology (`2.1.1`, `2.1.2`)
+|Event
+|Reactive
+|Lifecycle closure
+|Closure ends a report lifecycle either because the item was recovered or because recovery is no longer expected.
+
+|`DDU-10`
+|Scope and claim requirements (`1.3.1`, `2.2.1`)
+|Behavior
+|Reactive
+|Communication and privacy
+|Communication between parties occurs outside the platform through official institutional email accounts rather than public personal contact details.
+|===
+
+=== Tagged Classification Breakdown
+
+[cols="1,1",options="header,autowidth"]
+|===
+|Tag group |Breakdown
+|Kind
+|`Entity = 3`, `Function = 2`, `Behavior = 3`, `Event = 2`
+|Attribute
+|`Passive = 3`, `Active = 2`, `Reactive = 5`
+|Facet
+|`Item state = 2`, `Record management = 1`, `Reporting = 1`, `Discovery = 1`, `Matching = 1`, `Ownership verification = 1`, `Recovery lifecycle = 1`, `Lifecycle closure = 1`, `Communication and privacy = 1`
+|===
+
+=== Why Structuring Helps Domain Understanding
+
+Structuring domain knowledge into DDUs improves understanding because each fact becomes atomic, explicit, and traceable. Instead of mixing concepts such as reports, verification, and recovery in one paragraph, the team can review each fact separately, classify it consistently, and check whether it belongs to the domain, the requirements, or the implementation.
+
+This also makes disagreements easier to detect. If a stakeholder challenges a fact, the team can point to the exact DDU, its source, and its classification instead of revisiting an entire narrative section. As a result, DDUs support clearer analysis, better requirement derivation, and stronger documentation consistency.
+
+=== Poorly Structured vs Well-Structured Units
+
+[cols="1,1",options="header"]
+|===
+|Poorly structured
+|Well-structured
+
+|Users report items, search for them, contact each other, and eventually get them back.
+|`DDU-04`: Reporting is the action by which a user documents a lost or found item so recovery becomes possible.
+
+|The system keeps things private and helps stop wrong claims.
+|`DDU-07`: Claim verification checks whether a person asserting ownership is legitimately entitled to receive the item.
+|===
+
+=== Notes
+
+The units above were derived from the existing Lost & Found documentation already present in the repository, especially the domain rough sketches, terminology, narrative, scope, personas, and requirements sections in `docs/Milestone_1`.
