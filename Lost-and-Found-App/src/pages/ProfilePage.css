@@ -1,0 +1,151 @@
+.profilePage {
+  max-width: 550px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-bottom: 80px;
+  background: #ffffff;
+  color: #111;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto;
+}
+
+.profileHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.iconBtn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.title {
+  font-size: 18px;
+  margin: 0;
+}
+
+.profileCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 28px 20px;
+}
+
+.avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 999px;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.avatarShell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.avatarImg {
+  width: 84px;
+  height: 84px;
+  border-radius: 999px;
+  background: #f0f0f0;
+  object-fit: cover;
+}
+
+.avatarControls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.uploadBtn {
+  margin-top: 8px;
+  background: #ffffff;
+  border: 1px solid rgba(13, 63, 43, 0.08);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.avatarControls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.profileText {
+  text-align: center;
+}
+
+.name {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.email {
+  font-size: 13px;
+  color: #666;
+}
+
+.editBtn {
+  margin-top: 14px;
+  background: #00c853;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 360px;
+  cursor: pointer;
+}
+
+.profileList {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0;
+}
+
+.profileList li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f1f1f1;
+  cursor: pointer;
+}
+
+.profileList li .chev {
+  color: #999;
+}
+
+.profileList li.danger {
+  color: #b00020;
+}
+
+.divider {
+  border: none;
+  height: 8px;
+  background: #fafafa;
+  margin: 10px 0;
+}
+
+.uploadedTime {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #666;
+}

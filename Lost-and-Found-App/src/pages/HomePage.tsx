@@ -112,7 +112,7 @@ export default function HomePage() {
         <button>🏠</button>
         <button>🔍</button>
         <button onClick={handleCreateReport}>➕</button>
-        <button>👤</button>
+        <button onClick={() => navigate("/profile")}>👤</button>
       </nav>
     </div>
   );
