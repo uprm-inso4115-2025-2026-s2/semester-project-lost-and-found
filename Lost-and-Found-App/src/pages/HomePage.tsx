@@ -222,7 +222,7 @@ export default function HomePage() {
         <button>🏠</button>
         <button onClick={() => setShowSearch(prev => !prev)}>🔍</button>
         <button onClick={handleCreateReport}>➕</button>
-        <button onClick={() => setShowProfilePanel(true)}>👤</button>
+        <button onClick={() => navigate("/profile")}>👤</button>
       </nav>
     </div>
   );
