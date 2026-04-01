@@ -24,6 +24,8 @@ function toItemStatus(reportStatus: string): ItemStatus | null {
 
 export default function HomePage() {
   const navigate = useNavigate();
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState<TabKey>("Lost");
   const [showProfilePanel, setShowProfilePanel] = useState(false);
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>("ALL");
@@ -81,9 +83,17 @@ export default function HomePage() {
   const filteredReports = reports.filter((report) => {
     const itemStatus = toItemStatus(report.getStatus());
     const statusMatch = itemStatus === activeTab;
+
     const categoryMatch =
       categoryFilter === "ALL" || report.getRawCategory() === categoryFilter;
-    return statusMatch && categoryMatch;
+
+    const searchMatch =
+    searchQuery.trim() === "" ||
+    report.getTags().some(tag =>
+      tag.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    return statusMatch && categoryMatch && searchMatch;
   });
 
   return (
@@ -123,6 +133,19 @@ export default function HomePage() {
         <CategoryDropdown onCategoryChange={setCategoryFilter} />
       </div>
 
+      {showSearch && (
+      <div className="searchBarContainer">
+        <input
+          type="text"
+          placeholder="Search by tags..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="searchInput"
+        />
+      </div>
+      )}
+
+      {/* GRID */}
       <section className="itemsGrid">
         {loading ? (
           <p className="emptyMessage">Loading reports…</p>
@@ -197,7 +220,7 @@ export default function HomePage() {
 
       <nav className="bottomNav">
         <button>🏠</button>
-        <button>🔍</button>
+        <button onClick={() => setShowSearch(prev => !prev)}>🔍</button>
         <button onClick={handleCreateReport}>➕</button>
         <button onClick={() => setShowProfilePanel(true)}>👤</button>
       </nav>

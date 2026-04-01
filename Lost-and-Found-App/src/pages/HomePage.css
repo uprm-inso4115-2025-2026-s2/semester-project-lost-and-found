@@ -100,6 +100,23 @@
   font-size: 22px;
 }
 
+.searchBarContainer {
+  padding: 0 16px 12px;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+}
+
+.searchInput:focus {
+  border-color: #17a45b;
+}
+
 .emptyMessage {
   grid-column: 1 / -1;
   text-align: center;
