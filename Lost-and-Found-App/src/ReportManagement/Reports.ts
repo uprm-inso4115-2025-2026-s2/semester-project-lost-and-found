@@ -184,19 +184,23 @@ export class Report {
   static fromSupabase(id: string, prop: CreateReportProps, status: ReportStatus): Report {
       return new Report(id, prop, status);
   }
+  public getRawStatus(): ReportStatus {
+    return this.status;
+  }
+  
 }
 
 // dummy data to test each variable works correctly 
 // const report = Report.Create({
-//     title: 'I Phone 6 Million',
-//     description: 'FUN EVENT',
-//     dateFound: new Date('2026-02-26'),
-//     location: 'Choliseo',
-//     category: "ELECTRONICS",
-//     tags: [],
-//     imageUrl: undefined,
-//     createdBy: 'Sasuke',
-//   });
+//   title: 'I Phone 6 Million',
+//   description: 'FUN EVENT',
+//   dateFound: new Date('2026-02-26'),
+//   location: 'Choliseo',
+//   category: "ELECTRONICS",
+//   tags: [],
+//   imageUrl: undefined,
+//   createdBy: 'Sasuke',
+// });
 
 // console.log('ID:', report.getID());
 // console.log('Title:', report.getTitle());
