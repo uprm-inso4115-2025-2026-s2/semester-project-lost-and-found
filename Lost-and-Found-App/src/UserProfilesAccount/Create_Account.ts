@@ -23,6 +23,7 @@ async function createAccount(username: string, password: string, email: string, 
         .from("UserAccounts")
         .insert([
             {
+                UserId: userId,
                 Username: username,
                 Password: password,
                 Email: email,

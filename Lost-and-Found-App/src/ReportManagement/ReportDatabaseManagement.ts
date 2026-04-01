@@ -41,16 +41,30 @@ export async function deleteReport(id: string): Promise<boolean> {
     return true;
 }
 
-export async function getReport(id: string): Promise<Report> {
+export async function deleteReportsByUser(userId: string): Promise<boolean> {
+    const { error } = await supabase
+        .from('reports')
+        .delete()
+        .eq('createdBy', userId);
+
+    if (error) {
+        console.error("Error deleting reports for user", userId, error);
+        return false;
+    }
+
+    return true;
+}
+
+export async function getReport(id: string): Promise<Report | null> {
     const { data, error } = await supabase
         .from('reports')
         .select()
         .eq('id', id)
         .single();
 
-    if (error) {
-        console.error(error);
-        return Report.CreateDefault();
+    if (error || !data) {
+        console.error("Report not found or error:", error);
+        return null; // Return null for missing/deleted reports
     }
 
     let category: Category = 'OTHER';
