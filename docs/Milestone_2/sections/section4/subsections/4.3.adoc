@@ -403,6 +403,7 @@ Active Reports in search results."
 |===
 
 ===== C) Further Elicitation
+
 To better understand and resolve the identified requirements inconsistencies the following elicitation techniques are required:
 
 - Interview with stakeholders  to help us answer and determine the following questions: What are their needs? , What do they want/expect from our system/platform?
@@ -418,7 +419,9 @@ The simplified version is presented on section E) "Questionarie to Stakeholders"
 
 
 1) Case 1: 
+
 Conflict: 
+
 "Administrators shall be able to override Report 
 status in cases of misuse or verified dispute." 
 vs.
@@ -437,7 +440,9 @@ Questions to ask to the stakeholders in the interview:
 - After an override will there be a new status such as "Overridden" or will they remain as (e.g. "Active" , "Closed")
 
 2) Case 2:
+
 Conflict:
+
 " The system shall record status transitions from Active to Returned or Closed." vs. "The system shall allow a Report to be manually closed if Recovery is no longer expected"
 
 For this case conflict, I am also referencing this other requirement: "Administrators shall be able to override Report 
@@ -452,7 +457,9 @@ Questions for stakeholders:
 - In such cases, who is allowed to manually close the report administrators or users?
 
 3) Case 3:
+
 Conflict:
+
 "The system shall distinguish between public descriptive information and private verification information within each Report." vs. "The system must provide a public view for item details showing only public fields (category, description, photos, general location) and a prompt to log in to contact the owner." vs. "The system shall allow users to search Reports based on keywords related to the item description"
 
 Questions for stakeholders:
@@ -466,6 +473,7 @@ Questions for stakeholders:
 
 
 ===== D) Resolutions Tactics and Risk Reduction Techniques
+
 Based on Lecture Notes, the following tactics could be used to resolve or handle weak conflicts:
 
 *1)  Administrators override report status*
@@ -474,7 +482,8 @@ Conflict resolution tactic: Weaken conflicting statements
 
 
 Solution:
- - Allow overrides only under verified disputes, with mandatory justification and user notification disclosing the reasons of the override
+
+- Allow overrides only under verified disputes, with mandatory justification and user notification disclosing the reasons of the override
 
 - Keep a history of changes(log) to audit all the changes with timestamps 
 
