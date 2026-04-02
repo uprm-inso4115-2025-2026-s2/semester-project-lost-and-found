@@ -1702,3 +1702,119 @@ The verification process directly affects system behavior by controlling how rep
 Schütz-Schmuck, M. (2021). Domain Engineering. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez. 
 
 Schütz-Schmuck, M. (2021). Domain Attributes. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+---
+
+==== Object Ownership and Access Control for Reports
+:author: Adiel Soto
+
+Object ownership defines which user has control over a report and determines what actions can be performed on it. Access control ensures that only authorized users can modify reports, maintaining system integrity and security.
+
+===== Ownership Model
+
+Ownership is established when a user creates a report. The creator becomes the owner and gains permission to edit or delete the report.
+
+The ownership model includes:
+
+- Owner: The user who created the report  
+- Viewer: Any user who can see the report but cannot modify it  
+- Admin: A privileged user who can override permissions when necessary  
+
+Ownership may change after a successful claim, depending on system policy (e.g., item returned and report closed).
+
+===== Domain Classification of Steps
+
+The ownership process can be described and classified as follows:
+
+[cols="1,2,2", options="header"]
+|===
+| Step | Description | Classification
+
+| Report Created
+| A user creates a report and becomes its owner.
+| Event
+
+| Permission Assignment
+| The system assigns edit/delete rights to the owner.
+| Function
+
+| Report Access
+| Other users can view but not modify the report.
+| Behavior
+
+| Admin Override
+| An admin modifies or manages a report when necessary.
+| Event
+
+| Ownership Transfer
+| Ownership may change after claim resolution.
+| Behavior
+|===
+
+===== Access Control Enforcement
+
+The system enforces access control through multiple mechanisms:
+
+- Authentication: Verifies user identity before allowing access  
+- Authorization: Determines what actions a user can perform  
+- Permission checks: Ensure only owners or admins can edit/delete reports  
+- Database rules: Restrict unauthorized updates at the data level  
+
+Unauthorized modifications are prevented by validating user roles before any update operation is executed.
+
+===== System vs Human Responsibilities
+
+System-driven actions include:
+- Verifying user identity (authentication)  
+- Enforcing permission rules  
+- Blocking unauthorized access attempts  
+- Updating ownership data after valid transitions  
+
+Human-driven actions include:
+- Creating reports  
+- Editing or deleting owned reports  
+- Submitting claims  
+- Admin reviewing and resolving disputes  
+
+===== Complex Scenarios
+
+[discrete]
+====== Scenario 1: Anonymous Reports
+
+A report is submitted without user identification.
+
+Challenges:
+- No clear ownership for editing or deletion  
+- Increased risk of misuse or false reports  
+
+System Handling:
+- Limit editing capabilities  
+- Assign temporary or restricted ownership  
+- Require verification before allowing claims  
+
+[discrete]
+====== Scenario 2: Disputed Ownership
+
+Multiple users claim ownership of the same item.
+
+Challenges:
+- Determining the rightful owner  
+- Preventing unauthorized edits during the dispute  
+
+System Handling:
+- Lock report editing during dispute  
+- Require evidence from claimants  
+- Allow admin to resolve and assign final ownership  
+
+===== Impact on System Behavior
+
+Ownership and access control directly affect system security and reliability:
+
+- Prevent unauthorized modifications  
+- Protect user data and report integrity  
+- Enable controlled collaboration between users  
+- Ensure fair resolution of claims and disputes  
+
+A well-defined ownership model strengthens trust in the system and ensures consistent behavior across all report interactions.
+
+---
