@@ -1,0 +1,91 @@
+---
+
+==== Report Negotiation and Claim Confirmation Workflow #220
+:author: Nelson Caban
+
+===== Goal
+Model the interaction workflow that occurs when a user claims that a found item matches their lost item report, capturing the human-driven negotiation process and the role of administrative validation.
+
+===== Proposed Solution
+
+====== Stakeholders Involved
+* Claimant (user who lost the item)
+* Finder (user who found the item)
+* Administrator (system moderator)
+
+====== Workflow Overview
+
+[Claim Submission]
+Claimant submits a claim stating that a found item matches their lost item.
+
+        Claimant --> System : Submit Claim
+        System --> Finder   : Notify Finder of Claim
+
+[Evidence Exchange]
+The system facilitates an exchange of information to validate ownership.
+
+        Finder --> System    : Request Proof (optional)
+        System --> Claimant  : Request Additional Evidence
+        Claimant --> System  : Submit Evidence (description, image, details)
+
+[Evaluation Phase]
+The system and/or admin evaluates the credibility of the claim.
+
+        System --> Admin     : Flag claim for review (if needed)
+        Admin --> System     : Approve / Reject / Request More Info
+
+[Decision Outcome]
+
+Case 1: Claim Accepted
+        Admin/System --> Claimant : Claim Approved
+        Admin/System --> Finder   : Confirm Match
+        System --> Both           : Mark Reports as Matched/Closed
+
+Case 2: Claim Rejected
+        Admin/System --> Claimant : Claim Rejected
+        System --> Report         : Remains Open
+
+Case 3: Incomplete Information
+        Admin/System --> Claimant : Request More Info
+        (loop back to Evidence Exchange)
+
+---
+
+====== Breakdown / Ambiguity Scenarios
+
+1. False Claim
+* Claimant provides incorrect or vague description
+* Finder cannot verify ownership
+
+2. Conflicting Claims
+* Multiple claimants attempt to claim the same item
+
+3. Unresponsive Stakeholder
+* Finder or claimant does not respond in time
+
+4. Partial Match
+* Item descriptions are similar but not conclusive
+
+---
+
+====== Administrative Control Points
+
+* Admin reviews flagged claims with insufficient or suspicious evidence
+* Admin resolves conflicts between multiple claimants
+* Admin enforces deadlines for response (timeouts)
+* Admin has authority to override system decisions
+
+---
+
+====== Domain Insight
+
+This workflow represents a *biddable system*:
+* Human actors (claimant, finder) may behave unpredictably
+* Actions are not guaranteed (e.g., delayed response, incorrect info)
+* Requires monitoring and intervention (admin role)
+
+The negotiation process is iterative and may loop until:
+* sufficient evidence is provided, or
+* the claim is rejected/closed
+
+---
