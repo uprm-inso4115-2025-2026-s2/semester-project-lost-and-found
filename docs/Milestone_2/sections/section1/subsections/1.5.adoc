@@ -1,4 +1,4 @@
-=== [.changed]#*Derived Goals*#
+=== *Derived Goals*
 
 [.added]#Reduce Workload for Physical Offices#:::
 [.added]#Due to the platform's primary purpose of logging lost items, physical offices on campus that store lost items should see a decrease in workload regarding lost item management.#
