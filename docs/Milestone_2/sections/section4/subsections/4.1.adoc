@@ -1702,3 +1702,104 @@ The verification process directly affects system behavior by controlling how rep
 Schütz-Schmuck, M. (2021). Domain Engineering. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez. 
 
 Schütz-Schmuck, M. (2021). Domain Attributes. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+---
+
+==== Report Lifecycle State Modeling
+:author: Adiel Soto
+
+The report lifecycle describes how a report evolves over time in the Lost & Found system. This process ensures proper tracking, validation, and resolution of lost and found items.
+
+===== Lifecycle States
+
+The main states in the report lifecycle are:
+
+- Draft / Submitted  
+- Visible (Stored & Published)  
+- Matched  
+- Claim Initiated  
+- Resolved (Claimed, Rejected, or Expired)  
+
+Each state represents a different stage in the management of a report.
+
+===== Domain Classification of Steps
+
+The lifecycle can be broken down and classified using domain concepts:
+
+[cols="1,2,2", options="header"]
+|===
+| Step | Description | Classification
+
+| Report Created
+| A user creates a report describing a lost or found item.
+| Event
+
+| Report Stored & Visible
+| The system saves the report and makes it accessible.
+| Function
+
+| Report Matched
+| The system compares reports and suggests matches.
+| Behavior
+
+| Claim Initiated
+| A user submits a claim.
+| Event
+
+| Report Resolved
+| The report reaches a final state.
+| Behavior
+|===
+
+===== State Transitions and Constraints
+
+The system enforces valid transitions between states to maintain consistency:
+
+Valid transitions:
+- Draft → Visible  
+- Visible → Matched  
+- Matched → Claim Initiated  
+- Claim Initiated → Resolved  
+
+Invalid transitions are prevented, such as:
+- Draft → Resolved  
+- Resolved → Matched  
+- Claim Initiated → Draft  
+
+These constraints are enforced through validation rules, permission checks, and system logic.
+
+===== System vs Human Responsibilities
+
+System responsibilities include:
+- Storing and retrieving reports  
+- Matching items automatically  
+- Enforcing valid transitions  
+- Expiring inactive reports  
+
+Human responsibilities include:
+- Creating and editing reports  
+- Submitting claims  
+- Providing evidence  
+- Approving or rejecting claims  
+
+===== Complex Scenarios
+
+[discrete]
+====== Scenario 1: Expired Report
+
+A report may expire after a long period without activity.
+
+The system automatically transitions the report to an "Expired" state, disables claims, and may allow admin reactivation.
+
+[discrete]
+====== Scenario 2: Multiple Claims
+
+Multiple users may claim the same item.
+
+The system flags the report for review, collects evidence from each claimant, and requires a decision (usually by an admin or report owner) to resolve the conflict.
+
+===== Impact on System Behavior
+
+The lifecycle ensures structured progression of reports and prevents invalid operations. It improves system reliability, supports fair claim handling, and balances automation with human decision-making.
+
+---
