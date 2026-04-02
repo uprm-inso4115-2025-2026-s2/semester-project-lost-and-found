@@ -468,7 +468,7 @@ Questions for stakeholders:
 ===== D) Resolutions Tactics and Risk Reduction Techniques
 Based on Lecture Notes, the following tactics could be used to resolve or handle weak conflicts:
 
-1)  Administrators override report status
+*1)  Administrators override report status*
 Conflict resolution tactic: Weaken conflicting statements
 
 
@@ -481,7 +481,7 @@ Risk reduction tactic: Reduce Risk likelihood
 Reason: The recommended solution decreases the risk of confusion by providing justifications with timestamps, visible to the report creator.
 
 
- 2) Active to Returned to Closed vs. manual closure
+*2) Active to Returned to Closed vs. manual closure*
 Solution:
 
 Conflict resolution tactic: Restore conflicting statement
@@ -496,7 +496,7 @@ This is a valid reason for skipping the "Returned" state
 Risk Reduction Tactic: Avoid Risk
 Reason: The recommended solution avoids the risk by clearly defining the conditions under which manual closure is allowed, flagging  and allowing these exceptions in the system.
 
-3) Public information vs. Private fields
+*3) Public information vs. Private fields*
 Solution:
 
 Conflict resolution tactic: Introduce new requirement
@@ -507,7 +507,7 @@ Solution:
 Risk reduction tactic:  Reduce consequence likelihood
 Reason: This proposed solution, validates the information and notify the users before submission.
 
-4) Closed reports appearing in matching/search 
+*4) Closed reports appearing in matching/search* 
 Solution:
 
 Conflict resolution tactic: Avoid boundary condition
@@ -520,7 +520,7 @@ Solution:
 Risk Reduction Tactic: Avoid risk consequence
 Reason: Closed reports are excluded from matching and keywords. Only visible in  search results for reference
 
-5)Terminology : User vs UPRM community members
+*5)Terminology : User vs UPRM community members*
 
 Conflict resolution tactic: Specialize conflict source
 
@@ -546,46 +546,69 @@ General Questions:
 
 (The following questions were obtained from identified  weak inconsistencies in requirements)
 
-A)Report status override
+*A)Report status override*
+
 Context: 
+
 - Administrators can override status
 - Closed reports must remain visible but distinguishable
 
 Questions:
+
 1. Under what circumstances should an administrator be allowed to override a report status?
+
 2. Should users be notified when the report status is overriden?
+
 3. If yes, how can the user be notified of the override? Will the reasons of the override be clearly detailed and disclosed ?
+
 4. Should the system keep a history of changes(logs) of all  status changes, clearly identifying by who  the changes were made?
+
 5. How should overwritten reports appear on the system(e.g. search results)? Should they have a special label or flag? or should they just appear as any other report?
+
 6. Should other users be able to see the reason for the override?
+
 7. After an override, should there be a new status such as "Overridden" or should the reports reuse existing statuses(e.g. "Active" , "Closed")
 
 
-B) Manual closing Lost or Found Reports
+*B) Manual closing Lost or Found Reports*
 
 Context: 
+
 - Reports lifecycle goes from Active(Open report) to Returned to Closed
 - Users may manually close reports
 
 Questions:
-8. Should there be any conditions before a user is able to manually close a report? 
-9. If a report is closed without it being returned, how should the system handle it?
-10. Do users need a special permission or should administrators override the report status?
-11. Should users be required to provide a reason when closing a report?
-12. Who should be allowed to manually close the report, administrators ,  users or both?
 
-C) Public vs Private Information
+1. Should there be any conditions before a user is able to manually close a report? 
+
+2. If a report is closed without it being returned, how should the system handle it?
+
+3. Do users need a special permission or should administrators override the report status?
+
+4. Should users be required to provide a reason when closing a report?
+
+5. Who should be allowed to manually close the report, administrators ,  users or both?
+
+*C) Public vs Private Information*
+
 Context: 
+
 - Reports contain public and private information
 - Users can search items based on keywords 
 - Users can view item details from public fields such as category, description, photos
 
 Questions:
-13. What information should be considered private?
-14. Should the system warn users if they accidentally expose private information? 
-15. In such cases, how should the system  automatically detect if the information is private or public?
-16. How should the system determine if private information is exposed?
-17. What should be the corrective actions once the system finds that private information has been made public? 
-18. How should the system protect private information if it is exposed? 
+
+1. What information should be considered private?
+
+2. Should the system warn users if they accidentally expose private information? 
+
+3. In such cases, how should the system  automatically detect if the information is private or public?
+
+4. How should the system determine if private information is exposed?
+
+5. What should be the corrective actions once the system finds that private information has been made public? 
+
+6. How should the system protect private information if it is exposed? 
 
 ---
