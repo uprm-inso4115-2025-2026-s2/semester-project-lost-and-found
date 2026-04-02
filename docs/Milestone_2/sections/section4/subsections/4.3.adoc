@@ -263,13 +263,14 @@ User : Any person authenticated via UPR institutional e-mail : upr.edu who is pa
 
 - Replace all occurences UPRM community member in the requirements with "users" 
 Example:
-*Before: *
+
+*Before:*
 Reporting Requirements:
 
 "The system shall allow a registered UPRM community member to create a Report for a Lost
 Item."
 
-*After: "
+*After:*
 The system shall allow a registered *user* to create a Report for a Lost
 Item
 
