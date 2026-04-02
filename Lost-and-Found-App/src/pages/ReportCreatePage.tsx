@@ -1,0 +1,308 @@
+import React, { useMemo, useState } from "react";
+import "./ReportCreatePage.css";
+import {Report, type Category, type ReportType} from "../ReportManagement/Reports";
+import { useNavigate } from "react-router-dom";
+import { storeReport } from "../ReportManagement/ReportDatabaseManagement";
+import { sendReportCreatedEmail } from "../UserProfilesAccount/NotificationService";
+
+import { supabase } from "../supabaseClient.ts";
+
+import { ImageUploadInput } from "../components/ImageUploadInput";
+
+
+const CATEGORIES: Category[] = [
+  "ELECTRONICS",
+  'PERSONAL',
+  'OFFICE SUPPLIES',
+  'OTHER',
+];
+const categoryLabels: Record<Category, string> = {
+  ELECTRONICS: "Electronics",
+  PERSONAL: "Personal",
+  "OFFICE SUPPLIES": "Office Supplies",
+  OTHER: "Other",
+};
+const REPORT_TYPES: ReportType[] = ["LOST", "FOUND"];
+const reportTypeLabels: Record<ReportType, string> = {
+  LOST: "Lost",
+  FOUND: "Found",
+};
+
+export function ReportCreatePage() {
+  const [title, setTitle] = useState("");
+  const [date, setDate] = useState("");
+  const [location, setLocation] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState<Category>(CATEGORIES[0]);
+  const [tagInput, setTagInput] = useState("");
+  const [tags, setTags] = useState<string[]>(["urgent", "campus"]);
+  const [type, setType] = useState<ReportType>("LOST");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const[imageFile, setImageFile] = useState<File | undefined>(undefined);
+  const[imageUrl, setImageUrl] = useState<string| undefined>(undefined);
+  const navigate = useNavigate();
+
+
+
+  const isFormReady = useMemo(
+    () => Boolean(title && date && location && description && category),
+    [title, date, location, description, category]
+  );
+
+  const handleAddTag = () => {
+    const trimmed = tagInput.trim();
+
+    if (!trimmed) return;
+
+    if (trimmed.length > 12) {
+      setErrorMessage("Tag must be 12 characters or less");
+      return;
+    }
+
+    if (tags.includes(trimmed)) {
+      setErrorMessage("Tag already exists");
+      return;
+    }
+
+    if (tags.length >= 10) {
+      setErrorMessage("Maximum of 10 tags reached");
+      return;
+    }
+
+    setTags((prev) => [...prev, trimmed]);
+    setTagInput("");
+    setErrorMessage(null);
+  };
+
+  const handleTagKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleAddTag();
+    }
+  };
+
+  const removeTag = (tag: string) => {
+    setTags((prev) => prev.filter((t) => t !== tag));
+  };
+
+  const handleSubmit = async () => {
+    let uploadedImageUrl : string | undefined =undefined;
+
+    if(imageFile){
+      const FileName = `${Date.now()}-${imageFile.name}`;
+
+      const { error } = await supabase.storage.from("ReportImages").upload(FileName, imageFile);
+
+      if(error){
+        console.error("Upload Error:", error);
+        return
+      }
+      const{data} = supabase.storage.from("ReportImages").getPublicUrl(FileName);
+      uploadedImageUrl =data.publicUrl;
+    }
+    const newReport = Report.Create({
+      title,
+      description,
+      dateFound: new Date(date),
+      location,
+      category,
+      tags,
+      createdBy: "temporary-user",
+      type,
+      
+      imageUrl : uploadedImageUrl,
+    });
+  
+    await storeReport(newReport);
+
+  // notify creator by email about report submission
+    const user = await supabase.auth.getUser();
+    if (user?.data?.user?.email) {
+      try {
+        await sendReportCreatedEmail(user.data.user.email, newReport.title);
+      } catch (err) {
+        console.warn("Failed to send report created email", err);
+      }
+    }
+
+    navigate("/");
+  };
+
+  return (
+    <div className="createShell">
+      <header className="createHeader">
+        <div>
+          <p className="eyebrow">Create Report</p>
+          <h1>Log a Lost or Found Item</h1>
+          <p className="subtitle">
+            Keep it concise and clear so others can help return items faster.
+          </p>
+        </div>
+      </header>
+
+      <section className="panel">
+        <div className="panelHeader">
+          <div>
+            <p className="eyebrow">Details</p>
+            <h2>Report basics</h2>
+            <p className="helper">
+              Title, date, and location help match items quickly. Add tags to make it searchable.
+            </p>
+          </div>
+        </div>
+
+        <div className="formGrid">
+          <label>
+            <span>Title</span>
+            <input
+              placeholder="e.g. Black North Face backpack"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </label>
+          <label>
+            <span>Report Type</span>
+            <div className="pillGrid">
+              {REPORT_TYPES.map((reportType) => (
+                <button
+                  key={reportType}
+                  type="button"
+                  className={`pill ${type===reportType ? "active" : ""}`}
+                  onClick={()=> setType(reportType)}
+                >
+                  {reportTypeLabels[reportType]}
+                </button>
+              ))}
+            </div>
+          </label>
+
+          <label>
+            <span>Date</span>
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+          </label>
+
+          <label className="fullWidth">
+            <span>Location</span>
+            <input
+              placeholder="Building / floor / room"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+            />
+          </label>
+
+          <label className="fullWidth">
+            <span>Description</span>
+            <textarea
+              rows={3}
+              placeholder="Add defining marks, color, brand, contents..."
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </label>
+
+
+          <label className="fullWidth">
+            <span>Image</span>
+            <ImageUploadInput
+              onValidFile={(file) => setImageFile(file)}
+              onClear={() => {setImageFile(undefined); setImageUrl(undefined)}}
+              
+            />
+          </label>     
+
+
+          <label>
+            <span>Category</span>
+            <div className="pillGrid">
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat}
+                  type="button"
+                  className={`pill ${category === cat ? "active" : ""}`}
+                  onClick={() => setCategory(cat)}
+                >
+                  {categoryLabels[cat]}
+                </button>
+              ))}
+            </div>
+          </label>
+
+          <label className="fullWidth">
+            <span>Tags</span>
+            <div className="tagRow">
+              <div className="tagInputShell">
+                <input
+                  placeholder="Add tag and press Enter"
+                  value={tagInput}
+                  onChange={(e) => {
+                    const value = e.target.value;
+
+                    if (value.length > 12) {
+                      setErrorMessage("Tag must be 12 characters or less");
+                      return;
+                    }
+
+                    if (tags.length >= 10) {
+                      setErrorMessage("Maximum of 10 tags reached");
+                      return;
+                    }
+
+                    setTagInput(value);
+                    setErrorMessage(null);
+                  }}
+                  onKeyDown={handleTagKey}
+                />
+                <button type="button" className="miniBtn" onClick={handleAddTag}>
+                  Add
+                </button>
+              </div>
+
+              {errorMessage && (
+                <div className="TagLimitError" role="alert">
+                  <span>⚠️</span>
+                  <span>{errorMessage}</span>
+                </div>
+              )}
+
+              <div className="tagChips">
+                {tags.map((tag) => (
+                  <span className="chip" key={tag}>
+                    #{tag}
+                    <button
+                      type="button"
+                      className="chipClose"
+                      onClick={() => removeTag(tag)}
+                      aria-label={`Remove ${tag}`}
+                    >
+                      ×
+                    </button>
+                  </span>
+                ))}
+                {!tags.length && <span className="muted">No tags yet</span>}
+              </div>
+            </div>
+          </label>
+        </div>
+
+        <div className="actions">
+          <button onClick={() => navigate("/")}>Cancel</button>
+          <button
+            type="button"
+            className="primaryBtn"
+            disabled={!isFormReady}
+            onClick={handleSubmit}
+          >
+            Submit report
+          </button>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+export default ReportCreatePage;
