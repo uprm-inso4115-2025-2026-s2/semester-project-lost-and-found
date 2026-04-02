@@ -1,7 +1,8 @@
 import { supabase } from "../supabaseClient";
+import { sendWelcomeEmail } from "./NotificationService";
 
 async function createAccount(username: string, password: string, email: string, phonenumber: string) {
-    // Auth user creation (For some reason)
+    // Auth user creation
     const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
         email: email,
         password: password
@@ -23,6 +24,7 @@ async function createAccount(username: string, password: string, email: string, 
         .from("UserAccounts")
         .insert([
             {
+                UserId: userId,
                 Username: username,
                 Password: password,
                 Email: email,
@@ -33,6 +35,16 @@ async function createAccount(username: string, password: string, email: string, 
     if (insertError) {
         console.error("Error inserting into UserAccounts table:", insertError);
         return null;
+    }
+
+    // Send a welcome email
+    try {
+        const notification = await sendWelcomeEmail(email, username);
+        if (!notification.success) {
+            console.warn("Welcome email dispatch failed:", notification.error);
+        }
+    } catch (err) {
+        console.error("Unexpected error sending welcome email:", err);
     }
 
     console.log("Account created and inserted into UserAccounts:", insertData);

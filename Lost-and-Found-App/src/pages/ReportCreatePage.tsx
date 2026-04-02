@@ -3,6 +3,9 @@ import "./ReportCreatePage.css";
 import {Report, type Category, type ReportType} from "../ReportManagement/Reports";
 import { useNavigate } from "react-router-dom";
 import { storeReportWithDuplicateCheck } from "../ReportManagement/ReportDatabaseManagement";
+import { storeReport } from "../ReportManagement/ReportDatabaseManagement";
+import { sendReportCreatedEmail } from "../UserProfilesAccount/NotificationService";
+
 import { supabase } from "../supabaseClient.ts";
 import { ImageUploadInput } from "../components/ImageUploadInput";
 import { DuplicateWarningModal } from "../components/DuplicateWarningModal";
@@ -35,6 +38,7 @@ export function ReportCreatePage() {
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<string[]>(["urgent", "campus"]);
   const [type, setType] = useState<ReportType>("LOST");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const [imageFile, setImageFile] = useState<File | undefined>(undefined);
   const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
@@ -53,9 +57,27 @@ export function ReportCreatePage() {
 
   const handleAddTag = () => {
     const trimmed = tagInput.trim();
-    if (!trimmed || tags.includes(trimmed)) return;
+
+    if (!trimmed) return;
+
+    if (trimmed.length > 12) {
+      setErrorMessage("Tag must be 12 characters or less");
+      return;
+    }
+
+    if (tags.includes(trimmed)) {
+      setErrorMessage("Tag already exists");
+      return;
+    }
+
+    if (tags.length >= 10) {
+      setErrorMessage("Maximum of 10 tags reached");
+      return;
+    }
+
     setTags((prev) => [...prev, trimmed]);
     setTagInput("");
+    setErrorMessage(null);
   };
 
   const handleTagKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -118,6 +140,14 @@ export function ReportCreatePage() {
         setShowDuplicateModal(true);
       } else {
         // No duplicates, navigate to home
+        const user = await supabase.auth.getUser();
+        if (user?.data?.user?.email) {
+          try {
+            await sendReportCreatedEmail(user.data.user.email, newReport.getTitle());
+          } catch (err) {
+            console.warn("Failed to send report created email", err);
+          }
+        }
         navigate("/");
       }
     } catch (error) {
@@ -250,13 +280,36 @@ export function ReportCreatePage() {
                 <input
                   placeholder="Add tag and press Enter"
                   value={tagInput}
-                  onChange={(e) => setTagInput(e.target.value)}
+                  onChange={(e) => {
+                    const value = e.target.value;
+
+                    if (value.length > 12) {
+                      setErrorMessage("Tag must be 12 characters or less");
+                      return;
+                    }
+
+                    if (tags.length >= 10) {
+                      setErrorMessage("Maximum of 10 tags reached");
+                      return;
+                    }
+
+                    setTagInput(value);
+                    setErrorMessage(null);
+                  }}
                   onKeyDown={handleTagKey}
                 />
                 <button type="button" className="miniBtn" onClick={handleAddTag}>
                   Add
                 </button>
               </div>
+
+              {errorMessage && (
+                <div className="TagLimitError" role="alert">
+                  <span>⚠️</span>
+                  <span>{errorMessage}</span>
+                </div>
+              )}
+
               <div className="tagChips">
                 {tags.map((tag) => (
                   <span className="chip" key={tag}>
