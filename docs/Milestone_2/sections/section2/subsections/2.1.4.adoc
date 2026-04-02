@@ -151,6 +151,7 @@
 
 [.removed]#It aligns domain concepts such as *Report*, *Ownership*, and *Lifecycle State* with concrete operational flows, ensuring structural consistency across terminology, requirements, and implementation.#
 
+[.added]
 ===== Domain Events
 
 Events are observable facts that have occurred in the domain. They are immutable records of domain reality (what happened), not prescriptions for how a system must implement them.
@@ -200,6 +201,7 @@ Events are observable facts that have occurred in the domain. They are immutable
 | Report status changes to **removed**; the report is no longer visible to the community.
 |===
 
+[.added]
 ===== Domain Actions
 
 Actions are intentional activities performed by domain actors. Actions are distinct from events: actions describe what actors do; events describe what is observed.
@@ -259,6 +261,7 @@ Actions are intentional activities performed by domain actors. Actions are disti
 | Report; Administrator
 |===
 
+[.added]
 ===== Behaviors (Scenarios)
 
 Behaviors are composite sequences of actions and events that represent typical domain workflows. Each step maps to a defined domain action or event. These scenarios are system-independent: they describe what happens in the community, not how a system must implement it.
