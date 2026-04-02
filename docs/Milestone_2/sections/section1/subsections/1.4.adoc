@@ -1,5 +1,8 @@
+[.changed]
 === *Other Activities than Just Developing Source Code*
+Here are several complementary activities that are required to ensure that the system addresses the identified needs and operates effectively within the Lost and Found domain. 
 
+[.removed]
 ==== Documentation and Knowledge Management
 
 * Maintain comprehensive project documentation aligned with the project outline and evolving design decisions.
@@ -7,13 +10,46 @@
 * Record architectural decisions, workflows, and integration points to support maintainability.
 * Keep documentation continuously updated in parallel with development progress.
 
+[.added]
+==== Domain Engineering
+
+The project requires a structured understanding of how lost items are discovered, handled, stored, and returned. This knowledge is fragmented and often informal, which makes it difficult to describe responsibilities and workflows consistently. 
+
+DE addresses this need by organizing domain concepts, defining terminology, and establishing a shared narrative. This allows for there to be clarity across teams and ensures that later requirements reflect real-world practices. 
+
+==== Requirements Engineering
+
+Implementation requires a clear description of expected functionality. Currently, no consolidated requirements collection exists, which creates ambiguity for developers and risks inconsistent features. 
+
+RE addresses this need by documenting functional expectations, stakeholder goals, and system behaviors. This helps ensure that development efforts align with the objecive of improving the efficiency of lost item recovery. 
+
+==== Software Architecture and Component Design
+
+To coordinate work across multiple teams, a structured organization of system components is necessary. Without defined architectural boundaries, parallel development may lead to integration conflicts or duplicated functionality. 
+
+Software Architecture and component design addresses this by defining responsibilities for different components, clarifying interfaces, and supporting maintainability and scalability. 
+
+==== Implementation
+
+Implementation transforms documented requirements and designs into working functionality. the need for it arises from the absence of a unified approach for supporting lost item reporting, tracking, and recovery. 
+
+This activity focuses on developing features that support stakeholders in locating and reclaiming lost items efficiently.
+
+[.changed]
 ==== Testing and Quality Assurance
 
-* Define testing strategies for core features such as reporting, search, communication, and authentication.
-* Perform functional, usability, and data-handling validation before feature acceptance.
-* Track defects, regressions, and resolution status in a shared system.
-* Validate performance indicators identified in the A3 document, including recovery rate and time-to-match.
+Testing ensures that implemented features behave as expected and support the intended recovery process. The current situation lacks consistent validation of workflows, which may lead to unreliable or confusing interactions. 
 
+Testing and quality assurance address this need by verifying functionality, identifying defects, and confirming that performance indicators, like recovery time and matching accuracy, are met.
+
+[.added]
+==== Deployment and Operational Readiness
+
+For the project to provide value, the resulting solution must be usable within the domain context. 
+
+Deployment planning addresses the need to ensure that stakeholders can access and use the system effectively. That includes preparing the environment and ensuring that documentation and usage guidance are available. 
+
+[.removed]
 ==== Version Control and Review Processes
 
 * Use structured version control workflows to manage collaborative development.
