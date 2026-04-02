@@ -469,20 +469,21 @@ Questions for stakeholders:
 Based on Lecture Notes, the following tactics could be used to resolve or handle weak conflicts:
 
 *1)  Administrators override report status*
+
 Conflict resolution tactic: Weaken conflicting statements
 
 
 Solution:
  - Allow overrides only under verified disputes, with mandatory justification and user notification disclosing the reasons of the override
 
- - Keep a history of changes(log) to audit all the changes with timestamps 
+- Keep a history of changes(log) to audit all the changes with timestamps 
 
 Risk reduction tactic: Reduce Risk likelihood
 Reason: The recommended solution decreases the risk of confusion by providing justifications with timestamps, visible to the report creator.
 
 
 *2) Active to Returned to Closed vs. manual closure*
-Solution:
+
 
 Conflict resolution tactic: Restore conflicting statement
 
@@ -497,7 +498,7 @@ Risk Reduction Tactic: Avoid Risk
 Reason: The recommended solution avoids the risk by clearly defining the conditions under which manual closure is allowed, flagging  and allowing these exceptions in the system.
 
 *3) Public information vs. Private fields*
-Solution:
+
 
 Conflict resolution tactic: Introduce new requirement
 
@@ -508,7 +509,7 @@ Risk reduction tactic:  Reduce consequence likelihood
 Reason: This proposed solution, validates the information and notify the users before submission.
 
 *4) Closed reports appearing in matching/search* 
-Solution:
+
 
 Conflict resolution tactic: Avoid boundary condition
 
