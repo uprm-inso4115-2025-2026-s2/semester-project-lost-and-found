@@ -11,10 +11,33 @@ module SectionRolePropagation
     "[.#{role}]##{body}#"
   end
 
+  def self.wrap_table_row(raw, role)
+    leading_ws = raw[/^\s*/] || ''
+    body = raw[leading_ws.length..] || ''
+    parts = body.split('|', -1)
+    return raw if parts.length < 2
+
+    wrapped_parts = parts.each_with_index.map do |cell, idx|
+      # Keep text that appears before the first pipe (e.g., "3+" in "3+|")
+      next cell if idx.zero?
+      next cell if cell.empty?
+
+      cell_leading_ws = cell[/^\s*/] || ''
+      cell_body = cell[cell_leading_ws.length..] || ''
+      cell_trailing_ws = cell_body[/\s*\z/] || ''
+      cell_text = cell_body.sub(/\s*\z/, '')
+
+      "#{cell_leading_ws}#{wrap_inline(cell_text, role)}#{cell_trailing_ws}"
+    end
+
+    "#{leading_ws}#{wrapped_parts.join('|')}"
+  end
+
   def self.rewrite_lines(lines)
     out = []
     roles_by_level = {}
     pending_role = nil
+    in_table = false
 
     lines.each do |line|
       trailing_ws = line[/\s*\z/] || ''
@@ -27,6 +50,12 @@ module SectionRolePropagation
           out << "[discrete,#{active_role}]#{trailing_ws}"
           next
         end
+      end
+
+      if stripped == '|==='
+        in_table = !in_table
+        out << line
+        next
       end
 
       if (m = stripped.match(%r{\A\[\.(added|changed|removed|red|orange|green)\]\z}))
@@ -73,10 +102,14 @@ module SectionRolePropagation
         next
       end
 
+      if in_table && raw.lstrip.start_with?('|', '!|', '<|', '>|', '^|', '*|')
+        out << "#{wrap_table_row(raw, active_role)}#{trailing_ws}"
+        next
+      end
+
       skip_line = stripped.empty? ||
-                  stripped.start_with?('[', ':', 'include::', 'ifdef::', 'ifndef::', 'endif::', '|===', '.', '//', 'image::', 'link:') ||
-                  %w[---- .... ==== **** ++++].include?(stripped) ||
-                  raw.lstrip.start_with?('|')
+                  stripped.start_with?('[', ':', 'include::', 'ifdef::', 'ifndef::', 'endif::', '.', '//', 'image::', 'link:') ||
+                  %w[---- .... ==== **** ++++].include?(stripped)
       if skip_line
         out << line
         next
