@@ -1,19 +1,62 @@
+[.changed]
 === *Other Activities than Just Developing Source Code*
+Here are several complementary activities that are required to ensure that the system addresses the identified needs and operates effectively within the Lost and Found domain. 
 
+[.removed]
 ==== Documentation and Knowledge Management
 
 * Maintain comprehensive project documentation aligned with the project outline and evolving design decisions.
-* Standardize terminology, data fields, and structural conventions across all components. 
+*Standardize terminology, data fields, and structural conventions across all components. 
 * Record architectural decisions, workflows, and integration points to support maintainability.
 * Keep documentation continuously updated in parallel with development progress.
 
+[.added]
+==== Domain Engineering
+
+in the current situation, lost and found practices vary across locations and there is no shared or unified understanding of how items are discovered, stored or returned. This inconsistency makes it difficult to describe responsibilities and workflows clearly. 
+
+This creates the need for a structured and unified understanding of domain concepts so that all teams base their work on the same assumptions. 
+
+DE addresses this need by organizing domain concepts, defining terminology, and establishing a shared narrative. This allows for there to be clarity across teams and ensures that later requirements reflect real-world practices. 
+
+==== Requirements Engineering
+
+The current situation only offers general objectives, such as improving the recovery of lost items, but does not specify what functionalities are required to achieve them, which creates ambiguity for developers and risks inconsistent features. 
+
+RE addresses this need by documenting functional expectations, stakeholder goals, and system behaviors. This helps ensure that development efforts align with the objecive of improving the efficiency of lost item recovery. 
+
+==== Software Architecture and Component Design
+
+Several teams work in parallel, and the current situation lacks clearly defined boundaries between responsibilities. Without defined boundaries, parallel development may lead to integration conflicts or duplicated functionality. 
+
+Software Architecture and component design addresses this by defining responsibilities for different components, clarifying interfaces, and supporting maintainability and scalability. 
+
+==== Implementation
+
+Currently, lost and found processes are based on informal or disconnected practices, which makes consistent recovery of objects difficult. There is no unified approach for supporting lost item reporting, tracking, and recovery. 
+
+This creates the need for concrete functionality that supports stakeholders in managing lost and found items more effectively. 
+
+This activity addresses this by trasnforming requirements and designs into working features that support stakeholders in locating and reclaiming lost items efficiently.
+
+[.changed]
 ==== Testing and Quality Assurance
 
-* Define testing strategies for core features such as reporting, search, communication, and authentication.
-* Perform functional, usability, and data-handling validation before feature acceptance.
-* Track defects, regressions, and resolution status in a shared system.
-* Validate performance indicators identified in the A3 document, including recovery rate and time-to-match.
+The current situation lacks consistent validation of whether proposed workflows actually improve the recovery process. Without proper validation, this could lead to unreliable or confusing interactions. 
 
+This creates the need to verify that implemented features support the intended domain processes and meet expected performance indicators.
+
+Testing and quality assurance address this need by verifying functionality, identifying defects, and confirming that performance indicators, like recovery time and matching accuracy, are met.
+
+[.added]
+==== Deployment and Operational Readiness
+
+Even if functionality is implemented, the current situation may still prevent stakeholders from effectively using the solution due to lack of preparation or guidance.
+This creates the need to ensure that the solution can be introduced in a way that the stakeholders can realistically adopt. 
+
+Deployment planning addresses this by preparing the environment and ensuring that documentation and usage guidance are available. 
+
+[.removed]
 ==== Version Control and Review Processes
 
 * Use structured version control workflows to manage collaborative development.
