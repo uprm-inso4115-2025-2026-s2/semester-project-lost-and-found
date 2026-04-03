@@ -6,7 +6,7 @@ Here are several complementary activities that are required to ensure that the s
 ==== Documentation and Knowledge Management
 
 * Maintain comprehensive project documentation aligned with the project outline and evolving design decisions.
-*Standardize terminology, data fields, and structural conventions across all components. 
+* Standardize terminology, data fields, and structural conventions across all components. 
 * Record architectural decisions, workflows, and integration points to support maintainability.
 * Keep documentation continuously updated in parallel with development progress.
 

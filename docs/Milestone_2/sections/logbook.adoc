@@ -18,4 +18,12 @@
 | 1.4
 |Modified existing activities and Added new activities
 
+| Leanelys González
+| 1.5.
+| Modified
+
+| Abby Gotay Almonte
+| 2.1.4.
+| Modified
+
 |===

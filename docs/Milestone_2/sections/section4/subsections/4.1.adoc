@@ -1447,3 +1447,258 @@ By applying domain analysis and concept formation, the account creation module i
 
 Schütz-Schmuck, M. (2021). _Domain Analysis and Concept Formation_ [Lecture slides]. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
 
+==== Classification of Static vs Dynamic Domain Elements in the Lost and Found System
+:author: Iralys Sánchez Milián
+
+===== 1. Introduction
+
+In domain engineering, phenomena can be classified based on whether they change over time. Static elements do not change, while dynamic elements evolve due to events or internal behavior. Dynamic elements can further be categorized as inert (reacting only to external stimuli) or active (capable of initiating changes themselves).
+
+This classification is essential for understanding system behavior, state transitions, and design decisions in the Lost & Found system.
+
+===== 2. Domain Element Classification
+
+[options="header"]
+|===
+| Domain Element | Type | Subtype | Justification
+
+| Item Category
+| Static
+| N/A
+| Categories (e.g., electronics, clothing) are predefined and do not change frequently or as part of system behavior.
+
+| Report (Lost/Found Item)
+| Dynamic
+| Inert
+| A report changes state (e.g., open, matched, resolved) only when users or admins perform actions.
+
+| User Account
+| Dynamic
+| Inert
+| User data (profile info, activity) changes only when the user or system updates it externally.
+
+| Notification
+| Dynamic
+| Active
+| Notifications can be generated automatically by the system (e.g., match found), without direct user action.
+
+| Search Results
+| Dynamic
+| Inert
+| Results change based on user queries or filters; they do not update unless triggered by input.
+
+| Moderation Process
+| Dynamic
+| Active
+| The system can automatically flag or process reports (e.g., spam detection), showing internal system-driven behavior.
+|===
+
+===== 3. Explanation of Classification
+
+====== 3.1 Static Elements
+
+Static elements are not time-dependent and are not affected by events. In this system, item categories remain constant and serve as reference data.
+
+====== 3.2 Dynamic Inert Elements
+
+Dynamic inert elements change only when triggered by external stimuli (e.g., user actions or admin input). Examples include reports, user accounts, and search results.
+
+These elements:
+
+- Require explicit input to change
+- Do not evolve independently
+- Represent controlled state transitions
+
+====== 3.3 Dynamic Active Elements
+
+Dynamic active elements can change based on internal system logic or autonomous behavior.
+
+Examples include:
+
+- Notifications generated automatically
+- Moderation systems that flag inappropriate content
+
+These elements:
+
+- May act without direct user input
+- Require monitoring and system logic
+- Introduce complexity in system design
+
+===== 4. Design Implications
+
+This classification impacts system design in several ways:
+
+- *State Management*: Dynamic elements require well-defined states and transitions.
+- *Event Handling*: Inert elements rely on external triggers, while active elements require internal event mechanisms.
+- *Automation*: Active elements necessitate background processes (e.g., notification services, moderation checks).
+- *Data Modeling*: Static elements can be stored as fixed reference tables, while dynamic elements require lifecycle tracking.
+- *Testing*: Active behaviors require additional testing for automated workflows and edge cases.
+
+===== References
+
+*Framework:* Schütz-Schmuck, M. (2021). _Domain Attributes_. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+---
+
+==== Data Consistency and System Guarantees in the Lost and Found Platform
+:author: Jose Valentin (@jose-valentin)
+
+The Lost and Found platform relies on consistent data and well defined system guarantees to ensure that reports behave predictably throughout their lifecycle. This section analyzes how consistency is maintained across the system and how guarantees are enforced to prevent invalid states and conflicting operations.
+
+===== Overview
+
+Data consistency refers to the requirement that all parts of the system reflect the same valid and up to date information at any given time. This includes consistency between the frontend interface, backend logic, and database storage.
+
+System guarantees define the rules that ensure the system behaves correctly under normal operation. These guarantees restrict how data can change and ensure that all reports remain in valid states.
+
+===== Consistency in Report Data
+
+Reports are central entities in the system and must maintain consistent data across all interactions.
+
+Key consistency requirements include:
+
+* Frontend and backend consistency  
+All data displayed to users must match the data stored in the backend. Any update performed through the interface must be validated and persisted correctly.
+
+* Database consistency  
+The database must always store valid and complete report data. Partial updates or invalid values must not be saved.
+
+* Synchronization between users  
+When multiple users interact with the same report, they must observe the same current state. The system must ensure that updates are reflected consistently for all users.
+
+===== Report Lifecycle Consistency
+
+Each report follows a defined lifecycle composed of discrete states:
+
+* ACTIVE
+* RESOLVED
+* CLAIMED
+
+These states represent the progression of a report from creation to completion.
+
+Valid transitions include:
+
+* ACTIVE to RESOLVED  
+* ACTIVE to CLAIMED  
+* RESOLVED to CLAIMED  
+
+Invalid transitions must be prevented. For example:
+
+* CLAIMED to ACTIVE  
+* CLAIMED to RESOLVED  
+
+Such transitions would violate the logical progression of the system and lead to inconsistent data.
+
+These constraints are enforced through controlled state transition logic implemented in the backend.
+
+===== Statics and Dynamics in Consistency
+
+Consistency is closely related to how report attributes behave over time.
+
+* Static attributes  
+These values are expected to remain stable after creation:
+** Title  
+** Description  
+** Category  
+** Location  
+
+* Dynamic attributes  
+These values change over time and must be controlled:
+** Status  
+
+The report status exhibits dynamic inert behavior, meaning it only changes in response to external actions such as user interaction or administrative verification.
+
+Ensuring consistency requires that dynamic attributes follow strict transition rules.
+
+===== Scenarios Requiring Strong Consistency
+
+Several scenarios require careful enforcement of consistency:
+
+* Simultaneous updates  
+Multiple users may attempt to update a report at the same time. The system must ensure that only valid updates are applied.
+
+* Report modification after creation  
+Edits must not violate existing constraints or create conflicting data.
+
+* Status updates  
+Changes to report status must follow valid transitions and reflect the correct lifecycle stage.
+
+* Database interaction  
+When inserting or updating reports, the system must ensure that the stored data matches the application state.
+
+===== Mechanisms for Enforcing Consistency
+
+The system enforces consistency through several mechanisms:
+
+* Validation rules  
+All input data is validated before being accepted. This prevents invalid or incomplete reports.
+
+* Controlled state transitions  
+The system restricts how report statuses can change, ensuring valid lifecycle progression.
+
+* Backend verification  
+Before applying updates, the backend checks the current state of the report to confirm that the operation is allowed.
+
+* Atomic operations  
+Updates are treated as single complete operations to prevent partial or inconsistent changes.
+
+===== Impact on System Design
+
+Consistency and system guarantees influence several aspects of the platform:
+
+* Data integrity  
+Ensures that all stored information remains accurate and meaningful.
+
+* User trust  
+Users depend on the system to provide correct and reliable information when reporting or claiming items.
+
+* System reliability  
+A consistent system behaves predictably, reducing unexpected errors and simplifying maintenance.
+
+===== Conclusion
+
+Data consistency and system guarantees are essential for maintaining a reliable Lost and Found platform. By enforcing validation rules, controlling state transitions, and ensuring synchronization between system components, the platform can maintain correct behavior and provide a dependable experience for its users.
+
+===== References
+
+Schütz-Schmuck, M. (2021). _Domain Attributes_ [Lecture slides]. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+==== [Lecture Topic Task]: Report Verification as a Domain Process
+:author: Natanael Batista Alvarez
+===== Overview
+
+Report verification and item claiming in the Lost & Found system can be understood as a domain process composed of interacting entities, events, functions, and behaviors. This process ensures that items are returned to their rightful owners while maintaining system consistency and preventing fraudulent claims. It combines structured system logic with human decision-making, reflecting both formal and informal aspects of the domain.
+
+===== Verification Workflow and Domain Classification
+
+The process begins when an item is reported. This is an event that creates a report entity within the system. The report contains relevant attributes such as item description, category, and location, forming part of the domain description. 
+
+A user then submits a claim for the item. This is another event that introduces a new entity, the claim request, which is associated with the existing report. This establishes a relationship between two domain entities and initiates the verification process.
+
+The claimant provides evidence to support ownership. This step functions as a function, since it transforms user-provided input into structured data that can be evaluated. Examples include identifying details or hidden characteristics of the item.
+
+Next, the claim is reviewed. This step represents a behavior, as it involves a sequence of actions combining system operations and human judgment. The system organizes and displays the relevant data, while a moderator or staff member evaluates whether the evidence is sufficient to confirm ownership. This reflects a dynamic domain process where decisions depend on context rather than fixed rules.  
+
+Finally, the system records the outcome as either approval or rejection. This is an event that causes a state transition in the report entity, such as moving from “pending verification” to “claimed” or remaining available. These transitions must follow controlled rules to maintain consistency across the system.  
+
+===== System and Human Responsibilities
+
+The system is responsible for handling structured and deterministic tasks. These include storing reports and claims, linking related entities, validating input data, and enforcing valid state transitions. These operations ensure that the domain remains consistent and that invalid states are prevented.
+
+Human actors, such as moderators or staff, are responsible for evaluating evidence and making final decisions in ambiguous situations. Ownership cannot always be determined through automated logic, especially when information is incomplete or subjective. This introduces decision-based behavior that depends on human reasoning rather than purely formal rules.  
+
+===== Challenging Scenarios
+
+One challenging scenario occurs when multiple users submit claims for the same item. This creates a conflict where the system must manage multiple claim entities while ensuring that only one can be approved. The system maintains consistency by enforcing constraints, while human reviewers compare evidence and determine which claim is valid.
+
+Another scenario arises when the item description is vague or incomplete. In this case, the system cannot reliably verify ownership using stored data alone. The process then depends more heavily on human judgment, requiring additional verification steps such as private questions or detailed descriptions. The system supports this by limiting visible information and requesting further input.
+
+===== Impact on System Behavior
+
+The verification process directly affects system behavior by controlling how reports transition between states and how conflicts are resolved. It ensures that only valid claims lead to ownership transfer, maintaining both data integrity and user trust. At the same time, it highlights the need for a balance between automated system logic and human decision-making within the domain.
+
+===== References
+
+Schütz-Schmuck, M. (2021). Domain Engineering. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez. 
+
+Schütz-Schmuck, M. (2021). Domain Attributes. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
