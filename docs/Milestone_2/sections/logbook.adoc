@@ -18,4 +18,8 @@
 | 2.1.4.
 | Modified/Added
 
+| Tasnim Said Khader
+|2.1.2, 2.1.3
+|Modified
+
 |===
