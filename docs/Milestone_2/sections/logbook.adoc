@@ -12,10 +12,6 @@
 
 | Abby Gotay Almonte
 | 2.1.4
-| Modified
-
-| Abby Gotay Almonte
-| 2.1.4
-| Added
+| Modified/Added
 
 |===
