@@ -309,3 +309,188 @@ Behaviors are composite sequences of actions and events that represent typical d
 5. If invalid: Action: Remove report → Event: Report removed
 
 *Outcome:* Community integrity is preserved through domain review and enforcement.
+
+[.added]
+===== Conceptual Function Signatures
+
+*Purpose:* These conceptual functions describe the core domain operations from a system-independent perspective, including their purpose, required inputs, outputs, and dependencies. They map to the domain events and actions defined above.
+
+====== Authenticate User
+
+```
+authenticateUser(email: UPREmail, token: AuthToken): AuthenticatedSession
+```
+
+- *Description:* Verifies a user's credentials using the official UPR authentication system and establishes an authenticated session.
+- *Conceptual Inputs:* UPR email, UPR authentication token.
+- *Conceptual Output:* Authenticated session (represents the user's logged-in state).
+- *Dependencies:* Relies on the UPR identity provider for credential validation.
+- *Related Domain Events/Actions:* This function enables all authenticated actions; it is a prerequisite for *Submit lost report*, *Submit found report*, *Update report*, *Initiate claim*, *Challenge report*, etc.
+
+====== Authorize Action
+
+```
+authorizeAction(user: Person, action: Action): AuthorizationDecision
+```
+
+- *Description:* Determines whether a user is permitted to perform a specific action (e.g., creating a report, moderating content) based on their role.
+- *Conceptual Inputs:* User, requested action.
+- *Conceptual Output:* Permission decision (allowed/denied).
+- *Dependencies:* Depends on the user's assigned role and the system's authorization rules.
+- *Related Domain Events/Actions:* Used to enforce permissions for actions such as *Modify Report*, *Mark resolved*, *Review challenge*, *Remove report*.
+
+====== Register Lost Item
+
+```
+registerLostItem(lost: Item, reporter: Person, lostAt: Location, lostOn: DateTime, category: Category): LostItemReport
+```
+
+- *Description:* Creates a report for an item that has been lost. The report is initially marked as active.
+- *Conceptual Inputs:* Reporter (user), item description, location where lost, date/time lost, category.
+- *Conceptual Output:* Lost item report.
+- *Dependencies:* Requires the user to be authenticated and the category to exist.
+- *Related Domain Events/Actions:* Corresponds to *Submit lost report* (action) and *Lost item reported* (event).
+
+====== Register Found Item
+
+```
+registerFoundItem(found: Item, finder: Person, foundAt: Location, foundOn: DateTime, category: Category): FoundItemReport
+```
+
+- *Description:* Creates a report for an item that has been found. The report is initially marked as active.
+- *Conceptual Inputs:* Finder (user), item description, location found, date/time found, category.
+- *Conceptual Output:* Found item report.
+- *Dependencies:* Requires the user to be authenticated and the category to exist. The finder may be optional depending on the domain rules.
+- *Related Domain Events/Actions:* Corresponds to *Submit found report* (action) and *Found item reported* (event).
+
+====== Modify Report
+
+```
+modifyReport(report: Report, updatedDetails: ReportUpdate): Report
+```
+
+- *Description:* Updates the details of an existing report while preserving data integrity.
+- *Conceptual Inputs:* Report, updated details (the fields to change).
+- *Conceptual Output:* Updated report.
+- *Dependencies:* Only the original author or an administrator may modify a report.
+- *Related Domain Events/Actions:* Corresponds to *Update report* (action). The resulting change may be observed as an update to the report state.
+
+====== Change Report Status
+
+```
+changeReportStatus(report: Report, newStatus: ReportStatus): Report
+```
+
+- *Description:* Transitions a report through its lifecycle states (e.g., active, returned, closed).
+- *Conceptual Inputs:* Report, new status.
+- *Conceptual Output:* Updated report.
+- *Dependencies:* Status changes may be restricted based on the user's role and the current report state.
+- *Related Domain Events/Actions:* Corresponds to *Mark resolved* (action) and may also apply to *Report removed* (event) when status changes to removed.
+
+====== Verify Ownership
+
+```
+verifyOwnership(foundReport: FoundItemReport, claimant: Person, verificationDetails: VerificationData): VerificationResult
+```
+
+- *Description:* Confirms that a claimant is the rightful owner of a found item by comparing private verification details (e.g., serial numbers, unique identifiers) with those stored in the report.
+- *Conceptual Inputs:* Found report, claimant (user), verification details.
+- *Conceptual Output:* Verification result (success/failure).
+- *Dependencies:* Requires the verification details to be provided by the claimant; may trigger a status change or reward handling if successful.
+- *Related Domain Events/Actions:* Corresponds to *Verify claim (external identity verification)* (action) and *Claim verified* (event).
+
+====== Search Reports
+
+```
+searchReports(keywords: SearchQuery): ReportList
+```
+
+- *Description:* Finds reports that match a set of search keywords, covering both lost and found items.
+- *Conceptual Inputs:* Search keywords.
+- *Conceptual Output:* List of matching reports.
+- *Dependencies:* The search may be performed by any user without authentication.
+- *Related Domain Events/Actions:* This is an informational activity referenced in the *Finding and Claiming an Item* behavior; it does not directly correspond to a domain event or action in the tables.
+
+====== Filter Reports
+
+```
+filterReports(status: ReportStatus, category: Category, location: Location, dateRange: DateRange): ReportList
+```
+
+- *Description:* Narrows search results by applying criteria such as status, category, location, or date range.
+- *Conceptual Inputs:* Status, category, location, date range.
+- *Conceptual Output:* List of filtered reports.
+- *Dependencies:* Can be combined with a keyword search to refine results further.
+- *Related Domain Events/Actions:* Like search, this is an informational activity supporting discovery.
+
+====== Send Message
+
+```
+sendMessage(sender: Person, report: Report, content: MessageContent): Message
+```
+
+- *Description:* Allows a user to contact another user regarding a specific report without exposing personal contact details. The system mediates the communication.
+- *Conceptual Inputs:* Sender (user), report, message content.
+- *Conceptual Output:* Message record (stored for audit and delivery).
+- *Dependencies:* Both sender and recipient must be authenticated; the message is tied to a report.
+- *Related Domain Events/Actions:* This function supports the *Initiate claim* action by providing a mediated communication channel.
+
+====== Flag Report
+
+```
+flagReport(report: Report, flaggedBy: Person, reason: FlagReason): FlagRecord
+```
+
+- *Description:* Enables a user to report potentially inappropriate or suspicious content for administrative review.
+- *Conceptual Inputs:* Report, user flagging, reason.
+- *Conceptual Output:* Flag record.
+- *Dependencies:* Flagging does not automatically remove content; it creates a record for later moderation.
+- *Related Domain Events/Actions:* Corresponds to *Challenge report* (action) and *Report challenged* (event).
+
+====== Moderate Report
+
+```
+moderateReport(report: Report, admin: Person, action: ModerationAction): Report
+```
+
+- *Description:* Allows an administrator to review a flagged report and take action (e.g., edit, remove, approve).
+- *Conceptual Inputs:* Report, administrator, action to perform.
+- *Conceptual Output:* Updated report or removal confirmation.
+- *Dependencies:* Only users with the administrator role may perform moderation actions.
+- *Related Domain Events/Actions:* Corresponds to *Review challenge* (action). If removal is chosen, it leads to *Report removed* (event).
+
+====== Categorize Report
+
+```
+categorizeReport(report: Report, category: Category): Report
+```
+
+- *Description:* Assigns a category from the standardized taxonomy to a report, aiding in organization and filtering.
+- *Conceptual Inputs:* Report, category.
+- *Conceptual Output:* Updated report.
+- *Dependencies:* The category must exist in the system's taxonomy.
+- *Related Domain Events/Actions:* This is part of *Submit lost report* and *Submit found report* actions, and may be updated via *Update report*.
+
+====== Notify User of Match
+
+```
+notifyUserOfMatch(user: Person, matchedReport: Report): Notification
+```
+
+- *Description:* Generates an alert for a user when the system detects a potential match between a lost report and a found report.
+- *Conceptual Inputs:* User, matched report.
+- *Conceptual Output:* Notification (sent to the user).
+- *Dependencies:* The match detection is performed by the system based on configurable criteria.
+- *Related Domain Events/Actions:* This function is a system-initiated action; it does not correspond directly to a domain event or action in the tables but supports the discovery workflow.
+
+====== Compute Return Rate
+
+```
+computeReturnRate(dateRange: DateRange, category: Category, location: Location): ReturnRate
+```
+
+- *Description:* Calculates the percentage of items successfully returned relative to the total number of resolved reports.
+- *Conceptual Inputs:* None.
+- *Conceptual Output:* Return rate percentage.
+- *Dependencies:* Operates on aggregate report data and is typically used for administrative dashboards.
+- *Related Domain Events/Actions:* This is an analytical function that uses the *Report resolved* events and *Item returned* events to compute the metric.

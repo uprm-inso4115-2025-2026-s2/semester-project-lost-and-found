@@ -37,17 +37,49 @@ module SectionRolePropagation
     out = []
     roles_by_level = {}
     pending_role = nil
+    inside_fenced_block = false
+    delimited_stack = []
     in_table = false
+    discrete_pending = false
 
     lines.each do |line|
       trailing_ws = line[/\s*\z/] || ''
       raw = line.sub(/\s*\z/, '')
       stripped = raw.strip
 
+      if stripped.start_with?('```', '~~~')
+        inside_fenced_block = !inside_fenced_block
+        out << line
+        next
+      end
+
+      if inside_fenced_block
+        out << line
+        next
+      end
+
+      # Track delimited blocks (listing, literal, example, passthrough)
+      if %w[---- .... ==== **** ++++].include?(stripped)
+        if delimited_stack.last == stripped
+          delimited_stack.pop
+        else
+          delimited_stack.push(stripped)
+        end
+
+        out << line
+        next
+      end
+
+      if delimited_stack.any?
+        out << line
+        next
+      end
+
       if stripped == '[discrete]'
         active_role = roles_by_level[roles_by_level.keys.max]
         if active_role
           out << "[discrete,#{active_role}]#{trailing_ws}"
+          discrete_pending = true
           next
         end
       end
@@ -66,7 +98,7 @@ module SectionRolePropagation
 
       if (m = raw.match(/^(=+)\s+(.+)$/))
         level = m[1].length
-        roles_by_level.delete_if { |k, _| k >= level }
+        roles_by_level.delete_if { |k, _| k >= level } unless discrete_pending
 
         inline_role = nil
         if (ir = m[2].match(%r{\A\[\.(added|changed|removed|red|orange|green)\]#(.+)#\z}))
@@ -77,17 +109,23 @@ module SectionRolePropagation
         pending_role = nil if active_role
 
         if active_role.nil?
-          parent_level = roles_by_level.keys.select { |k| k < level }.max
+          parent_level =
+            if discrete_pending
+              roles_by_level.keys.max
+            else
+              roles_by_level.keys.select { |k| k < level }.max
+            end
           active_role = parent_level ? roles_by_level[parent_level] : nil
         end
 
-        roles_by_level[level] = active_role if active_role
+        roles_by_level[level] = active_role if active_role && !discrete_pending
 
         if active_role
           out << "#{m[1]} #{wrap_inline(m[2], active_role)}#{trailing_ws}"
         else
           out << line
         end
+        discrete_pending = false
         next
       end
 
@@ -108,8 +146,9 @@ module SectionRolePropagation
       end
 
       skip_line = stripped.empty? ||
-                  stripped.start_with?('[', ':', 'include::', 'ifdef::', 'ifndef::', 'endif::', '.', '//', 'image::', 'link:') ||
-                  %w[---- .... ==== **** ++++].include?(stripped)
+                  stripped.start_with?('[', ':', 'include::', 'ifdef::', 'ifndef::', 'endif::', '|===', '.', '//', 'image::', 'link:') ||
+                  %w[--- ---- .... ==== **** ++++].include?(stripped) ||
+                  raw.lstrip.start_with?('|')
       if skip_line
         out << line
         next
