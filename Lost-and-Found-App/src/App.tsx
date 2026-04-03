@@ -3,11 +3,13 @@ import HomePage from "./pages/HomePage";
 import ReportCreatePage from "./pages/ReportCreatePage";
 import ProfilePage from "./pages/ProfilePage";
 import type { ProfilePageProps } from "./pages/ProfilePage";
+import UserHistoryPage from "./pages/UserHistoryPage";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/history" element={<UserHistoryPage />} />
       <Route path="/create-report" element={<ReportCreatePage />} />
       <Route
         path="/profile"
