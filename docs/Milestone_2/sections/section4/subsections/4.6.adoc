@@ -1,7 +1,5 @@
 === *Requirements Evolution*
 
-
----
 ==== Traceability for Report Lost Item
 :autor: Naedra 
 

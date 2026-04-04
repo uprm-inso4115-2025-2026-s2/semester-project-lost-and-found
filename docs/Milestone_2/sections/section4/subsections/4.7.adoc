@@ -1,6 +1,5 @@
 === *Requirements Stakeholders*
 
----
 ==== Stakeholder Persona Development and Elicitation Strategy
 :author: Tasnim Said Khader
 
