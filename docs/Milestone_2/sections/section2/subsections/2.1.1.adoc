@@ -1,229 +1,188 @@
 == *Descriptive Part*
 === *Domain Description*
 
-==== *Domain Rough Sketches*
-
-
-[discrete]
-==== Lost Item Owners (Students / Staff)
-
-*Student (Mateo, freshman, engineering)*:
-
-“I left my charger in a classroom. I realized at night.  
-I didn’t know who to ask.  
-I checked a couple of group chats, but nobody replied.”
-
-- -> Observation: Loss is often discovered hours later, outside administrative hours.
-- -> Derived concepts: _delayed realization_, _informal search attempt_, _peer-network reliance_, _after-hours uncertainty_, _ad-hoc communication_.
-
-
-*Graduate Student (Luis, 34)*:
-
-“I lost my keys somewhere between the parking lot and the business building.  
-I wasn’t sure if I should check security, the library, or just retrace my steps.  
-There’s no clear starting point.”
-
-- -> Observation: No standardized entry point for recovery process.
-- -> Derived concepts: _search ambiguity_, _recovery path uncertainty_, _multi-location probability_, _process opacity_, _spatial retracing_.
-
-
-*Undergraduate (Valeria, lab assistant)*:
-
-“My ID card fell out of my pocket once.  
-I canceled it immediately because I was scared someone would misuse it.  
-Later I found out someone had turned it in to the library.”
-
-- -> Observation: Defensive actions taken before confirming recovery.
-- -> Derived concepts: _preventive cancellation_, _identity risk perception_, _premature replacement_, _information delay_, _security anxiety_.
-
-
-*Student (Anonymous quote overheard in hallway)*:
-
-“I posted on Instagram that I lost my AirPods.  
-Someone replied saying they found some, but it wasn’t mine.”
-
-- -> Observation: Social media used as informal lost-and-found channel.
-- -> Derived concepts: _platform fragmentation_, _false positive match_, _public broadcast attempt_, _unverified claim_, _informal matching_.
-
-
-*Exchange Student (Sofia, 20)*:
-
-“I don’t know where the lost and found office is.  
-Back home, there’s always one central place.”
-
-- -> Observation: Assumption of centralized infrastructure that may not exist.
-- -> Derived concepts: _centralization expectation_, _physical office dependency_, _campus navigation gap_, _institutional assumption mismatch_.
-
-
-[discrete]
-==== Finders (Students / Staff Who Discover Items)
-
-*Student (Daniel, TA)*:
-
-“I found a phone outside the physics building.  
-I didn’t want to just leave it there.  
-But I also didn’t want to give it to the wrong person.”
-
-- -> Observation: Ethical hesitation and ownership uncertainty.
-- -> Derived concepts: _finder responsibility_, _ownership doubt_, _misdelivery fear_, _verification hesitation_, _custodial ambiguity_.
-
-
-*Library Employee (Camila, part-time worker)*:
-
-“Students bring water bottles, chargers, USB drives, everything.  
-We just put them in a drawer with sticky notes.  
-Sometimes people argue over who it belongs to.”
-
-- -> Observation: Manual storage and informal labeling.
-- -> Derived concepts: _manual logging_, _physical clutter accumulation_, _informal tagging_, _ownership dispute_, _storage overflow_.
-
-
-*Campus Security Staff (informal interview note)*:
-
-“We keep items in the office for a few weeks.  
-If nobody claims them, they get discarded or stored somewhere else.  
-There’s no consistent tracking system.”
-
-- -> Observation: Time-based retention without structured tracking.
-- -> Derived concepts: _retention window_, _unclaimed disposal_, _record absence_, _lifecycle inconsistency_, _institutional variance_.
-
-
-*Student (heard in lab)*:
-
-“I didn’t report the calculator I found.  
-I just left it on the desk where I found it.”
-
-- -> Observation: Non-reporting behavior due to low perceived value or effort.
-- -> Derived concepts: _non-reporting tendency_, _effort aversion_, _value-based prioritization_, _passive return attempt_, _engagement barrier_.
-
-
-[discrete]
-==== Physical Environment (Campus Context)
-
-*Observation (classroom building, evening)*:
-
-Multiple empty classrooms with unattended items (notebooks, bottles, jackets).  
-No signage indicating what to do if an item is found.
-
-- -> Derived concepts: _unattended object frequency_, _instruction absence_, _behavioral ambiguity_, _environmental normalcy of loss_.
-
-
-*Observation (library third floor office)*:
-
-Drawer labeled “Lost & Found” contains mixed items with handwritten notes.  
-No consistent format for notes (some have dates, some don’t).
-
-- -> Derived concepts: _metadata inconsistency_, _informal documentation_, _date omission_, _traceability gap_, _storage heterogeneity_.
-
-
-*Observation (parking lot)*:
-
-Keys found near vehicles.  
-High traffic area, low traceability.
-
-- -> Derived concepts: _high-mobility zone_, _low-identifiability object_, _spatial anonymity_, _retrieval difficulty_, _public exposure risk_.
-
-
-[discrete]
-==== Communication Patterns
-
-*Student Group Chat Screenshot (note excerpt)*:
-
-“Anyone lose a blue Hydro Flask?”  
-“Where?”  
-“Near Chem building.”  
-“No idea whose it is.”
-
-- -> Observation: Broadcast without structured follow-up.
-- -> Derived concepts: _ephemeral notification_, _non-persistent record_, _limited audience reach_, _context decay_, _informal broadcast loop_.
-
-
-*Library Worker (Camila)*:
-
-“People come asking, ‘Has anyone reported a MacBook?’  
-I can’t check anything except the drawer.”
-
-- -> Observation: Query without searchable record.
-- -> Derived concepts: _search absence_, _manual lookup limitation_, _inventory invisibility_, _query frustration_, _information bottleneck_.
-
-
-*Student (Mateo)*:
-
-“I wouldn’t put my phone number publicly.  
-I don’t want random people contacting me.”
-
-- -> Observation: Privacy concerns in open reporting.
-- -> Derived concepts: _contact exposure risk_, _privacy hesitation_, _identity boundary_, _communication mediation need_, _trust sensitivity_.
-
-
-[discrete]
-==== Behavioral Patterns Around Loss
-
-*Observation (multiple interviews)*:
-
-People often retrace steps physically before asking anyone.  
-Only after failing do they ask peers or offices.
-
-- -> Derived concepts: _physical retracing priority_, _self-recovery attempt_, _delayed reporting_, _effort escalation_, _search fatigue_.
-
-
-*Student Comment (hallway conversation)*:
-
-“I assumed someone would steal it if I didn’t find it quickly.”
-
-- -> Observation: Perceived theft risk influences urgency.
-- -> Derived concepts: _theft anxiety_, _urgency escalation_, _trust deficit_, _loss finality assumption_, _campus risk perception_.
-
-
-*Repeated Theme (brainstorming session note)*:
-
-- Items frequently lost: keys, ID cards, chargers, water bottles, USB drives, headphones.
-- High-value electronics trigger faster reporting.
-- Low-value items often abandoned.
-- No unified visibility across departments.
-
-- -> Derived concepts: _value-based reporting threshold_, _object category frequency_, _departmental isolation_, _visibility fragmentation_, _reporting asymmetry_.
-
-==== 2.1.1.1 Requirements Acquisition (Questionnaire) and Elicitation Summary
+[.changed]
+==== 2.1.1 Domain Rough Sketches (Raw Observations and Traceable Concept Derivation)
 :author: Anthony H Martinez-Gomez
 
-==== Questionnaire (Acquisition)
 
-The following questionnaire was used to gather input about lost-and-found experiences and to support evidence-based domain claims.
+===== 2.1.1.1 Raw observations (unprocessed)
 
-[cols="1,4",options="header"]
+The table below captures statements and field notes as they were recorded, plus minimal context. If a detail was not captured (for example, what kind of keys), we mark it as unknown rather than guessing.
+
+[cols="1,3,2,2",options="header"]
 |===
-| ID | Question
+| # | Raw statement / field note | Context (where/when) | Item details (specific)
 
-| Q1 | In the last *6 months*, how many times have you lost an item on campus? (0 / 1 / 2–3 / 4+)
-| Q2 | What types of items did you lose? (keys / ID / earbuds / bottle / charger / laptop / other: ___)
-| Q3 | When you realize you lost something, what is the *first* thing you usually do? (retrace steps / ask friends / check office / group chat / other)
-| Q4 | In your last loss, which places/offices did you check? (library / security / department office / student affairs / cafeteria / other: ___)
-| Q5 | About how many places did you check before you found it or gave up? (1 / 2 / 3 / 4+)
-| Q6 | How long after losing something do you usually notice it is missing? (immediately / hours later / next day / other)
-| Q7 | If you have found an item on campus, what did you do? (left it / turned in to office / posted in chat / kept it / other)
-| Q8 | If you turned in a found item, where did you take it? (library / security / department office / student affairs / other)
-| Q9 | What details help you identify your item *without* making it easy to fake-claim it? (open response)
-| Q10 | What details would you *not* feel comfortable sharing publicly? (name / phone / ID details / exact location / photos / other)
-| Q11 | Have you ever seen/heard of someone falsely claiming an item? (Yes/No). If yes, describe briefly.
-| Q12 | What is the biggest obstacle in the current lost-and-found process at UPRM? (open response)
-| Q13 | If you could change one thing about how lost & found works on campus, what would it be? (open response)
+| 1
+| "I left my charger in a classroom. I realized at night. I checked a couple group chats, but nobody replied."
+| Noticed after hours; checked informal channels
+| Charger; brand/type unknown; classroom/room not recorded
+
+| 2
+| "I lost my keys somewhere between the parking lot and the business building. I wasn’t sure if I should check security, the library, or just retrace my steps."
+| Outdoor route; several plausible places to check
+| Keys; type not recorded (car, apartment, lab, keycard unknown)
+
+| 3
+| "My ID card fell out. I canceled it immediately because I was scared someone would misuse it. Later I found out someone had turned it in to the library."
+| Defensive action taken before confirmation
+| Student ID card; details intentionally omitted
+
+| 4
+| "I posted on Instagram that I lost my AirPods. Someone replied saying they found some, but it wasn’t mine."
+| Social media used for recovery attempt
+| Earbuds (AirPods); model/color not recorded
+
+| 5
+| "I don’t know where the lost and found office is. Back home there’s always one central place."
+| Person unfamiliar with campus expectations
+| No item specified
+
+| 6
+| "I found a phone outside the physics building. I didn’t want to leave it there. But I also didn’t want to give it to the wrong person."
+| Item found outdoors; finder hesitant
+| Phone; brand/model unknown
+
+| 7
+| "Students bring water bottles, chargers, USB drives, everything. We put them in a drawer with sticky notes. Sometimes people argue over who it belongs to."
+| Library handling and storage
+| Mixed items; sticky note labeling varies; which fields are written is inconsistent
+
+| 8
+| "We keep items in the office for a few weeks. If nobody claims them, they get discarded or stored somewhere else. There’s no consistent tracking system."
+| Security office handling
+| Retention exists ("a few weeks"); exact duration varies or is unknown
+
+| 9
+| "I didn’t report the calculator I found. I just left it on the desk where I found it."
+| Passive return attempt
+| Calculator; model unknown
+
+| 10
+| Observation: Unattended items in empty classrooms (notebooks, bottles, jackets). No signage indicating what to do if an item is found.
+| Classroom building, evening
+| Items vary; signage absent
+
+| 11
+| Observation: Drawer labeled "Lost & Found" contains mixed items with handwritten notes. Notes inconsistent (some dated, some not).
+| Library third floor office
+| Note format inconsistent; dates sometimes missing
+
+| 12
+| Observation: Keys found near vehicles in a high traffic area; hard to identify ownership.
+| Parking lot
+| Keys; type not recorded (metal keys vs keycard unknown)
+
+| 13
+| "Anyone lose a blue Hydro Flask?" "Where?" "Near Chem building." "No idea whose it is."
+| Group chat excerpt
+| Water bottle (blue Hydro Flask); location vague ("near Chem building")
+
+| 14
+| "People come asking 'Has anyone reported a MacBook?' I can’t check anything except the drawer."
+| Library worker perspective
+| MacBook; no searchable record (only physical drawer)
+
+| 15
+| "I wouldn’t put my phone number publicly. I don’t want random people contacting me."
+| Privacy boundary in open reporting
+| No item specified
+
+| 16
+| Observation: People retrace steps first; only later ask peers/offices.
+| Multiple informal discussions
+| No item specified
+
+| 17
+| "I assumed someone would steal it if I didn’t find it quickly."
+| Perceived risk affecting urgency
+| No item specified
 |===
 
-==== Elicitation Summary (Preliminary Findings)
+[.added]
+===== 2.1.1.2 Evidence add on (questionnaire summary)
 
-* Respondents: N = 10
-* Stakeholder mix: 8 students, 2 staff (security)
+* Respondents: N = 10 (8 students, 2 security staff)
 * Collection method: Google Form
 * Dates: March 16, 2026 to April 3, 2026
+* Limitations:
 ** Small sample size
+** Convenience sample (mostly within our network)
 ** Limited representation of staff perspectives
 
-Findings:
+Key results:
 
-- 8/10 respondents reported losing at least one item in the last 6 months.
-- Common items mentioned included water bottles, chargers, earbuds, and keys.
-- Recovery attempts commonly involved checking multiple places (median = 2), especially the library, department offices, and group chats.
-- Privacy concerns were common (avoiding phone/contact info, ID details, exact locations).
-- 3/10 respondents mentioned concerns about suspicious or false claiming behavior.
-- Most respondents reported noticing the loss one hour later.
+* 8/10 reported losing at least one item in the last 6 months.
+* Common items mentioned: water bottles, chargers, earbuds, keys.
+* Median number of places checked before finding or giving up: 2.
+* Places and channels commonly checked: library, department offices, group chats.
+* Privacy boundaries were common (contact info, ID details, exact locations).
+* 3/10 mentioned concerns about suspicious or false claiming behavior.
+* Most respondents reported noticing the loss later the same day (often within a few hours).
+
+===== 2.1.1.3 Derived concepts (traceable back to raw observations)
+
+The concepts below are derived from the raw observation table above. Each concept includes the observation numbers it is based on.
+
+[cols="2,4,2",options="header"]
+|===
+| Derived concept | What it means | Supported by obs #
+
+| Delayed realization
+| People often notice loss later (hours later or after hours), not immediately.
+| 1, 16
+
+| No clear starting point
+| After noticing a loss, people are unsure which office or place is the right first stop.
+| 2, 5, 14
+
+| Place to place effort
+| Recovery attempts require checking multiple places and channels.
+| 2, 14, 16 
+
+| Fragmented channels
+| People use informal channels (social media and chats) that do not preserve context well.
+| 4, 13
+
+| Weak matching / false positives
+| Informal matching creates false positives and uncertainty.
+| 4
+
+| Finder hesitation
+| Finders want to help but fear giving the item to the wrong person.
+| 6
+
+| Manual custody
+| Items end up stored in offices or drawers with inconsistent notes and metadata.
+| 7, 11, 14
+
+| Disputes at pickup
+| Weak verification leads to arguments over ownership.
+| 7
+
+| Retention window
+| Items are held for some time, then discarded or moved.
+| 8
+
+| Non reporting / passive return
+| Some finders do not report; they leave items where found.
+| 9
+
+| Privacy boundary
+| People avoid posting personal contact details publicly.
+| 15 
+
+| Theft anxiety / urgency escalation
+| Fear of theft increases urgency and changes behavior.
+| 17
+|===
+
+===== 2.1.1.4 Missing specifics to collect next 
+
+We intentionally did not invent details that were not captured in the raw observations. Next time we collect observations, we will explicitly capture:
+
+* Keys: car keys vs apartment keys vs lab keys vs keycard (obs #2 and #12).
+* Earbuds: model, color, case markings (obs #4).
+* Chargers: USB C vs Lightning vs laptop charger block and cable (obs #1).
+* Retention: approximate duration range and whether it differs by office (obs #8).
