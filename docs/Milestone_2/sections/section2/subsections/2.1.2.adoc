@@ -2,16 +2,16 @@
 ==== *Terminology*
 
 This section defines key concepts within the lost-and-found domain. 
-Each term is annotated with its *type* (entity, event, behavior, function) and the *phase* in which it is introduced. 
+Each term is annotated with its *type* (entity, event, state, behavior, function) and the *phase* in which it is introduced.
 
-===== Type: Entity & Phase: Domain 
+===== Type: Entity & Phase: Domain
 
 [col="1,3"]
 |===
 |Term |Definition
 
 |*Lost Item*
-|Personal belonging whose owner no longer knows its location and intends to recover it.
+|Personal belonging whose owner no longer knows its location.
 
 |*Found Item*
 |Personal belonging discovered by someone other than its owner.
@@ -23,29 +23,41 @@ Each term is annotated with its *type* (entity, event, behavior, function) and t
 |Individual who discovers a lost item.
 
 |*Holder*
-|A person or office temporarily responsible for keeping a found item until it can be returned.
-
-|*Returner*
-|A person facilitating the transfer of a found item back to its owner. 
+|A person or office temporarily responsible for keeping a found item.
 
 |*Loss Location*
-|Area where an item is believe to have been lost.
+|Area where an item is believed to have been lost.
 
 |*Discovery Location*
-|Area where an item is found, which may differe from loss location.
+|Area where an item is found, which may differ from the loss location.
 
 |*Custody Location*
 |The place where a found item is kept while awaiting return.
 
-|*Holding Period*
-|Duration during which a found item is kept before alternarive handling is considered. 
-
-|*Unclaimed Item*
-|A found item that has not been successfully returned to its owner within the holding period. 
-
 |*Report*
-|Recorded description of a lost or found item that supports identification. 
+|A recorded description of a lost or found item used to support identification and recovery.
 |===
+
+
+===== Type: State & Phase: Domain
+
+[col="1,3"]
+|===
+|Term |Definition
+
+|*Holding Period*
+|The duration during which a found item remains under custody before alternative handling is considered.
+
+|*Unclaimed*
+|State of a found item after the holding period expires without successful return.
+
+|*Active Report*
+|State in which a report is open and recovery is still expected.
+
+|*Closed Report*
+|State in which no further recovery actions are expected.
+|===
+
 
 ===== Type: Event & Phase: Domain
 
@@ -56,11 +68,17 @@ Each term is annotated with its *type* (entity, event, behavior, function) and t
 |*Loss Realization*
 |The moment an individual becomes aware that an item is missing.
 
+|*Item Found*
+|The moment an item is discovered by someone other than its owner.
+
 |*Item Handed Over*
 |The transfer of a found item to a holder or custody location.
 
+|*Item Reported*
+|An item is formally or informally documented as lost or found.
+
 |*Claim Attempt*
-|An individual asserts ownership of a found item. 
+|An individual asserts ownership of a found item.
 
 |*Item Returned*
 |The event in which a found item is successfully transferred back to its owner.
@@ -68,40 +86,66 @@ Each term is annotated with its *type* (entity, event, behavior, function) and t
 |*Holding Period Expired*
 |The moment when a defined holding period ends without successful return.
 
-|*Report Created*
-|Documentation of a lost or found item. 
-
 |*Report Closed*
-|Conclusion of a report when no further action is expected.
+|The event marking the conclusion of a report’s lifecycle.
 |===
+
+
 ===== Type: Behavior & Phase: Domain
 
-[col="1,3"]
+[cols="1,3"]
 |===
 |Term |Definition
 
 |*Item Handling*
-|Behavior consisting of the actions and events involved in managing a found item, including a _Item Handed Over_, custody at a _Custody Location_, and eventually _Item Returned_ or _Holding Period Expired_.
+a|
+Behavior composed of:
+
+. Event: Item Found  
+. Event: Item Handed Over  
+. State: Item stored at Custody Location  
+. Event: Claim Attempt (optional)  
+. Event: Item Returned *or* Holding Period Expired  
+
+This behavior models how a found item transitions from discovery to resolution.
 
 |*Claim Verification*
-|Behavior of _Claim Attempt_, comparison of identifying information, and decision to either allow _Item Returned_ or deny the claim.
+a|
+Behavior composed of:
+
+. Event: Claim Attempt  
+. Action: Comparison of identifying details  
+. Outcome:
+  * Event: Item Returned (if verified)  
+  * No return (claim denied)  
+
+This behavior ensures that items are returned only to legitimate owners.
 
 |*Matching*
-|Behavior of comparing between descriptions of a _Lost Item_ and _Found Item_, potentially leading to a _Claim Attempt_.
+a|
+Behavior composed of:
+
+. Event: Item Reported  
+. Action: Comparison between Lost Item and Found Item descriptions  
+. Event: Claim Attempt (if a potential match is identified)  
+
+This behavior represents how potential matches are identified.
 
 |*Custody Management*
-|Behavior including receiving items, storing them at a _Custody Location_, monitoring the _Holding Period_ and determining status as _Unclaimed Item_.
+a|
+Behavior composed of:
+
+. Event: Item Handed Over  
+. State: Item stored at Custody Location  
+. State: Holding Period active  
+. Event:
+  * Item Returned  
+  * or Holding Period Expired → State: Unclaimed  
+
+This behavior models how items are managed while in custody.
+
 |===
 
-===== Type: Function & Phase: Domain
-
-[col="1,3"]
-|===
-|Term |Definition
-
-|*Reporting*
-|Action of documenting the existence of a lost or found item.
-|===
 
 ===== Type: Function & Phase: Requirements
 
@@ -109,9 +153,12 @@ Each term is annotated with its *type* (entity, event, behavior, function) and t
 |===
 |Term |Definition
 
+|*Reporting*
+|System-supported action of documenting a lost or found item in a structured and persistent manner.
+
 |*Notification*
-|Mechanism used to informs relevant individuals about events such as matches, status changes, or recovery progress.
+|Mechanism used to inform users about relevant events such as matches or status changes.
 
 |*Authentication*
-|Mechanism used to confirm the identity of a person interacting with the system before allowing restricted actions.
+|Mechanism used to confirm the identity of a user before allowing restricted actions.
 |===
