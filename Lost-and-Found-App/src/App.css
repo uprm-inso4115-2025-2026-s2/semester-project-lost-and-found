@@ -1,0 +1,228 @@
+#root {
+  width: 100%;
+  max-width: 60vh;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.page {
+  min-height: 100vh;
+  background: #ececec;
+  padding: 0 0 40px;
+}
+
+.container {
+  width: min(1600px, 100%);
+  margin: 0 auto;
+}
+
+.header {
+  background: #08b257;
+  padding: 28px 20px 22px;
+  text-align: left;
+}
+
+.header h1 {
+  margin: 0;
+  color: white;
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.sub {
+  margin: 8px 0 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+}
+
+.tabs {
+  display: flex;
+  gap: 14px;
+  padding: 18px 20px 18px;
+  flex-wrap: wrap;
+  background: #08b257;
+  margin-top: 0;
+}
+
+.tabBtn {
+  border: none;
+  background: #14c85f;
+  color: white;
+  padding: 14px 26px;
+  border-radius: 999px;
+  font-size: 1.05rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+  transition: transform 120ms ease, background 120ms ease;
+}
+
+.tabBtn:hover {
+  transform: translateY(-1px);
+  background: #1ad765;
+}
+
+.tabBtn.active {
+  background: #f3f3f3;
+  color: #08b257;
+}
+
+.grid {
+  padding: 26px 20px;
+  margin-top: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 280px));
+  gap: 28px;
+  justify-content: center;
+  align-items: start;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.reportCard {
+  position: relative;
+  background: #f5f5f5;
+  border-radius: 28px;
+  overflow: hidden;
+  text-align: left;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.14);
+}
+
+.reportImage {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  display: block;
+  background: #d8d8d8;
+}
+
+.reportImage.placeholder {
+  display: grid;
+  place-items: center;
+  color: #666;
+}
+
+.reportBody {
+  padding: 12px 14px 18px;
+  text-align: center;
+}
+
+.cardHeader {
+  position: relative;
+}
+
+.reportTitle {
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #222;
+}
+
+.reportDescription {
+  display: none;
+}
+
+.reportMeta p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #222;
+}
+
+.statusBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  white-space: nowrap;
+  color: white;
+}
+
+.status-lost {
+  background: #ff1c10;
+}
+
+.status-claimed {
+  background: #f59e0b;
+}
+
+.status-returned {
+  background: #10b981;
+}
+
+.status-active {
+  background: #ff1c10;
+}
+
+.status-resolved {
+  background: #f59e0b;
+}
+
+.cardActions {
+  margin-top: 14px;
+}
+
+.actionBtn {
+  border: none;
+  background: #08b257;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.actionBtn:hover {
+  opacity: 0.94;
+}
+
+.emptyState {
+  padding: 2rem;
+  border-radius: 16px;
+  color: #333;
+  background: #f3f3f3;
+  border: 1px dashed #bbb;
+}

@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import { deleteUserAndReports, signOut } from "../UserProfilesAccount/UserAccountManagement";
+import { updateReportStatus } from "../ReportManagement/ReportService";
 
 import CategoryDropdown from "../components/CategoryDropdown";
 import type { CategoryFilter } from "../components/CategoryDropdown";
@@ -16,9 +17,9 @@ import type { Report } from "../ReportManagement/Reports";
 type TabKey = ItemStatus;
 
 function toItemStatus(reportStatus: string): ItemStatus | null {
-  if (reportStatus === "Active") return "Lost";
-  if (reportStatus === "Claimed") return "Claimed";
-  if (reportStatus === "Resolved") return "Returned";
+  if (reportStatus === "Active" || reportStatus === "ACTIVE") return "Lost";
+  if (reportStatus === "Claimed" || reportStatus === "CLAIMED") return "Claimed";
+  if (reportStatus === "Resolved" || reportStatus === "RESOLVED") return "Returned";
   return null;
 }
 
@@ -37,6 +38,39 @@ export default function HomePage() {
       .then(setReports)
       .finally(() => setLoading(false));
   }, []);
+
+  async function handleClaim(reportId: string) {
+    try {
+      await updateReportStatus(reportId, "CLAIMED");
+  
+      const updated = await getAllReports();
+      setReports(updated);
+    } catch (error) {
+      console.error("Claim failed:", error);
+    }
+  }
+  
+  async function handleReturn(reportId: string) {
+    try {
+      await updateReportStatus(reportId, "RESOLVED");
+  
+      const updated = await getAllReports();
+      setReports(updated);
+    } catch (error) {
+      console.error("Return failed:", error);
+    }
+  }
+
+  async function handleSendBackToLost(reportId: string) {
+    try {
+      await updateReportStatus(reportId, "ACTIVE");
+  
+      const updated = await getAllReports();
+      setReports(updated);
+    } catch (error) {
+      console.error("Return failed:", error);
+    }
+  }
 
   const handleCreateReport = () => {
     navigate("/create-report");
@@ -153,18 +187,21 @@ export default function HomePage() {
           <p className="emptyMessage">No reports found for this filter.</p>
         ) : (
           filteredReports.map((report) => (
-            <ItemCard
-              key={report.getID()}
-              title={report.getTitle()}
-              description={report.getDescription()}
-              dateLabel={report.getDateFound().toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-              })}
-              locationLabel={report.getLocation()}
-              status={toItemStatus(report.getStatus()) ?? "Lost"}
-              imageUrl={report.getImageURL() || undefined}
-            />
+          <ItemCard
+            reportId={report.getID()}
+            title={report.getTitle()}
+            description={report.getDescription()}
+            dateLabel={report.getDateFound().toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+            })}
+            locationLabel={report.getLocation()}
+            status={toItemStatus(report.getStatus()) ?? "Lost"}
+            imageUrl={report.getImageURL() || undefined}
+            onClaim={handleClaim}
+            onReturn={handleReturn}
+            onSendBackToLost={handleSendBackToLost}
+          />
           ))
         )}
       </section>

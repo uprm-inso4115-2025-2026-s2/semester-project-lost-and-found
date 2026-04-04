@@ -73,8 +73,11 @@ export async function getReport(id: string): Promise<Report | null> {
     else if (data.category === "Office Supplies") { category = 'OFFICE SUPPLIES'; }
 
     let status: ReportStatus = 'ACTIVE';
-    if (data.status === "Resolved") { status = 'RESOLVED'; }
-    else if (data.status === "Claimed") { status = 'CLAIMED'; }
+    if (data.status === "Resolved" || data.status === "RESOLVED") {
+        status = 'RESOLVED';
+    } else if (data.status === "Claimed" || data.status === "CLAIMED") {
+        status = 'CLAIMED';
+    }
 
     let type: ReportType = 'LOST';
     if (data.type === "Found") { type = 'FOUND'; }
@@ -94,15 +97,15 @@ export async function getReport(id: string): Promise<Report | null> {
    return Report.fromSupabase(data.id, prop, status);
 }
 
-export async function getAllReports(): Promise<Report[]> {
-    const { data, error } = await supabase
-        .from('reports')
-        .select()
+    export async function getAllReports(): Promise<Report[]> {
+        const { data, error } = await supabase
+            .from('reports')
+            .select()
 
-    if (!data || error) {
-        console.error(error);
-        return [];
-    }
+        if (!data || error) {
+            console.error(error);
+            return [];
+        }
 
     let reports: Report[] = [];
 
@@ -113,8 +116,11 @@ export async function getAllReports(): Promise<Report[]> {
         else if (data[i].category === "Office Supplies") { category = 'OFFICE SUPPLIES'; }
 
         let status: ReportStatus = 'ACTIVE';
-        if (data[i].status === "Resolved") { status = 'RESOLVED'; }
-        else if (data[i].status === "Claimed") { status = 'CLAIMED'; }
+        if (data[i].status === "Resolved" || data[i].status === "RESOLVED") {
+            status = 'RESOLVED';
+        } else if (data[i].status === "Claimed" || data[i].status === "CLAIMED") {
+            status = 'CLAIMED';
+        }
 
         let type: ReportType = 'LOST';
         if (data[i].type === "Found") { type = 'FOUND'; }

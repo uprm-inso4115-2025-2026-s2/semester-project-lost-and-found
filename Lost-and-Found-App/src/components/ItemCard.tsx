@@ -10,6 +10,11 @@ export interface ItemCardProps {
   dateLabel: string;
   locationLabel?: string;
   status: ItemStatus;
+  
+  reportId: string;
+  onClaim?: (id: string) => void;
+  onReturn?: (id: string) => void; 
+  onSendBackToLost?: (reportId: string) => void;
 }
 
 const STATUS_THEME: Record<
@@ -39,12 +44,16 @@ const STATUS_THEME: Record<
 };
 
 export const ItemCard: React.FC<ItemCardProps> = ({
+  reportId,
   imageUrl,
   title,
   description,
   dateLabel,
   locationLabel,
   status,
+  onClaim,
+  onReturn,
+  onSendBackToLost,
 }) => {
   const theme = useMemo(() => STATUS_THEME[status], [status]);
   const [imgFailed, setImgFailed] = useState(false);
@@ -98,6 +107,7 @@ export const ItemCard: React.FC<ItemCardProps> = ({
 
         <div className="metaRow">
           <span className="metaPill">
+            
             <span className="icon">📅</span>
             {dateLabel}
           </span>
@@ -108,6 +118,26 @@ export const ItemCard: React.FC<ItemCardProps> = ({
               {locationLabel}
             </span>
           ) : null}
+          
+        <div className="cardActions">
+          {status === "Lost" && onClaim && (
+            <button className="actionBtn" onClick={() => onClaim(reportId)}>
+              Mark as Claimed
+            </button>
+          )}
+
+          {status === "Claimed" && onReturn && (
+            <button className="actionBtn" onClick={() => onReturn(reportId)}>
+              Mark as Returned
+            </button>
+          )}
+
+          {status === "Returned" && onSendBackToLost && (
+              <button className="actionBtn" onClick={() => onSendBackToLost(reportId)}>
+                Send back to Lost
+              </button>
+          )}
+        </div>
         </div>
       </div>
     </article>

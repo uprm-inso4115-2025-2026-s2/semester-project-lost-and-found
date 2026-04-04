@@ -157,3 +157,24 @@
   opacity: 1;
   transform: translateX(-50%) scale(1);
 }
+
+.cardActions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.actionBtn {
+  border: none;
+  background: #17a45b;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.actionBtn:hover {
+  opacity: 0.94;
+}

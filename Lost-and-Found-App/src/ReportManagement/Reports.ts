@@ -110,7 +110,36 @@ export class Report {
     (index === -1) ? console.log("Tag not found") : this.tags.splice(index, 1);
   }
   public setImage(imageUrl: string): void { this.imageUrl = imageUrl; }
-  public setStatus(status: ReportStatus): void { this.status = status; }
+  public setStatus(status: ReportStatus): void {
+
+    if (this.status === status) {
+      return;
+    }
+  
+    if (this.status === 'ACTIVE' && (status === 'RESOLVED' || status === 'CLAIMED')) {
+      this.status = status;
+      return;
+    }
+  
+    if (this.status === 'RESOLVED' && status === 'CLAIMED') {
+      this.status = status;
+      return;
+    }
+  
+    throw new Error("Invalid status transition");
+  }
+  
+  public markResolved(): void {
+    this.setStatus('RESOLVED');
+  }
+  
+  public markClaimed(): void {
+    this.setStatus('CLAIMED');
+  }
+  
+  // public markActive(): void {
+  //   this.setStatus('ACTIVE');
+  // }
 
   // method to create a report
   static Create(props: CreateReportProps): Report {
@@ -145,31 +174,35 @@ export class Report {
       description: this.description,
       dateFound: this.dateFound,
       location: this.location,
-      category: this.getCategory(),
+      category: this.category,
       tags: this.tags,
       imageURL: this.imageUrl,
       createdBy: this.createdBy,
-      status: this.getStatus(),
-      type: this.getType()
+      status: this.status,
+      type: this.type
     };
   }
 
   static fromSupabase(id: string, prop: CreateReportProps, status: ReportStatus): Report {
       return new Report(id, prop, status);
   }
+  public getRawStatus(): ReportStatus {
+    return this.status;
+  }
+  
 }
 
 // dummy data to test each variable works correctly 
 // const report = Report.Create({
-//     title: 'I Phone 6 Million',
-//     description: 'FUN EVENT',
-//     dateFound: new Date('2026-02-26'),
-//     location: 'Choliseo',
-//     category: "ELECTRONICS",
-//     tags: [],
-//     imageUrl: undefined,
-//     createdBy: 'Sasuke',
-//   });
+//   title: 'I Phone 6 Million',
+//   description: 'FUN EVENT',
+//   dateFound: new Date('2026-02-26'),
+//   location: 'Choliseo',
+//   category: "ELECTRONICS",
+//   tags: [],
+//   imageUrl: undefined,
+//   createdBy: 'Sasuke',
+// });
 
 // console.log('ID:', report.getID());
 // console.log('Title:', report.getTitle());
