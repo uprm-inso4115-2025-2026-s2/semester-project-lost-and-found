@@ -2,6 +2,60 @@
 
 === *Domain Engineering*
 
+==== Domain Concept Formation and Abstraction
+
+During the domain acquisition phase, several concrete entities and events were identified in relation to the lost-and-found process. These include specific types of items (like wallets, keys, laptops), location (like classrooms, libraries, study areas), and roles (like students, faculty, staff). While these domain description units are useful for understanding the problem space, repeatedly referencing each individual phenomenom can make the domain narrative unnecessarily detailed and difficult to maintain. 
+
+To simplify the domain model and improve clarity across project documentation, these raw domain phenomena are abstracted into higher level domain concepts. These abstractions capture shared properties and behaviors among related entities and events, allowing the system domain to be described in a more concise and consistent manner.
+
+===== Identified Abstractions
+* Item
+
+- *Type:* Entity
+- *Phase:* Domain
+
+An Item represents any personal object that may be misplaced or discovered within the campus environment.  
+This abstraction groups specific belongings such as keys, identification cards, electronics, backpacks, and other personal property.
+
+* Participant
+
+- *Type:* Entity  
+- *Phase:* Domain  
+
+A Participant represents any individual who interacts with the lost-and-found process.  
+This abstraction includes students, faculty members, and staff who may act as *Owners* of lost items, *Finders* of discovered items, or claimants seeking to recover belongings.
+
+* Campus Location
+
+- *Type:* Entity  
+- *Phase:* Domain  
+
+A Campus Location represents any physical area within the UPRM campus where an item may be lost or found.  
+Examples include classrooms, study areas, libraries, laboratories, and common campus facilities.
+
+* Item Report
+
+- *Type:* Entity  
+- *Phase:* Domain  
+
+An Item Report represents the recorded description of a *Lost Item* or *Found Item* within the lost-and-found process.  
+This abstraction consolidates the information necessary to enable identification, Matching, and eventual Recovery.
+
+* Custody Context
+
+- *Type:* Behavior  
+- *Phase:* Domain  
+
+The Custody Context represents the state in which an item is temporarily held or documented while awaiting identification or recovery by its rightful *Owner*.
+
+* Recovery Process
+
+- *Type:* Behavior  
+- *Phase:* Domain  
+
+The Recovery Process represents the sequence of actions through which a *Lost Item* progresses from initial *Reporting*, through *Matching* and *Claim Verification*, until *Recovery* or *Closure* occurs.
+
+By introducing these abstractions, the Lost & Found domain can be described using consistent and reusable concepts rather than repeatedly referencing individual cases or object types. This improves the readability of the domain narrative and strengthens the conceptual structure of the system model. 
 
 
 ==== *Domain Attributes*
