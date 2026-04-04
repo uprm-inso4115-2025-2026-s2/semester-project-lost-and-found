@@ -1,0 +1,92 @@
+= [Lecture Topic Task] Requirements Acquisition Questionnaire + Elicitation Summary
+:author: Anthony H Martinez-Gomez
+:toc: left
+:toclevels: 3
+
+*Framework:* Schütz-Schmuck, M. (2021). _Domain Acquisition / Requirements Acquisition_ (lecture topic). Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+== 1 Overview
+
+This Lecture Topic Task applies requirements acquisition by collecting evidence from campus stakeholders using a questionnaire. The goal is to support domain claims with concrete data and to inform requirements decisions.
+
+This file separates:
+* *Acquisition* (the questions and data collection method)
+* *Elicitation* (the interpretation of the collected responses)
+
+== 2 Requirements Acquisition (Questionnaire)
+
+=== 2.1 Purpose
+
+The questionnaire gathers evidence about:
+- how often items are lost/found on campus (in the respondents’ experience)
+- what recovery steps people currently take (offices/places checked)
+- what information people are willing to share publicly
+- what risks people perceive (false claims, privacy concerns)
+- which improvements would make recovery easier
+
+=== 2.2 Method (Acquisition)
+
+- Collection method: Google Form (recommended) or direct messages.
+- Target stakeholders: students (lost-item owners + finders) and optionally staff who handle found items.
+- Time window: Mar/28/2026 - Apr/5/2026
+- Respondents: N = 10
+
+=== 2.3 Questionnaire
+
+[cols="1,4",options="header"]
+|===
+| ID | Question
+
+| Q1 | In the last *6 months*, how many times have you lost an item on campus? (0 / 1 / 2–3 / 4+)
+| Q2 | What items did you lose? (keys / ID / earbuds / bottle / charger / laptop / other: ___)
+| Q3 | When you realize you lost something, what is the *first* thing you do? (retrace steps / ask friends / check office / group chat / other)
+| Q4 | In your last loss, which places/offices did you check? (library / security / department office / student affairs / cafeteria / other: ___)
+| Q5 | About how many places did you check before you found it or gave up? (1 / 2 / 3 / 4+)
+| Q6 | How long after losing something do you usually notice it’s missing? (immediately / hours later / next day / other)
+| Q7 | If you have found an item on campus, what did you do? (left it / turned in to office / posted in chat / kept it / other)
+| Q8 | If you turned in a found item, where did you take it? (library / security / department office / student affairs / other)
+| Q9 | What details help you identify your item *without* making it easy to fake-claim it? (open response)
+| Q10 | What details would you *not* share publicly? (name / phone / ID details / exact location / photos / other)
+| Q11 | Have you ever seen/heard of someone falsely claiming an item? (Yes/No). If yes, describe briefly.
+| Q12 | What is the biggest obstacle in the current lost-and-found process at UPRM? (open response)
+| Q13 | If you could change one thing about how lost & found works on campus, what would it be? (open response)
+|===
+
+---
+
+== 3 Elicitation Summary (Preliminary Findings)
+
+=== 3.1 Method (Elicitation)
+
+* Respondents: N = 10
+* Stakeholder mix: 8 students, 2 staff (security)
+* Collection method: Google Form 
+* Dates: Mar/28/2026 - Apr/5/2026
+** Small sample size
+** Limited representation of staff perspectives
+
+=== 3.2 Findings (Evidence)
+
+* F1 (Frequency): 8/10 respondents reported losing at least one item in the last 6 months.
+* F2 (Most common items): Top items mentioned were: 1) water bottle 2) charger 3) earbuds (tied with keys)
+* F3 (Time-to-realization): Most respondents noticed loss: hours later.
+* F4 (Recovery effort): Median number of places checked before finding/giving up: 2.
+* F5 (Where people check): Most commonly checked places were: library, department offices, and group chats.
+* F6 (Finder behavior): 10/10 respondents reported finding an item at least once; common actions were: turning it in to an office (most common), posting in a chat, or leaving it where it was.
+* F7 (Privacy/trust): Common details people avoid posting publicly: phone/contact info, ID details, and exact locations (also serial numbers/photos of IDs); 5 respondents mentioned false-claim concerns.
+
+=== 3.3 What These Findings Support (Concrete Claims)
+
+Based on the findings above, we can support the following claims:
+
+* C1: Lost items occur often enough (in our sample) to justify improving the recovery process.
+* C2: Recovery currently requires checking multiple places/channels (place-to-place effort).
+* C3: Privacy concerns exist and influence what information people are willing to share publicly.
+* C4: Finder behavior is inconsistent, suggesting the need for clearer guidance and safer handoff/verification.
+
+=== 3.4 Follow-up Plan (Stronger Evidence)
+
+To strengthen evidence for future milestones:
+* Expand the survey to at least 30–50 students across multiple faculties.
+* Attempt structured input from staff roles (library desk, security office, department offices).
+* Compare results with any available external studies about lost items on university campuses.
