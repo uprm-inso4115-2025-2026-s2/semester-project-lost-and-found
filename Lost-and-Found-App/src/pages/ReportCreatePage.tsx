@@ -2,13 +2,14 @@ import React, { useMemo, useState } from "react";
 import "./ReportCreatePage.css";
 import {Report, type Category, type ReportType} from "../ReportManagement/Reports";
 import { useNavigate } from "react-router-dom";
+import { storeReportWithDuplicateCheck } from "../ReportManagement/ReportDatabaseManagement";
 import { storeReport } from "../ReportManagement/ReportDatabaseManagement";
 import { sendReportCreatedEmail } from "../UserProfilesAccount/NotificationService";
 
 import { supabase } from "../supabaseClient.ts";
-
 import { ImageUploadInput } from "../components/ImageUploadInput";
-
+import { DuplicateWarningModal } from "../components/DuplicateWarningModal";
+import type { PotentialMatch } from "../ReportManagement/DuplicateVerification";
 
 const CATEGORIES: Category[] = [
   "ELECTRONICS",
@@ -39,11 +40,15 @@ export function ReportCreatePage() {
   const [type, setType] = useState<ReportType>("LOST");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const[imageFile, setImageFile] = useState<File | undefined>(undefined);
-  const[imageUrl, setImageUrl] = useState<string| undefined>(undefined);
+  const [imageFile, setImageFile] = useState<File | undefined>(undefined);
+  const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
+  
+  // Duplicate detection state
+  const [showDuplicateModal, setShowDuplicateModal] = useState(false);
+  const [duplicateMatches, setDuplicateMatches] = useState<PotentialMatch[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const navigate = useNavigate();
-
-
 
   const isFormReady = useMemo(
     () => Boolean(title && date && location && description && category),
@@ -87,45 +92,81 @@ export function ReportCreatePage() {
   };
 
   const handleSubmit = async () => {
-    let uploadedImageUrl : string | undefined =undefined;
+    setIsSubmitting(true);
 
-    if(imageFile){
-      const FileName = `${Date.now()}-${imageFile.name}`;
+    try {
+      // Upload image if exists
+      let uploadedImageUrl: string | undefined = undefined;
 
-      const { error } = await supabase.storage.from("ReportImages").upload(FileName, imageFile);
+      if (imageFile) {
+        const FileName = `${Date.now()}-${imageFile.name}`;
+        const { error } = await supabase.storage.from("ReportImages").upload(FileName, imageFile);
 
-      if(error){
-        console.error("Upload Error:", error);
-        return
+        if (error) {
+          console.error("Upload Error:", error);
+          setIsSubmitting(false);
+          return;
+        }
+        const { data } = supabase.storage.from("ReportImages").getPublicUrl(FileName);
+        uploadedImageUrl = data.publicUrl;
       }
-      const{data} = supabase.storage.from("ReportImages").getPublicUrl(FileName);
-      uploadedImageUrl =data.publicUrl;
-    }
-    const newReport = Report.Create({
-      title,
-      description,
-      dateFound: new Date(date),
-      location,
-      category,
-      tags,
-      createdBy: "temporary-user",
-      type,
-      
-      imageUrl : uploadedImageUrl,
-    });
-  
-    await storeReport(newReport);
 
-  // notify creator by email about report submission
-    const user = await supabase.auth.getUser();
-    if (user?.data?.user?.email) {
-      try {
-        await sendReportCreatedEmail(user.data.user.email, newReport.title);
-      } catch (err) {
-        console.warn("Failed to send report created email", err);
+      // Create the report
+      const newReport = Report.Create({
+        title,
+        description,
+        dateFound: new Date(date),
+        location,
+        category,
+        tags,
+        createdBy: "temporary-user",
+        type,
+        imageUrl: uploadedImageUrl,
+      });
+
+      // Store report with duplicate check
+      const result = await storeReportWithDuplicateCheck(newReport);
+
+      if (!result.success) {
+        console.error("Failed to store report");
+        setIsSubmitting(false);
+        return;
       }
-    }
 
+      // Check for duplicates
+      if (result.duplicateWarning.isDuplicate) {
+        // Show duplicate warning modal
+        setDuplicateMatches(result.duplicateWarning.potentialMatches);
+        setShowDuplicateModal(true);
+      } else {
+        // No duplicates, navigate to home
+        const user = await supabase.auth.getUser();
+        if (user?.data?.user?.email) {
+          try {
+            await sendReportCreatedEmail(user.data.user.email, newReport.getTitle());
+          } catch (err) {
+            console.warn("Failed to send report created email", err);
+          }
+        }
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Error submitting report:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setShowDuplicateModal(false);
+    navigate("/"); // Go to home after acknowledging duplicates
+  };
+
+  const handleViewReport = (reportId: string) => {
+    // TODO: Navigate to report detail page when it's implemented
+    console.log("View report:", reportId);
+    // For now, just close modal and go home
+    setShowDuplicateModal(false);
     navigate("/");
   };
 
@@ -168,8 +209,8 @@ export function ReportCreatePage() {
                 <button
                   key={reportType}
                   type="button"
-                  className={`pill ${type===reportType ? "active" : ""}`}
-                  onClick={()=> setType(reportType)}
+                  className={`pill ${type === reportType ? "active" : ""}`}
+                  onClick={() => setType(reportType)}
                 >
                   {reportTypeLabels[reportType]}
                 </button>
@@ -205,16 +246,16 @@ export function ReportCreatePage() {
             />
           </label>
 
-
           <label className="fullWidth">
             <span>Image</span>
             <ImageUploadInput
               onValidFile={(file) => setImageFile(file)}
-              onClear={() => {setImageFile(undefined); setImageUrl(undefined)}}
-              
+              onClear={() => {
+                setImageFile(undefined);
+                setImageUrl(undefined);
+              }}
             />
-          </label>     
-
+          </label>
 
           <label>
             <span>Category</span>
@@ -290,17 +331,27 @@ export function ReportCreatePage() {
         </div>
 
         <div className="actions">
-          <button onClick={() => navigate("/")}>Cancel</button>
+          <button onClick={() => navigate("/")} disabled={isSubmitting}>
+            Cancel
+          </button>
           <button
             type="button"
             className="primaryBtn"
-            disabled={!isFormReady}
+            disabled={!isFormReady || isSubmitting}
             onClick={handleSubmit}
           >
-            Submit report
+            {isSubmitting ? "Submitting..." : "Submit report"}
           </button>
         </div>
       </section>
+
+      {/* Duplicate Warning Modal */}
+      <DuplicateWarningModal
+        isOpen={showDuplicateModal}
+        matches={duplicateMatches}
+        onClose={handleCloseModal}
+        onViewReport={handleViewReport}
+      />
     </div>
   );
 }
