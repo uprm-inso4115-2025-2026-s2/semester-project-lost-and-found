@@ -183,3 +183,47 @@ Only after failing do they ask peers or offices.
 - No unified visibility across departments.
 
 - -> Derived concepts: _value-based reporting threshold_, _object category frequency_, _departmental isolation_, _visibility fragmentation_, _reporting asymmetry_.
+
+==== 2.1.1.1 Requirements Acquisition (Questionnaire) and Elicitation Summary
+:author: Anthony H Martinez-Gomez
+
+==== Questionnaire (Acquisition)
+
+The following questionnaire was used to gather input about lost-and-found experiences and to support evidence-based domain claims.
+
+[cols="1,4",options="header"]
+|===
+| ID | Question
+
+| Q1 | In the last *6 months*, how many times have you lost an item on campus? (0 / 1 / 2–3 / 4+)
+| Q2 | What types of items did you lose? (keys / ID / earbuds / bottle / charger / laptop / other: ___)
+| Q3 | When you realize you lost something, what is the *first* thing you usually do? (retrace steps / ask friends / check office / group chat / other)
+| Q4 | In your last loss, which places/offices did you check? (library / security / department office / student affairs / cafeteria / other: ___)
+| Q5 | About how many places did you check before you found it or gave up? (1 / 2 / 3 / 4+)
+| Q6 | How long after losing something do you usually notice it is missing? (immediately / hours later / next day / other)
+| Q7 | If you have found an item on campus, what did you do? (left it / turned in to office / posted in chat / kept it / other)
+| Q8 | If you turned in a found item, where did you take it? (library / security / department office / student affairs / other)
+| Q9 | What details help you identify your item *without* making it easy to fake-claim it? (open response)
+| Q10 | What details would you *not* feel comfortable sharing publicly? (name / phone / ID details / exact location / photos / other)
+| Q11 | Have you ever seen/heard of someone falsely claiming an item? (Yes/No). If yes, describe briefly.
+| Q12 | What is the biggest obstacle in the current lost-and-found process at UPRM? (open response)
+| Q13 | If you could change one thing about how lost & found works on campus, what would it be? (open response)
+|===
+
+==== Elicitation Summary (Preliminary Findings)
+
+* Respondents: N = 10
+* Stakeholder mix: 8 students, 2 staff (security)
+* Collection method: Google Form
+* Dates: March 16, 2026 to April 3, 2026
+** Small sample size
+** Limited representation of staff perspectives
+
+Findings:
+
+- 8/10 respondents reported losing at least one item in the last 6 months.
+- Common items mentioned included water bottles, chargers, earbuds, and keys.
+- Recovery attempts commonly involved checking multiple places (median = 2), especially the library, department offices, and group chats.
+- Privacy concerns were common (avoiding phone/contact info, ID details, exact locations).
+- 3/10 respondents mentioned concerns about suspicious or false claiming behavior.
+- Most respondents reported noticing the loss one hour later.
