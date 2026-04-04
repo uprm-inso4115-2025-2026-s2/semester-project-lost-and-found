@@ -2,11 +2,11 @@
 === *Domain Description*
 
 [.changed]
-==== 2.1.1 Domain Rough Sketches (Raw Observations and Traceable Concept Derivation)
+==== Domain Rough Sketches (Raw Observations and Traceable Concept Derivation)
 :author: Anthony H Martinez-Gomez
 
 
-===== 2.1.1.1 Raw observations (unprocessed)
+===== Raw observations (unprocessed)
 
 The table below captures statements and field notes as they were recorded, plus minimal context. If a detail was not captured (for example, what kind of keys), we mark it as unknown rather than guessing.
 
@@ -101,7 +101,7 @@ The table below captures statements and field notes as they were recorded, plus 
 |===
 
 [.added]
-===== 2.1.1.2 Evidence add on (questionnaire summary)
+===== Evidence add on (questionnaire summary)
 
 * Respondents: N = 10 (8 students, 2 security staff)
 * Collection method: Google Form
@@ -121,7 +121,7 @@ Key results:
 * 3/10 mentioned concerns about suspicious or false claiming behavior.
 * Most respondents reported noticing the loss later the same day (often within a few hours).
 
-===== 2.1.1.3 Derived concepts (traceable back to raw observations)
+===== Derived concepts (traceable back to raw observations)
 
 The concepts below are derived from the raw observation table above. Each concept includes the observation numbers it is based on.
 
@@ -178,7 +178,7 @@ The concepts below are derived from the raw observation table above. Each concep
 | 17
 |===
 
-===== 2.1.1.4 Missing specifics to collect next 
+===== Missing specifics to collect next 
 
 We intentionally did not invent details that were not captured in the raw observations. Next time we collect observations, we will explicitly capture:
 
