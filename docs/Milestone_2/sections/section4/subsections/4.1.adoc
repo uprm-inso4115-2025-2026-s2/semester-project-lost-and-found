@@ -629,6 +629,7 @@ This separation prevents mixing implementation decisions with domain logic and e
 Through facet analysis, the domain becomes structured rather than fragmented, strengthening overall domain understanding.
 
 ---
+
 ==== [Lecture Topic Task] Domain Rules for the Lost & Found System
 :author: Noel Colon Mena
 
@@ -702,6 +703,7 @@ _Archived items remain stored in the system but are no longer visible in active 
 ===== Summary
 
 These rules define key constraints for the Lost & Found domain. They help ensure that item reporting, claiming, and verification processes are handled consistently and securely.
+
 ---
 
 ==== [Lecture Topic Task] Domain Glossary & Shared Vocabulary for the Lost & Found System
@@ -961,7 +963,6 @@ If the current implementation differs, adjust expected behavior accordingly.
 * Use minimum necessary disclosure for sensitive items to reduce fraud.
 * If possible, log moderation actions (edits/redactions/approve/reject/status changes).
 
----
 ---
 
 ==== Domain Analysis of Access Levels for Institutional and Non-Institutional Users
@@ -1663,6 +1664,8 @@ Data consistency and system guarantees are essential for maintaining a reliable 
 
 Schütz-Schmuck, M. (2021). _Domain Attributes_ [Lecture slides]. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
 
+---
+
 ==== [Lecture Topic Task]: Report Verification as a Domain Process
 :author: Natanael Batista Alvarez
 ===== Overview
@@ -1702,3 +1705,264 @@ The verification process directly affects system behavior by controlling how rep
 Schütz-Schmuck, M. (2021). Domain Engineering. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez. 
 
 Schütz-Schmuck, M. (2021). Domain Attributes. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+---
+
+==== Domain Description Units for Lost & Found
+:author: Abdiel Cotto
+
+=== Definition of Domain Description Units
+
+A domain description unit (DDU) is a small, source-traceable statement that captures one domain fact at a time. Each unit isolates a single fact and tags it with metadata so the fact can be analyzed, reviewed, compared, and reused without mixing several ideas together.
+
+For this Lost & Found system, each DDU includes:
+
+- `ID` for traceability
+- `Stakeholder source` showing where the fact came from
+- `Kind` to classify the fact as an `entity`, `function`, `event`, or `behavior`
+- `Attribute` to indicate whether the fact is mainly `passive`, `active`, or `reactive`
+- `Facet classification` to group the fact by domain concern
+- `Fact` as the atomic domain statement
+
+=== Structured Units
+
+[cols="1,3,1,1,2,4",options="header"]
+|===
+|ID |Stakeholder source |Kind |Attribute |Facet classification |Fact
+
+|`DDU-01`
+|Mateo rough sketch and terminology (`2.1.1`, `2.1.2`)
+|Entity
+|Passive
+|Item state
+|A lost item is a personal belonging whose owner no longer knows its location and intends to recover.
+
+|`DDU-02`
+|Daniel rough sketch and terminology (`2.1.1`, `2.1.2`)
+|Entity
+|Passive
+|Item state
+|A found item is a personal belonging discovered by someone other than its owner and may be returned.
+
+|`DDU-03`
+|Camila library workflow note and terminology (`2.1.1`, `2.1.2`)
+|Entity
+|Passive
+|Record management
+|A report is the structured record that describes a lost or found item and supports identification and recovery.
+
+|`DDU-04`
+|Valeria persona and reporting requirements (`2.2.1`, `2.2.2`)
+|Function
+|Active
+|Reporting
+|Reporting is the action by which a user documents a lost or found item so recovery becomes possible.
+
+|`DDU-05`
+|Mateo persona and search epic (`2.2.1`, `2.2.2`)
+|Function
+|Active
+|Discovery
+|Users browse and filter reports by attributes such as category, location, date, and status to narrow the search space.
+
+|`DDU-06`
+|Domain narrative and terminology (`2.1.2`, `2.1.3`)
+|Behavior
+|Reactive
+|Matching
+|Matching compares descriptions of lost and found items to determine whether they refer to the same physical object.
+
+|`DDU-07`
+|Daniel persona and ownership verification signature (`2.1.5`, `2.2.2`)
+|Behavior
+|Reactive
+|Ownership verification
+|Claim verification checks whether a person asserting ownership is legitimately entitled to receive the item.
+
+|`DDU-08`
+|Domain narrative (`2.1.3`)
+|Event
+|Reactive
+|Recovery lifecycle
+|Recovery occurs when a lost item is successfully returned to its owner.
+
+|`DDU-09`
+|Campus security interview note and terminology (`2.1.1`, `2.1.2`)
+|Event
+|Reactive
+|Lifecycle closure
+|Closure ends a report lifecycle either because the item was recovered or because recovery is no longer expected.
+
+|`DDU-10`
+|Scope and claim requirements (`1.3.1`, `2.2.1`)
+|Behavior
+|Reactive
+|Communication and privacy
+|Communication between parties occurs outside the platform through official institutional email accounts rather than public personal contact details.
+|===
+
+=== Tagged Classification Breakdown
+
+[cols="1,1",options="header,autowidth"]
+|===
+|Tag group |Breakdown
+|Kind
+|`Entity = 3`, `Function = 2`, `Behavior = 3`, `Event = 2`
+|Attribute
+|`Passive = 3`, `Active = 2`, `Reactive = 5`
+|Facet
+|`Item state = 2`, `Record management = 1`, `Reporting = 1`, `Discovery = 1`, `Matching = 1`, `Ownership verification = 1`, `Recovery lifecycle = 1`, `Lifecycle closure = 1`, `Communication and privacy = 1`
+|===
+
+=== Why Structuring Helps Domain Understanding
+
+Structuring domain knowledge into DDUs improves understanding because each fact becomes atomic, explicit, and traceable. Instead of mixing concepts such as reports, verification, and recovery in one paragraph, the team can review each fact separately, classify it consistently, and check whether it belongs to the domain, the requirements, or the implementation.
+
+This also makes disagreements easier to detect. If a stakeholder challenges a fact, the team can point to the exact DDU, its source, and its classification instead of revisiting an entire narrative section. As a result, DDUs support clearer analysis, better requirement derivation, and stronger documentation consistency.
+
+=== Poorly Structured vs Well-Structured Units
+
+[cols="1,1",options="header"]
+|===
+|Poorly structured
+|Well-structured
+
+|Users report items, search for them, contact each other, and eventually get them back.
+|`DDU-04`: Reporting is the action by which a user documents a lost or found item so recovery becomes possible.
+
+|The system keeps things private and helps stop wrong claims.
+|`DDU-07`: Claim verification checks whether a person asserting ownership is legitimately entitled to receive the item.
+|===
+
+=== Notes
+
+The units above were derived from the existing Lost & Found documentation already present in the repository, especially the domain rough sketches, terminology, narrative, scope, personas, and requirements sections in `docs/Milestone_1`.
+
+---
+
+==== Domain Concept Formation and Abstraction
+:author: Abdiel Cotto
+
+===== Explanation of Concept Formation and Abstraction
+
+Concept formation is the process of taking many concrete domain elements and grouping them into a smaller set of higher-level concepts that better explain how the domain works. Abstraction helps reduce noise by moving from individual details, such as `lost report`, `found report`, `status`, or `notification`, toward broader ideas that organize those details into meaningful structures.
+
+In the Lost & Found domain, abstraction is useful because the system contains many repeated low-level elements that participate in the same overall process. By grouping them into concepts, the team can reason about responsibilities, relationships, and boundaries more clearly.
+
+===== Low-Level Domain Elements Identified
+
+The following low-level domain elements appear throughout the current documentation:
+
+- Lost item
+- Found item
+- Report
+- Report status
+- Owner
+- Finder
+- Claimant
+- Administrator or custodian
+- Search query
+- Filter by category, location, date, and status
+- Matching
+- Claim verification
+- Recovery
+- Closure
+- Institutional email contact
+- Private verification details
+
+===== Grouping Elements into Higher-Level Concepts
+
+[cols="2,4,5",options="header"]
+|===
+|Concept
+|Grouped low-level elements
+|Definition and role in the system
+
+|Tracking Entities
+|Lost item, found item, report, report status
+|Tracking Entities are the domain objects whose state must be recorded and observed over time. They make loss and discovery visible by turning real-world item situations into structured records that can be searched, updated, and closed.
+
+|Participants and Responsibilities
+|Owner, finder, claimant, administrator, custodian
+|Participants and Responsibilities capture the human roles involved in the domain. This concept clarifies who loses items, who reports discovered items, who attempts to reclaim them, and who oversees trust, moderation, or dispute handling.
+
+|Discovery and Comparison
+|Search query, filters, matching
+|Discovery and Comparison describes how users move from many visible reports to a plausible candidate item. Its role is to reduce uncertainty by supporting search, narrowing results, and comparing report details for possible matches.
+
+|Trust and Recovery Control
+|Claim verification, private verification details, institutional email contact, recovery
+|Trust and Recovery Control represents the safeguards that make return possible without exposing unnecessary personal information. Its role is to support legitimate recovery while reducing false claims, misuse, and unsafe communication.
+
+|Lifecycle Governance
+|Report status, closure, recovery, administrator or custodian actions
+|Lifecycle Governance describes how reports change state from active use to resolved or closed outcomes. Its role is to keep the domain orderly, distinguish open cases from completed ones, and preserve confidence in the process.
+|===
+
+===== Before vs. After Abstraction
+
+[cols="1,1",options="header"]
+|===
+|Before abstraction
+|After abstraction
+
+|Lost report, found report, report status
+|Tracking Entities
+
+|Owner, finder, claimant, admin
+|Participants and Responsibilities
+
+|Keyword search, filter, match logic
+|Discovery and Comparison
+
+|Email contact, hidden fields, ownership check
+|Trust and Recovery Control
+
+|Resolved, closed, removed, reviewed
+|Lifecycle Governance
+|===
+
+===== Concept Narrative
+
+Within the UPRM Lost & Found domain, *Participants and Responsibilities* interact with *Tracking Entities* to make otherwise invisible loss incidents observable. A person who loses or finds an item creates or depends on a report, and those reports then move through *Discovery and Comparison* as users search, filter, and evaluate possible matches. Once a plausible match is identified, *Trust and Recovery Control* governs how the involved parties communicate and verify ownership safely. Finally, *Lifecycle Governance* ensures that each case reaches a clear outcome such as recovery, resolution, or closure so the domain remains understandable and manageable over time.
+
+===== Concept Hierarchy
+
+[source,text]
+----
+Lost & Found Domain
+|- Tracking Entities
+|  |- Lost item
+|  |- Found item
+|  |- Report
+|  |- Report status
+|- Participants and Responsibilities
+|  |- Owner
+|  |- Finder
+|  |- Claimant
+|  |- Administrator / custodian
+|- Discovery and Comparison
+|  |- Search
+|  |- Filtering
+|  |- Matching
+|- Trust and Recovery Control
+|  |- Institutional contact
+|  |- Private verification details
+|  |- Claim verification
+|  |- Recovery
+|- Lifecycle Governance
+   |- Active status
+   |- Resolved status
+   |- Closed status
+   |- Review / moderation actions
+----
+
+===== Inconsistency or Ambiguity in Current Descriptions
+
+One important ambiguity in the current documentation is the role of communication. Some descriptions state that communication between parties occurs outside the system through official institutional email accounts, while other descriptions discuss system-supported messaging or internal secure messaging. These two descriptions imply different domain boundaries.
+
+If communication is outside the system, then institutional email acts as an external coordination mechanism and should not be modeled as an internal platform service. If communication is inside the system, then messaging becomes part of the platform domain and requires clearer concepts for message records, privacy controls, and moderation. This ambiguity should be resolved so the domain narrative, requirements, and implementation all use the same abstraction boundary.
+
+===== Why This Abstraction Improves Conceptual Clarity
+
+This abstraction improves clarity because it replaces a flat list of terms with a small set of coherent conceptual groups. Instead of reasoning separately about every field, actor, and event, the team can discuss the domain in terms of stable concepts that explain purpose and interaction. That makes later requirements engineering easier because each requirement can be attached to a concept instead of being treated as an isolated detail.
