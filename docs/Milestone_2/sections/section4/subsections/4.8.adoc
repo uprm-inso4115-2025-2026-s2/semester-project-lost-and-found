@@ -7,7 +7,7 @@
 
 *Framework:* Schütz-Schmuck, M. (2021). _Domain Acquisition / Requirements Acquisition_ (lecture topic). Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
 
-===== 1 Overview
+===== Overview
 
 This Lecture Topic Task applies requirements acquisition by collecting evidence from campus stakeholders using a questionnaire. The goal is to support domain claims with concrete data and to inform requirements decisions.
 
@@ -15,9 +15,9 @@ This file separates:
 * *Acquisition* (the questions and data collection method)
 * *Elicitation* (the interpretation of the collected responses)
 
-===== 2 Requirements Acquisition (Questionnaire)
+===== Requirements Acquisition (Questionnaire)
 
-====== 2.1 Purpose
+====== Purpose
 
 The questionnaire gathers evidence about:
 - how often items are lost/found on campus (in the respondents’ experience)
@@ -26,14 +26,14 @@ The questionnaire gathers evidence about:
 - what risks people perceive (false claims, privacy concerns)
 - which improvements would make recovery easier
 
-======= 2.2 Method (Acquisition)
+======= Method (Acquisition)
 
 - Collection method: Google Form (recommended) or direct messages.
 - Target stakeholders: students (lost-item owners + finders) and optionally staff who handle found items.
 - Time window: Mar/28/2026 - Apr/5/2026
 - Respondents: N = 10
 
-======= 2.3 Questionnaire
+======= Questionnaire
 
 [cols="1,4",options="header"]
 |===
@@ -56,9 +56,9 @@ The questionnaire gathers evidence about:
 
 ---
 
-===== 3 Elicitation Summary (Preliminary Findings)
+===== Elicitation Summary (Preliminary Findings)
 
-====== 3.1 Method (Elicitation)
+====== Method (Elicitation)
 
 * Respondents: N = 10
 * Stakeholder mix: 8 students, 2 staff (security)
@@ -67,7 +67,7 @@ The questionnaire gathers evidence about:
 ** Small sample size
 ** Limited representation of staff perspectives
 
-====== 3.2 Findings (Evidence)
+====== Findings (Evidence)
 
 * F1 (Frequency): 8/10 respondents reported losing at least one item in the last 6 months.
 * F2 (Most common items): Top items mentioned were: 1) water bottle 2) charger 3) earbuds (tied with keys)
@@ -77,7 +77,7 @@ The questionnaire gathers evidence about:
 * F6 (Finder behavior): 10/10 respondents reported finding an item at least once; common actions were: turning it in to an office (most common), posting in a chat, or leaving it where it was.
 * F7 (Privacy/trust): Common details people avoid posting publicly: phone/contact info, ID details, and exact locations (also serial numbers/photos of IDs); 5 respondents mentioned false-claim concerns.
 
-====== 3.3 What These Findings Support (Concrete Claims)
+====== What These Findings Support (Concrete Claims)
 
 Based on the findings above, we can support the following claims:
 
@@ -86,7 +86,7 @@ Based on the findings above, we can support the following claims:
 * C3: Privacy concerns exist and influence what information people are willing to share publicly.
 * C4: Finder behavior is inconsistent, suggesting the need for clearer guidance and safer handoff/verification.
 
-====== 3.4 Follow-up Plan (Stronger Evidence)
+====== Follow-up Plan (Stronger Evidence)
 
 To strengthen evidence for future milestones:
 * Expand the survey to at least 30–50 students across multiple faculties.
