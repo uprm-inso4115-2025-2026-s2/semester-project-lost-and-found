@@ -13,7 +13,7 @@ Here are several complementary activities that are required to ensure that the s
 [.added]
 ==== Domain Engineering
 
-in the current situation, lost and found practices vary across locations and there is no shared or unified understanding of how items are discovered, stored or returned. This inconsistency makes it difficult to describe responsibilities and workflows clearly. 
+In the current situation, lost and found practices vary across locations and there is no shared or unified understanding of how items are discovered, stored or returned. This inconsistency makes it difficult to describe responsibilities and workflows clearly. 
 
 This creates the need for a structured and unified understanding of domain concepts so that all teams base their work on the same assumptions. 
 
