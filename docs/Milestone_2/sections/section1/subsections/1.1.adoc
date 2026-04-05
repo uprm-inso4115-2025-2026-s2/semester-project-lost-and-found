@@ -46,20 +46,37 @@ Team members and partners are not always exactly the same. In this project, the 
 * Anthony H Martinez-Gomez
 * Keishlyany M Sanabria-Santana
 * Leanelys A Gonzalez-Orama
-* Taismin Said-Khader
+* Tasnim Said-Khader
 
+[.changed]
 ==== Partner Roles and Responsibilities (Current and Possible)
 
-* *Project Managers*:
-  coordinate the project across teams, follow progress, support communication, and help ensure deliverables are completed.
+===== Current Roles
+[cols="1,3"]
+|===
+|Role |Responsibilities
 
-* *Team Leaders*:
-  organize team-level work, coordinate tasks within their team, and help align deliverables with project goals.
+|*Project Managers*:
+|Provide overall coordination across teams, monitor progress, ensure consistency between deliverables, and maintain accountability for milestone completion. They also help resolve cross-teams issues and promote quality in both technical and documentation outputs.
 
-* *Developers*:
-  implement assigned tasks, collaborate with teammates, and contribute to testing, documentation, or integration as needed.
+|*Team Leaders*:
+|Organize team-level activities, distribute tasks within team, track progress, and ensure that contributions align with project goals.They are responsible for maintaining consistency within their team's deliverables and communicating dependencies or risks to Project Managers.
 
-* *Possible external partners (not yet confirmed)*:
-  may include course staff, domain advisors, or institutional representatives. Their responsibilities would include clarifying requirements, validating project scope, and providing feedback on whether the system meets expected needs.
+|*Developers*:
+|Carry out assigned tasks, collaborate with teammates, and contribute to implementation, testing, and documentation. They are responsible for producing work that meets agreed quality expectations and for communicating uncertainties or domain-related questions. 
+
+|*Documentation and Standardization Team Members*:
+|Ensure that documentation remains consistent, structured, and aligned with the domain narrative. They support clarity of terminology, maintain formatting, and help ensure that requirements and descriptions remain solution-neutral and traceable. 
+|===
+
+[.added]
+===== Possible external partners:
+May include course staff, domain advisors, or institutional representatives. Their responsibilities would include the following: 
+
+- Provide insight into how lost and found processes operate in real-world contexts. 
+- Help clarify requirements, validate assumptions, and ensure that domain desciptions accurately reflect practical workflows. 
+- Offer perspecive on organizational policies or operational constraints, ensuring that responsibilities such as custody, verification and item handling are realistically described. 
+- Review domain descriptions and requirements for clairty, completeness, and consistency. 
+- Verify that stakeholder responsibilities and interactions are logically defined and aligned with the core objective of item recovery. 
 
 NOTE: Customers or end users of a Lost and Found system are not automatically considered partners. A partner has a stronger and more direct involvement in the project (e.g., coordination, validation, or decision-making). At this stage, no external customer-side partner has been formally identified.

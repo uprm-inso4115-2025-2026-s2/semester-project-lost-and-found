@@ -10,13 +10,22 @@
 | 5.
 | Added
 
-|===
-
-[cols="3,^2,5",options="header",]
-|===
-| Name | Section | Added/Modified
+| Leanelys González
+| 1.5.
+| Modified
 
 | Abby Gotay Almonte
-| 2.1.4
+| 2.1.4.
+| Modified/Added
+
+| Anthony H Martinez-Gomez
+| 2.1.1.
+| Modified/Added
+
+
+| Tasnim Said Khader
+| 2.1.2, 2.1.3
 | Modified
+
+
 |===

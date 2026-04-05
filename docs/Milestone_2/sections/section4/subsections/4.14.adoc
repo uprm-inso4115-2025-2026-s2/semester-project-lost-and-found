@@ -1,6 +1,5 @@
 === *Modeling What Could Go Wrong: Risk Analysis on Goal Models*
 
----
 ==== Risk Analysis for the Lost & Found System
 :author: Fabian Acevedo (@FabianAcevedo1)
 

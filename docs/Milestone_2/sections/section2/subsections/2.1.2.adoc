@@ -1,32 +1,164 @@
+[.changed]
 ==== *Terminology*
 
 This section defines key concepts within the lost-and-found domain. 
-Each term is annotated with its **type** (entity, event, behavior, function) and the **phase** in which it primarily appears (domain, requirements, implementation).
+Each term is annotated with its *type* (entity, event, state, behavior, function) and the *phase* in which it is introduced.
 
-===== Type: Entity & Phase: Domain 
+===== Type: Entity & Phase: Domain
 
-- **Lost Item**: a personal belonging whose owner no longer knows its location and intends to recover it.
-- **Found Item**: a personal belonging discovered by someone other than its owner, with the possibility of being returned.
-- **Report**: a recorded description of a lost or found item, including relevant details that support identification and recovery.
-- **Owner**: the individual who possesses legitimate claim over a lost item.
-- **Finder**: the individual who discovers a lost item and may enable its return to the owner.
+[col="1,3"]
+|===
+|Term |Definition
+
+|*Lost Item*
+|Personal belonging whose owner no longer knows its location.
+
+|*Found Item*
+|Personal belonging discovered by someone other than its owner.
+
+|*Owner*
+|Individual who has legitimate claim over a lost item.
+
+|*Finder*
+|Individual who discovers a lost item.
+
+|*Holder*
+|A person or office temporarily responsible for keeping a found item.
+
+|*Loss Location*
+|Area where an item is believed to have been lost.
+
+|*Discovery Location*
+|Area where an item is found, which may differ from the loss location.
+
+|*Custody Location*
+|The place where a found item is kept while awaiting return.
+
+|*Report*
+|A recorded description of a lost or found item used to support identification and recovery.
+|===
+
+
+===== Type: State & Phase: Domain
+
+[col="1,3"]
+|===
+|Term |Definition
+
+|*Holding Period*
+|The duration during which a found item remains under custody before alternative handling is considered.
+
+|*Unclaimed*
+|State of a found item after the holding period expires without successful return.
+
+|*Active Report*
+|State in which a report is open and recovery is still expected.
+
+|*Closed Report*
+|State in which no further recovery actions are expected.
+|===
+
 
 ===== Type: Event & Phase: Domain
 
-- **Recovery**: the moment in which a lost item is successfully returned to its owner.
-- **Closure**: the conclusion of a report’s lifecycle, either because the item was recovered or further recovery is no longer expected.
+[col="1,3"]
+|===
+|Term |Definition
+
+|*Loss Realization*
+|The moment an individual becomes aware that an item is missing.
+
+|*Item Found*
+|The moment an item is discovered by someone other than its owner.
+
+|*Item Handed Over*
+|The transfer of a found item to a holder or custody location.
+
+|*Item Reported*
+|An item is formally or informally documented as lost or found.
+
+|*Claim Attempt*
+|An individual asserts ownership of a found item.
+
+|*Item Returned*
+|The event in which a found item is successfully transferred back to its owner.
+
+|*Holding Period Expired*
+|The moment when a defined holding period ends without successful return.
+
+|*Report Closed*
+|The event marking the conclusion of a report’s lifecycle.
+|===
+
 
 ===== Type: Behavior & Phase: Domain
 
-- **Claim Verification**: the process of determining whether a person asserting ownership of an item is legitimately entitled to receive it.
-- **Matching**: the act of determining that a reported lost item and a reported found item correspond to the same physical object based on descriptive evidence.
-- *Tracking*: the ongoing observation of a reported item’s status from initial report through recovery or closure.
+[cols="1,3"]
+|===
+|Term |Definition
 
-===== Type: Function & Phase: Domain
+|*Item Handling*
+a|
+Behavior composed of:
 
-- **Reporting**: the action of documenting the existence of a lost or found item so that recovery becomes possible.
+. Event: Item Found  
+. Event: Item Handed Over  
+. State: Item stored at Custody Location  
+. Event: Claim Attempt (optional)  
+. Event: Item Returned *or* Holding Period Expired  
+
+This behavior models how a found item transitions from discovery to resolution.
+
+|*Claim Verification*
+a|
+Behavior composed of:
+
+. Event: Claim Attempt  
+. Action: Comparison of identifying details  
+. Outcome:
+  * Event: Item Returned (if verified)  
+  * No return (claim denied)  
+
+This behavior ensures that items are returned only to legitimate owners.
+
+|*Matching*
+a|
+Behavior composed of:
+
+. Event: Item Reported  
+. Action: Comparison between Lost Item and Found Item descriptions  
+. Event: Claim Attempt (if a potential match is identified)  
+
+This behavior represents how potential matches are identified.
+
+|*Custody Management*
+a|
+Behavior composed of:
+
+. Event: Item Handed Over  
+. State: Item stored at Custody Location  
+. State: Holding Period active  
+. Event:
+  * Item Returned  
+  * or Holding Period Expired → State: Unclaimed  
+
+This behavior models how items are managed while in custody.
+
+|===
+
 
 ===== Type: Function & Phase: Requirements
 
-- **Notification**: a system-supported action that informs relevant individuals about events such as matches, status changes, or recovery progress.
-- **Authentication**: a mechanism used to confirm the identity of a person interacting with the system before allowing restricted actions.
+[col="1,3"]
+|===
+|Term |Definition
+
+|*Reporting*
+|System-supported action of documenting a lost or found item in a structured and persistent manner.
+
+|*Notification*
+|Mechanism used to inform users about relevant events such as matches or status changes.
+
+|*Authentication*
+|Mechanism used to confirm the identity of a user before allowing restricted actions.
+|===
