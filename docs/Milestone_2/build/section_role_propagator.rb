@@ -155,7 +155,8 @@ module SectionRolePropagation
         next
       end
 
-      if (m = raw.match(/^(\s*(?:\*|-|\d+\.)\s+)(.+)$/))
+      # Support nested unordered lists using repeated "*" or "-" markers
+      if (m = raw.match(/^(\s*(?:\*+|-+|\d+\.)\s+)(.+)$/))
         out << "#{m[1]}#{wrap_inline(m[2], active_role)}#{trailing_ws}"
         next
       end

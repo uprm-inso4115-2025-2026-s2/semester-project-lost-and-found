@@ -7,8 +7,8 @@
 | Name | Section | Added/Modified
 
 | Jean P. I. Sánchez
-| 5.
-| Added
+| 5., 2.2.1., 2.2.3., 2.2.4., 3.2.
+| Modified/Added
 
 | Leanelys González
 | 1.5.
