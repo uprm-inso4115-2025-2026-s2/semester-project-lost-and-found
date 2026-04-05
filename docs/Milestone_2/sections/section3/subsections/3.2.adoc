@@ -9,7 +9,7 @@ Validation activities focus on confirming that the modeled concepts (*Report*, *
 
 These scenario walkthroughs are used during feedback sessions with students, teaching assistants, and administrative staff to surface overlooked edge cases and feature ideas. Each scenario step is explicitly linked to both functional and interface requirements, with expected outcomes and validation checks clearly defined.
 
-===== Scenario 1: María — Reporting a Lost Laptop (Revised for Non-Owner Edit)
+===== Scenario 1: María — Reporting a Lost Laptop
 
 María, a third-year Computer Science student, studies in the university library until the evening. The next morning, she realizes that her silver HP laptop is missing. She is unsure of the exact location where she left it, but recalls that it was likely in one of the study rooms she used.
 
