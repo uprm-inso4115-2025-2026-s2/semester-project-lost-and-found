@@ -60,7 +60,7 @@ This subsection defines the product scope of the system from a user-value perspe
 - F1.5 Automatic ownership binding (user-session association)
 
 [discrete]
-===== _US.REPORT.01: Submit a lost item report | ReqRef: REQ-REPORT-F-01_
+===== _US.REPORT.01: Submit a lost item report | ReqRef: <<REQ-REPORT-F-01>>_
 
 _"As a user who lost an item, I want to submit structured information about it so that others can help locate it."_
 
@@ -74,7 +74,7 @@ _"As a user who lost an item, I want to submit structured information about it s
 |===
 
 [discrete]
-===== _US.REPORT.02: Submit a found item report | ReqRef: REQ-REPORT-F-02_
+===== _US.REPORT.02: Submit a found item report | ReqRef: <<REQ-REPORT-F-02>>_
 
 _"As a user who found an item, I want to describe and upload photos so that the rightful owner can identify it."_
 
@@ -92,8 +92,8 @@ _"As a user who found an item, I want to describe and upload photos so that the 
 [cols="1,2,2,2",options="header,autowidth"]
 |===
 |Story ID |Feature |ReqRef |Notes
-|US-REPORT-01 |F1.1, F1.5 |REQ-REPORT-F-01 |Ownership bound to session.
-|US-REPORT-02 |F1.2, F1.3 |REQ-REPORT-F-02 |Image storage separation.
+|[[US-REPORT-01]]US-REPORT-01 |F1.1, F1.5 |<<REQ-REPORT-F-01>> |Ownership bound to session.
+|[[US-REPORT-02]]US-REPORT-02 |F1.2, F1.3 |<<REQ-REPORT-F-02>> |Image storage separation.
 |===
 
 &#160;
@@ -114,7 +114,7 @@ _"As a user who found an item, I want to describe and upload photos so that the 
     - F2.5 Status-based filtering (active/resolved)
 
 [discrete]
-===== _US.SEARCH.01: Filter reports by category | ReqRef: REQ-SEARCH-F-01_
+===== _US.SEARCH.01: Filter reports by category | ReqRef: <<REQ-SEARCH-F-01>>_
 
 _"As a user, I want to filter listings by category so that I can narrow down results."_
 
@@ -127,7 +127,7 @@ _"As a user, I want to filter listings by category so that I can narrow down res
 |===
 
 [discrete]
-===== _US.SEARCH.02: Search by keyword | ReqRef: REQ-SEARCH-F-02_
+===== _US.SEARCH.02: Search by keyword | ReqRef: <<REQ-SEARCH-F-02>>_
 
 _"As a user, I want to search using keywords so that I can quickly find relevant reports."_
 
@@ -145,8 +145,8 @@ _"As a user, I want to search using keywords so that I can quickly find relevant
 [cols="1,2,2,2",options="header,autowidth"]
 |===
 |Story ID |Feature |ReqRef |Notes
-|US-SEARCH-01 |F2.1 |REQ-SEARCH-F-01 |Category filtering logic.
-|US-SEARCH-02 |F2.2, F2.3 |REQ-SEARCH-F-02 |Search and sorting.
+|[[US-SEARCH-01]]US-SEARCH-01 |F2.1 |<<REQ-SEARCH-F-01>> |Category filtering logic.
+|[[US-SEARCH-02]]US-SEARCH-02 |F2.2, F2.3 |<<REQ-SEARCH-F-02>> |Search and sorting.
 |===
 
 &#160;
@@ -166,7 +166,7 @@ _"As a user, I want to search using keywords so that I can quickly find relevant
 - F3.4 Report suspicious listing
 
 [discrete]
-===== _US.CLAIM.01: Contact finder securely | ReqRef: REQ-CLAIM-F-01_
+===== _US.CLAIM.01: Contact finder securely | ReqRef: <<REQ-CLAIM-F-01>>_
 
 _"As a user who lost an item, I want to contact the finder through institutional channels so that communication remains trusted."_
 
@@ -179,7 +179,7 @@ _"As a user who lost an item, I want to contact the finder through institutional
 |===
 
 [discrete]
-===== _US.CLAIM.02: Mark item as resolved | ReqRef: REQ-CLAIM-F-02_
+===== _US.CLAIM.02: Mark item as resolved | ReqRef: <<REQ-CLAIM-F-02>>_
 
 _"As a report owner, I want to mark an item as resolved so that others know it has been returned."_
 
@@ -197,8 +197,8 @@ _"As a report owner, I want to mark an item as resolved so that others know it h
 [cols="1,2,2,2",options="header,autowidth"]
 |===
 |Story ID |Feature |ReqRef |Notes
-|US-CLAIM-01 |F3.1 |REQ-CLAIM-F-01 |Secure communication.
-|US-CLAIM-02 |F3.3 |REQ-CLAIM-F-02 |Lifecycle transition.
+|[[US-CLAIM-01]]US-CLAIM-01 |F3.1 |<<REQ-CLAIM-F-01>> |Secure communication.
+|[[US-CLAIM-02]]US-CLAIM-02 |F3.3 |<<REQ-CLAIM-F-02>> |Lifecycle transition.
 |===
 
 &#160;
@@ -218,7 +218,7 @@ _"As a report owner, I want to mark an item as resolved so that others know it h
 - F4.4 Clear visual hierarchy
 
 [discrete]
-===== _US.UX.01: Use platform on mobile | ReqRef: REQ-UX-NF-01_
+===== _US.UX.01: Use platform on mobile | ReqRef: <<REQ-UX-NF-01>>_
 
 _"As a mobile user, I want the interface to be responsive so that I can use it on campus."_
 
@@ -236,7 +236,7 @@ _"As a mobile user, I want the interface to be responsive so that I can use it o
 [cols="1,2,2,2",options="header,autowidth"]
 |===
 |Story ID |Feature |ReqRef |Notes
-|US-UX-01 |F4.3 |REQ-UX-NF-01 |Responsive design rule.
+|[[US-UX-01]]US-UX-01 |F4.3 |<<REQ-UX-NF-01>> |Responsive design rule.
 |===
 
 &#160;
@@ -255,7 +255,7 @@ _"As a mobile user, I want the interface to be responsive so that I can use it o
 - F5.3 Role-based access control (RLS enforcement)
 
 [discrete]
-===== _US.ADMIN.01: Moderate reports | ReqRef: REQ-ADMIN-F-01_
+===== _US.ADMIN.01: Moderate reports | ReqRef: <<REQ-ADMIN-F-01>>_
 
 _"As an administrator, I want to remove inappropriate listings so that the platform remains safe and trustworthy."_
 
@@ -273,5 +273,5 @@ _"As an administrator, I want to remove inappropriate listings so that the platf
 [cols="1,2,2,2",options="header,autowidth"]
 |===
 |Story ID |Feature |ReqRef |Notes
-|US-ADMIN-01 |F5.2, F5.3 |REQ-ADMIN-F-01 |Admin lifecycle control and RLS.
+|[[US-ADMIN-01]]US-ADMIN-01 |F5.2, F5.3 |<<REQ-ADMIN-F-01>> |Admin lifecycle control and RLS.
 |===
