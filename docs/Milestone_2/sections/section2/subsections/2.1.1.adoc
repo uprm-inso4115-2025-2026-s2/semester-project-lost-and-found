@@ -3,8 +3,6 @@
 
 [.changed]
 ==== Domain Rough Sketches (Raw Observations and Traceable Concept Derivation)
-:author: Anthony H Martinez-Gomez
-
 
 ===== Raw observations (unprocessed)
 

@@ -140,7 +140,8 @@ module SectionRolePropagation
         next
       end
 
-      if in_table && raw.lstrip.start_with?('|', '!|', '<|', '>|', '^|', '*|')
+      # Include table data lines that use cell specifiers like "|", "a|" or "2+|"
+      if in_table && raw.lstrip.match?(/\A\||\A[0-9.+!*<>\^a-zA-Z-]+\|/)
         out << "#{wrap_table_row(raw, active_role)}#{trailing_ws}"
         next
       end
