@@ -1,0 +1,56 @@
+.authPage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.authCard {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  padding: 24px;
+  box-sizing: border-box;
+}
+.authTitle {
+  margin: 0 0 12px 0;
+  color: #08b257;
+}
+.authForm label {
+  display: block;
+  font-size: 0.9rem;
+  color: #333;
+  margin-bottom: 6px;
+}
+.authForm input[type="email"],
+.authForm input[type="password"],
+.authForm input[type="text"],
+.authForm input[type="tel"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+}
+.authActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.authPrimaryBtn {
+  background: linear-gradient(180deg,#08b257,#05a548);
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.authSecondaryLink {
+  color: #08b257;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.authError { color: #cc2b2b; margin: 8px 0; }

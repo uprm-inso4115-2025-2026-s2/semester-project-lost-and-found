@@ -8,16 +8,21 @@ export async function sendEmailNotification(
   message: string
 ) {
   // This needs supa function "send-email".
-  const { data, error } = await supabase.functions.invoke("send-email", {
-    body: JSON.stringify({ email, subject, message }),
-  });
+  try {
+    const { data, error } = await supabase.functions.invoke("send-email", {
+      body: JSON.stringify({ email, subject, message }),
+    });
 
-  if (error) {
-    console.error("Failed to send email notification", error);
-    return { success: false, error };
+    if (error) {
+      console.error("Failed to send email notification (function returned error)", error);
+      return { success: false, error };
+    }
+
+    return { success: true, data };
+  } catch (err) {
+    console.error("Failed to send email notification (network/error)", err);
+    return { success: false, error: err };
   }
-
-  return { success: true, data };
 }
 
 export async function sendWelcomeEmail(email: string, username: string) {
