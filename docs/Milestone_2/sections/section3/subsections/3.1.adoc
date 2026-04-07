@@ -96,17 +96,17 @@ This preserves structural simplicity while maintaining semantic clarity.
 
 [.changed]#These clarifications prevent semantic confusion in later stages of analysis and develoment.#
 
-==== Relationships and Abstractions
+==== Relationships and Abstractions:
 
-* A *User* creates one or more *Reports*.
-* Each *Report* is associated with exactly one *Owner* (user_id).
+* [.changed]#A *Person* can create one or more *Reports*.#
+* [.changed] #Each *Report* is associated with exactly one *Person*#
 * A *Report* may have multiple *Image Assets*.
 * A *Report* has one *Report Type* (`lost` or `found`).
 * A *Report* has one *Lifecycle State* at any time.
 * An *Administrator* can modify lifecycle states of any report.
 * A *Recovery Event* transitions a report from `"active"` to `"resolved"`.
 
-These relationships formalize previously informal interactions and map directly to database structure (tables, foreign keys, RLS policies).
+These relationships formalize previously informal interactions.
 
 ==== Reasoning and Process
 
