@@ -108,12 +108,14 @@ This preserves structural simplicity while maintaining semantic clarity.
 
 These relationships formalize previously informal interactions.
 
-==== Reasoning and Process
+==== Reasoning and Process(Domain Level)
 
-This concept analysis is grounded in real user narratives and early design discussions. For example:
+[.changed]#This concept analysis is grounded in observations from the descriptive part such as narratives of lost and found items:#
 
-* Repeated references to “my post,” “their post,” and “editing rights” led to the formalization of *Ownership* as a first-class concept.
-* Concerns about inappropriate or outdated posts led to modeling *Lifecycle State* explicitly instead of treating reports as immutable.
-* Infrastructure discussions about Supabase Storage motivated separating *Image Asset* from *Report*.
+* [.changed]#Recurring mentions of reporting occurences and coordinating recovery, led to formalizing *Reports*,*Image Assets* and *Claim/Recovery Event*#
+* [.changed]#Concerns about inappropriate or outdated posts led to modeling *Lifecycle State* explicitly  for reports,reflecting that reports evolve over time.#
+* [.removed]#Infrastructure discussions about Supabase Storage motivated separating *Image Asset* from *Report*.#
+* [.added]#Differenciating lost items reports from found items reports, highligted the importance of *Report Type* and semantic distinctions#
+* [.added]#Roles mentioned in narratives(e.g. guardian, person who lost an item, person who found an item), clarified *People Roles* and their responsibilities#
 
-Through this analysis, the initially scattered descriptions of lost objects, posts, uploads, and permissions have been transformed into a coherent conceptual structure. These domain concepts now form the vocabulary that guides requirements, database schema design, access control policies, and frontend architecture.
+[.changed]#Through this analysis, the *domain understanding* is validated by confirming that all key entities and events, roles and their relationships are capturedw   .#
