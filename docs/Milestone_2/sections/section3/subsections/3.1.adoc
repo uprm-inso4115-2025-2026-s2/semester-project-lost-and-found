@@ -92,8 +92,9 @@ Images are associated with reports but managed independently at the infrastructu
 
 * “Lost item” and “Found item” are not separate entities; both are modeled as *Report* instances with different types.
 * “Post” and “Report” are treated synonymously, but “Report” is adopted as the formal domain term.
-* [.changed]#“Delete” is distinguished from “Archive.” Deletion represents removing a report from consideration, while archiving retains it for reference while making it as no longer active.#
+* [.changed]#“Delete” is distinguished from “Archive.” Deletion represents removing a report from consideration(no longer active or visible). Permanent deletion is not essential in this domain. While archiving retains it for reference while making it as no longer active. This preserves historical information and avoids losing potentially relevant data#
 * [.changed]# The creator of a report, may be different from the person who owns it.#
+
 
 [.changed]#These clarifications prevent semantic confusion in later stages of analysis and develoment.#
 
@@ -119,4 +120,4 @@ These relationships formalize previously informal interactions.
 * [.added]#Differenciating lost items reports from found items reports, highligted the importance of *Report Type* and semantic distinctions#
 * [.added]#Roles mentioned in narratives(e.g. guardian, person who lost an item, person who found an item), clarified *People Roles* and their responsibilities#
 
-[.changed]#Through this analysis, the *domain understanding* is validated by confirming that all key entities and events, roles and their relationships are captured.#
+[.changed]#Through this analysis, the *domain understanding* is validated by confirming that all key entities and events, roles and their relationships can realistically be captured.#
