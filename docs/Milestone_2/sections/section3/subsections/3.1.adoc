@@ -32,8 +32,6 @@ Ambiguous terms were clarified and generalized where possible to ensure consiste
 *Report*:
 [.changed]# A structured record of an occurrence involving an item, either lost or found. It captures essential information about the event such as  such as title, description, category, location, timestamp, and images.#
 
-* [.added]#*Lost Item report*: typically submitted by someone who lost the item#
-* [.added]#*Found Item report*: typically submitted by someone who found the item#
 
 The report is distinct from the item itself: the item exists in the real world, while the report is its system representation.
 
@@ -54,7 +52,7 @@ The report is distinct from the item itself: the item exists in the real world, 
 [.modified]#* Administrator: moderation authority.#
 
 *Ownership*:
-Several requirements stated that “users can only edit their own posts.” This was abstracted as *Ownership*, a relationship between a User and a Report. Ownership is enforced at insertion time (user_id bound to session) and protected through Supabase Row Level Security (RLS).
+[.changed]#Relationship between a report and the person who created it. It identifies who is responsible for the report on the domain.#[.removed]#Ownership is enforced at insertion time (user_id bound to session) and protected through Supabase Row Level Security (RLS).#
 
 *Image Asset*:
 Raw notes frequently mentioned uploading photos separately from form data. This led to the abstraction of an *Image Asset* as a distinct concept stored in object storage.
@@ -62,7 +60,12 @@ Raw notes frequently mentioned uploading photos separately from form data. This 
 Images are associated with reports but managed independently at the infrastructure level.
 
 *Report Type*:
-Users described either “lost” or “found” posts. Instead of modeling two separate entities, we abstracted this into a *Report Type* attribute with values `{lost, found}`.
+[.changed]#Distinguishes reports as either “lost” or “found”. This distinction reflects important semantic differences in the domain:# 
+
+* [.added]#*Lost Item report*: typically submitted by someone who lost the item#
+* [.added]#*Found Item report*: typically submitted by someone who found the item#
+
+
 
 This preserves structural simplicity while maintaining semantic clarity.
 
