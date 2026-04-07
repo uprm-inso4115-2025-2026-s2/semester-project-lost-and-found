@@ -30,7 +30,7 @@ Ambiguous terms were clarified and generalized where possible to ensure consiste
 [.changed]#Any physical or digital object that can be lost or found.#
 
 *Report*:
-[.changed]# A structured record of an occurrence involving an item, either lost or found. It captures essential information about the event such as  such as title, description, category, location, timestamp, and images.#
+[.changed]# A representation of an occurrence in which a person communicates that an item was either lost or found. This communication  may take different forms, such as a note, a bulletin board post or a digital entry. It captures essential information about the event such as  such as title, description, category, location, timestamp, and images.#
 
 
 The report is distinct from the item itself: the item exists in the real world, while the report is its system representation.
