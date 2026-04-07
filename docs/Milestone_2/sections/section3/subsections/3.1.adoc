@@ -67,7 +67,8 @@ Images are associated with reports but managed independently at the infrastructu
 
 [.added]#Although both report types share common description elements(such as title, description, category), they differ in the type and reliability of available information. A finder typically knows where the item was found and can often provide images, while a loser may not know the exact location or be able to provide visual evidence(image)#
 
-This preserves structural simplicity while maintaining semantic clarity.
+[.added]#Despite the differences, both are modeled under a single Report structure to mantain conceptual unity, while allowing certain attributes such as location or images, to be optional#
+[.removed]#This preserves structural simplicity while maintaining semantic clarity.#
 
 *Status / Lifecycle State*:
 [.removed]#Notes such as “mark as resolved,” “archive old posts,” and “remove inappropriate reports” led to the abstraction of a *Lifecycle State*.#
