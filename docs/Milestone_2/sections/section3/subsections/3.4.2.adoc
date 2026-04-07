@@ -1,1 +1,121 @@
-==== *Weak Inconsistencies and Boundary Conditions*
+[.added]
+==== *Competing Goals and Derived Requirements*
+
+This section identifies competing goals derived from previously analyzed weak inconsistencies. These goals represent valid but opposing domain needs that cannot be simultaneously satisfied without introducing constraints. Each conflict is resolved through explicitly defined derived requirements grounded in domain behavior, traceability, and system consistency.
+
+[discrete]
+===== Administrative Flexibility vs. System Integrity
+
+*Domain basis*:  
+Administrative actors require the ability to intervene in reports to resolve disputes, misuse, or incorrect states. At the same time, reports represent a structured lifecycle whose integrity must remain consistent, auditable, and reliable for all stakeholders.
+
+*Competing goals*:  
+Administrators need sufficient flexibility to correct errors, enforce policy, or resolve disputes, which sometimes requires changing the state of a report outside its normal lifecycle. At the same time, the system must maintain consistent, traceable records of report states so that users and auditors can trust the historical record. Allowing unchecked administrative overrides could compromise the lifecycle's integrity, but over-restricting administrators could prevent timely resolution of critical issues. The tension lies in balancing these two needs: enabling effective administrative intervention without undermining system reliability.
+
+*Decision*:  
+Administrative intervention is permitted but constrained through traceability, justification, and visibility requirements.
+
+*Requirements*:
+
+* [[REQ-DERIVED-ADMIN-01]]REQ-DERIVED-ADMIN-01: The system must require explicit justification for any administrative override of a **Report** state.
+
+* [[REQ-DERIVED-ADMIN-02]]REQ-DERIVED-ADMIN-02: The system must record all administrative overrides, including:
+  - timestamp  
+  - administrator identity  
+  - previous state  
+  - new state  
+  - justification  
+
+* [[REQ-DERIVED-ADMIN-03]]REQ-DERIVED-ADMIN-03: The system must notify the associated **Report** owner when an administrative override occurs.
+
+* [[REQ-DERIVED-ADMIN-04]]REQ-DERIVED-ADMIN-04: The system must preserve all previous state transitions and prevent deletion or modification of historical records.
+
+
+[discrete]
+===== User Autonomy vs. Workflow Consistency
+
+*Domain basis*:  
+Users may abandon recovery efforts or recover items outside the system. However, reports follow a structured lifecycle representing real-world recovery processes that must remain interpretable and consistent.
+
+*Competing goals*:  
+Users may need the ability to close a report early or skip stages of the recovery process if the item is recovered externally, abandoned, or otherwise resolved. However, skipping steps in the standard lifecycle reduces consistency and could confuse other users, administrators, and automated workflows. The system must reconcile the need for user autonomy with the need to preserve a coherent, auditable report history that accurately reflects the real-world sequence of events.
+
+*Decision*:  
+Controlled deviations from the lifecycle are allowed under explicit conditions and must remain traceable.
+
+*Requirements*:
+
+* [[REQ-DERIVED-LC-01]]REQ-DERIVED-LC-01: The system must allow direct transition from **Active** to **Closed** only under explicitly defined conditions.
+
+* [[REQ-DERIVED-LC-02]]REQ-DERIVED-LC-02: The system must require a justification when a **Report** is manually closed without passing through the **Returned** state.
+
+* [[REQ-DERIVED-LC-03]]REQ-DERIVED-LC-03: The system must flag all **Reports** that deviate from the standard lifecycle sequence.
+
+* [[REQ-DERIVED-LC-04]]REQ-DERIVED-LC-04: The system must preserve the complete history of lifecycle transitions for every **Report**.
+
+
+[discrete]
+===== Information Visibility vs. User Privacy
+
+*Domain basis*:  
+Effective search and matching require visibility of item attributes. Ownership verification requires restricting sensitive information to prevent false claims and misuse.
+
+*Competing goals*:  
+Maximizing visibility of item data improves the likelihood of successful matches and recovery. However, exposing private or sensitive attributes risks misuse, privacy violations, or fraudulent claims. The tension lies in providing enough public information to facilitate discovery while strictly controlling sensitive details for verification purposes. Mismanaging this balance could either reduce recovery success or compromise user privacy.
+
+*Decision*:  
+Strict separation, validation, and controlled exposure of information are enforced.
+
+*Requirements*:
+
+* [[REQ-DERIVED-PRIV-01]]REQ-DERIVED-PRIV-01: The system must enforce separation between:
+  - public descriptive attributes  
+  - private verification attributes  
+
+* [[REQ-DERIVED-PRIV-02]]REQ-DERIVED-PRIV-02: The system must validate input to prevent private verification information from being included in public fields.
+
+* [[REQ-DERIVED-PRIV-03]]REQ-DERIVED-PRIV-03: The system must notify users when potential private information is detected in public fields prior to submission.
+
+* [[REQ-DERIVED-PRIV-04]]REQ-DERIVED-PRIV-04: The system must restrict access to private verification attributes to authorized actors only.
+
+
+[discrete]
+===== Historical Completeness vs. Matching Accuracy
+
+*Domain basis*:  
+Closed, returned, and expired reports provide valuable historical information. However, including them in active matching introduces irrelevant or incorrect associations.
+
+*Competing goals*:  
+Preserving historical completeness ensures that the system provides a reliable record of all reported events, supporting auditing, analytics, and trend analysis. Conversely, including outdated reports in active matching could generate false positives, misleading users, or clutter recovery workflows. The system must balance retaining complete history with maintaining high relevance and accuracy in operational processes.
+
+*Decision*:  
+Historical data remains accessible but is excluded from active recovery processes.
+
+*Requirements*:
+
+* [[REQ-DERIVED-MATCH-01]]REQ-DERIVED-MATCH-01: The system must exclude **Closed**, **Returned**, and **Expired** reports from matching algorithms and match suggestions.
+
+* [[REQ-DERIVED-MATCH-02]]REQ-DERIVED-MATCH-02: The system must distinguish non-active reports from **Active** reports in all search and retrieval results.
+
+* [[REQ-DERIVED-MATCH-03]]REQ-DERIVED-MATCH-03: The system must allow non-active reports to remain accessible for reference without participating in active recovery workflows.
+
+
+[discrete]
+===== Terminology Consistency vs. Expressiveness
+
+*Domain basis*:  
+Multiple terms may refer to the same concept (e.g., “user” vs. “UPRM community member”), increasing ambiguity and reducing clarity across requirements.
+
+*Competing goals*:  
+Stakeholders may use different language to describe the same concept, reflecting different perspectives or organizational culture. However, inconsistent terminology can introduce misinterpretation, confusion, and errors in system design and communication. The system must enforce a single standardized vocabulary while accommodating necessary expressiveness in user-facing contexts.
+
+*Decision*:  
+A single standardized terminology is enforced across all documentation.
+
+*Requirements*:
+
+* [[REQ-DERIVED-TERM-01]]REQ-DERIVED-TERM-01: The system documentation must define a single standardized term for each domain concept.
+
+* [[REQ-DERIVED-TERM-02]]REQ-DERIVED-TERM-02: All requirements must consistently use the standardized terminology defined in the terminology section.
+
+* [[REQ-DERIVED-TERM-03]]REQ-DERIVED-TERM-03: The system must define **User** as an authenticated UPRM community member identified via institutional email.

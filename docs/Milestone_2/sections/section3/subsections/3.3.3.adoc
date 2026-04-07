@@ -1,1 +1,71 @@
+[.added]
 ==== *Requirements Acquisition Planning*
+
+[discrete]
+==== Domain Acquisition Strategy for the Lost & Found System
+The domain acquisition strategy for the Lost & Found system focuses on structured elicitation of domain knowledge through stakeholder personas, observation extraction, and concept formation. This approach ensures that the resulting requirements are grounded in real-world behaviors and needs rather than abstract assumptions.
+
+===== Domain Acquisition Approach
+
+Rather than beginning with predefined entities or database structures, the acquisition process began with constructed stakeholder personas representing realistic university scenarios. These personas included lost item owners, finders, administrative staff, and environmental observers.
+
+The process followed a staged refinement strategy:
+
+====== 1. Constructed Persona Narratives
+
+Informal first-person accounts were created to simulate real-world campus experiences. These narratives captured behaviors such as delayed realization of loss, informal communication attempts, storage inconsistencies, and verification hesitation.
+
+====== 2. Observation Extraction
+
+Each narrative was decomposed into explicit observations. Observations focused on factual behavioral patterns rather than interpretation. This prevented premature abstraction and preserved raw domain characteristics.
+
+====== 3. Derived Concept Formation
+
+From repeated observations, reusable domain concepts were extracted (e.g., search ambiguity, retention window, platform fragmentation). This allowed patterns to emerge organically rather than imposing system assumptions too early.
+
+====== 4. Concept Consolidation
+
+Recurring themes were analyzed to detect lifecycle inconsistencies, communication gaps, behavioral asymmetries, and trust-related concerns.
+
+====== 5. Formal Structuring
+
+Only after concept stabilization were formal classifications introduced, including entity definitions, event definitions, behavioral constructs, and operational abstractions.
+
+
+===== Contribution to Accuracy and Completeness
+
+Accuracy was improved by capturing multiple perspectives and distinguishing observations from interpretations.
+
+Completeness was improved by incorporating behavioral, spatial, communication, and lifecycle dimensions rather than focusing solely on object tracking.
+
+The resulting domain description is therefore traceable to structured conceptual extraction rather than arbitrary system modeling.
+
+
+
+[discrete]
+==== Requirements Engineering Process Model for the Lost & Found System 
+
+The most appropriate Requirements Engineering (RE) process model for developing the university's Lost & Found platform is the Agile and Iterative Model. This methodological approach treats requirements not as a static document, but as a living product that evolves in parallel with the software development process.
+
+===== Core Phases of the Agile Model
+Instead of defining all functionalities at the start of the project, this model divides the process into development cycles and includes the following central phases:
+
+- *Continuous elicitation*: Needs are constantly gathered through direct communication and feedback from users and administrators.
+
+- *Incremental specification*: Requirements are documented using prioritized user stories in a product backlog, detailing only what is necessary for the next work cycle.
+
+- *Iterative validation*: Prototypes or functional increments are built periodically for stakeholders to test, validate, and approve.
+
+- *Dynamic requirement management*: The team maintains traceability and adapts requirement priorities based on the operational value each feature brings to the campus.
+
+===== Justification Over the Sequential Model
+A strict *sequential* approach, like the Waterfall model, assumes that requirements will not change, which is *unrealistic* in a dynamic university environment. The *iterative* model is superior for the Lost & Found app because it allows the development team to adapt to unforeseen factors without derailing the project. For example, if campus security updates its protocols for handling valuable or electronic items, the team can immediately integrate these new rules into the next cycle. 
+
+Furthermore, releasing early versions allows the team to observe how students actually *interact* with the reporting interface. This direct feedback ensures the final application is truly intuitive and solves the core problem, rather than blindly following an initial document that might be outdated.
+
+===== Handling Changes During Development
+In an iterative model, the evolution of requirements is an expected and planned advantage, not a methodological obstacle. If an administrator requests a new feature mid-development, such as adding an automated email notification system, the change process is structured yet highly flexible.
+
+The development team captures the new request, analyzes its technical feasibility, and transforms it into a clear user story. This story is then inserted into the backlog, and its priority level is evaluated against the remaining work. If the administrator determines the feature is urgent, the team simply includes it in the planning phase for the very next programming cycle. In this way, the platform absorbs new institutional needs in a controlled manner, ensuring changes are implemented without disrupting the current architecture.
+
+
