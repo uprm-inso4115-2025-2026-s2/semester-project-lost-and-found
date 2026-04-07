@@ -118,4 +118,4 @@ These relationships formalize previously informal interactions.
 * [.added]#Differenciating lost items reports from found items reports, highligted the importance of *Report Type* and semantic distinctions#
 * [.added]#Roles mentioned in narratives(e.g. guardian, person who lost an item, person who found an item), clarified *People Roles* and their responsibilities#
 
-[.changed]#Through this analysis, the *domain understanding* is validated by confirming that all key entities and events, roles and their relationships are capturedw   .#
+[.changed]#Through this analysis, the *domain understanding* is validated by confirming that all key entities and events, roles and their relationships are captured.#
