@@ -57,6 +57,8 @@ This fragment clarifies that:
 
 ===== Report Creation Flow (Lost / Found)
 
+[.added]#The system follows a *create-then-persist* workflow: first an in-memory report instance is constructed, then it is saved to the database. This separation clarifies the difference between a draft report (without system-assigned fields) and a stored record.#
+
 When a user reports a lost or found item, the system must:
 
 1. Validate structured input.
@@ -64,22 +66,56 @@ When a user reports a lost or found item, the system must:
 3. Associate it with the authenticated user.
 4. Store images separately.
 
-While this can be described textually, the actual insertion logic is clearer
-when shown explicitly.
+[.added]#The following type hierarchy makes the lifecycle explicit:#
 
 [source,tsx]
 ----
-type ReportInput = {
-  type: "lost" | "found";
-  title: string;
-  description: string;
-  category_id: string;
-  location: string;
-  event_date: string;
-  image_url?: string;
-};
+// Domain types
+type ReportType = "lost" | "found";
+type UUID = string;
 
-export async function createReport(input: ReportInput) {
+// Abstract superclass for all reports
+abstract class Report {
+  constructor(
+    public readonly type: ReportType,
+    public readonly title: string,
+    public readonly description: string,
+    public readonly categoryId: UUID,
+    public readonly location: string,
+    public readonly eventDate: Date, // not just a string
+    public readonly imageUrl?: URL // not just a string
+  ) {}
+}
+
+// Input representation (before persistence)
+class ReportInput extends Report {}
+
+// Persisted representation (after persistence)
+class ReportPersisted extends Report {
+  constructor(
+    type: ReportType,
+    title: string,
+    description: string,
+    categoryId: UUID,
+    location: string,
+    eventDate: Date,
+    imageUrl: URL | undefined,
+    public readonly id: UUID,
+    public readonly userId: UUID,
+    public readonly status: "active" | "resolved" | "expired",
+    public readonly createdAt: Date
+  ) {
+    super(type, title, description, categoryId, location, eventDate, imageUrl);
+  }
+}
+----
+
+[.added]#The insertion function now follows a clear *create-then-persist* pattern: an input instance is created first, then its data is mapped to the database schema.#
+
+[source,tsx]
+----
+export async function createReport(input: ReportInput): Promise<ReportPersisted> {
+  // Authentication check
   const {
     data: { user },
     error: authError
@@ -89,15 +125,23 @@ export async function createReport(input: ReportInput) {
     throw new Error("User not authenticated");
   }
 
+  // Prepare database record from the input instance
+  const dbRecord = {
+    type: input.type,
+    title: input.title,
+    description: input.description,
+    category_id: input.categoryId,
+    location: input.location,
+    event_date: input.eventDate.toISOString(), // serialize Date
+    image_url: input.imageUrl?.toString(),
+    user_id: user.id,
+    status: "active"
+  };
+
+  // Persist
   const { data, error } = await supabase
     .from("reports")
-    .insert([
-      {
-        ...input,
-        user_id: user.id,
-        status: "active"
-      }
-    ])
+    .insert([ dbRecord ])
     .select()
     .single();
 
@@ -105,19 +149,33 @@ export async function createReport(input: ReportInput) {
     throw error;
   }
 
-  return data;
+  // Rehydrate a ReportPersisted instance
+  return new ReportPersisted(
+    data.type,
+    data.title,
+    data.description,
+    data.category_id,
+    data.location,
+    new Date(data.event_date),
+    data.image_url ? new URL(data.image_url) : undefined,
+    data.id,
+    data.user_id,
+    data.status,
+    new Date(data.created_at)
+  );
 }
 ----
 
-This fragment demonstrates several architectural decisions:
+[.changed]#These fragments demonstrate several architectural decisions:#
 
 - Authentication context is retrieved at runtime.
 - Ownership is enforced at insertion (`user_id` bound to session).
 - Status lifecycle begins as `"active"`.
 - Supabase Row Level Security (RLS) policies enforce access constraints.
+- [.added]#The class hierarchy separates *input* (no system fields) from *persisted* (with id, status, timestamps), making the create-then-persist workflow explicit.#
+- [.added]#Precise types (`Date`, `URL`, `UUID`) replace generic strings, improving maintainability and domain alignment.#
 
-Without this code, it would be difficult to concretely show how domain concepts
-such as *Reporting*, *Ownership*, and *Lifecycle State* are realized.
+[.changed]#Without this code, it would be difficult to concretely show how domain concepts such as *Reporting*, *Ownership*, and *Lifecycle State* are realized.#
 
 The diagram below illustrates the flow of data and control during report creation, highlighting the interaction between the React client and Supabase backend, as well as the enforcement of ownership and security policies:
 
@@ -125,7 +183,7 @@ image::report-creation-flow.png[Report Creation Flow, align=center, pdfwidth=80%
 _Figure 2.3.1. - 1. Report Creation Flow (React + Supabase)._
 
 As shown, the user initiates the report creation from the React client, which then interacts with Supabase to authenticate the user and insert the report into the database. The ownership of the report is established through the `user_id` field, and RLS policies ensure that only the owner can modify their reports.
- 
+
 
 ===== Row-Level Security (Ownership Enforcement)
 
@@ -160,7 +218,7 @@ and referenced via URL.
 
 [source,tsx]
 ----
-export async function uploadImage(file: File) {
+export async function uploadImage(file: File): Promise<URL> {
   const filePath = `reports/${crypto.randomUUID()}-${file.name}`;
 
   const { error } = await supabase.storage
@@ -173,7 +231,7 @@ export async function uploadImage(file: File) {
     .from("report-images")
     .getPublicUrl(filePath);
 
-  return data.publicUrl;
+  return new URL(data.publicUrl);
 }
 ----
 
@@ -182,7 +240,7 @@ This fragment illustrates:
 - Separation of structured metadata (PostgreSQL) and binary assets (Storage).
 - Use of UUID-based naming to avoid collisions.
 - Public URL generation without exposing storage internals.
+- [.added]#Explicit `URL` return type, reinforcing that the result is a well-formed URL, not an arbitrary string.#
 
 This design directly supports the domain behavior of *Matching* by enabling
 visual comparison while maintaining structural database normalization.
-
