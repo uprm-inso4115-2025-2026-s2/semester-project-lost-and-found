@@ -24,6 +24,21 @@ The following personas represent direct users of the platform:
 
 | *Story* | Mateo just started university with an 18 credit semester and is still adjusting to the new pace. He moves between classes, the library, and study groups constantly. One afternoon, he realizes he left his laptop charger in a classroom and he has a programming assignment due tomorrow afternoon. He has no spare charger and his laptop is nearly out of battery. His work was saved locally on his laptop and he needs it to complete and submit the assignment.
 
+| *Day in the life of* a| 
+[.added]#
+* 6:30 am : Wakes up and starts getting ready 
+* 7:00 am : Leaves for campus
+* 7:30 am : Study for a quiz at the  university library and review class notes
+* 8:20 am : Attends class and takes a quiz
+* 9:30 am : Rushes to second class
+* 10:30 am : Takes lunch
+* 12:30 pm : Attends lab
+* 3:30 pm : Attends last class
+* 4:45 pm : Goes to a group study section on campus
+* 6:00 pm  : Goes to dorm to take a little nap, and later continue working on a programming a game 
+* 9:00 pm : Works on a project while watching a basketball game
+* 10:50 pm : Goes to sleep#
+
 | *Goals* | Recover lost items as quickly as possible
 
 | *Pain Points* | Doesn't know where to check for lost items, fears items being stolen
@@ -61,6 +76,23 @@ The following personas represent direct users of the platform:
 
 | *Story* | Valeria occasionally finds lost items in the lab rooms she frequents; some are more important such as car keys and pen drives; others less so, such as water bottles and calculators. Regardless of importance, she feels guilty simply leaving the lost items alone knowing they could be stolen by someone, but there is no lost and found office near her labs.
 
+| *Day in the life of* a| 
+[.added]#
+* 6:30 am: Wakes up and starts getting ready for her daily walk
+* 8:00 am: Arrives at the University
+* 8:30 am: Attends her first biology class
+* 10:00 am : Arrives at the lab and begins preparing and cleaning the workspace
+* 12: 00 pm Finds a calculator on a lab table and ask nearby students if it belongs to anyone but no one claims it.
+* 12: 10 pm : Stores the calculator in a lab drawer and informs the next lab assistant in case someone comes looking for it
+* 1: 00 pm : Eats lunch at a cafe with friends
+* 2:20 pm : Returns to  campus for another class
+* 4:00 pm: Meets with a friend to study
+* 5:00 pm: Check and respond emails
+* 6:00 pm: Eats dinner 
+* 7:00 pm: Studies and starts preparing lab material for the next day
+* 9:00 pm: Watch two episodes of Gilmore Girls
+* 10:30pm : Goes to sleep#
+
 | *Goals* | Quickly report found items so the owner can reclaim them
 
 | *Pain Points* | Reporting a lost item is inaccessible or, at best, very inconvenient
@@ -94,6 +126,24 @@ The following personas represent direct users of the platform:
 | *Tech setup* | Mid-end desktop in his home for everyday use and an iPhone 12
 
 | *Story* | On his way back to his car after a class, Daniel finds a phone on the ground that clearly fell out of someone's bag. Having heard of the lost and found platform, he decides to submit it to the platform. He gets an institutional email from someone claiming the phone is theirs. He is, however, slightly skeptical of this given that the phone has little to no information that could help identify the person as the rightful owner.
+
+| *Day in the life of* a| 
+[.added]# * 5:00 am Wakes up and starts getting ready
+* 6:30 am : Reviews physics notes and starts preparing for the course
+* 7:00 am : Stops at a "Panadería" to get coffee and breakfast
+* 7:50 am : Arrives at campus
+* 8:30 am: Offers office hours, responds to students emails and grades tests
+* 10:45 am : Goes to the student center to warm up his lunch and meet with a colleague
+* 12:30 pm : Takes a class
+* 1:45 pm : Walks to the parking to his car and drives back homw
+* 2:00 pm : Stops for gas
+* 2:26 pm : Arrives to his apartment and play with his cats
+* 3:00 pm : Visit his grandparents house and has dinner there
+* 4:45 pm : Goes back home and joins a departamental online meeting
+* 5:50 pm : Review the course presentation, fix some typos and review the material
+* 6:55 pm: Corrects some tests
+* 8:35 pm : Takes a shower and reads his favorite book
+* 12: 00 am : Goes to sleep#
 
 | *Goals* | Ensure the lost item is being returned to its true owner 
 
@@ -132,6 +182,22 @@ The following personas represent direct users of the platform:
 
 | *Story* | Luis has mild color vision deficiency (red-green color blindness) and is sensitive to overly bright or low-contrast interfaces. He frequently uses his phone outdoors where glare makes low-contrast text difficult to read. This causes him issues with not being able to comfortably use platforms where color contrast isn't properly considered. When Luis loses his keys around campus, he decides to use the lost and found platform and finds he is able to navigate it just fine despite his vision deficiency.
 
+| *Day in the life of* a| 
+[.added]# * 8:30 am : Wakes up and drink a cup of coffee
+* 9:00 am : Uses his computer and starts working on his online job as finance counselor
+* 1:00 pm : Eats lunch
+* 2:20 pm : Arrives to college to attend class
+* 3:50 pm : Goes to Gym
+* 4:45 pm : Goes to the Supermarket do buy food
+* 6:23 pm : Cooks dinner
+* 7:30 pm : Watchs a baseball game
+* 8:00 pm : Use his phone to watch social media
+* 9:48 pm : Prepares the clothes for the next day
+* 10; 47 pm : Goes to sleep
+* 12: 05 am : Wakes up and drink a cup of water
+* 12 : 25 am : Revise emails and text messages
+* 1: 08 am : Goes back to sleep#
+
 | *Goals* | Read and navigate through content easily despite visual impairment
 
 | *Pain Points* a| 
@@ -169,6 +235,19 @@ As mentioned, it's not just direct users of the platform that benefit from it; o
 | *Tech setup* | Low-end laptop used almost exclusively for schoolwork and a Samsung Galaxy phone
 
 | *Story* | Camila works a part-time job at the university's library on the third floor office where study room reservations and lost items are handled. Students frequently bring in found items to the security office such as water bottles, ID cards, keychains, and even electronics. Managing these items manually creates clutter and confusion. Students often ask her if someone reported a lost item, but she has no proper way to keep track. Camila does not personally use the platform daily, but its existence directly impacts her workflow by reducing the number of items she has to manage.
+
+| *Day in the life of* a| 
+[.added]#*10:00 am : Wakes up and starts getting ready for college
+* 11:00 am : Arrives at the University and eats at the cafeteria
+* 11:30 am : Reports at the Library to her job
+* 3:20 pm : Heads to her class
+* 4:34 pm : Walks to her dorm while listening to a audio book
+* 5:00 pm : Finish a crochet plushie that she has to deliver the next day
+* 6:46 pm : Discuss with her roomate the ending of a book she finished the night before
+* 7:49 pm : Study mandarin using Duolingo
+* 8: 50 pm : Call her parents and clean the dorm
+* 9 : 50 : Goes to sleep
+#
 
 | *Goals* a| 
 * Reduce physical storage of lost items
