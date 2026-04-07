@@ -8,15 +8,15 @@
 
 Our team used *Artificial Intelligence* tools to help with the *Lost & Found* project. We used these tools:
 
-* *ChatGPT (GPT-5.2 Plus tier)*: This tool helped us organize our documentation make sense of concepts like *Report* *Ownership* and *Lifecycle State*. It also helped us write better and make our AsciiDoc files clearer. We even used it to discuss how to integrate *React* and *Supabase*.
+* *ChatGPT (GPT-5.2 Plus tier)*: This tool helped us organize our documentation make sense of concepts like *Report*, *Ownership* and *Lifecycle State*. It also helped us write better and make our AsciiDoc files clearer. We even used it to discuss how to integrate *React* and *Supabase*.
 
 * *GitHub Copilot*: This tool helped us write code faster by suggesting completions making *React* components and helping with *Supabase* queries and *TypeScript* types.
 
-These tools made it easier for us to work write clearly. Be organized.. They didn't make any big decisions or build the system on their own.
+These tools made it easier for us to work write clearly and be organized. They didn't make any big decisions or build the system on their own.
 
 ==== Stages of AI Usage
 
-We used *AI* tools at stages of the project.
+We used *AI* tools at various stages of the project.
 
 *Learning & Setup*
 
@@ -24,7 +24,7 @@ We used *AI* tools at stages of the project.
 
 *Brainstorming & Domain Modeling*
 
-*AI* helped us think of ideas for the *Lost & Found* domain, like *Report* *Ownership* and *Lifecycle State*. We used these ideas as starting points. Made them better as a team.
+*AI* helped us think of ideas for the *Lost & Found* domain, like *Report* *Ownership* and *Lifecycle State*. We used these ideas as starting points and made them better as a team.
 
 *Requirements & Concept Structuring*
 
@@ -32,7 +32,7 @@ We used *AI* tools at stages of the project.
 
 - Make our requirements clearer
 
-- Use the terms throughout
+- Use terminology consistently 
 
 - Organize our analysis and validation sections
 
@@ -72,17 +72,17 @@ We reviewed edited and approved all documentation.
 
 *AI* tools gave us suggestions draft text and example structures.
 
-* The team came up with all domain concepts. Checked them against real *Lost & Found* scenarios.
+* The team came up with all domain concepts and checked them against real *Lost & Found* scenarios.
 
-* The team made all decisions (*React* frontend, *Supabase* backend, storage separation, *RLS* enforcement).
+* The team made all tech stack decisions (*React* frontend, *Supabase* backend, storage separation, *RLS* enforcement).
 
-* The team built, tested and debugged all integration logic.
+* The team built, tested, and debugged all integration logic.
 
 * The team designed lifecycle transitions and moderation policies.
 
-* The team. Refined all diagrams and validation scenarios.
+* The team refined all diagrams and validation scenarios.
 
-We always reviewed, corrected and adapted *AI*-generated material to fit the goals of the *Lost & Found* project.
+We always reviewed, corrected, and adapted *AI*-generated material to fit the goals of the *Lost & Found* project.
 
 There were tasks where *AI* wasn't used, like:
 
@@ -100,7 +100,7 @@ We checked all *AI*-assisted outputs carefully:
 
 * We checked requirements against milestone guidelines.
 
-* We -referenced technical suggestions with official *React* and *Supabase* documentation.
+* We referenced technical suggestions with official *React* and *Supabase* documentation.
 
 * We tested all code suggestions locally before integrating them.
 
@@ -118,6 +118,6 @@ When *AI*-generated structures didn't match our naming conventions or domain voc
 
 * Human validation was crucial to ensure alignment with university *Lost & Found* workflows.
 
-We learned that *AI* is most helpful as a productivity and drafting assistant not, as a decision-maker. It supported our work. Didn't replace critical thinking domain understanding or collaborative decision-making.
+We learned that *AI* is most helpful as a productivity and drafting assistant not, as a decision-maker. It supported our work but didn't replace critical thinking, domain understanding or collaborative decision-making.
 
-The *Lost & Found* project is a team-driven effort. *AI* tools were one of tools used to improve efficiency and clarity while all final design, analysis and implementation decisions were made by the team.
+The *Lost & Found* project is a team-driven effort. *AI* tools were one of tools used to improve efficiency and clarity while all final design, analysis, and implementation decisions were made by the team.

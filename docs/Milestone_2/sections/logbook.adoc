@@ -15,7 +15,7 @@
 | Modified/Added
 
 | Abby Gotay Almonte
-| 2.1.4.
+| 2.1.4., 2.3.1.
 | Modified/Added
 
 | Anthony H Martinez-Gomez
@@ -31,12 +31,8 @@
 | Modified
 
 | Naedra Feliciano
-| 2.2.2
+| 3.1, 2.2.2
 | Added
-
-| Abby Gotay Almonte
-| 2.3.1.
-| Modified/Added
 
 
 |===
