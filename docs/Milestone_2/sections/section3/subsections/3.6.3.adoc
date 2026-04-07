@@ -1,1 +1,31 @@
+[.added]
 ==== *Requirements Feasibility and Satisfiability Analysis*
+
+This section provides a detailed evaluation of the feasibility and satisfiability of selected functional requirements for the Lost & Found system. Each requirement is analyzed in terms of implementation practicality, technical considerations, and how the system can reliably meet operational objectives. Three representative requirements are considered to demonstrate this process.
+
+===== Example Requirement 1: Structured Report Content
+*Requirement:* <<REQ-REPORT-F-01>> – The system must accept only **Reports** that include sufficient descriptive attributes to support **Matching**, including item category, textual description, approximate location, and relevant date or time window.
+
+Feasibility Analysis::  
+Implementing structured report submission is feasible using standard web and mobile form frameworks. Mandatory fields can be enforced through client-side and server-side validation, preventing incomplete submissions. The system can provide contextual help, dropdowns for categories, and geolocation-based input for location fields. Textual descriptions can be guided with character limits and examples. Backend storage using relational database tables allows indexing each attribute to optimize query performance for future searches and matching algorithms. The system must also handle partial data and support fallback mechanisms for optional fields to ensure usability without compromising feasibility.
+
+Satisfiability Analysis::  
+Satisfiability is ensured by using attribute-based matching algorithms. Each report can be indexed according to category, textual keywords, location coordinates, and timestamp. This enables efficient retrieval and ranking of potential matches. Validation rules prevent inconsistent or insufficient data, ensuring that each report can participate in automated matching processes. Additionally, by separating public and private attributes (as defined in <<REQ-REPORT-F-02>>), the system ensures that sensitive verification data is used only for claim validation, satisfying the requirement’s intent for reliability in matching.
+
+===== Example Requirement 2: Report State Transitions
+*Requirement:* <<REQ-MATCH-F-02>> – The system must maintain the current state of each **Report**, including Active, Returned, Closed, and Expired.
+
+Feasibility Analysis::  
+Tracking report states is technically feasible using a backend state machine implementation. Each report object stores a `state` attribute, and state transitions are triggered by user actions (e.g., submission, claim verification, administrative closure) or time-based rules (e.g., automatic expiration). State transitions can be implemented using event-driven programming and database triggers to ensure atomic updates. Additional feasibility considerations include handling concurrent updates, preventing race conditions when multiple users or administrators interact with the same report, and maintaining performance under high load conditions. Audit logs can record each state transition to ensure traceability.
+
+Satisfiability Analysis::  
+The system satisfies state-dependent behaviors by enforcing transition rules. For example, a report cannot move from Closed to Active, ensuring terminal states are respected. Active reports can be searched, matched, or claimed, whereas Closed or Expired reports remain read-only for historical purposes. Returned reports trigger ownership notifications and recovery confirmation workflows, ensuring that the platform’s functional objectives align with the requirement. Consistency checks and automated tests can validate that each state transition behaves as intended, guaranteeing reliable execution of recovery and matching processes.
+
+===== Example Requirement 3: Administrative Review
+*Requirement:* <<REQ-ADMIN-F-01>> – The system must support administrative review of **Reports**.
+
+Feasibility Analysis::  
+Administrative review is feasible using role-based access control (RBAC) and dedicated administrative interfaces. Administrators can query reports by status, type, or potential issues flagged by automated checks (e.g., duplicate reports or suspicious content). The backend must enforce permissions, ensuring that only authorized personnel can modify or approve reports. Feasibility also includes providing batch processing for high-volume report review and integrating logging mechanisms to track administrative actions for accountability. Notifications or dashboards can be implemented to highlight items needing urgent attention.
+
+Satisfiability Analysis::  
+Satisfiability is ensured as the system allows administrators to inspect, validate, modify, or remove reports according to institutional policies. Each action is recorded in audit trails, supporting traceability and dispute resolution. By integrating automated alerts and workflow rules, the system guarantees that reports requiring review are consistently presented to administrators. Additionally, the combination of role restrictions, audit logging, and structured workflows ensures that administrative objectives—such as content moderation and policy enforcement—are reliably achieved without compromising user access or report integrity.

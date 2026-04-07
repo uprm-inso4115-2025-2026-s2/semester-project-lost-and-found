@@ -5,92 +5,92 @@
 |===
 | ID | Description | Linked User Stories/Epics | Verification Tests
 
-| HWRQ-001
+| [[HWRQ-001]]HWRQ-001
 | The system must support client access from desktop/laptop devices with modern web browsers and minimum 1 Mbps internet connection.
 | US-Platform-001: Web-Based Access, US-Perf-002: Performance Standards
 | T-PERF-005, T-COMP-010
 
-| HWRQ-002
+| [[HWRQ-002]]HWRQ-002
 | The system must support client access from mobile devices (smartphones/tablets) with responsive design at minimum 320px screen width.
 | US-Platform-001: Web-Based Access, US-UI-003: Mobile Responsiveness
 | T-UI-015, T-RESP-001
 
-| SWRQ-001
+| [[SWRQ-001]]SWRQ-001
 | The frontend must be developed using TypeScript 5.0+ and React 18.2+ with Node.js 18.0+ runtime.
 | US-Auth-001: Authentication System, US-Report-001: Report Creation
 | T-COMP-001, T-BUILD-001
 
-| SWRQ-002
+| [[SWRQ-002]]SWRQ-002
 | The system must integrate Supabase JavaScript SDK 2.0+ for backend services including authentication, database, and storage.
 | US-Auth-001: Authentication System, US-Report-002: Database Storage
 | T-API-001, T-DB-001
 
-| SWRQ-003
+| [[SWRQ-003]]SWRQ-003
 | The system must utilize TailwindCSS 3.0+ for responsive UI implementation.
 | US-UI-001: User Interface Design, US-UI-003: Mobile Responsiveness
 | T-UI-010, T-UI-011
 
-| SWRQ-004
+| [[SWRQ-004]]SWRQ-004
 | The system must implement form validation using React Hook Form with Zod or Yup schema validation.
 | US-Report-003: Form Validation, US-Report-004: Data Integrity
 | T-FE-005, T-VALID-001
 
-| SWRQ-005
+| [[SWRQ-005]]SWRQ-005
 | The system must support image upload functionality with file size limit of 10MB per image for JPEG, PNG, and GIF formats.
 | US-Report-005: Image Upload, US-Sec-003: File Security
 | T-UPLOAD-001, T-SEC-008
 
-| SWRQ-006
+| [[SWRQ-006]]SWRQ-006
 | The development environment must include Jest, React Testing Library, and Cypress/Playwright for testing.
 | US-QA-001: Testing Requirements, US-QA-002: Quality Assurance
 | T-TEST-001, T-TEST-002
 
-| ENVRQ-001
+| [[ENVRQ-001]]ENVRQ-001
 | The system must maintain API response latency under 500ms for standard operations under normal load.
 | US-Perf-001: System Performance, US-Perf-002: Performance Standards
 | T-PERF-001, T-PERF-002
 
-| ENVRQ-002
+| [[ENVRQ-002]]ENVRQ-002
 | The system must support concurrent users with minimum 100 simultaneous active sessions.
 | US-Perf-003: Scalability, US-Perf-004: Load Handling
 | T-PERF-010, T-SCALE-001
 
-| ENVRQ-003
+| [[ENVRQ-003]]ENVRQ-003
 | The system must enforce HTTPS-only communication with WSS for real-time features.
 | US-Sec-001: Data Security, US-Sec-002: Secure Communication
 | T-SEC-001, T-SEC-002
 
-| ENVRQ-004
+| [[ENVRQ-004]]ENVRQ-004
 | The system must support latest 2 versions of Chrome, Firefox, Safari, and Edge browsers on desktop and mobile.
 | US-COMP-001: Browser Compatibility, US-UI-003: Mobile Responsiveness
 | T-COMP-005, T-COMP-006
 
-| ENVRQ-005
+| [[ENVRQ-005]]ENVRQ-005
 | The system must integrate with UPR.edu authentication system via SSO/OAuth protocols.
 | US-Auth-002: UPR Authentication, US-Auth-003: SSO Integration
 | T-AUTH-010, T-AUTH-011
 
-| ENVRQ-006
+| [[ENVRQ-006]]ENVRQ-006
 | The system must implement Row Level Security (RLS) policies in PostgreSQL for all data access.
 | US-Sec-004: Access Control, US-Sec-005: Data Privacy
 | T-SEC-015, T-DB-010
 
-| ENVRQ-007
+| [[ENVRQ-007]]ENVRQ-007
 | The system must achieve page load time under 3 seconds and search query responses under 2 seconds.
 | US-Perf-001: System Performance, US-Search-003: Search Optimization
 | T-PERF-003, T-PERF-004
 
-| ENVRQ-008
+| [[ENVRQ-008]]ENVRQ-008
 | The system must comply with FERPA regulations and university data protection policies for student information.
 | US-COMP-002: Regulatory Compliance, US-Sec-006: Privacy Compliance
 | T-COMP-020, T-SEC-020
 
-| ENVRQ-009
+| [[ENVRQ-009]]ENVRQ-009
 | The system must implement rate limiting on all API endpoints to prevent abuse.
 | US-Sec-007: Security Hardening, US-Sec-008: Abuse Prevention
 | T-SEC-025, T-SEC-026
 
-| ENVRQ-010
+| [[ENVRQ-010]]ENVRQ-010
 | The system must support email notifications through configured SMTP with templated messaging.
 | US-Notif-001: Email Notifications, US-Comm-003: System Communications
 | T-NOTIF-001, T-EMAIL-001

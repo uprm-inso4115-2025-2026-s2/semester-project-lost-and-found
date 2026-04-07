@@ -1,1 +1,57 @@
+[.added]
 ==== *Risk Assessment and Evaluation*
+
+Each risk is assessed based on its likelihood, potential impact, related competing goals, and strategies to mitigate or manage it. 
+
+[cols="1,3,2,2,4,4,3", options="header"]
+|===
+| Risk ID | Risk Description | Likelihood | Impact | Justification / Discussion | Mitigation Strategy | Related Competing Goals
+
+| [[RSK-01]]RSK-01
+| Inaccurate report information leading to false matches
+| Medium
+| High
+| Users may provide incomplete or misleading details about lost/found items, reducing matching accuracy and trust in the system.
+| Implement structured reporting forms, require verification attributes, and validate inputs.
+| Information Visibility vs. User Privacy; Historical Completeness vs. Matching Accuracy
+
+| [[RSK-02]]RSK-02
+| Unauthorized administrative changes compromising data integrity
+| Low
+| High
+| Administrators could override report states incorrectly, affecting report lifecycle consistency and trust.
+| Require explicit justification for overrides, maintain audit logs, notify report owners.
+| Administrative Flexibility vs. System Integrity
+
+| [[RSK-03]]RSK-03
+| Privacy violations due to exposure of sensitive user information
+| Medium
+| High
+| Improper handling of private verification information could lead to identity misuse or fraudulent claims.
+| Enforce strict separation between public/private fields, restrict access to authorized actors, validate submissions.
+| Information Visibility vs. User Privacy
+
+| [[RSK-04]]RSK-04
+| System downtime or performance degradation affecting report access
+| Medium
+| Medium
+| Technical failures could prevent users from submitting or retrieving reports, undermining reliability and timely recovery.
+| Implement redundant servers, regular backups, monitoring, and load testing.
+| User Autonomy vs. Workflow Consistency; Historical Completeness vs. Matching Accuracy
+
+| [[RSK-05]]RSK-05
+| Misalignment of terminology causing confusion or errors
+| Low
+| Medium
+| Inconsistent naming of actors, items, or statuses could lead to misinterpretation of requirements and system outputs.
+| Enforce standardized terminology across documentation, system interfaces, and code.
+| Terminology Consistency vs. Expressiveness
+
+| [[RSK-06]]RSK-06
+| Historical data clutter affecting search and matching relevance
+| Medium
+| Medium
+| Including closed or expired reports in active matching could generate false positives or irrelevant suggestions.
+| Exclude non-active reports from matching algorithms; retain historical data for auditing and reference.
+| Historical Completeness vs. Matching Accuracy
+|===

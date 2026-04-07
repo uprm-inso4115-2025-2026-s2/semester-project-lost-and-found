@@ -1,1 +1,143 @@
+[.added]
 ==== *Requirements Traceability Framework*
+
+[discrete]
+==== Traceability for Report Lost Item
+
+===== Report Lost Item Requirement
+Reporting Requirements:
+
+- The system must accept only **Reports** that include sufficient descriptive attributes to support **Matching**, including at minimum:
+  * item category  
+  * textual description  
+  * approximate location (loss or discovery)  
+  * relevant date or time window
+
+- The ID for a Lost Item Report: <<REQ-REPORT-F-01>>
+
+- *Scope:*
+
+* The requirement : <<REQ-REPORT-F-01>>, must be traced across:
+
+** User Stories, Epics and Features
+** Domain Requirements
+** Interface Requirements
+** Machine Requirements
+** Test and Verification artifacts
+
+===== Traceability Policy Rules:
+
+- The Lost Item Requirement: <<REQ-REPORT-F-01>>,  much be linked to all related artifacts 
+- Traceability links must be maintained and updated during evolution
+- Any verification is traced back to <<REQ-REPORT-F-01>> to confirm it is satisfied
+- Any modification or change  to <<REQ-REPORT-F-01>> must trigger impact analisys
+- The requirement is fully traceable when all relevant interfaces, requirements and tests are captured and linked in the traceability table.
+
+===== Traceability Links Between the Requirement and Related System Components 
+
+====== Backward Traceability:
+
+- <<REQ-REPORT-F-01>> - Submit a Lost Item Report
+- Epic E1: Reporting Lost and Found Items
+- Feature F1.1 - Structured lost item submission
+- Feature F1.3 OptionalImage upload support
+- Feature F1.4 Edit and manage own reports
+- Feature F1.5 - Automatic ownership binding
+
+The Report Lost Item requirement interacts with multiple components of the system:
+
+*Domain Requirements*
+
+* *Reporting Requirements*
+ 
+- <<REQ-REPORT-F-01>>: The system shall allow a registered UPRM community member to create a Report for a Lost Item, including sufficient descriptive attributes to support Matching (e.g., category, description, approximate location, date or time window).  
+- <<REQ-REPORT-F-02>>: Each Report shall distinguish between public descriptive information and private verification information within each Report.  
+- <<REQ-REPORT-F-03>>: Upon creation, each Report shall be assigned an initial status of "Active".  
+- <<REQ-REPORT-F-05>>: The system shall associate each Report with its creator to support ownership, traceability, and controlled modification.  
+
+* *Search and Discovery Requirements*
+
+- <<REQ-SEARCH-F-01>>: The system shall allow users to search Reports based on keywords related to item description, category, approximate location, and date or time window.  
+- <<REQ-SEARCH-F-02>>: The system shall allow filtering of Reports by category, general location, date, and status.  
+- <<REQ-SEARCH-F-03>>: The system shall present search results in a manner that supports comparison between Lost Item and Found Item Reports for Matching purposes.  
+
+* *Matching and Tracking Requirements*
+
+- <<REQ-MATCH-F-01>>: The system shall support the identification of potential matches between Lost Item and Found Item Reports based on descriptive attributes.  
+- <<REQ-MATCH-F-04>>: The system shall allow the Owner of a Lost Item to monitor the status of their Report (Active, Returned, Closed, Expired).  
+- <<REQ-MATCH-F-03>>: The system shall record status transitions from Active to Returned, Closed, or Expired.  
+
+*Claim Verification and Recovery Requirements*
+
+- <<REQ-CLAIM-F-01>>: The system shall restrict marking an item as Returned to authenticated users involved in the Report.  
+- <<REQ-CLAIM-F-02>>: The system shall support the use of private verification information to validate ownership before Recovery is confirmed.  
+- <<REQ-CLAIM-F-03>>: Once Recovery occurs, the corresponding Report shall transition to "Returned" status.  
+
+*Closure Requirements*
+
+-  <<REQ-CLOSE-F-01>>: The system shall allow a Report to be manually closed if Recovery is no longer expected.  
+- <<REQ-CLOSE-F-04>> / <<REQ-CLOSE-F-05>>: Closed Reports shall remain recorded for reference but shall be clearly distinguishable from Active Reports in search results.  
+
+*Administrative Oversight Requirements*
+
+- <<REQ-ADMIN-F-01>>: The system shall allow authorized administrators to review Reports for inappropriate or misleading content.  
+- <<REQ-ADMIN-F-02>>: Administrators shall be able to modify or remove Reports that violate institutional guidelines.  
+- <<REQ-ADMIN-F-03>>: Administrators shall be able to override Report status in cases of misuse or verified dispute.  
+
+
+
+*Interface Requirements*:
+
+- <<IR001>> : The system must provide a public view for item details showing only public fields (category, description, photos, general location) and a prompt to log in to contact the owner
+- <<IR003>> : Report creation forms (Lost/Found) must include structured fields with validation, such as category dropdown, description, location picker, photo uploader, and private fields.
+- <<IR005>> :  Each report must allow the Owner or Finder to update descriptive attributes, with the system replacing previous values and maintaining a history of modifications.
+           
+
+*Machine Requirements*:
+
+- <<SWR-004>> : The system must implement form validation using React Hook Form with Zod or Yup schema validation.
+- <<SWRQ-005>> : The system must support image upload functionality with file size limit of 10MB per image for JPEG, PNG, and GIF formats.
+- <<ENVRQ-006>> : The system must implement Row Level Security (RLS) policies in PostgreSQL for all data access.
+- <<ENVRQ-009>> : The system must implement rate limiting on all API endpoints to prevent abuse
+
+
+===== Dependent Systems:
+
+- Search and Filtering Systems
+- Matching System
+- Notification System
+- Claim and Recovery System
+
+
+
+===== Change Scenarios
+====== 1. Adding a New required field such as exact location or timestamp
+
+*Effect:*
+
+- <<IR003>> form must be updated
+- <<IR001>> items public view must be updated
+- <<SWR-004>> validation rules must be updated
+- Database(Supabase) schema must be updated
+- Search and filtering functionality affected
+
+====== 2. Change in Image Upload policy such as reducing file  size limit or allowing more image formats
+
+*Effect:*
+
+- <<SWR-005>> must be updated
+- <<IR001>> UI must reflect new constraints 
+- API validation must be modified
+
+====== 3. Changing data Retention Policy such as auto-delete after a year
+
+*Effect:*
+
+- Search and Filtering systems must exclude expired reports
+- <<ENVRQ-006>> must be updated 
+- New requiremnet for scheduled deleition must be introduced
+- <<IR001>> must exclude old reports from view
+- <<IR003>> UI must inform users about report expiration
+- Database(Supabase) schema must be updated
+- Matching system impacted due to loss of historical data
+

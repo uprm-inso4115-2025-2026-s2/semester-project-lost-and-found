@@ -1,3 +1,167 @@
 === *Requirements Elicitation and Stakeholder Analysis*
 
+[.added]
 ==== *Initial Stakeholder Identification*
+
+[discrete]
+==== Domain Stakeholders and Inventory Lifecycle
+
+Using the lecture slides as a starting point, this section identifies stakeholder groups, produces persona artifacts, maps responsibilities (RACI) across lifecycle states, and extracts stakeholder-driven user stories. The goal is to ensure that technical design decisions (data model, custody logs, claim verification, retention/disposal) reflect domain needs, safety concerns, and operational realities.
+
+===== Scope and Objective
+*Scope:* Align stakeholder perspectives with the Inventory and Item Lifecycle (reported → cataloged → stored → pending_claim → claimed → disposed). 
+
+*Objective:* Produce a stakeholder catalog, six persona cards, a RACI matrix, and at least three stakeholder-driven backlog items with acceptance criteria so these results can feed directly into sprint planning and risk mitigation work already completed.
+
+===== Stakeholder Catalog
+[cols="1,1",options="header"]
+|===
+|Stakeholder |Role / Interest
+
+|Finder (reporter)
+|Person who finds and reports an item. Wants quick reporting and secure handover; concerned about privacy and recognition.
+
+|Owner (lost person)
+|Person who lost the item. Wants rapid discovery, strong proof-of-possession verification, and privacy.
+
+|Operations / Intake Staff
+|Campus/venue staff who catalog items and manage storage. Needs clear custody logging and simple intake UI.
+
+|Campus Security / Police
+|Responsible for safety-sensitive items and managing secure handoffs. Needs audit trails and coordination with operations.
+
+|IT / DevOps
+|Maintains the app, storage, and services. Focuses on secure defaults, monitoring, and backups.
+
+|Legal / Records
+|Advises on retention/disposition rules, evidence handling, and compliance (e.g., institutional rules).
+
+|Volunteers
+|Assist with intake; may have limited privileges. Need clear role boundaries and training.
+
+|Users / Public
+|General users browsing lost items, reporting, or claiming. Expect privacy protections and usability.
+
+|Auditor / Compliance Officer
+|May review custody logs, retention, and disposal records for audits or disputes.
+
+|Third-party services (storage, SMS)
+|Provide infrastructure. Must follow secure config and least privilege.
+|===
+
+
+===== Persona Cards
+Each persona captures goals, fears, permissions, and 3 stakeholder-driven requirements (user stories).
+
+====== *_Persona: "Fernanda — Finder (Student)"_*
+
+- *Role:* Student who finds items around campus.  
+- *Goals:* Report quickly, attach photo, get anonymized acknowledgement.  
+- *Fears:* Being contacted directly, exposing her contact info, long paperwork.  
+- *Permissions:* Can create reports; cannot change custody logs.  
+
+- *Top user stories*
+* As a Finder, I want to upload photos and a rough location so staff can catalog the item. 
+** **AC:** Image accepted, location attached, and confirmation sent to reporter with a reference ID.
+* As a Finder, I want my contact hidden from public listings.
+** **AC:** Finder contact is private and only used to communicate via ephemeral tokens.
+* As a Finder, I want to mark an item as "sensitive" if it contains IDs. 
+** **AC:** Item flagged, staff notified for special handling.
+
+====== *_Persona: "Carlos — Owner (Student)"_*
+- *Role:* Student who lost an item.
+- *Goals:* Find and claim my item quickly, with minimal proof required but secure. 
+- *Fears:* Fraudulent claim, privacy leaks.
+- *Permissions:* Can initiate claim; cannot release item. 
+
+- *Top user stories*
+* As an Owner, I want to search by image or keywords so I can find matches. 
+** **AC:** Search returns candidate items including image similarity if available.
+* As an Owner, I want to start a claim that sends a token to the reporter/staff. 
+** **AC:** Token sent and claim marked pending for staff verification.
+* As an Owner, I want to see what proof is required for pickup.
+** **AC:** Claim page lists required proofs (e.g., serial number, photo of item).
+
+====== *_Persona: "Ana — Intake Staff"_*
+- *Role:* Staff member cataloging items at lost-and-found.
+- *Goals:* Fast intake, accurate custody logs, minimal errors.
+- *Fears:* Missing chain-of-custody entries, disputes.
+- *Permissions:* Can set status, add custody entries, mark items stored/claimed.
+
+- *Top user stories*
+* As Staff, I want a guided intake form ensuring required fields are filled. 
+** **AC:** Form validation prevents incomplete intake submissions.
+* As Staff, I want to append custody entries with my staff ID. 
+** **AC:** Each custody action logs actor_id and timestamp immutably.
+* As Staff, I want to flag items for legal review. 
+** **AC:** Flagging workflow routes item to Legal queue.
+
+====== *_Persona: "Mauricio — Campus Security Officer"_*
+- *Role:* Security responsible for dangerous or high-value items.  
+- *Goals:* Ensure safe custody and coordinated handover.
+- *Fears:* Unauthorized releases, contested claims. 
+- *Permissions:* Can place holds and require police-mediated pickup.  
+
+- *Top user stories*
+* As Security, I want to place an item on hold pending police clearance. 
+** **AC:** Item status becomes 'hold' and prevents release until cleared.
+* As Security, I want to view full custody log for evidence. 
+** **AC:** Full log accessible only to authorized roles with audit trail.
+* As Security, I want to request additional owner verification steps. 
+** **AC:** System allows staff to require extra proofs and records their rationale.
+
+====== *_Persona: "Diego — IT / DevOps"_*
+
+- *Role:* Platform operator maintaining services and storage.  
+- *Goals:* Maintain uptime, secure storage, and logs.  
+- *Fears:* Misconfigured storage exposing images, privilege misuse.
+- *Permissions:* Manage infra, rotate credentials.  
+
+- *Top user stories*
+* As DevOps, I want private object storage with presigned URLs to limit exposure. 
+** **AC:** Images are stored private and presigned URLs expire within configured time.
+* As DevOps, I want alerts on unusual storage access patterns. 
+** **AC:** S3 access logs forwarded and alerts fire on threshold.
+* As DevOps, I want role-based access control for staff and volunteers. 
+** **AC:** RBAC configured and tested.
+
+====== *_Persona: "Rosa — Legal / Records"_*
+
+- *Role:* Legal advisor for retention and disposition.  
+- *Goals:* Ensure compliance with local laws and institutional policy.  
+- *Fears:* Improper disposals triggering liability.
+- *Permissions:* Can require longer holds or special handling.  
+
+- *Top user stories*
+* As Legal, I want configurable retention policies per category. 
+** **AC:** Admin UI allows policy per category (A/B/C).
+* As Legal, I want disposal approvals logged with approver id. 
+** **AC:** Disposal is blocked without recorded approval and reason.
+* As Legal, I want exportable custody logs for audits. 
+** **AC:** Logs exportable as CSV with signatures.
+
+===== RACI Matrix for Inventory Lifecycle Actions
+[cols="1,1,1,1,1,1,1",options="header"]
+|===
+|Action |Finder |Owner |Staff |Security |IT/DevOps |Legal
+
+|Report item |R |A |C |C |I |I
+|Catalog item |I |I |R |C |I |I
+|Store / label item |I |I |R |C |I |I
+|Initiate claim |I |R |I |I |I |I
+|Verify and release |I |I |R (staff) |A (security if sensitive) |I |C
+|Dispose / donate |I |I |R (staff) |C |I |A (legal approval)
+|===
+
+*RACI legend:* R = Responsible, A = Accountable, C = Consulted, I = Informed.
+
+===== Stakeholder-Driven User Stories 
+1. **Mediated claim flow** (High priority) — _As an Owner, I want a secure token-based claim process that requires staff verification before release._ 
+* **AC:** Token generated and validated; staff records two verification cues; custody log updated.
+2. **Minimal PII exposure** (High) — _As a Finder, I want my contact hidden and communications mediated._ 
+* **AC:** Finder contact not shown publicly; platform mediates messages via ephemeral tokens.
+3. **Sensitive-item workflow** (Medium) — _As Security, I want the ability to mark items as 'sensitive' requiring police or staff-mediated pickup._ 
+* **AC:** Sensitive items set hold and cannot be released without authorized clearance.
+4. **Retention policy UI** (Medium) — _As Legal, I want configurable retention rules by category._ 
+* **AC:** Admin UI to set days per category; expected_hold_until computed.
+
