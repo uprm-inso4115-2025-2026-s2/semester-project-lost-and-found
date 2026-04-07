@@ -27,7 +27,7 @@ The following personas represent direct users of the platform:
 | *Day in the life* a| 
 
 * [.added]#6:30 am : Wakes up and starts getting ready#
-* [.added]#7:00 am : Leaves for campus#
+* [.added]#7:00 am : Arrives at campus#
 * [.added]#7:30 am : Study for a quiz at the  university library and review class notes#
 * [.added]#8:20 am : Attends class and takes a quiz#
 * [.added]#9:30 am : Rushes to second class#
@@ -35,7 +35,7 @@ The following personas represent direct users of the platform:
 * [.added]#12:30 pm : Attends lab#
 * [.added]#3:30 pm : Attends last class#
 * [.added]#4:45 pm : Goes to a group study section on campus#
-* [.added]#6:00 pm  : Goes to dorm to take a little nap, and later continue working on a programming a game# 
+* [.added]#6:00 pm  : Goes to dorm to take a little nap, and later continues working on a programming a game# 
 * [.added]#9:00 pm : Works on a project while watching a basketball game#
 * [.added]#10:50 pm : Goes to sleep#
 
@@ -136,10 +136,10 @@ The following personas represent direct users of the platform:
 * [.added]#8:30 am: Offers office hours, responds to students emails and grades tests#
 * [.added]#10:45 am : Goes to the student center to warm up his lunch and meet with a colleague#
 * [.added]#12:30 pm : Takes a class#
-* [.added]#1:45 pm : Walks to the parking to his car and drives back home#
+* [.added]#1:45 pm : Walks to the parking lot to his car and drives back home#
 * [.added]#2:00 pm : Stops for gas#
-* [.added]#2:26 pm : Arrives to his apartment and play with his cats#
-* [.added]#3:00 pm : Visit his grandparents house and has dinner there#
+* [.added]#2:26 pm : Stops at his apartment and play with his cats#
+* [.added]#3:00 pm : Visits his grandparents house and has dinner there#
 * [.added]#4:45 pm : Goes back home and joins a departamental online meeting#
 * [.added]#5:50 pm : Review the course presentation, fix some typos and review the material#
 * [.added]#6:55 pm: Corrects some tests#
@@ -185,14 +185,14 @@ The following personas represent direct users of the platform:
 
 | *Day in the life* a| 
 
-* [.added]#8:30 am : Wakes up and drink a cup of coffee#
+* [.added]#8:30 am : Wakes up and drinks a cup of coffee#
 * [.added]#9:00 am : Uses his computer and starts working on his online job as finance counselor#
 * [.added]#1:00 pm : Eats lunch#
-* [.added]#2:20 pm : Arrives to college to attend class#
+* [.added]#2:20 pm : Arrives at college to attend class#
 * [.added]#3:50 pm : Goes to Gym#
 * [.added]#4:45 pm : Goes to the Supermarket do buy food#
 * [.added]#6:23 pm : Cooks dinner#
-* [.added]#7:30 pm : Watchs a baseball game#
+* [.added]#7:30 pm : Watches a baseball game#
 * [.added]#8:00 pm : Uses his phone to watch social media#
 * [.added]#9:48 pm : Prepares the clothes for the next day#
 * [.added]#10:47 pm : Goes to sleep#
@@ -269,3 +269,183 @@ As mentioned, it's not just direct users of the platform that benefit from it; o
 
 | *Keep in mind when* | Defining ownership verification rules and dispute scenarios
 |===
+
+// ==========================================================================================
+
+[%autowidth]
+|===
+| *Name* | [.added]#Gaston Carlo#
+
+| *Age* | [.added]#22 years old#
+
+| *Occupation* | [.added]#Fifth year student Nursing student#
+
+| *Appearance* | [.added]#Tall, natural red hair, freckles. Usually, uses Marvel superheroes t-shirts.Always has his smart watch.#
+
+| *Hobbies* | [.added]#Reading comics, watching superheroes movies and Grey's Anatomy, Hiking#
+
+| *Personality* | [.added]#Considerate, attentive, helper, outgoing#
+
+| *Tech setup* | [.added]#Smart watch, Iphone 15 and a HP laptop used mainly for assignments and watching streaming services#
+
+| *Story* | [.added]#Gaston found a sweater on the Nursing auditorium after class. He asked around if it belonged to anyone, but nobody claimed it, since he was in a hurry and didn't know of any official reporting system, he left the sweater folded in a corner of the room, assuming the owner would come back for it. One month later, a classmate accidentally spilled water on herself and was visibly uncomfortable since the classroom was very cold. Gaston saw the sweater in a corner and offered it to her#
+
+| *Day in the life* a| 
+
+* [.added]#8:30 am : Wakes up and looks at social media apps#
+* [.added]#9:00 am : Prepares  backpack and starts getting ready for class#
+* [.added]#9:35 am : Picks up a friend for college#
+* [.added]#9:46 am : Arrives at the University an is late for class#
+* [.added]#9:50 am : Rushes to the Nursing auditorium, notice items left behind from previous class, but ignores it due to time pressure#
+* [.added]#11:30 am : Reunites with a proffessor to talk about his nursery practices #
+* [.added]#12:30 pm : Attends lab#
+* [.added]#3:30 pm : Eats a snack while finishing a homework paper#
+* [.added]#4:45 pm : Attends class#
+* [.added]#6:00 pm : Goes to the Mayaguez Mall to buy new shoes for his practice at the hospital# 
+* [.added]#9:00 pm : Prepares his clothes and hospital backpack with all the essentials#
+* [.added]#10:50 pm : Reviews class notes to make sure he performs basic vital signs properly and doesn't forget anything#
+* [.added]#12:00 am : Goes to sleep#
+
+| *Goals* | [.added]#Help others in immediate situations#
+
+| *Pain Points* | 
+* [.added]#Doesn't see value in time consuming reporting processes#
+* [.added]#Lack of awareness of existing reporting systems#
+
+| *Needs* a| 
+* [.added]#Very quick and easy reporting system#
+* [.added]#Awareness mechanisms(e.g. reminders about reporting tools)#
+
+
+| *Platform Interaction* | [.added]#Rarely interacts with the platform. Would only use it if the reporting process is fast and not overcomplicated#
+
+| *Keep in mind when* a| 
+* [.added]#Designing a report template that is not overcomplicated or time comsuming#
+* [.added]#Creating awareness of the platform around campus#
+* [.added]# Designing for users with low motivation to report items#
+|===
+
+
+// ==========================================================================================
+
+[%autowidth]
+|===
+| *Name* | [.added]#Sara Lopez#
+
+| *Age* | [.added]#47 years old#
+
+| *Occupation* | [.added]#Works at a travel agency#
+
+| *Appearance* | [.added]#Short, curly ombre long hair. Dresses stylishly, always carries a big purse#
+
+| *Hobbies* | [.added]#Traveling, cooking,organizing family events#
+
+| *Personality* | [.added]#Caring, attentive, responsible,practical, time-conscious#
+
+| *Tech setup* | [.added]#Samsung s26, smartwatch, desktop computer mainly used for work and a personal computer also used for work and personal tasks#
+
+| *Story* | [.added]#Sara visits the university campus often to pick up or drop off her son. One afternoon, while waiting for her son she decides to take a walk on campus. While walking she notices a backpack and a tablet left on a bench.She waits to see if the owner comes back, but after 10 minutes no one came for the items.She heard about the University platform to report lost items and considers reporting the item but realizes she does not have a university account to access the platform.She picks up the items and leaves them at a nearby office. She asks her son to report the items on the platform, so the owner knows they found the items. She hopes the owner sees the report and  retrives the items #
+
+| *Day in the life* a| 
+
+* [.added]#4:30 am : Wakes up, prepares breakfast, cleans the kitchen and  the living room#
+* [.added]#5:35 am : Checks her schedule to see all upcoming appointments of the day#
+* [.added]#6:00 am : Wakes her son up and tells him to prepare for college#
+* [.added]#7:00 am : Drop her son and drives to work#
+* [.added]#12:30 am : Eats lunch, while taking with collegues about new travel offers#
+* [.added]#3:30 pm : Drives to college to pick up her son#
+* [.added]#4:00 pm :  Walks on campus while waiting that his son finishes his last class #
+* [.added]#4:10 pm : Notices unattended backpack and tablet on a bench and waits to see if someone comes to pick up the items#
+* [.added]#4:20 pm : After waiting, considers what to do but is unsure how to report them# 
+* [.added]#4:25 pm : Reunites with her son and leaves the items at a nearby office#
+* [.added]#4:50 pm : Is worried about the items owner and hopes that the person can retrieve its lost items, so she asks her son to create a report, to let know the owner that they found the items#
+* [.added]#5:00 pm: Goes home and prepares dinner#
+* [.added]#6:00 pm:  Plays boardgames with the family#
+* [.added]#7:34 pm: Watch an episode of her favorite show#
+* [.added]#9:00 pm : Goes to sleep# 
+
+| *Goals* | [.added]#Handle situations quickly and responsibly without disrupting her schedule#
+
+| *Pain Points* | 
+* [.added]#Doesn't see value in time consuming reporting processes#
+* [.added]#Lack of awareness of existing reporting systems#
+
+| *Needs* a| 
+* [.added]#Guest or public reporting option without requiring a university account#
+* [.added]#Fast and simple reporting process with minimal steps#
+* [.added]#Clear guidance on what to do when finding lost items#
+
+
+| *Platform Interaction* | [.added]#Currently unable to report on the platform#
+
+| *Keep in mind when* a| 
+* [.added]#Designing access for non-university users (e.g. parents, visitors)#
+* [.added]#Ensuring the system is intuitive for people unfamiliar with reporting processes#
+* [.added]#Providing quick and accessible reporting alternatives for time-constrained users#
+|===
+
+// ==========================================================================================
+
+[%autowidth]
+|===
+| *Name* | [.added]#Krumi Silva#
+
+| *Age* | [.added]# 21 years old#
+
+| *Occupation* | [.added]#Junior mechanical engineering student#
+
+| *Appearance* | [.added]#Average height, short dark hair, usually wearing t-shirts and flip flops#
+
+| *Hobbies* | [.added]#Gaming, skateboarding, restoring damaged tech items#
+
+| *Personality* | [.added]# A little selfish, slightly opportunistic#
+
+| *Tech setup* | [.added]#Iphone 16, personal computer for classwork#
+
+| *Story* | [.added]#Krumi finds a power bank left on a library table while he was studying, he notices no one is around. Several hours passed and no one claims it.  He debates whether to report it but thinks, "It's been here for a while and I could really use it". He pockets it, telling himself he'll return it later in case someone reports it as a lost item. Days go by, and he decides to keep it, rationalizing that no one has claimed and it's helping him manage his busy schedule#
+
+| *Day in the life* a| 
+
+* [.added]#10:00 am : Wakes up,grabs breakfast#
+* [.added]#10:25 am : Walks to the library for morning study section#
+* [.added]#10:54 am : Notices a power bank on the table, no one is around, hesitate to report it or leaving it#
+* [.added]#12:45 pm : Decides to take it with him temporarily#
+* [.added]#1:20 pm : Attends class, keep power bank on his backpack#
+* [.added]#2:30 pm : Eats lunch in the Cafeteria, uses the power bank to charge his phone#
+* [.added]#3:30 pm : Attends second class#
+* [.added]#4:00 pm : Meets with friends, tells them about the power bank he found. Friends tell him, that if no one has claimed it, he should keep it#
+* [.added]#5:10 pm : Goes home, study for a test, charges the power bank#
+* [.added]#6:00 pm : Plays video games all night# 
+* [.added]#1:23 am : Goes to sleep#
+
+
+| *Goals* | [.added]#Resolve situations quickly while minimizing personal effort, even if that involves keeping found items #
+
+| *Pain Points* | 
+* [.added]#Not visible or well-known lost and found system on campus#
+* [.added]#Ethical uncertainty #
+* [.added]#Inconvenience of reporting lost items#
+
+| *Needs* a| 
+* [.added]#Simple remainders for ethical reporting#
+* [.added]#Clear, accessible lost and found location points, to reduce confusion and encourage the returning of found items#
+* [.added]#Awareness of reporting processes#
+
+
+| *Platform Interaction* | [.added]#Rarely interacts#
+
+| *Keep in mind when* a| 
+* [.added]#Designing edge cases of users who may keep items#
+* [.added]#Remainders about reporting found items#
+* [.added]#Considering ethical reminders#
+* [.added]#Understanding motivations for retaining items rather than reporting them#
+|===
+
+Key Insights derived from Personas:
+
+- Not all users are motivated to report found items, therefore the system must minimize effort and improve accesibility.
+- Some users may justify keeping found items(will never report them as found)
+- Restricting access to university members excludes the participation of external possible
+contributors such as parents, guests, visitors, community members.This suggest the need of a guest reporting option.
+- Users may fear giving the found items to the wrong person requiring clear ownership verification
+- Accessibility is critical for usability 
