@@ -13,31 +13,36 @@ async function createAccount(username: string, password: string, email: string, 
         return null;
     }
 
+        // Inserts into UserAccounts table with the new user's ID and stuff
     // Inserts into UserAccounts table with the new user's ID and stuff
-    const userId = signUpData?.user?.id;
-    if (!userId) {
-        console.error("No user ID returned from signup");
-        return null;
-    }
+    const rawPhone = phonenumber ?? "";
+    const digits = rawPhone.replace(/\D/g, "");
+    const phoneNumeric = digits.length ? Number(digits) : null;
 
     const { data: insertData, error: insertError } = await supabase
         .from("UserAccounts")
         .insert([
             {
-                UserId: userId,
                 Username: username,
                 Password: password,
                 Email: email,
-                Phonenumber: phonenumber
+                Phonenumber: phoneNumeric
             }
-        ]);
+        ])
+        .select();
 
     if (insertError) {
         console.error("Error inserting into UserAccounts table:", insertError);
         return null;
     }
 
-    // Send a welcome email
+    if (!insertData) {
+        console.warn("Insert succeeded but returned no data (insertData is null)");
+    }
+
+    // Welcome email temporarily disabled because of some error I had.
+    // To re-enable, uncomment the code below.
+    /*
     try {
         const notification = await sendWelcomeEmail(email, username);
         if (!notification.success) {
@@ -46,6 +51,7 @@ async function createAccount(username: string, password: string, email: string, 
     } catch (err) {
         console.error("Unexpected error sending welcome email:", err);
     }
+    */
 
     console.log("Account created and inserted into UserAccounts:", insertData);
     return insertData;

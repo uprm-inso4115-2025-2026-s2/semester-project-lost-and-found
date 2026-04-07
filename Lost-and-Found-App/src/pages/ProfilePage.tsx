@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../AuthProvider";
+import { supabase } from "../supabaseClient";
 import logo from "../assets/Lost&Found-Logo.jpeg";
 import "./ProfilePage.css";
 
@@ -15,10 +17,34 @@ export default function ProfilePage({ firstName, lastName, username, email, avat
   const navigate = useNavigate();
   const [avatarUrl, setAvatarUrl] = useState<string | null>(initialAvatar ?? logo);
   const [uploadedAt, setUploadedAt] = useState<Date | null>(null);
-  const displayFirstName = firstName ?? "";
-  const displayLastName = lastName ?? "";
-  const displayUsername = username ?? "";
-  const displayEmail = email ?? "";
+  const [displayUsername, setDisplayUsername] = useState(username ?? "");
+  const [displayEmail, setDisplayEmail] = useState(email ?? "");
+  const [displayPhone, setDisplayPhone] = useState<string | null>(null);
+  const { user } = useAuth();
+  const [loadingProfile, setLoadingProfile] = useState(false);
+
+  function formatPhoneWithDashes(raw?: string | null) {
+    if (!raw) return null;
+    const digits = raw.replace(/\D/g, "");
+    if (digits.length === 11 && digits.startsWith("1")) {
+      // 1-XXX-XXX-XXXX
+      return `${digits[0]}-${digits.slice(1,4)}-${digits.slice(4,7)}-${digits.slice(7)}`;
+    }
+    if (digits.length === 10) {
+      return `${digits.slice(0,3)}-${digits.slice(3,6)}-${digits.slice(6)}`;
+    }
+    if (digits.length === 7) {
+      return `${digits.slice(0,3)}-${digits.slice(3)}`;
+    }
+    if (digits.length > 4) {
+      const last4 = digits.slice(-4);
+      const rest = digits.slice(0, -4);
+      const groups: string[] = [];
+      for (let i = 0; i < rest.length; i += 3) groups.push(rest.slice(i, i+3));
+      return `${groups.join("-")}-${last4}`;
+    }
+    return digits;
+  }
   const fileRef = useRef<HTMLInputElement | null>(null);
   const prevRef = useRef<string | null>(null);
 
@@ -33,6 +59,32 @@ export default function ProfilePage({ firstName, lastName, username, email, avat
   }
 
   useEffect(() => {
+    async function loadProfile() {
+      if (!user?.email) return;
+      setLoadingProfile(true);
+      try {
+        const { data, error } = await supabase
+          .from("UserAccounts")
+          .select("Username, Email, Phonenumber")
+          .eq("Email", user.email)
+          .single();
+        if (error) {
+          console.debug("No extended profile found or error:", error);
+        } else if (data) {
+          setDisplayUsername(data.Username ?? "");
+          setDisplayEmail(data.Email ?? user.email ?? "");
+          if (data.Phonenumber != null) {
+            setDisplayPhone(formatPhoneWithDashes(String(data.Phonenumber)));
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load profile:", err);
+      } finally {
+        setLoadingProfile(false);
+      }
+    }
+    loadProfile();
+
     return () => {
       if (prevRef.current) URL.revokeObjectURL(prevRef.current);
     };
@@ -56,9 +108,9 @@ export default function ProfilePage({ firstName, lastName, username, email, avat
           </div>
         </div>
         <div className="profileText">
-          <div className="name">{(displayFirstName || displayLastName) ? `${displayFirstName} ${displayLastName}`.trim() : "Your name"}</div>
           <div className="username">{displayUsername ? `@${displayUsername}` : "username"}</div>
-          <div className="email">{displayEmail || "your.email@example.com"}</div>
+          <div className="email">{displayEmail || user?.email || "your.email@example.com"}</div>
+          <div className="phone">{displayPhone ? displayPhone : "(no phone number)"}</div>
         </div>
         <button className="editBtn">Edit Profile</button>
       </div>
