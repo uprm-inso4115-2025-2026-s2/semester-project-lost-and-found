@@ -354,7 +354,7 @@ As mentioned, it's not just direct users of the platform that benefit from it; o
 * [.added]#7:00 am : Drop her son and drives to work#
 * [.added]#12:30 am : Eats lunch, while taking with collegues about new travel offers#
 * [.added]#3:30 pm : Drives to college to pick up her son#
-* [.added]#4:00 pm :  Walks on campus while waiting that his son finishes his last class #
+* [.added]#4:00 pm :  Walks on campus while waiting that his son finishes his last class#
 * [.added]#4:10 pm : Notices unattended backpack and tablet on a bench and waits to see if someone comes to pick up the items#
 * [.added]#4:20 pm : After waiting, considers what to do but is unsure how to report them# 
 * [.added]#4:25 pm : Reunites with her son and leaves the items at a nearby office#
@@ -390,7 +390,7 @@ As mentioned, it's not just direct users of the platform that benefit from it; o
 |===
 | *Name* | [.added]#Krumi Silva#
 
-| *Age* | [.added]# 21 years old#
+| *Age* | [.added]#21 years old#
 
 | *Occupation* | [.added]#Junior mechanical engineering student#
 
@@ -398,7 +398,7 @@ As mentioned, it's not just direct users of the platform that benefit from it; o
 
 | *Hobbies* | [.added]#Gaming, skateboarding, restoring damaged tech items#
 
-| *Personality* | [.added]# A little selfish, slightly opportunistic#
+| *Personality* | [.added]#A little selfish, slightly opportunistic#
 
 | *Tech setup* | [.added]#Iphone 16, personal computer for classwork#
 
@@ -419,11 +419,11 @@ As mentioned, it's not just direct users of the platform that benefit from it; o
 * [.added]#1:23 am : Goes to sleep#
 
 
-| *Goals* | [.added]#Resolve situations quickly while minimizing personal effort, even if that involves keeping found items #
+| *Goals* | [.added]#Resolve situations quickly while minimizing personal effort, even if that involves keeping found items#
 
 | *Pain Points* | 
 * [.added]#Not visible or well-known lost and found system on campus#
-* [.added]#Ethical uncertainty #
+* [.added]#Ethical uncertainty#
 * [.added]#Inconvenience of reporting lost items#
 
 | *Needs* a| 
