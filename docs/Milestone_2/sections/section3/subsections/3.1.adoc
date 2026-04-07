@@ -70,30 +70,31 @@ Images are associated with reports but managed independently at the infrastructu
 This preserves structural simplicity while maintaining semantic clarity.
 
 *Status / Lifecycle State*:
-Notes such as “mark as resolved,” “archive old posts,” and “remove inappropriate reports” led to the abstraction of a *Lifecycle State*.
+[.removed]#Notes such as “mark as resolved,” “archive old posts,” and “remove inappropriate reports” led to the abstraction of a *Lifecycle State*.#
 
-A report begins as `"active"` and may transition to states such as:
+[.changed]#Reports evolves over time. A report begins as active`and may transition to states such as:#
 
 * `resolved`
 * `archived`
 * `removed`
 
-This clarifies that reports evolve over time rather than remaining static records.
+[.changed]#This clarifies the changes in the outcome of the reported occurrence.#
 
 *Claim / Recovery Event*:
-Some narratives included “I contacted the person and got my item back.” This was abstracted as a *Recovery Event*, representing the transition from active to resolved state, triggered by successful coordination between users.
+[.changed]#Some narratives included situations such as "I contacted the person and got my item back." This was abstracted as a *Recovery Event*, representing the successsful return of an item through coordination between the involved parties(e.g. finder and loser)#
+[.added]#It reflects the resolution of the occurrence associated with a report#
 
 *Moderation*:
-Concerns about spam or malicious posts were generalized into the concept of *Moderation*, a privileged capability assigned to administrators. Moderation affects report lifecycle and visibility.
+[.changed]#Concerns about spam or misleading reports were generalized into the concept of *Moderation*, a privileged capability assigned to administrators. Moderation affects report lifecycle and visibility.#
 
 ==== Clarifications and Resolutions
 
 * “Lost item” and “Found item” are not separate entities; both are modeled as *Report* instances with different types.
 * “Post” and “Report” are treated synonymously, but “Report” is adopted as the formal domain term.
-* “Delete” is distinguished from “Archive.” Deletion removes data; archiving preserves it but limits visibility.
-* “Owner” refers strictly to the authenticated user who created the report, not the original owner of the physical object.
+* [.changed]#“Delete” is distinguished from “Archive.” Deletion represents removing a report from consideration, while archiving retains it for reference while making it as no longer active.#
+* [.changed]# The creator of a report, may be different from the person who owns it.#
 
-These clarifications prevent semantic confusion in later design and implementation phases.
+[.changed]#These clarifications prevent semantic confusion in later stages of analysis and develoment.#
 
 ==== Relationships and Abstractions
 
