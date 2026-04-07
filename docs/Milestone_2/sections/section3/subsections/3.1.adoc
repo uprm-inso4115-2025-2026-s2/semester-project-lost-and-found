@@ -27,20 +27,31 @@ Ambiguous terms were clarified and generalized where possible to ensure consiste
 ==== Key Concepts Identified
 
 *Item*:
-Raw descriptions referenced “lost phone,” “found wallet,” “missing ID,” etc. These were abstracted into the general concept of an *Item*, representing the physical object being reported. The system does not model the object itself physically, but rather its reported representation.
+[.changed]#Any physical or digital object that can be lost or found.#
 
 *Report*:
-Users consistently described “posting” or “submitting” something. This led to the abstraction of a *Report*, a structured digital record describing a lost or found item. The report contains metadata such as title, description, category, location, timestamp, and images.
+[.changed]# A structured record of an occurrence involving an item, either lost or found. It captures essential information about the event such as  such as title, description, category, location, timestamp, and images.#
+
+* [.added]#*Lost Item report*: typically submitted by someone who lost the item#
+* [.added]#*Found Item report*: typically submitted by someone who found the item#
 
 The report is distinct from the item itself: the item exists in the real world, while the report is its system representation.
 
-*User*:
-Interview notes distinguished between regular users and administrators. We generalized this into the concept of a *User*, representing any authenticated actor in the system.
+[.added]#*People roles*:#
+[.removed]#*User*:#
+[.removed]#Interview notes distinguished between regular users and administrators. We generalized this into the concept of a *User*, representing any authenticated actor in the system.uprm-inso4115-2025-2026-s2/semester-project-lost-and-found#
 
-Subtypes include:
+[.added]#*Finder*: person who found the item.#
+[.added]#*Loser*: person who lost the item.#
+[.added]#*Guardian*: person responsible for keeping found items.#
 
-* Regular user (student/community member),
-* Administrator (moderation authority).
+[.added]#The loser, finder and guardian could be students, community member#
+
+[.removed]#Subtypes include:#
+
+[.removed]#* Regular user (student/community member),#
+
+[.modified]#* Administrator: moderation authority.#
 
 *Ownership*:
 Several requirements stated that “users can only edit their own posts.” This was abstracted as *Ownership*, a relationship between a User and a Report. Ownership is enforced at insertion time (user_id bound to session) and protected through Supabase Row Level Security (RLS).
