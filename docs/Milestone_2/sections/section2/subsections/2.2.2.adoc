@@ -95,7 +95,8 @@ The following personas represent direct users of the platform:
 
 | *Goals* | Quickly report found items so the owner can reclaim them
 
-| *Pain Points* | Reporting a lost item is inaccessible or, at best, very inconvenient
+| *Pain Points* a| 
+* Reporting a lost item is inaccessible or, at best, very inconvenient
 
 | *Needs* a| 
 * Simple and quick submission form
@@ -297,7 +298,7 @@ As mentioned, it's not just direct users of the platform that benefit from it; o
 * [.added]#9:35 am : Picks up a friend for college#
 * [.added]#9:46 am : Arrives at the University an is late for class#
 * [.added]#9:50 am : Rushes to the Nursing auditorium, notice items left behind from previous class, but ignores it due to time pressure#
-* [.added]#11:30 am : Reunites with a proffessor to talk about his nursery practices #
+* [.added]#11:30 am : Reunites with a proffessor to talk about his nursery practices#
 * [.added]#12:30 pm : Attends lab#
 * [.added]#3:30 pm : Eats a snack while finishing a homework paper#
 * [.added]#4:45 pm : Attends class#
@@ -308,7 +309,7 @@ As mentioned, it's not just direct users of the platform that benefit from it; o
 
 | *Goals* | [.added]#Help others in immediate situations#
 
-| *Pain Points* | 
+| *Pain Points* a| 
 * [.added]#Doesn't see value in time consuming reporting processes#
 * [.added]#Lack of awareness of existing reporting systems#
 
@@ -322,7 +323,7 @@ As mentioned, it's not just direct users of the platform that benefit from it; o
 | *Keep in mind when* a| 
 * [.added]#Designing a report template that is not overcomplicated or time comsuming#
 * [.added]#Creating awareness of the platform around campus#
-* [.added]# Designing for users with low motivation to report items#
+* [.added]#Designing for users with low motivation to report items#
 |===
 
 
@@ -344,7 +345,7 @@ As mentioned, it's not just direct users of the platform that benefit from it; o
 
 | *Tech setup* | [.added]#Samsung s26, smartwatch, desktop computer mainly used for work and a personal computer also used for work and personal tasks#
 
-| *Story* | [.added]#Sara visits the university campus often to pick up or drop off her son. One afternoon, while waiting for her son she decides to take a walk on campus. While walking she notices a backpack and a tablet left on a bench.She waits to see if the owner comes back, but after 10 minutes no one came for the items.She heard about the University platform to report lost items and considers reporting the item but realizes she does not have a university account to access the platform.She picks up the items and leaves them at a nearby office. She asks her son to report the items on the platform, so the owner knows they found the items. She hopes the owner sees the report and  retrives the items #
+| *Story* | [.added]#Sara visits the university campus often to pick up or drop off her son. One afternoon, while waiting for her son she decides to take a walk on campus. While walking she notices a backpack and a tablet left on a bench.She waits to see if the owner comes back, but after 10 minutes no one came for the items.She heard about the University platform to report lost items and considers reporting the item but realizes she does not have a university account to access the platform.She picks up the items and leaves them at a nearby office. She asks her son to report the items on the platform, so the owner knows they found the items. She hopes the owner sees the report and  retrives the items#
 
 | *Day in the life* a| 
 
@@ -366,7 +367,7 @@ As mentioned, it's not just direct users of the platform that benefit from it; o
 
 | *Goals* | [.added]#Handle situations quickly and responsibly without disrupting her schedule#
 
-| *Pain Points* | 
+| *Pain Points* a| 
 * [.added]#Doesn't see value in time consuming reporting processes#
 * [.added]#Lack of awareness of existing reporting systems#
 
@@ -421,7 +422,7 @@ As mentioned, it's not just direct users of the platform that benefit from it; o
 
 | *Goals* | [.added]#Resolve situations quickly while minimizing personal effort, even if that involves keeping found items#
 
-| *Pain Points* | 
+| *Pain Points* a| 
 * [.added]#Not visible or well-known lost and found system on campus#
 * [.added]#Ethical uncertainty#
 * [.added]#Inconvenience of reporting lost items#
@@ -443,7 +444,7 @@ As mentioned, it's not just direct users of the platform that benefit from it; o
 
 Key Insights derived from Personas:
 
-- Not all users are motivated to report found items, therefore the system must minimize effort and improve accesibility.
+- Not all users are motivated to report found items, therefore the system must minimize effort and improve accessibility.
 - Some users may justify keeping found items(will never report them as found)
 - Restricting access to university members excludes the participation of external possible
 contributors such as parents, guests, visitors, community members.This suggest the need of a guest reporting option.
