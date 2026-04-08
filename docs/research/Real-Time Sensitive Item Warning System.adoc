@@ -1,0 +1,294 @@
+= Real-Time Sensitive Item Warning System
+:issue: #169
+:type: Research
+:status: Complete
+:toc: left
+:toc-title: Table of Contents
+:toclevels: 3
+:sectnums:
+:icons: font
+:source-highlighter: highlight.js
+
+[.lead]
+*Issue {issue} - Research findings on detecting and warning users about sensitive personal information during report submission.*
+
+---
+
+== Overview
+
+This document presents research findings for implementing a real-time warning system that protects users from accidentally exposing Personally Identifiable Information (PII) when submitting lost/found reports. The system aims to detect sensitive content in titles, descriptions, and uploaded images, then guide users to redact or correct that content before submission.
+
+---
+
+== Problem Statement
+
+When users submit lost/found reports, they may unintentionally expose sensitive personal information such as:
+
+* Government-issued ID numbers (SSN, passport, driver's license)
+* Bank card numbers (full PAN, CVV, expiry dates)
+* Home addresses or precise GPS coordinates
+* Full legal names tied to sensitive documents
+* Serial numbers linked to registered devices or financial instruments
+
+Once a report is published, this data becomes publicly accessible, creating risk of identity theft, financial fraud, and privacy violations. The goal of this system is to *prevent* exposure at the point of submission rather than detect it after the fact.
+
+---
+
+== Detection Strategy
+
+=== Text-Based Detection
+
+Text scanning is the most reliable and lowest-latency detection method. The system should scan the report `title` and `description` fields in real-time as the user types.
+
+==== Keyword & Pattern Matching
+
+Use regular expressions to flag common PII patterns:
+
+[source,text]
+----
+# Credit / Debit Card Numbers (Luhn-checkable 13–19 digit sequences)
+\b(?:\d[ -]?){13,19}\b
+
+# US Social Security Numbers
+\b\d{3}[- ]?\d{2}[- ]?\d{4}\b
+
+# Passport Numbers (generic format)
+\b[A-Z]{1,2}\d{6,9}\b
+
+# Driver's License (US, varies by state - flag alphanumeric 6-12 char near "license")
+(?i)(license|DL|driver).{0,20}[A-Z0-9]{6,12}
+
+# Street Addresses
+\b\d{1,5}\s\w+\s(?:St|Ave|Rd|Blvd|Dr|Ln|Ct|Way)\b
+
+# Email Addresses
+[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}
+
+# Phone Numbers (US)
+\b(\+1[\s.-]?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}\b
+----
+
+==== Keyword Taxonomy
+
+In addition to patterns, flag items using keyword categories:
+
+[cols="1,3", options="header"]
+|===
+| Category | Example Keywords
+
+| Identity Documents
+| ID card, passport, social security, SSN, driver's license, CURP, RUT, NID
+
+| Financial Instruments
+| credit card, debit card, bank card, IBAN, routing number, account number
+
+| Medical
+| insurance card, Medicare, Medicaid, prescription, medical record
+
+| Access / Security
+| PIN, password, access code, key fob, badge
+
+| Contact Information
+| home address, phone number, email, ZIP code
+|===
+
+==== Item Type Inference
+
+If the report's item type (selected via a category picker) is inherently high-risk, trigger a proactive warning immediately upon selection - before any text is entered:
+
+* *Always High-Risk Types:* Wallet, ID card, Passport, Credit/Debit Card, Checkbook, Keys with personal tags
+* *Conditionally High-Risk Types:* Phone (if unlocked), Laptop, Tablet, Bag (may contain documents)
+
+=== Image-Based Detection
+
+Image analysis provides a second layer of detection for cases where sensitive data appears in photos rather than text.
+
+==== Recommended Approaches
+
+[cols="1,2,2,1", options="header"]
+|===
+| Approach | Description | Pros | Cons
+
+| On-device OCR
+| Run OCR (for example, Tesseract.js) in the browser before upload
+| Private, zero latency, free
+| Less accurate on stylized card fonts
+
+| Cloud Vision API (Google / AWS Rekognition)
+| Send image to a cloud API for text extraction and object detection
+| High accuracy, detects card types and faces
+| Cost per call, privacy trade-off, network latency
+
+| Claude Vision API (Anthropic)
+| Use a multimodal model to assess PII risk in the image
+| Context-aware, nuanced, can explain the risk
+| Cost per call, slightly higher latency
+
+| Hybrid
+| OCR on-device first; escalate to cloud only for ambiguous cases
+| Balanced accuracy/cost
+| Implementation complexity
+|===
+
+==== Recommended Implementation Path
+
+For initial release, use *on-device OCR (Tesseract.js)* as the primary layer. This avoids sending user images to third-party servers and provides near-instant feedback. If OCR confidence is low (< 70%), optionally escalate to a cloud provider.
+
+For image object detection (for example: detecting a credit card visually, not just reading numbers), a cloud model is needed. This should be gated behind user consent or reserved for a future iteration.
+
+---
+
+== Warning UX Design
+
+=== Trigger Timing
+
+[cols="1,2", options="header"]
+|===
+| Trigger | Behavior
+
+| Item type selected (high-risk category)
+| Show a soft advisory banner immediately
+
+| User pauses typing for 800ms (debounced)
+| Run regex scan; show inline warning if match found
+
+| Image uploaded
+| Run OCR scan; show warning with detected text highlighted before upload completes
+
+| User clicks "Submit"
+| Final gate check; block submission with confirmation dialog if warnings are unresolved
+|===
+
+=== Warning Severity Levels
+
+[cols="1,1,3", options="header"]
+|===
+| Level | Trigger | Message Example
+
+| 🟡 Advisory
+| High-risk item type selected
+| _"Reports about wallets and ID cards may contain sensitive info. Review our safe reporting tips."_
+
+| 🟠 Warning
+| Regex match detected in text
+| _"Your description may include a card number or ID. Consider removing or blurring this detail."_
+
+| 🔴 Blocker (optional)
+| High-confidence PII detected (for example, Luhn-valid card number)
+| _"This report appears to contain a full card number. Please remove it before submitting."_
+|===
+
+NOTE: Blockers should be used sparingly. A false positive that prevents a legitimate submission erodes trust more than the problem it solves. Only use blockers for very high-confidence matches.
+
+=== Warning Message Copy
+
+All warning messages should follow these principles:
+
+* *Non-accusatory*: assume good intent ("This report may include…" not "You are sharing…")
+* *Actionable*: always include what to do, not just what's wrong
+* *Dismissible*: users can acknowledge and proceed; we inform, not gatekeep
+
+---
+
+== Safe Reporting Guidance
+
+When a warning is triggered, display a collapsible tips panel alongside the warning:
+
+=== Photo Safety Tips
+
+. Use your phone's built-in photo editor or an app to blur sensitive regions before uploading.
+. Crop out areas that show full card numbers, names, addresses, or barcodes.
+. Never photograph the front and back of an ID or card together.
+
+=== Description Safety Tips
+
+. Describe the *appearance* of the item, not the *data on* it (for example, "blue credit card" not the card number).
+. Avoid writing full names, use initials if needed (for example, "Card issued to J.D.").
+. Do not include serial numbers, account numbers, or ID numbers in the report.
+. Omit precise addresses; use a neighborhood or landmark instead.
+
+---
+
+== False Positive Risk Assessment
+
+False positives occur when the system flags a legitimate report as potentially sensitive. This is the primary UX risk of the feature.
+
+=== Known False Positive Scenarios
+
+[cols="2,2,2", options="header"]
+|===
+| Scenario | Example | Mitigation
+
+| Phone number as item description
+| "Found Nokia 3310 in aisle 12"
+| Require surrounding context keywords ("my number", "call me") to flag
+
+| Serial number of non-sensitive item
+| "Found skateboard, serial ABCD123456"
+| Only flag if serial number is near financial/ID keywords
+
+| Numeric-heavy description
+| "Found a 16-piece tool set, model 4000-XL"
+| Apply Luhn check before flagging any 13-19 digit sequence
+
+| Address as a found location
+| "Found near 45 Main St"
+| Distinguish between "found at" (OK) and "belongs to [address]" (flag)
+|===
+
+=== Tuning Strategy
+
+* Start with a *low-sensitivity* configuration (warn only on high-confidence matches) and tune up based on real-world false positive rates.
+* Log anonymized match events (regex matched, category, dismissed Y/N) to measure false positive rate over time.
+* Target false positive rate: **< 5%** of submissions flagged incorrectly.
+
+---
+
+== Integration with Existing Submission Flow
+
+=== Proposed Flow Diagram
+
+----
+[User opens Report Form]
+         |
+         v
+[User selects Item Type]
+         |
+         +--[High-risk type?]---> Show Advisory Banner
+         |
+         v
+[User fills Title & Description]
+         |     (debounced, 800ms)
+         +--[Regex match?]------> Show Inline Warning + Tips Panel
+         |
+         v
+[User uploads Photo]
+         |     (OCR scan)
+         +--[PII detected?]-----> Show Photo Warning + Blur Suggestion
+         |
+         v
+[User clicks Submit]
+         |
+         +--[Unresolved warnings?]--> Show Confirmation Dialog
+         |                            ("Are you sure? This may expose personal info.")
+         |
+         v
+[Report Submitted]
+----
+
+=== Implementation Notes
+
+* All text scanning should run *client-side* to avoid sending draft content to the server unnecessarily.
+* Image OCR (Tesseract.js) can run in a Web Worker to avoid blocking the UI thread.
+* Warnings are stored in component state and cleared if the user edits the flagged content.
+* A `warnings_acknowledged: true` flag should be stored on the submitted report for analytics.
+
+== References
+
+* OWASP - https://owasp.org/www-project-top-10-infrastructure-security-risks/docs/2023/INT08_2023-Information_Leakage[Information Leakage]
+* NIST SP 800-122 - Guide to Protecting PII
+* Tesseract.js - https://tesseract.projectnaptha.com/[On-Device OCR Library]
+* Luhn Algorithm - https://en.wikipedia.org/wiki/Luhn_algorithm[Credit Card Validation]
+* Google Cloud Vision API - https://cloud.google.com/vision[Sensitive Data Detection]
+
+---
