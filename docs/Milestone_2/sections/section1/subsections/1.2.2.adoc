@@ -1,11 +1,39 @@
-==== *Needs*
+==== [.changed]#*Need*#
 
-Lost personal belongings such as keys, identification cards, wallets, laptops, and academic materials are a frequent occurrence within the university environment. Despite how common these situations are, there is no clear, consistent, or trusted process that allows individuals to report lost items, discover found belongings, or follow the progress of recovery efforts. As a result, many lost items are never returned to their owners.
+[.removed]#Lost personal belongings such as keys, identification cards, wallets, laptops, and academic materials are a frequent occurrence within the university environment. Despite how common these situations are, there is no clear, consistent, or trusted process that allows individuals to report lost items, discover found belongings, or follow the progress of recovery efforts. As a result, many lost items are never returned to their owners.#
 
-Students and staff experience unnecessary stress, frustration, and loss of time when attempting to recover missing belongings. Current informal approaches—such as word of mouth, scattered social media posts, or visiting multiple campus offices—lack visibility, reliability, and coordination. This fragmentation creates uncertainty about whether an item has been found and discourages both reporting and follow-through.
+[.removed]#Students and staff experience unnecessary stress, frustration, and loss of time when attempting to recover missing belongings. Current informal approaches—such as word of mouth, scattered social media posts, or visiting multiple campus offices—lack visibility, reliability, and coordination. This fragmentation creates uncertainty about whether an item has been found and discourages both reporting and follow-through.#
 
-From an organizational perspective, campus entities responsible for handling found items lack a standardized method for recording reports, managing information, and ensuring accountability. The absence of a structured process increases manual effort, introduces communication gaps, and reduces trust in the overall lost-and-found experience.
+[.removed]#From an organizational perspective, campus entities responsible for handling found items lack a standardized method for recording reports, managing information, and ensuring accountability. The absence of a structured process increases manual effort, introduces communication gaps, and reduces trust in the overall lost-and-found experience.#
 
-There is therefore a clear need to support a more transparent, coordinated, and dependable way for the campus community to report, track, and recover lost belongings. Addressing this need would reduce unresolved losses, lower frustration for students and staff, and improve confidence in how lost items are managed within the university environment.
+[.removed]#There is therefore a clear need to support a more transparent, coordinated, and dependable way for the campus community to report, track, and recover lost belongings. Addressing this need would reduce unresolved losses, lower frustration for students and staff, and improve confidence in how lost items are managed within the university environment.#
 
-Additionally, stakeholders involved in developing and maintaining such support require a clear understanding of the domain, actors, and operational constraints surrounding lost-and-found activities. Establishing this shared understanding is necessary to define appropriate requirements, ensure alignment with real user needs, and guide the project toward meaningful and sustainable impact.
+[.removed]#Additionally, stakeholders involved in developing and maintaining such support require a clear understanding of the domain, actors, and operational constraints surrounding lost-and-found activities. Establishing this shared understanding is necessary to define appropriate requirements, ensure alignment with real user needs, and guide the project toward meaningful and sustainable impact.#
+
+[.added]#Lost and found situations are not rare incidents within the university environment. Evidence collected by the project team supports this claim. A preliminary questionnaire conducted between March 16 and April 3, 2026 (N = 10; 8 students, 2 security staff) found that 8 out of 10 respondents reported losing at least one personal item within the past six months. Commonly reported items included water bottles, chargers, earbuds, and keys. While this is a small and non-representative sample, it provides an initial indication that losing personal belongings is a recurring experience among students. Based on this evidence, several needs can be identified at the domain level:#
+
+===== [.added]#Need for a Clear Starting Point in Recovery#
+
+[.added]#After realizing an item has been lost, individuals often do not know where to begin searching. Observations show uncertainty between checking offices, retracing steps, or asking peers. This indicates a need for a recognizable entry point for initiating recovery efforts in order to reduce hesitation and inefficiency.#
+
+===== [.added]#Need for Consolidated Visibility of Information#
+
+[.added]#Information about lost and found items is currently scattered across multiple independent channels (e.g., offices, conversations, social media). As a result, individuals must check several sources with no guarantee of completeness. There is a need for a way to access relevant information about lost and found items in a consistent manner.#
+
+===== [.added]#Need for Trustworthy Ownership Verification#
+
+[.added]#Both observations and survey responses highlight concerns about false claims and uncertainty when returning items. For example, finders may hesitate to return items due to fear of giving them to the wrong person. This indicates a need for clear ways to verify ownership so that both parties can confidently complete the return process.#
+
+===== [.added]#Need for Reduced Effort and Time in Recovery#
+
+[.added]#Participants reported checking multiple locations and channels before either finding the item or giving up. This repeated effort suggests a need to reduce the time and physical effort required to attempt recovery, particularly in cases where items move between locations or are stored in offices.#
+
+===== [.added]#Need for Understanding the Domain and Its Constraints#
+
+[.added]#From a project perspective, the team currently relies on limited observations and a small sample survey. While useful, this evidence is not sufficient to fully characterize the domain. There is therefore a need to develop a clearer and more validated understanding of stakeholders, behaviors, and constraints, which can be achieved through:#
+
+- [.added]#Expanding the survey to a broader and more diverse sample (e.g., 50+ students across multiple faculties)#
+- [.added]#Gathering additional observational data from different campus locations#
+- [.added]#Reviewing external sources on lost and found practices in similar environments#
+
+[.added]#This need exists independently of any specific solution and is necessary to ensure that later requirements are grounded in realistic domain behavior.#
