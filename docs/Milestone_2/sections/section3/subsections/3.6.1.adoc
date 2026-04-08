@@ -1,0 +1,60 @@
+=== *Requirements Prioritization and Decision Analysis*
+
+[.added]
+==== *Evaluation Criteria Definition*
+
+This section defines the evaluation criteria used to prioritize system features. The goal is to establish a clear and justified basis for comparing requirements before applying decision-making techniques.
+
+===== Criteria Selection
+
+The prioritization process is based on two primary evaluation criteria:
+
+- *Value*: Represents the contribution of a feature toward achieving the system’s primary objective, which is to maximize successful item recovery and improve user interaction within the Lost & Found platform.
+- *Cost*: Represents the estimated implementation effort required for each feature, including development complexity, integration difficulty, and maintenance overhead.
+
+===== Criteria Justification
+
+These criteria were selected through team discussion and consensus. Each team member proposed and evaluated potential criteria, including usability, security, scalability, and reliability.
+
+To formalize the decision, team members independently identified the criteria they considered most relevant for prioritization. The results were consolidated as follows:
+
+[cols="1,3", options="header"]
+|===
+| Team Member | Proposed Criteria
+
+| Diego Ríos
+| Value, Cost, Security, Usability
+
+| Leanelys González
+| Value, Cost, Security
+
+| Jose Valentin
+| Value, Cost, Scalability
+
+| Jean Sánchez
+| Value, Cost, Reliability, Scalability
+|===
+
+From this comparison, *Value* and *Cost* were the only criteria consistently selected by all team members.
+
+After discussion, the team agreed that:
+
+- *Value* captures the functional importance and user impact of each feature.
+- *Cost* captures the feasibility and resource constraints associated with implementation.
+
+Other criteria were considered but excluded to avoid overcomplicating the decision model. The team concluded that Value and Cost provide a balanced and sufficient framework for early-stage prioritization.
+
+===== Evaluation Scale
+
+To ensure consistent comparisons, the team adopted the standard AHP pairwise comparison scale:
+
+- 1 – Equal contribution or cost  
+- 3 – Slightly more  
+- 5 – Strongly more  
+- 7 – Very strongly more  
+- 9 – Extremely more  
+
+Intermediate values (2, 4, 6, 8) may be used when necessary.
+
+This scale allows team members to express relative importance in a structured and quantifiable way, forming the basis for the prioritization process described in the next section.
+

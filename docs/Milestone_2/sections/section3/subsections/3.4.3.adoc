@@ -1,0 +1,120 @@
+[.added]
+==== *Conflict Resolution Strategies*
+
+[discrete]
+==== Data Consistency and Conflict Resolution in the Lost & Found System
+
+In multi-user systems, maintaining data consistency is essential to ensure that information remains accurate and reliable despite concurrent interactions. In the Lost & Found platform, users may simultaneously submit reports, update item information, or initiate claim requests, which introduces the risk of conflicting or inconsistent data.
+
+===== Assumptions (Policy / System)
+
+- The platform allows users to submit Lost and Found item reports.
+
+- Users may update item details unless restricted by system state.
+
+- Claims follow a structured process (request → verification → approval/rejection).
+
+- Admin or staff roles are available to resolve conflicts and enforce consistency.
+
+- If system implementation differs, expected behaviors should be adjusted accordingly.
+
+
+===== Conflict Scenarios and Expected Behavior
+
+====== *CS-01: Duplicate item reports*
+- *Scenario*: Multiple users submit reports describing the same lost or found item.
+
+- *Risk*: Data duplication and confusion for users searching the platform.
+
+- *Expected behavior*:
+
+* System flags potential duplicates based on similarity (description, location, date).
+
+* Staff/Admin reviews and merges or links duplicate entries.
+
+* One canonical listing is maintained while others are marked as duplicates.
+
+* *Further elicitation*: Staff/Admin requests additional details from reporters (e.g., distinguishing features, exact location, timestamps) to determine whether reports refer to the same item before merging.
+
+- *Roles involved*: Reporters, Staff/Moderator, Admin.
+
+
+====== *CS-02: Multiple users claiming the same item*
+- *Scenario*: Two or more users submit claims for a single item.
+
+- *Risk*: Conflicting ownership decisions and possible fraud.
+
+- *Expected behavior*:
+
+* Item enters Pending Verification after the first claim.
+
+* Additional claims are allowed but marked as queued.
+
+* Only one claim can be approved; others are rejected with justification.
+
+* *Further elicitation*: Claimants are required to provide additional proof of ownership (e.g., detailed description, identifying marks, contextual evidence), and staff may request clarification before making a final decision.
+
+- *Roles involved*: Claimants, Staff/Moderator, Admin.
+
+
+====== *CS-03: Simultaneous updates to item information*
+- *Scenario*: A user updates item details while another user is viewing or editing the same listing.
+
+- *Risk*: Outdated or conflicting information being displayed or saved.
+
+- *Expected behavior*:
+
+* System validates updates against the current state before applying changes.
+
+* If conflict exists, user is prompted to refresh or review changes.
+
+* Optional version tracking or logging is maintained.
+
+- *Roles involved*: Reporters, Claimants, System.
+
+
+====== *CS-04: Item status conflict during active claim*
+- *Scenario*: An item is marked as returned or closed while a claim is still under review.
+
+- *Risk*: Invalid system state and user confusion.
+
+- *Expected behavior*:
+
+* System restricts status changes while a claim is active.
+
+* Only authorized roles (Staff/Admin) may override status with proper logging.
+
+- *Roles involved*: Staff/Moderator, Admin.
+
+
+====== *CS-05: Conflicting or incomplete item data*
+- *Scenario*: Users provide inconsistent or partial information about an item.
+
+- *Risk*: Reduced accuracy and difficulty verifying ownership.
+
+- *Expected behavior*:
+
+* System enforces required fields and validation rules.
+
+* Staff/Admin may request clarification or additional details.
+
+* Incomplete entries are flagged or limited in visibility.
+
+* Users may be prompted to refine or correct submitted data before the report becomes fully active.
+
+* *Further elicitation*: The system or staff explicitly requests missing or conflicting information (e.g., clearer descriptions, additional attributes) to resolve ambiguity before accepting or promoting the report.
+
+- *Roles involved*: Reporters, Staff/Moderator.
+
+
+===== Implementation Notes (Cross-Team)
+
+- Use validation and state control mechanisms to prevent inconsistent updates.
+
+- Implement duplicate detection using key attributes such as item description, location, and time.
+
+- Restrict critical actions (such as claims and status changes) to controlled workflows.
+
+- Maintain logs or audit trails for updates and moderation actions when possible.
+
+- Ensure clear user feedback when conflicts occur to maintain transparency and trust.

@@ -1,0 +1,186 @@
+== *Descriptive Part*
+=== *Domain Description*
+
+[.changed]
+==== Domain Rough Sketches (Raw Observations and Traceable Concept Derivation)
+
+===== Raw observations (unprocessed)
+
+The table below captures statements and field notes as they were recorded, plus minimal context. If a detail was not captured (for example, what kind of keys), we mark it as unknown rather than guessing.
+
+[cols="1,3,2,2",options="header"]
+|===
+| # | Raw statement / field note | Context (where/when) | Item details (specific)
+
+| 1
+| "I left my charger in a classroom. I realized at night. I checked a couple group chats, but nobody replied."
+| Noticed after hours; checked informal channels
+| Charger; brand/type unknown; classroom/room not recorded
+
+| 2
+| "I lost my keys somewhere between the parking lot and the business building. I wasn’t sure if I should check security, the library, or just retrace my steps."
+| Outdoor route; several plausible places to check
+| Keys; type not recorded (car, apartment, lab, keycard unknown)
+
+| 3
+| "My ID card fell out. I canceled it immediately because I was scared someone would misuse it. Later I found out someone had turned it in to the library."
+| Defensive action taken before confirmation
+| Student ID card; details intentionally omitted
+
+| 4
+| "I posted on Instagram that I lost my AirPods. Someone replied saying they found some, but it wasn’t mine."
+| Social media used for recovery attempt
+| Earbuds (AirPods); model/color not recorded
+
+| 5
+| "I don’t know where the lost and found office is. Back home there’s always one central place."
+| Person unfamiliar with campus expectations
+| No item specified
+
+| 6
+| "I found a phone outside the physics building. I didn’t want to leave it there. But I also didn’t want to give it to the wrong person."
+| Item found outdoors; finder hesitant
+| Phone; brand/model unknown
+
+| 7
+| "Students bring water bottles, chargers, USB drives, everything. We put them in a drawer with sticky notes. Sometimes people argue over who it belongs to."
+| Library handling and storage
+| Mixed items; sticky note labeling varies; which fields are written is inconsistent
+
+| 8
+| "We keep items in the office for a few weeks. If nobody claims them, they get discarded or stored somewhere else. There’s no consistent tracking system."
+| Security office handling
+| Retention exists ("a few weeks"); exact duration varies or is unknown
+
+| 9
+| "I didn’t report the calculator I found. I just left it on the desk where I found it."
+| Passive return attempt
+| Calculator; model unknown
+
+| 10
+| Observation: Unattended items in empty classrooms (notebooks, bottles, jackets). No signage indicating what to do if an item is found.
+| Classroom building, evening
+| Items vary; signage absent
+
+| 11
+| Observation: Drawer labeled "Lost & Found" contains mixed items with handwritten notes. Notes inconsistent (some dated, some not).
+| Library third floor office
+| Note format inconsistent; dates sometimes missing
+
+| 12
+| Observation: Keys found near vehicles in a high traffic area; hard to identify ownership.
+| Parking lot
+| Keys; type not recorded (metal keys vs keycard unknown)
+
+| 13
+| "Anyone lose a blue Hydro Flask?" "Where?" "Near Chem building." "No idea whose it is."
+| Group chat excerpt
+| Water bottle (blue Hydro Flask); location vague ("near Chem building")
+
+| 14
+| "People come asking 'Has anyone reported a MacBook?' I can’t check anything except the drawer."
+| Library worker perspective
+| MacBook; no searchable record (only physical drawer)
+
+| 15
+| "I wouldn’t put my phone number publicly. I don’t want random people contacting me."
+| Privacy boundary in open reporting
+| No item specified
+
+| 16
+| Observation: People retrace steps first; only later ask peers/offices.
+| Multiple informal discussions
+| No item specified
+
+| 17
+| "I assumed someone would steal it if I didn’t find it quickly."
+| Perceived risk affecting urgency
+| No item specified
+|===
+
+[.added]
+===== Evidence add on (questionnaire summary)
+
+* Respondents: N = 10 (8 students, 2 security staff)
+* Collection method: Google Form
+* Dates: March 16, 2026 to April 3, 2026
+* Limitations:
+** Small sample size
+** Convenience sample (mostly within our network)
+** Limited representation of staff perspectives
+
+Key results:
+
+* 8/10 reported losing at least one item in the last 6 months.
+* Common items mentioned: water bottles, chargers, earbuds, keys.
+* Median number of places checked before finding or giving up: 2.
+* Places and channels commonly checked: library, department offices, group chats.
+* Privacy boundaries were common (contact info, ID details, exact locations).
+* 3/10 mentioned concerns about suspicious or false claiming behavior.
+* Most respondents reported noticing the loss later the same day (often within a few hours).
+
+===== Derived concepts (traceable back to raw observations)
+
+The concepts below are derived from the raw observation table above. Each concept includes the observation numbers it is based on.
+
+[cols="2,4,2",options="header"]
+|===
+| Derived concept | What it means | Supported by obs #
+
+| Delayed realization
+| People often notice loss later (hours later or after hours), not immediately.
+| 1, 16
+
+| No clear starting point
+| After noticing a loss, people are unsure which office or place is the right first stop.
+| 2, 5, 14
+
+| Place to place effort
+| Recovery attempts require checking multiple places and channels.
+| 2, 14, 16 
+
+| Fragmented channels
+| People use informal channels (social media and chats) that do not preserve context well.
+| 4, 13
+
+| Weak matching / false positives
+| Informal matching creates false positives and uncertainty.
+| 4
+
+| Finder hesitation
+| Finders want to help but fear giving the item to the wrong person.
+| 6
+
+| Manual custody
+| Items end up stored in offices or drawers with inconsistent notes and metadata.
+| 7, 11, 14
+
+| Disputes at pickup
+| Weak verification leads to arguments over ownership.
+| 7
+
+| Retention window
+| Items are held for some time, then discarded or moved.
+| 8
+
+| Non reporting / passive return
+| Some finders do not report; they leave items where found.
+| 9
+
+| Privacy boundary
+| People avoid posting personal contact details publicly.
+| 15 
+
+| Theft anxiety / urgency escalation
+| Fear of theft increases urgency and changes behavior.
+| 17
+|===
+
+===== Missing specifics to collect next 
+
+We intentionally did not invent details that were not captured in the raw observations. Next time we collect observations, we will explicitly capture:
+
+* Keys: car keys vs apartment keys vs lab keys vs keycard (obs #2 and #12).
+* Earbuds: model, color, case markings (obs #4).
+* Chargers: USB C vs Lightning vs laptop charger block and cable (obs #1).
+* Retention: approximate duration range and whether it differs by office (obs #8).

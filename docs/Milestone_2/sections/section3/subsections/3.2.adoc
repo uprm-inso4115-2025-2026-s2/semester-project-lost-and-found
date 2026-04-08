@@ -1,0 +1,487 @@
+=== *Validation and Verification*
+
+The purpose of this section is to document how the team validates and verifies the domain concepts, requirements, and design decisions of the *Lost & Found* system.
+
+[.changed]
+==== *Validation Strategy*
+
+Validation activities focus on confirming that the modeled concepts (*Report*, *User*, *Ownership*, *Lifecycle State*, *Image Asset*, etc.) correspond to real-world behavior and expectations. Rather than relying on abstract flows, validation is grounded in concrete, persona-driven scenarios that simulate realistic interactions.
+
+These scenario walkthroughs are used during feedback sessions with students, teaching assistants, and administrative staff to surface overlooked edge cases and feature ideas. Each scenario step is explicitly linked to both functional and interface requirements, with expected outcomes and validation checks clearly defined.
+
+===== Scenario 1: María — Reporting a Lost Laptop
+
+María, a third-year Computer Science student, studies in the university library until the evening. The next morning, she realizes that her silver HP laptop is missing. She is unsure of the exact location where she left it, but recalls that it was likely in one of the study rooms she used.
+
+She logs into the Lost & Found platform using her university credentials and selects "Report Lost Item." She fills in the form:
+
+- Title: "Silver HP Laptop"
+- Category: Electronics
+- Approximate Time of Loss: "Evening, around 6:00 PM – 8:30 PM"
+- Last Seen Location: "Library, 2nd floor, Study Room 3"
+- Description: "Silver HP laptop with a small RUMblebots sticker on the back"
+- Image Upload: Optional (María does not upload an image)
+
+System behavior:
+
+1. Validates required fields.
+2. Binds María's `user_id` to the report.
+3. Stores the report with status `"active"`.
+
+Later, María remembers more details and edits the description:
+
+- Adds: "Laptop has a faint bent near the upper right corner and a blue `intel core i7` sticker on the left side panel."
+
+Non-owner edit attempt:
+
+- Another student, Luis (her boyfriend), sees the report in the public feed and tries to edit the description to add a note to clarify that her laptop model is a HP Envy x360.
+- The system denies the edit, logs the attempt, and optionally notifies Luis that only the report owner can make changes.
+
+*Validation Points:*
+
+[cols="1,3,2,2", options="header"]
+|===
+| Step | Requirements | Expected Outcome | Validation Check
+
+| Submit report
+a|
+- <<REQ-REPORT-F-01>>
+- <<REQ-REPORT-F-03>>
+- <<IR001>>
+- <<IR003>>
+| Report is created, bound to María | Verify report exists with correct user ID and status
+
+| Edit own report
+a|
+- <<REQ-REPORT-F-03>>
+- <<IR005>>
+| María successfully updates description | Check that edit is saved, timestamp preserved
+
+| Edit by other user
+a|
+- <<REQ-REPORT-F-03>>
+- <<REQ-CLAIM-F-01>>
+- <<IR009>>
+| Luis denied edit | Attempt edit as Luis, verify system prevents changes
+|===
+
+*Insights and Actions:*
+
+- Confirmed enforcement of ownership rules.
+- Preserved traceability of edits.
+- Clarified workflow for non-owner edit attempts.
+
+===== *Scenario 2: Javier — Reporting a Found Wallet *
+
+Javier, a student walking past the cafeteria around 1:30 PM, finds a brown leather walletF on the ground. He picks it up but notices it contains a student ID and other personal documents. He wants to report it without exposing sensitive information.
+
+He logs into the Lost & Found platform and selects "Report Found Item." He fills in the form:
+
+- Title: "Brown leather wallet"
+- Category: Personal Items
+- Found Location: "Cafeteria entrance, near the main doors"
+- Found Time: 1:30 PM
+- Description: "Wallet contains a student ID, some cash, and a few receipts. Sensitive information not shown."
+- Image Upload: A photo of the wallet exterior (without revealing contents).
+
+System behavior:
+
+1. Validates all required fields are filled.
+2. Binds Javier's `user_id` to the found item report.
+3. Stores the report with status `"active"`.
+4. Automatically flags any sensitive information (e.g., ID numbers, full names) to prevent accidental exposure.
+
+Later, Javier may update the description if he notices additional non-sensitive details, such as a subtle unique engraving, but no personal data is exposed.
+
+*Validation Points:*
+
+[cols="1,3,2,2", options="header"]
+|===
+| Step | Requirements | Expected Outcome | Validation Check
+
+| Submit found report
+a|
+- <<REQ-REPORT-F-02>>
+- <<REQ-REPORT-F-04>>
+- <<IR002>>
+| Report is created in "active" state | Verify report exists in database, visible to search
+
+| Privacy handling
+a|
+- <<REQ-CLAIM-F-01>>
+- <<REQ-REPORT-F-02>>
+- <<IR004>>
+| Sensitive information not exposed | Confirm no ID numbers or sensitive data stored in database or displayed
+
+| Search by keyword
+a|
+- <<REQ-SEARCH-F-01>>
+- <<REQ-SEARCH-F-02>>
+- <<IR014>>
+- <<IR015>>
+| Report discoverable by authorized users | Perform search for keyword, verify report appears
+|===
+
+*Insights and Actions:*
+
+- Removed assumption of ID image uploads.
+- Added privacy-preserving requirements.
+- Reinforced minimal exposure of sensitive data.
+
+===== *Scenario 3: Automated Moderation and Review Workflow*
+
+A user submits a found or lost item report. The system automatically analyzes the text for suspicious language, inappropriate content, or potential policy violations (e.g., offensive words, spam, or attempts to share personal data publicly).
+
+System behavior:
+
+1. Automated content filter scans the report upon submission.
+   - If suspicious content is detected, the report status is set to `"flagged"`.
+   - The report is hidden from public listings (quarantine) to prevent accidental exposure.
+2. A human reviewer (moderator) receives the flagged report for evaluation.
+3. Reviewer actions:
+   - **Approve** → Report status changes to `"active"` and becomes visible to users.
+   - **Remove** → Report status changes to `"removed"` and is not publicly accessible.
+4. Author notification:
+   - The system sends a message explaining the reason for flagging.
+   - Author is informed of the outcome (approved or removed).
+5. Appeal or edit:
+   - If removed, the author may edit the report to remove flagged content and resubmit.
+   - Appeals are tracked in the system for auditing and review.
+
+This workflow ensures safety, privacy, and content compliance while allowing users to correct unintentional issues.
+
+*Validation Points:*
+
+[cols="1,3,2,2", options="header"]
+|===
+| Step | Requirements | Expected Outcome | Validation Check
+
+| Flag detection
+a|
+- <<REQ-ADMIN-F-01>>
+- <<IR018>>
+| Report automatically flagged | Check system logs for flagged status
+
+| Visibility control
+a|
+- <<REQ-SEARCH-F-02>>
+- <<IR015>>
+| Report hidden from public search | Perform search, verify report not visible
+
+| Author notification
+a|
+- <<REQ-ADMIN-F-02>>
+- <<IR017>>
+| Author receives notification | Verify email or UI alert sent
+
+| Appeal/edit flow
+a|
+- <<REQ-ADMIN-F-02>>
+- <<REQ-REPORT-F-01>>
+- <<IR005>>
+| Author can edit/appeal | Attempt edit/appeal, verify system allows corrections
+|===
+
+*Insights and Actions:*
+
+- Introduced automated moderation workflow.
+- Added notification and appeal mechanism.
+- Defined quarantine state before removal.
+
+===== *Scenario 4: Daniel — Searching for a Missing ID*
+
+Daniel realizes he has lost his student ID card. He logs into the Lost & Found platform to locate it.
+
+Search steps:
+
+1. Filters by category: **Personal Items**.
+2. Enters keywords: `"ID"`.
+3. Applies status filter: only `"Active"` reports.
+4. System performs search based on textual descriptions and optional metadata, not relying on images.
+5. Search results display:
+   - Report title
+   - Description
+   - Location (if known)
+   - Time window
+   - Finder information (limited for privacy)
+6. Daniel identifies a report that matches his ID and contacts the finder via the system’s messaging interface.
+
+This scenario demonstrates **text-based search capability**, **category filtering**, **status filtering**, and **privacy-conscious display of results**.
+
+*Validation Points:*
+
+[cols="1,3,2,2", options="header"]
+|===
+| Step | Requirements | Expected Outcome | Validation Check
+
+| Category filter
+a|
+- <<REQ-SEARCH-F-01>>
+- <<IR015>>
+| Results filtered to selected category | Verify results show only matching category reports
+
+| Keyword search
+a|
+- <<REQ-SEARCH-F-02>>
+- <<IR014>>
+- <<IR015>>
+| Reports matching keywords returned | Perform search, check matching results
+
+| No image dependency
+a|
+- <<REQ-REPORT-F-02>>
+- <<IR002>>
+| Search works without images | Verify search still returns reports lacking images
+
+| Sorting / filtering by status
+a|
+- <<REQ-SEARCH-F-02>>
+- <<IR015>>
+| Only "Active" reports shown | Confirm only active reports appear in search
+|===
+
+*Insights and Actions:*
+
+- Removed reliance on images.
+- Reinforced text-based matching.
+- Made images optional.
+
+==== *Verification Strategy*
+
+Verification activities focus on internal consistency, completeness, and traceability.
+
+===== Peer Reviews
+
+Each documentation subsection (Terminology, Concept Analysis, Requirements, Implementation Fragments) is reviewed by at least one team member not primarily responsible for writing it.
+
+Verification checks include:
+
+- Every requirement uses defined domain terminology.
+- No undefined or ambiguous terms appear.
+- Implementation fragments reflect documented architectural decisions (React + Supabase, RLS, storage separation).
+
+During early review, an inconsistency was found between “delete” and “archive,” which was resolved by formally distinguishing lifecycle states.
+
+===== Documentation Checklists
+
+A structured checklist is applied at milestone review:
+
+- Every domain concept appears in at least one requirement.
+- Every requirement traces back to at least one project goal.
+- Each requirement is testable and measurable.
+- Ownership and RLS enforcement are documented both conceptually and technically.
+- Lifecycle transitions are explicitly defined.
+
+===== Traceability Matrix
+
+A lightweight traceability matrix links:
+
+- Goals → Requirements
+- Requirements → Domain Concepts
+- Requirements → Design Elements (database schema, RLS policies, React components)
+- Requirements → Verification Method (test case, walkthrough, inspection)
+
+Example:
+
+Requirement: “Users can only edit their own reports.”
+
+- Concept: Ownership
+- Design: `user_id` bound to session + RLS policy
+- Verification: Attempt cross-user modification test
+
+[.changed]
+===== Scenario-Based Verification Tests
+
+[cols="1,3,2,2", options="header"]
+|===
+| Step | Requirement(s) | Expected Outcome | Verification Action
+
+| Submit valid report
+a|
+- <<REQ-REPORT-F-01>>
+- <<REQ-REPORT-F-03>>
+- <<IR001>>
+- <<IR003>>
+| Report status = "`active`", bound to owner
+| Submit form as María; check database for correct `user_id` and status
+
+| Edit own report
+a|
+- <<REQ-REPORT-F-03>>
+- <<IR005>>
+| Changes saved
+| Login as María, edit report, verify updated description and preserved timestamp
+
+| Edit as other user (active report)
+a|
+- <<REQ-REPORT-F-03>>
+- <<REQ-CLAIM-F-01>>
+- <<IR009>>
+| Luis denied edit
+| Login as Luis, attempt edit, verify system prevents changes
+
+| Submit found report
+a|
+- <<REQ-REPORT-F-02>>
+- <<REQ-REPORT-F-04>>
+- <<IR002>>
+| Report created in "`active`" state
+| Submit form as Javier; check database for status and owner binding
+
+| Privacy handling
+a|
+- <<REQ-CLAIM-F-01>>
+- <<REQ-REPORT-F-02>>
+- <<IR004>>
+| Sensitive information not exposed
+| Confirm no ID numbers or personal info stored/displayed
+
+| Search by keyword
+a|
+- <<REQ-SEARCH-F-01>>
+- <<REQ-SEARCH-F-02>>
+- <<IR014>>
+- <<IR015>>
+| Report discoverable
+| Perform search, verify report appears
+
+| Flag detection
+a|
+- <<REQ-ADMIN-F-01>>
+- <<IR018>>
+| Report automatically flagged
+| Submit report with suspicious content; check logs/status
+
+| Visibility control
+a|
+- <<REQ-SEARCH-F-02>>
+- <<IR015>>
+| Report hidden from public search
+| Search as any user, verify report not visible
+
+| Author notification
+a|
+- <<REQ-ADMIN-F-02>>
+- <<IR017>>
+| Author receives notification
+| Verify email/UI alert sent to author
+
+| Appeal/edit flow
+a|
+- <<REQ-ADMIN-F-02>>
+- <<REQ-REPORT-F-01>>
+- <<IR005>>
+| Author can edit/appeal
+| Login as author, edit removed report, submit, verify status updated
+
+| Category filter
+a|
+- <<REQ-SEARCH-F-01>>
+- <<IR015>>
+| Results filtered to selected category
+| Perform category-filtered search, verify only matching reports shown
+
+| Keyword search
+a|
+- <<REQ-SEARCH-F-02>>
+- <<IR014>>
+- <<IR015>>
+| Reports matching keywords returned
+| Perform keyword search, check results
+
+| No image dependency
+a|
+- <<REQ-REPORT-F-02>>
+- <<IR002>>
+| Search works without images
+| Verify search still returns reports lacking images
+
+| Sorting / filtering by status
+a|
+- <<REQ-SEARCH-F-02>>
+- <<IR015>>
+| Only "Active" reports shown
+| Verify only active reports appear
+|===
+
+[.changed]
+===== Walkthrough Inspections 
+
+**Date:** `2026-03-04` 
+
+**Purpose:** Verify that the Lost & Found platform’s requirements, workflows, and system behavior match real-world expectations and are correctly implemented. This includes input validation, report lifecycle management, moderation workflows, access control, and search functionality.
+
+**Participants:**  
+
+- **Reviewer:** Jean P. I. Sánchez Félix  
+  * Oversaw execution of scenarios, ensured traceability to requirements, logged observations  
+
+- **Students / Testers:**  
+  * Tasnim Said Khader  
+    ** Executed scenario of reporting a lost laptop, performed edits, and attempted non-owner edits  
+  * Keishlyany M. Sanabria Santana  
+    ** Executed scenario of reporting a found wallet, verified privacy handling and search visibility  
+  * Leanelys A. Gonzalez Orama  
+    ** Executed moderation and appeal workflow scenarios, checked notification delivery and audit logging  
+
+**Method:**  
+
+- Each participant performed **step-by-step scenario walkthroughs** based on UI mockups and sample reports  
+- Reviewer observed interactions and logged system responses, noting deviations from requirements  
+- Scenarios executed included:  
+  * **Reporting Lost Items** – submission with all required fields, editing by owner, attempted edits by non-owner  
+  * **Reporting Found Items** – submission with sensitive information, privacy compliance, optional image uploads  
+  * **Moderation and Review** – automated flagging, human review, approval/removal, notifications, appeals  
+  * **Search and Discovery** – filtering by category, keywords, and status; verifying text-based matches without images  
+- Checks were made against:  
+  * Functional requirements (mandatory fields, lifecycle states, search behavior)  
+  * Access control rules (owner vs. non-owner edits, moderation permissions)  
+  * Lifecycle state transitions (active → flagged → removed/approved)  
+  * Consistency of terminology in UI, instructions, and reports  
+  * Privacy and data handling (masking sensitive information, avoiding exposure)  
+
+**Detailed Findings:**  
+
+1. **Time Input Validation**  
+   - Observation: Participants attempted to submit reports without specifying time ranges. The system allowed submission but lacked validation  
+   - Impact: Could result in ambiguous or incomplete reports  
+
+2. **Moderation Workflow**  
+   - Observation: Flagged reports were quarantined, but the workflow did not support clear appeal or edit by the author  
+   - Impact: Could frustrate users and reduce trust in the system  
+
+3. **User Feedback on Flagged/Removed Reports**  
+   - Observation: Authors of flagged reports were not notified, leading to confusion about report status  
+   - Impact: Users unaware of issues could repeatedly submit problematic content  
+
+4. **Search Dependence on Images**  
+   - Observation: Search results prioritized reports with images; text-only reports were harder to discover  
+   - Impact: Reduces effectiveness of the search for items lacking images  
+
+**Consequences / Actions Taken:**  
+
+- **Time Range Validation**  
+  * Added mandatory time range input and validation messages to prevent incomplete submissions  
+
+- **Moderation Workflow Improvements**  
+  * Implemented automated content flagging, quarantine, reviewer approval/removal, and appeal mechanism  
+  * All flagged reports now require human review before being publicly visible  
+
+- **User Notification System**  
+  * Added notifications for flagged or removed reports  
+  * Authors can edit and resubmit, and appeals are tracked in the system  
+
+- **Search Enhancements**  
+  * Enabled robust text-based search independent of images  
+  * Category, keyword, and status filtering reinforced  
+
+====== Findings and Actions
+
+[cols="1,1", options="header"]
+|===
+| Finding | Action Taken
+| Missing or unvalidated time input | Added mandatory time range field with validation, prevents submission of incomplete reports
+| Unrealistic moderation workflow lacking appeal | Implemented automated moderation with quarantine, approval/removal, and clear appeal mechanism
+| No feedback to users about flagged/removed reports | Added notification messages, UI alerts, and edit/appeal flow for authors
+| Over-reliance on images in search | Enabled text-based search; results no longer dependent on images; filters applied for category and status
+|===
