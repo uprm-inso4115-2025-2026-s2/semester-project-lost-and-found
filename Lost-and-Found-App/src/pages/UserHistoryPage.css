@@ -1,0 +1,136 @@
+.historyPage {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 80px 20px 32px;
+  min-height: 100vh;
+  background: #ffffff;
+  color: #111111;
+}
+
+.historyHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.historyHeader h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.backButton {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.historyHeaderSpacer {
+  width: 24px;
+}
+
+.historySubtitle {
+  margin: 0 0 20px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.historyFilters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.filterButton {
+  border: 1px solid #d9d9d9;
+  background: white;
+  border-radius: 999px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.filterButton.active {
+  background: #111;
+  color: white;
+  border-color: #111;
+}
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.historyCard {
+  border: 1px solid #ececec;
+  border-radius: 16px;
+  padding: 16px;
+  background: #fff;
+}
+
+.historyCardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.historyCardTop h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.historyDescription {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.historyMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #777;
+  font-size: 13px;
+}
+
+.statusBadge {
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 6px 10px;
+  white-space: nowrap;
+}
+
+.statusBadge.lost {
+  background: #ffe5e5;
+  color: #c62828;
+}
+
+.statusBadge.found {
+  background: #e6f4ea;
+  color: #2e7d32;
+}
+
+.statusBadge.claimed {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.statusBadge.returned {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.emptyState {
+  border: 1px dashed #d8d8d8;
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  color: #777;
+  background: #fafafa;
+}

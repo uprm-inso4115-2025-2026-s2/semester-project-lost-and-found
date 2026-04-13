@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import "./ItemCard.css";
 
-export type ItemStatus = "Lost" | "Found" | "Claimed" | "Returned";
+export type ItemStatus = "Lost" | "Found" | "Claimed";
 
 export interface ItemCardProps {
   imageUrl?: string;
@@ -10,11 +10,6 @@ export interface ItemCardProps {
   dateLabel: string;
   locationLabel?: string;
   status: ItemStatus;
-  
-  reportId: string;
-  onClaim?: (id: string) => void;
-  onReturn?: (id: string) => void; 
-  onSendBackToLost?: (reportId: string) => void;
 }
 
 const STATUS_THEME: Record<
@@ -36,24 +31,15 @@ const STATUS_THEME: Record<
     dot: "#3b82f6",
     text: "#1d4ed8",
   },
-  Returned: {
-    bar: "#10b981",
-    dot: "#10b981",
-    text: "#047857",
-  },
 };
 
 export const ItemCard: React.FC<ItemCardProps> = ({
-  reportId,
   imageUrl,
   title,
   description,
   dateLabel,
   locationLabel,
   status,
-  onClaim,
-  onReturn,
-  onSendBackToLost,
 }) => {
   const theme = useMemo(() => STATUS_THEME[status], [status]);
   const [imgFailed, setImgFailed] = useState(false);
@@ -117,26 +103,6 @@ export const ItemCard: React.FC<ItemCardProps> = ({
               {locationLabel}
             </span>
           ) : null}
-          
-        <div className="cardActions">
-          {status === "Lost" && onClaim && (
-            <button className="actionBtn" onClick={() => onClaim(reportId)}>
-              Mark as Claimed
-            </button>
-          )}
-
-          {status === "Claimed" && onReturn && (
-            <button className="actionBtn" onClick={() => onReturn(reportId)}>
-              Mark as Returned
-            </button>
-          )}
-
-          {status === "Returned" && onSendBackToLost && (
-              <button className="actionBtn" onClick={() => onSendBackToLost(reportId)}>
-                Send back to Lost
-              </button>
-          )}
-        </div>
         </div>
       </div>
     </article>
