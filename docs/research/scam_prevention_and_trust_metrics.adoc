@@ -1,0 +1,38 @@
+= Research Document: Scam Prevention & Trust Metrics
+
+Author: Joel R. Torres Cruz
+
+== 1. Primary Security Risks
+To ensure the platform is secure, we must anticipate how bad actors might try to abuse the system. The top security risks include:
+
+* *False Ownership:* Users browsing the platform and falsely claiming an item belongs to them simply because it was posted publicly.
+* *Bait Posts / Fake Items:* Scammers creating fake "found" posts to trick people into unsafe meetups or to extort a "finder's fee" before returning the item.
+* *Serial Claiming:* A user attempting to claim multiple high-value items over a short period (e.g., claiming 5 different phones) to steal and resell them.
+
+== 2. Verification Methods: Establishing True Ownership
+To prevent false ownership, finders should establish a verification process before agreeing to a physical exchange.
+
+* *For Phones & Laptops:* Never hand the device over for the claimant to "test" or unlock, as they could simply grab the device and run. Instead, the finder should keep physical control of the device and ask the claimant to describe the lock screen wallpaper, or describe specific scratches/dents _before_ the meetup.
+* *For General Items (Backpacks, Water Bottles, etc.):* When creating a "Found" post, the finder should intentionally withhold one specific detail (e.g., "Found a blue Hydro Flask. To claim it, tell me what the main sticker is.").
+* *For IDs and Wallets:* The physical appearance of the claimant must match the photo on the ID card.
+
+== 3. Reputation System and Trust Scores
+To help users determine if the person they are meeting is trustworthy, the platform will implement a Reputation Score system:
+
+* *Earning Points:* Users could earn points and achieve a "Verified Helper" badge based on the number of items they have successfully and safely returned. This would require both the finder and the owner to confirm the successful transaction in the app.
+* *Losing Points:* Users should lose points or face account suspension if they are reported for making fake claims or attempting to scam others.
+* *Baseline Score:* All new accounts start with a "Neutral" status, indicating they have not yet established a track record on the platform.
+
+== 4. Dispute Resolution and Moderation
+Clear protocols are needed for when conflicts arise or scammers are identified:
+
+* *Disputed Claims:* If two different people claim the exact same item, the finder should not attempt to mediate. The official protocol should instruct the finder to hand the item over to Campus Security (Guardia Universitaria) and direct both claimants to resolve the issue there with official proof.
+* *Reporting Mechanism:* The platform must include a clear way for users to report a scammer to the admins. This could be a "Report User" button that flags the account for administrative review and potential banning.
+
+== 5. Community Safety Guidelines
+To protect students during physical handoffs, the app could display these safety tips to users:
+
+* *Meet in a public place:* Always conduct exchanges in busy, well-lit campus areas, such as the Student Center or the campus library.
+* *Daylight Hours:* Schedule meetups during the day whenever possible.
+* *Bring a Friend:* Encourage users to bring someone with them to the exchange for added security.
+* *No Fees Allowed:* Clearly state that the platform is free and users should never pay a "ransom" or fee to get their lost items back.

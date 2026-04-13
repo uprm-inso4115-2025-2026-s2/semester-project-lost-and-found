@@ -1,0 +1,117 @@
+
+[.changed]
+==== *Machine Requirements*
+
+.Hardware, Software, and Environmental Requirements
+[cols="1,3,3,3", options="header"]
+|===
+| ID | Description | Linked Requirements | Verification Tests
+
+| [[HWRQ-001]]HWRQ-001
+| The system must support client access from desktop/laptop devices with modern web browsers and minimum 1 Mbps internet connection.
+a| * <<REQ-UX-NF-01>>
+* <<REQ-SEARCH-F-01>>
+* <<REQ-REPORT-F-01>>
+| Verify that opening the application on supported desktop browsers with ≥1 Mbps connection allows all core features to function without errors.
+
+| [[HWRQ-002]]HWRQ-002
+| The system must support client access from mobile devices (smartphones/tablets) with responsive design at minimum 320px screen width.
+a| * <<REQ-UX-NF-01>>
+| Verify by testing the application on multiple mobile devices with screen width ≥320px and confirming layout adapts correctly and functionality remains intact.
+
+| [[SWRQ-001]]SWRQ-001
+| The frontend must be developed using TypeScript 5.0+ and React 18.2+ with Node.js 18.0+ runtime.
+a| * <<REQ-UX-NF-01>>
+* <<REQ-REPORT-F-01>>
+* <<REQ-SEARCH-F-01>>
+| Verify by inspecting project dependencies and running the application to confirm builds without type or runtime errors.
+
+| [[SWRQ-002]]SWRQ-002
+| The system must integrate Supabase JavaScript SDK 2.0+ for backend services including authentication, database, and storage.
+a| * <<REQ-REPORT-F-01>>
+* <<REQ-REPORT-F-02>>
+* <<REQ-CLAIM-F-01>>
+| Verify by performing authentication and database operations via Supabase SDK and confirming successful responses.
+
+| [[SWRQ-003]]SWRQ-003
+| The system must utilize TailwindCSS 3.0+ for responsive UI implementation.
+a| * <<REQ-UX-NF-01>>
+| Verify by inspecting UI classes and testing multiple viewport sizes to ensure layout responsiveness.
+
+| [[SWRQ-004]]SWRQ-004
+| The system must implement form validation using React Hook Form with Zod or Yup schema validation.
+a| * <<REQ-REPORT-F-01>>
+* <<REQ-REPORT-F-02>>
+| Verify by submitting valid and invalid data and confirming correct validation messages are displayed.
+
+| [[SWRQ-005]]SWRQ-005
+| The system must support image upload functionality with file size limit of 10MB per image for JPEG, PNG, and GIF formats.
+a| * <<REQ-REPORT-F-02>>
+| Verify by uploading various image formats and sizes, confirming acceptance or rejection according to the requirement.
+
+| [[SWRQ-006]]SWRQ-006
+| The development environment must include Jest, React Testing Library, and Cypress/Playwright for testing.
+a| * <<REQ-UX-NF-01>>
+* <<REQ-SEARCH-F-01>>
+| Verify by running automated test suites in all frameworks and confirming tests pass successfully.
+
+| [[ENVRQ-001]]ENVRQ-001
+| The system must maintain API response latency under 500ms for standard operations under normal load.
+a| * <<REQ-SEARCH-F-01>>
+* <<REQ-REPORT-F-01>>
+| Verify by measuring response times under normal load and confirming ≤500ms latency.
+
+| [[ENVRQ-002]]ENVRQ-002
+| The system must support concurrent users with minimum 100 simultaneous active sessions.
+a| * <<REQ-SEARCH-F-01>>
+* <<REQ-REPORT-F-01>>
+| Verify by simulating 100 concurrent users and confirming the system operates without errors.
+
+| [[ENVRQ-003]]ENVRQ-003
+| The system must enforce HTTPS-only communication with WSS for real-time features.
+a| * <<REQ-CLAIM-F-01>>
+* <<REQ-CLAIM-F-02>>
+| Verify by attempting HTTP connections and confirming only HTTPS/WSS connections are accepted.
+
+| [[ENVRQ-004]]ENVRQ-004
+| The system must support latest 2 versions of Chrome, Firefox, Safari, and Edge browsers on desktop and mobile.
+a| * <<REQ-UX-NF-01>>
+| Verify by testing all specified browser versions and confirming consistent behavior.
+
+| [[ENVRQ-005]]ENVRQ-005
+| The system must integrate with UPR.edu authentication system via SSO/OAuth protocols.
+a| * <<REQ-CLAIM-F-01>>
+* <<REQ-ADMIN-F-01>>
+| Verify by performing login via UPR SSO and confirming authentication succeeds.
+
+| [[ENVRQ-006]]ENVRQ-006
+| The system must implement Row Level Security (RLS) policies in PostgreSQL for all data access.
+a| * <<REQ-CLAIM-F-02>>
+* <<REQ-ADMIN-F-01>>
+| Verify by attempting unauthorized access and confirming RLS blocks it.
+
+| [[ENVRQ-007]]ENVRQ-007
+| The system must achieve page load time under 3 seconds and search query responses under 2 seconds.
+a| * <<REQ-SEARCH-F-01>>
+* <<REQ-REPORT-F-01>>
+| Verify by measuring page load and search response times under normal usage conditions.
+
+| [[ENVRQ-008]]ENVRQ-008
+| The system must comply with FERPA regulations and university data protection policies for student information.
+a| * <<REQ-REPORT-F-01>>
+* <<REQ-REPORT-F-02>>
+* <<REQ-CLAIM-F-01>>
+| Verify by auditing data handling and confirming compliance with FERPA and university policies.
+
+| [[ENVRQ-009]]ENVRQ-009
+| The system must implement rate limiting on all API endpoints to prevent abuse.
+a| * <<REQ-SEARCH-F-01>>
+* <<REQ-REPORT-F-01>>
+| Verify by sending high-frequency requests and confirming rate limits are enforced.
+
+| [[ENVRQ-010]]ENVRQ-010
+| The system must support email notifications through configured SMTP with templated messaging.
+a| * <<REQ-CLAIM-F-01>>
+* <<REQ-CLAIM-F-02>>
+| Verify by triggering notifications and confirming emails are delivered correctly with templates.
+|===

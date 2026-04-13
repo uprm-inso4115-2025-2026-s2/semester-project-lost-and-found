@@ -1,0 +1,119 @@
+= Research: Platform, Technologies, and Programming Language Evaluation
+:toc:
+:icons: font
+
+== Overview
+
+The Lost & Found system must be accessible, easy to use, and maintainable over time. Before implementation, it is necessary to evaluate which platform and technology stack best supports the project’s functional and strategic goals.
+
+This research evaluates platform options (web, mobile, hybrid), relevant technologies, and programming languages in order to inform a sound technical decision.
+
+== Platform Options
+
+=== Web Application
+
+A web application provides universal accessibility through any modern browser without requiring installation.
+
+*Pros:*
+- Accessible on desktop, tablet, and mobile devices
+- No installation required
+- Easier deployment and updates
+- Lower maintenance cost
+- Ideal for administrative dashboards
+
+*Cons:*
+- Limited access to native device features
+- Push notifications and offline capabilities require additional configuration
+
+=== Native Mobile Application
+
+A native mobile application (iOS/Android) offers deeper integration with device features.
+
+*Pros:*
+- Full access to device hardware (camera, storage, notifications)
+- Better push notification support
+- Optimized mobile performance
+- Stronger offline capabilities
+
+*Cons:*
+- Requires separate development for iOS and Android
+- Higher development and maintenance cost
+- Longer implementation timeline
+
+=== Hybrid Application / Progressive Web Application (PWA)
+
+A PWA combines web accessibility with some mobile-like capabilities.
+
+*Pros:*
+- Installable on devices
+- Works through browser
+- Supports limited offline functionality
+- Can enable push notifications
+- Single codebase for all platforms
+- Lower development cost compared to native apps
+
+*Cons:*
+- Limited compared to full native apps
+- Push notifications may have browser restrictions
+
+== Technology Stack Considerations
+
+=== Frontend
+
+Modern JavaScript frameworks provide responsive and scalable UI development:
+
+- React
+- Vue
+- Angular
+
+These frameworks support component-based architecture and accessibility standards.
+
+=== Backend
+
+Backend options include:
+
+- Node.js (JavaScript-based server runtime)
+- Django (Python-based framework)
+- Backend-as-a-Service (e.g., Firebase)
+
+Backend services should support:
+- User authentication (university email integration)
+- Item reporting and categorization
+- Secure messaging
+- Admin moderation tools
+- Notification system
+
+=== Database Options
+
+- Relational databases (e.g., PostgreSQL, MySQL) for structured data
+- NoSQL databases (e.g., Firestore, MongoDB) for flexible schema and rapid development
+
+Database selection should prioritize scalability, reliability, and ease of maintenance.
+
+== Programming Language Evaluation
+
+=== JavaScript
+
+- Can be used for both frontend and backend
+- Large ecosystem and community support
+- Enables full-stack development with a single language
+
+=== Python
+
+- Readable and maintainable syntax
+- Strong backend framework support (Django)
+- Good for analytics and reporting extensions
+
+== Recommendation
+
+Based on accessibility, cost efficiency, scalability, and maintainability, the recommended solution is:
+
+*Web Application enhanced as a Progressive Web Application (PWA).*
+
+This approach:
+- Maximizes accessibility for the UPRM community
+- Minimizes development and maintenance overhead
+- Supports future scalability
+- Provides a near-mobile experience without requiring full native development
+
+This research supports informed technical decision-making before implementation begins.

@@ -1,0 +1,56 @@
+== Goal
+
+Ensure that notifications in the Lost and Found platform are timely, relevant, and helpful, increasing the likelihood of item recovery while avoiding notification overload for users.
+
+The notification system should support effective communication between item owners and finders, encourage user engagement, and improve the overall efficiency of the lost-and-found process at UPRM.
+
+== Description
+
+Notifications play a critical role in keeping users informed and engaged within the Lost and Found application. Since the platform relies on real-time reporting and matching of lost and found items, notifications are needed to promptly alert users when meaningful events occur.
+
+The app will notify students when:
+
+* An item matching the description of their lost item is reported.
+* Their lost item has been marked as found.
+* Someone comments on or responds to their post
+* A finder or owner sends them a direct message.
+* Important updates occur, such as item status changes or administrative actions.
+
+Well-designed notifications reduce response time, improve recovery rates, and minimize the need for users to constantly check the app manually.
+
+== Implementation Plan
+
+==== When Notifications Are Useful for This App
+
+
+Notifications will be sent only when they provide clear value, such as:
+
+* High-confidence matches between lost and found item descriptions.
+* Direct user interactions (messages or comments).
+* Time-sensitive updates (item claimed, flagged, or removed).
+
+Low-value or repetitive notifications will be avoided to prevent user fatigue.
+
+==== Select Appropriate Notification Types
+
+
+Based on research, the Lost and Found app should use:
+
+* Push notifications for urgent or high-priority events (item match, item found).
+* In-app notifications for comments, messages, and status updates.
+* Optional email notifications as a backup for critical alerts, configurable by the user.
+
+Users should be able to customize notification preferences to control frequency and type.
+
+== 📚 Online References
+
+* Google – Notifications https://developer.android.com/design/ui/mobile/guides/home-screen/notifications[https://developer.android.com/design/ui/mobile/guides/home-screen/notifications] 
+_Provides guidelines on creating useful, timely, and non-intrusive notifications._
+
+* Nielsen Norman Group – Indicators, Validations, and Notifications: Pick the Correct Communication Option
+https://www.nngroup.com/articles/indicators-validations-notifications/[https://www.nngroup.com/articles/indicators-validations-notifications/]  +
+_Explains when notifications are helpful and how poor notification design affects user experience._
+
+* UX Collective – Building a meaningful notification system for digital platforms
+https://uxdesign.cc/building-a-meaningful-notification-system-for-digital-platforms-cd8555ac16dd?gi=aeab411b723f[https://uxdesign.cc/building-a-meaningful-notification-system-for-digital-platforms-cd8555ac16dd?gi=aeab411b723f]  +
+_Discusses strategies for relevance, timing, and user control in notification systems._

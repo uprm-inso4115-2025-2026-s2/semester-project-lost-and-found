@@ -1,0 +1,43 @@
+= Qualities of a Successful Interface
+
+Author: Andres Cruz Zapata +
+Date: February 14, 2026
+
+== Introduction
+The UI is where the interactions between the user and the machine occur, therefore, it is an important part of any application. This human-machine interaction is essential for the effective control of the machine from the human end. To have an effective and user-friendly UI design it is important to have many features to keep the user informed and allow the user to have a clear idea of what can be done within the application.
+
+
+== Maintain the User Informed
+The design of the user interface must always keep the user informed of what is going on in the application through appropriate feedback as soon as possible. Additionally, any action within the application that may have consequences should appropriately inform the user of such consequences to avoid unwanted actions.
+
+
+== Clear Communication
+It is important to have a user interface that feels intuitive. The  design must use words that clearly communicate the function of controls within the application. The interface must be free of errors; titles, labels, and messages should not contain any typos nor misleading information. Using words or phrases that follow real world conventions, a user should not have to look up a word's meaning to know what an action means. Information should appear natural and logical. When a design follows this convention it becomes easier for the user to learn and remember how the interface works.
+
+
+== Control Freedom
+Users may perform actions by mistake. The design needs a clearly marked option to undo, modify, and/or actions to correct mistakes without having to redo or undergo extensive processes. Having these exits allow the user to remain in control of the system and avoid feeling frustrated with the design.
+
+
+== Consistency
+A user should not have to wonder whether different words or actions mean the same thing. Actions that have the same or similar outcome should be labeled similarly to clearly indicate the function.
+
+
+== Recognition not Recall
+Reduce the short term memory load on the user. Elements, actions, and options must be visible; information required to perform actions should be visible or easily found when needed. Users should be able to recognize options in the interface rather than having to memorize where these options are.
+
+
+== Visual Design
+An interface must not include information that is irrelevant or not needed; every piece of additional information competes with the frequently used options and decreases their visibility. The content should focus and prioritize  essential features. Additionally, interface elements should be presented simply and have an attractive and appropriate design.
+
+
+== Error Messages
+The design should provide clear and appropriate messages when something goes wrong with the system. These messages should explain the problem in a simple language, avoiding technical terms, and provide a potential fix for the problem the user may be having. Additionally, these messages must be presented in a recognizable way, such as bold or red text. This also allows the user to not feel at fault when errors occur.
+
+
+== Error Handling and Prevention
+The system must prevent errors as much as possible. Good error messages are important, but it is even more important to prevent these errors before they happen. Avoiding error prone conditions or appropriately checking conditions before performing actions is essential to avoid errors.
+
+
+== User Support
+The design must provide additional help whenever needed or requested by the user. For example, a permanent link to customer support can be included in the interface. Alternatively, a section where the user can provide feedback to the application managers of any doubts or unclear information included in the application can be implemented. This information can be key to make improvements on the design of the system.

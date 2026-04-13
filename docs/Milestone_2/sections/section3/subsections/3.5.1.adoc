@@ -1,0 +1,186 @@
+=== *Risk Analysis and Mitigation*
+
+[.added]
+==== *Risk Identification (FMEA and Guidewords)*
+
+The Lost & Found system allows users with UPRM accounts to report lost items, search reports, and contact other users to recover their items. Since the app involves user-generated content, personal contact information, and file uploads, several risks may arise and affect reliability, usability, and security. The following analysis uses FMEA and guidewords with scenarios to illustrate each risk.
+
+===== Risk 1: Incorrect or False Reports
+
+*Guideword:* Incorrect / False
+
+*FMEA Breakdown:*
+
+- **Failure Mode:** Users submit reports with inaccurate or intentionally false information (wrong location, description, or fabricated report).  
+
+- **Cause:** Mistaken data entry, misunderstanding fields, or malicious intent.  
+
+- **Effect Analysis:** Leads to mismatched claims, wasted administrative effort, delays in item recovery, and reduced trust.  
+
+- **Detection:** Admin review, automated validation, and cross-checking with existing reports.
+
+*Scenario:*
+
+1. A student loses a laptop and reports it in the system but selects the wrong building and incorrectly types the model.  
+
+2. Another student finds a laptop in the incorrectly listed building and submits a claim.  
+
+3. Conflicting claims trigger alerts for admin review.  
+
+4. Admin contacts both parties to verify ownership using serial numbers.  
+
+5. Owner experiences delays, frustration, and reduced confidence in the system.
+
+*Mitigation Strategy:*
+
+- Structured input fields for location and item type.  
+
+- Require detailed item identifiers (e.g., serial numbers).  
+
+- Allow edits or deletions for corrections.  
+
+- Automatic cross-checking for duplicates or conflicting reports.
+
+===== Risk 2: Malicious File Uploads
+
+*Guideword:* Hazardous Content
+
+*FMEA Breakdown:*
+
+- **Failure Mode:** Users upload non-image files or malicious scripts disguised as images.  
+
+- **Cause:** Intentional exploitation, lack of validation, or user confusion. 
+
+- **Effect Analysis:** Could lead to malware execution, system crashes, or unauthorized access.  
+
+- **Detection:** File validation on frontend and backend, virus scanning, and file-type checks.
+
+*Scenario:*
+
+1. A user tries to upload a `.exe` file labeled as a “photo of a lost wallet.”  
+
+2. The frontend rejects the file format and notifies the user.  
+
+3. The user attempts again with a renamed `.jpeg` file containing malicious code.  
+
+4. Backend validation detects the inconsistency and quarantines the file.  
+
+5. Admin reviews the attempt and flags the user account for suspicious activity.
+
+*Mitigation Strategy:*
+
+- Strict file format restrictions (`.png`, `.jpeg`).  
+
+- Frontend and backend validation for file type and content.  
+
+- Virus scanning and automatic quarantine of suspicious files.  
+
+- User alerts and logging for security monitoring.
+
+===== Risk 3: Unauthorized Access to Contact Information
+
+*Guideword:* Confidentiality Breach
+
+*FMEA Breakdown:*
+
+- **Failure Mode:** Non-UPRM users attempt to access personal contact information in reports.  
+
+- **Cause:** Inadequate access controls or bypass attempts.  
+
+- **Effect Analysis:** Compromises privacy, violates data protection policies, and may facilitate harassment or fraud.  
+
+- **Detection:** Access logs, authentication checks, and role-based restrictions.
+
+*Scenario:*
+
+1. A visitor without a UPRM account browses the lost items database.  
+
+2. They attempt to click “contact owner” to retrieve personal phone/email.
+
+3. The system denies access and shows only anonymized messages.  
+
+4. Admin monitors repeated unauthorized attempts and temporarily blocks the IP.
+
+5. Users maintain confidence that their contact information is protected.
+
+*Mitigation Strategy:*
+
+- Require verified UPRM login to access contact info.  
+
+- Implement “View Only” mode for unverified users. 
+
+- Hide all sensitive fields unless authentication passes. 
+
+- Monitor repeated unauthorized access attempts.
+
+===== Risk 4: Report Status Inconsistency
+
+*Guideword:* Status Mismatch
+
+*FMEA Breakdown:*
+
+- **Failure Mode:** A report remains incorrectly marked as “Lost” after an item has been claimed or returned.  
+
+- **Cause:** System glitches, delayed updates, or concurrent modifications. 
+
+- **Effect Analysis:** Users may submit duplicate claims, admins waste time resolving conflicts, and items may be wrongly reassigned.  
+
+- **Detection:** Automated status synchronization checks and admin review.
+
+*Scenario:*
+
+1. A student reports a lost backpack. 
+
+2. Another student finds it and submits a claim.  
+
+3. Admin approves the claim, but the UI fails to refresh, showing the item as still “Lost.”  
+
+4. A third user sees the item as available and submits another claim.  
+
+5. Admin must manually resolve multiple claims, verify ownership, and update all system records.
+
+*Mitigation Strategy:*
+
+- Clear status categories (Lost, Claimed, Returned). 
+
+- Backend and frontend synchronization checks.
+
+- Automated alerts for status conflicts. 
+
+- Logging for audit and correction purposes.
+
+===== Risk 5: Duplicate Reports
+
+*Guideword:* Redundancy / Confusion
+
+*FMEA Breakdown:*
+
+- **Failure Mode:** Multiple users submit separate reports for the same item.
+
+- **Cause:** Lack of awareness of existing reports, vague descriptions, or simultaneous reporting.  
+
+- **Effect Analysis:** Creates confusion, delays resolution, and increases admin workload.  
+
+- **Detection:** Duplicate detection algorithms and manual review.
+
+*Scenario:*
+
+1. Two students find the same lost notebook and submit separate reports with slightly different descriptions.
+
+2. The system highlights them as potential duplicates.  
+
+3. Admin reviews both reports, consolidates them, and contacts both finders.  
+
+4. One report is marked primary, the other archived, with cross-references maintained.  
+
+5. Owner receives a single notification, and the duplicate confusion is resolved efficiently.
+
+*Mitigation Strategy:*
+
+- Search and tagging functionality to reduce duplicate reporting.  
+
+- Require detailed descriptions and optional images for better matching.
+
+- Automated duplicate detection with admin review.  
+
+- Notifications to users when potential duplicates exist.

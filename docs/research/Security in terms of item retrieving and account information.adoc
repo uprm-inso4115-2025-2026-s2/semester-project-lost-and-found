@@ -1,0 +1,39 @@
+= Security in Terms of Item Retrieving and Account Information
+Date: February 2026
+Author: [Sebastian G. Suarez Robles]
+:toc:
+
+== 1. Introduction
+
+Retrieving lost items securely is a critical challenge for all lost and found platform or apps. This document explains practical verification methods and account security requirements to ensure rightful ownership and protect user data.
+
+== 2. Item Retrieval Verification
+
+The hardest part of retrieving items is confirming if this item truly belongs to the person claiming it. The following procedures are recommended:
+
+=== 2.1 ID Verification
+* Require a government-issued ID (e.g., driver's license) instead of just a student ID when reclaiming items.
+* Record ID information during item retrieval. If an item is falsely claimed, this record enables reporting and investigation.
+
+=== 2.2 Phone Verification
+* For lost phones, require the person to unlock the device in person (using Face ID or passcode) to prove ownership.
+
+=== 2.3 Key Verification
+* Keys are difficult to verify. We can use keychain details as a verification method.
+* For Example: If keys have a unique keychain (lets say a pear), ask the claimant to describe it. Only the actual owner will know the correct answer and this way we can avoid false claims.
+
+== 3. Account Security and User Verification
+
+To maintain platform integrity:
+
+* Every user must present a valid ID to make posts, reclaim items, and access features.
+* Users must be verified students at the university.
+* Required account information:
+	- Username
+	- Real name
+	- Photo of student ID for verification
+* Admins should manually review and validate student IDs before granting account access.
+
+== 4. Conclusion
+
+By implementing strict verification procedures and account validation, the platform can minimize false claims, protect user data, and foster trust among users and administrators.

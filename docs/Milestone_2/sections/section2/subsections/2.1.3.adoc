@@ -1,0 +1,25 @@
+[.changed]
+==== *Narrative*
+Within the university environment, personal belongings frequently change hands unintentionally. A student may leave a backpack in a classroom, misplace keys in a laboratory, or forget an ID card in the library. In each of these situations, the items becomes a *Lost Item* from the perspective of its *Owner*. The owner's primary concern is retrieving the belonging safely and efficiently. 
+
+At the some point, another individual may encounter the object. This person becomes the *Finder*. After discovering the item, the *Finder* may keep it temporarily, transfer it to another individual, or bring it to a known *Custody Location*. These decisions influence how visible the *Found Item* becomes to the Owner.
+
+Communication between *Owners*, *Finders*, *Holders* occur through existing channels within the university environment. These may include:
+
+- direct interpersonal communication (asking classmates or colleagues),
+- physical notices in common areas,
+- communication through instructors or staff, and
+- inquiries at offices that temporarily hold found items.
+
+These communication channels vary in reach, reliability, and timeliness. For example, direct communication within a small group can be quick but limited in scope, while physical notices can reach more people but go unnoticed by the owner. Consequently, the effectiveness of communication influences the likelihood that a *Lost Item* and a *Found Item* are related.
+
+Several factors affect the probability of an item being returned:
+
+- whether the *Finder* takes it to a recognized safekeeping facility,
+- how quickly the owner realizes the loss,
+- the clarity of the item's identifying characteristics,
+- the overlap between the communication circles of the owner and the finder,
+- the length of time the item remains available for retrieval, and
+- the accessibility of the storage location.
+
+When information about a *Lost Item* and a *Found Item* is available, the possibility of comparison arises. Comparison involves comparing the descriptions to determine if they refer to the same physical object. If a plausible association is established, a *Claim Attempt* may occur, followed by verification, where ownership is assessed using identifying data.  If verification is successful, the item is returned to its *Owner*. In other cases, the item may remain in custody until the retention period expires, after which it is considered unclaimed. Throughout this process, ownership is characterized by events such as loss, discovery, communication, temporary custody, claims attempts, and ultimately, return or expiration.

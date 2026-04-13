@@ -1,0 +1,246 @@
+=== *Implementation*
+==== *Selected Fragments of the Implementation*
+
+[NOTE]
+====
+The following fragments are extracted from the current implementation using
+React (TypeScript) and Supabase. They are included only where natural language
+alone would make architectural or behavioral explanations unnecessarily
+abstract. Each fragment directly supports a design decision explained in the
+accompanying text.
+====
+
+
+===== Authentication via UPR SSO (Supabase OAuth)
+
+The system relies on institutional authentication. Rather than managing
+passwords internally, authentication is delegated to the university’s SSO
+provider through Supabase OAuth integration.
+
+This supports three domain requirements:
+
+- Institutional identity verification
+- No password storage within the application
+- Stateless session validation using JWT
+
+The following fragment shows the login initiation from the React client:
+
+[source,tsx]
+----
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL!,
+  import.meta.env.VITE_SUPABASE_ANON_KEY!
+);
+
+export async function signInWithUPR() {
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: "azure", // UPR SSO provider
+    options: {
+      redirectTo: `${window.location.origin}/auth/callback`
+    }
+  });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+}
+----
+
+This fragment clarifies that:
+
+- Authentication is fully delegated to the identity provider.
+- The frontend never handles raw credentials.
+- Supabase manages token issuance and session persistence.
+
+
+===== Report Creation Flow (Lost / Found)
+
+[.added]#The system follows a *create-then-persist* workflow: first an in-memory report instance is constructed, then it is saved to the database. This separation clarifies the difference between a draft report (without system-assigned fields) and a stored record.#
+
+When a user reports a lost or found item, the system must:
+
+1. Validate structured input.
+2. Persist the record.
+3. Associate it with the authenticated user.
+4. Store images separately.
+
+[.added]#The following type hierarchy makes the lifecycle explicit:#
+
+[source,tsx]
+----
+// Domain types
+type ReportType = "lost" | "found";
+type UUID = string;
+
+// Abstract superclass for all reports
+abstract class Report {
+  constructor(
+    public readonly type: ReportType,
+    public readonly title: string,
+    public readonly description: string,
+    public readonly categoryId: UUID,
+    public readonly location: string,
+    public readonly eventDate: Date, // not just a string
+    public readonly imageUrl?: URL // not just a string
+  ) {}
+}
+
+// Input representation (before persistence)
+class ReportInput extends Report {}
+
+// Persisted representation (after persistence)
+class ReportPersisted extends Report {
+  constructor(
+    type: ReportType,
+    title: string,
+    description: string,
+    categoryId: UUID,
+    location: string,
+    eventDate: Date,
+    imageUrl: URL | undefined,
+    public readonly id: UUID,
+    public readonly userId: UUID,
+    public readonly status: "active" | "resolved" | "expired",
+    public readonly createdAt: Date
+  ) {
+    super(type, title, description, categoryId, location, eventDate, imageUrl);
+  }
+}
+----
+
+[.added]#The insertion function now follows a clear *create-then-persist* pattern: an input instance is created first, then its data is mapped to the database schema.#
+
+[source,tsx]
+----
+export async function createReport(input: ReportInput): Promise<ReportPersisted> {
+  // Authentication check
+  const {
+    data: { user },
+    error: authError
+  } = await supabase.auth.getUser();
+
+  if (authError || !user) {
+    throw new Error("User not authenticated");
+  }
+
+  // Prepare database record from the input instance
+  const dbRecord = {
+    type: input.type,
+    title: input.title,
+    description: input.description,
+    category_id: input.categoryId,
+    location: input.location,
+    event_date: input.eventDate.toISOString(), // serialize Date
+    image_url: input.imageUrl?.toString(),
+    user_id: user.id,
+    status: "active"
+  };
+
+  // Persist
+  const { data, error } = await supabase
+    .from("reports")
+    .insert([ dbRecord ])
+    .select()
+    .single();
+
+  if (error) {
+    throw error;
+  }
+
+  // Rehydrate a ReportPersisted instance
+  return new ReportPersisted(
+    data.type,
+    data.title,
+    data.description,
+    data.category_id,
+    data.location,
+    new Date(data.event_date),
+    data.image_url ? new URL(data.image_url) : undefined,
+    data.id,
+    data.user_id,
+    data.status,
+    new Date(data.created_at)
+  );
+}
+----
+
+[.changed]#These fragments demonstrate several architectural decisions:#
+
+- Authentication context is retrieved at runtime.
+- Ownership is enforced at insertion (`user_id` bound to session).
+- Status lifecycle begins as `"active"`.
+- Supabase Row Level Security (RLS) policies enforce access constraints.
+- [.added]#The class hierarchy separates *input* (no system fields) from *persisted* (with id, status, timestamps), making the create-then-persist workflow explicit.#
+- [.added]#Precise types (`Date`, `URL`, `UUID`) replace generic strings, improving maintainability and domain alignment.#
+
+[.changed]#Without this code, it would be difficult to concretely show how domain concepts such as *Reporting*, *Ownership*, and *Lifecycle State* are realized.#
+
+The diagram below illustrates the flow of data and control during report creation, highlighting the interaction between the React client and Supabase backend, as well as the enforcement of ownership and security policies:
+
+image::report-creation-flow.png[Report Creation Flow, align=center, pdfwidth=80%]
+_Figure 2.3.1. - 1. Report Creation Flow (React + Supabase)._
+
+As shown, the user initiates the report creation from the React client, which then interacts with Supabase to authenticate the user and insert the report into the database. The ownership of the report is established through the `user_id` field, and RLS policies ensure that only the owner can modify their reports.
+
+
+===== Row-Level Security (Ownership Enforcement)
+
+The domain requires that users can only edit their own reports. This is not
+enforced in the React client alone, but at the database layer through RLS.
+
+The following SQL policy fragment is deployed in Supabase:
+
+[source,sql]
+----
+CREATE POLICY "Users can update their own reports"
+ON reports
+FOR UPDATE
+USING (auth.uid() = user_id);
+----
+
+This fragment clarifies:
+
+- Authorization is enforced at the database level.
+- Client-side manipulation cannot bypass ownership rules.
+- Security logic is centralized and declarative.
+
+The policy operationalizes the abstract concept of *Claim Verification* and
+*Ownership Integrity* in the domain model.
+
+
+===== Image Upload Handling
+
+Images are optional but important for identification. Rather than storing
+binary data inside the reports table, images are stored in Supabase Storage
+and referenced via URL.
+
+[source,tsx]
+----
+export async function uploadImage(file: File): Promise<URL> {
+  const filePath = `reports/${crypto.randomUUID()}-${file.name}`;
+
+  const { error } = await supabase.storage
+    .from("report-images")
+    .upload(filePath, file);
+
+  if (error) throw error;
+
+  const { data } = supabase.storage
+    .from("report-images")
+    .getPublicUrl(filePath);
+
+  return new URL(data.publicUrl);
+}
+----
+
+This fragment illustrates:
+
+- Separation of structured metadata (PostgreSQL) and binary assets (Storage).
+- Use of UUID-based naming to avoid collisions.
+- Public URL generation without exposing storage internals.
+- [.added]#Explicit `URL` return type, reinforcing that the result is a well-formed URL, not an arbitrary string.#
+
+This design directly supports the domain behavior of *Matching* by enabling
+visual comparison while maintaining structural database normalization.

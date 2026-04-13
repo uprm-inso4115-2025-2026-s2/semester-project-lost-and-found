@@ -1,0 +1,56 @@
+= Research Report
+== Evaluation of Item-Matching Techniques for the UPRM Lost & Found Platform
+
+== 1. Introduction
+
+The UPRM Lost & Found platform aims to efficiently connect users who report lost items with those who report found items. Currently, matching appears to rely primarily on keyword-based or manual filtering techniques. While simple and computationally inexpensive, this approach has limitations in accuracy and semantic understanding.
+
+This research evaluates alternative item-matching techniques to improve match relevance, system reliability, and overall user experience.
+
+== 2. Objective
+
+To research, compare, and evaluate multiple text-matching techniques in order to determine the most effective approach for improving lost-and-found item matching accuracy.
+
+== 3. Current System Analysis
+
+=== Strengths
+* Easy to implement
+* Fast processing time
+* Low computational cost
+
+=== Limitations
+* Cannot detect synonyms (e.g., "backpack" vs. "bag")
+* Sensitive to typos
+* No contextual understanding
+* High risk of false negatives
+
+== 4. Techniques Researched
+
+=== 4.1 Keyword-Based Matching
+Matches items based on exact or partial string similarity.
+
+=== 4.2 TF-IDF (Term Frequency – Inverse Document Frequency)
+Measures word importance across descriptions and ranks similarity.
+
+=== 4.3 Embedding-Based Semantic Similarity
+Uses NLP models to convert descriptions into numerical vectors representing semantic meaning, allowing contextual comparison.
+
+== 5. Evaluation Metrics Considered
+
+* Precision (correct matches out of predicted matches)
+* Recall (correct matches out of total actual matches)
+* Overall match relevance
+* Technical feasibility within current system architecture
+
+== 6. Final Recommendation
+
+Implement a hybrid matching strategy:
+
+. Use keyword filtering for initial narrowing (performance optimization).
+. Apply embedding-based semantic similarity for ranking and final match scoring.
+
+This approach balances accuracy, scalability, computational efficiency, and feasibility.
+
+== 7. Conclusion
+
+Traditional keyword-based systems are insufficient for robust item matching in a real-world lost-and-found platform. Embedding-based semantic similarity significantly improves contextual understanding and match quality. A hybrid approach is recommended for optimal performance.

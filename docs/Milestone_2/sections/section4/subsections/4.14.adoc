@@ -1,0 +1,58 @@
+=== *Modeling What Could Go Wrong: Risk Analysis on Goal Models*
+
+==== Risk Analysis for the Lost & Found System
+:author: Fabian Acevedo (@FabianAcevedo1)
+
+The Lost & Found system allows users with UPRM accounts to report lost items, search reports, and contact other users to recover their items.
+Since the app involves user-generated content, personal contact information, and file uploads, there are several risks that may arise and affect
+the reliability, usability, and security of the platform. This document identifies possible risks, evaluates their likelihood and impact
+and provides mitigation strategies.
+
+===== Incorrect or False Reports
+Likelihood: High
+Impact: Medium
+A user may submit a report with incorrect information about an item (wrong location, description, or fake report).
+
+Mitigation Strategy:
+- Require structured input fields when creating a report
+- Allow users to update or delete reports
+- Include report timestamps and categories to help with verification
+
+===== Malicious File Uploads
+Likelihood: Medium
+Impact: High
+A user could try to upload non-image files like a .exe or .mp3 where an image should go.
+
+Mitigation Strategy:
+- Restrict accepted file formats to .png and .jpeg
+- Implement file validation in both frontend and backend
+
+===== Unauthorized Access to Contact Information
+Likelihood: Medium
+Impact: High
+Users without a UPRM account could attempt to access the contact information of report creators.
+
+Mitigation Strategy:
+- Implement a View Only mode for users without a UPRM account
+- Hide user contact information unless the viewer has a UPRM account
+- Require login with a verified UPRM account to interact with reports
+
+===== Report Status Inconsistency
+Likelihood: Medium
+Impact: Medium
+A report may incorrectly remain marked as “Lost” even after the item has been claimed or returned.
+
+Mitigation Strategy:
+- Provide clear status categories (Lost, Claimed, Returned)
+- Ensure backend updates are synchronized with the UI
+
+===== Duplicate Reports
+Likelihood: High
+Impact: Low
+Multiple users may submit reports for the same item, causing confusion.
+
+Mitigation Strategy:
+- Provide tags and search features to check existing reports
+- Encourage detailed descriptions and images
+
+---

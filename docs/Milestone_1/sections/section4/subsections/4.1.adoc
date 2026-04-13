@@ -1,0 +1,113 @@
+== *Specific Class Topics*
+
+=== *Domain Engineering*
+
+==== Domain Concept Formation and Abstraction
+
+During the domain acquisition phase, several concrete entities and events were identified in relation to the lost-and-found process. These include specific types of items (like wallets, keys, laptops), location (like classrooms, libraries, study areas), and roles (like students, faculty, staff). While these domain description units are useful for understanding the problem space, repeatedly referencing each individual phenomenom can make the domain narrative unnecessarily detailed and difficult to maintain. 
+
+To simplify the domain model and improve clarity across project documentation, these raw domain phenomena are abstracted into higher level domain concepts. These abstractions capture shared properties and behaviors among related entities and events, allowing the system domain to be described in a more concise and consistent manner.
+
+===== Identified Abstractions
+* Item
+
+- *Type:* Entity
+- *Phase:* Domain
+
+An Item represents any personal object that may be misplaced or discovered within the campus environment.  
+This abstraction groups specific belongings such as keys, identification cards, electronics, backpacks, and other personal property.
+
+* Participant
+
+- *Type:* Entity  
+- *Phase:* Domain  
+
+A Participant represents any individual who interacts with the lost-and-found process.  
+This abstraction includes students, faculty members, and staff who may act as *Owners* of lost items, *Finders* of discovered items, or claimants seeking to recover belongings.
+
+* Campus Location
+
+- *Type:* Entity  
+- *Phase:* Domain  
+
+A Campus Location represents any physical area within the UPRM campus where an item may be lost or found.  
+Examples include classrooms, study areas, libraries, laboratories, and common campus facilities.
+
+* Item Report
+
+- *Type:* Entity  
+- *Phase:* Domain  
+
+An Item Report represents the recorded description of a *Lost Item* or *Found Item* within the lost-and-found process.  
+This abstraction consolidates the information necessary to enable identification, Matching, and eventual Recovery.
+
+* Custody Context
+
+- *Type:* Behavior  
+- *Phase:* Domain  
+
+The Custody Context represents the state in which an item is temporarily held or documented while awaiting identification or recovery by its rightful *Owner*.
+
+* Recovery Process
+
+- *Type:* Behavior  
+- *Phase:* Domain  
+
+The Recovery Process represents the sequence of actions through which a *Lost Item* progresses from initial *Reporting*, through *Matching* and *Claim Verification*, until *Recovery* or *Closure* occurs.
+
+By introducing these abstractions, the Lost & Found domain can be described using consistent and reusable concepts rather than repeatedly referencing individual cases or object types. This improves the readability of the domain narrative and strengthens the conceptual structure of the system model. 
+
+
+==== *Domain Attributes*
+
+===== Domain Attributes in Authentication
+Author: Dylan M. Oliver Martinez
+Date: March 11, 2026
+
+==== User
+Person using the platform. Could be because they lost an item or found an item.
+
+===== Characteristics
+* *Discrete:* A user is a distinct entity with a unique account.
+* *Dynamic:* User status, actions, posts, and interactions change over time.
+* *Chaotic:* User behavior is unpredictable (they may lose items or find items).
+* *Intangible:* In the system, the user is represented digitally as a profile.
+* *Multi-dimensionality:* Users have multiple attributes (e.g., name, email, posts).
+
+==== Password
+Code selected by the user utilized to confirm the identity of the user.
+
+===== Characteristics
+* *Discrete:* A password is a specific string value.
+* *Static:* It remains the same until the user changes it.
+* *Intangible:* Exists only as data in the system.
+* *One-dimensionality:* Usually a single attribute (string value), though it has properties like length and complexity.
+
+==== Admin
+User with the ability to ban other users, delete posts and accounts, and manually change data from profiles.
+
+===== Characteristics
+* *Discrete:* Admins are distinct user accounts with elevated privileges.
+* *Dynamic:* Admins perform actions like banning users or deleting posts.
+* *Intangible:* Represented digitally in the platform.
+* *Multi-dimensionality:* Includes user attributes plus administrative permissions.
+
+==== Guest
+Users that can only view certain posts but cannot interact with them. Given to users that do not have an official UPR account.
+
+===== Characteristics
+* *Discrete:* Guests are a defined category of user.
+* *Static:* Their permissions remain limited unless they create an account.
+* *Dynamic:* They can browse content over time.
+* *Intangible:* Represented as a temporary or restricted digital user state.
+* *One-dimensionality:* Few attributes compared to registered users.
+
+==== Item
+An object that has either been lost by a user or found by a user.
+
+===== Characteristics
+* *Discrete:* Each item is a specific object.
+* *Dynamic:* Item status can change (e.i., lost, found, returned).
+* *Tangible:* The item exists physically in the real world.
+* *Chaotic:* Items can be lost or discovered unpredictably.
+* *Multi-dimensionality:* Attributes may include name, location, description, time lost/found, and owner.

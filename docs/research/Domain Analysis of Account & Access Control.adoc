@@ -1,0 +1,139 @@
+= Account, Access Control, and Identity Verification Analysis
+:toc:
+:icons: font
+
+== 1. Overview
+
+This research analyzes authentication, access control, and ownership verification requirements for the UPRM Lost & Found platform.
+
+The objective is to determine a secure, usable, and policy-compliant access model before implementation.
+
+This analysis follows Domain Engineering principles, including stakeholder identification, domain acquisition, concept formation, and domain attribute evaluation.
+
+== 2. Stakeholder Analysis
+
+The following stakeholder groups are relevant:
+
+- Students (item owners and finders)
+- IT Department (authentication system providers)
+- Platform moderators
+- General public (if public browsing is considered)
+
+Stakeholder perspectives differ:
+
+- Students prioritize ease of use and privacy.
+- IT prioritizes secure authentication integration.
+- Moderators require traceability and reliable ownership validation.
+- Public users (if allowed) require simple viewing access.
+
+These perspectives must be balanced in the access model.
+
+== 3. Authentication Integration Analysis
+
+The platform must integrate with the official UPR authentication system.
+
+Research considerations:
+
+- Identify supported authentication protocols (e.g., SAML, OAuth2, LDAP, CAS).
+- Determine available identity attributes (name, email, student ID).
+- Confirm whether accounts are pre-validated.
+- Evaluate single sign-on (SSO) capabilities.
+
+Assumption:
+UPR accounts are pre-validated and tied to official identity records.
+
+Implication:
+No additional identity proof is required at login, but authorization controls must still be enforced.
+
+== 4. Access Control Models
+
+Two primary models were evaluated:
+
+=== Model A: Fully Restricted Access
+
+- Only authenticated UPR users can access the platform.
+- All reporting, searching, and contacting require login.
+
+*Advantages:*
+- Stronger security
+- Reduced spam and misuse
+- Clear accountability
+
+*Disadvantages:*
+- No public visibility
+- Slightly higher access friction
+
+=== Model B: Hybrid Model
+
+- Reporting and contacting require authentication.
+- Viewing lost/found listings allowed without login.
+
+*Advantages:*
+- Broader accessibility
+- Lower friction for browsing
+
+*Disadvantages:*
+- Potential scraping risks
+- Increased complexity in permission handling
+
+Recommendation:
+Hybrid model with authentication required for any user interaction.
+
+== 5. Identity and Ownership Verification
+
+Marking an item as "returned" must require ownership validation.
+
+Ownership verification introduces potential for incorrect or fraudulent claims.
+
+This process is classified as a *biddable dynamic domain behavior*:
+
+- Users may submit inaccurate claims.
+- The system must validate before allowing state transition.
+
+Proposed verification workflow:
+
+1. Authenticated user submits ownership claim.
+2. User provides private verification fields:
+   - Serial number (if applicable)
+   - Non-public description details
+   - Contact confirmation
+3. Moderator reviews claim.
+4. Item status transitions:
+   reported → claimed → verified → returned
+
+Hybrid option:
+Automated checks combined with manual review.
+
+== 6. Domain Attributes
+
+The access control subsystem exhibits:
+
+- Discrete events (login, claim submission, approval decision)
+- Dynamic state transitions (item lifecycle changes)
+- Biddable behavior (ownership claims may be unreliable)
+- Reactive system responses (authorization checks after login)
+
+These attributes influence system architecture and validation logic.
+
+== 7. Privacy and Security Considerations
+
+The system must:
+
+- Store minimal identity data.
+- Protect private verification fields.
+- Restrict visibility of sensitive information.
+- Ensure secure transmission (HTTPS).
+
+Private ownership verification data must never be publicly visible.
+
+== 8. Final Recommendation
+
+- Integrate with official UPR single sign-on authentication.
+- Require authentication for reporting and contacting users.
+- Allow optional public read-only browsing (hybrid model).
+- Implement structured ownership verification workflow.
+- Require confirmation before marking items as returned.
+- Use role-based access control (RBAC).
+- Store only necessary identity attributes.
+
+This approach balances security, usability, accountability, and privacy.

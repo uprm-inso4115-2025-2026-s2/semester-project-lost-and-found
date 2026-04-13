@@ -1,0 +1,3 @@
+==== *Synopsis*
+
+The Lost and Found project aims to support students and faculty at the University of Puerto Rico Mayagüez by providing a centralized online platform for reporting and discovering misplaced personal belongings within campus. By improving visibility and coordination around lost and found items, the initiative seeks to increase successful recoveries while protecting user privacy and limiting access to the institutional community. The platform focuses solely on facilitating reporting and discovery, without managing physical storage or extending beyond the UPRM campus. 

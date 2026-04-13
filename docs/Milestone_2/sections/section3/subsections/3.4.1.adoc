@@ -1,0 +1,466 @@
+=== *Requirements Analysis and Conflict Resolution*
+
+[.added]
+==== *Inconsistency Analysis*
+
+[discrete]
+==== Requirements Inconsistencies 
+
+===== A) Types of Requirements classes identified on the project
+
+After reviewing the project documentation, the following requirements clashes were identified:
+
+====== *Terminology clash*
+
+[NOTE]
+====
+Terminology clash: same concept named differently in different statements
+====
+
+In the project Requirements there are some terminology clashes:
+
+1. The use of "registered UPRM community member" vs. "users"  to refer to the same concept.
+
+Important Note: All users of the system must be authenticated via the institutional email upr.edu, therefore:
+All users are any person authenticated via the institutional e-mail: upr.edu who are part of the Mayagüez Campus
+
+
+Examples in the Requirements:
+
+Reporting Requirements:
+
+____
+"The system shall allow a registered UPRM community member to create a Report for a Lost
+Item."
+____
+
+vs.
+
+Interface Requirements:
+____
+"The login page must initiate the UPR.edu authentication redirect and inform users about required access for interactions."
+____
+
+Candidate Solution:
+
+- Clarify the definition of "user" in the terminology section of the project documentation
+User : Any person authenticated via UPR institutional e-mail : upr.edu who is part of the Mayagüez Campus(Universidad de Puerto Rico recinto de Mayagüez)
+
+- Replace all occurences UPRM community member in the requirements with "users" 
+Example:
+
+*Before:*
+Reporting Requirements:
+
+"The system shall allow a registered UPRM community member to create a Report for a Lost
+Item."
+
+*After:*
+The system shall allow a registered *user* to create a Report for a Lost
+Item
+
+====== *Designation Clash*
+
+[NOTE]
+====
+Designation clash: same name for different concepts in
+different statements
+====
+
+After reviewing the requirements and the terminology section of the project documentation, no clear designation clashes were identified. All terms
+are  used consistently according to their definitions. 
+
+
+====== *Structure clash:*
+
+[NOTE]
+====
+Structure clash: same concept structured differently in
+different statements
+====
+
+1. General Location is used in a very ambiguous and inconsistent way, across different parts of the requirements. The general location could refer to different locations.
+In terms of the system it could also refer to different location representations : free text input, map location or  predefined location points. 
+
+For example:
+
+Interface Requirements:
+
+____
+"The system must provide a public view for item details showing only public fields (category, description, photos, general location) and a prompt to log in to
+contact the owner."
+____
+
+and
+
+____
+"Report creation forms (Lost/Found) must include structured fields with validation, such as category dropdown, description,location picker, photo
+uploader, and private fields."
+____
+
+Candidate Solution: 
+
+- Define the term "General Location" in the Terminology section with a consistent meaning
+Keeping in mind that general location could refer to the place an item was lost/found or the place the found item can be retrieved
+To do so, define sub categories of general location. 
+
+Example:
+
+- Lost/Found Location: location where the item was lost or found 
+- Pickup/ return location: location where the owner or finder can physically retrieve or pickup an item (e.g. Library, student center, cafeteria, common areas) 
+
+- Replace ambigous mentions, and apply the new different terms on the requirements
+
+====== *Strong Conflict:*
+
+[NOTE]
+====
+Strong conflict: statements not satisfiable together
+====
+
+After reviewing the project requirements, no strong conflicts were identified. In general, no requirement contradicts or prevents the implementation of other requirement.
+
+====== *Weak Conflict*
+
+[NOTE]
+====
+Weak conflict (divergence): statements not satisfiable together under
+some boundary condition
+====
+
+Important Note: We are going to go more in depth for this type of requirement clash on the following point.
+
+Weak conflicts can be seen on the administrative oversight requirements.
+____
+"Administrators shall be able to override Report status in cases of misuse or verified dispute."
+____ 
+
+vs. 
+
+____
+"Closed Reports shall remain recorded for reference but shall be clearly distinguishable from Active Reports in search results."
+____
+
+===== B) Weak Inconsistencies Requirements and boundary conditions
+
+|===
+|*Weak Inconsistencies* |*Boundary Condition* | *Possible Risk* | *Possible Solution*
+
+|1. "Administrators shall be able to override Report 
+status in cases of misuse or verified dispute." 
+
+vs.
+
+"Closed Reports shall 
+remain recorded for reference but shall be clearly distinguishable from
+Active Reports in search results."                                                
+
+|Administrator opens a closed report
+|Report status may cause confusion. Traceability changes may also occur
+|Restrict overrides and audit them.Clearly notify/show the users the overridden status in the UI 
+
+
+|2. "The system shall record status transitions
+from Active to Returned or Closed."
+
+vs.
+
+"Administrators shall be able to override
+Report status in cases of misuse or verified dispute."
+
+|Administrator changing report status without a verified reason 
+|Inconsistency between the system report status and the actual report lifecycle
+|Justification must be provided for manual status changes. The user must be notified of every change and the reason. Use timestamps for traceability
+
+                                                                        
+|3. " The system shall record status transitions from Active to Returned or Closed."
+
+vs.
+
+"The system shall allow a Report to be manually closed if Recovery is no longer expected"
+
+|If a report is manually closed, the system will have a Report that transitions from Active to  Closed, without passing through returned
+|Inconsistent status lifecycle 
+|Update workflow rules to allow( In such specific cases) direct Active to Closed transitions. Clearly identify this exceptions 
+
+
+|4. "The system shall distinguish between public descriptive information and private verification information within each Report." 
+
+vs.
+
+"The system must provide a public view for item details showing only public fields (category, description, photos, general location) and a prompt to log in to contact the owner."
+
+vs.
+
+"The system shall allow users to search Reports based on keywords related to the item description"
+
+|The system fails to separate public from private information or the user accidentally includes private verification information on the item description. 
+|Private information leaked due to improper separation of public and private data 
+|Clearly identify and label fields public and private. Inform users that important private information needs to be on the specified fields otherwise their private information could be leaked or could lead to scams.Validate user input and enforce strict field level access control  
+
+|5. "The system shall distinguish between public descriptive information and private verification information within each Report."
+
+vs.
+
+"The system shall present search results in a manner that supports comparison between Lost Item and Found Item Reports for Matching purposes."
+
+vs. 
+
+"The system shall support the identification of potential matches between Lost Item and Found Item Reports."
+
+vs. 
+
+"The system shall allow a Report to be manually closed if Recovery is no longer expected."
+
+vs.
+
+"Closed Reports shall remain recorded for reference but shall be clearly distinguishable from Active Reports in search results."
+
+|Closed reports information is included in the matching algorithm and search results alongside Active reports
+|Users  or the system may attempt to match a closed report 
+|Exclude closed reports from keywords, search and matching suggestions. Visually distinguish (it could be by using a label or just by hiding the report from user view) closed from open reports.
+                                                                   
+|===
+
+===== C) Further Elicitation
+
+To better understand and resolve the identified requirements inconsistencies the following elicitation techniques are required:
+
+- Interview with stakeholders  to help us answer and determine the following questions: What are their needs? , What do they want/expect from our system/platform?
+- Meetings and Brainstorming sections between the project team to clarify important concepts and keep consistency around requirements(and documentation in general)
+
+Further elicitation for identified(3) weak inconsistencies cases :
+
+[NOTE]
+====
+The following questions  represent an initial draft used to guide analysis. They were improved and simplified for stakeholders clarity, removing some technical aspects/terms.
+The simplified version is presented on section E) "Questionarie to Stakeholders"
+====
+
+
+====== Case 1: 
+
+Conflict: 
+
+____
+"Administrators shall be able to override Report 
+status in cases of misuse or verified dispute." 
+____
+vs.
+____
+"Closed Reports shall 
+remain recorded for reference but shall be clearly distinguishable from
+Active Reports in search results." 
+____
+
+Questions to ask to the stakeholders in the interview:
+
+- Under what circumstances should an administrator override the report status?
+- How can the original report user be notified of the override? Will the reasons of the override be clearly detailed and disclosed ?
+- Should the system keep a history of changes(logs) of all  status changes, clearly identifying by who  the changes were made?
+- How should overwritten reports appear on the system(e.g. search results)? Should they have a special label or flag? or should they just appear as any other report? Do other users navigating the platform  know that report was overwritten? Will those external users, know the causes of the overwritten? Will  the reasons be shown or hide to the users?
+- If a "Closed" report is Re-open, how is  this going to impact/affect the matching algorithm and search results?
+- After an override will there be a new status such as "Overridden" or will they remain as (e.g. "Active" , "Closed")
+
+====== Case 2:
+
+Conflict:
+
+____
+"The system shall record status transitions from Active to Returned or Closed." 
+____
+vs.
+____
+"The system shall allow a Report to be manually closed if Recovery is no longer expected"
+____
+
+For this case conflict, I am also referencing this other requirement: "Administrators shall be able to override Report 
+status in cases of misuse or verified dispute."
+
+Questions for stakeholders:
+
+- Should there be conditions before a user is able to manually close a report? 
+- If a user wants to close a report without it being returned, in other words, if the status of the reports goes from "Active" to "Closed" without being "Returned", how is the system expected to manage such cases?
+- Under what conditions could that change of states be possible(if the previous question was affirmative)? Do users need a special permission or will administrators override the report status?
+- Should users provide a reason for why they want to close an issue without it being returned?
+- In such cases, who is allowed to manually close the report administrators or users?
+
+====== Case 3:
+
+Conflict:
+____
+"The system shall distinguish between public descriptive information and private verification information within each Report."
+____
+vs. 
+____
+"The system must provide a public view for item details showing only public fields (category, description, photos, general location) and a prompt to log in to contact the owner." 
+____
+vs. 
+____
+"The system shall allow users to search Reports based on keywords related to the item description"
+____
+
+Questions for stakeholders:
+
+- What fields are considered as private verification information?
+- How should users be warned if they accidentally expose private information?
+- In such cases, how will the system  find/validate if the information is private or public?
+- How would the system determine if private information is exposed?
+- What will be the corrective actions once the system finds that private information has been made public? How is the system going to protect this private information if exposed? What is the corrective pan?
+
+
+
+===== D) Resolutions Tactics and Risk Reduction Techniques
+
+Based on Lecture Notes, the following tactics could be used to resolve or handle weak conflicts:
+
+====== *1)  Administrators override report status*
+
+Conflict resolution tactic: Weaken conflicting statements
+
+
+Solution:
+
+- Allow overrides only under verified disputes, with mandatory justification and user notification disclosing the reasons of the override
+
+- Keep a history of changes(log) to audit all the changes with timestamps 
+
+Risk reduction tactic: Reduce Risk likelihood
+Reason: The recommended solution decreases the risk of confusion by providing justifications with timestamps, visible to the report creator.
+
+
+====== *2) Active to Returned to Closed vs. manual closure*
+
+
+Conflict resolution tactic: Restore conflicting statement
+
+Solution:
+
+- Allow direct Active to Closed transitions under specified conditions and flag these exceptions in the system.
+
+Example of what could this expecified conditions exceptions be :
+
+- A user finds the reported lost item without  it being reported as found in the website/system. In other words, without the help of the system.
+This is a valid reason for skipping the "Returned" state
+
+Risk Reduction Tactic: Avoid Risk
+Reason: The recommended solution avoids the risk by clearly defining the conditions under which manual closure is allowed, flagging  and allowing these exceptions in the system.
+
+====== *3) Public information vs. Private fields*
+
+
+Conflict resolution tactic: Introduce new requirement
+
+Solution:
+
+- Use strict-field level access control, labeling and validation. Users cannot enter private information on public fields. Notify the users if necessary to avoid them accidentaly posting private information un public fields like item description, before submission.
+
+Risk reduction tactic:  Reduce consequence likelihood
+Reason: This proposed solution, validates the information and notify the users before submission.
+
+====== *4) Closed reports appearing in matching/search* 
+
+
+Conflict resolution tactic: Avoid boundary condition
+
+Solution:
+
+- Exclude those reports from matching  algorithms and match suggestions, while keeping them  visible in search results for reference, in compliance with the requirement:  "Closed reports shall remain recorded for reference"
+- Visually separate them in search results 
+- Flag them or use a label, to let users know that the report is closed 
+
+Risk Reduction Tactic: Avoid risk consequence
+Reason: Closed reports are excluded from matching and keywords. Only visible in  search results for reference
+
+====== *5)Terminology : User vs UPRM community members*
+
+Conflict resolution tactic: Specialize conflict source
+
+Solution:
+
+- Define User = authenticated UPRM community member
+- Replace all inconsistent terms
+
+Risk Reduction tactic: Mitigate risk consequence
+Reason: all references to users are standardized as "authenticated UPRM community members" in documentation to prevent misinterpretation. 
+
+===== E) Questionarie to Stakeholders
+Questionarie questions are based on the 3 cases of weak inconsistencies identified on point C : "Further elicitation for identified(3) weak inconsistencies cases ":
+The questions were improved for clarity,  removing technical terms and splitting them to facilitate the recovery of information and avoid stakeholders confusion.
+
+
+*Stakeholder Questionnaire: Lost and Found project*
+
+General Questions:
+
+1. What are your main expectations for the Lost and Found website?
+2. Are there any essential features you consider critical?
+
+
+
+(The following questions were obtained from identified  weak inconsistencies in requirements)
+
+====== *A) Report status override*
+
+Context: 
+
+- Administrators can override status
+- Closed reports must remain visible but distinguishable
+
+Questions:
+
+1. Under what circumstances should an administrator be allowed to override a report status?
+
+2. Should users be notified when the report status is overriden?
+
+3. If yes, how can the user be notified of the override? Will the reasons of the override be clearly detailed and disclosed ?
+
+4. Should the system keep a history of changes(logs) of all  status changes, clearly identifying by who  the changes were made?
+
+5. How should overwritten reports appear on the system(e.g. search results)? Should they have a special label or flag? or should they just appear as any other report?
+
+6. Should other users be able to see the reason for the override?
+
+7. After an override, should there be a new status such as "Overridden" or should the reports reuse existing statuses(e.g. "Active" , "Closed")
+
+
+====== *B) Manual closing Lost or Found Reports*
+
+Context: 
+
+- Reports lifecycle goes from Active(Open report) to Returned to Closed
+- Users may manually close reports
+
+Questions:
+
+1. Should there be any conditions before a user is able to manually close a report? 
+
+2. If a report is closed without it being returned, how should the system handle it?
+
+3. Do users need a special permission or should administrators override the report status?
+
+4. Should users be required to provide a reason when closing a report?
+
+5. Who should be allowed to manually close the report, administrators ,  users or both?
+
+====== *C) Public vs Private Information*
+
+Context: 
+
+- Reports contain public and private information
+- Users can search items based on keywords 
+- Users can view item details from public fields such as category, description, photos
+
+Questions:
+
+1. What information should be considered private?
+
+2. Should the system warn users if they accidentally expose private information? 
+
+3. In such cases, how should the system  automatically detect if the information is private or public?
+
+4. How should the system determine if private information is exposed?
+
+5. What should be the corrective actions once the system finds that private information has been made public? 
+
+6. How should the system protect private information if it is exposed? 

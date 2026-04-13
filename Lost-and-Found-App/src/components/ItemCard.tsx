@@ -107,7 +107,6 @@ export const ItemCard: React.FC<ItemCardProps> = ({
 
         <div className="metaRow">
           <span className="metaPill">
-            
             <span className="icon">📅</span>
             {dateLabel}
           </span>

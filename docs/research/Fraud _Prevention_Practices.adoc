@@ -1,0 +1,115 @@
+= Fraud Prevention Practices Used By Other Platforms
+Author: Dylan Oliver Martinez
+Date: February 14, 2026
+
+
+== Facebook Marketplace
+
+=== Fraud Protection Features
+
+Community reporting with social consequences
+
+Transaction history visible to some users
+
+Payment protection for shipped items
+
+Profile scoring algorithm
+
+=== Strengths
+
+Tied to user's Facebook account  there is a  high accountability through real identities
+
+
+=== Weaknesses
+
+Privacy concerns with personal information exposure
+
+Limited seller verification for new accounts
+
+
+== eBay
+
+=== Fraud Protection Features
+
+Money Back Guarantee for buyers
+
+Seller performance metrics
+
+Dispute resolution center
+
+=== Strengths
+
+Reputation system
+
+Strong buyer protection 
+
+Sophisticated fraud detection algorithms
+
+Multiple verification tiers
+
+=== Weaknesses
+
+Reputation manipulation possible (fake reviews, account buying)
+
+Complex for casual or infrequent users
+
+
+== OfferUp
+
+=== Fraud Protection Features
+
+Government ID verification 
+
+User ratings and reviews
+
+Meetup safety features (example: meeting in public places)
+
+Transaction monitoring for suspicious patterns
+
+=== Strengths
+
+Strong focus on local meetup safety
+
+
+== Common Verification Methods Used Across Platforms
+
+Users build verified ratings after transactions, creating long-term trust signals
+
+In-app holding of funds until delivery confirmation.
+
+Buyer protection programs that refund in case of fraudulent behavior
+
+
+====
+Although these methods function successfully for most platforms, all these would have a difficulty being adapted to a lost and found based platform where no monetary exchange is expected and based on the items and not on the users.
+====
+
+== Conclusion: Applicability to Lost & Found Platforms
+
+Research shows that successful online marketplaces rely on a multi-layered trust and fraud prevention approach, combining identity verification, reputation systems, financial protections, and behavioral monitoring. However, the models used are primarily designed for transaction-based marketplaces involving monetary exchange. 
+
+=== Recommended Approach for Lost & Found Platforms
+
+Instead of payment-heavy protection systems adapted from e-commerce, the platform should prioritize:
+
+. Proof-of-Ownership Validation
+.. Require detailed item descriptions matching finder-submitted photos
+.. Enable private verification questions 
+.. Implement visual matching tools
+
+. Strong Reporting & Moderation Tools
+.. Manual review queue for flagged listings
+
+. Platform-Controlled Communication
+.. Clear guidance on public meetup locations
+
+
+=== References
+
+Facebook Transparency Center: https://transparency.fb.com
+
+eBay Verified Rights Owner Program : https://www.ebay.com/help/policies/listing-policies/verified-rights-owner-program
+
+OfferUp Trust & Safety: https://offerup.com/trust
+
+OfferUp TruYou Verification: https://offerup.com/truyou

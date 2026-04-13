@@ -1,0 +1,137 @@
+= Research: Automatic Lost/Found Match Detection 
+Author: Lianette Alberto
+Date: February 2026
+:toc:
+
+== Overview
+
+Defines the system-generated algorithm for detecting potential matches between Lost and Found reports.
+
+NOTE:
+This runs automatically in the backend to generate match suggestions.
+
+---
+
+== Comparable Fields
+
+Reports include:
+
+* Category
+* Brand
+* Color(s)
+* Distinctive features
+* Location (building/zone)
+* Time window
+* Title + Description (text)
+
+Derived fields:
+* Normalized tokens
+* Extracted keywords (brand, color, material, engraving, etc.)
+
+---
+
+== Match Scoring Strategy
+
+Each similarity component returns a value in [0,1].
+
+Weights:
+
+* Category → 0.25
+* Text similarity → 0.30
+* Time proximity → 0.15
+* Location proximity → 0.20
+* Visual hints → 0.10
+
+Final score:
+
+----
+score = 100 * (
+  0.25*category +
+  0.30*text +
+  0.15*time +
+  0.20*location +
+  0.10*hints
+)
+----
+
+---
+
+== Thresholds
+
+* Strong Match → >= 75
+* Possible Match → 55–74
+* Ignore → < 55
+
+Guardrails:
+* If category = 0 and text < 0.25 → cap score at 49
+* If category + brand match → minimum score floor = 60
+
+---
+
+== Example Scenarios
+
+=== 1. Strong Match (Phone)
+Lost: "Black iPhone 13 with red sticker and cracked screen."
+Found: "Black iPhone with cracked screen and red sticker."
+
+→ High category, text, location, time  
+→ Score > 85 → Strong
+
+=== 2. Possible Match (Wallet)
+Lost: "Brown leather wallet near Student Center."
+Found: "Found brown leather wallet near cafeteria."
+
+→ Moderate similarity  
+→ Score ~65 → Possible
+
+=== 3. Rejected
+Lost: "White AirPods case."
+Found: "White water bottle."
+
+→ Category mismatch  
+→ Score < 55 → Not suggested
+
+---
+
+== MVP Pseudocode
+
+[source]
+----
+for each open lost report L:
+  for each open found report F:
+
+    cat   = category_similarity(L, F)
+    text  = text_similarity(L.text, F.text)
+    time  = time_proximity(L.time, F.time)
+    loc   = location_proximity(L.location, F.location)
+    hints = visual_similarity(L, F)
+
+    score = weighted_sum(cat, text, time, loc, hints)
+
+    apply_guardrails(score)
+
+    if score >= 75 → label = "strong"
+    else if score >= 55 → label = "possible"
+    else skip
+
+    store suggestion(L.id, F.id, score, label)
+----
+
+---
+
+== Separation from #32
+
+* Runs automatically (triggered on report creation/update)
+* Stores match suggestions
+* Not influenced by user search inputs
+
+---
+
+== Testing Plan
+
+* Simulate 10 lost + 10 found reports
+* Verify:
+  - Strong matches >= 75
+  - Possible matches 55–74
+  - No false positives for different categories
+* Ensure correct matches appear in top 3 results

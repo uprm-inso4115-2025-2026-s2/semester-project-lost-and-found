@@ -1,0 +1,22 @@
+=== *Derived Goals*
+
+==== Improve Recovery Outcomes
+The primary operational goal is to increase the likelihood that **Lost Items** are successfully returned to their **Owners**. This includes reducing unresolved cases and shortening the average time between **Reporting** and **Recovery** within the UPRM campus context.
+
+==== Promote Transparency and Trust
+The system must foster confidence among students and faculty by ensuring that **Reporting**, **Matching**, and **Closure** processes are clear and accountable. Controlled visibility of information and responsible handling of data are essential to maintaining institutional trust.
+
+==== Ensure Privacy and Responsible Data Handling
+Given the institutional environment and policy alignment requirements, the project must minimize unnecessary data exposure and restrict access to verified UPRM community members. Privacy protection is not only a technical consideration but a guiding project objective.
+
+==== Maintain Clear Scope Boundaries
+The project must remain strictly within its defined span: supporting digital reporting and discovery within UPRM. It deliberately avoids physical item management, dispute mediation, financial transactions, or inter-campus expansion. Maintaining these boundaries prevents scope creep and ensures feasibility.
+
+==== Prioritize Usability and Accessibility
+Because the system serves a diverse academic community, it must be intuitive and accessible. **Reporting** and **Searching** should require minimal effort, encouraging consistent participation and reducing abandonment of recovery attempts.
+
+==== Support Sustainable Development and Maintainability
+The project should be structured to allow future teams to understand, maintain, and extend the platform if needed. Clear documentation, architectural planning, version control practices, and coordinated teamwork are essential supporting goals.
+
+==== Encourage Collaborative Team Execution
+Given the division of responsibilities across multiple teams (authentication, search, reporting, moderation, documentation), coordination and integration are critical goals. Parallel documentation, testing, and review processes must support development rather than follow it.
