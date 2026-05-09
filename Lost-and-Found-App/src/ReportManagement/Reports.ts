@@ -174,7 +174,7 @@ export class Report {
       description: this.description,
       dateFound: this.dateFound,
       location: this.location,
-      category: this.category,
+      category: this.getCategory(),
       tags: this.tags,
       imageURL: this.imageUrl,
       createdBy: this.createdBy,
