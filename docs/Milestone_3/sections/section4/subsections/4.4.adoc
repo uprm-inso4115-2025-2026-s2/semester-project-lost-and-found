@@ -1,0 +1,199 @@
+=== *Requirements Specification & Documentation*
+
+==== Requirements Traceability and Inventory Lifecycle
+:author: Adriel Bracero Gonzalez
+
+===== Executive Summary
+This lecture topic task connects *requirements traceability* to the Inventory and Item Lifecycle design for the Lost and Found application. The purpose is to show how requirements should be linked back to their sources, mapped forward to lifecycle states, and verified through tests or review. In the project, traceability helps the team keep track of why each feature exists, which stakeholder or risk motivated it, and how it supports the inventory flow from reported to disposed.
+
+This document builds directly on the prior work already completed for the project: stakeholder analysis, inventory lifecycle research, search/tagging/filtering research, and risk assessment. The result is a structured requirements traceability matrix (RTM) that can be used during development, testing, and future change requests.
+
+===== Scope and Objective
+*Scope:* Traceability for the inventory lifecycle, including item intake, cataloging, storage, claim handling, verification, retention, disposal, search/filtering, privacy, and audit logging.  
+
+*Objective:* Define a clear RTM that links requirements to source documents, lifecycle states, and verification methods so the team can check coverage, detect gaps, and reduce ambiguity.
+
+===== Why Traceability Matters
+Requirements traceability is useful because it answers four questions:
+- Where did this requirement come from?
+- Which lifecycle state or feature does it affect?
+- How will we verify it?
+- What breaks if we remove it?
+
+For a lost-and-found system, traceability is especially important because the inventory lifecycle touches privacy, safety, ownership verification, custody logging, and eventual disposal. A missing requirement in any of those areas can create real operational risk.
+
+===== Traceability Flow
+[source,asciidoc]
+----
+Stakeholder need / risk / requirement source
+                ↓
+         Requirement statement
+                ↓
+      Inventory lifecycle state(s)
+                ↓
+      Design feature / user story
+                ↓
+      Verification method / test
+----
+
+===== Source Legend
+To make the RTM easier to read, the source codes below are used in the matrix:
+
+- *STK* = stakeholder analysis and personas
+- *INV* = inventory lifecycle research
+- *SFR* = search / tagging / filtering research
+- *RISK* = risk assessment research
+- *LEG* = legal / records / retention needs
+
+===== Requirements Traceability Matrix (RTM)
+[cols="1,2,1,1,1",options="header"]
+|===
+|Req ID |Requirement |Source(s) |Lifecycle state(s) |Verification method
+
+|REQ-01
+|The system shall capture item title, description, photo(s), and found-at location/time during intake.
+|STK-01, INV-01
+|reported, cataloged
+|Form validation test; intake workflow review
+
+|REQ-02
+|The system shall support keyword search, tag search, and filtered discovery for found items.
+|SFR-01, STK-02
+|reported, stored
+|Search test cases; filter acceptance test
+
+|REQ-03
+|The system shall create a pending-claim record and notify staff when an owner starts a claim.
+|STK-02, RISK-01
+|pending_claim, claimed
+|Integration test; claim workflow walkthrough
+
+|REQ-04
+|The system shall append an immutable custody-log entry for every status change or physical transfer.
+|INV-02, RISK-03
+|cataloged, stored, claimed
+|Log audit; immutability review; unit test
+
+|REQ-05
+|The system shall enforce role-based access control for reporting, cataloging, verification, and disposal actions.
+|STK-03, RISK-04
+|all states
+|Permission matrix test; role simulation
+
+|REQ-06
+|The system shall mark sensitive items for restricted handling and require extra approval before release.
+|RISK-05, STK-04
+|reported, cataloged, pending_claim
+|Sensitive-item scenario test; staff review
+
+|REQ-07
+|The system shall minimize public PII (Personally Identifiable Information) and use mediated communication instead of exposing direct finder contact.
+|RISK-02, STK-01, STK-02
+|reported, pending_claim
+|Privacy review; UI inspection; token flow test
+
+|REQ-08
+|The system shall compute retention periods and disposal eligibility based on item category or policy tier.
+|INV-03, LEG-01
+|stored, disposed
+|Policy configuration test; hold-period calculation test
+
+|REQ-09
+|The system shall export custody and disposal history for audit or dispute resolution.
+|RISK-03, LEG-02
+|claimed, disposed
+|export test; audit review
+
+|REQ-10
+|The system shall restrict lifecycle transitions so items can only move through valid states.
+|INV-04, RISK-04
+|all transitions
+|State-machine test; invalid-transition test
+|===
+
+===== Lifecycle Coverage Matrix
+The table below shows how each lifecycle state is covered by the RTM.
+
+[cols="1,2,1",options="header"]
+|===
+|Lifecycle state |Requirements that support it |Coverage notes
+
+|Reported
+|REQ-01, REQ-07, REQ-10
+|Reporting must capture metadata, protect PII, and start only valid workflows.
+
+|Cataloged
+|REQ-01, REQ-04, REQ-05, REQ-06, REQ-10
+|Cataloging requires intake data, custody logging, proper permissions, and sensitive-item handling.
+
+|Stored
+|REQ-04, REQ-05, REQ-08, REQ-09, REQ-10
+|Storage must preserve custody history, support retention rules, and remain auditable.
+
+|Pending claim
+|REQ-03, REQ-06, REQ-07, REQ-10
+|Claims need mediated communication, extra checks for sensitive items, and valid transitions.
+
+|Claimed
+|REQ-03, REQ-04, REQ-05, REQ-09, REQ-10
+|Claim completion should be auditable, authorized, and traceable.
+
+|Disposed
+|REQ-08, REQ-09, REQ-10
+|Disposal must respect hold periods, keep history, and allow only valid final transitions.
+|===
+
+===== How Requirements Traceability Helps the Project
+Requirements traceability improves the project in three ways:
+- It keeps requirements aligned with stakeholder needs and lecture concepts.
+- It reveals missing coverage before coding starts.
+- It makes later change management easier because the team can see what a requirement depends on and what it affects.
+
+For the Lost and Found system, this is especially useful because features like claim verification, custody logs, privacy controls, and disposal rules all depend on one another. Traceability helps the team avoid building isolated features that do not support the full lifecycle.
+
+===== References
+- "System Requirements Definition." *Systems Engineering Body of Knowledge (SEBoK)*, https://sebokwiki.org/wiki/System_Requirements_Definition.
+- "Requirements Management." *Systems Engineering Body of Knowledge (SEBoK)*, https://sebokwiki.org/wiki/Requirements_Management.
+- "Requirements in Model-Based Systems Engineering (MBSE)." *Software Engineering Institute Blog*, Carnegie Mellon University, 22 Feb. 2021, https://www.sei.cmu.edu/blog/requirements-in-model-based-systems-engineering-mbse/.
+
+
+
+
+===== State Machine Diagram for Authentication/Verification
+Author: Dylan M. Oliver Martinez
+Date: March 30, 2026
+
+====== Functions
+sign up: refers to the action of a new user creating an account
+
+create account:   function that creates a new user account; this account uses the phenomena of username, email, phone number, and password 
+
+check duplicate details: function that checks if there exists another of a username, email, or phone number in the database
+
+verify email: function that sends an email to the users email address, to verify that the account belongs to the owner of the specified email address 
+
+log in: refers to the action of an already existing user accessing their account
+
+====== Phenomena 
+
+account:  person using the platform; could be because they lost an item or found an item
+
+username: the string that would be used an account
+
+email: digital address that will be used to identify an account and for other users to communicate with each other
+
+phone number: string that will be utilized to identify an account and for other users to communicate with each other
+
+password: code selected by the user utilized to confirm the user's identity 
+
+====== Other Concepts:
+
+enter: type a username, email, or phone number into its respective field. When the account is created, it will be registered  into the database
+
+duplicate: a given username, email, or phone number already exists in the database
+
+====== State Machine Diagram
+
+Below is the state machine diagram that demonstrates the behavior of the sign up/ log in and authentication for users.
+
+image::state_machinediagram_authentication.png[caption="State Machine Diagram for Authentication/Verification",width=800,align ="center"]
