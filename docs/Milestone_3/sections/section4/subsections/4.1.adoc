@@ -1,0 +1,2066 @@
+== *Specific Class Topics*
+
+=== *Domain Engineering*
+
+==== Domain Attributes - Settings
+:author: Keishlyany Sanabria (@keisanabria)
+
+*Framework:* Schütz-Schmuck, M. (2021). _Domain Attributes_. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+===== Overview
+
+This document characterizes the domain attributes of the app's *Settings* section using the four-category framework from the UPRM domain attributes lecture. The analysis guides future modeling and design decisions by identifying how each setting field behaves with respect to continuity, dynamics, tangibility, and dimensionality.
+
+===== Continuity vs. Discreteness
+
+The lecture defines *discrete* phenomena as those modeled by a map (function on a countable set), where the domain takes on specific values at given states, with transitions triggered by input stimuli. *Continuous* phenomena, by contrast, are modeled by functions over uncountable domains (for example, time). *Hybrid* phenomena combine both.
+
+All settings in the Settings section are *discrete*. Each setting takes on a value from a finite, countable set, and changes only when the user explicitly applies a new value. No setting interpolates between values over time.
+
+The discrete settings break down into three sub-types:
+
+[cols="1,2,1", options="header"]
+|===
+| Sub-type | Examples | Domain
+
+| *Boolean*
+| Push notifications on/off, dark mode enabled/disabled
+| `{true, false}`
+
+| *Enumerable*
+| Language selection (English, Spanish, French…)
+| Finite named set
+
+| *Numeric*
+| Font size / text scale (for example, 80%–150%), notification quiet hours (start/end hour)
+| Bounded integer or real interval
+|===
+
+NOTE: *Modeling implication:* Discrete settings map naturally to `Boolean`, `enum`, and bounded `int`/`float` types. No continuous sampling or interpolation logic is needed.
+
+===== Statics vs. Dynamics
+
+The lecture positions statics and dynamics on a spectrum:
+
+* *Static*: not time-dependent, not affected by events, does not change.
+* *Dynamic inert*: changes value only upon an external stimulus; no internal impulse.
+* *Dynamic active*: can change on its own internal impulse (autonomous, biddable, or programmable).
+
+====== Static settings (rarely or never change)
+
+These settings capture facts about the user's account or device that are either immutable or change only through a formal process outside the app itself.
+
+[cols="1,2", options="header"]
+|===
+| Field | Rationale
+
+| Account email address
+| Set at registration; changed only via a dedicated account-management flow, not as a routine preference.
+
+| Region / locale
+| Reflects the user's actual locale; changes are rare and deliberate.
+
+| Accessibility feature availability
+| Determined by device capabilities; the app surfaces but does not control these.
+|===
+
+====== Dynamic inert settings (change on user action only)
+
+The majority of user-facing preferences are *dynamic inert*: they hold a stable value indefinitely and transition to a new value only when the user explicitly acts (taps a toggle, selects from a list, saves a form).
+
+[cols="1,2", options="header"]
+|===
+| Field | Stimulus
+
+| Push notifications enabled
+| User toggles the switch
+
+| Preferred language
+| User selects from language picker and confirms
+
+| Dark mode / theme
+| User selects a theme option
+
+| Notification quiet hours
+| User sets start and end times
+
+|===
+
+NOTE: *Modeling implication:* Dynamic inert settings do not need polling or background sampling. A persistent key-value store (for example, `SharedPreferences`, `UserDefaults`, a `settings` database table) is sufficient. Change events are fully determined by user-initiated write operations.
+
+====== Dynamic active settings (not applicable)
+
+No settings in this section exhibit autonomous or biddable behavior, settings do not change themselves in the background without a user action. If a future feature were to sync settings from a remote profile, that sub-system could be classified as *dynamic active programmable*, but the settings values themselves remain inert from the UI domain's perspective.
+
+
+===== Tangibility
+
+The lecture distinguishes:
+
+* *Humanly / physically tangible*: experienced through the senses or instruments; not fully formalizable.
+* *Intangible precise*: concepts from mathematics, program semantics; fully formalizable (for example, numbers, Booleans, sets).
+* *Intangible imprecise*: human emotions and subjective states; difficult to formalize.
+
+Settings data is *intangible and precise*. Each setting is an abstract configuration value, it has no physical manifestation that can be measured with an instrument, and its meaning is fully specified by its type and allowed value set.
+
+[cols="1,1,2", options="header"]
+|===
+| Field | Tangibility classification | Implication
+
+| Push notifications enabled
+| Intangible precise (Boolean)
+| Validation is exact: only `true`/`false` are valid; no sensor noise or measurement error.
+
+| Preferred language
+| Intangible precise (enum / IETF language tag)
+| Stored as a well-defined string code (for example, `"en-US"`); no ambiguity in the value itself.
+
+| Notification quiet hours
+| Intangible precise (structured time value)
+| Represented as exact time values; comparison and ordering are well-defined.
+|===
+
+NOTE: *Storage implication:* Because settings are intangible and precise, they can be stored and retrieved without lossy encoding. Validation rules are strict and machine-checkable (type checks, range checks, membership checks against enum sets). There is no need to account for measurement uncertainty.
+
+
+===== Dimensionality
+
+The lecture defines three levels:
+
+* *Zero-dimensional (atomic)*: a single scalar value; modeled with atomic types (`bool`, `int`, `float`, `enum`).
+* *One-dimensional (linear sequence)*: an ordered collection of constituents with forward/backward references; modeled with sets, tuples, or sequences.
+* *Multi-dimensional*: recursive or graph-structured; requires forward and backward references and/or recursion.
+
+====== Zero-dimensional settings (atomic values)
+
+Most settings are *zero-dimensional*, they hold a single atomic value with no internal structure.
+
+[cols="1,1,1", options="header"]
+|===
+| Field | Type | Example value
+
+| Push notifications enabled
+| Boolean
+| `true`
+
+| Dark mode
+| Enum
+| `"system"`
+
+| Preferred language
+| Enum (string code)
+| `"es-PR"`
+|===
+
+====== One-dimensional settings (structured but non-recursive)
+
+A small number of settings are *one-dimensional* because their value is a tuple or a bounded collection rather than a single scalar.
+
+[cols="1,1,2", options="header"]
+|===
+| Field | Structure | Notes
+
+| Notification quiet hours
+| Tuple `(start: Time, end: Time)`
+| Two related scalar values stored together; order matters.
+
+| Notification channel preferences
+| Set of `(channel: enum, enabled: Boolean)` pairs
+| A flat collection of per-channel toggles; no recursion.
+|===
+
+NOTE: *Modeling implication:* One-dimensional settings require a small record or array type rather than a plain scalar. They should be stored as a single logical unit (for example, a JSON object or a dedicated sub-table) to preserve the relationship between their constituent values.
+
+====== Multi-dimensional settings (not present / flag for review)
+
+No current settings field requires recursive or graph-structured modeling. However, if a future "notification rules" feature allowed conditional logic (for example, "if event type X and time is Y, then do Z"), that field would cross into multi-dimensional territory and would need a more expressive model (for example, a rule tree).
+
+
+====== Summary Table
+
+[cols="2,1,1,1,1", options="header"]
+|===
+| Setting field | Continuity | Dynamics | Tangibility | Dimensionality
+
+| Push notifications enabled
+| Discrete (Boolean)
+| Dynamic inert
+| Intangible precise
+| Zero-dimensional
+
+| Preferred language
+| Discrete (Enum)
+| Dynamic inert
+| Intangible precise
+| Zero-dimensional
+
+| App theme / dark mode
+| Discrete (Enum)
+| Dynamic inert
+| Intangible precise
+| Zero-dimensional
+
+| Account email address
+| Discrete (String)
+| Static
+| Intangible precise
+| Zero-dimensional
+
+| Notification quiet hours
+| Discrete (Numeric)
+| Dynamic inert
+| Intangible precise
+| One-dimensional (tuple)
+
+| Notification channel prefs
+| Discrete (Enum set)
+| Dynamic inert
+| Intangible precise
+| One-dimensional (flat set)
+|===
+
+
+===== References
+
+Schütz-Schmuck, M. (2021). _Domain Attributes_ [Lecture slides]. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+---
+
+==== Domain Attributes of Lost and Found Reports
+:author: Andres Cruz Zapata
+
+Domain phenomena and concepts have diverse attributes that affect the modeling of these concepts as code. This section describes the attributes of reports in the lost and found application, covering the continuity, discreteness, hybridicity, chaos, statics and dynamics,  tangibility, and dimensionality of said reports.
+
+[discrete]
+==== Discreteness:
+Reports can be viewed as discrete phenomena, taking on specific values for each instance and having their state (ie. open, claimed, returned/closed) change depending on the current state and the external inputs received over time. For example, a lost report might change its state from open to claimed after a user claims the item and it is verified by an admin of the application.
+
+Additionally, within these reports, attributes can be found that can be unique to each instance of a report:
+
+* Report ID
+** A unique identifier for each report.
+* Category
+** ie. personal, electronic, other.
+* Report Type
+** Lost or Found.
+* Status
+** The current state of the report; open, claimed, or closed.
+* User Id
+** The unique id of the user that created the report.
+
+[discrete]
+==== Statics and Dynamics:
+Static attributes are attributes that generally remain unchanged after creation, while Dynamic attributes can change over time. Reports have both static and dynamic attributes:
+
+* Static
+** Item Description
+** Item Category
+** Location
+** Report Creator
+
+* Dynamic
+** Report Status
+
+For example, a report's item description should remain static during the full lifecycle of the report. There can be exceptions, such as the description having typos or lacking clarification; in such cases the user may be allowed to edit the report. On the other hand, the report's status will always change over time whether that is when the item is claimed or when the report expires.
+
+Furthermore, a report experiences dynamic inert behavior, which is when a phenomenon changes due to external inputs rather than changing independently over time. Reports can have their status change due to the application's administration verifying and updating the report's status.
+
+[discrete]
+==== Tangibility and Intangibility:
+Tangible attributes correspond to real physical properties of a phenomenon while intangible attributes correspond to characteristics that only exist within the application's system. Reports have both tangible and intangible attributes:
+
+* Tangible
+** Item Photo
+** Item Description
+** Location Found or Lost
+
+These properties correspond to the real life lost item and therefore considered tangible attributes.
+
+* Intangible
+** Report ID
+** Report Status
+
+These only exist within the system and have no real ties to the physical item.
+
+[discrete]
+==== Dimensionality:
+Dimensionality refers to the structural complexity of domain information, ranging from simple atomic values to more complex relationships and data structures.
+
+* Atomic: These are attributes that can be described with simple data types and are composed of single values. Examples:
+** Status
+** Category
+** Date Created
+
+* Linear: These are attributes that relate to each other from forward and backwards references. Example:
+** Tags
+*** Contain a list of keywords related to the item lost/found.
+
+* Multi-Dimensional: These are concepts that require forward and backward references and/or recursion. Example:
+** User-Report Relationship
+*** At a higher level, references from both reports and users are needed to tie these phenomena together in order to create relationships, such as ownership or claims.
+
+
+==== Domain concept and inconsistencies with lost and found platform
+:author: Victoria Miranda Osuna
+
+===== Goal
+Apply domain analysis techniques to identify and evaluate inconsistencies in the lost and found
+system requirements, using the systematic evaluation methods discussed in class.
+===== Proposed Solution
+* Review the lost and found domain description units and form abstract domain concepts.
+* Additionally identifying and classifying inconsistencies.
+===== Success Criteria
+* At least 5 domain concepts correctly identified and abstracted.
+- Reports: an abstract entity that generalizes lost and found submissions. (active → resolved)
+- Location type: a typed location reference.
+- Recovery status tracking: a composite status across related reports. (lost → found → resolved)
+- Search criteria: a query parameter criteria.
+- Item category hierarchy: a classification structure with inheritance.
+* Minimum 4 inconsistency types classified with resolutions (Note: these inconsistencies are in
+reference to the brainstorm in issue 159)
+- Terminology clash: referring to the “drop off location” in the found forms versus “centralized
+location per building”
+- Designation clash: both lost and found utilizing “location” for where it was lost and where it was
+found.
+- Weak conflict: users having control to edit the forms versus the administration when
+considering the resolution of the item.
+- Strong conflict: users versus administration confirming if the issue has been resolved.
+
+==== [Lecture Topic Task] Business Procedures Facet Analysis
+:author: Omar A. Cordero Maldonado (omar-cordero)
+
+The business procedures facet describes the operational workflows used to manage items within the Lost & Found platform. These procedures define how users interact with the system and how items flow through the platform from the moment they are reported lost or found until they are returned.
+
+Understanding these procedures helps ensure the system supports consistent, reliable, and efficient handling of lost property.
+
+===== Lost Item Reporting Procedure
+
+The lost item reporting procedure describes how a user reports an item they have lost.
+
+Steps typically include:
+
+* The user logs into the platform.
+* The user submits a Lost Item Report.
+* The report includes relevant information such as item type, description, location, and date and time.
+* The system stores the report in the database.
+* The system may attempt to identify possible matches with existing found item reports.
+
+This procedure allows users to notify the system that an item is missing and provides information that can later be used to match found items.
+
+*Realistic Example:* A student leaves their calculator behind after a CIIC 3015 exam in the Stefani building. Later that afternoon, they log into the Lost and Found platform and submit a Lost Item Report describing it as a black TI-84 Plus with an anime sticker on the back, last seen in room S-113 on Tuesday at 11:00 AM. The system stores the report and flags a potential match with a found item submitted earlier that day by another studentr who turned in a calculator found in the same room.
+
+===== Found Item Submission Procedure
+
+The found item submission procedure describes how users or staff report items that have been discovered.
+
+Typical steps include:
+
+* A user logs into the platform.
+* The finder submits a Found Item Report.
+* The report includes details such as the description of the item, location where it was found, date and time found, and an optional photo.
+* The system stores the found item entry.
+* The item may be physically delivered to a Lost and Found office for storage.
+
+This procedure allows items to enter the Lost and Found system so that owners can locate them.
+
+*Realistic Example:* A student finds an unattended backpack in the bathroom inside the Chardón building after classes. They take it to the Office of Student Affairs and a staff member logs into the platform to submit a Found Item Report. The report notes a black JanSport backpack containing notebooks and a Math Book, found on Wednesday at 2:30 PM in the bathroom near the building entrance. A photo of the backpack is attached to help the owner identify it.
+
+===== Ownership Claim Procedure
+
+The ownership claim procedure describes how users request to retrieve an item they believe belongs to them.
+
+Typical steps include:
+
+* A user searches the platform for items that match their lost item.
+* The user submits a Claim Request.
+* The claim may require additional verification details such as unique identifying characteristics, serial numbers, or private descriptions not visible in the listing.
+* Moderators or staff review the claim.
+* If the claim is verified, the item is marked as claimed.
+
+This procedure helps prevent fraudulent claims and ensures items are returned to their rightful owners.
+
+*Realistic Example:* A student searching the platform finds an entry matching their missing backpack. They submit a Claim Request and provide additional details not shown in the public listing, including what's insaide, a keychain attached to the zipper, and the name of the book inside. A staff member reviews the claim, confirms the details match, and marks the item as Claimed.
+
+===== Item Return Procedure
+
+Once ownership has been verified, the item can be returned to the owner.
+
+Typical steps include:
+
+* The owner arranges to retrieve the item.
+* Staff verifies the user's identity if necessary.
+* The item is returned to the owner.
+* The system updates the item status to returned.
+
+Recording returned items ensures the platform accurately reflects the status of each item.
+
+*Campus Example:* The student whose claim was approved visits the Office of Student Affairs during office hours. The staff member verifies their UPRM student ID, retrieves the backpack from storage, and returns it to the student. The system entry for the item is updated to Returned, closing the case.
+
+---
+
+==== Domain Attributes in Authentication
+:author: Dylan M. Oliver Martinez
+
+
+===== User
+Person using the platform. Could be because they lost an item or found an item.
+
+====== Characteristics
+* *Discrete:* A user is a distinct entity with a unique account.
+* *Dynamic:* User status, actions, posts, and interactions change over time.
+* *Chaotic:* User behavior is unpredictable (they may lose items or find items).
+* *Intangible:* In the system, the user is represented digitally as a profile.
+* *Multi-dimensionality:* Users have multiple attributes (e.g., name, email, posts).
+
+===== Password
+Code selected by the user utilized to confirm the identity of the user.
+
+====== Characteristics
+* *Discrete:* A password is a specific string value.
+* *Static:* It remains the same until the user changes it.
+* *Intangible:* Exists only as data in the system.
+* *One-dimensionality:* Usually a single attribute (string value), though it has properties like length and complexity.
+
+===== Admin
+User with the ability to ban other users, delete posts and accounts, and manually change data from profiles.
+
+====== Characteristics
+* *Discrete:* Admins are distinct user accounts with elevated privileges.
+* *Dynamic:* Admins perform actions like banning users or deleting posts.
+* *Intangible:* Represented digitally in the platform.
+* *Multi-dimensionality:* Includes user attributes plus administrative permissions.
+
+===== Guest
+Users that can only view certain posts but cannot interact with them. Given to users that do not have an official UPR account.
+
+====== Characteristics
+* *Discrete:* Guests are a defined category of user.
+* *Static:* Their permissions remain limited unless they create an account.
+* *Dynamic:* They can browse content over time.
+* *Intangible:* Represented as a temporary or restricted digital user state.
+* *One-dimensionality:* Few attributes compared to registered users.
+
+===== Item
+An object that has either been lost by a user or found by a user.
+
+====== Characteristics
+* *Discrete:* Each item is a specific object.
+* *Dynamic:* Item status can change (e.i., lost, found, returned).
+* *Tangible:* The item exists physically in the real world.
+* *Chaotic:* Items can be lost or discovered unpredictably.
+* *Multi-dimensionality:* Attributes may include name, location, description, time lost/found, and owner.
+
+---
+
+==== Domain Concept Formation and Abstraction
+:author: Tasnim Said-Khader
+
+During the domain acquisition phase, several concrete entities and events were identified in relation to the lost-and-found process. These include specific types of items (like wallets, keys, laptops), location (like classrooms, libraries, study areas), and roles (like students, faculty, staff). While these domain description units are useful for understanding the problem space, repeatedly referencing each individual phenomenom can make the domain narrative unnecessarily detailed and difficult to maintain. 
+
+To simplify the domain model and improve clarity across project documentation, these raw domain phenomena are abstracted into higher level domain concepts. These abstractions capture shared properties and behaviors among related entities and events, allowing the system domain to be described in a more concise and consistent manner.
+
+===== Identified Abstractions
+* Item
+
+- *Type:* Entity
+- *Phase:* Domain
+
+An Item represents any personal object that may be misplaced or discovered within the campus environment.  
+This abstraction groups specific belongings such as keys, identification cards, electronics, backpacks, and other personal property.
+
+* Participant
+
+- *Type:* Entity  
+- *Phase:* Domain  
+
+A Participant represents any individual who interacts with the lost-and-found process.  
+This abstraction includes students, faculty members, and staff who may act as *Owners* of lost items, *Finders* of discovered items, or claimants seeking to recover belongings.
+
+* Campus Location
+
+- *Type:* Entity  
+- *Phase:* Domain  
+
+A Campus Location represents any physical area within the UPRM campus where an item may be lost or found.  
+Examples include classrooms, study areas, libraries, laboratories, and common campus facilities.
+
+* Item Report
+
+- *Type:* Entity  
+- *Phase:* Domain  
+
+An Item Report represents the recorded description of a *Lost Item* or *Found Item* within the lost-and-found process.  
+This abstraction consolidates the information necessary to enable identification, Matching, and eventual Recovery.
+
+* Custody Context
+
+- *Type:* Behavior  
+- *Phase:* Domain  
+
+The Custody Context represents the state in which an item is temporarily held or documented while awaiting identification or recovery by its rightful *Owner*.
+
+* Recovery Process
+
+- *Type:* Behavior  
+- *Phase:* Domain  
+
+The Recovery Process represents the sequence of actions through which a *Lost Item* progresses from initial *Reporting*, through *Matching* and *Claim Verification*, until *Recovery* or *Closure* occurs.
+
+By introducing these abstractions, the Lost & Found domain can be described using consistent and reusable concepts rather than repeatedly referencing individual cases or object types. This improves the readability of the domain narrative and strengthens the conceptual structure of the system model. 
+
+---
+
+==== [LTT] Domain Acquisition Strategy for the Lost & Found System
+:author: Angel Villegas (@angelvillegas1)
+
+:toc: left
+:toclevels: 3
+:icons: font
+:source-highlighter: highlight.js
+
+*Framework:* Schütz-Schmuck, M. (2021). _Domain Acquisition_. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+---
+
+== Overview
+
+This Lecture Topic Task applies the concept of structured domain acquisition to the Lost & Found system. Domain acquisition refers to the systematic elicitation and refinement of domain knowledge before formal modeling begins.
+
+The objective is to demonstrate how structured acquisition improves both accuracy and completeness in the resulting domain description.
+
+---
+
+== Domain Acquisition Approach
+
+Rather than beginning with predefined entities or database structures, the acquisition process began with constructed stakeholder personas representing realistic university scenarios. These personas included lost item owners, finders, administrative staff, and environmental observers.
+
+The process followed a staged refinement strategy:
+
+=== 1. Constructed Persona Narratives
+
+Informal first-person accounts were created to simulate real-world campus experiences. These narratives captured behaviors such as delayed realization of loss, informal communication attempts, storage inconsistencies, and verification hesitation.
+
+=== 2. Observation Extraction
+
+Each narrative was decomposed into explicit observations. Observations focused on factual behavioral patterns rather than interpretation. This prevented premature abstraction and preserved raw domain characteristics.
+
+=== 3. Derived Concept Formation
+
+From repeated observations, reusable domain concepts were extracted (e.g., search ambiguity, retention window, platform fragmentation). This allowed patterns to emerge organically rather than imposing system assumptions too early.
+
+=== 4. Concept Consolidation
+
+Recurring themes were analyzed to detect lifecycle inconsistencies, communication gaps, behavioral asymmetries, and trust-related concerns.
+
+=== 5. Formal Structuring
+
+Only after concept stabilization were formal classifications introduced, including entity definitions, event definitions, behavioral constructs, and operational abstractions.
+
+---
+
+== Contribution to Accuracy and Completeness
+
+Accuracy was improved by capturing multiple perspectives and distinguishing observations from interpretations.
+
+Completeness was improved by incorporating behavioral, spatial, communication, and lifecycle dimensions rather than focusing solely on object tracking.
+
+The resulting domain description is therefore traceable to structured conceptual extraction rather than arbitrary system modeling.
+
+---
+
+==== [LTT] Domain Facet Analysis for the Lost & Found System
+:author: Angel Villegas (@angelvillegas1)
+
+:toc: left
+:toclevels: 3
+:icons: font
+:source-highlighter: highlight.js
+
+*Framework:* Schütz-Schmuck, M. (2021). _Domain Engineering_. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+---
+
+== Overview
+
+This Lecture Topic Task applies the concept of domain facets to the Lost & Found system. Domain facets categorize domain knowledge into structured perspectives, allowing different aspects of the system to be analyzed without conceptual overlap.
+
+---
+
+== Domain Facets Explained
+
+Domain facets separate domain knowledge into distinct viewpoints rather than treating it as a single undifferentiated structure. Common facets include intrinsics, business procedures, rules and regulations, support technology, management and organization, and human behavior.
+
+---
+
+== Application to the Lost & Found System
+
+=== Intrinsics
+
+The intrinsics facet captures fundamental domain elements such as Lost Item, Found Item, Report, Owner, and Finder. These elements define what exists in the domain independently of system implementation.
+
+=== Business Procedures
+
+This facet captures operational workflows including reporting, searching, matching, claim verification, recovery, and closure. These procedures describe how the domain evolves over time.
+
+=== Rules and Regulations
+
+This facet represents constraints governing behavior, such as authentication requirements, verification conditions before item return, and moderation policies.
+
+=== Support Technology
+
+Support technology includes enabling mechanisms such as authentication systems, notification processes, searchable storage, and lifecycle tracking. These mechanisms support domain operations but do not define domain meaning.
+
+=== Management and Organization
+
+This facet captures oversight responsibilities such as moderation, retention decisions, and administrative review processes that preserve institutional trust.
+
+=== Human Behavior
+
+The human behavior facet captures observed patterns including delayed reporting, informal communication attempts, privacy hesitation, urgency escalation, and non-reporting tendencies.
+
+---
+
+== Contribution to Domain Clarity
+
+Applying domain facets clarifies the Lost & Found system by separating fundamental elements, workflows, constraints, technological mechanisms, oversight processes, and behavioral patterns.
+
+This separation prevents mixing implementation decisions with domain logic and ensures conceptual coherence.
+
+Through facet analysis, the domain becomes structured rather than fragmented, strengthening overall domain understanding.
+
+---
+
+==== [Lecture Topic Task] Domain Rules for the Lost & Found System
+:author: Noel Colon Mena
+
+===== Overview
+
+This Lecture Topic Task defines the domain rules that govern how the Lost & Found system operates.
+
+These rules help ensure that lost items are managed fairly, that claims are verified properly,
+and that the system maintains consistent and reliable information.
+
+===== Domain Rules
+
+====== Rule 1: Item Status Consistency
+
+An item must have exactly one status at any time.
+
+Possible statuses include:
+
+* Lost
+* Claimed
+* Returned
+* Archived
+
+_An item cannot be marked as both Lost and Claimed simultaneously._
+
+====== Rule 2: Authenticated Reporting
+
+Only authenticated users may report lost or found items.
+
+_Users must be logged into the system before submitting item reports._
+
+====== Rule 3: Single Claim per Item
+
+An item may only be claimed by one user.
+
+_Once a claim has been approved and the item has been returned, no additional claims can be submitted for that item._
+
+====== Rule 4: Claim Verification
+
+All claims must be verified before an item is returned.
+
+_Verification must be performed by an administrator or Lost & Found member._
+
+====== Rule 5: Claim-Item Relationship
+
+Every claim must reference an existing item.
+
+_A claim cannot exist without being associated with a previously reported item._
+
+====== Rule 6: Reporter Cannot Claim Item
+
+The user who reports a found item cannot claim ownership of that same item.
+
+====== Rule 7: Required Item Information
+
+Each item report must include minimum identifying information:
+
+* Item Description
+* Item Category
+* Location where the Item was Lost/Found
+* Date of the Report
+
+_Reports missing required information cannot be submitted._
+
+====== Rule 8: Archiving Unclaimed Items
+
+Items that remain unclaimed for an extended period must be archived.
+
+_Archived items remain stored in the system but are no longer visible in active search results._
+
+===== Summary
+
+These rules define key constraints for the Lost & Found domain. They help ensure that item reporting, claiming, and verification processes are handled consistently and securely.
+
+---
+
+==== [Lecture Topic Task] Domain Glossary & Shared Vocabulary for the Lost & Found System
+:author: Anthony H Martinez-Gomez
+
+*Framework:* Schütz-Schmuck, M. (2021). _Domain Engineering_. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+===== Overview
+
+As the Lost & Found project grows, teams can unintentionally use different words for the same concept (e.g., "report" vs "listing", "claim" vs "request"). This creates ambiguity in requirements, UI text, and implementation. This Lecture Topic Task defines a shared vocabulary so that all documentation and development work uses consistent domain terms.
+
+===== Naming Rules (Preferred Terms)
+
+* Use *Report* for the act of submitting information into the system (lost or found).
+* Use *Listing* for an entry that is visible in browse/search results (may be created from a report).
+* Use *Claim Request* for a user’s request to retrieve an item.
+* Use *Verification* for proof-checking before approving a claim request.
+* Use *Sensitive item* and *Sensitivity level* for privacy/fraud-driven restrictions.
+* Use *Admin* for the highest-privilege oversight role.
+* Use *Staff/Moderator* for roles that assist with handling/verification but may have limited authority than Admin.
+
+===== Glossary
+
+====== Access Control
+Rules that determine who can view information or perform actions in the platform, usually based on user role and item sensitivity.
+
+====== Admin
+A privileged role responsible for platform oversight (moderation, sensitive item handling, approvals, disputes, and policy enforcement).
+
+====== Archived
+A status indicating an item/listing is no longer active for recovery workflows (e.g., resolved, expired, disposed, or removed by policy).
+
+====== Audit Log
+A record of important events (e.g., edits, approvals, rejections, status changes) kept for accountability and dispute resolution.
+
+====== Claim
+The act of successfully retrieving an item after approval. +
+*Do not confuse with:* *Claim Request* (the request step) and *Claimed* (the final status).
+
+====== Claim Request
+A user-submitted request to retrieve an item. Typically includes proof-of-ownership details and is reviewed by staff/admin.
+
+====== Claimed
+A status indicating an item has been released/returned to the verified owner.
+
+====== Claimant
+The user attempting to claim an item (the person submitting the claim request).
+
+====== Confidential Detail
+Information that should not be publicly shown due to privacy, safety, or fraud risk (e.g., ID numbers, serial numbers, exact storage location).
+
+====== Dispute
+A situation where multiple parties claim the same item or ownership is unclear and requires staff/admin resolution.
+
+====== Found Item
+An item that someone found and is reporting to the system for return to the owner.
+
+====== Found Item Report
+A report submitted by a user indicating they found an item (includes when/where and limited item description).
+
+====== Guest
+A user who is not logged in. Typically has the most restricted access.
+
+====== Item
+A physical object being tracked by the platform.
+
+====== Item Category
+A classification for items (e.g., electronics, documents, keys) used for filtering and for applying sensitivity rules.
+
+====== Listing
+An entry visible to users in browse/search results. +
+*Do not confuse with:* *Report* (submission) vs *Listing* (published entry).
+
+====== Listing Details
+The set of fields shown to a viewer. For sensitive items, listing details may be limited based on role and sensitivity level.
+
+====== Location (Broad)
+A general location (e.g., building/area/zone) suitable for public display (example: "Library", "Engineering Building").
+
+====== Location (Exact)
+A specific location detail (e.g., room number, desk, exact coordinates, storage cabinet). Often restricted to staff/admin.
+
+====== Lost Item
+An item that the owner believes they lost and is trying to recover.
+
+====== Lost Item Report
+A report submitted by a user indicating they lost an item and providing identifying details they remember.
+
+====== Minimum Necessary Disclosure
+A principle that public listings should reveal only the minimum information needed for recovery, reducing fraud and privacy risks.
+
+====== Moderator / Staff
+A role that can help handle reports and verification processes, typically with less authority than Admin (depending on implementation).
+
+====== Owner
+The legitimate person the item belongs to.
+
+====== Pending Verification
+A status indicating an item is in a review stage (e.g., a claim request exists and requires proof checking).
+
+====== Proof of Ownership
+Information a claimant provides to demonstrate the item is theirs (e.g., unique marks, contents, unlocking device, accessory details).
+
+====== Report
+A submission entered into the system describing a lost or found item. +
+*Do not confuse with:* *Listing* (public entry) and *Claim Request* (request to retrieve).
+
+====== Reporter
+The user who submitted a report (lost or found).
+
+====== Restricted Field
+A specific piece of data that is hidden from certain roles (field-level restrictions), such as serial number or ID details.
+
+====== Role
+A permission group assigned to users that determines what they can see/do (e.g., Guest, Registered User, Staff/Moderator, Admin).
+
+====== Sensitive Item
+An item that requires special handling because exposing details can create privacy, security, or fraud risks (e.g., IDs, keys, wallets, electronics).
+
+====== Sensitivity Level
+A classification describing how restricted an item’s information should be (example: Level 0 non-sensitive through Level 3 highly sensitive).
+
+====== Status
+A state representing where an item/listing is in its lifecycle (e.g., Available, Pending Verification, Claimed, Archived).
+
+====== Verification
+The process of checking proof-of-ownership before approving a claim request.
+
+====== Verification Question
+A detail asked during verification that should not be publicly visible (e.g., "What sticker is on the laptop?", "What’s inside the wallet?").
+
+====== Visibility Rules
+Rules that define what information is visible to each role, often influenced by sensitivity level.
+
+====== Workflow
+A defined sequence of actions in the platform (example: Report -> Listing -> Claim Request -> Verification -> Claimed/Closed).
+
+===== Common Confusions (Quick Reference)
+
+* *Report* vs *Listing*: Report is what a user submits; listing is what others browse/search.
+* *Claim Request* vs *Claim*: request is the approval step; claim is the successful return.
+* *Found* vs *Lost*: found is submitted by finder; lost is submitted by owner.
+* *Location (Broad)* vs *Location (Exact)*: broad can be public; exact is usually restricted.
+* *Sensitive item* depends on both item type and details exposed (not only item type).
+
+---
+
+==== [Lecture Topic Task] Domain Exceptions, Edge Cases, and Failure Scenarios for the Lost & Found System
+:author: Anthony H Martinez-Gomez
+
+*Framework:* Schütz-Schmuck, M. (2021). _Domain Engineering_. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+===== Overview
+
+Real Lost & Found workflows are not always "happy path". People provide incomplete information, multiple users may claim the same item, and sensitive items create privacy and fraud risks. This Lecture Topic Task documents realistic exceptions and failure scenarios and defines expected system behavior for each case to reduce ambiguity and domain incompleteness.
+
+===== Assumptions (Policy / System)
+
+* The platform supports both *Lost Item Reports* and *Found Item Reports*.
+* Items can be classified by *sensitivity level*; sensitive items expose limited public details.
+* Claims follow a *Claim Request -> Verification -> Approve/Reject* model.
+* Admin oversight exists for moderation, disputes, and sensitive items.
+
+If the current implementation differs, adjust expected behavior accordingly.
+
+===== Edge Cases and Expected Behavior
+
+====== EC-01: Multiple claim requests for the same item
+*Scenario:* Two or more users submit claim requests for the same listing. +
+*Risk:* Fraud or confusion; wrong owner may receive the item. +
+*Expected behavior:*
+* Item becomes *Pending Verification* after the first claim request.
+* Additional claim requests are allowed but marked as *Queued/Under Review*.
+* Staff/Admin reviews requests in order (or by strongest proof).
+* Only one claim can be approved; the rest are rejected with a reason.
+*Roles involved:* Claimants, Staff/Moderator, Admin.
+
+====== EC-02: Claimant provides weak or generic proof
+*Scenario:* Claimant only repeats public details and provides no unique proof. +
+*Risk:* Easy fraudulent claims. +
+*Expected behavior:*
+* Staff/Admin requests additional proof using non-public verification questions.
+* If proof remains insufficient, reject the claim.
+* Listing returns to *Available* (or stays active) after rejection.
+*Roles involved:* Claimant, Staff/Moderator, Admin.
+
+====== EC-03: Sensitive item posted with too many details
+*Scenario:* Report exposes ID numbers, names, serial numbers, or personal data. +
+*Risk:* Privacy violation, identity theft. +
+*Expected behavior:*
+* System blocks submission or prompts redaction for restricted fields (if validation exists).
+* If already submitted, Staff/Admin redacts and limits public visibility.
+* Moderation action should be logged (audit trail if available).
+*Roles involved:* Reporter, Staff/Moderator, Admin.
+
+====== EC-04: Found bag contains nested sensitive contents
+*Scenario:* A backpack is found but contains wallet/ID/keys inside. +
+*Risk:* Bag treated as non-sensitive; contents exposed or misused. +
+*Expected behavior:*
+* Staff/Admin upgrades sensitivity level (e.g., Level 1 -> Level 2/3).
+* Public listing remains generic and does not list contents.
+* Contents are used for private verification questions.
+*Roles involved:* Reporter, Staff/Moderator, Admin.
+
+====== EC-05: Reporter enters wrong category or location
+*Scenario:* Item category/location is incorrect due to mistake. +
+*Risk:* Owners cannot find item; search quality drops. +
+*Expected behavior:*
+* Reporter can edit report fields when no claim exists (or limited edits if claim exists).
+* Staff/Admin can correct and add internal notes if needed.
+*Roles involved:* Reporter, Staff/Moderator, Admin.
+
+====== EC-06: Listing edited after a claim request exists
+*Scenario:* Reporter edits description after someone submits a claim request. +
+*Risk:* Proof can be exposed/manipulated; fairness issues. +
+*Expected behavior:*
+* Lock or restrict edits to sensitive/proof-related fields once a claim exists.
+* Preserve prior version or log edits for staff/admin review.
+*Roles involved:* Reporter, Claimant, Staff/Moderator, Admin.
+
+====== EC-07: Duplicate reports for the same item
+*Scenario:* Multiple users report the same found item separately. +
+*Risk:* Confusing duplicates; wasted verification effort. +
+*Expected behavior:*
+* Staff/Admin merges duplicates or links them.
+* Keep one canonical listing; close others as duplicates.
+*Roles involved:* Reporters, Staff/Moderator, Admin.
+
+====== EC-08: Item returned offline (outside the platform)
+*Scenario:* Item is returned without using claim flow. +
+*Risk:* Platform remains outdated; item appears available. +
+*Expected behavior:*
+* Staff/Admin marks listing as *Closed (Returned Offline)* or *Claimed*.
+* Optional internal-only note explains closure.
+*Roles involved:* Staff/Moderator, Admin.
+
+====== EC-09: False report / spam / inappropriate content
+*Scenario:* User submits fake listings or abusive content. +
+*Risk:* Trust damage, clutter, harassment. +
+*Expected behavior:*
+* Staff/Admin removes listing and may flag/suspend account.
+* Apply anti-abuse controls if patterns appear (rate limit, verification).
+*Roles involved:* Reporter, Staff/Moderator, Admin.
+
+====== EC-10: Dispute after rejection
+*Scenario:* Claimant disputes rejection and escalates. +
+*Risk:* Harassment; unsafe interactions. +
+*Expected behavior:*
+* Admin has final decision authority.
+* Keep communication in-platform; avoid exposing personal contact info.
+* Optionally freeze claim/listing during dispute review.
+*Roles involved:* Claimant, Staff/Moderator, Admin.
+
+===== Implementation Notes (Cross-Team)
+
+* Prefer field-level visibility rules (public vs staff/admin) instead of hiding entire listings.
+* Use minimum necessary disclosure for sensitive items to reduce fraud.
+* If possible, log moderation actions (edits/redactions/approve/reject/status changes).
+
+---
+
+==== Domain Analysis of Access Levels for Institutional and Non-Institutional Users
+:author: jventosa28
+
+===== Purpose
+
+This lecture topic task corresponds to *Domain Engineering* and *Requirements Analysis and Concept Formation*, as it defines user roles, permissions, and domain constraints for the system.
+
+The objective is to formalize how different types of users interact with the platform and how access control should be structured to support security, trust, and usability.
+
+===== Domain Concepts
+
+*Institutional User*::
+User with a verified university email (e.g., @upr.edu).
+
+*Non-Institutional User*::
+User with an external email (e.g., Gmail, Outlook).
+
+*Full Access*::
+Permission to create, edit, delete, and claim reports.
+
+*View-Only Access*::
+Permission limited to browsing and searching reports.
+
+===== Requirements Analysis
+
+* The system must detect the email domain during registration or login.
+* The system must classify users into institutional or non-institutional categories.
+* The system must assign access levels based on user type.
+* The system must restrict actions according to assigned permissions.
+
+===== Business Rules
+
+* Only institutional users may create, modify, or claim reports.
+* Non-institutional users are restricted to read-only actions.
+* Access level must be assigned during authentication.
+* Access control must be enforced at the backend level.
+
+===== Access Control Model
+
+[cols="1,1,1"]
+|===
+|Action |Institutional User |Non-Institutional User
+
+|View reports
+|Yes
+|Yes
+
+|Search and filter
+|Yes
+|Yes
+
+|Create reports
+|Yes
+|No
+
+|Edit reports
+|Yes
+|No
+
+|Delete reports
+|Yes
+|No
+
+|Claim items
+|Yes
+|No
+|===
+
+===== Domain Rationale
+
+This model is justified by the university context of the platform.
+
+* Institutional users are part of a trusted environment.
+* Restricting write actions reduces fraud and misuse.
+* The system maintains integrity by limiting who can modify data.
+
+===== Impact on the System
+
+*Security*::
+Reduces risk of fraudulent reports and claims.
+
+*Usability*::
+Allows external users to browse while protecting system actions.
+
+*System Integrity*::
+Ensures only trusted users can modify data.
+
+===== Conclusion
+
+Differentiating users based on institutional and non-institutional emails provides a clear and effective domain model for access control.
+
+This approach supports security, trust, and maintainability while aligning with the platform’s purpose.
+
+---
+
+==== [Lecture Topic Task] Data Consistency and Conflict Resolution in the Lost & Found System
+
+:author: Alberto J. Rodríguez Nogueras
+
+Framework: Schütz-Schmuck, M. (2021). Domain Engineering. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+===== Overview
+
+In multi-user systems, maintaining data consistency is essential to ensure that information remains accurate and reliable despite concurrent interactions. In the Lost & Found platform, users may simultaneously submit reports, update item information, or initiate claim requests, which introduces the risk of conflicting or inconsistent data.
+
+This Lecture Topic Task analyzes common consistency issues and defines expected system behavior to ensure reliability, correctness, and user trust.
+
+===== Assumptions (Policy / System)
+
+The platform allows users to submit Lost and Found item reports.
+
+Users may update item details unless restricted by system state.
+
+Claims follow a structured process (request → verification → approval/rejection).
+
+Admin or staff roles are available to resolve conflicts and enforce consistency.
+
+If system implementation differs, expected behaviors should be adjusted accordingly.
+
+===== Conflict Scenarios and Expected Behavior
+
+====== CS-01: Duplicate item reports
+Scenario: Multiple users submit reports describing the same lost or found item.
+Risk: Data duplication and confusion for users searching the platform.
+Expected behavior:
+* System flags potential duplicates based on similarity (description, location, date).
+* Staff/Admin reviews and merges or links duplicate entries.
+* One canonical listing is maintained while others are marked as duplicates.
+Roles involved: Reporters, Staff/Moderator, Admin.
+
+====== CS-02: Multiple users claiming the same item
+Scenario: Two or more users submit claims for a single item.
+Risk: Conflicting ownership decisions and possible fraud.
+Expected behavior:
+* Item enters Pending Verification after the first claim.
+* Additional claims are allowed but marked as queued.
+* Only one claim can be approved; others are rejected with justification.
+Roles involved: Claimants, Staff/Moderator, Admin.
+
+====== CS-03: Simultaneous updates to item information
+Scenario: A user updates item details while another user is viewing or editing the same listing.
+Risk: Outdated or conflicting information being displayed or saved.
+Expected behavior:
+* System validates updates against the current state before applying changes.
+* If conflict exists, user is prompted to refresh or review changes.
+* Optional version tracking or logging is maintained.
+Roles involved: Reporters, Claimants, System.
+
+====== CS-04: Item status conflict during active claim
+Scenario: An item is marked as returned or closed while a claim is still under review.
+Risk: Invalid system state and user confusion.
+Expected behavior:
+* System restricts status changes while a claim is active.
+* Only authorized roles (Staff/Admin) may override status with proper logging.
+Roles involved: Staff/Moderator, Admin.
+
+====== CS-05: Conflicting or incomplete item data
+Scenario: Users provide inconsistent or partial information about an item.
+Risk: Reduced accuracy and difficulty verifying ownership.
+Expected behavior:
+* System enforces required fields and validation rules.
+* Staff/Admin may request clarification or additional details.
+* Incomplete entries are flagged or limited in visibility.
+Roles involved: Reporters, Staff/Moderator.
+
+===== Implementation Notes (Cross-Team)
+
+Use validation and state control mechanisms to prevent inconsistent updates.
+
+Implement duplicate detection using key attributes such as item description, location, and time.
+
+Restrict critical actions (such as claims and status changes) to controlled workflows.
+
+Maintain logs or audit trails for updates and moderation actions when possible.
+
+Ensure clear user feedback when conflicts occur to maintain transparency and trust.
+
+---
+[discrete]
+==== [Lecture Topic Task]: Formulate Domain Narratives for Key UI Workflows
+:author: Joel Torres Cruz
+
+===== 1. Overview and Concept Formation:
+In accordance with the domain analysis process, raw domain description units must be abstracted into formal concepts and subsequently rewritten into a cohesive domain narrative. Before translating the UI workflows, we must establish the formalized domain terminology abstracted from the UPRM Lost & Found environment:
+
+- *Property*: The abstract concept representing physical objects (e.g., phones, keys, water bottles) that are either lost or found.
+
+- *Actors*: The individuals interacting with the system, further classified into Finders (those who locate Property) and Owners (those who lost Property).
+
+- *Custodial Hubs*: The abstracted concept for designated physical locations where Property can be securely surrendered or claimed (e.g., Guardia Universitaria, Library Front Desk, Department Offices).
+
+- *Match Event*: A dynamic reactive occurrence where the system correlates a Lost Property report with a Found Property report.
+
+===== 2. Domain Narratives for Key UI Workflows:
+
+===== Workflow A: Reporting and Surrendering Found Property
+- *UI Interaction*: The user clicks the "Report Found Item" button, fills out a form specifying the item's category, location found, and photo. The user then selects a radio button indicating they will drop it off at Campus Security, and clicks "Submit".
+
+- *Domain Narrative*:
+The Finder interacts with the system to record a newly discovered unit of Property. The Finder provides the intrinsic attributes of the Property (category, visual evidence, and discovery location) into the system. Next, the Finder selects a specific Custodial Hub where they intend to physically surrender the Property. Upon submission, the system registers the Found Property and transitions its state to pending surrender at the designated Custodial Hub.
+
+===== Workflow B: Smart Match Notification and Claim Initiation
+- *UI Interaction*: A student receives a push notification saying "Potential Match Found!". They tap the notification, opening a detailed view of a found item currently located at the Library. They click the "Initiate Claim" button to alert the system they are on their way to pick it up.
+
+- *Domain Narrative*:
+The system autonomously evaluates records and generates a Match Event between a recorded Lost Property and a newly registered Found Property. The system acts dynamically and reactively to alert the Owner of the Match Event. The Owner accesses the interface to review the Match Event details, which display the attributes of the Found Property and the specific Custodial Hub currently holding it. Concluding the flow, the Owner submits a formal claim request, signaling their intent to travel to the Custodial Hub to verify ownership and retrieve the Property.
+
+==== Domain Attributes - Profile
+:author: Keishlyany Sanabria (@keisanabria)
+
+:toc: left
+:toclevels: 3
+:icons: font
+:source-highlighter: highlight.js
+
+*Framework:* Schütz-Schmuck, M. (2021). _Domain Attributes_. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+===== Overview
+
+This document characterizes the domain attributes of the app's *Profile* section using the four-category framework from the UPRM domain attributes lecture. The app is a campus lost & found platform. A user's profile consists of four fields: *name*, *email*, *password*, and *phone number*. The analysis guides future modeling and design decisions by identifying how each field behaves with respect to continuity, dynamics, tangibility, and dimensionality.
+
+A user's *email domain* also determines their permission tier: users who register with an institutional email address (`@upr.edu`) are granted full permissions, while users with a non-institutional email are restricted to view-only access. This distinction is documented where it affects each attribute category below.
+
+===== Continuity vs. Discreteness
+
+All profile fields are *discrete*. Each holds a value from a countable domain and only changes when the user explicitly submits a change. No profile field varies smoothly or continuously over time.
+
+[cols="1,1,2", options="header"]
+|======
+| Field | Sub-type | Domain
+
+| Name
+| Textual (string)
+| Non-empty Unicode string; constrained by length and character set.
+
+| Email
+| Textual (formatted string)
+| RFC 5321-compliant address; membership in the set of syntactically valid email strings. The domain part additionally determines permission tier: institutional domain, gives full access; all other domains, gives view-only.
+
+| Password
+| Textual (opaque string)
+| Arbitrary string subject to minimum-length and complexity rules; stored as a hash, never as plaintext.
+
+| Phone number
+| Textual / numeric (formatted string)
+| E.164-formatted digit string; membership in the set of valid phone number patterns.
+|======
+
+NOTE: *Modeling implication:* All four fields map to constrained string types. Validation is rule-based (regex patterns, length bounds, format checks) rather than range-based or continuous. No interpolation or sampling logic is needed.
+
+---
+
+===== Statics vs. Dynamics
+
+====== Static fields
+
+No profile field is fully static in the strict sense, a user can change any of them. However, *name* is the most stable in practice: users rarely change their name and typically do so only under exceptional circumstances (legal name change, correction of a typo at registration). It sits at the static end of the spectrum.
+
+[cols="1,2", options="header"]
+|===
+| Field | Rationale
+
+| Name
+| Set at registration; changes are rare, deliberate, and typically require re-verification. Treated as near-static for modeling purposes.
+|===
+
+====== Dynamic inert fields
+
+The remaining three fields are *dynamic inert*: they hold a stable value indefinitely and transition only when the user explicitly navigates to account settings and submits a change.
+
+[cols="1,2", options="header"]
+|======
+| Field | Stimulus
+
+| Email
+| User submits a new email address and confirms via verification link. Changing from a non-institutional to an institutional address (or vice versa) also triggers a permission tier change: full access from/to view-only.
+
+| Password
+| User submits current password and a new password through the change-password flow.
+
+| Phone number
+| User edits the phone number field and saves the change.
+|======
+
+NOTE: *Modeling implication:* All dynamic inert fields are safely stored in a persistent user record (for example, a `users` database table). No polling, background sync, or event streaming is needed to keep them current. Each change is fully determined by a user-initiated write operation. Email and phone number changes should trigger a re-verification step before the new value becomes active. Because the email domain drives the permission tier, any email change must also re-evaluate and update the user's `role` or `permission_level` field atomically, the two values should never be out of sync.
+
+====== Dynamic active fields (not applicable)
+
+No profile field changes autonomously or without a direct user action. If a future feature were to auto-populate the phone number from a campus directory or sync the name from an institutional identity provider, those sub-systems would be classified as *dynamic active programmable*, but the stored profile values themselves would remain inert.
+
+===== Tangibility
+
+All four profile fields are *intangible and precise*. They are abstract data values with no physical manifestation (they cannot be sensed or measured with an instrument), and their validity is fully determined by formal rules.
+
+[cols="1,1,2", options="header"]
+|======
+| Field | Tangibility classification | Implication for validation and storage
+
+| Name
+| Intangible precise (free-form string)
+| Validated by length bounds and permitted character set. No sensor noise; exact string comparison applies. Must support Unicode for international names.
+
+| Email
+| Intangible precise (formatted string)
+| Validated by RFC 5321 syntax rules and confirmed by a verification email. Stored and compared case-insensitively for the domain part. The domain portion is additionally checked against the set of recognized institutional domains to determine permission tier (`full` vs. `view-only`); this check is exact and rule-based.
+
+| Password
+| Intangible precise (opaque string)
+| Never stored in plaintext; stored as a salted hash (for example, bcrypt). Validated at entry by complexity rules; authenticated by hash comparison, not direct equality.
+
+| Phone number
+| Intangible precise (formatted string)
+| Validated against E.164 format. Stored in a canonical normalized form to avoid duplicates from formatting variants (for example, `+17871234567` vs. `787-123-4567`).
+|======
+
+NOTE: *Storage implication:* Because all fields are intangible and precise, validation is entirely rule-based with no need to account for measurement uncertainty or sensor error. The most important implications are: (1) *password* must never be persisted as plaintext, only its hash; (2) *email* carries a secondary responsibility beyond identity, its domain part is the sole input to the permission-tier decision, so its canonical form must be stored consistently (case-normalized, verified) to ensure that permission derivation is deterministic and auditable.
+
+===== Dimensionality
+
+====== Zero-dimensional fields (atomic values)
+
+All four profile fields are *zero-dimensional*: each holds a single, indivisible value with no meaningful internal structure from the profile domain's perspective.
+
+[cols="1,1,1", options="header"]
+|======
+| Field | Type | Example value
+
+| Name
+| String
+| `"Ana Rodríguez"`
+
+| Email
+| String (formatted)
+| `"ana.rodriguez@upr.edu"`
+
+| Password
+| String → stored as Hash
+| `"$2b$12$eW3fBs..."` (bcrypt hash)
+
+| Phone number
+| String (formatted)
+| `"+17871234567"`
+|======
+
+====== One-dimensional fields (not present in current profile)
+
+The current profile has no collection-valued fields. A future extension (such as a list of lost/found item reports submitted by the user) would be one-dimensional: an ordered sequence of report references linked to the profile record.
+
+====== Multi-dimensional fields (flagged for future review)
+
+If the app later surfaces a full history of a user's reported items, each with nested details (description, photos, status updates, timestamps), that structure would become multi-dimensional. It should be modeled as a separate `reports` entity related to the profile by a foreign key, rather than embedded directly in the profile record.
+
+===== Summary Table
+
+[cols="1,1,1,1,1", options="header"]
+|======
+| Field | Continuity | Dynamics | Tangibility | Dimensionality
+
+| Name
+| Discrete (String)
+| Near-static
+| Intangible precise
+| Zero-dimensional
+
+| Email
+| Discrete (String)
+| Dynamic inert (triggers permission tier change)
+| Intangible precise
+| Zero-dimensional
+
+| Password
+| Discrete (String / Hash)
+| Dynamic inert
+| Intangible precise
+| Zero-dimensional
+
+| Phone number
+| Discrete (String)
+| Dynamic inert
+| Intangible precise
+| Zero-dimensional
+|======
+
+===== References
+
+Schütz-Schmuck, M. (2021). _Domain Attributes_ [Lecture slides]. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+---
+
+==== Domain Analysis of Account Creation 
+:author: Sebastian G Suarez Robles
+
+===== Overview
+
+This lecture topic task corresponds to *Domain Engineering* and *Requirements Analysis and Concept Formation*, as it defines the domain concepts, rules, and exceptions related to the account creation process in the Lost & Found system. The analysis identifies key entities (User, Account, Email), their relationships, and the business rules governing account creation.
+
+===== Domain Concepts
+
+*User*: An individual who interacts with the Lost & Found system. Users can be categorized as institutional (with `@upr.edu` email) or non-institutional (with external email).
+
+*Account*: A digital identity created for a user to access the Lost & Found platform. An account includes credentials (email and password) and profile information.
+
+*Registration Credential*: The email address used during account creation, which determines the user's access level (full access for institutional emails, view-only for non-institutional emails).
+
+*Registration Action*: The process of submitting information to create an account, including providing an email, password, and optional profile details.
+
+*Domain Constraint*: The rule that only institutional email addresses grant full access to the platform, while non-institutional emails result in view-only access.
+
+===== Requirements Analysis
+
+1. The system must allow users to create an account by providing a valid email address and password.
+
+2. The system must validate the email format and ensure it is unique in the database.
+
+3. The system must classify users based on their email domain: institutional emails (`@upr.edu`) receive full access, while non-institutional emails receive view-only access.
+
+4. The system must enforce password complexity requirements for security.
+
+5. The system must provide feedback to users during registration, including error messages for invalid input and confirmation of successful account creation.
+
+===== Domain Narrative (Account Creation Workflow)
+
+The account creation process is a sequence of actions that transition a `User` and their `Registration Credential` through a series of states, governed by the `Domain Constraint` on email domains.
+
+1. **Initiation**: A `User` begins the account creation process by providing their `Registration Credential` email and a password. The system performs initial validation on the email format and password complexity.
+
+2. **Uniqueness Check**: The system checks if the provided email already exists in the database. If it does, the user receives an error message prompting them to use a different email.
+
+3. **Account Creaton**: If the email is valid and unique, the system creates an `Account` for the user. The system then evaluates the email domain to determine the user's access level. If the email domain is `@upr.edu`, the user is classified as an institutional user and granted full access. If the email domain is external, the user is classified as a non-institutional user and granted view-only access.
+
+4. **Verification**: The system may send a verification email to confirm the user's email address. The account should become active only after successful verification.
+
+5. **Activation**: Once the account is created and verified, the user can log in and access the platform according to their assigned access level.
+
+===== Buisness Rules
+
+* **Rule 1 (Uniqueness)**: Each email address must be unique across all accounts. Duplicate emails are not allowed.
+
+* **Rule 2 (Verification)**: Accounts must be verified through email confirmation before they become active.
+
+* **Rule 3 (Domain Classification)**: The system classifies users based on their email domain, granting full access to institutional emails and view-only access to non-institutional emails.
+
+===== Account State Model
+
+This model represents the states and transitions of a user's account during the creation process:
+
+[cols="1,2"]
+|===
+|Account State |Description
+
+|`PendingVerification`
+|The initial state after submission. The user has provided credentials, but the ownership of the email has not been confirmed. The account is dormant and has no active permissions.
+
+|`Active`
+|The final state after successful email verification. The account is fully functional, and all permissions (based on email domain classification) are enabled.
+|===
+
+===== Domain Rationale
+
+This model is justified by security and access control requirements.
+
+* **Verification Requirement**: Ensures that users have control over the email address they provide, reducing the risk of fraudulent accounts.
+
+* **Uniqueness Constraint**: Prevents confusion and ensures that each user has a distinct identity in the system.
+
+* **Early Classification**: Determining the user type (institutional vs. non-institutional) at account creation allows for consistent access control throughout the user's lifecycle.
+
+===== Impact on the System
+
+*Security*: Enforcing email verification and password complexity enhances the security of user accounts.
+
+*Data Integrity*: Unique email constraints maintain the integrity of user data and prevent duplicate accounts.
+
+*Usability*: Providing clear feedback during registration improves the user experience and reduces frustration.
+
+===== Conclusion
+
+By applying domain analysis and concept formation, the account creation module is structures into a clear and consistent model that supports the system's security and access control requirements while providing a smooth user experience. This approach is a state-driven process that ensures all accounts are verified and classified appropriately from the moment of creation.
+
+===== References
+
+Schütz-Schmuck, M. (2021). _Domain Analysis and Concept Formation_ [Lecture slides]. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+==== Classification of Static vs Dynamic Domain Elements in the Lost and Found System
+:author: Iralys Sánchez Milián
+
+===== 1. Introduction
+
+In domain engineering, phenomena can be classified based on whether they change over time. Static elements do not change, while dynamic elements evolve due to events or internal behavior. Dynamic elements can further be categorized as inert (reacting only to external stimuli) or active (capable of initiating changes themselves).
+
+This classification is essential for understanding system behavior, state transitions, and design decisions in the Lost & Found system.
+
+===== 2. Domain Element Classification
+
+[options="header"]
+|===
+| Domain Element | Type | Subtype | Justification
+
+| Item Category
+| Static
+| N/A
+| Categories (e.g., electronics, clothing) are predefined and do not change frequently or as part of system behavior.
+
+| Report (Lost/Found Item)
+| Dynamic
+| Inert
+| A report changes state (e.g., open, matched, resolved) only when users or admins perform actions.
+
+| User Account
+| Dynamic
+| Inert
+| User data (profile info, activity) changes only when the user or system updates it externally.
+
+| Notification
+| Dynamic
+| Active
+| Notifications can be generated automatically by the system (e.g., match found), without direct user action.
+
+| Search Results
+| Dynamic
+| Inert
+| Results change based on user queries or filters; they do not update unless triggered by input.
+
+| Moderation Process
+| Dynamic
+| Active
+| The system can automatically flag or process reports (e.g., spam detection), showing internal system-driven behavior.
+|===
+
+===== 3. Explanation of Classification
+
+====== 3.1 Static Elements
+
+Static elements are not time-dependent and are not affected by events. In this system, item categories remain constant and serve as reference data.
+
+====== 3.2 Dynamic Inert Elements
+
+Dynamic inert elements change only when triggered by external stimuli (e.g., user actions or admin input). Examples include reports, user accounts, and search results.
+
+These elements:
+
+- Require explicit input to change
+- Do not evolve independently
+- Represent controlled state transitions
+
+====== 3.3 Dynamic Active Elements
+
+Dynamic active elements can change based on internal system logic or autonomous behavior.
+
+Examples include:
+
+- Notifications generated automatically
+- Moderation systems that flag inappropriate content
+
+These elements:
+
+- May act without direct user input
+- Require monitoring and system logic
+- Introduce complexity in system design
+
+===== 4. Design Implications
+
+This classification impacts system design in several ways:
+
+- *State Management*: Dynamic elements require well-defined states and transitions.
+- *Event Handling*: Inert elements rely on external triggers, while active elements require internal event mechanisms.
+- *Automation*: Active elements necessitate background processes (e.g., notification services, moderation checks).
+- *Data Modeling*: Static elements can be stored as fixed reference tables, while dynamic elements require lifecycle tracking.
+- *Testing*: Active behaviors require additional testing for automated workflows and edge cases.
+
+===== References
+
+*Framework:* Schütz-Schmuck, M. (2021). _Domain Attributes_. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+---
+
+==== Data Consistency and System Guarantees in the Lost and Found Platform
+:author: Jose Valentin (@jose-valentin)
+
+The Lost and Found platform relies on consistent data and well defined system guarantees to ensure that reports behave predictably throughout their lifecycle. This section analyzes how consistency is maintained across the system and how guarantees are enforced to prevent invalid states and conflicting operations.
+
+===== Overview
+
+Data consistency refers to the requirement that all parts of the system reflect the same valid and up to date information at any given time. This includes consistency between the frontend interface, backend logic, and database storage.
+
+System guarantees define the rules that ensure the system behaves correctly under normal operation. These guarantees restrict how data can change and ensure that all reports remain in valid states.
+
+===== Consistency in Report Data
+
+Reports are central entities in the system and must maintain consistent data across all interactions.
+
+Key consistency requirements include:
+
+* Frontend and backend consistency  
+All data displayed to users must match the data stored in the backend. Any update performed through the interface must be validated and persisted correctly.
+
+* Database consistency  
+The database must always store valid and complete report data. Partial updates or invalid values must not be saved.
+
+* Synchronization between users  
+When multiple users interact with the same report, they must observe the same current state. The system must ensure that updates are reflected consistently for all users.
+
+===== Report Lifecycle Consistency
+
+Each report follows a defined lifecycle composed of discrete states:
+
+* ACTIVE
+* RESOLVED
+* CLAIMED
+
+These states represent the progression of a report from creation to completion.
+
+Valid transitions include:
+
+* ACTIVE to RESOLVED  
+* ACTIVE to CLAIMED  
+* RESOLVED to CLAIMED  
+
+Invalid transitions must be prevented. For example:
+
+* CLAIMED to ACTIVE  
+* CLAIMED to RESOLVED  
+
+Such transitions would violate the logical progression of the system and lead to inconsistent data.
+
+These constraints are enforced through controlled state transition logic implemented in the backend.
+
+===== Statics and Dynamics in Consistency
+
+Consistency is closely related to how report attributes behave over time.
+
+* Static attributes  
+These values are expected to remain stable after creation:
+** Title  
+** Description  
+** Category  
+** Location  
+
+* Dynamic attributes  
+These values change over time and must be controlled:
+** Status  
+
+The report status exhibits dynamic inert behavior, meaning it only changes in response to external actions such as user interaction or administrative verification.
+
+Ensuring consistency requires that dynamic attributes follow strict transition rules.
+
+===== Scenarios Requiring Strong Consistency
+
+Several scenarios require careful enforcement of consistency:
+
+* Simultaneous updates  
+Multiple users may attempt to update a report at the same time. The system must ensure that only valid updates are applied.
+
+* Report modification after creation  
+Edits must not violate existing constraints or create conflicting data.
+
+* Status updates  
+Changes to report status must follow valid transitions and reflect the correct lifecycle stage.
+
+* Database interaction  
+When inserting or updating reports, the system must ensure that the stored data matches the application state.
+
+===== Mechanisms for Enforcing Consistency
+
+The system enforces consistency through several mechanisms:
+
+* Validation rules  
+All input data is validated before being accepted. This prevents invalid or incomplete reports.
+
+* Controlled state transitions  
+The system restricts how report statuses can change, ensuring valid lifecycle progression.
+
+* Backend verification  
+Before applying updates, the backend checks the current state of the report to confirm that the operation is allowed.
+
+* Atomic operations  
+Updates are treated as single complete operations to prevent partial or inconsistent changes.
+
+===== Impact on System Design
+
+Consistency and system guarantees influence several aspects of the platform:
+
+* Data integrity  
+Ensures that all stored information remains accurate and meaningful.
+
+* User trust  
+Users depend on the system to provide correct and reliable information when reporting or claiming items.
+
+* System reliability  
+A consistent system behaves predictably, reducing unexpected errors and simplifying maintenance.
+
+===== Conclusion
+
+Data consistency and system guarantees are essential for maintaining a reliable Lost and Found platform. By enforcing validation rules, controlling state transitions, and ensuring synchronization between system components, the platform can maintain correct behavior and provide a dependable experience for its users.
+
+===== References
+
+Schütz-Schmuck, M. (2021). _Domain Attributes_ [Lecture slides]. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+---
+
+==== [Lecture Topic Task]: Report Verification as a Domain Process
+:author: Natanael Batista Alvarez
+===== Overview
+
+Report verification and item claiming in the Lost & Found system can be understood as a domain process composed of interacting entities, events, functions, and behaviors. This process ensures that items are returned to their rightful owners while maintaining system consistency and preventing fraudulent claims. It combines structured system logic with human decision-making, reflecting both formal and informal aspects of the domain.
+
+===== Verification Workflow and Domain Classification
+
+The process begins when an item is reported. This is an event that creates a report entity within the system. The report contains relevant attributes such as item description, category, and location, forming part of the domain description. 
+
+A user then submits a claim for the item. This is another event that introduces a new entity, the claim request, which is associated with the existing report. This establishes a relationship between two domain entities and initiates the verification process.
+
+The claimant provides evidence to support ownership. This step functions as a function, since it transforms user-provided input into structured data that can be evaluated. Examples include identifying details or hidden characteristics of the item.
+
+Next, the claim is reviewed. This step represents a behavior, as it involves a sequence of actions combining system operations and human judgment. The system organizes and displays the relevant data, while a moderator or staff member evaluates whether the evidence is sufficient to confirm ownership. This reflects a dynamic domain process where decisions depend on context rather than fixed rules.  
+
+Finally, the system records the outcome as either approval or rejection. This is an event that causes a state transition in the report entity, such as moving from “pending verification” to “claimed” or remaining available. These transitions must follow controlled rules to maintain consistency across the system.  
+
+===== System and Human Responsibilities
+
+The system is responsible for handling structured and deterministic tasks. These include storing reports and claims, linking related entities, validating input data, and enforcing valid state transitions. These operations ensure that the domain remains consistent and that invalid states are prevented.
+
+Human actors, such as moderators or staff, are responsible for evaluating evidence and making final decisions in ambiguous situations. Ownership cannot always be determined through automated logic, especially when information is incomplete or subjective. This introduces decision-based behavior that depends on human reasoning rather than purely formal rules.  
+
+===== Challenging Scenarios
+
+One challenging scenario occurs when multiple users submit claims for the same item. This creates a conflict where the system must manage multiple claim entities while ensuring that only one can be approved. The system maintains consistency by enforcing constraints, while human reviewers compare evidence and determine which claim is valid.
+
+Another scenario arises when the item description is vague or incomplete. In this case, the system cannot reliably verify ownership using stored data alone. The process then depends more heavily on human judgment, requiring additional verification steps such as private questions or detailed descriptions. The system supports this by limiting visible information and requesting further input.
+
+===== Impact on System Behavior
+
+The verification process directly affects system behavior by controlling how reports transition between states and how conflicts are resolved. It ensures that only valid claims lead to ownership transfer, maintaining both data integrity and user trust. At the same time, it highlights the need for a balance between automated system logic and human decision-making within the domain.
+
+===== References
+
+Schütz-Schmuck, M. (2021). Domain Engineering. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez. 
+
+Schütz-Schmuck, M. (2021). Domain Attributes. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+---
+
+==== Report Lifecycle State Modeling
+:author: Adiel Soto
+
+The report lifecycle describes how a report evolves over time in the Lost & Found system. This process ensures proper tracking, validation, and resolution of lost and found items.
+
+===== Lifecycle States
+
+The main states in the report lifecycle are:
+
+- Draft / Submitted  
+- Visible (Stored & Published)  
+- Matched  
+- Claim Initiated  
+- Resolved (Claimed, Rejected, or Expired)  
+
+Each state represents a different stage in the management of a report.
+
+===== Domain Classification of Steps
+
+The lifecycle can be broken down and classified using domain concepts:
+
+[cols="1,2,2", options="header"]
+|===
+| Step | Description | Classification
+
+| Report Created
+| A user creates a report describing a lost or found item.
+| Event
+
+| Report Stored & Visible
+| The system saves the report and makes it accessible.
+| Function
+
+| Report Matched
+| The system compares reports and suggests matches.
+| Behavior
+
+| Claim Initiated
+| A user submits a claim.
+| Event
+
+| Report Resolved
+| The report reaches a final state.
+| Behavior
+|===
+
+===== State Transitions and Constraints
+
+The system enforces valid transitions between states to maintain consistency:
+
+Valid transitions:
+- Draft → Visible  
+- Visible → Matched  
+- Matched → Claim Initiated  
+- Claim Initiated → Resolved  
+
+Invalid transitions are prevented, such as:
+- Draft → Resolved  
+- Resolved → Matched  
+- Claim Initiated → Draft  
+
+These constraints are enforced through validation rules, permission checks, and system logic.
+
+===== System vs Human Responsibilities
+
+System responsibilities include:
+- Storing and retrieving reports  
+- Matching items automatically  
+- Enforcing valid transitions  
+- Expiring inactive reports  
+
+Human responsibilities include:
+- Creating and editing reports  
+- Submitting claims  
+- Providing evidence  
+- Approving or rejecting claims  
+
+===== Complex Scenarios
+
+[discrete]
+====== Scenario 1: Expired Report
+
+A report may expire after a long period without activity.
+
+The system automatically transitions the report to an "Expired" state, disables claims, and may allow admin reactivation.
+
+[discrete]
+====== Scenario 2: Multiple Claims
+
+Multiple users may claim the same item.
+
+The system flags the report for review, collects evidence from each claimant, and requires a decision (usually by an admin or report owner) to resolve the conflict.
+
+===== Impact on System Behavior
+
+The lifecycle ensures structured progression of reports and prevents invalid operations. It improves system reliability, supports fair claim handling, and balances automation with human decision-making.
+
+---
+==== Domain Description Units for Lost & Found
+:author: Abdiel Cotto
+
+=== Definition of Domain Description Units
+
+A domain description unit (DDU) is a small, source-traceable statement that captures one domain fact at a time. Each unit isolates a single fact and tags it with metadata so the fact can be analyzed, reviewed, compared, and reused without mixing several ideas together.
+
+For this Lost & Found system, each DDU includes:
+
+- `ID` for traceability
+- `Stakeholder source` showing where the fact came from
+- `Kind` to classify the fact as an `entity`, `function`, `event`, or `behavior`
+- `Attribute` to indicate whether the fact is mainly `passive`, `active`, or `reactive`
+- `Facet classification` to group the fact by domain concern
+- `Fact` as the atomic domain statement
+
+=== Structured Units
+
+[cols="1,3,1,1,2,4",options="header"]
+|===
+|ID |Stakeholder source |Kind |Attribute |Facet classification |Fact
+
+|`DDU-01`
+|Mateo rough sketch and terminology (`2.1.1`, `2.1.2`)
+|Entity
+|Passive
+|Item state
+|A lost item is a personal belonging whose owner no longer knows its location and intends to recover.
+
+|`DDU-02`
+|Daniel rough sketch and terminology (`2.1.1`, `2.1.2`)
+|Entity
+|Passive
+|Item state
+|A found item is a personal belonging discovered by someone other than its owner and may be returned.
+
+|`DDU-03`
+|Camila library workflow note and terminology (`2.1.1`, `2.1.2`)
+|Entity
+|Passive
+|Record management
+|A report is the structured record that describes a lost or found item and supports identification and recovery.
+
+|`DDU-04`
+|Valeria persona and reporting requirements (`2.2.1`, `2.2.2`)
+|Function
+|Active
+|Reporting
+|Reporting is the action by which a user documents a lost or found item so recovery becomes possible.
+
+|`DDU-05`
+|Mateo persona and search epic (`2.2.1`, `2.2.2`)
+|Function
+|Active
+|Discovery
+|Users browse and filter reports by attributes such as category, location, date, and status to narrow the search space.
+
+|`DDU-06`
+|Domain narrative and terminology (`2.1.2`, `2.1.3`)
+|Behavior
+|Reactive
+|Matching
+|Matching compares descriptions of lost and found items to determine whether they refer to the same physical object.
+
+|`DDU-07`
+|Daniel persona and ownership verification signature (`2.1.5`, `2.2.2`)
+|Behavior
+|Reactive
+|Ownership verification
+|Claim verification checks whether a person asserting ownership is legitimately entitled to receive the item.
+
+|`DDU-08`
+|Domain narrative (`2.1.3`)
+|Event
+|Reactive
+|Recovery lifecycle
+|Recovery occurs when a lost item is successfully returned to its owner.
+
+|`DDU-09`
+|Campus security interview note and terminology (`2.1.1`, `2.1.2`)
+|Event
+|Reactive
+|Lifecycle closure
+|Closure ends a report lifecycle either because the item was recovered or because recovery is no longer expected.
+
+|`DDU-10`
+|Scope and claim requirements (`1.3.1`, `2.2.1`)
+|Behavior
+|Reactive
+|Communication and privacy
+|Communication between parties occurs outside the platform through official institutional email accounts rather than public personal contact details.
+|===
+
+=== Tagged Classification Breakdown
+
+[cols="1,1",options="header,autowidth"]
+|===
+|Tag group |Breakdown
+|Kind
+|`Entity = 3`, `Function = 2`, `Behavior = 3`, `Event = 2`
+|Attribute
+|`Passive = 3`, `Active = 2`, `Reactive = 5`
+|Facet
+|`Item state = 2`, `Record management = 1`, `Reporting = 1`, `Discovery = 1`, `Matching = 1`, `Ownership verification = 1`, `Recovery lifecycle = 1`, `Lifecycle closure = 1`, `Communication and privacy = 1`
+|===
+
+=== Why Structuring Helps Domain Understanding
+
+Structuring domain knowledge into DDUs improves understanding because each fact becomes atomic, explicit, and traceable. Instead of mixing concepts such as reports, verification, and recovery in one paragraph, the team can review each fact separately, classify it consistently, and check whether it belongs to the domain, the requirements, or the implementation.
+
+This also makes disagreements easier to detect. If a stakeholder challenges a fact, the team can point to the exact DDU, its source, and its classification instead of revisiting an entire narrative section. As a result, DDUs support clearer analysis, better requirement derivation, and stronger documentation consistency.
+
+=== Poorly Structured vs Well-Structured Units
+
+[cols="1,1",options="header"]
+|===
+|Poorly structured
+|Well-structured
+
+|Users report items, search for them, contact each other, and eventually get them back.
+|`DDU-04`: Reporting is the action by which a user documents a lost or found item so recovery becomes possible.
+
+|The system keeps things private and helps stop wrong claims.
+|`DDU-07`: Claim verification checks whether a person asserting ownership is legitimately entitled to receive the item.
+|===
+
+=== Notes
+
+The units above were derived from the existing Lost & Found documentation already present in the repository, especially the domain rough sketches, terminology, narrative, scope, personas, and requirements sections in `docs/Milestone_1`.
+
+---
+
+==== Domain Concept Formation and Abstraction
+:author: Abdiel Cotto
+
+===== Explanation of Concept Formation and Abstraction
+
+Concept formation is the process of taking many concrete domain elements and grouping them into a smaller set of higher-level concepts that better explain how the domain works. Abstraction helps reduce noise by moving from individual details, such as `lost report`, `found report`, `status`, or `notification`, toward broader ideas that organize those details into meaningful structures.
+
+In the Lost & Found domain, abstraction is useful because the system contains many repeated low-level elements that participate in the same overall process. By grouping them into concepts, the team can reason about responsibilities, relationships, and boundaries more clearly.
+
+===== Low-Level Domain Elements Identified
+
+The following low-level domain elements appear throughout the current documentation:
+
+- Lost item
+- Found item
+- Report
+- Report status
+- Owner
+- Finder
+- Claimant
+- Administrator or custodian
+- Search query
+- Filter by category, location, date, and status
+- Matching
+- Claim verification
+- Recovery
+- Closure
+- Institutional email contact
+- Private verification details
+
+===== Grouping Elements into Higher-Level Concepts
+
+[cols="2,4,5",options="header"]
+|===
+|Concept
+|Grouped low-level elements
+|Definition and role in the system
+
+|Tracking Entities
+|Lost item, found item, report, report status
+|Tracking Entities are the domain objects whose state must be recorded and observed over time. They make loss and discovery visible by turning real-world item situations into structured records that can be searched, updated, and closed.
+
+|Participants and Responsibilities
+|Owner, finder, claimant, administrator, custodian
+|Participants and Responsibilities capture the human roles involved in the domain. This concept clarifies who loses items, who reports discovered items, who attempts to reclaim them, and who oversees trust, moderation, or dispute handling.
+
+|Discovery and Comparison
+|Search query, filters, matching
+|Discovery and Comparison describes how users move from many visible reports to a plausible candidate item. Its role is to reduce uncertainty by supporting search, narrowing results, and comparing report details for possible matches.
+
+|Trust and Recovery Control
+|Claim verification, private verification details, institutional email contact, recovery
+|Trust and Recovery Control represents the safeguards that make return possible without exposing unnecessary personal information. Its role is to support legitimate recovery while reducing false claims, misuse, and unsafe communication.
+
+|Lifecycle Governance
+|Report status, closure, recovery, administrator or custodian actions
+|Lifecycle Governance describes how reports change state from active use to resolved or closed outcomes. Its role is to keep the domain orderly, distinguish open cases from completed ones, and preserve confidence in the process.
+|===
+
+===== Before vs. After Abstraction
+
+[cols="1,1",options="header"]
+|===
+|Before abstraction
+|After abstraction
+
+|Lost report, found report, report status
+|Tracking Entities
+
+|Owner, finder, claimant, admin
+|Participants and Responsibilities
+
+|Keyword search, filter, match logic
+|Discovery and Comparison
+
+|Email contact, hidden fields, ownership check
+|Trust and Recovery Control
+
+|Resolved, closed, removed, reviewed
+|Lifecycle Governance
+|===
+
+===== Concept Narrative
+
+Within the UPRM Lost & Found domain, *Participants and Responsibilities* interact with *Tracking Entities* to make otherwise invisible loss incidents observable. A person who loses or finds an item creates or depends on a report, and those reports then move through *Discovery and Comparison* as users search, filter, and evaluate possible matches. Once a plausible match is identified, *Trust and Recovery Control* governs how the involved parties communicate and verify ownership safely. Finally, *Lifecycle Governance* ensures that each case reaches a clear outcome such as recovery, resolution, or closure so the domain remains understandable and manageable over time.
+
+===== Concept Hierarchy
+
+[source,text]
+----
+Lost & Found Domain
+|- Tracking Entities
+|  |- Lost item
+|  |- Found item
+|  |- Report
+|  |- Report status
+|- Participants and Responsibilities
+|  |- Owner
+|  |- Finder
+|  |- Claimant
+|  |- Administrator / custodian
+|- Discovery and Comparison
+|  |- Search
+|  |- Filtering
+|  |- Matching
+|- Trust and Recovery Control
+|  |- Institutional contact
+|  |- Private verification details
+|  |- Claim verification
+|  |- Recovery
+|- Lifecycle Governance
+   |- Active status
+   |- Resolved status
+   |- Closed status
+   |- Review / moderation actions
+----
+
+===== Inconsistency or Ambiguity in Current Descriptions
+
+One important ambiguity in the current documentation is the role of communication. Some descriptions state that communication between parties occurs outside the system through official institutional email accounts, while other descriptions discuss system-supported messaging or internal secure messaging. These two descriptions imply different domain boundaries.
+
+If communication is outside the system, then institutional email acts as an external coordination mechanism and should not be modeled as an internal platform service. If communication is inside the system, then messaging becomes part of the platform domain and requires clearer concepts for message records, privacy controls, and moderation. This ambiguity should be resolved so the domain narrative, requirements, and implementation all use the same abstraction boundary.
+
+===== Why This Abstraction Improves Conceptual Clarity
+
+This abstraction improves clarity because it replaces a flat list of terms with a small set of coherent conceptual groups. Instead of reasoning separately about every field, actor, and event, the team can discuss the domain in terms of stable concepts that explain purpose and interaction. That makes later requirements engineering easier because each requirement can be attached to a concept instead of being treated as an isolated detail.

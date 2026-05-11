@@ -1,0 +1,53 @@
+= GUIDELINES AND ADVICE ON THE PROJECT DOCUMENTATION
+Third Milestone
+Marko Schütz-Schmuck
+
+These guidelines will be used to evaluate each project's submission. The whole project is culminating, so we now want to see some type of _completeness_. In terms of features, completeness means that there is at least a minimal collection of features that make the application viable. Completeness also refers to the other activities on the project (domain description, requirements prescription, software architecture, design, testing, …). For example, does the project document the requirements of the features that are implemented? Are the phenomena from the domain that the requirements refer to fully described? Does the project use automated tests for their features? The guidelines and examples are more detailed than what would easily fit into the format of rubrics, so the guidelines are stated separately and the rubrics then are quite generic.
+
+• Changes to the previous submission must be clearly visible. Use a different background color, change bars in the page margin, or other ways to clearly indicate the changes. 
+• The log book gives an overview of the changes (but not the full changed content) since the last submission.
+• The actual changes, new developments, etc are integrated into the overall document.
+• All the criteria where the previous submission did not follow the guidelines have been improved.
+• Any additions and changes follow the guidelines already established for the previous submission.
+• At least a minimal collection of features has been completed. The completed features are implemented end-to-end and have a high value to the users. The completion of the features is evidenced by passing acceptance/end-to-end tests.
+• Progress has been made in all phases of development: domain description, requirements prescription, design, …
+
+• Application of topics, techniques, tools, methods, … from the lectures:
+
+== The following rubrics will have a higher weight than those above. These following should be merged into their corresponding sections of your document.
+
+  * The project uses various diagram types to complement their project documentation. They use at least 4 of the diagram types below in a way that ENHANCES their documentation.
+
+    ** System scope: context, problem, frame diagrams Conceptual
+    ** structures: entity-relationship diagrams Activities and data: SADT
+    ** diagrams Information flows: dataflow diagrams System operations:
+    ** use case diagrams Interaction scenarios: event trace diagrams
+    ** System behaviors: state machine diagrams
+
+
+* The project added to their analytical part a section documenting a requirements and domain model inspection. They use at least a
+defect-driven checklist and a quality-driven checklist. Their report includes who the inspectors are, the (substantial) question catalog the inspectors used, the items considered, the finding of the inspectors.
+
+
+* Traceability (revisited): 
+
+The project presents a traceability management cycle. This cycle includes the definition of a traceability policy (what should be traceable, what should not be, at what level of granularity, what would be alternatives, why was this way to do it chosen as opposed to other possibilities, …), the establishing of at least a large part of the links, the exploitation of the traceability graph in at least 3 change scenarios, and an assessment of the effort involved in maintaining the traceability information with these specific change scenarios.
+
+
+== Rubrics
+
+- Change tracking
+
+- Log book gives an overview	
+
+- The actual changes, new developments, etc are integratedt.	
+
+- New material follows guidelines already set.
+
+- Completeness of all development phases.
+
+- Use at least 4 kinds of diagrams to ENHANCE documentation.
+
+- Document complete requirements and domain model inspection cycle.
+
+- Document complete traceability management cycle.

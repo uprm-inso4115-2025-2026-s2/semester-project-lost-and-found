@@ -1,0 +1,530 @@
+=== *Requirements Evolution*
+
+==== Traceability for Report Lost Item
+:autor: Naedra 
+
+===== Report Lost Item Requirement
+Reporting Requirements:
+
+The system shall allow a registered UPRM community member to create a Report for a Lost Item.
+
+The ID for a Lost Item Report: REQ-REPORT-F-01
+
+*Scope:*
+
+The requirement : REQ-REPORT-F-01, must be traced across:
+
+- User Stories, Epics and Features
+- Interface Requirements
+- Machine Requirements
+- Domain Requirements
+- Test and Verification artifacts
+
+===== Traceability Policy Rules:
+
+- The Lost Item Requirement:REQ-REPORT-F-01,  much be linked to all related artifacts 
+- Traceability links must be maintained and updated during evolution
+- Any verification is traced back to REQ-REPORT-F-01 to confirm it is satisfied
+- Any modification or change  to REQ-REPORT-F-01 must trigger impact analisys
+- The requirement is fully traceable when all relevant interfaces, requirements and tests are captured and linked in the traceability table.
+
+===== Traceability Links Between the Requirement and Related System Components 
+
+====== Backward Traceability:
+
+- US.REPORT.01 - Submit a Lost Item Report
+- Epic E1: Reporting Lost and Found Items
+- Feature F1.1 - Structured lost item submission
+- F1.3 Image upload support
+- F1.4 Edit and manage own reports
+- Feature F1.5 - Automatic ownership binding
+
+The Report Lost Item requirement interacts with multiple components of the system:
+
+*Interface Requirements*:
+
+- IR006 : The system must provide a public view for item details showing only public fields (category, description, photos, general location) and a prompt to log in to contact the owner
+- IR009 : Report creation forms (Lost/Found) must include structured fields with validation, such as category dropdown, description, location picker, photo uploader, and private fields.
+- IR014 :  An API endpoint POST /api/v1/reports must be available to create a new report (Lost/Found type).
+           
+
+*Machine Requirements*:
+
+- SWRQ004 : The system must implement form validation using React Hook Form with Zod or Yup schema validation.
+- SWRQ005 : The system must support image upload functionality with file size limit of 10MB per image for JPEG, PNG, and GIF formats.
+- ENVRQ006 : The system must implement Row Level Security (RLS) policies in PostgreSQL for all data access.
+- ENVRQ009 : The system must implement rate limiting on all API endpoints to prevent abuse
+
+*Domain Requirements*
+
+[NOTE]
+====
+In the project Documentation, the domain requirements do not have assigned reference IDs. For the purpose of this traceability task, temporaly 
+placeholders IDs are being used to facilitate linking and tracking. These placeholders do not alter the  original documentation and are used
+solely for traceability purposes of this issue.
+====
+
+*Reporting Requirements*
+ 
+ - DOMREP01: The system shall allow a registered UPRM community member to create a Report for a Lost Item
+ - DOMREP03:Each Report shall include sufficient descriptive information to support Matching (e.g., category, description, general location, date).
+ - DOMREP04 :The system shall distinguish between public descriptive information and private verificationinformation within each Report.
+ - DOMREP05: Upon creation, each Report shall be assigned an initial status of "Active."
+
+
+*Search and Discovery Requirements*
+
+ - DOMSD01: The system shall allow users to search Reports based on keywords related to the item description.
+ - DOMSD02: The system shall allow filtering of Reports by category, general location, date, and status.
+ - DOMSD03: The system shall present search results in a manner that supports comparison between Lost Item and Found Item Reports for Matching purposes.
+
+
+*Matching and Tracking Requirements*
+
+- DOMMT01: The system shall support the identification of potential matches between Lost Item and FoundItem Reports
+- DOMMT02: The system shall allow the Owner of a Lost Item to monitor the status of their Report (Active, Returned, Closed).
+- DOMMT03: The system shall record status transitions from Active to Returned or Closed.
+
+
+*Claim Verification and Recovery Requirements*
+
+- DOMCVRR01: The system shall restrict marking an item as Returned to authenticated users involved in the Report.
+- DOMCVRR02: The system shall support the use of private verification information to validate ownership before Recovery is confirmed.
+- DOMCVRR03: Once Recovery occurs, the corresponding Report shall transition to "Returned" status.
+
+*Clousure Requirements*
+
+- DOMCR01: The system shall allow a Report to be manually closed if Recovery is no longer expected.
+- DOMCR02: Closed Reports shall remain recorded for reference but shall be clearly distinguishable from Active Reports in search results.
+
+*Administrative Oversight Requirements*
+- DOMAOR01: The system shall allow authorized administrators to review Reports for inappropriate or misleading content.
+- DOMAOR02: Administrators shall be able to modify or remove Reports that violate institutional guidelines.
+- DOMAOR03: Administrators shall be able to override Report status in cases of misuse or verified dispute.
+
+==== Dependent Systems:
+
+- Search and Filtering Systems
+- Matching System
+- Notification System
+- Claim and Recovery System
+
+
+
+
+
+==== Traceability Matrix(RTM)
+
+NOTE: For the Domain Requirements some Test IDs are just IDs placeholders, they do not belong to our project documentation.
+
+[cols="1,1,1,1,1,1,1,1"]
+|===
+|Requirement ID|  Linked Artifact | Link Type | Description |Type of Requirement | Test ID| Potential Risk| Acceptance Criteria
+
+|REQ-REPORT-F-01
+|US.REPORT.01
+|Realization
+|Submit a Lost Item Report
+|Functional
+|T-FE-002
+|User needs are not correctly captured
+|Report is created with valid data and status "Active"
+
+|REQ-REPORT-F-01
+|Epic E1
+|Realization
+|Reporting Lost and Found Items
+|Functional
+|T-FE-002
+|Incomplete or inconsistent data
+|Feature aligns with reporting objetive
+
+|REQ-REPORT-F-01
+|Feature F1.1
+|Realization
+|Structured lost item submission
+|Functional
+|T-FE-002
+|Incomplete or inconsistent data
+|All required fields are stored correctly
+
+|REQ-REPORT-F-01
+|Feature F1.3
+|Realization
+|Image upload support
+|Functional
+|T-FE-002
+|Image upload failure,unsuported file types, file exceeds limit 
+|Image Uploaded correctly and invalid files are rejected
+
+
+|REQ-REPORT-F-01
+|Feature F1.4
+|Realization
+|Edit and manage own reports
+|Functional
+|T-FE-002
+|User overwrite important data, data inconsistencies
+|User can update all editable fields in their own reports and validation prevent invalid data
+
+
+|REQ-REPORT-F-01
+|Feature F1.5 
+|Realization
+|Automatic ownership binding
+|Functional
+|T-AUTH-003
+|Incorrect ownership assignment
+|Report is linked to correct user
+
+|REQ-REPORT-F-01
+|IR006  
+|Realization
+|The system must provide a public view for item details showing only public fields (category, description, photos, general location) and a prompt to log in to contact the owner
+|Functional
+|T-DET-001, T-AUTH-003
+|Public fields not showed properly
+|Only public fields are properly displayed 
+
+|REQ-REPORT-F-01
+|IR009 
+|Realization
+|Report creation forms (Lost/Found) must include structured fields with validation, such as category dropdown, description, location picker, photouploader, and private fields
+|Functional
+|T-FE-002, T-VAL-001
+|Invalid or missing fields or data submitted
+|Correct fields with validation and Validation errors shown for invalid inputs
+
+|REQ-REPORT-F-01
+|IR014
+|Realization
+|An API endpoint POST /api/v1/reports must be available to create a new report (Lost/Found type)
+|Functional
+|T-API-RPT-002
+|API Failure or incorrect request handling
+|API succesfully creates report
+
+|REQ-REPORT-F-01
+|SWRQ004
+|Realization
+|The system must implement form validation using React Hook Form with Zod or Yup schema validation.
+|Functional
+|T-FE-005, T-VALID-001
+|Invalid data stored in the system
+|All inputs are validated before storage
+
+|REQ-REPORT-F-01
+|SWRQ005
+|Realization
+|The system must support image upload functionality with file size limit of 10MB per image for JPEG, PNG, and GIF formats.
+|Functional
+|T-UPLOAD-001, T-SEC-008
+|Image upload failure or invalid formats
+|Images uploaded within size and upload limits
+
+|REQ-REPORT-F-01
+|ENVRQ006
+|Constraint
+|The system must implement Row Level Security (RLS) policies in PostgreSQL for all data access.
+|Non-Functional
+|T-SEC-015, T-DB-010
+|Unauthorized data access
+|Only authorized users can access ports
+
+|REQ-REPORT-F-01
+|ENVRQ009 
+|Constraint
+|The system must implement rate limiting on all API endpoints to prevent abuse
+|Non- Functional
+|T-SEC-025, T-SEC-026
+|System abuse or overload
+|API requests are limited per user
+
+|REQ-REPORT-F-01
+|DOMREP01
+|Dependency
+|The system shall allow a registered UPRM community member to create a Report for a Lost Item
+|Functional
+|T-REP-001
+|User is not able to create a report, a non UPRM member is able to create a report
+|Registered UPRM member is able to create  a report
+
+|REQ-REPORT-F-01
+|DOMREP03
+|Dependency
+|Each Report shall include sufficient descriptive information to support Matching (e.g., category, description, general location, date).
+|Functional
+|T-REP-001
+|Incomplete report data prevents matching
+|All required fields are stored properly
+
+|REQ-REPORT-F-01
+|DOMREP04
+|Dependency
+|The system shall distinguish between public descriptive information and private verificationinformation within each Report.
+|Functional
+|T-REP-001
+|Private informaton exposed 
+|Private fields are restricted and public fields visible only
+
+|REQ-REPORT-F-01
+|DOMREP05
+|Dependency
+|Upon creation, each Report shall be assigned an initial status of "Active."
+|Functional
+|T-REP-001
+|Report Status not set correctly
+|New report status defaults "Active"
+
+
+|REQ-REPORT-F-01
+|DOMSD01
+|Dependency
+|The system shall allow users to search Reports based on keywords related to the item description.
+|Functional
+|T-SRCH-001
+|Report not discoverable via keywords
+|Search returns all relevant reports
+
+|REQ-REPORT-F-01
+|DOMSD02
+|Dependency
+|The system shall allow filtering of Reports by category, general location, date, and status.
+|Functional
+|T-SRCH-001
+|Filtering incorrect or missing results
+|Filters correctly display only matching reports
+
+|REQ-REPORT-F-01
+|DOMSD03
+|Dependency
+|The system shall present search results in a manner that supports comparison between Lost Item and Found Item Reports for Matching purposes.
+|Functional
+|T-SRCH-001
+|User cannot compare Lost and Found reports effectively between search reports
+|Search resukts allows comparison
+
+|REQ-REPORT-F-01
+|DOMMT01
+|Dependency
+|The system shall support the identification of potential matches between Lost Item and FoundItem Reports
+|Functional
+|T-MATCH-001
+|Matching fails due to poor data
+|Potential matches are correctly suggested 
+
+
+|REQ-REPORT-F-01
+|DOMMT02
+|Dependency
+|The system shall allow the Owner of a Lost Item to monitor the status of their Report (Active, Returned, Closed).
+|Functional
+|T-MATCH-001
+|Owner cannot track the status of the report
+|System allows the owner to succesfully monitor the status of their Report
+
+|REQ-REPORT-F-01
+|DOMMT03
+|Dependency
+|The system shall record status transitions from Active to Returned or Closed.
+|Non-Functional
+|T-MATCH-001
+|Transition history lost or inconsistent
+|The system succesfully records status transitions
+
+
+|REQ-REPORT-F-01
+|DOMCVRR01
+|Dependency
+|The system shall restrict marking an item as Returned to authenticated users involved in the Report.
+|Functional
+|T-VER-001
+|Unauthorized users mark items as returned
+|Only authorized users mark items as returned
+
+
+|REQ-REPORT-F-01
+|DOMCVRR02
+|Dependency
+|The system shall support the use of private verification information to validate ownership before Recovery is confirmed.
+|Functional
+|T-VER-001
+|Wrong owner claims or revieves the item
+|Owner verification is confirmed before recovery is confirmed
+
+|REQ-REPORT-F-01
+|DOMCVRR03
+|Dependency
+|Once Recovery occurs, the corresponding Report shall transition to "Returned" status.
+|Functional
+|T-VER-001
+|Status not updated after recovery
+|Recovered items automatically update status to Returned
+
+|REQ-REPORT-F-01
+|DOMCR01
+|Dependency
+| The system shall allow a Report to be manually closed if Recovery is no longer expected.
+|Functional
+|T-FE-001
+|Reports remains active
+|Reports can be manually closed
+
+|REQ-REPORT-F-01
+|DOMCR02
+|Dependency
+|Closed Reports shall remain recorded for reference but shall be clearly distinguishable from Active Reports in search results.
+|Functional
+|T-FE-001
+|Closed reports mixed with active
+|Closed reports are clearly marked as closed and excluded from active listings
+
+
+|REQ-REPORT-F-01
+|DOMAOR01
+|Dependency
+|The system shall allow authorized administrators to review Reports for inappropriate or misleading content.
+|T-ADMIN-001
+|Innapropiate reports not flagged
+|Admins can view and review all reports for compliance
+
+|REQ-REPORT-F-01
+|DOMAOR02
+|Dependency
+|Administrators shall be able to modify or remove Reports that violate institutional guidelines.
+|T-ADMIN-001
+|Excess of reports that violate institutional guidelines, manual errors
+|Admins can edit and reomove reports violating policy
+
+|REQ-REPORT-F-01
+|DOMAOR03
+|Dependency
+|Administrators shall be able to override Report status in cases of misuse or verified dispute.
+|T-ADMIN-001
+|Dispute resolution
+|Admins can change report status 
+
+
+
+|===
+
+==== Change Scenarios
+===== 1. Adding a New required field such as exact location or timestamp
+
+*Effect:*
+
+- IR009 form must be updated
+- IR006 items public view must be updated
+- SWRQ004 validation rules must be updated
+- Database(Supabase) schema must be updated
+- Search and filtering functionality affected
+
+===== 2. Change in Image Upload policy such as reducing file  size limit or allowing more image formats
+
+*Effect:*
+
+- SWRQ005 must be updated
+- IR009 UI must reflect new constraints 
+- API validation must be modified
+
+===== 3. Changing data Retention Policy such as auto-delete after a year
+
+*Effect:*
+
+- Search and Filtering systems must exclude expired reports
+- ENVRQ006 must be updated 
+- New requiremnet for scheduled deleition must be introduced
+- IR006 must exclude old reports from view
+- IR009 UI must inform users about report expiration
+- IR014  API must handle expired/deleted reports correctly
+- Database(Supabase) schema must be updated
+- Matching system impacted due to loss of historical data
+
+==== Effort Assessment
+
+===== Effort Levels Legend
+
+[cols="1,1"]
+|===
+|*Level*
+|*Description*
+
+|Low
+|Small Update
+
+|Medium
+|multiple components affected
+
+|High
+|Cross-system impact
+
+|=== 
+
+===== Effort table
+
+[cols="1,1,1"]
+|===
+|*Link Artifact*
+|*Type*
+|*Effort*
+
+|IR006 
+|Interface
+|Low
+
+|IR009 
+|Interface
+|High
+
+|IR014
+|Interface
+|Medium
+
+|SWRQ004
+|Machine
+|Medium
+
+|SWRQ005
+|Machihe
+|Low
+
+|ENVRQ006
+|Enviromental
+|Low
+
+|ENVRQ009
+|Enviromental
+|Low
+
+|Database
+|Infractusture
+|High
+
+|Search System
+|Dependency 
+|High
+
+|Matching System
+|Dependency
+|High
+
+|=== 
+
+
+
+===== Effort for the Identified Change Scenarios
+
+1. Adding a New required field such as exact location or timestamp
+Effort: High
+
+2. Change in Image Upload policy such as reducing file  size limit or allowing more image formats
+Effort: Medium
+
+3. Changing data Retention Policy such as auto-delete after a year
+Effort: High
+
+===== References
+
+van lamsweerde, A.(2009), Chapter 6: Requirements Evolution , INSO4115(Class notes)
+
+--- 
