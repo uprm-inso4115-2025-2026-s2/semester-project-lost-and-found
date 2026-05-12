@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import "./ItemCard.css";
+import { useNavigate } from "react-router-dom";
 
 export type ItemStatus = "Lost" | "Found" | "Claimed" | "Returned";
 
@@ -15,6 +16,7 @@ export interface ItemCardProps {
   onClaim?: (id: string) => void;
   onReturn?: (id: string) => void; 
   onSendBackToLost?: (reportId: string) => void;
+  onCardClick?: (reportId: string) => void;
 }
 
 const STATUS_THEME: Record<
@@ -55,13 +57,18 @@ export const ItemCard: React.FC<ItemCardProps> = ({
   onReturn,
   onSendBackToLost,
 }) => {
+  const navigate = useNavigate();
   const theme = useMemo(() => STATUS_THEME[status], [status]);
   const [imgFailed, setImgFailed] = useState(false);
 
   const showImage = Boolean(imageUrl) && !imgFailed;
 
   return (
-    <article className="itemCard">
+    <article 
+      className="itemCard"
+      onClick={() => navigate(`/details/${reportId}`)}
+      style={{cursor : "pointer"}}
+    >
       {/* Top colored bar */}
       <div className="topBar" style={{ background: theme.bar }} />
 
@@ -120,19 +127,19 @@ export const ItemCard: React.FC<ItemCardProps> = ({
           
         <div className="cardActions">
           {status === "Lost" && onClaim && (
-            <button className="actionBtn" onClick={() => onClaim(reportId)}>
+            <button className="actionBtn" onClick={(e) => {e.stopPropagation(); onClaim(reportId)}}>
               Mark as Claimed
             </button>
           )}
 
           {status === "Claimed" && onReturn && (
-            <button className="actionBtn" onClick={() => onReturn(reportId)}>
+            <button className="actionBtn" onClick={(e) => {e.stopPropagation(); onReturn(reportId)}}>
               Mark as Returned
             </button>
           )}
 
           {status === "Returned" && onSendBackToLost && (
-              <button className="actionBtn" onClick={() => onSendBackToLost(reportId)}>
+              <button className="actionBtn" onClick={(e) => {e.stopPropagation(); onSendBackToLost(reportId)}}>
                 Send back to Lost
               </button>
           )}

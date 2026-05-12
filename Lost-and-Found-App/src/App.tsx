@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import { AuthProvider } from "./AuthProvider";
 import RequireAuth from "./RequireAuth";
+import ReportDetailPage from "./pages/ReportDetailsPage";
 
 function App() {
   return (
@@ -57,6 +58,16 @@ function App() {
             </RequireAuth>
           }
         />
+
+        <Route 
+          path="/details/:id" 
+          element={
+            <RequireAuth>
+              <ReportDetailPage />
+            </RequireAuth>
+          } 
+        />
+
       </Routes>
     </AuthProvider>
   );
