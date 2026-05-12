@@ -60,7 +60,7 @@ function App() {
         />
 
         <Route 
-          path="/details/:id" 
+          path="/details/:reportId" 
           element={
             <RequireAuth>
               <ReportDetailPage />
