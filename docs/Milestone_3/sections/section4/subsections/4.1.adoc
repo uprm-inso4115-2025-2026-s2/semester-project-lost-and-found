@@ -2064,3 +2064,160 @@ If communication is outside the system, then institutional email acts as an exte
 ===== Why This Abstraction Improves Conceptual Clarity
 
 This abstraction improves clarity because it replaces a flat list of terms with a small set of coherent conceptual groups. Instead of reasoning separately about every field, actor, and event, the team can discuss the domain in terms of stable concepts that explain purpose and interaction. That makes later requirements engineering easier because each requirement can be attached to a concept instead of being treated as an isolated detail.
+
+---
+
+==== UPRM Lost & Found Domain Tagging Taxonomy
+:author: Keishlyany Sanabria (@keisanabria)
+
+===== Overview
+
+This section defines a standardized tagging taxonomy for recording raw domain facts related to the app of Lost and Found's process. 
+
+As established in the lecture, domain description units must be tagged using categories such as:
+
+- Category
+- Stakeholder Group
+- Phenomenon or Concept
+- Kind
+- Attribute
+- Facet
+
+This taxonomy ensures uniform classification across all elicited facts.
+
+===== Tagging Legend
+
+The following table defines each tag and its allowed values within the scope of the app of Lost & Found's domain.
+
+[cols="1,2,3", options="header"]
+|===
+| Tag Category | Description | Allowed Values
+
+| Category
+| High-level classification of the fact
+| Process, Rule, Constraint, Physical Layout, Data, Exception
+
+| Stakeholder Group
+| The group involved or affected by the fact
+| Security Personnel, Student Finder, Student Owner, Library Staff, Building Admin, Maintenance Staff
+
+| Phenomenon / Concept
+| The main noun or concept described by the fact
+| Free-form (for example: Lost Item, Claim Verification, Storage Drawer, Report Form, Waiting Period)
+
+| Kind
+| Nature of the phenomenon
+| Entity, Function, Event, Behavior
+
+| Attribute
+| Dynamism or behavior over time
+| Active, Inert, Reactive, Autonomous
+
+| Facet
+| Context or perspective of the fact
+| Intrinsics, Support Technology, Rules & Regulations, Physical Environment, Organizational Structure
+|===
+
+===== Tagging Guidelines
+
+- Each domain fact must be recorded as a *Domain Description Unit* with a unique identifier.
+- Tags must be selected from the predefined values above.
+- The *Phenomenon* field should be concise and descriptive.
+- The *Attribute* reflects how the concept behaves (for example: reacts to events, remains static, acts independently).
+- The *Facet* helps contextualize the fact within the domain (for example: policy vs. physical storage).
+
+===== Example Domain Description Units
+
+====== Example 1
+
+*Fact:*  
+The library front desk holds found USB drives in a drawer for 30 days.
+
+*Tags Applied:*
+
+- Unit ID: domain-0001
+
+- Category: Rule
+
+- Stakeholder Group: Library Staff
+
+- Phenomenon: USB Drive Retention
+
+- Kind: Behavior
+
+- Attribute: Reactive
+
+- Facet: Intrinsics
+
+====== Example 2
+
+*Fact:*  
+Students must present a valid ID to claim a lost item.
+
+*Tags Applied:*
+
+- Unit ID: domain-0002
+
+- Category: Rule
+
+- Stakeholder Group: Student Owner
+
+- Phenomenon: Claim Verification
+
+- Kind: Behavior
+
+- Attribute: Reactive
+
+- Facet: Rules & Regulations
+
+====== Example 3
+
+*Fact:*  
+Security personnel log found items into an Excel sheet.
+
+*Tags Applied:*
+
+- Unit ID: domain-0003
+
+- Category: Process
+
+- Stakeholder Group: Security Personnel
+
+- Phenomenon: Item Logging
+
+- Kind: Function
+
+- Attribute: Active
+
+- Facet: Support Technology
+
+====== Example 4
+
+*Fact:*  
+Lost items are stored in labeled bins inside the security office.
+
+*Tags Applied:*
+
+- Unit ID: domain-0004
+
+- Category: Physical Layout
+
+- Stakeholder Group: Security Personnel
+
+- Phenomenon: Storage Bins
+
+- Kind: Entity
+
+- Attribute: Inert
+
+- Facet: Physical Environment
+
+===== Conclusion
+
+This tagging taxonomy provides a consistent structure for capturing and indexing domain knowledge related to the app of Lost & Found's system. By standardizing how facts are recorded, it supports:
+
+- Efficient navigation of domain knowledge
+- Improved communication among stakeholders
+- A strong foundation for later domain analysis and system design
+
+---
