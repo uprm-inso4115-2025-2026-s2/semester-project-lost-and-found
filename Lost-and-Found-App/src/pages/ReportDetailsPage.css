@@ -1,0 +1,146 @@
+.detailsPage {
+  max-width: 550px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: white;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Green top background */
+.detailsPage::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 375px;
+
+  background: #7DD583;
+
+  z-index: 0;
+}
+
+.backBtn {
+  position: relative;
+  z-index: 2;
+
+  margin: 16px;
+  border: none;
+  background: transparent;
+  font-size: 28px;
+  cursor: pointer;
+  color: white;
+}
+
+.detailsImageContainer {
+  position: relative;
+  z-index: 2;
+
+  padding: 0 14px;
+}
+
+.detailsImage {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 24px;
+}
+
+.detailsPlaceholder {
+  width: 100%;
+  height: 280px;
+  border-radius: 24px;
+  background: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detailsContent {
+  position: relative;
+  z-index: 2;
+
+  padding: 20px;
+  margin-top: 10px;
+}
+
+.detailsTitle {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.detailsInfoRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+.infoLabel {
+  font-weight: bold;
+  color: #17a45b;
+  margin-bottom: 4px;
+}
+
+.tagsSection {
+  margin-bottom: 24px;
+}
+
+.tagsContainer {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.tagPill {
+  background: #d9d9d9;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.descriptionSection {
+  margin-bottom: 30px;
+}
+
+.descriptionBox {
+  background: #f1f1f1;
+  border-radius: 20px;
+  padding: 18px;
+  min-height: 120px;
+  margin-top: 10px;
+}
+
+.detailsActions {
+  display: flex;
+  gap: 14px;
+}
+
+.claimBtn,
+.contactBtn {
+  flex: 1;
+  border: none;
+  border-radius: 30px;
+  padding: 16px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.claimBtn {
+  background: #3dc655;
+  color: white;
+}
+
+.contactBtn {
+  background: #8fb5d6;
+  color: white;
+}
