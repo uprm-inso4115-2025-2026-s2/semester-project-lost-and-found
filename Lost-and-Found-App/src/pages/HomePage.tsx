@@ -155,7 +155,7 @@ export default function HomePage() {
 
       {/* STATUS FILTER AND CATEGORY DROPDOWN */}
       <div className="statusTabs">
-        {(["Lost", "Claimed", "Returned"] as TabKey[]).map((tab) => (
+        {(["Active", "Claimed", "Returned"] as TabKey[]).map((tab) => (
           <button
             key={tab}
             className={`statusBtn ${activeTab === tab ? "active" : ""}`}
