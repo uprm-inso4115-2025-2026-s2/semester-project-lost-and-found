@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./UserHistoryPage.css";
 import { getReportByUser } from "../ReportManagement/ReportDatabaseManagement";
+import { supabase } from "../supabaseClient";
 
 type HistoryFilter = "All" | "Lost" | "Found" | "Claimed" | "Returned";
 
@@ -28,8 +29,9 @@ export default function UserHistoryPage() {
       try {
         setLoading(true);
         setError("");
+        const user = supabase.auth.getUser();
 
-        const userId = "12345";
+        const userId = (await user).data.user?.email || "";
 
         const reports = await getReportByUser(userId);
 

@@ -91,7 +91,9 @@ export async function getReport(id: string): Promise<Report | null> {
         tags: data.tags,
         imageUrl: data.imageURL,
         createdBy: data.createdBy,
-        type: type
+        type: type,
+        recoveryCode: data.recoveryCode,
+        claimedBy: data.claimedBy
     }
 
    return Report.fromSupabase(data.id, prop, status);
@@ -134,7 +136,9 @@ export async function getReport(id: string): Promise<Report | null> {
             tags: data[i].tags,
             imageUrl: data[i].imageURL,
             createdBy: data[i].createdBy,
-            type: type
+            type: type,
+            recoveryCode: data[i].recoveryCode,
+            claimedBy: data[i].claimedBy
         }
 
         reports.push(Report.fromSupabase(data[i].id, prop, status));
@@ -192,7 +196,9 @@ export async function getReportByUser(id: string): Promise<Report[]> {
             tags: data[i].tags,
             imageUrl: data[i].imageURL,
             createdBy: data[i].createdBy,
-            type: type
+            type: type,
+            recoveryCode: data[i].recoveryCode,
+            claimedBy: data[i].claimedBy 
         }
 
         //Creates a report object and pushes it to the array
