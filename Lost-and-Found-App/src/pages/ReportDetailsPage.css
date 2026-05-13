@@ -3,19 +3,22 @@
   max-width: 550px;
   margin: 0 auto;
   min-height: 100vh;
-  background: #f8f9fa;
+  background: white;
   display: flex;
   flex-direction: column;
-  position: relative;
 }
 
-/* ─── Green Header ───────────────────────────────────────── */
-.detailsHeader {
+/* ─── Green Hero ─────────────────────────────────────────── */
+.detailsHero {
   background: #17a45b;
-  padding: 16px;
+  padding: 14px 14px 20px;
+}
+
+.detailsHeroBg {
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
+  margin-bottom: 14px;
 }
 
 .detailsBackBtn {
@@ -37,35 +40,30 @@
   background: rgba(255, 255, 255, 0.3);
 }
 
-.detailsHeaderTitle {
-  flex: 1;
-  color: white;
-  font-size: 18px;
-  font-weight: 700;
-  margin: 0;
-}
-
 .detailsHeaderStatus {
-  padding: 4px 12px;
+  padding: 4px 14px;
   border-radius: 20px;
   color: white;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
 }
 
-/* ─── Image ──────────────────────────────────────────────── */
-.detailsImageContainer {
-  position: relative;
-  width: 100%;
-  height: 260px;
-  background: #e5e7eb;
+/* ─── Image Frame (sits inside green with padding) ───────── */
+.detailsImageFrame {
+  border-radius: 16px;
   overflow: hidden;
+  border: 4px solid rgba(255, 255, 255, 0.5);
+  height: 230px;
+  background: #e5e7eb;
+  position: relative;
+  z-index: 1;
 }
 
 .detailsImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 .detailsPlaceholder {
@@ -74,42 +72,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 15px;
   color: #9ca3af;
-  background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+  background: #f3f4f6;
 }
 
-.detailsStatusBadge {
-  position: absolute;
-  bottom: 14px;
-  right: 14px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  border-radius: 20px;
-  color: white;
-  font-size: 13px;
-  font-weight: 600;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-.detailsStatusDot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.8);
-}
-
-/* ─── Content ────────────────────────────────────────────── */
+/* ─── White Content Area ────────────────────────────────── */
 .detailsContent {
   flex: 1;
-  padding: 20px 16px 100px;
+  background: white;
+  padding: 16px 18px 100px;
 }
 
 .detailsTitle {
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 26px;
+  font-weight: 800;
   color: #111827;
   margin: 0 0 16px;
   line-height: 1.2;
@@ -117,31 +94,44 @@
 
 /* ─── Info Row ───────────────────────────────────────────── */
 .detailsInfoRow {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 0;
   margin-bottom: 20px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 16px;
 }
 
 .infoItem {
-  background: white;
-  border-radius: 12px;
-  padding: 12px;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  gap: 2px;
+  padding-right: 8px;
+}
+
+.infoItem + .infoItem {
+  border-left: 1px solid #e5e7eb;
+  padding-left: 12px;
+  padding-right: 0;
 }
 
 .infoLabel {
   font-size: 11px;
-  color: #6b7280;
-  font-weight: 500;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
-.infoItem span:last-child {
+/* colored labels matching Figma */
+.infoLabel.category { color: #f59e0b; }
+.infoLabel.location { color: #3b82f6; }
+.infoLabel.date     { color: #ef4444; }
+
+.infoItem span.infoValue {
   font-size: 13px;
   color: #111827;
   font-weight: 600;
@@ -149,14 +139,17 @@
 
 /* ─── Tags ───────────────────────────────────────────────── */
 .tagsSection {
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .tagsSection h3 {
   font-size: 15px;
-  font-weight: 600;
-  color: #374151;
+  font-weight: 700;
+  color: #111827;
   margin: 0 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .tagsContainer {
@@ -166,34 +159,36 @@
 }
 
 .tagPill {
-  background: #d1fae5;
-  color: #065f46;
+  background: #f3f4f6;
+  color: #374151;
   border-radius: 20px;
-  padding: 4px 12px;
+  padding: 5px 14px;
   font-size: 13px;
   font-weight: 500;
+  border: 1px solid #e5e7eb;
 }
 
 /* ─── Description ────────────────────────────────────────── */
 .descriptionSection {
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .descriptionSection h3 {
   font-size: 15px;
-  font-weight: 600;
-  color: #374151;
-  margin: 0 0 10px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 8px;
 }
 
 .descriptionBox {
-  background: white;
+  background: #f9fafb;
   border-radius: 12px;
   padding: 14px;
   font-size: 14px;
   color: #4b5563;
   line-height: 1.6;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  min-height: 80px;
+  border: 1px solid #f0f0f0;
 }
 
 /* ─── Action Buttons ─────────────────────────────────────── */
@@ -204,46 +199,46 @@
 
 .claimBtn {
   flex: 1;
-  padding: 14px;
+  padding: 14px 10px;
   background: #17a45b;
   color: white;
   border: none;
-  border-radius: 12px;
+  border-radius: 30px;
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   transition: background 0.2s, transform 0.1s;
 }
 
-.claimBtn:hover {
-  background: #15924f;
-}
-
-.claimBtn:active {
-  transform: scale(0.98);
-}
+.claimBtn:hover  { background: #15924f; }
+.claimBtn:active { transform: scale(0.98); }
 
 .contactBtn {
   flex: 1;
-  padding: 14px;
-  background: white;
-  color: #17a45b;
-  border: 2px solid #17a45b;
-  border-radius: 12px;
+  padding: 14px 10px;
+  background: #b0bec5;
+  color: white;
+  border: none;
+  border-radius: 30px;
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   transition: background 0.2s;
 }
 
-.contactBtn:hover {
-  background: #f0fdf4;
-}
+.contactBtn:hover { background: #90a4ae; }
 
 /* ═══════════════════════════════════════════════════════════
    CLAIM MODAL
 ═══════════════════════════════════════════════════════════ */
-
 .claimOverlay {
   position: fixed;
   inset: 0;
@@ -279,7 +274,6 @@
   to   { transform: translateY(0); }
 }
 
-/* drag handle */
 .claimModal::before {
   content: "";
   width: 40px;
@@ -309,11 +303,8 @@
   justify-content: center;
 }
 
-.claimModalClose:hover {
-  background: #e5e7eb;
-}
+.claimModalClose:hover { background: #e5e7eb; }
 
-/* ─── Step 1: Confirm ────────────────────────────────────── */
 .claimModalIcon {
   font-size: 48px;
   margin-bottom: 12px;
@@ -382,9 +373,7 @@
   cursor: pointer;
 }
 
-.claimModalCancel:hover {
-  background: #e5e7eb;
-}
+.claimModalCancel:hover { background: #e5e7eb; }
 
 .claimModalConfirm {
   flex: 1;
@@ -399,16 +388,9 @@
   transition: background 0.2s;
 }
 
-.claimModalConfirm:hover:not(:disabled) {
-  background: #15924f;
-}
+.claimModalConfirm:hover:not(:disabled) { background: #15924f; }
+.claimModalConfirm:disabled { opacity: 0.6; cursor: not-allowed; }
 
-.claimModalConfirm:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* ─── Step 2: Code ───────────────────────────────────────── */
 .claimCodeCard {
   width: 100%;
   background: linear-gradient(135deg, #17a45b 0%, #0e7a44 100%);
@@ -448,7 +430,6 @@
   font-weight: 800;
   color: white;
   font-family: "Courier New", monospace;
-  letter-spacing: 0;
   animation: digitReveal 0.4s ease both;
 }
 
@@ -476,13 +457,8 @@
   transition: background 0.2s;
 }
 
-.claimCopyBtn:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-.claimCopyBtn.copied {
-  background: rgba(255, 255, 255, 0.35);
-}
+.claimCopyBtn:hover  { background: rgba(255, 255, 255, 0.3); }
+.claimCopyBtn.copied { background: rgba(255, 255, 255, 0.35); }
 
 .claimNote {
   display: flex;
@@ -512,6 +488,4 @@
   transition: background 0.2s;
 }
 
-.claimModalDone:hover {
-  background: #15924f;
-}
+.claimModalDone:hover { background: #15924f; }
