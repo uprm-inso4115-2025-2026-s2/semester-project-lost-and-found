@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient.ts";
 import "./ReportDetailsPage.css";
 import { editReport, getReport } from "../ReportManagement/ReportDatabaseManagement";
-import type { Report } from "../ReportManagement/Reports";
+import { Report } from "../ReportManagement/Reports";
 
 const ReportDetailPage: React.FC = () => {
   const { reportId } = useParams();
@@ -15,15 +15,20 @@ const ReportDetailPage: React.FC = () => {
   const [claimStep, setClaimStep] = useState<"confirm" | "code">("confirm");
   const [claimLoading, setClaimLoading] = useState(false);
   const [codeCopied, setCodeCopied] = useState(false);
-
+  const [userEmail, setUserEmail] = useState("");
+  
   useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+    setUserEmail(user?.email || "");
+    });
+
     if (!reportId) return;
     getReport(reportId).then(setReport);
   }, [reportId]);
-
+  
   const handleOpenClaim = async () => {
     setCodeCopied(false);
-
+    
     // If already claimed (in DB or this session), skip confirm and show code
     if (report?.getRawStatus() === "CLAIMED") {
       // Load code from DB if we don't have it yet
@@ -37,19 +42,19 @@ const ReportDetailPage: React.FC = () => {
       setShowClaimModal(true);
       return;
     }
-
+    
     // First time — show confirm prompt
     setClaimStep("confirm");
     setClaimCode(null);
     setShowClaimModal(true);
   };
-
+  
   const handleCloseModal = () => {
     setShowClaimModal(false);
     setCodeCopied(false);
     // Don't reset claimCode — needed to skip confirm next time
   };
-
+  
   const handleClaim = async () => {
     if (!reportId || !report) return;
     setClaimLoading(true);
@@ -74,6 +79,10 @@ const ReportDetailPage: React.FC = () => {
           if (!data) {
             console.error(error);
           }
+
+          report.setStatus("CLAIMED");
+          report.setClaimedBy(user?.email || "");
+          await editReport(report.getID(), report);
           // In-app notification placeholder
         }
       }
@@ -83,6 +92,14 @@ const ReportDetailPage: React.FC = () => {
       setClaimLoading(false);
     }
   };
+
+  const handleUnClaim = async () => {
+    report?.setStatus("RESOLVED");
+    report?.setStatus("ACTIVE");
+    report?.setClaimedBy("");
+    await editReport(report?.getID() || "", report || Report.CreateDefault());
+    window.location.reload();
+  }
 
   const handleCopyCode = () => {
     if (claimCode !== null) {
@@ -170,7 +187,10 @@ const ReportDetailPage: React.FC = () => {
 
         {/* Buttons */}
         <div className="detailsActions">
-          <button className="claimBtn" onClick={handleOpenClaim}>
+          <button 
+            className="claimBtn" 
+            disabled={report.getType() === 'Lost' && report.getStatus() === 'Claimed'}
+            onClick={handleOpenClaim}>
             Claim Item
           </button>
           <button className="contactBtn">
@@ -178,7 +198,11 @@ const ReportDetailPage: React.FC = () => {
           </button>
         </div>
         <div className="detailsActionsSecondary">
-          <button className="unclaimBtn" disabled>
+          <button 
+            className="unclaimBtn"
+            disabled={userEmail !== report.getClaimedBy()}
+            onClick={handleUnClaim}
+          >
             Unclaim
           </button>
         </div>

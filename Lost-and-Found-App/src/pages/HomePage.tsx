@@ -19,7 +19,7 @@ type TabKey = ItemStatus;
 function toItemStatus(reportStatus: string): ItemStatus | null {
   if (reportStatus === "Active" || reportStatus === "ACTIVE") return "Active";
   if (reportStatus === "Claimed" || reportStatus === "CLAIMED") return "Claimed";
-  if (reportStatus === "Resolved" || reportStatus === "RESOLVED") return "Returned";
+  if (reportStatus === "Resolved" || reportStatus === "RESOLVED") return "Closed";
   return null;
 }
 
@@ -155,7 +155,7 @@ export default function HomePage() {
 
       {/* STATUS FILTER AND CATEGORY DROPDOWN */}
       <div className="statusTabs">
-        {(["Active", "Claimed", "Returned"] as TabKey[]).map((tab) => (
+        {(["Active", "Claimed", "Closed"] as TabKey[]).map((tab) => (
           <button
             key={tab}
             className={`statusBtn ${activeTab === tab ? "active" : ""}`}

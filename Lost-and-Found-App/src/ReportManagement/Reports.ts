@@ -138,7 +138,12 @@ export class Report {
       return;
     }
   
-    if (this.status === 'RESOLVED' && status === 'CLAIMED') {
+    if (this.status === 'CLAIMED' && status === 'RESOLVED') {
+      this.status = status;
+      return;
+    }
+
+    if (this.status === 'RESOLVED' && status === 'ACTIVE') {
       this.status = status;
       return;
     }

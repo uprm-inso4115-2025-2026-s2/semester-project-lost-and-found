@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import "./ItemCard.css";
 import { useNavigate } from "react-router-dom";
 
-export type ItemStatus = "Active" | "Claimed" | "Returned";
+export type ItemStatus = "Active" | "Claimed" | "Closed";
 
 export interface ItemCardProps {
   imageUrl?: string;
@@ -33,7 +33,7 @@ const STATUS_THEME: Record<
     dot: "#3b82f6",
     text: "#1d4ed8",
   },
-  Returned: {
+  Closed: {
     bar: "#10b981",
     dot: "#10b981",
     text: "#047857",
@@ -123,17 +123,17 @@ export const ItemCard: React.FC<ItemCardProps> = ({
         <div className="cardActions">
           {status === "Active" && onClaim && (
             <button className="actionBtn" onClick={(e) => {e.stopPropagation(); onClaim(reportId)}}>
-              Mark as Claimed
+              Claim
             </button>
           )}
 
           {status === "Claimed" && onReturn && (
             <button className="actionBtn" onClick={(e) => {e.stopPropagation(); onReturn(reportId)}}>
-              Mark as Returned
+              Close
             </button>
           )}
 
-          {status === "Returned" && onSendBackToLost && (
+          {status === "Closed" && onSendBackToLost && (
               <button className="actionBtn" onClick={(e) => {e.stopPropagation(); onSendBackToLost(reportId)}}>
                 Re-open
               </button>
