@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../AuthProvider";
 import createAccount from "../UserProfilesAccount/Create_Account";
 import "./AuthForm.css";
+import { containsProfanity } from "../utils/profanityFilter";
 
 const SignupPage: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -16,6 +17,11 @@ const SignupPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    // Profanity check for username
+    if (containsProfanity(username)) {
+      setError("Profanity detected in username.");
+      return;
+    }
     try {
       const result = await createAccount(username, password, email, phonenumber);
       if (!result) {

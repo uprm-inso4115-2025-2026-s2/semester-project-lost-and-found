@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { storeReportWithDuplicateCheck } from "../ReportManagement/ReportDatabaseManagement";
 import { storeReport } from "../ReportManagement/ReportDatabaseManagement";
 import { sendReportCreatedEmail } from "../UserProfilesAccount/NotificationService";
+import { validateProfanityAllFields } from "../utils/profanityValidation";
 
 import { supabase } from "../supabaseClient.ts";
 import { ImageUploadInput } from "../components/ImageUploadInput";
@@ -42,6 +43,10 @@ export function ReportCreatePage() {
 
   const [imageFile, setImageFile] = useState<File | undefined>(undefined);
   const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
+    // Remove tag from tags array
+    const removeTag = (tag: string) => {
+      setTags((prev) => prev.filter((t) => t !== tag));
+    };
   
   // Duplicate detection state
   const [showDuplicateModal, setShowDuplicateModal] = useState(false);
@@ -86,13 +91,26 @@ export function ReportCreatePage() {
       handleAddTag();
     }
   };
-
+  
   const removeTag = (tag: string) => {
     setTags((prev) => prev.filter((t) => t !== tag));
   };
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
+
+    // Profanity validation for all public fields
+    const profanityError = validateProfanityAllFields({
+      title,
+      description,
+      location,
+      tags,
+    });
+    if (profanityError) {
+      setErrorMessage(profanityError);
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       // Upload image if exists
