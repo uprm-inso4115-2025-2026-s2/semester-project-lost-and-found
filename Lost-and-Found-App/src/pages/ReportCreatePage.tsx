@@ -110,12 +110,13 @@ export function ReportCreatePage() {
         const { data } = supabase.storage.from("ReportImages").getPublicUrl(FileName);
         uploadedImageUrl = data.publicUrl;
       }
-
+      
       // Create the report
       const newReport = Report.Create({
         title,
         description,
         dateFound: new Date(date),
+        expiresAt : new Date(date),
         location,
         category,
         tags,

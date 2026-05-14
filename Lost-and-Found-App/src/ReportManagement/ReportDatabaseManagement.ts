@@ -78,6 +78,7 @@ export async function getReport(id: string): Promise<Report | null> {
     } else if (data.status === "Claimed" || data.status === "CLAIMED") {
         status = 'CLAIMED';
     }
+    
 
     let type: ReportType = 'LOST';
     if (data.type === "Found") { type = 'FOUND'; }
@@ -86,6 +87,7 @@ export async function getReport(id: string): Promise<Report | null> {
         title: data.title,
         description: data.description,
         dateFound: new Date(data.dateFound),
+        expiresAt: new Date(data.expiresAt),
         location: data.location,
         category: category,
         tags: data.tags,
@@ -121,6 +123,15 @@ export async function getReport(id: string): Promise<Report | null> {
         } else if (data[i].status === "Claimed" || data[i].status === "CLAIMED") {
             status = 'CLAIMED';
         }
+        const expiresAt =new Date(data[i].expiresAt);
+        const nowDate = new Date();
+        if(expiresAt < nowDate && status === "ACTIVE"){
+            status = "EXPIRED";
+
+            await supabase.from('reports').update({status: "EXPIRED"}).eq('id', data[i].id);
+
+
+        }
 
         let type: ReportType = 'LOST';
         if (data[i].type === "Found") { type = 'FOUND'; }
@@ -129,6 +140,7 @@ export async function getReport(id: string): Promise<Report | null> {
             title: data[i].title,
             description: data[i].description,
             dateFound: new Date(data[i].dateFound),
+            expiresAt : new Date(data[i].expiresAt),
             location: data[i].location,
             category: category,
             tags: data[i].tags,
@@ -187,6 +199,7 @@ export async function getReportByUser(id: string): Promise<Report[]> {
             title: data[i].title,
             description: data[i].description,
             dateFound: new Date(data[i].dateFound),
+            expiresAt: new Date(data[i].expiresAt),
             location: data[i].location,
             category: category,
             tags: data[i].tags,
@@ -222,4 +235,15 @@ export async function storeReportWithDuplicateCheck(report: Report): Promise<{
     success: success,
     duplicateWarning: duplicateWarning
   };
+}
+export async function reOpenReport(id: string, userId: string): Promise<boolean> {
+    const {error} = await supabase.from('reports')
+    .update({status:  "ACTIVE"}).eq('id', id).eq('status', 'EXPIRED').eq('createdBy',userId ).select();
+    
+    if(error){
+        console.error(error);
+        return false;
+    }
+
+    return true;
 }
