@@ -220,7 +220,7 @@
 .contactBtn {
   flex: 1;
   padding: 14px 10px;
-  background: #b0bec5;
+  background: #60a5fa;
   color: white;
   border: none;
   border-radius: 30px;
@@ -234,7 +234,25 @@
   transition: background 0.2s;
 }
 
-.contactBtn:hover { background: #90a4ae; }
+.contactBtn:hover { background: #3b82f6; }
+
+.detailsActionsSecondary {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.unclaimBtn {
+  padding: 11px 48px;
+  background: #e5e7eb;
+  color: #9ca3af;
+  border: none;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
 
 /* ═══════════════════════════════════════════════════════════
    CLAIM MODAL

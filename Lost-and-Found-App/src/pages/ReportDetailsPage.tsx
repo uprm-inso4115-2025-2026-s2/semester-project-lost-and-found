@@ -21,18 +21,33 @@ const ReportDetailPage: React.FC = () => {
     getReport(reportId).then(setReport);
   }, [reportId]);
 
-  const handleOpenClaim = () => {
+  const handleOpenClaim = async () => {
+    setCodeCopied(false);
+
+    // If already claimed (in DB or this session), skip confirm and show code
+    if (report?.getRawStatus() === "CLAIMED") {
+      // Load code from DB if we don't have it yet
+      if (claimCode === null) {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (report.getClaimedBy() === user?.email) {
+          setClaimCode(report.getRecoveryCode());
+        }
+      }
+      setClaimStep("code");
+      setShowClaimModal(true);
+      return;
+    }
+
+    // First time — show confirm prompt
     setClaimStep("confirm");
     setClaimCode(null);
-    setCodeCopied(false);
     setShowClaimModal(true);
   };
 
   const handleCloseModal = () => {
     setShowClaimModal(false);
-    setClaimStep("confirm");
-    setClaimCode(null);
     setCodeCopied(false);
+    // Don't reset claimCode — needed to skip confirm next time
   };
 
   const handleClaim = async () => {
@@ -61,12 +76,6 @@ const ReportDetailPage: React.FC = () => {
           }
           // In-app notification placeholder
         }
-      } else if (
-        report.getRawStatus() === "CLAIMED" &&
-        report.getClaimedBy() === user?.email
-      ) {
-        setClaimCode(report.getRecoveryCode());
-        setClaimStep("code");
       }
     } catch (error) {
       console.error("Could not claim report:", error);
@@ -96,7 +105,7 @@ const ReportDetailPage: React.FC = () => {
 
   return (
     <div className="detailsPage">
-      {/* Green Hero — back button row + image inside green */}
+      {/* Green Hero */}
       <div className="detailsHero">
         <div className="detailsHeroBg">
           <button className="detailsBackBtn" onClick={() => navigate(-1)}>
@@ -123,7 +132,7 @@ const ReportDetailPage: React.FC = () => {
       <div className="detailsContent">
         <h1 className="detailsTitle">{report.getTitle()}</h1>
 
-        {/* Info Row — colored labels like Figma */}
+        {/* Info Row */}
         <div className="detailsInfoRow">
           <div className="infoItem">
             <span className="infoLabel category">☆ CATEGORY</span>
@@ -166,6 +175,11 @@ const ReportDetailPage: React.FC = () => {
           </button>
           <button className="contactBtn">
             Contact
+          </button>
+        </div>
+        <div className="detailsActionsSecondary">
+          <button className="unclaimBtn" disabled>
+            Unclaim
           </button>
         </div>
       </div>
