@@ -203,6 +203,16 @@ const ReportDetailPage: React.FC = () => {
             Contact
           </button>
         </div>
+        {/*
+          Future UI note:
+          - A delete button should only be shown for the author of this report.
+          - UI should obtain the current user's authenticated email from Supabase,
+            then call deleteReportIfOwner(report.getID(), userEmail).
+          - Example import: import { deleteReportIfOwner } from "../ReportManagement/ReportDatabaseManagement";
+          - The helper above verifies ownership and updates the database atomically.
+          - If the delete helper returns success:false, the UI should show an
+            authorization or deletion error message.
+        */}
         <div className="detailsActionsSecondary">
           <button 
             className="unclaimBtn"
