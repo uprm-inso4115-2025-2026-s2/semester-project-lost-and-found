@@ -17,9 +17,9 @@ import type { Report } from "../ReportManagement/Reports";
 type TabKey = ItemStatus;
 
 function toItemStatus(reportStatus: string): ItemStatus | null {
-  if (reportStatus === "Active" || reportStatus === "ACTIVE") return "Lost";
+  if (reportStatus === "Active" || reportStatus === "ACTIVE") return "Active";
   if (reportStatus === "Claimed" || reportStatus === "CLAIMED") return "Claimed";
-  if (reportStatus === "Resolved" || reportStatus === "RESOLVED") return "Returned";
+  if (reportStatus === "Resolved" || reportStatus === "RESOLVED") return "Closed";
   return null;
 }
 
@@ -27,7 +27,7 @@ export default function HomePage() {
   const navigate = useNavigate();
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeTab, setActiveTab] = useState<TabKey>("Lost");
+  const [activeTab, setActiveTab] = useState<TabKey>("Active");
   const [showProfilePanel, setShowProfilePanel] = useState(false);
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>("ALL");
   const [reports, setReports] = useState<Report[]>([]);
@@ -155,7 +155,7 @@ export default function HomePage() {
 
       {/* STATUS FILTER AND CATEGORY DROPDOWN */}
       <div className="statusTabs">
-        {(["Lost", "Claimed", "Returned"] as TabKey[]).map((tab) => (
+        {(["Active", "Claimed", "Closed"] as TabKey[]).map((tab) => (
           <button
             key={tab}
             className={`statusBtn ${activeTab === tab ? "active" : ""}`}
@@ -196,7 +196,7 @@ export default function HomePage() {
               day: "numeric",
             })}
             locationLabel={report.getLocation()}
-            status={toItemStatus(report.getStatus()) ?? "Lost"}
+            status={toItemStatus(report.getStatus()) ?? "Active"}
             imageUrl={report.getImageURL() || undefined}
             onClaim={handleClaim}
             onReturn={handleReturn}
