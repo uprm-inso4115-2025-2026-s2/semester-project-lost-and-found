@@ -197,3 +197,31 @@ duplicate: a given username, email, or phone number already exists in the databa
 Below is the state machine diagram that demonstrates the behavior of the sign up/ log in and authentication for users.
 
 image::state_machinediagram_authentication.png[caption="State Machine Diagram for Authentication/Verification",width=800,align ="center"]
+
+
+
+===== State Machine Diagram for Admin
+Author: Dylan M. Oliver Martinez
+Date: May 15, 2026
+
+
+====== Phenomena, Functions and Other Concepts
+
+Log In: The user utilizes their email and password to enter their account.
+
+isAdmin(): Function that verifies if a user has the permissions of being an administrator, a user that can edit and delete other user’s content.
+
+User continues as regular user: If the user does not have the permissions, they can utilize the platform as a normal account without admin abilities.
+
+User continues as an admin: If the user does have the permissions, they can utilize the platform with admin abilities, including the ability to edit and delete content.
+
+Edit Report: The ability to change the content in a report of a lost or found item.
+
+Delete Post: The ability to delete a report of a lost or found item.
+
+
+====== State Machine Diagram
+
+Below is the state machine diagram that demonstrates the flow of functions of the admin class.
+
+image::State-Machine-Diagram-Admin.png[caption="State Machine Diagram for Admin",width=800,align ="center"]
