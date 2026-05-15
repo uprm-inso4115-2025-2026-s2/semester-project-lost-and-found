@@ -110,3 +110,126 @@ This concept analysis is grounded in observations from the descriptive part such
 * Roles mentioned in narratives(e.g. holder, person who lost an item, person who found an item), clarified *People Roles* and their responsibilities
 
 Through this analysis, the *domain understanding* is validated by confirming that all key entities and events, roles and their relationships can realistically be captured.
+
+[.added]
+==== Requirements and Domain Model Inspection
+
+To improve consistency, correctness, and traceability, the project conducted a structured inspection of domain and requirements artifacts.
+
+===== Inspection Methodology
+
+The inspection process followed two complementary strategies:
+
+* *Defect-driven inspection*: focused on identifying problems such as missing concepts, contradictory assumptions, ambiguous terminology, incomplete relationships, and inconsistencies between sections.
+* *Quality-driven inspection*: focused on evaluating clarity, completeness, traceability, realism, and alignment with the domain narrative.
+
+The inspection was conducted iteratively, meaning findings from one round informed revisions and additional review cycles.
+
+===== Inspectors and Responsibilities
+
+[cols="1,2"]
+|===
+|Inspector Role | Responsibility
+
+| *Documentation Team Members*
+| Reviewed terminology, narrative consistency, traceability between sections, and clarity of requirements.
+
+| *Development Team Representatives*
+| Reviewed feasibility, consistency of domain assumptions, and alignment between concepts and expected functionality.
+
+| *Project Managers*
+| Oversaw inspection progress, coordinated revisions, and ensured findings were addressed consistently across documentation.
+|===
+
+===== Inspected Artifacts
+
+The following project artifacts were inspected:
+
+* Terminology
+* Narrative
+* Domain concepts and abstractions from the descriptive part
+* Requirements and stakeholder-driven goals
+* Personas and user stories
+* Relationships and lifecycle definitions
+* Scope and synopsis consistency
+
+===== Defect-Driven Inspection Checklist
+
+[cols="1,3,2"]
+|===
+|Question | Purpose | Finding
+
+| Are any important domain entities missing?
+| Identify gaps in domain representation.
+| Missing concepts such as *Custody Location*, *Holding Period*, and *Unclaimed Item* were identified and later incorporated into Terminology.
+
+| Are domain events incomplete or inconsistent?
+| Identify missing lifecycle events.
+| Events such as *Item Lost*, *Item Handed Over*, and *Holding Period Expired* were initially absent and added later.
+
+| Are there contradictions between sections?
+| Detect conflicting assumptions.
+| Some terminology implied digital workflows in the domain narrative. These assumptions were revised to remain domain-independent.
+
+| Are relationships between concepts clearly defined?
+| Identify ambiguity in domain structure.
+| Relationships involving *Holder*, *Finder*, and *Owner* responsibilities required clarification.
+
+| Are any concepts solution-dependent rather than domain-driven?
+| Prevent premature system assumptions.
+| Terms implying system-specific workflows were reclassified to later phases or removed from domain terminology.
+|===
+
+===== Quality-Driven Inspection Checklist
+
+[cols="1,3,2"]
+|===
+|Question | Purpose | Finding
+
+| Are concepts clearly defined in natural language?
+| Ensure terminology is understandable.
+| Several definitions were refined to remove circular wording and improve clarity.
+
+| Can concepts be traced between narrative, terminology, and requirements?
+| Ensure documentation consistency.
+| Traceability gaps were identified and corrected through terminology alignment.
+
+| Does the narrative reflect observable domain behavior?
+| Ensure realism and domain correctness.
+| The narrative was updated to emphasize existing communication channels and factors influencing return likelihood.
+
+| Are requirements supported by domain observations?
+| Ensure requirements are justified.
+| Most requirements aligned with stakeholder needs, though some required stronger traceability to narrative examples.
+
+| Is terminology introduced in the correct phase?
+| Prevent incorrect phase labeling.
+| Several concepts were relabeled according to where they are introduced rather than primarily used.
+|===
+
+===== Question Catalog
+
+The following guiding questions were used during inspection:
+
+* Does this concept already exist in the real-world domain, or is it introduced by a proposed solution?
+* Can this term be understood independently of implementation details?
+* Are stakeholders and their responsibilities represented realistically?
+* Are all relevant events in the lost-and-found lifecycle represented?
+* Are relationships between concepts explicit and non-contradictory?
+* Does the narrative align with terminology definitions?
+* Can requirements be traced back to domain observations or stakeholder needs?
+* Are assumptions documented and justified?
+* Does any section imply a workflow that depends on the future system rather than existing domain behavior?
+* Are lifecycle transitions complete and logically consistent?
+
+===== Inspection Findings and Revisions
+
+The inspection identified several improvements required for consistency and completeness:
+
+* Missing domain entities, including *Custody Location*, *Loss Location*, and *Holding Period*, were introduced into *Terminology Section*.
+* Domain events such as *Item Handed Over* and *Holding Period Expired* were added to improve lifecycle representation.
+* Narrative wording that implied the existence of a coordinated digital process was revised to instead describe observable communication channels and their effectiveness.
+* Requirements and terminology were revised to improve traceability and reduce overlap between domain concepts and implementation concerns.
+* Several concepts were relabeled to reflect the phase in which they are introduced rather than where they are used most frequently.
+
+The inspection process improved the internal consistency of the project documentation and strengthened alignment between domain understanding, requirements engineering, and later design decisions.
