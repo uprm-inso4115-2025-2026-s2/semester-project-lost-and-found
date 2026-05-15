@@ -126,9 +126,9 @@ export async function getReport(id: string): Promise<Report | null> {
         const expiresAt =new Date(data[i].expiresAt);
         const nowDate = new Date();
         if(expiresAt < nowDate && status === "ACTIVE"){
-            status = "EXPIRED";
+            status = "RESOLVED";
 
-            await supabase.from('reports').update({status: "EXPIRED"}).eq('id', data[i].id);
+            await supabase.from('reports').update({status: "RESOLVED"}).eq('id', data[i].id);
 
 
         }
@@ -236,9 +236,10 @@ export async function storeReportWithDuplicateCheck(report: Report): Promise<{
     duplicateWarning: duplicateWarning
   };
 }
+//Reopen Resolved Report(Case: Report Expired)
 export async function reOpenReport(id: string, userId: string): Promise<boolean> {
     const {error} = await supabase.from('reports')
-    .update({status:  "ACTIVE"}).eq('id', id).eq('status', 'EXPIRED').eq('createdBy',userId ).select();
+    .update({status:  "ACTIVE"}).eq('id', id).eq('status', 'RESOLVED').eq('createdBy',userId ).select();
     
     if(error){
         console.error(error);

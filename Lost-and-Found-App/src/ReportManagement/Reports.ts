@@ -1,5 +1,5 @@
 // to decide the status of the report
-export type ReportStatus = 'ACTIVE' | 'RESOLVED' | 'CLAIMED' | 'EXPIRED';
+export type ReportStatus = 'ACTIVE' | 'RESOLVED' | 'CLAIMED';
 export type Category = 'ELECTRONICS' | 'PERSONAL' | 'OFFICE SUPPLIES' | 'OTHER';
 export type ReportType = 'LOST' | 'FOUND';
 
@@ -89,8 +89,7 @@ export class Report {
       case "CLAIMED":
         return "Claimed";
 
-      case "EXPIRED":
-        return "Expired";
+      
     }
 
     return ""; 
@@ -126,7 +125,7 @@ export class Report {
       return;
     }
   
-    if (this.status === 'ACTIVE' && (status === 'RESOLVED' || status === 'CLAIMED' || status == 'EXPIRED')) {
+    if (this.status === 'ACTIVE' && (status === 'RESOLVED' || status === 'CLAIMED')) {
       this.status = status;
       return;
     }
@@ -136,11 +135,7 @@ export class Report {
       return;
     }
 
-    if(this.status === 'EXPIRED' && status === 'ACTIVE'){
-      this.status = status;
-      return;
-    }
-  
+    
     throw new Error("Invalid status transition");
   }
   
