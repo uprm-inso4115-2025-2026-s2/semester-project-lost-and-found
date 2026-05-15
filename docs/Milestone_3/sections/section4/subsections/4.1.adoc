@@ -326,6 +326,8 @@ found.
 considering the resolution of the item.
 - Strong conflict: users versus administration confirming if the issue has been resolved.
 
+---
+
 ==== [Lecture Topic Task] Business Procedures Facet Analysis
 :author: Omar A. Cordero Maldonado (omar-cordero)
 
@@ -395,6 +397,106 @@ Typical steps include:
 Recording returned items ensures the platform accurately reflects the status of each item.
 
 *Campus Example:* The student whose claim was approved visits the Office of Student Affairs during office hours. The staff member verifies their UPRM student ID, retrieves the backpack from storage, and returns it to the student. The system entry for the item is updated to Returned, closing the case.
+
+---
+
+==== [Lecture Topic Task] Human Behavior Facet Analysis
+:author: Omar A. Cordero Maldonado (omar-cordero)
+
+The human behavior facet describes how human actions, decisions, and unpredictable behavior influence the operation of the Lost and Found platform. Unlike purely technical workflows, this facet focuses on how users behave when interacting with the system and how those behaviors can affect reporting accuracy, ownership claims, moderation, and overall platform reliability.
+
+Understanding human behavior is important because the Lost and Found systems depend heavily on user honesty, cooperation, judgment, and decision-making. These behaviors directly influence how the platform should handle verification, moderation, and user interaction workflows.
+
+===== Item Reporting Behavior
+
+The platform depends on users accurately reporting lost or found items. However, users may submit incomplete, delayed, or inaccurate information.
+
+Typical behaviors include:
+
+* Forgetting important identifying details
+* Reporting items long after they were lost or found
+* Providing vague descriptions
+* Entering incorrect locations or times
+
+These behaviors can make item matching more difficult and may increase the likelihood of duplicate or incorrect reports.
+
+*Realistic Example:* A student realizes they lost their AirPods somewhere on campus but cannot remember whether they left them in the library or the cafeteria. They submit a Lost Item Report with only a vague description and approximate time range, making it harder for the system to identify possible matches.
+
+===== Ownership Claims and Honesty
+
+Users may attempt to claim items that do not belong to them, either intentionally or accidentally. Because of this, the platform must support ownership verification procedures.
+
+Typical behaviors include:
+
+* Honest claims with accurate identifying details
+* Incorrect claims caused by confusion
+* Dishonest claims attempting to retrieve another person's item
+* Guessing hidden item details
+
+The system must therefore support moderator review and verification mechanisms before an item can be marked as returned.
+
+*Realistic Example:* A student notices a listing for a lost calculator that looks similar to theirs and submits a claim without knowing the serial number or unique stickers attached to the device. The moderator reviews the missing verification details and rejects the claim because the information provided does not match the actual item.
+
+===== User Decision-Making
+
+Human behavior also affects whether users choose to report found items at all.
+
+Factors influencing user decisions may include:
+
+* Convenience of reporting the item
+* Trust in the application
+* Time required to submit a report
+* Fear of responsibility
+* Desire to help other students
+
+The platform should therefore encourage participation by making reporting simple and accessible.
+
+*Realistic Example:* A student finds a water bottle in the Stefani building between classes. Because the platform allows quick mobile submissions, the student decides to immediately submit a Found Item Report instead of leaving the item unattended.
+
+===== Moderator Judgment and Review Behavior
+
+Moderators and staff members may need to make subjective decisions when reviewing claims or reports.
+
+Typical moderator behaviors include:
+
+* Evaluating whether ownership evidence is sufficient
+* Resolving conflicting claims
+* Identifying suspicious reports
+* Correcting inaccurate item categories or descriptions
+
+Human judgment is important because not all situations can be resolved automatically by the system.
+
+*Realistic Example:* Two students submit claims for the same backpack within a short period of time. A moderator compares the verification details provided by both students and determines which claimant correctly identifies the private contents of the bag before approving the return.
+
+===== User Interaction Patterns
+
+Users may interact with the platform differently depending on urgency, familiarity with the system, or the importance of the lost item.
+
+Examples of interaction patterns include:
+
+* Frequently checking for newly found items
+* Ignoring notifications
+* Searching using vague keywords
+* Contacting moderators for assistance
+* Repeatedly updating reports with new details
+
+Understanding these interaction patterns can help improve system usability and notification design.
+
+*Realistic Example:* A student who lost their laptop repeatedly checks the platform throughout the day and updates their report multiple times with additional identifying details after remembering new information about the laptop case and stickers attached to it.
+
+===== Summary
+
+The Human Behavior facet highlights how user actions, choices, honesty, and judgment influence the Lost and Found platform.
+
+Key behavioral areas identified in this analysis include:
+
+* Item reporting behavior
+* Ownership claims and honesty
+* User decision-making
+* Moderator judgment and review behavior
+* User interaction patterns
+
+By understanding these behaviors, the platform can implement workflows and verification procedures that better handle uncertainty, misuse, and realistic user interaction scenarios within a campus Lost and Found environment.
 
 ---
 
