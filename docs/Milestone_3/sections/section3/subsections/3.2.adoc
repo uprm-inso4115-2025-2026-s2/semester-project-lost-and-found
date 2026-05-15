@@ -296,7 +296,7 @@ Requirement: “Users can only edit their own reports.”
 |===
 | Step | Requirement(s) | Expected Outcome | Verification Action
 
-| Submit valid report
+| [[TEST-REPORT-01]]TEST-REPORT-01 — Submit valid report
 a|
 - <<REQ-REPORT-F-01>>
 - <<REQ-REPORT-F-03>>
@@ -305,14 +305,14 @@ a|
 | Report status = "`active`", bound to owner
 | Submit form as María; check database for correct `user_id` and status
 
-| Edit own report
+| [[TEST-REPORT-02]]TEST-REPORT-02 — Edit own report
 a|
 - <<REQ-REPORT-F-03>>
 - <<IR005>>
 | Changes saved
 | Login as María, edit report, verify updated description and preserved timestamp
 
-| Edit as other user (active report)
+| [[TEST-REPORT-03]]TEST-REPORT-03 — Edit as other user (active report)
 a|
 - <<REQ-REPORT-F-03>>
 - <<REQ-CLAIM-F-01>>
@@ -320,7 +320,7 @@ a|
 | Luis denied edit
 | Login as Luis, attempt edit, verify system prevents changes
 
-| Submit found report
+| [[TEST-REPORT-04]]TEST-REPORT-04 — Submit found report
 a|
 - <<REQ-REPORT-F-02>>
 - <<REQ-REPORT-F-04>>
@@ -328,7 +328,7 @@ a|
 | Report created in "`active`" state
 | Submit form as Javier; check database for status and owner binding
 
-| Privacy handling
+| [[TEST-REPORT-05]]TEST-REPORT-05 — Privacy handling
 a|
 - <<REQ-CLAIM-F-01>>
 - <<REQ-REPORT-F-02>>
@@ -336,7 +336,7 @@ a|
 | Sensitive information not exposed
 | Confirm no ID numbers or personal info stored/displayed
 
-| Search by keyword
+| [[TEST-SEARCH-01]]TEST-SEARCH-01 — Search by keyword
 a|
 - <<REQ-SEARCH-F-01>>
 - <<REQ-SEARCH-F-02>>
@@ -345,28 +345,28 @@ a|
 | Report discoverable
 | Perform search, verify report appears
 
-| Flag detection
+| [[TEST-MOD-01]]TEST-MOD-01 — Flag detection
 a|
 - <<REQ-ADMIN-F-01>>
 - <<IR018>>
 | Report automatically flagged
 | Submit report with suspicious content; check logs/status
 
-| Visibility control
+| [[TEST-MOD-02]]TEST-MOD-02 — Visibility control
 a|
 - <<REQ-SEARCH-F-02>>
 - <<IR015>>
 | Report hidden from public search
 | Search as any user, verify report not visible
 
-| Author notification
+| [[TEST-MOD-03]]TEST-MOD-03 — Author notification
 a|
 - <<REQ-ADMIN-F-02>>
 - <<IR017>>
 | Author receives notification
 | Verify email/UI alert sent to author
 
-| Appeal/edit flow
+| [[TEST-MOD-04]]TEST-MOD-04 — Appeal/edit flow
 a|
 - <<REQ-ADMIN-F-02>>
 - <<REQ-REPORT-F-01>>
@@ -374,14 +374,14 @@ a|
 | Author can edit/appeal
 | Login as author, edit removed report, submit, verify status updated
 
-| Category filter
+| [[TEST-SEARCH-02]]TEST-SEARCH-02 — Category filter
 a|
 - <<REQ-SEARCH-F-01>>
 - <<IR015>>
 | Results filtered to selected category
 | Perform category-filtered search, verify only matching reports shown
 
-| Keyword search
+| [[TEST-SEARCH-03]]TEST-SEARCH-03 — Keyword search
 a|
 - <<REQ-SEARCH-F-02>>
 - <<IR014>>
@@ -389,21 +389,20 @@ a|
 | Reports matching keywords returned
 | Perform keyword search, check results
 
-| No image dependency
+| [[TEST-SEARCH-04]]TEST-SEARCH-04 — No image dependency
 a|
 - <<REQ-REPORT-F-02>>
 - <<IR002>>
 | Search works without images
 | Verify search still returns reports lacking images
 
-| Sorting / filtering by status
+| [[TEST-SEARCH-05]]TEST-SEARCH-05 — Sorting / filtering by status
 a|
 - <<REQ-SEARCH-F-02>>
 - <<IR015>>
 | Only "Active" reports shown
 | Verify only active reports appear
 |===
-
 
 ===== Walkthrough Inspections 
 
