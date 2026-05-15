@@ -187,11 +187,17 @@ const ReportDetailPage: React.FC = () => {
 
         {/* Buttons */}
         <div className="detailsActions">
-          <button 
-            className="claimBtn" 
-            disabled={report.getType() === 'Lost' && report.getStatus() === 'Claimed'}
-            onClick={handleOpenClaim}>
-            Claim Item
+          <button
+            className="claimBtn"
+            disabled={
+              report.getType() === "Lost" &&
+              report.getStatus() === "Claimed"
+            }
+            onClick={handleOpenClaim}
+          >
+            {report.getRawStatus() === "CLAIMED"
+              ? "Code"
+              : "Claim Item"}
           </button>
           <button className="contactBtn">
             Contact
