@@ -1,9 +1,8 @@
 .homePage {
-  max-width: 550px;
+  max-width: auto-fit;
   margin: 0 auto;
   min-height: 100vh;
   background: white;
-
   display: flex;
   flex-direction: column;
 }
@@ -11,18 +10,13 @@
 .homeHeader {
   background: #17a45b;
   color: white;
-
   padding: 20px;
   padding-bottom: 60px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.headerLeft h1 {
-  margin: 0;
-  font-size: 22px;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .headerLeft {
@@ -31,37 +25,48 @@
   gap: 12px;
 }
 
+.headerLeft h1 {
+  margin: 0;
+  font-size: clamp(16px, 4vw, 22px);
+}
+
 .headerLogo {
-  width: 55px;
-  height: 55px;
-
+  width: clamp(40px, 10vw, 55px);
+  height: clamp(40px, 10vw, 55px);
   border-radius: 50%;
-
   object-fit: cover;
+  flex-shrink: 0;
+}
+
+.headerIcons {
+  display: flex;
+  gap: 12px;
+  font-size: clamp(18px, 4vw, 22px);
 }
 
 .statusTabs {
   display: flex;
-  gap: 10px;
-
-  padding: 14px;
-
+  gap: clamp(4px, 1.5vw, 8px);
+  padding: 14px clamp(8px, 3vw, 14px);
   margin-top: -60px;
+  flex-wrap: nowrap;
 }
-
+ 
 .statusBtn {
-  padding: 8px 16px;
+  padding: 8px clamp(8px, 2.5vw, 16px);
   border-radius: 20px;
   border: none;
-
   background: #2db86d;
   color: white;
-
   font-weight: 600;
-
   cursor: pointer;
+  font-size: clamp(11px, 2.8vw, 14px);
+  white-space: nowrap;
+  min-height: 36px;
+  touch-action: manipulation;
+  text-align: center;
 }
-
+ 
 .statusBtn.active {
   background: white;
   color: #17a45b;
@@ -73,23 +78,34 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 450px) {
+  .itemsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 620px) {
+  .itemsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .bottomNav {
   position: fixed;
   bottom: 0;
-
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
-  max-width: 550px;
-
+  max-width: auto-fit;
   background: white;
-
   display: flex;
   justify-content: space-around;
   align-items: center;
-
   padding: 14px 0;
-
+  padding-bottom: max(14px, env(safe-area-inset-bottom));
   border-top: 1px solid #ddd;
 }
 
@@ -97,7 +113,10 @@
   background: transparent;
   border: none;
   padding: 8px;
-  font-size: 22px;
+  font-size: clamp(18px, 5vw, 22px);
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .bottomNav button img { width: 22px; height: 22px; }
@@ -108,16 +127,15 @@
 
 .searchInput {
   width: 100%;
+  box-sizing: border-box;
   padding: 10px 14px;
   border-radius: 20px;
   border: 1px solid #ccc;
-  font-size: 14px;
+  font-size: clamp(13px, 3.5vw, 14px);
   outline: none;
 }
 
-.searchInput:focus {
-  border-color: #17a45b;
-}
+.searchInput:focus { border-color: #17a45b; }
 
 .emptyMessage {
   grid-column: 1 / -1;
