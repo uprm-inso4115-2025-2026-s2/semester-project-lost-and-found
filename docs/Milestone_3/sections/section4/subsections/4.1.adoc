@@ -850,6 +850,105 @@ A defined sequence of actions in the platform (example: Report -> Listing -> Cla
 * *Sensitive item* depends on both item type and details exposed (not only item type).
 
 ---
+==== [Lecture Topic Task] Domain Validation and Verification for the Lost & Found System
+:author: Noel Colon Mena
+
+===== Overview
+
+Validation and verification are essential activities in domain engineering as they help ensure that the domain description accurately represents real-world Lost & Found procedures and that the resulting model remains internally consistent.
+
+This Lecture Topic Task analyzes how the Lost & Found domain can be validated and verified by examining domain rules, workflows, lifecycle transitions, and behavioral constraints.
+
+===== Domain Validation
+
+Domain validation focuses on determining whether the domain model correctly reflects how Lost & Found activities occur in practice.
+
+Validation activities include:
+
+* Reviewing whether workflows match realistic Lost & Found procedures
+* Confirming that domain rules are logically consistent
+* Ensuring that lifecycle transitions reflect real operational behavior
+* Comparing domain concepts against stakeholder expectations
+
+Examples of validation within the Lost & Found system include:
+
+* Confirming that an item cannot simultaneously exist in multiple statuses
+* Ensuring that only authenticated users can submit reports
+* Verifying that ownership confirmation occurs before item return
+* Confirming that archived items are excluded from active workflows
+
+Validation helps reduce incorrect assumptions and improves the accuracy of the domain description.
+
+===== Domain Verification
+
+Domain verification focuses on ensuring that the domain model behaves consistently according to its defined rules and constraints.
+
+Verification activities include:
+
+* Checking that state transitions follow valid lifecycle progression
+* Ensuring that all claims reference existing reports
+* Verifying that conflicting operations are prevented
+* Confirming that required report information is enforced
+
+Examples of verification within the Lost & Found system include:
+
+* Preventing invalid transitions such as `Returned -> Lost`
+* Ensuring that only one approved claim exists per item
+* Verifying that reports contain all required identifying information
+* Confirming that claim verification occurs before ownership transfer
+
+Verification ensures that the domain remains logically coherent and prevents inconsistent system states.
+
+===== Validation and Verification Scenarios
+
+====== Scenario 1: Invalid Status Transition
+
+A report already marked as `Returned` is accidentally modified back to `Lost`.
+
+*Expected verification behavior:*
+
+* The system rejects the transition
+* The report lifecycle remains consistent
+* An administrator may review the attempted modification
+
+====== Scenario 2: Missing Report Information
+
+A user attempts to submit a report without specifying the item category or location.
+
+*Expected validation behavior:*
+
+* The system identifies the report as incomplete
+* Submission is rejected until all required information is provided
+
+====== Scenario 3: Duplicate Claim Approval 
+
+Two users attempt to claim the same item simultaneously.
+
+*Expected verification behavior:*
+
+* Only one claim may be approved
+* Additional claims are rejected or placed under review
+* The item status remains internally consistent
+
+===== Impact on System Reliability
+
+Validation and verification improve the reliability of the Lost & Found system by:
+
+* Preventing inconsistent report states
+* Reducing conflicting operations
+* Improving trust in the claim process
+* Ensuring workflows follow domain rules
+* Supporting predictable system behavior
+
+Together, these processes strengthen the accuracy, consistency, and maintainability of the domain model.
+
+===== Conclusion
+
+Domain validation and verification help ensure that the Lost & Found platform accurately represents real-world workflows while maintaining internally consistent behavior.
+
+By enforcing lifecycle rules, validating report data, and preventing invalid operations, the system can maintain reliable and trustworthy domain behavior throughout the item recovery process.
+
+---
 
 ==== [Lecture Topic Task] Domain Exceptions, Edge Cases, and Failure Scenarios for the Lost & Found System
 :author: Anthony H Martinez-Gomez
