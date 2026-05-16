@@ -54,11 +54,17 @@ a| *Monitor:
 
 * Filter reports
 
-| * Efficient and safe recovery process
+| *Wishes:*
+
+* Efficient and safe recovery process
 
 * Trusworthy platform
 
 * Recieve accurate match suggestions
+
+*Beliefs:*
+
+* Other users are honest and Trusworthy
 
 | Authentication and notification 
 
@@ -69,16 +75,43 @@ a| *Monitor:
 | *Monitor:
 
 ** View Reports 
+
 ** Monitor user activity
+
 ** Review flagged or suspicious behaviour
 
 *Control: 
 
 ** Delete reports or remove fake or abusive posts
+
 ** Suspend or ban users (For misuse)
+
 ** Edit or correct reported content
 
 | * Mantain system integrity
+
 * Prevent or manage (in case it happens) misuse
+
+* Enforce rules
+
+* Ensure safety and quality of reports
+
+| * Accurate decision making
+
+* Fast response to abuse reports ( e.g. spam, profanity, un-ethical, fake reports)
+
+| *Wishes:*
+
+ * Safe and secure platfform
+
+* Minimal abuse and fake repors
+
+* Accesible, easy to use and well organized system.
+
+*Beliefs:*
+
 * 
+
+| Authentication, Manage Reports, notifications and any admin only system
+
 |===
