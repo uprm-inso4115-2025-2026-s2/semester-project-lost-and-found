@@ -270,6 +270,7 @@ const ReportDetailPage: React.FC = () => {
           title: report.getTitle(),
           description: report.getDescription(),
           dateFound: report.getDateFound(),
+          expiresAt: report.getExpirationDate(),
           location: report.getLocation(),
           category: report.getRawCategory(),
           tags: report.getTags(),
