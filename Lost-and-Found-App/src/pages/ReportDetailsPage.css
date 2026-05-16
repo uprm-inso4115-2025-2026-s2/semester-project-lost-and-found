@@ -1,6 +1,6 @@
 /* ─── Page Shell ─────────────────────────────────────────── */
 .detailsPage {
-  max-width: 550px;
+  max-width: auto-fit;
   margin: 0 auto;
   min-height: 100vh;
   background: white;
@@ -18,6 +18,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
   margin-bottom: 14px;
 }
 
@@ -25,38 +27,36 @@
   background: rgba(255, 255, 255, 0.2);
   border: none;
   border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  font-size: 18px;
+  width: clamp(36px, 9vw, 44px);
+  height: clamp(36px, 9vw, 44px);
+  font-size: clamp(16px, 4vw, 20px);
   color: white;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  touch-action: manipulation;
 }
 
-.detailsBackBtn:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
+.detailsBackBtn:hover { background: rgba(255, 255, 255, 0.3); }
 
 .detailsHeaderStatus {
   padding: 4px 14px;
   border-radius: 20px;
   color: white;
-  font-size: 13px;
+  font-size: clamp(11px, 3vw, 13px);
   font-weight: 600;
 }
 
-/* ─── Image Frame (sits inside green with padding) ───────── */
+/* ─── Image Frame ────────────────────────────────────────── */
 .detailsImageFrame {
   border-radius: 16px;
   overflow: hidden;
   border: 4px solid rgba(255, 255, 255, 0.5);
-  height: 230px;
+  height: clamp(160px, 40vw, 260px);
   background: #e5e7eb;
   position: relative;
-  z-index: 1;
 }
 
 .detailsImage {
@@ -81,43 +81,36 @@
 .detailsContent {
   flex: 1;
   background: white;
-  padding: 16px 18px 100px;
+  padding: clamp(12px, 4vw, 18px) clamp(14px, 4vw, 18px) 100px;
 }
 
 .detailsTitle {
-  font-size: 26px;
+  font-size: clamp(20px, 6vw, 26px);
   font-weight: 800;
   color: #111827;
   margin: 0 0 16px;
   line-height: 1.2;
 }
 
-/* ─── Info Row ───────────────────────────────────────────── */
+
 .detailsInfoRow {
-  display: flex;
-  flex-direction: row;
-  gap: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 80px), 1fr));
+  gap: 12px;
   margin-bottom: 20px;
   border-bottom: 1px solid #f0f0f0;
   padding-bottom: 16px;
 }
 
 .infoItem {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  padding-right: 8px;
-}
-
-.infoItem + .infoItem {
-  border-left: 1px solid #e5e7eb;
-  padding-left: 12px;
-  padding-right: 0;
+  gap: 4px;
+  min-width: 0;
 }
 
 .infoLabel {
-  font-size: 11px;
+  font-size: clamp(9px, 2.5vw, 11px);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.4px;
@@ -126,24 +119,24 @@
   gap: 4px;
 }
 
-/* colored labels matching Figma */
 .infoLabel.category { color: #f59e0b; }
 .infoLabel.location { color: #3b82f6; }
 .infoLabel.date     { color: #ef4444; }
 
 .infoItem span.infoValue {
-  font-size: 13px;
+  font-size: clamp(12px, 3vw, 13px);
   color: #111827;
   font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* ─── Tags ───────────────────────────────────────────────── */
-.tagsSection {
-  margin-bottom: 18px;
-}
+.tagsSection { margin-bottom: 18px; }
 
 .tagsSection h3 {
-  font-size: 15px;
+  font-size: clamp(13px, 3.5vw, 15px);
   font-weight: 700;
   color: #111827;
   margin: 0 0 10px;
@@ -163,18 +156,17 @@
   color: #374151;
   border-radius: 20px;
   padding: 5px 14px;
-  font-size: 13px;
+  font-size: clamp(12px, 3vw, 13px);
   font-weight: 500;
   border: 1px solid #e5e7eb;
+  white-space: nowrap;
 }
 
 /* ─── Description ────────────────────────────────────────── */
-.descriptionSection {
-  margin-bottom: 28px;
-}
+.descriptionSection { margin-bottom: 28px; }
 
 .descriptionSection h3 {
-  font-size: 15px;
+  font-size: clamp(13px, 3.5vw, 15px);
   font-weight: 700;
   color: #111827;
   margin: 0 0 8px;
@@ -184,33 +176,41 @@
   background: #f9fafb;
   border-radius: 12px;
   padding: 14px;
-  font-size: 14px;
+  font-size: clamp(13px, 3.5vw, 14px);
   color: #4b5563;
   line-height: 1.6;
   min-height: 80px;
   border: 1px solid #f0f0f0;
 }
 
-/* ─── Action Buttons ─────────────────────────────────────── */
+
 .detailsActions {
   display: flex;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
-.claimBtn {
+.claimBtn,
+.contactBtn {
   flex: 1;
-  padding: 14px 10px;
-  background: #17a45b;
-  color: white;
+  min-width: min(100%, 120px);
+  padding: clamp(12px, 3vw, 14px) 10px;
   border: none;
   border-radius: 30px;
-  font-size: 15px;
+  font-size: clamp(13px, 3.5vw, 15px);
   font-weight: 700;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  min-height: 48px;
+  touch-action: manipulation;
+}
+
+.claimBtn {
+  background: #17a45b;
+  color: white;
   transition: background 0.2s, transform 0.1s;
 }
 
@@ -218,19 +218,8 @@
 .claimBtn:active { transform: scale(0.98); }
 
 .contactBtn {
-  flex: 1;
-  padding: 14px 10px;
   background: #60a5fa;
   color: white;
-  border: none;
-  border-radius: 30px;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
   transition: background 0.2s;
 }
 
@@ -243,15 +232,16 @@
 }
 
 .unclaimBtn {
-  padding: 11px 48px;
+  padding: 11px clamp(24px, 8vw, 48px);
   background: #e5e7eb;
   color: #9ca3af;
   border: none;
   border-radius: 30px;
-  font-size: 14px;
+  font-size: clamp(13px, 3.5vw, 14px);
   font-weight: 600;
   cursor: default;
   opacity: 0.7;
+  min-height: 44px;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -275,16 +265,19 @@
 
 .claimModal {
   width: 100%;
-  max-width: 550px;
+  max-width: min(720px, 100%);
   background: white;
   border-radius: 24px 24px 0 0;
-  padding: 28px 24px 40px;
+  padding: 28px 24px max(40px, env(safe-area-inset-bottom));
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   animation: slideUpModal 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  max-height: 92vh;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
 @keyframes slideUpModal {
@@ -311,8 +304,8 @@
   background: #f3f4f6;
   border: none;
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   font-size: 14px;
   cursor: pointer;
   color: #6b7280;
@@ -323,13 +316,9 @@
 
 .claimModalClose:hover { background: #e5e7eb; }
 
-.claimModalIcon {
-  font-size: 48px;
-  margin-bottom: 12px;
-}
-
-.claimSuccessIcon {
-  font-size: 48px;
+.claimModalIcon    { font-size: clamp(36px, 10vw, 48px); margin-bottom: 12px; }
+.claimSuccessIcon  {
+  font-size: clamp(36px, 10vw, 48px);
   margin-bottom: 12px;
   animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -340,14 +329,14 @@
 }
 
 .claimModalTitle {
-  font-size: 20px;
+  font-size: clamp(17px, 4.5vw, 20px);
   font-weight: 700;
   color: #111827;
   margin: 0 0 8px;
 }
 
 .claimModalSubtitle {
-  font-size: 14px;
+  font-size: clamp(13px, 3.5vw, 14px);
   color: #6b7280;
   line-height: 1.5;
   margin: 0 0 20px;
@@ -363,49 +352,43 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  box-sizing: border-box;
 }
 
 .claimInfoRow {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 13px;
+  font-size: clamp(12px, 3vw, 13px);
   color: #374151;
+  flex-wrap: wrap;
 }
 
 .claimModalActions {
   display: flex;
   gap: 12px;
   width: 100%;
+  flex-wrap: wrap;
 }
 
-.claimModalCancel {
-  flex: 1;
-  padding: 13px;
-  background: #f3f4f6;
-  color: #374151;
-  border: none;
-  border-radius: 12px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.claimModalCancel:hover { background: #e5e7eb; }
-
+.claimModalCancel,
 .claimModalConfirm {
   flex: 1;
+  min-width: min(100%, 120px);
   padding: 13px;
-  background: #17a45b;
-  color: white;
   border: none;
   border-radius: 12px;
-  font-size: 15px;
-  font-weight: 700;
+  font-size: clamp(13px, 3.5vw, 15px);
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  min-height: 48px;
+  touch-action: manipulation;
 }
 
+.claimModalCancel { background: #f3f4f6; color: #374151; }
+.claimModalCancel:hover { background: #e5e7eb; }
+
+.claimModalConfirm { background: #17a45b; color: white; font-weight: 700; transition: background 0.2s; }
 .claimModalConfirm:hover:not(:disabled) { background: #15924f; }
 .claimModalConfirm:disabled { opacity: 0.6; cursor: not-allowed; }
 
@@ -420,6 +403,7 @@
   align-items: center;
   gap: 12px;
   box-shadow: 0 8px 24px rgba(23, 164, 91, 0.35);
+  box-sizing: border-box;
 }
 
 .claimCodeLabel {
@@ -432,19 +416,21 @@
 
 .claimCodeValue {
   display: flex;
-  gap: 6px;
+  gap: clamp(4px, 1.5vw, 6px);
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .claimCodeDigit {
-  width: 38px;
-  height: 50px;
+  width: clamp(30px, 8vw, 38px);
+  height: clamp(40px, 10vw, 50px);
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: clamp(18px, 5vw, 22px);
   font-weight: 800;
   color: white;
   font-family: "Courier New", monospace;
@@ -473,6 +459,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s;
+  min-height: 36px;
 }
 
 .claimCopyBtn:hover  { background: rgba(255, 255, 255, 0.3); }
@@ -486,11 +473,13 @@
   background: #fef3c7;
   border-radius: 10px;
   padding: 12px;
-  font-size: 12px;
+  font-size: clamp(11px, 3vw, 12px);
   color: #92400e;
   text-align: left;
   margin-bottom: 20px;
   line-height: 1.5;
+  box-sizing: border-box;
+  flex-wrap: wrap;
 }
 
 .claimModalDone {
@@ -500,10 +489,12 @@
   color: white;
   border: none;
   border-radius: 12px;
-  font-size: 15px;
+  font-size: clamp(13px, 3.5vw, 15px);
   font-weight: 700;
   cursor: pointer;
   transition: background 0.2s;
+  min-height: 48px;
+  touch-action: manipulation;
 }
 
 .claimModalDone:hover { background: #15924f; }
