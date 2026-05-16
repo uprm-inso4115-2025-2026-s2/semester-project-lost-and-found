@@ -1,1 +1,84 @@
 === *Modeling System Agents and Responsibilities*
+==== Modeling system agents for Lost and Found
+:author: Naedra Feliciano
+===== 1. Identifiying Relevant System Agents:
+Human Agents: 
+
+- Students and Faculty (UPRM) : Report lost/ found items
+- Admins : review repots and manage them in case of misuse or abuse
+
+System(Software) Agents:
+
+- Notification Agent : Sends alerts and messages
+- Manage Repors (Lost or Found) Agent 
+- Athentitication agent : Handles login and signup
+(There's more, but for now, let's just focus on this ones)
+
+
+===== 2. Clasify each identified agent (enviromental or Software):
+
+- Human agents  are *enviromental agents*:
+- System agents are *Software-to-be- agents*
+
+===== 3. Characterizing System Agents:
+(capabilities(monitor, control), Responsibilities, operation performers,
+ wishes and beliefs, dependencies)
+
+|===
+|*Agent* | *Category* | *Capabilities*| *Responsibilities* | *Operation Performers* | *Wishes and Beliefs* | *Dependencies*
+|*Students and Faculty* 
+| enviromental 
+a| *Monitor:
+
+** Can view items listings, notifications
+** View items details (e.g location, images, description) 
+** View status of their submitted reports
+** Recieve notifications about matches or messages
+
+*Control:
+
+** Can create and edit reports.  
+** Can send messages
+** Filter reports
+** Claim/Verify ownership
+
+|- Report lost or found items
+
+- Claim items
+
+| * Submit report(should not take more than 20-30 minutes)
+
+* Respond to verification under a small amount of time (As soon as possible)
+
+* Upload images
+
+* Filter reports
+
+| * Efficient and safe recovery process
+
+* Trusworthy platform
+
+* Recieve accurate match suggestions
+
+| Authentication and notification 
+
+|*Admis*
+
+|enviromental
+
+| *Monitor:
+
+** View Reports 
+** Monitor user activity
+** Review flagged or suspicious behaviour
+
+*Control: 
+
+** Delete reports or remove fake or abusive posts
+** Suspend or ban users (For misuse)
+** Edit or correct reported content
+
+| * Mantain system integrity
+* Prevent or manage (in case it happens) misuse
+* 
+|===
