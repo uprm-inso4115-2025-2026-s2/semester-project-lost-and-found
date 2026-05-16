@@ -25,6 +25,11 @@
   cursor: pointer;
 }
 
+.iconBtn img {
+  width: 20px;
+  height: 20px;
+}
+
 .title {
   font-size: 18px;
   margin: 0;
@@ -123,14 +128,36 @@
 .profileList li {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 16px 20px;
-  border-bottom: 1px solid #f1f1f1;
+  background: none;
+  border: none;
+  font-size: 20px;
   cursor: pointer;
 }
 
 .profileList li .chev {
   color: #999;
+}
+
+
+/* Header-specific icon sizing and alignment */
+.profileHeader .iconBtn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.02);
+}
+
+.profileHeader .iconBtn img {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+.profileList li img {
+  width: 14px;
+  height: 14px;
 }
 
 .profileList li.danger {

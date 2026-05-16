@@ -2,6 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient.ts";
 import "./ReportDetailsPage.css";
+import backIcon from "../assets/icons/back.svg";
+import calendarIcon from "../assets/icons/calendar.svg";
+import locationIcon from "../assets/icons/location.svg";
+import tagIcon from "../assets/icons/tag.svg";
+import lockIcon from "../assets/icons/lock.svg";
+import checkIcon from "../assets/icons/check.svg";
+import pinIcon from "../assets/icons/pin.svg";
+import closeIcon from "../assets/icons/close.svg";
 import { editReport, getReport } from "../ReportManagement/ReportDatabaseManagement";
 import { Report, type Category, type ReportType } from "../ReportManagement/Reports";
 import { ImageUploadInput } from "../components/ImageUploadInput";
@@ -317,7 +325,7 @@ const ReportDetailPage: React.FC = () => {
       <div className="detailsHero">
         <div className="detailsHeroBg">
           <button className="detailsBackBtn" onClick={() => navigate(-1)}>
-            ←
+            <img src={backIcon} alt="back" />
           </button>
           <div className="detailsHeaderStatus" style={{ background: statusColor }}>
             {report.getStatus()}
@@ -347,11 +355,11 @@ const ReportDetailPage: React.FC = () => {
             <span className="infoValue">{report.getCategory()}</span>
           </div>
           <div className="infoItem">
-            <span className="infoLabel location">📍 LOCATION</span>
+            <span className="infoLabel location"><img src={locationIcon} alt="loc" className="infoIcon"/> LOCATION</span>
             <span className="infoValue">{report.getLocation()}</span>
           </div>
           <div className="infoItem">
-            <span className="infoLabel date">📅 DATE</span>
+            <span className="infoLabel date"><img src={calendarIcon} alt="date" className="infoIcon"/> DATE</span>
             <span className="infoValue">
               {report.getDateFound().toLocaleDateString()}
             </span>
@@ -360,7 +368,7 @@ const ReportDetailPage: React.FC = () => {
 
         {/* Tags */}
         <div className="tagsSection">
-          <h3>🏷 Tags</h3>
+          <h3><img src={tagIcon} alt="tags" style={{width:18,height:18,marginRight:8}}/> Tags</h3>
           <div className="tagsContainer">
             {report.getTags().map((tag, index) => (
               <span key={index} className="tagPill">
@@ -419,12 +427,12 @@ const ReportDetailPage: React.FC = () => {
         <div className="claimOverlay" onClick={handleCloseModal}>
           <div className="claimModal" onClick={(e) => e.stopPropagation()}>
             <button className="claimModalClose" onClick={handleCloseModal}>
-              ✕
+              <img src={closeIcon} alt="close" />
             </button>
 
             {claimStep === "confirm" ? (
               <>
-                <div className="claimModalIcon">🔒</div>
+                <div className="claimModalIcon"><img src={lockIcon} alt="lock" style={{width:48,height:48}}/></div>
                 <h2 className="claimModalTitle">Claim This Item?</h2>
                 <p className="claimModalSubtitle">
                   You're about to claim <strong>{report.getTitle()}</strong>.
@@ -432,11 +440,11 @@ const ReportDetailPage: React.FC = () => {
                 </p>
                 <div className="claimModalInfoCard">
                   <div className="claimInfoRow">
-                    <span>📍</span>
+                    <img src={pinIcon} alt="pin" style={{width:16,height:16}}/>
                     <span>{report.getLocation()}</span>
                   </div>
                   <div className="claimInfoRow">
-                    <span>📅</span>
+                    <img src={calendarIcon} alt="date" style={{width:16,height:16}}/>
                     <span>{report.getDateFound().toLocaleDateString()}</span>
                   </div>
                 </div>
@@ -455,7 +463,7 @@ const ReportDetailPage: React.FC = () => {
               </>
             ) : (
               <>
-                <div className="claimSuccessIcon">✅</div>
+                <div className="claimSuccessIcon"><img src={checkIcon} alt="ok" style={{width:48,height:48}}/></div>
                 <h2 className="claimModalTitle">Item Claimed!</h2>
                 <p className="claimModalSubtitle">
                   Show this code at the Lost &amp; Found office to pick up your
@@ -480,7 +488,7 @@ const ReportDetailPage: React.FC = () => {
                   </button>
                 </div>
                 <div className="claimNote">
-                  <span>📌</span>
+                  <img src={pinIcon} alt="note" style={{width:16,height:16}} />
                   <span>
                     Present this code at the library Lost &amp; Found desk.
                     Screenshot or copy it before closing.

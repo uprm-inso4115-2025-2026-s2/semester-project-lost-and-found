@@ -1,5 +1,6 @@
 import React from "react";
 import "./DuplicateWarningModal.css";
+import closeIcon from "../assets/icons/close.svg";
 import type { PotentialMatch } from "../ReportManagement/DuplicateVerification";
 
 interface DuplicateWarningModalProps {
@@ -30,7 +31,7 @@ export function DuplicateWarningModal({
             </p>
           </div>
           <button className="closeBtn" onClick={onClose} aria-label="Close">
-            ×
+            <img src={closeIcon} alt="close" />
           </button>
         </div>
 
