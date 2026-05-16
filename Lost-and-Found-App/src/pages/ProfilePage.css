@@ -33,6 +33,11 @@
   padding: 0;
 }
 
+.iconBtn img {
+  width: 20px;
+  height: 20px;
+}
+
 .title {
   font-size: clamp(15px, 4vw, 18px);  
 }

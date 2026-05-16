@@ -4,9 +4,12 @@ import {Report, type Category, type ReportType} from "../ReportManagement/Report
 import { useNavigate } from "react-router-dom";
 import { storeReportWithDuplicateCheck } from "../ReportManagement/ReportDatabaseManagement";
 import { sendReportCreatedEmail } from "../UserProfilesAccount/NotificationService";
+import { validateProfanityAllFields } from "../utils/profanityValidation";
 
 import { supabase } from "../supabaseClient.ts";
 import { ImageUploadInput } from "../components/ImageUploadInput";
+import warningIcon from "../assets/icons/warning.svg";
+import closeIcon from "../assets/icons/close.svg";
 import { DuplicateWarningModal } from "../components/DuplicateWarningModal";
 import type { PotentialMatch } from "../ReportManagement/DuplicateVerification";
 
@@ -85,13 +88,26 @@ export function ReportCreatePage() {
       handleAddTag();
     }
   };
-
+  
   const removeTag = (tag: string) => {
     setTags((prev) => prev.filter((t) => t !== tag));
   };
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
+
+    // Profanity validation for all public fields
+    const profanityError = validateProfanityAllFields({
+      title,
+      description,
+      location,
+      tags,
+    });
+    if (profanityError) {
+      setErrorMessage(profanityError);
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       // Upload image if exists
@@ -109,6 +125,10 @@ export function ReportCreatePage() {
         const { data } = supabase.storage.from("ReportImages").getPublicUrl(FileName);
         uploadedImageUrl = data.publicUrl;
       }
+      
+      const expirationDate = new Date();
+      expirationDate.setDate(expirationDate.getDate() + 90);
+      
 
       const user = await supabase.auth.getUser();
       // Create the report
@@ -116,6 +136,7 @@ export function ReportCreatePage() {
         title,
         description,
         dateFound: new Date(date),
+        expiresAt : expirationDate,
         location,
         category,
         tags,
@@ -307,7 +328,7 @@ export function ReportCreatePage() {
 
               {errorMessage && (
                 <div className="TagLimitError" role="alert">
-                  <span>⚠️</span>
+                  <img src={warningIcon} alt="warning" style={{width:18,height:18}} />
                   <span>{errorMessage}</span>
                 </div>
               )}
@@ -322,7 +343,7 @@ export function ReportCreatePage() {
                       onClick={() => removeTag(tag)}
                       aria-label={`Remove ${tag}`}
                     >
-                      ×
+                      <img src={closeIcon} alt="remove" style={{width:12,height:12}} />
                     </button>
                   </span>
                 ))}

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./UserHistoryPage.css";
+import backIcon from "../assets/icons/back.svg";
 import { getReportByUser } from "../ReportManagement/ReportDatabaseManagement";
 import { supabase } from "../supabaseClient";
 
@@ -94,7 +95,7 @@ export default function UserHistoryPage() {
     <div className="historyPage">
       <header className="historyHeader">
         <button className="backButton" onClick={() => navigate(-1)}>
-          ←
+          <img src={backIcon} alt="back" />
         </button>
         <h1>User History</h1>
         <div className="historyHeaderSpacer" />
