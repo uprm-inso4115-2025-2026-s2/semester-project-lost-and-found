@@ -10,6 +10,9 @@ This section describes example user interaction scenarios for the Lost & Found s
 
 The Lost & Found system supports multiple types of user interactions related to reporting, searching, and recovering items. The following scenarios present common flows that help define how users and administrators are expected to interact with the system.
 
+image::use-case-diagram.png[Use Case Diagram, align=center, pdfwidth=80%]
+_Use case diagram describing interactions between actors and the platform_
+
 ===== Scenario 1: Reporting a Lost Item
 
 *Actor:* User
@@ -54,3 +57,19 @@ The Lost & Found system supports multiple types of user interactions related to 
 . The claim is approved or rejected.
 
 *Result:* If approved, the item can be returned to the owner.
+
+===== Scenario 5: User Creates an Account
+
+*Actor:* User
+
+. The user enters account details at the sign-up page.
+ .. If the email is not a UPR email address, an error is shown. The user remains in the sign-up page.
+ .. If the email is a UPR email address, it is validated and the account is created.
+. The user enters the newly-created account credentials at the login page.
+ .. If the account credentials are valid/correct, the user is logged in successfully.
+ .. If the account credentials are not valid/correct, the user is shown an error message and remains in the login page. 
+
+*Result:* User has an account and access to the platform's features.
+
+image::user_account_creation_event_trace_diagram.png[User Account Creation Event Trace Diagram, align=center, pdfwidth=50%]
+_User Account Creation Event Trace Diagram_
