@@ -2315,6 +2315,333 @@ A user decides to leave the platform and requests account deactivation. The syst
 
 ==== Conclusion
 The account lifecycle in the Lost & Found platform is a structured process that governs how users interact with the system while ensuring security and privacy. By modeling account states and transitions, the platform can enforce access controls, respond to security threats, and provide a clear path for users to manage their accounts effectively.
+
+---
+
+= Goal-Obstacle Analysis for Report Claim Verification
+Author: Jose Valentin
+Date: May 16, 2026
+
+== Introduction
+
+The Lost & Found platform allows users to create reports for lost or found items and enables other users to claim those reports when attempting to recover an item. Since claim verification directly affects ownership and item recovery, the system must ensure that the claiming workflow is secure, reliable, and resistant to misuse.
+
+This document performs a Goal-Obstacle Analysis for the report claim verification process using concepts from Goal-Oriented Requirements Engineering (GORE). The analysis identifies system goals, possible obstacles that threaten those goals, and mitigation strategies that can be implemented in the platform.
+
+== System Context
+
+The report claim verification process includes:
+
+* Creating a report
+* Viewing report details
+* Claiming a report
+* Generating a claim code
+* Verifying claim ownership
+* Resolving or archiving reports
+* Reopening reports if necessary
+
+Actors involved:
+
+* Report Author
+* Claiming User
+* Administrator
+* Lost & Found Platform
+
+== Primary Goals
+
+[cols="1,3"]
+|===
+|Goal ID |Description
+
+|G1
+|Allow legitimate users to claim reports safely
+
+|G2
+|Prevent unauthorized users from modifying report status
+
+|G3
+|Ensure only one active claim exists per report
+
+|G4
+|Protect claim verification data and claim codes
+
+|G5
+|Allow report authors to resolve and reopen reports appropriately
+
+|G6
+|Maintain consistency between report state and database records
+|===
+
+== Goal and Obstacle Analysis
+
+=== Goal G1: Allow legitimate users to claim reports safely
+
+==== Obstacles
+
+[cols="1,3"]
+|===
+|Obstacle ID |Description
+
+|O1.1
+|Users may attempt to claim their own reports
+
+|O1.2
+|Multiple users may attempt to claim the same report simultaneously
+
+|O1.3
+|Unauthorized users may attempt to access claim functionality
+|===
+
+==== Mitigation Strategies
+
+* Prevent users from claiming reports they created
+* Restrict reports to a single active claimer
+* Validate authenticated user identity before claim submission
+* Disable claim button after successful claim
+
+[source,typescript]
+----
+if (report.createdBy === currentUser.id) {
+  throw new Error("Users cannot claim their own reports");
+}
+----
+
+== Goal G2: Prevent unauthorized users from modifying report status
+
+==== Obstacles
+
+[cols="1,3"]
+|===
+|Obstacle ID |Description
+
+|O2.1
+|Users may attempt to archive reports they do not own
+
+|O2.2
+|Users may reopen reports without authorization
+
+|O2.3
+|Claimers may attempt to resolve reports themselves
+|===
+
+==== Mitigation Strategies
+
+* Only report authors and administrators may archive reports
+* Only report authors may reopen resolved reports
+* Restrict status transitions using backend validation
+
+[source,typescript]
+----
+const canArchive =
+  currentUser.id === report.createdBy || currentUser.isAdmin;
+----
+
+== Goal G3: Ensure only one active claim exists per report
+
+==== Obstacles
+
+[cols="1,3"]
+|===
+|Obstacle ID |Description
+
+|O3.1
+|Database race conditions may allow duplicate claims
+
+|O3.2
+|Claimed reports may remain claimable in the UI
+
+|O3.3
+|Users may attempt repeated claim submissions
+|===
+
+==== Mitigation Strategies
+
+* Lock claiming after first successful claim
+* Validate claim state before database update
+* Refresh UI state after claiming
+* Use atomic database updates when possible
+
+[source,sql]
+----
+UPDATE reports
+SET claimed_by = :userId
+WHERE id = :reportId
+AND claimed_by IS NULL;
+----
+
+== Goal G4: Protect claim verification data and claim codes
+
+==== Obstacles
+
+[cols="1,3"]
+|===
+|Obstacle ID |Description
+
+|O4.1
+|Claim codes may become visible to unauthorized users
+
+|O4.2
+|Users may share or reuse claim codes
+
+|O4.3
+|Claim verification data may be exposed in frontend responses
+|===
+
+==== Mitigation Strategies
+
+* Only the claimer and administrators can view claim codes
+* Hide claim verification fields from public responses
+* Generate unique randomized claim codes
+* Expire codes after resolution if necessary
+
+[source,typescript]
+----
+if (
+  currentUser.id !== report.claimedBy &&
+  !currentUser.isAdmin
+) {
+  return null;
+}
+----
+
+== Goal G5: Allow report authors to resolve and reopen reports appropriately
+
+==== Obstacles
+
+[cols="1,3"]
+|===
+|Obstacle ID |Description
+
+|O5.1
+|Reports may be resolved accidentally
+
+|O5.2
+|Resolved reports may become permanently inaccessible
+
+|O5.3
+|Unauthorized users may reopen reports
+|===
+
+==== Mitigation Strategies
+
+* Add confirmation dialogs before resolving reports
+* Allow authors to reopen reports if recovery fails
+* Restrict reopening permissions to report authors
+
+[source,typescript]
+----
+const canReopen =
+  report.status === "RESOLVED" &&
+  currentUser.id === report.createdBy;
+----
+
+== Goal G6: Maintain consistency between report state and database records
+
+==== Obstacles
+
+[cols="1,3"]
+|===
+|Obstacle ID |Description
+
+|O6.1
+|Frontend and backend states may become inconsistent
+
+|O6.2
+|Deleted reports may still appear in cached lists
+
+|O6.3
+|Claim status may not synchronize properly across views
+|===
+
+==== Mitigation Strategies
+
+* Re-fetch report data after mutations
+* Use centralized database validation
+* Synchronize report status updates across pages
+* Implement error handling for failed state transitions
+
+== Claim Verification Workflow
+
+[plantuml]
+----
+@startuml
+
+start
+
+:User views report;
+
+if (User is author?) then (yes)
+  :Claim action blocked;
+else (no)
+  if (Report already claimed?) then (yes)
+    :Display unavailable message;
+  else (no)
+    :Generate claim code;
+    :Store claimer information;
+    :Update report status;
+  endif
+endif
+
+:Author verifies claim code;
+:Author archives or resolves report;
+
+stop
+
+@enduml
+----
+
+== Security Considerations
+
+=== Access Restrictions
+
+* Authors cannot claim their own reports
+* Only authors and administrators may archive reports
+* Only authors may reopen resolved reports
+* Only authorized users may view claim codes
+
+=== Data Integrity
+
+* Claim operations must be validated server-side
+* Report state transitions should follow defined rules
+* Duplicate claims must be prevented at database level
+
+== Final Recommendations
+
+[cols="1,2"]
+|===
+|Component |Recommendation
+
+|Claim Restrictions
+|Prevent authors from claiming their own reports
+
+|Status Management
+|Restrict archive/reopen operations to authorized users
+
+|Claim Verification
+|Generate unique secure claim codes
+
+|Database Integrity
+|Use validation and atomic updates
+
+|Frontend Security
+|Hide unauthorized controls and claim data
+
+|System Reliability
+|Synchronize UI and database report states
+|===
+
+== Conclusion
+
+The report claim verification process introduces multiple security and consistency challenges within the Lost & Found platform. Through Goal-Obstacle Analysis, several critical risks were identified, including unauthorized claims, invalid status transitions, duplicate claims, and exposure of claim verification data.
+
+By implementing role restrictions, validation checks, secure claim handling, and proper state management, the platform can significantly improve reliability, maintain data integrity, and support safer item recovery workflows.
+
+== References
+
+* Schütz-Schmuck, M. Domain Engineering and Requirements Analysis Lecture Slides. University of Puerto Rico at Mayagüez.
+* Goal-Oriented Requirements Engineering (GORE) concepts discussed in course lectures.
+* Supabase Documentation: https://supabase.com/docs
+* TypeScript Documentation: https://www.typescriptlang.org/docs/
 ---
 
 
