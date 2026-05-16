@@ -1,146 +1,509 @@
+/* ─── Page Shell ─────────────────────────────────────────── */
 .detailsPage {
   max-width: 550px;
   margin: 0 auto;
   min-height: 100vh;
   background: white;
-  position: relative;
-  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Green top background */
-.detailsPage::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  width: 100%;
-  height: 375px;
-
-  background: #7DD583;
-
-  z-index: 0;
+/* ─── Green Hero ─────────────────────────────────────────── */
+.detailsHero {
+  background: #17a45b;
+  padding: 14px 14px 20px;
 }
 
-.backBtn {
-  position: relative;
-  z-index: 2;
+.detailsHeroBg {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
 
-  margin: 16px;
+.detailsBackBtn {
+  background: rgba(255, 255, 255, 0.2);
   border: none;
-  background: transparent;
-  font-size: 28px;
-  cursor: pointer;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
   color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-.detailsImageContainer {
-  position: relative;
-  z-index: 2;
+.detailsBackBtn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
 
-  padding: 0 14px;
+.detailsHeaderStatus {
+  padding: 4px 14px;
+  border-radius: 20px;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ─── Image Frame (sits inside green with padding) ───────── */
+.detailsImageFrame {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 4px solid rgba(255, 255, 255, 0.5);
+  height: 230px;
+  background: #e5e7eb;
+  position: relative;
+  z-index: 1;
 }
 
 .detailsImage {
   width: 100%;
-  height: 280px;
+  height: 100%;
   object-fit: cover;
-  border-radius: 24px;
+  display: block;
 }
 
 .detailsPlaceholder {
   width: 100%;
-  height: 280px;
-  border-radius: 24px;
-  background: #ddd;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: #9ca3af;
+  background: #f3f4f6;
+}
+
+/* ─── White Content Area ────────────────────────────────── */
+.detailsContent {
+  flex: 1;
+  background: white;
+  padding: 16px 18px 100px;
+}
+
+.detailsTitle {
+  font-size: 26px;
+  font-weight: 800;
+  color: #111827;
+  margin: 0 0 16px;
+  line-height: 1.2;
+}
+
+/* ─── Info Row ───────────────────────────────────────────── */
+.detailsInfoRow {
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 16px;
+}
+
+.infoItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-right: 8px;
+}
+
+.infoItem + .infoItem {
+  border-left: 1px solid #e5e7eb;
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.infoLabel {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* colored labels matching Figma */
+.infoLabel.category { color: #f59e0b; }
+.infoLabel.location { color: #3b82f6; }
+.infoLabel.date     { color: #ef4444; }
+
+.infoItem span.infoValue {
+  font-size: 13px;
+  color: #111827;
+  font-weight: 600;
+}
+
+/* ─── Tags ───────────────────────────────────────────────── */
+.tagsSection {
+  margin-bottom: 18px;
+}
+
+.tagsSection h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tagsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tagPill {
+  background: #f3f4f6;
+  color: #374151;
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid #e5e7eb;
+}
+
+/* ─── Description ────────────────────────────────────────── */
+.descriptionSection {
+  margin-bottom: 28px;
+}
+
+.descriptionSection h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 8px;
+}
+
+.descriptionBox {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 14px;
+  color: #4b5563;
+  line-height: 1.6;
+  min-height: 80px;
+  border: 1px solid #f0f0f0;
+}
+
+/* ─── Action Buttons ─────────────────────────────────────── */
+.detailsActions {
+  display: flex;
+  gap: 12px;
+}
+
+.claimBtn {
+  flex: 1;
+  padding: 14px 10px;
+  background: #17a45b;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.claimBtn:hover  { background: #15924f; }
+.claimBtn:active { transform: scale(0.98); }
+
+.contactBtn {
+  flex: 1;
+  padding: 14px 10px;
+  background: #60a5fa;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.2s;
+}
+
+.contactBtn:hover { background: #3b82f6; }
+
+.detailsActionsSecondary {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.unclaimBtn {
+  padding: 11px 48px;
+  background: #e5e7eb;
+  color: #9ca3af;
+  border: none;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: default;
+  opacity: 0.7;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CLAIM MODAL
+═══════════════════════════════════════════════════════════ */
+.claimOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: fadeInOverlay 0.2s ease;
+}
+
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.claimModal {
+  width: 100%;
+  max-width: 550px;
+  background: white;
+  border-radius: 24px 24px 0 0;
+  padding: 28px 24px 40px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: slideUpModal 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes slideUpModal {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+.claimModal::before {
+  content: "";
+  width: 40px;
+  height: 4px;
+  background: #e5e7eb;
+  border-radius: 2px;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.claimModalClose {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #f3f4f6;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #6b7280;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.detailsContent {
-  position: relative;
-  z-index: 2;
+.claimModalClose:hover { background: #e5e7eb; }
 
-  padding: 20px;
-  margin-top: 10px;
+.claimModalIcon {
+  font-size: 48px;
+  margin-bottom: 12px;
 }
 
-.detailsTitle {
-  font-size: 36px;
-  margin-bottom: 20px;
+.claimSuccessIcon {
+  font-size: 48px;
+  margin-bottom: 12px;
+  animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.detailsInfoRow {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
+@keyframes popIn {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.claimModalTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 8px;
+}
+
+.claimModalSubtitle {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0 0 20px;
+  max-width: 300px;
+}
+
+.claimModalInfoCard {
+  width: 100%;
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 14px 16px;
   margin-bottom: 24px;
-}
-
-.infoItem {
   display: flex;
   flex-direction: column;
-  font-size: 14px;
+  gap: 8px;
 }
 
-.infoLabel {
-  font-weight: bold;
-  color: #17a45b;
-  margin-bottom: 4px;
-}
-
-.tagsSection {
-  margin-bottom: 24px;
-}
-
-.tagsContainer {
+.claimInfoRow {
   display: flex;
+  align-items: center;
   gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
-
-.tagPill {
-  background: #d9d9d9;
-  padding: 6px 12px;
-  border-radius: 20px;
   font-size: 13px;
+  color: #374151;
 }
 
-.descriptionSection {
-  margin-bottom: 30px;
-}
-
-.descriptionBox {
-  background: #f1f1f1;
-  border-radius: 20px;
-  padding: 18px;
-  min-height: 120px;
-  margin-top: 10px;
-}
-
-.detailsActions {
+.claimModalActions {
   display: flex;
-  gap: 14px;
+  gap: 12px;
+  width: 100%;
 }
 
-.claimBtn,
-.contactBtn {
+.claimModalCancel {
   flex: 1;
+  padding: 13px;
+  background: #f3f4f6;
+  color: #374151;
   border: none;
-  border-radius: 30px;
-  padding: 16px;
-  font-size: 18px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
 }
 
-.claimBtn {
-  background: #3dc655;
+.claimModalCancel:hover { background: #e5e7eb; }
+
+.claimModalConfirm {
+  flex: 1;
+  padding: 13px;
+  background: #17a45b;
   color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 
-.contactBtn {
-  background: #8fb5d6;
-  color: white;
+.claimModalConfirm:hover:not(:disabled) { background: #15924f; }
+.claimModalConfirm:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.claimCodeCard {
+  width: 100%;
+  background: linear-gradient(135deg, #17a45b 0%, #0e7a44 100%);
+  border-radius: 16px;
+  padding: 24px 20px 20px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 8px 24px rgba(23, 164, 91, 0.35);
 }
+
+.claimCodeLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.claimCodeValue {
+  display: flex;
+  gap: 6px;
+}
+
+.claimCodeDigit {
+  width: 38px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 800;
+  color: white;
+  font-family: "Courier New", monospace;
+  animation: digitReveal 0.4s ease both;
+}
+
+.claimCodeDigit:nth-child(1) { animation-delay: 0.05s; }
+.claimCodeDigit:nth-child(2) { animation-delay: 0.10s; }
+.claimCodeDigit:nth-child(3) { animation-delay: 0.15s; }
+.claimCodeDigit:nth-child(4) { animation-delay: 0.20s; }
+.claimCodeDigit:nth-child(5) { animation-delay: 0.25s; }
+.claimCodeDigit:nth-child(6) { animation-delay: 0.30s; }
+
+@keyframes digitReveal {
+  from { transform: translateY(12px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.claimCopyBtn {
+  padding: 8px 20px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.claimCopyBtn:hover  { background: rgba(255, 255, 255, 0.3); }
+.claimCopyBtn.copied { background: rgba(255, 255, 255, 0.35); }
+
+.claimNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  background: #fef3c7;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 12px;
+  color: #92400e;
+  text-align: left;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.claimModalDone {
+  width: 100%;
+  padding: 14px;
+  background: #17a45b;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.claimModalDone:hover { background: #15924f; }

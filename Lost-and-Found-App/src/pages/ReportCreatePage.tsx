@@ -3,7 +3,6 @@ import "./ReportCreatePage.css";
 import {Report, type Category, type ReportType} from "../ReportManagement/Reports";
 import { useNavigate } from "react-router-dom";
 import { storeReportWithDuplicateCheck } from "../ReportManagement/ReportDatabaseManagement";
-import { storeReport } from "../ReportManagement/ReportDatabaseManagement";
 import { sendReportCreatedEmail } from "../UserProfilesAccount/NotificationService";
 
 import { supabase } from "../supabaseClient.ts";
@@ -114,6 +113,8 @@ export function ReportCreatePage() {
       const expirationDate = new Date();
       expirationDate.setDate(expirationDate.getDate() + 90);
       
+
+      const user = await supabase.auth.getUser();
       // Create the report
       const newReport = Report.Create({
         title,
@@ -123,9 +124,11 @@ export function ReportCreatePage() {
         location,
         category,
         tags,
-        createdBy: "temporary-user",
+        createdBy: user.data.user?.email || "",
         type,
         imageUrl: uploadedImageUrl,
+        recoveryCode: 0,
+        claimedBy: ""
       });
 
       // Store report with duplicate check

@@ -80,9 +80,6 @@ export async function getReport(id: string): Promise<Report | null> {
     }
     
 
-    let type: ReportType = 'LOST';
-    if (data.type === "Found") { type = 'FOUND'; }
-
     const prop = {
         title: data.title,
         description: data.description,
@@ -93,7 +90,9 @@ export async function getReport(id: string): Promise<Report | null> {
         tags: data.tags,
         imageUrl: data.imageURL,
         createdBy: data.createdBy,
-        type: type
+        type: data.type,
+        recoveryCode: data.recoveryCode,
+        claimedBy: data.claimedBy
     }
 
    return Report.fromSupabase(data.id, prop, status);
@@ -133,9 +132,6 @@ export async function getReport(id: string): Promise<Report | null> {
 
         }
 
-        let type: ReportType = 'LOST';
-        if (data[i].type === "Found") { type = 'FOUND'; }
-
         const prop = {
             title: data[i].title,
             description: data[i].description,
@@ -146,7 +142,9 @@ export async function getReport(id: string): Promise<Report | null> {
             tags: data[i].tags,
             imageUrl: data[i].imageURL,
             createdBy: data[i].createdBy,
-            type: type
+            type: data[i].type,
+            recoveryCode: data[i].recoveryCode,
+            claimedBy: data[i].claimedBy
         }
 
         reports.push(Report.fromSupabase(data[i].id, prop, status));
@@ -190,10 +188,6 @@ export async function getReportByUser(id: string): Promise<Report[]> {
         if (data[i].status === "Resolved") { status = 'RESOLVED'; }
         else if (data[i].status === "Claimed") { status = 'CLAIMED'; }
 
-        //Type stored in database
-        let type: ReportType = 'LOST';
-        if (data[i].type === "Found") { type = 'FOUND'; }
-
         //Report object
         const prop = {
             title: data[i].title,
@@ -205,7 +199,9 @@ export async function getReportByUser(id: string): Promise<Report[]> {
             tags: data[i].tags,
             imageUrl: data[i].imageURL,
             createdBy: data[i].createdBy,
-            type: type
+            type: data[i].type,
+            recoveryCode: data[i].recoveryCode,
+            claimedBy: data[i].claimedBy 
         }
 
         //Creates a report object and pushes it to the array

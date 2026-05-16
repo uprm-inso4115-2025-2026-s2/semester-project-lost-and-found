@@ -16,6 +16,8 @@ export interface CreateReportProps {
   imageUrl?: string;
   createdBy: string;
   type: ReportType;
+  recoveryCode: number;
+  claimedBy: string;
 }
 
 export class Report {
@@ -31,6 +33,8 @@ export class Report {
   private createdBy: string;
   private status: ReportStatus;
   private type: ReportType;
+  private recoveryCode: number;
+  private claimedBy: string;
 
   private constructor(id: string, props: CreateReportProps, status: ReportStatus) {
     this.id = id;
@@ -45,6 +49,8 @@ export class Report {
     this.createdBy = props.createdBy.trim();
     this.status = status;
     this.type = props.type;
+    this.recoveryCode = props.recoveryCode;
+    this.claimedBy = props.claimedBy;
   }
 
   public getID(): string { return this.id; }
@@ -77,6 +83,7 @@ export class Report {
   public getTags(): string[] { return this.tags; }
   public getImageURL(): string { return this.imageUrl ?? ""; }
   public getCreatedBy(): string { return this.createdBy; }
+  public getClaimedBy(): string { return this.claimedBy; }
 
   public getStatus(): string { 
     switch(this.status) {
@@ -106,13 +113,23 @@ export class Report {
 
     return "";
   }
-   
+
+  public getRecoveryCode(): number {
+    return this.recoveryCode;
+  }
+
+  public getNewRecoveryCode(): number {
+    this.recoveryCode = Math.floor(100000 + Math.random() * 900000);
+    return this.recoveryCode;
+  }
+  
   public setTitle(title: string): void { this.title = title; }
   public setDescription(description: string): void { this.description = description; }
   public setDateFound(dateFound: Date): void { this.dateFound = dateFound; }
   public setExpiredDate(expiresAt: Date): void{this.expiresAt = expiresAt;}
   public setLocation(location: string): void { this.location = location; }
   public setCategory(category: Category): void { this.category = category; }
+  public setClaimedBy(claimedBy: string): void { this.claimedBy = claimedBy; }
   public addTag(tag: string): void { this.tags.push(tag); } // Basic addition for now
   public removeTag(tag: string): void { 
     const index = this.tags.indexOf(tag);
@@ -130,7 +147,12 @@ export class Report {
       return;
     }
   
-    if (this.status === 'RESOLVED' && status === 'CLAIMED') {
+    if (this.status === 'CLAIMED' && status === 'RESOLVED') {
+      this.status = status;
+      return;
+    }
+
+    if (this.status === 'RESOLVED' && status === 'ACTIVE') {
       this.status = status;
       return;
     }
@@ -172,7 +194,9 @@ export class Report {
         tags: ["None"],
         imageUrl: undefined,
         createdBy: '',
-        type: "LOST"
+        type: "LOST",
+        recoveryCode: 0,
+        claimedBy: ""
       });
 
       return report;
@@ -191,7 +215,9 @@ export class Report {
       imageURL: this.imageUrl,
       createdBy: this.createdBy,
       status: this.status,
-      type: this.type
+      type: this.type,
+      recoveryCode: this.recoveryCode,
+      claimedBy: this.claimedBy
     };
   }
 
