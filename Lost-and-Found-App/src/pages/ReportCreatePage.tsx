@@ -43,10 +43,6 @@ export function ReportCreatePage() {
 
   const [imageFile, setImageFile] = useState<File | undefined>(undefined);
   const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
-    // Remove tag from tags array
-    const removeTag = (tag: string) => {
-      setTags((prev) => prev.filter((t) => t !== tag));
-    };
   
   // Duplicate detection state
   const [showDuplicateModal, setShowDuplicateModal] = useState(false);
