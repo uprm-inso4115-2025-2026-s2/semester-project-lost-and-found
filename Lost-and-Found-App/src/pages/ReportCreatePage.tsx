@@ -123,6 +123,10 @@ export function ReportCreatePage() {
         const { data } = supabase.storage.from("ReportImages").getPublicUrl(FileName);
         uploadedImageUrl = data.publicUrl;
       }
+      
+      const expirationDate = new Date();
+      expirationDate.setDate(expirationDate.getDate() + 90);
+      
 
       const user = await supabase.auth.getUser();
       // Create the report
@@ -130,6 +134,7 @@ export function ReportCreatePage() {
         title,
         description,
         dateFound: new Date(date),
+        expiresAt : expirationDate,
         location,
         category,
         tags,
