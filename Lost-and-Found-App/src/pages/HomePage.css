@@ -100,6 +100,8 @@
   font-size: 22px;
 }
 
+.bottomNav button img { width: 22px; height: 22px; }
+
 .searchBarContainer {
   padding: 0 16px 12px;
 }
