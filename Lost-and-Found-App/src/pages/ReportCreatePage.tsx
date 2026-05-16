@@ -111,12 +111,15 @@ export function ReportCreatePage() {
         uploadedImageUrl = data.publicUrl;
       }
       
+      const expirationDate = new Date();
+      expirationDate.setDate(expirationDate.getDate() + 90);
+      
       // Create the report
       const newReport = Report.Create({
         title,
         description,
         dateFound: new Date(date),
-        expiresAt : new Date(date),
+        expiresAt : expirationDate,
         location,
         category,
         tags,
