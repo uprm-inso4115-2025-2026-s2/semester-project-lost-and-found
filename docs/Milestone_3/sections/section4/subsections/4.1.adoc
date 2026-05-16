@@ -2221,3 +2221,100 @@ This tagging taxonomy provides a consistent structure for capturing and indexing
 - A strong foundation for later domain analysis and system design
 
 ---
+==== Account Creation & Authentication State Modeling
+:author: Sebastian Suarez
+
+===== Overview
+
+This section analyzes the lifecycle of user accounts in the Lost & Found platform, focusing on how accounts transition through distinct states from registration to deactivation. The analysis applies domain concepts such as discreteness, statics/dynamics, tangibility, and dimensionality, and distinguishes between system-driven and human-driven actions. The goal is to clarify how account states govern access, security, and privacy.
+
+===== Account Lifecycle States
+
+The account lifecycle is modeled as a finite state machine with the following key states:
+
+[cols="1,2,2,2,2", options="header"]
+|===
+| State | Description | Entry Condition | Exit Condition | Action Driver
+
+| Registration
+| User submits credentials; account is created but not yet verified.
+| User completes registration form.
+| Verification link sent; user must verify.
+| Human initiates, system records.
+
+| Activation
+| Account is enabled after successful email/SMS verification.
+| User clicks verification link or enters code.
+| User logs in for the first time.
+| Human verifies, system enables.
+
+| Active
+| Account is fully operational; user can log in and access features.
+| Verification complete.
+| Account is locked, suspended, or deactivated.
+| Human uses, system enforces access.
+
+| Deactivated/Archived
+| Account is closed by user or archived after long inactivity.
+| User requests closure or inactivity threshold reached.
+| User reactivates (if allowed) or data is purged.
+| Human requests, system enforces.
+|===
+
+===== Domain Classification
+
+- *Discrete*: Each state is a distinct, countable value; transitions are triggered by explicit events.
+- *Dynamic inert*: State changes only in response to user or admin actions, not autonomously.
+- *Intangible precise*: States exist as system records, not physical phenomena.
+- *One-dimensional*: The lifecycle is a linear sequence with possible cycles (e.g., reactivation).
+
+===== System-Driven vs. Human-Driven Actions
+
+- *System-driven*: Locking after failed logins, archiving after inactivity, enforcing access restrictions.
+- *Human-driven*: Registration, verification, login, requesting deactivation, admin unlocking.
+
+===== Realistic Scenarios
+
+*Scenario 1: Standard Registration and Activation*
+
+A student registers for the Lost & Found platform using their university email. The system creates an account in the "Registration" state and sends a verification email. The student clicks the link, moving the account to "Activation." Upon first login, the account enters the "Active" state, granting access to all features.
+
+*Scenario 2: Deactivation/Deletion of Account*
+
+A user decides to leave the platform and requests account deactivation. The system transitions the account to "Deactivated/Deleted," retaining minimal data for compliance. If the user later changes their mind, they can request reactivation, moving back to "Active" if allowed.
+
+===== Security and Resource Access Implications
+
+- Only "Active" accounts can access user features and data.
+- "Locked/Suspended" accounts are denied access until resolved, protecting against brute-force attacks or policy violations.
+- "Deactivated/Deleted" accounts retain minimal data for compliance but cannot be used.
+- State transitions are logged for auditability, supporting privacy and security requirements.
+
+===== Summary Table
+
+[cols="2,2,2", options="header"]
+|===
+| State | Security Implication | Resource Access
+
+| Registration
+| No access until verified
+| None
+
+| Activation
+| Verification required
+| Minimal (verification only)
+
+| Active
+| Full access, subject to policy
+| All user features
+
+| Deactivated/Deleted
+| Data retained or purged, no access
+| None
+|===
+
+==== Conclusion
+The account lifecycle in the Lost & Found platform is a structured process that governs how users interact with the system while ensuring security and privacy. By modeling account states and transitions, the platform can enforce access controls, respond to security threats, and provide a clear path for users to manage their accounts effectively.
+---
+
+
