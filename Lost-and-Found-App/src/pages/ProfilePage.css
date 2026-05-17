@@ -144,6 +144,29 @@
   flex-shrink: 0;
 }
 
+
+/* Header-specific icon sizing and alignment */
+.profileHeader .iconBtn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.116);
+}
+
+.profileHeader .iconBtn img {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+.profileList li img {
+  width: 14px;
+  height: 14px;
+}
+
+
 .profileList li.danger { color: #b00020; }
 
 .divider {
