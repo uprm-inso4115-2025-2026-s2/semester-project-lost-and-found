@@ -55,6 +55,18 @@
   line-height: 1;
 }
 
+.imageUpload__iconImg {
+  width: 28px;
+  height: 28px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.imageUpload__popupBigIconImg {
+  width: 44px;
+  height: 44px;
+}
+
 .imageUpload__hint {
   font-size: 14px;
   font-weight: 700;

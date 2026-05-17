@@ -13,6 +13,11 @@ import type { CategoryFilter } from "../components/CategoryDropdown";
 
 import { getAllReports } from "../ReportManagement/ReportDatabaseManagement";
 import type { Report } from "../ReportManagement/Reports";
+import closeIcon from "../assets/icons/close.svg";
+import homeIcon from "../assets/icons/home.svg";
+import searchIcon from "../assets/icons/search.svg";
+import plusIcon from "../assets/icons/plus.svg";
+import userIcon from "../assets/icons/user.svg";
 
 type TabKey = ItemStatus;
 
@@ -139,11 +144,16 @@ async function handleSendBackToLost(reportId: string) {
     const categoryMatch =
       categoryFilter === "ALL" || report.getRawCategory() === categoryFilter;
 
+
+    const normalizedSearchQuery = searchQuery.trim().toLowerCase();
+
     const searchMatch =
-    searchQuery.trim() === "" ||
-    report.getTags().some(tag =>
-      tag.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+      normalizedSearchQuery === "" ||
+      report.getTitle().toLowerCase().includes(normalizedSearchQuery) ||
+      report.getDescription().toLowerCase().includes(normalizedSearchQuery) ||
+      report.getTags().some(tag =>
+      tag.toLowerCase().includes(normalizedSearchQuery)
+      );
 
     return statusMatch && categoryMatch && searchMatch;
   });
@@ -189,7 +199,7 @@ async function handleSendBackToLost(reportId: string) {
       <div className="searchBarContainer">
         <input
           type="text"
-          placeholder="Search by tags..."
+          placeholder="Search by title, description, or tag..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="searchInput"
@@ -250,7 +260,7 @@ async function handleSendBackToLost(reportId: string) {
               color: "black",
             }}
           >
-            ✕
+            <img src={closeIcon} alt="close" style={{width:22,height:22}} />
           </button>
 
           <h2 style={{ marginBottom: "20px", color: "black" }}>Profile</h2>
@@ -274,10 +284,10 @@ async function handleSendBackToLost(reportId: string) {
       )}
 
       <nav className="bottomNav">
-        <button>🏠</button>
-        <button onClick={() => setShowSearch(prev => !prev)}>🔍</button>
-        <button onClick={handleCreateReport}>➕</button>
-        <button onClick={() => navigate("/profile")}>👤</button>
+        <button><img src={homeIcon} alt="home"/></button>
+        <button onClick={() => setShowSearch(prev => !prev)}><img src={searchIcon} alt="search"/></button>
+        <button onClick={handleCreateReport}><img src={plusIcon} alt="create"/></button>
+        <button onClick={() => navigate("/profile")}><img src={userIcon} alt="profile"/></button>
       </nav>
     </div>
   );
