@@ -1700,9 +1700,7 @@ Another scenario arises when the item description is vague or incomplete. In thi
 
 The verification process directly affects system behavior by controlling how reports transition between states and how conflicts are resolved. It ensures that only valid claims lead to ownership transfer, maintaining both data integrity and user trust. At the same time, it highlights the need for a balance between automated system logic and human decision-making within the domain.
 
-===== References
-
-Schütz-Schmuck, M. (2021). Domain Engineering. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez. 
+===== References 
 
 Schütz-Schmuck, M. (2021). Domain Attributes. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
 
