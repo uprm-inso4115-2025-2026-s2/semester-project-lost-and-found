@@ -1,5 +1,5 @@
 import { supabase } from "../supabaseClient.ts";
-import { Report, type Category, type ReportStatus, type ReportType } from "./Reports.ts";
+import { Report, type Category, type ReportStatus } from "./Reports.ts";
 
 export async function storeReport(report: Report): Promise<boolean> {
     const { error } = await supabase
@@ -39,6 +39,57 @@ export async function deleteReport(id: string): Promise<boolean> {
     }
 
     return true;
+}
+
+/**
+ * Deletes a report only if the current authenticated user is the report author.
+ *
+ * This helper is intended for UI flows where users can delete their own report.
+ * The UI should fetch the current authenticated user email and pass it here.
+ *
+ * @param reportId - The ID of the report to delete.
+ * @param authorEmail - The current user's email.
+ * @returns success/result object describing whether deletion occurred.
+ */
+export async function deleteReportIfOwner(
+  reportId: string,
+  authorEmail: string | undefined
+): Promise<{ success: boolean; message: string }> {
+  const normalizedEmail = authorEmail?.trim().toLowerCase();
+  if (!normalizedEmail) {
+    return {
+      success: false,
+      message: "User must be authenticated to delete a report.",
+    };
+  }
+
+  const report = await getReport(reportId);
+  if (!report) {
+    return {
+      success: false,
+      message: "Report not found.",
+    };
+  }
+
+  if (report.getCreatedBy().trim().toLowerCase() !== normalizedEmail) {
+    return {
+      success: false,
+      message: "Only the author of this report can delete it.",
+    };
+  }
+
+  const success = await deleteReport(reportId);
+  if (!success) {
+    return {
+      success: false,
+      message: "Unable to delete report due to a database error.",
+    };
+  }
+
+  return {
+    success: true,
+    message: "Report deleted successfully.",
+  };
 }
 
 export async function deleteReportsByUser(userId: string): Promise<boolean> {

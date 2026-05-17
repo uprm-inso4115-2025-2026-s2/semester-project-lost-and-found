@@ -509,7 +509,6 @@ const ReportDetailPage: React.FC = () => {
             Contact
           </button>
         </div>
-
         {/* Secondary Action Buttons */}
         <div className="detailsActionsSecondary">
           {canUnclaim && (
@@ -529,6 +528,18 @@ const ReportDetailPage: React.FC = () => {
               >
                 ✎ Edit
               </button>
+              
+              <button
+                className="deleteReportBtn"
+                onClick={() => {
+                  setDeleteMessage("");
+                  setShowDeleteModal(true);
+                }}
+                type="button"
+              >
+                Delete Report
+              </button>
+              
               {canResolve && (
                 <button
                   className="resolveBtn"
