@@ -1,6 +1,9 @@
 import React, { useMemo, useState } from "react";
 import "./ItemCard.css";
 import { useNavigate } from "react-router-dom";
+import calendarIcon from "../assets/icons/calendar.svg";
+import locationIcon from "../assets/icons/location.svg";
+import imageIcon from "../assets/icons/image.svg";
 
 export type ItemStatus = "Active" | "Claimed" | "Closed";
 
@@ -85,7 +88,10 @@ export const ItemCard: React.FC<ItemCardProps> = ({
             </div>
           </div>
         ) : (
-          <div className="placeholder">🖼️ No image</div>
+          <div className="placeholder">
+            <img src={imageIcon} alt="no image" style={{width:28,height:28,marginRight:8}} />
+            No image
+          </div>
         )}
 
         {/* Status Pill */}
@@ -109,13 +115,13 @@ export const ItemCard: React.FC<ItemCardProps> = ({
 
         <div className="metaRow">
           <span className="metaPill">
-            <span className="icon">📅</span>
+            <img src={calendarIcon} className="metaIcon" alt="date" />
             {dateLabel}
           </span>
 
           {locationLabel ? (
             <span className="metaPill">
-              <span className="icon">📍</span>
+              <img src={locationIcon} className="metaIcon" alt="location" />
               {locationLabel}
             </span>
           ) : null}

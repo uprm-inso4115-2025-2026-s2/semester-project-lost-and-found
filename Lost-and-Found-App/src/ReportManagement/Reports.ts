@@ -3,10 +3,13 @@ export type ReportStatus = 'ACTIVE' | 'RESOLVED' | 'CLAIMED';
 export type Category = 'ELECTRONICS' | 'PERSONAL' | 'OFFICE SUPPLIES' | 'OTHER';
 export type ReportType = 'LOST' | 'FOUND';
 
+const NINETY_DAYS_TO_EXPIRE_REPORT = 90*24*60*60*1000;
+
 export interface CreateReportProps {
   title: string;
   description: string;
   dateFound: Date;
+  expiresAt: Date;
   location: string;
   category: Category;
   tags: string[];
@@ -22,6 +25,7 @@ export class Report {
   private title: string;
   private description: string;
   private dateFound: Date;
+  private expiresAt: Date;
   private location: string;
   private category: Category;
   private tags: string[];
@@ -37,6 +41,7 @@ export class Report {
     this.title = props.title.trim();
     this.description = props.description.trim();
     this.dateFound = props.dateFound;
+    this.expiresAt = props.expiresAt;
     this.location = props.location.trim();
     this.category = props.category;
     this.tags = props.tags;
@@ -52,6 +57,7 @@ export class Report {
   public getTitle(): string { return this.title; }
   public getDescription(): string { return this.description; }
   public getDateFound(): Date { return this.dateFound; }
+  public getExpirationDate():Date{return this.expiresAt;}
   public getLocation(): string { return this.location; }
   
   public getRawCategory(): Category { return this.category; }
@@ -89,6 +95,8 @@ export class Report {
 
       case "CLAIMED":
         return "Claimed";
+
+      
     }
 
     return ""; 
@@ -118,6 +126,7 @@ export class Report {
   public setTitle(title: string): void { this.title = title; }
   public setDescription(description: string): void { this.description = description; }
   public setDateFound(dateFound: Date): void { this.dateFound = dateFound; }
+  public setExpiredDate(expiresAt: Date): void{this.expiresAt = expiresAt;}
   public setLocation(location: string): void { this.location = location; }
   public setCategory(category: Category): void { this.category = category; }
   public setClaimedBy(claimedBy: string): void { this.claimedBy = claimedBy; }
@@ -147,7 +156,8 @@ export class Report {
       this.status = status;
       return;
     }
-  
+
+    
     throw new Error("Invalid status transition");
   }
   
@@ -178,6 +188,7 @@ export class Report {
         title: '',
         description: '',
         dateFound: new Date(),
+        expiresAt: new Date(Date.now()+  NINETY_DAYS_TO_EXPIRE_REPORT ),
         location: '',
         category: 'OTHER',
         tags: ["None"],
@@ -197,6 +208,7 @@ export class Report {
       title: this.title,
       description: this.description,
       dateFound: this.dateFound,
+      expiresAt: this.expiresAt,
       location: this.location,
       category: this.getCategory(),
       tags: this.tags,

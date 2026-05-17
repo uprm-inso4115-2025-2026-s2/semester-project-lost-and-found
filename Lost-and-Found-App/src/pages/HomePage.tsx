@@ -13,6 +13,11 @@ import type { CategoryFilter } from "../components/CategoryDropdown";
 
 import { getAllReports } from "../ReportManagement/ReportDatabaseManagement";
 import type { Report } from "../ReportManagement/Reports";
+import closeIcon from "../assets/icons/close.svg";
+import homeIcon from "../assets/icons/home.svg";
+import searchIcon from "../assets/icons/search.svg";
+import plusIcon from "../assets/icons/plus.svg";
+import userIcon from "../assets/icons/user.svg";
 
 type TabKey = ItemStatus;
 
@@ -39,38 +44,56 @@ export default function HomePage() {
       .finally(() => setLoading(false));
   }, []);
 
-  async function handleClaim(reportId: string) {
-    try {
-      await updateReportStatus(reportId, "CLAIMED");
-  
-      const updated = await getAllReports();
-      setReports(updated);
-    } catch (error) {
-      console.error("Claim failed:", error);
-    }
-  }
-  
-  async function handleReturn(reportId: string) {
-    try {
-      await updateReportStatus(reportId, "RESOLVED");
-  
-      const updated = await getAllReports();
-      setReports(updated);
-    } catch (error) {
-      console.error("Return failed:", error);
-    }
-  }
+async function handleClaim(reportId: string) {
+  try {
+    // Get current user
+    const { data: { user } } = await supabase.auth.getUser();
+    const userId = user?.email || "";
+    
+    await updateReportStatus(reportId, "CLAIMED", userId);
 
-  async function handleSendBackToLost(reportId: string) {
-    try {
-      await updateReportStatus(reportId, "ACTIVE");
-  
-      const updated = await getAllReports();
-      setReports(updated);
-    } catch (error) {
-      console.error("Return failed:", error);
-    }
+    const updated = await getAllReports();
+    setReports(updated);
+  } catch (error) {
+    console.error("Claim failed:", error);
+    // Show error to user
+    alert(error instanceof Error ? error.message : "Failed to claim report");
   }
+}
+  
+async function handleReturn(reportId: string) {
+  try {
+    // Get current user
+    const { data: { user } } = await supabase.auth.getUser();
+    const userId = user?.email || "";
+    
+    await updateReportStatus(reportId, "RESOLVED", userId);
+
+    const updated = await getAllReports();
+    setReports(updated);
+  } catch (error) {
+    console.error("Return failed:", error);
+    // Show error to user
+    alert(error instanceof Error ? error.message : "Failed to close report");
+  }
+}
+
+async function handleSendBackToLost(reportId: string) {
+  try {
+    // Get current user
+    const { data: { user } } = await supabase.auth.getUser();
+    const userId = user?.email || "";
+    
+    await updateReportStatus(reportId, "ACTIVE", userId);
+
+    const updated = await getAllReports();
+    setReports(updated);
+  } catch (error) {
+    console.error("Return failed:", error);
+    // Show error to user
+    alert(error instanceof Error ? error.message : "Failed to reopen report");
+  }
+}
 
   const handleCreateReport = () => {
     navigate("/create-report");
@@ -121,11 +144,16 @@ export default function HomePage() {
     const categoryMatch =
       categoryFilter === "ALL" || report.getRawCategory() === categoryFilter;
 
+
+    const normalizedSearchQuery = searchQuery.trim().toLowerCase();
+
     const searchMatch =
-    searchQuery.trim() === "" ||
-    report.getTags().some(tag =>
-      tag.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+      normalizedSearchQuery === "" ||
+      report.getTitle().toLowerCase().includes(normalizedSearchQuery) ||
+      report.getDescription().toLowerCase().includes(normalizedSearchQuery) ||
+      report.getTags().some(tag =>
+      tag.toLowerCase().includes(normalizedSearchQuery)
+      );
 
     return statusMatch && categoryMatch && searchMatch;
   });
@@ -171,7 +199,7 @@ export default function HomePage() {
       <div className="searchBarContainer">
         <input
           type="text"
-          placeholder="Search by tags..."
+          placeholder="Search by title, description, or tag..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="searchInput"
@@ -232,7 +260,7 @@ export default function HomePage() {
               color: "black",
             }}
           >
-            ✕
+            <img src={closeIcon} alt="close" style={{width:22,height:22}} />
           </button>
 
           <h2 style={{ marginBottom: "20px", color: "black" }}>Profile</h2>
@@ -256,10 +284,10 @@ export default function HomePage() {
       )}
 
       <nav className="bottomNav">
-        <button>🏠</button>
-        <button onClick={() => setShowSearch(prev => !prev)}>🔍</button>
-        <button onClick={handleCreateReport}>➕</button>
-        <button onClick={() => navigate("/profile")}>👤</button>
+        <button><img src={homeIcon} alt="home"/></button>
+        <button onClick={() => setShowSearch(prev => !prev)}><img src={searchIcon} alt="search"/></button>
+        <button onClick={handleCreateReport}><img src={plusIcon} alt="create"/></button>
+        <button onClick={() => navigate("/profile")}><img src={userIcon} alt="profile"/></button>
       </nav>
     </div>
   );

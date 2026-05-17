@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthProvider";
 import { supabase } from "../supabaseClient";
 import logo from "../assets/Lost&Found-Logo.jpeg";
+import backIcon from "../assets/icons/back.svg";
+import chevronIcon from "../assets/icons/back.svg";
 import "./ProfilePage.css";
 
 export type ProfilePageProps = {
@@ -93,7 +95,7 @@ export default function ProfilePage({ firstName, lastName, username, email, avat
   return (
     <div className="profilePage">
       <header className="profileHeader">
-        <button className="iconBtn back" onClick={() => navigate(-1)}>←</button>
+        <button className="iconBtn back" onClick={() => navigate(-1)}><img src={backIcon} alt="back"/></button>
         <h1 className="title">My Profile</h1>
         <button className="iconBtn settings" onClick={() => navigate("/profile/settings")}>⚙️</button>
       </header>
@@ -116,30 +118,30 @@ export default function ProfilePage({ firstName, lastName, username, email, avat
       </div>
 
       <ul className="profileList">
-        <li onClick={() => navigate("/history")}>
+        <li onClick={() => navigate("/history") }>
           <span>User History</span>
-          <span className="chev">›</span>
+          <img src={chevronIcon} alt="chev" style={{width:14,height:14}} />
         </li>
-        <li onClick={() => navigate("/notifications")}>
+        <li onClick={() => navigate("/notifications") }>
           <span>Notifications</span>
-          <span className="chev">›</span>
+          <img src={chevronIcon} alt="chev" style={{width:14,height:14}} />
         </li>
       </ul>
 
       <hr className="divider" />
 
       <ul className="profileList">
-        <li onClick={() => navigate("/support")}>
+        <li onClick={() => navigate("/support") }>
           <span>Help and Support</span>
-          <span className="chev">›</span>
+          <img src={chevronIcon} alt="chev" style={{width:14,height:14}} />
         </li>
-        <li onClick={() => navigate("/logout")}>
+        <li onClick={() => navigate("/logout") }>
           <span>Log Out</span>
-          <span className="chev">›</span>
+          <img src={chevronIcon} alt="chev" style={{width:14,height:14}} />
         </li>
         <li onClick={() => navigate("/delete-account")} className="danger">
           <span>Delete Account</span>
-          <span className="chev">›</span>
+          <img src={chevronIcon} alt="chev" style={{width:14,height:14}} />
         </li>
       </ul>
     </div>
