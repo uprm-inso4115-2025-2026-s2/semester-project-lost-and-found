@@ -1,0 +1,120 @@
+=== *Integrating Multiple System Views*
+
+---
+==== Admin Role and Access Control in Lost and Found Systems
+:author: Fernando Torres
+
+Authentication and access control are fundamental components in modern software systems, especially in applications that manage personal information and user-generated reports. In the Lost and Found project, these mechanisms help ensure that only verified users can access protected functionalities such as reporting items, contacting users, and managing account-related information.
+
+The implementation of authentication and authorization improves the security, reliability, and organization of the platform while reducing the risk of fake reports, impersonation, and unauthorized access to sensitive information.
+
+===== Authentication
+
+Authentication is the process of verifying a user's identity before granting access to protected resources within the application. In this project, authentication is implemented using Supabase Authentication integrated with institutional UPR.edu accounts.
+
+By requiring university-based authentication, the platform benefits from already validated institutional identities, helping reduce the creation of fake or anonymous accounts.
+
+Advantages of institutional authentication include:
+
+* Improved accountability between users
+* Reduced risk of impersonation
+* More reliable ownership verification
+* Increased platform trust and credibility
+* Safer communication between users
+
+The application can optionally allow non-authenticated users to browse limited information while restricting sensitive actions to authenticated accounts only.
+
+Examples of actions restricted to authenticated users include:
+
+* Reporting lost items
+* Reporting found items
+* Editing reports that are not of their authorship
+* Viewing personal account information
+
+===== Access Control
+
+Access control determines which actions users are permitted to perform after authentication. Different permission levels help ensure that users only access resources appropriate to their role within the system.
+
+The Lost and Found application uses protected routes and role-based restrictions to secure important functionalities and sensitive information.
+
+Protected features may include:
+
+* Report creation pages
+* Account settings
+* User communication systems
+* Ownership verification information
+* Report management tools
+
+Protected routes prevent unauthorized users from directly accessing restricted pages through URL manipulation or unauthorized requests.
+
+===== Role-Based Access Control
+
+The system also implements role-based access control to separate permissions between regular users and administrators.
+
+Regular authenticated users are allowed to:
+
+* Create reports
+* Edit their own reports
+* Contact other users regarding items
+* Manage personal account information
+
+Administrator accounts have elevated permissions that support moderation and system management responsibilities.
+
+===== Administrator Role Implementation
+
+The administrator role is designed to help maintain the integrity, organization, and security of the platform. Administrators are responsible for reviewing reports, monitoring suspicious activity, and assisting with ownership verification processes.
+
+Administrator permissions may include:
+
+* Reviewing all submitted reports
+* Verifying ownership claims before items are marked as returned
+* Monitoring suspicious or fraudulent activity
+* Managing inappropriate or duplicate reports
+* Reviewing flagged content
+* Assisting with moderation tasks
+* Accessing administrative report management tools
+
+Separating administrator permissions from regular user permissions improves platform organization and reduces unauthorized access to moderation tools.
+
+===== Security Considerations
+
+Security is an essential aspect of authentication and access control systems. Since the Lost and Found platform handles potentially sensitive information, several security mechanisms must be considered during implementation.
+
+Examples of sensitive information include:
+
+* User names
+* Email addresses
+* Contact information
+* Ownership verification details
+* Serial numbers
+
+To protect user information, the system should implement:
+
+* Session validation
+* Secure token handling
+* Protected API requests
+* Database access restrictions
+* Restricted access to sensitive information
+
+These protections help reduce security risks while improving trust and reliability within the platform.
+
+===== Supabase Integration
+
+Supabase Authentication provides backend support for user authentication, session management, and secure access control. The integration between Supabase and the frontend allows authenticated sessions to remain protected while simplifying backend implementation.
+
+Additional Supabase features used in the project include:
+
+* Authentication services
+* Database storage
+* Role-based permissions
+* Secure API communication
+
+Using Supabase simplifies backend development while providing scalable authentication and authorization functionality.
+
+===== Importance in the Project
+
+Authentication and access control are critical for maintaining a safe and organized Lost and Found platform. By restricting sensitive actions to authenticated users and implementing administrator moderation capabilities, the application becomes more trustworthy and secure for all users.
+
+The addition of an administrator role further improves moderation, report verification, and system management capabilities while supporting the overall integrity of the platform.
+
+---

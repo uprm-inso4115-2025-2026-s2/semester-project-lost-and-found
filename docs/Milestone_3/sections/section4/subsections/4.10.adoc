@@ -1,0 +1,61 @@
+=== *Requirements Verification and Validation*
+
+==== Requirements Verification and Validation for the Lost and Found Platform
+:author: Lianette Alberto Muñoz
+:date: March 2026
+
+===== Introduction:
+
+The UPRM Lost & Found Platform is a proposed web/mobile system designed to help students, faculty, and staff report and recover lost items across the university campus. Because the system manages user reports, item descriptions, images, and communication between finders and owners, it is important to ensure that the system requirements are correct, complete, and aligned with stakeholder needs. Requirements verification and validation help guarantee that the system behaves as intended and that it effectively addresses the problem of lost items on campus.
+
+===== System Overview:
+
+The platform allows members of the UPRM community to report lost or found items, search existing reports, and contact other users through secure messaging. The system is designed to reduce the number of permanently lost items and provide a centralized location where students can check if their belongings have been found.
+
+    • Reporting lost items with photos, descriptions, and location information.
+    • Reporting found items and making them visible to other users.
+    • Searching and filtering items using keywords or categories.
+    • Messaging between finders and owners to arrange item return.
+    • Notification alerts when matching items are reported. Requirements Verification:
+
+===== Requirements Verification:
+
+Validation ensures that the requirements actually meet stakeholder needs and solve the intended problem. Validation focuses on confirming that the system will support real users and their goals.
+
+• Prototype Testing: Users interact with early versions of the interface to evaluate usability.
+• Stakeholder Feedback: Students and campus staff review features and provide suggestions.
+• User Surveys: Feedback is collected about whether the system solves the lost-item problem effectively.
+• Scenario Testing: Realistic scenarios are used to simulate how users will interact with the platform.
+
+===== Example Requirements Traceability:
+
+    Requirement:
+        - Report lost item
+        - Upload item photos
+        - Search items
+        - Messaging system
+
+    Verification Method:
+        - Requirement review
+        - Prototype Testing
+        - Functional Testing
+        - Design review
+
+    Validation Method:
+        - User Testing
+        - User Feedback
+        - Scenario Testing
+        - Pilot Testing
+
+===== Acceptance Criteria:
+
+    • Users can successfully report lost or found items with photos and descriptions.
+    • The search feature allows users to locate items using keywords or categories.
+    • Messaging between finders and owners works reliably and securely.
+    • The system responds within an acceptable time frame for user interactions.
+    • Users confirm through testing that the platform helps them locate lost belongings
+
+===== Conclusion:
+
+Verification and validation are essential processes in requirements engineering. By systematically reviewing requirements, testing system features, and gathering stakeholder feedback, the development team can ensure that the Lost & Found platform is reliable, useful, and aligned with the needs of the UPRM community. A well-executed verification and validation plan increases system quality and improves the chances that the platform will successfully
+reduce the number of permanently lost items on campus.

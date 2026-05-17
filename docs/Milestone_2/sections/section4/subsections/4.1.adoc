@@ -629,6 +629,7 @@ This separation prevents mixing implementation decisions with domain logic and e
 Through facet analysis, the domain becomes structured rather than fragmented, strengthening overall domain understanding.
 
 ---
+
 ==== [Lecture Topic Task] Domain Rules for the Lost & Found System
 :author: Noel Colon Mena
 
@@ -702,6 +703,7 @@ _Archived items remain stored in the system but are no longer visible in active 
 ===== Summary
 
 These rules define key constraints for the Lost & Found domain. They help ensure that item reporting, claiming, and verification processes are handled consistently and securely.
+
 ---
 
 ==== [Lecture Topic Task] Domain Glossary & Shared Vocabulary for the Lost & Found System
@@ -961,7 +963,6 @@ If the current implementation differs, adjust expected behavior accordingly.
 * Use minimum necessary disclosure for sensitive items to reduce fraud.
 * If possible, log moderation actions (edits/redactions/approve/reject/status changes).
 
----
 ---
 
 ==== Domain Analysis of Access Levels for Institutional and Non-Institutional Users
@@ -1662,6 +1663,8 @@ Data consistency and system guarantees are essential for maintaining a reliable 
 ===== References
 
 Schütz-Schmuck, M. (2021). _Domain Attributes_ [Lecture slides]. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+---
 
 ==== [Lecture Topic Task]: Report Verification as a Domain Process
 :author: Natanael Batista Alvarez

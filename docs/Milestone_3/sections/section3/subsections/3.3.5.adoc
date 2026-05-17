@@ -1,0 +1,260 @@
+
+==== *Traceability Management Cycle*
+
+[discrete]
+==== Traceability for Report Lost Item
+
+===== Report Lost Item Requirement
+Reporting Requirements:
+
+- The system must accept only **Reports** that include sufficient descriptive attributes to support **Matching**, including at minimum:
+  * item category  
+  * textual description  
+  * approximate location (loss or discovery)  
+  * relevant date or time window
+
+- The ID for a Lost Item Report: <<REQ-REPORT-F-01>>
+
+- *Scope:*
+
+* The requirement : <<REQ-REPORT-F-01>>, must be traced across:
+
+** User Stories, Epics and Features
+** Domain Requirements
+** Interface Requirements
+** Machine Requirements
+** Test and Verification artifacts
+
+===== Traceability Policy Rules:
+
+- The Lost Item Requirement: <<REQ-REPORT-F-01>>, must be linked to all related artifacts 
+- Traceability links must be maintained and updated during evolution
+- Any verification is traced back to <<REQ-REPORT-F-01>> to confirm it is satisfied
+- Any modification or change to <<REQ-REPORT-F-01>> must trigger impact analysis
+- The requirement is fully traceable when all relevant interfaces, requirements, and tests are captured and linked in the traceability table.
+
+[.added]
+===== Traceability Strategy Rationale
+
+The project adopts a requirement-centered traceability strategy rather than a document-centered or code-centered traceability strategy. Functional requirements were selected as the primary traceability anchors because they represent the most stable connection point between domain behavior, interfaces, implementation constraints, and verification artifacts.
+
+Bidirectional traceability was selected to support:
+
+- impact analysis when requirements evolve
+- validation that all requirements are implemented and verified
+- easier identification of affected subsystems during maintenance
+- consistency between functional requirements, interfaces, and testing artifacts
+
+The project uses a medium-granularity traceability model. Individual functional requirements are linked to related features, interface requirements, machine requirements, and verification artifacts, while avoiding excessive fine-grained tracing at the class, method, or variable level.
+
+This approach was chosen because:
+
+- coarse-grained traceability would not provide enough detail for effective change analysis
+- fine-grained implementation-level traceability would introduce high maintenance overhead
+- medium-granularity traceability provides sufficient impact visibility while remaining maintainable throughout project evolution
+
+
+
+===== Traceability Links Between the Requirement and Related System Components 
+
+====== Backward Traceability
+
+The following artifacts represent the origin and functional decomposition of the requirement <<REQ-REPORT-F-01>>:
+
+- <<REQ-REPORT-F-01>> - Submit a Lost Item Report
+- Epic E1: Reporting Lost and Found Items
+- Feature F1.1 - Structured lost item submission
+- Feature F1.3 - Optional image upload support
+- Feature F1.4 - Edit and manage own reports
+- Feature F1.5 - Automatic ownership binding
+
+
+====== Forward Traceability
+
+The requirement <<REQ-REPORT-F-01>> propagates into multiple dependent system artifacts including domain requirements, interface requirements, machine requirements, search systems, matching systems, and verification mechanisms.
+
+The Report Lost Item requirement interacts with multiple components of the system:
+
+*Domain Requirements*
+
+* *Reporting Requirements*
+ 
+- <<REQ-REPORT-F-01>>: The system shall allow a registered UPRM community member to create a Report for a Lost Item, including sufficient descriptive attributes to support Matching (e.g., category, description, approximate location, date or time window).  
+- <<REQ-REPORT-F-02>>: Each Report shall distinguish between public descriptive information and private verification information within each Report.  
+- <<REQ-REPORT-F-03>>: Upon creation, each Report shall be assigned an initial status of "Active".  
+- <<REQ-REPORT-F-05>>: The system shall associate each Report with its creator to support ownership, traceability, and controlled modification.  
+
+* *Search and Discovery Requirements*
+
+- <<REQ-SEARCH-F-01>>: The system shall allow users to search Reports based on keywords related to item description, category, approximate location, and date or time window.  
+- <<REQ-SEARCH-F-02>>: The system shall allow filtering of Reports by category, general location, date, and status.  
+- <<REQ-SEARCH-F-03>>: The system shall present search results in a manner that supports comparison between Lost Item and Found Item Reports for Matching purposes.  
+
+* *Matching and Tracking Requirements*
+
+- <<REQ-MATCH-F-01>>: The system shall support the identification of potential matches between Lost Item and Found Item Reports based on descriptive attributes.  
+- <<REQ-MATCH-F-04>>: The system shall allow the Owner of a Lost Item to monitor the status of their Report (Active, Returned, Closed, Expired).  
+- <<REQ-MATCH-F-03>>: The system shall record status transitions from Active to Returned, Closed, or Expired.  
+
+* *Claim Verification and Recovery Requirements*
+
+- <<REQ-CLAIM-F-01>>: The system shall restrict marking an item as Returned to authenticated users involved in the Report.  
+- <<REQ-CLAIM-F-02>>: The system shall support the use of private verification information to validate ownership before Recovery is confirmed.  
+- <<REQ-CLAIM-F-03>>: Once Recovery occurs, the corresponding Report shall transition to "Returned" status.  
+
+* *Closure Requirements*
+
+- <<REQ-CLOSE-F-01>>: The system shall allow a Report to be manually closed if Recovery is no longer expected.  
+- <<REQ-CLOSE-F-04>> / <<REQ-CLOSE-F-05>>: Closed Reports shall remain recorded for reference but shall be clearly distinguishable from Active Reports in search results.  
+
+* *Administrative Oversight Requirements*
+
+- <<REQ-ADMIN-F-01>>: The system shall allow authorized administrators to review Reports for inappropriate or misleading content.  
+- <<REQ-ADMIN-F-02>>: Administrators shall be able to modify or remove Reports that violate institutional guidelines.  
+- <<REQ-ADMIN-F-03>>: Administrators shall be able to override Report status in cases of misuse or verified dispute.  
+
+[.added]
+====== Verification and Test Artifacts
+
+* *Report Creation and Ownership Verification*
+
+- <<TEST-REPORT-01>>: Verifies that a lost item report can be created with all required descriptive attributes and is correctly bound to the authenticated owner.
+
+- <<TEST-REPORT-04>>: Verifies that a found item report is created successfully and initialized with the correct active lifecycle state.
+
+* *Report Editing and Access Control*
+
+- <<TEST-REPORT-02>>: Verifies that the owner of a report can successfully edit and update their own report.
+
+- <<TEST-REPORT-03>>: Verifies that non-owners are prevented from editing reports they do not own.
+
+* *Privacy and Data Protection*
+
+- <<TEST-REPORT-05>>: Verifies that sensitive or private information is not exposed in public views or stored incorrectly in the system.
+
+* *Search and Discovery Validation*
+
+- <<TEST-SEARCH-01>>: Verifies that reports can be retrieved using keyword-based search over descriptions and metadata.
+
+- <<TEST-SEARCH-02>>: Verifies that filtering by category correctly narrows down search results.
+
+- <<TEST-SEARCH-03>>: Verifies that search correctly retrieves reports matching textual and metadata criteria.
+
+- <<TEST-SEARCH-04>>: Verifies that search functionality works independently of image uploads or attachments.
+
+- <<TEST-SEARCH-05>>: Verifies that filtering by lifecycle status returns only reports matching the selected state (e.g., Active).
+
+* *Moderation and Administrative Verification*
+
+- <<TEST-MOD-01>>: Verifies that the system correctly detects and flags inappropriate or suspicious content automatically.
+
+- <<TEST-MOD-02>>: Verifies that flagged reports are hidden from public visibility until reviewed.
+
+- <<TEST-MOD-03>>: Verifies that report authors receive notifications when their report is flagged, approved, or removed.
+
+- <<TEST-MOD-04>>: Verifies that authors can appeal, edit, and resubmit removed reports through the moderation workflow.
+
+[.added]
+===== Traceability Maintenance Effort Assessment
+
+Maintaining traceability links introduces moderate overhead during system evolution. Changes affecting reporting behavior typically require synchronized updates across multiple artifacts, including interface requirements, validation rules, database schemas, search functionality, matching logic, and verification tests.
+
+Small modifications, such as adding a new report attribute or adjusting validation constraints, generally impact:
+
+- report creation forms
+- validation schemas
+- database structure
+- search and filtering systems
+- associated verification tests
+
+Larger policy changes, such as retention policies, privacy rules, or ownership verification requirements, propagate across additional subsystems including:
+
+- matching and recovery workflows
+- administrative oversight mechanisms
+- public report visibility
+- notification systems
+- archival or deletion services
+
+The selected medium-granularity traceability approach reduces maintenance complexity compared to fine-grained implementation-level traceability while still providing sufficient visibility for impact analysis and requirement verification.
+
+This balance allows the project to maintain effective traceability without introducing excessive documentation overhead during iterative system evolution.
+
+[.added]
+===== End-to-End Traceability Matrix
+
+The matrix below completes the traceability chain linking each requirement-centered slice across:
+
+- Domain concepts
+- User stories
+- Epics and features
+- Requirements
+- Validation scenarios
+- Verification tests
+- Implementation fragments
+
+[cols="1,1,2,2,2,2,2", options="header"]
+|===
+|Domain Concept
+|User Story
+|Epic / Feature
+|Requirement
+|Validation Scenario
+|Verification Test
+|Implementation Fragment
+
+|Report
+|<<US-REPORT-01>>
+|E1 / F1.1, F1.5
+|<<REQ-REPORT-F-01>>, <<REQ-REPORT-F-05>>
+|Scenario 1 (Maria reports a lost laptop)
+|<<TEST-REPORT-01>>, <<TEST-REPORT-02>>
+|Report Creation Flow (Section 2.3.1)
+
+|Ownership
+|<<US-REPORT-01>>
+|E1 / F1.5
+|<<REQ-REPORT-F-05>>, <<REQ-CLAIM-F-01>>
+|Scenario 1 (non-owner edit attempt)
+|<<TEST-REPORT-03>>
+|RLS Ownership Enforcement (Section 2.3.1)
+
+|Lifecycle State
+|<<US-CLAIM-02>>
+|E3 / F3.3
+|<<REQ-MATCH-F-02>>, <<REQ-MATCH-F-03>>, <<REQ-CLAIM-F-03>>
+|Scenario 1 and Scenario 3
+|<<TEST-REPORT-04>>, <<TEST-MOD-01>>, <<TEST-MOD-02>>
+|Report Creation + status transitions (Section 2.3.1)
+
+|Public vs Private Report Data
+|<<US-REPORT-02>>
+|E1 / F1.2, F1.3
+|<<REQ-REPORT-F-02>>
+|Scenario 2 (found wallet privacy handling)
+|<<TEST-REPORT-05>>
+|Image Upload Handling (Section 2.3.1)
+
+|Search and Discovery
+|<<US-SEARCH-01>>, <<US-SEARCH-02>>, <<US-SEARCH-03>>
+|E2 / F2.1, F2.2, F2.3, F2.4, F2.5
+|<<REQ-SEARCH-F-01>>, <<REQ-SEARCH-F-02>>, <<REQ-SEARCH-F-03>>
+|Scenario 4 (search for missing ID)
+|<<TEST-SEARCH-01>>, <<TEST-SEARCH-02>>, <<TEST-SEARCH-03>>, <<TEST-SEARCH-05>>
+|Query/filter behavior in report retrieval flow (Section 2.3.1)
+
+|Moderation and Oversight
+|<<US-ADMIN-01>>
+|E5 / F5.2, F5.3
+|<<REQ-ADMIN-F-01>>, <<REQ-ADMIN-F-02>>, <<REQ-ADMIN-F-03>>
+|Scenario 3 (automated moderation and review)
+|<<TEST-MOD-01>>, <<TEST-MOD-02>>, <<TEST-MOD-03>>, <<TEST-MOD-04>>
+|Role and policy enforcement patterns (Section 2.3.1)
+
+|Institutional Authentication
+|<<US-REPORT-01>>, <<US-CLAIM-01>>
+|E1 / F1.1 and E3 / F3.1
+|<<REQ-REPORT-F-06>>, <<REQ-REPORT-F-07>>, <<REQ-CLAIM-F-01>>
+|Scenario 1 and Scenario 3
+|<<TEST-REPORT-01>>, <<TEST-MOD-03>>
+|Authentication via UPR SSO (Section 2.3.1)
+|===

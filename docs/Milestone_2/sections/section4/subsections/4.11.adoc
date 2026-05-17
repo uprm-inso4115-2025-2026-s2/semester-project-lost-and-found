@@ -1,5 +1,5 @@
 === *Requirements Satisfiability and Feasibility*
----
+
 ==== Notification System Feasibility Analysis
 :author: Fernando Torres
 ===== Introduction
@@ -198,4 +198,100 @@ This traceback analysis helps validate that the system is not only functionally 
 
 By explicitly documenting these relationships, the project improves traceability, supports better design decisions, and ensures that development efforts remain aligned with the intended purpose of the Lost & Found platform.
 
+
 ---
+==== Requirements Satisfiability Analysis
+:author: Ivanier Bellido
+
+This section analyzes the satisfiability of the Lost & Found system requirements by applying lecture criteria for evaluating the quality of a requirements document. According to lecture theory, a satisfactory requirements document should be correct, unambiguous, complete, consistent, stable, verifiable, modifiable, traceable, and faithful to assumptions and dependencies.
+
+The purpose of this analysis is not to rewrite the requirements, but to critically assess whether the current documentation satisfies these quality criteria and to identify possible weaknesses or improvement opportunities.
+
+[discrete]
+===== Requirements Satisfiability Criteria
+
+The lecture presents several criteria that characterize a satisfactory requirements document. In the context of the Lost & Found system, these criteria can be interpreted as follows:
+
+* *Correctness*: requirements should reflect validated stakeholder needs and intended system behavior.
+* *Unambiguity*: requirements should avoid vague or double meanings.
+* *Completeness*: requirements should cover all essential aspects needed for the system to fulfill its purpose.
+* *Consistency*: requirements should not contradict one another.
+* *Stability*: requirements should reflect priorities that are relatively stable during development.
+* *Verifiability*: requirements should be stated in a way that allows testing or checking whether they were met.
+* *Modifiability*: requirements should be organized so that future changes can be made without excessive confusion.
+* *Traceability*: requirements should be relatable to their origin, rationale, and dependencies.
+* *Faithfulness*: requirements should reflect assumptions, dependencies, and contextual constraints identified in the informative documentation.
+
+[discrete]
+===== Analysis of Selected Criteria
+
+[cols="1,2,4,3"]
+|===
+| Criterion | Example from Project | Analysis | Improvement Opportunity
+
+| Correctness
+| Restricting access to users with valid institutional email
+| This requirement aligns with the project scope and privacy goals by limiting access to the UPRM community.
+| Validation with stakeholders could be documented more explicitly.
+
+| Unambiguity
+| Users can browse and search reported items by category, location, and date
+| This requirement is relatively clear because it specifies concrete filtering dimensions.
+| It could further define expected search behavior when no matches are found.
+
+| Completeness
+| Support for lost item reports, found item reports, authentication, and controlled visibility
+| These cover core platform behavior, but some procedural details about claim resolution and adoption across campus are less explicit.
+| Additional clarification of recovery/claim workflow could improve completeness.
+
+| Consistency
+| The project states that communication occurs outside the system via official institutional email while also emphasizing controlled and secure interaction
+| These ideas are mostly compatible because the system facilitates discovery while external channels handle direct communication.
+| A clearer statement separating platform functionality from off-platform coordination would reduce possible confusion.
+
+| Stability
+| Core features such as reporting, authentication, and search appear central to the platform purpose
+| These requirements appear stable because they are fundamental to the system and unlikely to be removed.
+| Continued prioritization documentation can help preserve stability during later iterations.
+
+| Verifiability
+| Users must be able to report lost and found items
+| This is testable because the presence of report submission functionality can be directly checked.
+| Some quality-oriented expectations, such as improved trust or reduced frustration, are harder to verify objectively.
+
+| Modifiability
+| The project is structured into sections covering scope, requirements, implementation, and analysis
+| This organization supports future edits because concepts are separated into identifiable sections.
+| Stronger internal cross-references could make future modifications easier.
+
+| Traceability
+| Requirements are connected to needs such as improving recovery outcomes and reducing fragmented reporting
+| The document shows rationale, but requirement-to-origin links are not always explicitly labeled.
+| A dedicated traceability table would improve traceability.
+
+| Faithfulness
+| Requirements reflect assumptions such as institutional access restrictions, privacy protection, and no physical item management
+| The requirements are generally faithful to these documented scope constraints and assumptions.
+| Explicit back-references to assumptions and derived goals would strengthen this criterion.
+
+|===
+
+[discrete]
+===== Discussion
+
+Overall, the Lost & Found requirements documentation shows a strong foundation for satisfiability. The project has a clearly defined scope, identifies key needs, establishes meaningful goals, and includes core requirements related to reporting, search, privacy, and authentication. These qualities support correctness, stability, and faithfulness. 
+
+The strongest criteria appear to be correctness, stability, and faithfulness. The documented requirements align well with the intended domain and project boundaries, especially the restriction to UPRM users, the emphasis on controlled visibility, and the focus on digital support rather than physical item management. 
+
+The weaker areas are completeness, traceability, and modifiability. While the requirements cover core functionality, some supporting details remain implicit, such as the precise handling of claims, more explicit links between requirements and stakeholder rationale, and stronger requirement-to-goal mapping. These do not invalidate the document, but they represent opportunities for improvement. 
+
+Verifiability is partially satisfied. Functional requirements such as authentication, reporting, and filtering can be tested directly. However, broader outcomes such as increased trust or reduced frustration depend on indirect measures and may require usability review or additional acceptance criteria. 
+
+[discrete]
+===== Conclusion
+
+The Lost & Found requirements specification is reasonably satisfactory under the lecture criteria. It demonstrates a coherent and purposeful requirements foundation, especially in its alignment with stakeholder needs, scope boundaries, and core system goals. At the same time, the document could be strengthened by improving traceability links, clarifying a few incomplete process details, and making some high-level expectations more verifiable.
+
+This analysis helps confirm that the requirements are not only functionally meaningful, but also structurally sound enough to support continued development of the Lost & Found platform.
+---
+
