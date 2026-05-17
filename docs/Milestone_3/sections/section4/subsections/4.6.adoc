@@ -528,3 +528,33 @@ Effort: High
 van lamsweerde, A.(2009), Chapter 6: Requirements Evolution , INSO4115(Class notes)
 
 --- 
+
+--- 
+
+==== [Lecture Topic Task] Traceability and Change Impact Analysis in the Lost & Found System
+:author: Victoria Miranda Osuna
+
+===== Proposed Solution
+
+-Define traceability links between requirements, software modules, databases, and user records.
+
+    Create traceability links connecting lost-item reporting requirements to inventory management modules.
+    Link claimant verification requirements to user-record databases and authentication components.
+    Connect notification requirements to email or SMS notification services.
+    Maintain links between software modules, test data, user manuals, and database records to support consistency management.
+    Use dependency, revision, use, and derivation links to represent relationships between system components.
+
+-Analyze how requirement changes affect dependent system components.
+
+    Evaluate how modifications to item-tracking requirements impact inventory databases and notification workflows.
+    Assess whether changes to claimant verification rules require updates to authentication modules and user records.
+    Identify dependent software artifacts such as reports, logs, test data, and user documentation affected by requirement changes.
+    Use traceability chains to localize and assess change impact across connected components.
+    Apply change evaluation and prioritization to determine feasibility, risks, benefits, and implementation cost before consolidation.
+
+-Use forward and backward traceability to track requirement dependencies and change impact.
+
+    Use forward traceability to determine where a requirement is implemented within software modules, databases, and notification systems.
+    Use backward traceability to identify why a requirement exists and where it originated.
+    Follow dependency links horizontally and vertically to propagate requirement changes throughout the system.
+    Track relationships between requirements, implementation artifacts, and supporting documentation to preserve consistency during system evolution.
