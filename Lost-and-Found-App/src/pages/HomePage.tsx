@@ -44,38 +44,56 @@ export default function HomePage() {
       .finally(() => setLoading(false));
   }, []);
 
-  async function handleClaim(reportId: string) {
-    try {
-      await updateReportStatus(reportId, "CLAIMED");
-  
-      const updated = await getAllReports();
-      setReports(updated);
-    } catch (error) {
-      console.error("Claim failed:", error);
-    }
-  }
-  
-  async function handleReturn(reportId: string) {
-    try {
-      await updateReportStatus(reportId, "RESOLVED");
-  
-      const updated = await getAllReports();
-      setReports(updated);
-    } catch (error) {
-      console.error("Return failed:", error);
-    }
-  }
+async function handleClaim(reportId: string) {
+  try {
+    // Get current user
+    const { data: { user } } = await supabase.auth.getUser();
+    const userId = user?.email || "";
+    
+    await updateReportStatus(reportId, "CLAIMED", userId);
 
-  async function handleSendBackToLost(reportId: string) {
-    try {
-      await updateReportStatus(reportId, "ACTIVE");
-  
-      const updated = await getAllReports();
-      setReports(updated);
-    } catch (error) {
-      console.error("Return failed:", error);
-    }
+    const updated = await getAllReports();
+    setReports(updated);
+  } catch (error) {
+    console.error("Claim failed:", error);
+    // Show error to user
+    alert(error instanceof Error ? error.message : "Failed to claim report");
   }
+}
+  
+async function handleReturn(reportId: string) {
+  try {
+    // Get current user
+    const { data: { user } } = await supabase.auth.getUser();
+    const userId = user?.email || "";
+    
+    await updateReportStatus(reportId, "RESOLVED", userId);
+
+    const updated = await getAllReports();
+    setReports(updated);
+  } catch (error) {
+    console.error("Return failed:", error);
+    // Show error to user
+    alert(error instanceof Error ? error.message : "Failed to close report");
+  }
+}
+
+async function handleSendBackToLost(reportId: string) {
+  try {
+    // Get current user
+    const { data: { user } } = await supabase.auth.getUser();
+    const userId = user?.email || "";
+    
+    await updateReportStatus(reportId, "ACTIVE", userId);
+
+    const updated = await getAllReports();
+    setReports(updated);
+  } catch (error) {
+    console.error("Return failed:", error);
+    // Show error to user
+    alert(error instanceof Error ? error.message : "Failed to reopen report");
+  }
+}
 
   const handleCreateReport = () => {
     navigate("/create-report");
