@@ -3026,3 +3026,215 @@ For the Lost & Found system, authentication is not only a technical feature. It 
 * Marko Schütz-Schmuck, "Domain Acquisition", University of Puerto Rico at Mayagüez.
 * Marko Schütz-Schmuck, "Domain Stakeholders", University of Puerto Rico at Mayagüez.
 * Marko Schütz-Schmuck, "Overview of Domain Engineering", University of Puerto Rico at Mayagüez.
+
+You can paste this directly at the end of your file:
+
+---
+
+==== [Lecture Topic Task] Ownership and Access Control Analysis in the Lost & Found System
+:author: Adiel-Soto-Rodriguez
+
+===== Overview
+
+Ownership and access control are essential concepts in the Lost & Found system because they determine who can manage reports, modify information, and verify ownership claims. Without clear ownership rules, the system could become vulnerable to unauthorized edits, fraudulent claims, and inconsistent report states.
+
+This Lecture Topic Task analyzes how ownership is established, transferred, and enforced throughout the lifecycle of a report, while also examining how access control mechanisms protect system integrity and reliability.
+
+===== Ownership Model
+
+In the Lost & Found platform, ownership refers to the relationship between a user and a report they created or successfully claimed.
+
+Ownership is established when a user submits either a Lost Item Report or a Found Item Report. The system associates the report with the creator’s authenticated account through a unique user identifier.
+
+Ownership determines which actions a user is allowed to perform on the report.
+
+Examples include:
+
+* Editing report information
+* Deleting a report
+* Updating report details
+* Viewing restricted report management controls
+
+Users who do not own the report may still view public listing information but cannot modify the report unless they have elevated permissions such as Admin or Staff roles.
+
+===== Ownership Lifecycle Classification
+
+[cols="1,1,2", options="header"]
+|===
+| Step | Classification | Description
+
+| User creates a report
+| Event
+| A user submits a Lost or Found Item Report, establishing report ownership.
+
+| Report ownership assignment
+| Function
+| The system links the report to the creator’s user ID and stores ownership metadata.
+
+| Owner edits or deletes report
+| Behavior
+| Ownership grants permission to modify or remove the report under allowed conditions.
+
+| Other users browse reports
+| Behavior
+| Non-owners may view listings but cannot modify ownership-protected fields.
+
+| Admin overrides permissions
+| Function
+| Administrative roles may edit, archive, or resolve reports regardless of ownership.
+
+| Claim verification and ownership transfer
+| Event
+| Ownership context changes after verification and successful return of the item.
+
+| Permission validation
+| Function
+| The backend checks whether the acting user has authorization before applying modifications.
+|===
+
+===== Access Control Enforcement
+
+The system enforces access control using authentication, role-based permissions, and backend verification rules.
+
+====== Authentication
+
+Only authenticated users may create or manage reports. During login, the system identifies the user and associates their account with a unique identifier.
+
+Authentication is handled automatically by the system.
+
+Examples include:
+
+* Login validation
+* Session management
+* Token verification
+* User identity tracking
+
+Without authentication, ownership cannot be reliably enforced.
+
+====== Permission Checks
+
+Whenever a user attempts to edit or delete a report, the backend verifies:
+
+* Whether the user owns the report
+* Whether the user has elevated permissions
+* Whether the report state allows modification
+
+For example:
+
+* Owners may edit their own reports
+* Non-owners cannot modify reports
+* Admins may override restrictions when necessary
+
+These checks are automatic and occur before any database update is applied.
+
+====== Restricted Modifications
+
+Certain actions become restricted depending on the report lifecycle state.
+
+Examples include:
+
+* Reports with active claim requests may lock sensitive fields
+* Claimed items may no longer be editable by regular users
+* Archived reports become read-only
+
+This prevents inconsistent or fraudulent modifications during verification processes.
+
+===== Automatic vs Human-Controlled Processes
+
+====== Automatically Handled by the System
+
+The following actions are enforced automatically:
+
+* User authentication
+* Ownership assignment
+* Permission verification
+* Session validation
+* Role-based access control
+* Prevention of unauthorized updates
+* Lifecycle state validation
+
+These processes ensure consistency and security without requiring manual review for every operation.
+
+====== Human-Controlled Decisions
+
+Some situations require human judgment and administrative intervention.
+
+Examples include:
+
+* Reviewing disputed ownership claims
+* Resolving conflicting claim requests
+* Approving ownership transfers
+* Handling suspicious or fraudulent reports
+* Overriding incorrect report information
+
+Human moderation is necessary because ownership disputes often involve subjective or incomplete evidence.
+
+===== Complex Ownership Scenarios
+
+====== Scenario 1: Anonymous Report Submission
+
+A user submits a Found Item Report anonymously without exposing personal information publicly.
+
+*Complexity introduced:*
+
+* The system still needs an internal ownership reference
+* Moderators may need to contact the reporter privately
+* Ownership exists internally even if hidden publicly
+
+*Expected system behavior:*
+
+* The report is internally tied to the authenticated account
+* Public viewers cannot see the reporter identity
+* Admins retain access for moderation and verification
+
+This balances privacy with accountability.
+
+====== Scenario 2: Disputed Ownership Claim
+
+Two users claim the same lost laptop and both provide partial identifying details.
+
+*Complexity introduced:*
+
+* Ownership cannot be determined automatically
+* Both claims may appear valid initially
+* Incorrect approval could return the item to the wrong person
+
+*Expected system behavior:*
+
+* The report enters Pending Verification
+* Staff/Admin reviews additional proof-of-ownership details
+* Only one ownership transfer may be approved
+* Audit logs preserve the review history
+
+This scenario demonstrates why ownership verification cannot rely entirely on automated logic.
+
+===== Security and Behavioral Impact
+
+Ownership enforcement improves the system in several ways:
+
+*Security*
+
+* Prevents unauthorized report modifications
+* Reduces fraudulent claims
+* Protects sensitive information
+
+*Behavioral Reliability*
+
+* Ensures reports follow valid lifecycle transitions
+* Prevents conflicting ownership states
+* Maintains trust in the recovery process
+
+*System Integrity*
+
+* Preserves accountability for report actions
+* Ensures auditability of edits and ownership changes
+* Maintains consistent relationships between users and reports
+
+===== Conclusion
+
+Ownership and access control are fundamental components of the Lost & Found system because they define who may manage reports and how sensitive operations are protected.
+
+By combining authentication, permission validation, lifecycle restrictions, and human moderation, the platform can prevent unauthorized actions while still supporting realistic recovery workflows and dispute resolution.
+
+A well-defined ownership model improves security, consistency, reliability, and user trust throughout the entire Lost & Found process.
+
