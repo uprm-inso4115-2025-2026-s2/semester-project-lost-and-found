@@ -11,7 +11,6 @@ import lockIcon from "../assets/icons/lock.svg";
 import checkIcon from "../assets/icons/check.svg";
 import pinIcon from "../assets/icons/pin.svg";
 import closeIcon from "../assets/icons/close.svg";
-import { editReport, getReport } from "../ReportManagement/ReportDatabaseManagement";
 import { Report, type Category, type ReportType } from "../ReportManagement/Reports";
 import { ImageUploadInput } from "../components/ImageUploadInput";
 
