@@ -502,7 +502,7 @@ const ReportDetailPage: React.FC = () => {
               onClick={handleOpenClaim}
               title={isAuthor ? "You cannot claim your own report" : ""}
             >
-              {isClaimer ? "View Code" : canClaim ? "Claim Item" : "Claimed"}
+              {isClaimer ? "View Code" : canClaim ? "Claim Item" : (report.getStatus() === "Claimed" ? "Claimed" : "Can't Claim")}
             </button>
           )}
           <button className="contactBtn">
