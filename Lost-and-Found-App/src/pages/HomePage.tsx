@@ -126,11 +126,16 @@ export default function HomePage() {
     const categoryMatch =
       categoryFilter === "ALL" || report.getRawCategory() === categoryFilter;
 
+
+    const normalizedSearchQuery = searchQuery.trim().toLowerCase();
+
     const searchMatch =
-    searchQuery.trim() === "" ||
-    report.getTags().some(tag =>
-      tag.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+      normalizedSearchQuery === "" ||
+      report.getTitle().toLowerCase().includes(normalizedSearchQuery) ||
+      report.getDescription().toLowerCase().includes(normalizedSearchQuery) ||
+      report.getTags().some(tag =>
+      tag.toLowerCase().includes(normalizedSearchQuery)
+      );
 
     return statusMatch && categoryMatch && searchMatch;
   });
@@ -176,7 +181,7 @@ export default function HomePage() {
       <div className="searchBarContainer">
         <input
           type="text"
-          placeholder="Search by tags..."
+          placeholder="Search by title, description, or tag..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="searchInput"
