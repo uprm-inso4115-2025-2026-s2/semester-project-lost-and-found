@@ -1,1 +1,113 @@
 === *Modeling System Objectives with Goal Diagrams*
+
+==== [Lecture Topic Task] Social and Intentional Modeling with iStar 2.0
+:author: Lianette Alberto
+
+===== Introduction
+
+Modern systems are increasingly socio-technical, meaning they combine technology, human interaction, and organizational processes.
+
+Goal-Oriented Requirements Engineering (GORE) focuses on understanding why a system is needed before deciding how it should be built. One of the main frameworks used in GORE is iStar 2.0, which helps developers analyze stakeholder goals, tasks, resources, and dependencies.
+
+A Lost & Found platform at UPRM could benefit from these concepts by improving organization, communication, and user experience.
+
+===== What is GORE?
+
+Goal-Oriented Requirements Engineering (GORE) is a requirements engineering approach focused on identifying stakeholder goals and system motivations.
+
+Instead of only focusing on technical specifications, GORE analyzes:
+
+* User objectives
+* Stakeholder interactions
+* System purpose
+* Decision-making processes
+
+Benefits of GORE include improved communication, better planning, easier identification of requirements, and stronger decision-making.
+
+===== Socio-Technical Systems
+
+A socio-technical system combines technology with human interaction.
+
+Examples include:
+
+* Healthcare systems
+* Online shopping platforms
+* University management systems
+* Lost & Found platforms
+
+The Lost & Found platform is considered socio-technical because it depends on students, administrators, and digital communication working together effectively.
+
+===== What is iStar 2.0?
+
+iStar 2.0 is a goal-modeling framework used in Requirements Engineering to represent stakeholder intentions and dependencies.
+
+It helps analysts understand:
+
+* Who uses the system
+* What goals stakeholders have
+* How actors interact
+* Which resources are necessary
+* What dependencies exist
+
+===== Main Concepts of iStar 2.0
+
+Actors:: Entities that participate in the system.
+
+Goals:: Objectives actors want to achieve.
+
+Tasks:: Actions required to achieve goals.
+
+Resources:: Informational or physical elements needed for tasks.
+
+Qualities:: Desired characteristics such as security or usability.
+
+Dependencies:: Relationships where one actor relies on another.
+
+===== Applying iStar to the Lost & Found Platform
+
+The Lost & Found platform includes several actors such as students, administrators, finders, and the notification system.
+
+Students depend on the platform to report and recover items, while administrators depend on moderation tools to maintain safety and organization.
+
+Modeling these relationships helps developers better understand system requirements before implementation.
+
+===== Examples of Existing Lost & Found Platforms
+
+[cols="1,3", options="header"]
+|===
+| Platform
+| Main Features
+
+| Tile
+| Bluetooth-based item tracking and notifications
+
+| Apple Find My
+| GPS tracking and device location services
+
+| University Lost & Found Offices
+| Physical offices and social media announcements
+|===
+
+===== Benefits of Goal Modeling
+
+Goal modeling provides several benefits:
+
+* Improves organization and communication
+* Helps identify system requirements early
+* Supports better decision-making during planning
+* Creates a more user-centered system design
+
+===== Conclusion
+
+GORE and iStar 2.0 provide powerful tools for understanding socio-technical systems.
+
+Applying these concepts to a Lost & Found platform can improve communication, organization, reliability, and user experience.
+
+Overall, goal modeling supports better system planning and development.
+
+===== References
+
+* Dalpiaz, F., Franch, X., & Horkoff, J. iStar 2.0: A Guided Tour. 2016.
+* iStar 2.0 Presentation Materials.
+
+---
