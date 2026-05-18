@@ -120,7 +120,7 @@ a| *Wishes:*
 
 | Authentication, Manage Reports, notifications and any admin only system
 
-| Notification
+| *Notification*
 
 | Software 
 
@@ -170,7 +170,7 @@ a| *Monitor:*
 
 *Control:*
 
-** Create, update/edit, delete  reports
+** Create, update/edit, delete reports
 
 ** Validate report structure
 
@@ -202,7 +202,7 @@ a| *Wishes:*
 
 | Authentication, Notification
 
-| Authentication
+| *Authentication*
 
 | Software
 
@@ -252,6 +252,21 @@ a. Represent at least 1 relationship between agents using a simple diagram
 
 image::AgentSimpleRelationShip.drawio.png[Agent Simple Relationship, align=center, pdfwidth=80%]
 _Figure 4.16.1. - 1. Agent Simple Relationship Diagram._
+
+b. Agent operation performers Diagram  for Students and Faculty
+
+image::OperationPerformers.png[Operation Performers for Students and Faculty, align=center, pdfwidth=80%]
+_Figure 4.16.2. - 2. Operation Performers for Students and Faculty Agents._
+
+c. Agent Dependencies for Students and Faculty with Manage Reports(Simple diagram)
+
+image::AgentDependency.png[Dependencies along agents, align=center, pdfwidth=80%]
+_Figure 4.16.3. - 3. Dependencies for Students and Faculty with Manage  Report._
+
+d. Agent Capabilities Diagram (Monitor and Control)
+
+image::SimpleAgentCapabilities.png[ Angent Capabilities Diagram, align=center, pdfwidth=80%]
+_Figure 4.16.4. - 3. Students and Faculty Capabilities Diagram._
 
 References:
 Van Lamsweerde, Chapter 11: "Modeling System Agents and
