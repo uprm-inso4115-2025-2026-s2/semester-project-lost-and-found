@@ -1,4 +1,6 @@
 === *Modeling System Agents and Responsibilities*
+
+---
 ==== Modeling system agents for Lost and Found
 :author: Naedra Feliciano
 ===== 1. Identifiying Relevant System Agents:
@@ -15,9 +17,9 @@ System(Software) Agents:
 (There's more, but for now, let's just focus on this ones)
 
 
-===== 2. Clasify each identified agent (enviromental or Software):
+===== 2. Clasify each identified agent (environmental or Software):
 
-- Human agents  are *enviromental agents*:
+- Human agents  are *environmental agents*:
 - System agents are *Software-to-be- agents*
 
 ===== 3. Characterizing System Agents:
@@ -27,60 +29,62 @@ System(Software) Agents:
 |===
 |*Agent* | *Category* | *Capabilities*| *Responsibilities* | *Operation Performers* | *Wishes and Beliefs* | *Dependencies*
 |*Students and Faculty* 
-| enviromental 
-a| *Monitor:
+| environmental
+a| *Monitor:*
 
 ** Can view items listings, notifications
 ** View items details (e.g location, images, description) 
 ** View status of their submitted reports
-** Recieve notifications about matches or messages
+** Receive notifications about matches or messages
 
-*Control:
+*Control:*
 
 ** Can create and edit reports.  
 ** Can send messages
 ** Filter reports
 ** Claim/Verify ownership
+** Upload images
 
-|- Report lost or found items
+a| * Report lost or found items
 
-- Claim items
+* Cooperate during ownsership verification
 
-| * Submit report(should not take more than 20-30 minutes)
+* Help mantain trustworthy reports
+
+a| * Submit report(should not take more than 5-10 minutes)
 
 * Respond to verification under a small amount of time (As soon as possible)
 
-* Upload images
+* Reports should be submmited efficiently with minimal effort
 
-* Filter reports
 
 | *Wishes:*
 
-* Efficient and safe recovery process
+** Efficient and safe recovery process
 
-* Trusworthy platform
+** Trusworthy platform
 
-* Recieve accurate match suggestions
+** Receive accurate match suggestions
 
 *Beliefs:*
 
-* Other users are honest and Trusworthy
+** Other users are honest and Trustworthy
 
 | Authentication and notification 
 
-|*Admis*
+|*Admins*
 
-|enviromental
+|environmental
 
-| *Monitor:
+| *Monitor:*
 
 ** View Reports 
 
 ** Monitor user activity
 
-** Review flagged or suspicious behaviour
+** Review flagged or suspicious behavior
 
-*Control: 
+*Control:* 
 
 ** Delete reports or remove fake or abusive posts
 
@@ -88,7 +92,7 @@ a| *Monitor:
 
 ** Edit or correct reported content
 
-| * Mantain system integrity
+a| * Maintain system integrity
 
 * Prevent or manage (in case it happens) misuse
 
@@ -96,22 +100,159 @@ a| *Monitor:
 
 * Ensure safety and quality of reports
 
-| * Accurate decision making
+a| * Accurate decision making
 
 * Fast response to abuse reports ( e.g. spam, profanity, un-ethical, fake reports)
 
-| *Wishes:*
+a| *Wishes:*
 
- * Safe and secure platfform
+** Safe and secure platform
 
-* Minimal abuse and fake repors
+** Minimal abuse and fake reports
 
-* Accesible, easy to use and well organized system.
+** Accessible, easy to use and well organized system.
 
 *Beliefs:*
 
-* 
+**  Some users may misuse the platform, creating fake or inaccurate reports
+
+** Some users may be unethical and claim objects that don't belong to them
 
 | Authentication, Manage Reports, notifications and any admin only system
 
+| Notification
+
+| Software 
+
+a|*Monitor:*
+
+** Detect possible matches
+
+** Detect new messages
+
+** Report updates such as expiration
+
+*Control:*
+
+** Notify about possible matches
+
+** Send e-mails
+
+** Push notifications
+
+**  App alerts
+
+| Inform users about relevant events such as matches, updates, messages
+
+| Fast delivery of notifications 
+
+a| *Wishes:*
+
+** Keep users engaged and informed 
+
+*Beliefs:*
+
+** Timely alerts improve recovery success
+
+| Matching, Authentication, Report Management, Messaging
+
+| Manage Reports (Lost/Found)
+
+| Software
+
+a| *Monitor:*
+
+** New report submissions
+
+** Report status changes
+
+** Report updates
+
+*Control:*
+
+** Create, update/edit, delete  reports
+
+** Validate report structure
+
+** Organize/Filter reports by category, location, dates, tags
+
+| * Ensure consistency and validity of reports
+
+a| * Efficient storage (Supabase)
+
+* Scalable handling of many reports 
+
+* Fast report creation and retrieval
+
+a| *Wishes:*
+
+** Organized and easy to use report system
+
+** Minimal duplicates, fake reports, spam reports
+
+** Accessible system
+
+*Beliefs:*
+
+** Users may submit incomplete or inaccurate data
+
+** Users may be unethical when claiming a report
+
+** Users may not know how to use the platform  to report lost or found objects
+
+| Authentication, Notification
+
+| Authentication
+
+| Software
+
+| *Monitor:*
+
+** Login attempts
+
+** Signup requests 
+
+** Failed Authentication attempts
+
+*Control:*
+
+** Authenticate users
+
+** Logout users
+
+** Enforce access permissions
+
+a| * Verify users identity
+
+* Ensure secure access 
+
+* Prevent unauthorized access
+
+a| * Fast login verification
+
+* Secure Authentication
+
+a| *Wishes:*
+
+** Secure system access
+
+*Beliefs:*
+
+** Some login attempts may be malicious 
+
+** Some users may forget their credentials 
+
+| Database, Notifications
+
 |===
+
+==== 3. Diagrams:
+
+a. Represent at least 1 relationship between agents using a simple diagram
+
+image::Images/AgentSimpleRelationShip.drawio.png[Agent Simple Relationship, align=center, pdfwidth=80% ]
+
+References:
+Van Lamsweerde, Chapter 11: "Modeling System Agents and
+Responsibilities", (2019)
+---
