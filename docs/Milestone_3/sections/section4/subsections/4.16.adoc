@@ -250,9 +250,11 @@ a| *Wishes:*
 
 a. Represent at least 1 relationship between agents using a simple diagram
 
-image::Images/AgentSimpleRelationShip.drawio.png[Agent Simple Relationship, align=center, pdfwidth=80% ]
+image::AgentSimpleRelationShip.drawio.png[Agent Simple Relationship, align=center, pdfwidth=80%]
+_Figure 4.16.1. - 1. Agent Simple Relationship Diagram._
 
 References:
 Van Lamsweerde, Chapter 11: "Modeling System Agents and
 Responsibilities", (2019)
+
 ---
