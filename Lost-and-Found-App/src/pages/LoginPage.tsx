@@ -12,8 +12,10 @@ import { useLogin } from '../hooks/useLogin';
 export default function LoginPage() {
   const {
     username, phone,
+    avatarUrl, avatarUploading,
     errors, status, statusMsg, isDirty,
     handleUsernameChange, handlePhoneChange,
+    handleAvatarChange,
     handleSave, handleCancel,
   } = useLogin();
   
@@ -139,22 +141,33 @@ export default function LoginPage() {
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: 32 }}>
             <div style={{ position: 'relative' }}>
               <div style={{
-                width: 128,
-                height: 128,
-                borderRadius: '50%',
-                border: '4px solid #41493e',
-                overflow: 'hidden',
-                background: '#413131',
+                width: 128, height: 128, borderRadius: '50%',
+                border: '4px solid #41493e', overflow: 'hidden', background: '#413131',
               }}>
                 <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original"
+                  src={avatarUrl || 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'}
                   alt="User Profile"
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               </div>
-              <button className="edit-avatar-btn" type="button">
-                <span className="material-symbols-outlined">edit</span>
-              </button>
+
+              {/* Hidden file input triggered by the edit button */}
+              <input
+                id="avatar-upload"
+                type="file"
+                accept="image/*"
+                style={{ display: 'none' }}
+                onChange={handleAvatarChange}
+              />
+              <label
+                htmlFor="avatar-upload"
+                className="edit-avatar-btn"
+                style={{ cursor: avatarUploading ? 'wait' : 'pointer' }}
+              >
+                <span className="material-symbols-outlined">
+                  {avatarUploading ? 'hourglass_empty' : 'edit'}
+                </span>
+              </label>
             </div>
           </div>
 

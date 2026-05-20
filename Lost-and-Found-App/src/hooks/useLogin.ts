@@ -19,12 +19,15 @@ interface ProfileErrors {
 interface UseProfileReturn {
   username: string;
   phone: string;
+  avatarUrl: string;          
+  avatarUploading: boolean;
   errors: ProfileErrors;
   status: Status;
   statusMsg: string;
   isDirty: boolean;
   handleUsernameChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handlePhoneChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleAvatarChange: (e: ChangeEvent<HTMLInputElement>) => Promise<void>; 
   handleSave: (e: FormEvent) => Promise<void>;
   handleCancel: () => void;
 }
@@ -57,6 +60,8 @@ export function useLogin(): UseProfileReturn {
   const [errors, setErrors]               = useState<ProfileErrors>({});
   const [status, setStatus]               = useState<Status>(null);
   const [statusMsg, setStatusMsg]         = useState<string>('');
+  const [avatarUrl, setAvatarUrl]         = useState<string>('');
+  const [avatarUploading, setAvatarUploading] = useState<boolean>(false);
 
   useEffect(() => {
     console.log('useEffect ran');
@@ -79,6 +84,7 @@ export function useLogin(): UseProfileReturn {
       if (data && data[0]) {
         setUsername(data[0].username ?? '');
         setPhone(data[0].phone_number ?? '');
+        setAvatarUrl(data[0].avatar_url ?? '');
         setOriginalData({ username: data[0].username ?? '', phone: data[0].phone_number ?? '' });
       }
     }
@@ -100,6 +106,86 @@ export function useLogin(): UseProfileReturn {
     const val = e.target.value;
     setPhone(val);
     setErrors(prev => ({ ...prev, phone: validatePhone(val) }));
+  }
+
+  async function handleAvatarChange(e: ChangeEvent<HTMLInputElement>): Promise<void> {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Only allow images
+    if (!file.type.startsWith('image/')) {
+      setStatus('error');
+      setStatusMsg('Please upload an image file.');
+      return;
+    }
+
+    // Max 2MB
+    if (file.size > 2 * 1024 * 1024) {
+      setStatus('error');
+      setStatusMsg('Image must be under 2MB.');
+      return;
+    }
+
+    setAvatarUploading(true);
+
+    const userId = '13d7aa90-b377-4a4f-84d2-78692f969a0a';
+    const fileExt = file.name.split('.').pop();
+    const filePath = `${userId}/avatar.${fileExt}`;
+
+    // Upload to Supabase Storage bucket called 'avatars'
+    const uploadResponse = await fetch(
+      `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/avatars/${filePath}`,
+      {
+        method: 'POST',
+        headers: {
+          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          'Content-Type': file.type,
+          'x-upsert': 'true', // overwrite if exists
+        },
+        body: file,
+      }
+    );
+
+    if (!uploadResponse.ok) {
+      const err = await uploadResponse.json();
+      console.error('Upload error:', err);
+      setStatus('error');
+      setStatusMsg('Failed to upload image.');
+      setAvatarUploading(false);
+      return;
+    }
+
+    // Build the public URL
+    const publicUrl = `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/avatars/${filePath}`;
+
+    // Save the URL to the profiles table
+    const patchResponse = await fetch(
+      `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/profiles?user_id=eq.${userId}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal',
+        },
+        body: JSON.stringify({ avatar_url: publicUrl }),
+      }
+    );
+
+    if (!patchResponse.ok) {
+      setStatus('error');
+      setStatusMsg('Uploaded image but failed to save URL.');
+      setAvatarUploading(false);
+      return;
+    }
+
+    setAvatarUrl(publicUrl);
+    setStatus('success');
+    setStatusMsg('Profile picture updated!');
+    setTimeout(() => setStatus(null), 3000);
+    setAvatarUploading(false);
   }
 
   async function handleSave(e: FormEvent): Promise<void> {
@@ -170,12 +256,15 @@ export function useLogin(): UseProfileReturn {
   return {
     username,
     phone,
+    avatarUrl,
+    avatarUploading,  
     errors,
     status,
     statusMsg,
     isDirty,
     handleUsernameChange,
     handlePhoneChange,
+    handleAvatarChange,
     handleSave,
     handleCancel,
   };
