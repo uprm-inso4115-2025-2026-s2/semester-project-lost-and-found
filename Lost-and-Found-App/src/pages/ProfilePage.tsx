@@ -15,7 +15,7 @@ export type ProfilePageProps = {
   avatarUrl?: string | null;
 };
 
-export default function ProfilePage({ firstName, lastName, username, email, avatarUrl: initialAvatar }: ProfilePageProps) {
+export default function ProfilePage({  username, email, avatarUrl: initialAvatar }: ProfilePageProps) {
   const navigate = useNavigate();
   const [avatarUrl, setAvatarUrl] = useState<string | null>(initialAvatar ?? logo);
   const [uploadedAt, setUploadedAt] = useState<Date | null>(null);
@@ -135,7 +135,7 @@ export default function ProfilePage({ firstName, lastName, username, email, avat
           <span>Help and Support</span>
           <img src={chevronIcon} alt="chev" style={{width:14,height:14}} />
         </li>
-        <li onClick={() => navigate("/logout") }>
+        <li onClick={() => navigate("/login")}>
           <span>Log Out</span>
           <img src={chevronIcon} alt="chev" style={{width:14,height:14}} />
         </li>
