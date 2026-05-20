@@ -1,11 +1,28 @@
-// export default function LoginPage() {
-//   return (
-//     <div style={{ maxWidth: 900, margin: '40px auto', padding: '0 16px', fontFamily: 'system-ui' }}>
-//       <h2>Login</h2>
-//       <p>Login — coming soon.</p>
-//     </div>
-//   );
-// }
+/*
+
+To test this page before release, do the following changes:
+
+(1) In Supabase, go to Storage → avatars → policies → replace both policies' entire code to 'true'.
+(2) You'd also update the UUID in useLogin.ts to a hardcoded UUID. This guide will use UUID: '13d7aa90-b377-4a4f-84d2-78692f969a0a' as an example. Now, replace this:
+
+    ``` 
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      setStatus('error');
+      setStatusMsg('You must be logged in.');
+      return;
+    }
+    ```
+    
+  with this:
+
+    ``` 
+    const user = { id: '13d7aa90-b377-4a4f-84d2-78692f969a0a' }; 
+    ```
+
+  and the other occurrances that "user id" occurs in any naming convention have to be replaced with the harcoded UUID as well.
+
+*/
 
 import { useLogin } from '../hooks/useLogin';
 
