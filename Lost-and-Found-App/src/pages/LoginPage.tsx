@@ -52,6 +52,8 @@ To test this page before release, do the following changes:
         return;
       }
 
+(3) In Supabase, go to 'profiles' and disable the RLS.
+
 */
 
 import { useLogin } from '../hooks/useLogin';
