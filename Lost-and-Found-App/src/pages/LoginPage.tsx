@@ -2,25 +2,55 @@
 
 To test this page before release, do the following changes:
 
-(1) In Supabase, go to Storage → avatars → policies → replace both policies' entire code to 'true'.
-(2) You'd also update the UUID in useLogin.ts to a hardcoded UUID. This guide will use UUID: '13d7aa90-b377-4a4f-84d2-78692f969a0a' as an example. Now, replace this:
+(1) In Supabase, go to Storage → avatars → policies → change BOTH policies' code:
+  
+  ``` 
+  bucket_id = 'avatars' AND auth.uid()::text = (storage.foldername(name))[1]
+  ```
 
-    ``` 
+  to
+
+  ```
+  true
+  ```
+
+(2) You'd also update the UUID in useLogin.ts to a hardcoded UUID. This guide will use UUID: '13d7aa90-b377-4a4f-84d2-78692f969a0a' as an example.
+
+  (2.1) `fetchProfile` URL:
+    // change this:
+      `...&user_id=eq.${user.id}&limit=1`  
+
+    // to this:
+      `...&user_id=eq.13d7aa90-b377-4a4f-84d2-78692f969a0a&limit=1`    
+  
+  (2.2) `handleAvatarChange`:
+    // change this:
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const userId = user.id;
+
+    // to this:
+      const userId = '13d7aa90-b377-4a4f-84d2-78692f969a0a';     
+
+  (2.3) `handleSave`:
+    // change this:
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        setStatus('error');
+        setStatusMsg('You must be logged in to update your profile.');
+        return;
+      }
+
+    // to this:
+      const user = { id: '13d7aa90-b377-4a4f-84d2-78692f969a0a' };
+  
+  (2.4) Remove this from the very top of `fetchProfile`, right after the console.log:
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      setStatus('error');
-      setStatusMsg('You must be logged in.');
-      return;
-    }
-    ```
-    
-  with this:
-
-    ``` 
-    const user = { id: '13d7aa90-b377-4a4f-84d2-78692f969a0a' }; 
-    ```
-
-  and the other occurrances that "user id" occurs in any naming convention have to be replaced with the harcoded UUID as well.
+      if (!user) {
+        setStatus('error');
+        setStatusMsg('You must be logged in to update your profile.');
+        return;
+      }
 
 */
 
