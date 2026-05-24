@@ -116,7 +116,7 @@ Overall, goal modeling supports better system planning and development.
 :author: Andres Cruz
 
 ==== Introduction
-This goal diagram models the objectives of the Lost and Found platform relating to the process of returning an Item. The root goal, 'Lost Item Returned', represents the system's primary goal, ensuring that a found item is returned to its rightful owner. The diagram details the subgoals and necessary connections that lead to the fufilment of the root goal.
+This goal diagram models the objectives of the Lost and Found platform relating to the process of returning an Item. The root goal, 'Lost Item Returned', represents the system's primary goal, ensuring that a found item is returned to its rightful owner. The diagram details the subgoals and necessary connections that lead to the fulfillment of the root goal.
 
 image::LostItemReturnedGoalDiagram.png[Lost Item Returned, align=center, pdfwidth=80%]
 
@@ -175,7 +175,7 @@ Priority: High
 ** Assignment: Finder / Loser
 
 ===== Soft Goals
-* Goal: Achieve [Item Image Included]     
+* Goal: Achieve [Item Image Included]    
 ** Def: Every reported item within the system may have an image of the lost item included in the report.
 ** Category: Functional
 ** Priority: Medium
@@ -195,5 +195,5 @@ Priority: High
 * Refinement: Item Retrieved by Owner {Owner identity Verified, Item Handed Over to Owner}
 ** Type: AND-refinement
 ** Tactic: Milestone - Each subgoal is a milestone on the path to the root goal
-** Argument: All subgoals must be met in order to the item to be retrieved by its owner to ensure integrity.
+** Argument: All subgoals must be met in order for the item to be retrieved by its owner to ensure integrity.
 ---
