@@ -111,3 +111,49 @@ Overall, goal modeling supports better system planning and development.
 * iStar 2.0 Presentation Materials.
 
 ---
+
+==== [Lecture Topic Task]: Goal Refinement and Goal Diagrams
+:author: Victoria Miranda Osuna
+
+===== Goal
+
+Analyze how goal refinement and goal diagrams can be used to organize and model the objectives, while maintaining consistency between high level stakeholder goals and lower level operational goals.
+
+===== Proposed Solution
+
+    - Model high level objectives using goal diagrams.
+
+        * Recover lost items successfully.
+        * Improve communication between users.
+        * Maintain secure claim verification.
+        * Increase platform reliability and trust.
+
+    - Identify how lower level goals such as item reporting, notifications, and claim verification contribute to overall platform objectives.
+
+        * Item reporting improves matching accuracy.
+        * Notifications keep users informed about recovery updates.
+        * Claim verification prevents false ownership claims.
+        * Search filters improve recovery efficiency.
+
+    - Analyze potential conflicts between usability, security, and recovery efficiency goals.
+
+        * Faster recovery may reduce verification accuracy.
+        * Strong verification steps may slow down recovery.
+        * Simplified reporting forms may collect insufficient information.
+        * Frequent notifications may overwhelm users.
+
+    - Apply why and how questioning techniques to refine platform goals into smaller assignable sub goals.
+
+        * Why recover items quickly? → Improve user satisfaction.
+        * How to recover items quickly? → Use automated notifications.
+        * Why verify ownership? → Prevent fraudulent claims.
+        * How to verify ownership? → Require item descriptions or proof images.
+
+===== Success Criteria
+
+* Goal refinements clearly represent relationships between high level and low level platform objectives.
+* Goal diagrams correctly demonstrate alternative refinement paths and system options.
+* Potential conflicts between platform goals are identified and documented.
+* The analysis shows how refined sub goals contribute to effective item recovery and user experience.
+
+---
