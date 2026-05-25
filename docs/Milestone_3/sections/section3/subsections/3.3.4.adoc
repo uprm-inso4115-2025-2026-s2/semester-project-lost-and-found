@@ -95,6 +95,7 @@ Based on the findings above, we can support the following claims:
 ---
 
 ==== *Requirement Acquisition Techniques and Stakeholder Context Expansion*
+:author: Tomas Esteban Gomez Mojica
 
 [discrete]
 ==== Purpose
