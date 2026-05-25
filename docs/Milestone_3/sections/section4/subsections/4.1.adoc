@@ -3238,3 +3238,450 @@ By combining authentication, permission validation, lifecycle restrictions, and 
 
 A well-defined ownership model improves security, consistency, reliability, and user trust throughout the entire Lost & Found process.
 
+---
+
+==== Stakeholder Identification and Domain Acquisition Planning Report
+:author: Keishlyany Sanabria (@keisanabria)
+:toc: macro
+:toclevels: 3
+
+toc::[]
+
+===== Introduction
+
+This deliverable corresponds to _Acquisition Process I_ (Slides 21–31)—eliciting domain facts, recording those facts, and performing preliminary classification *before* systematic interviews commence.
+
+**Document Status**: This document serves as a **planning framework** for domain acquisition activities. It establishes the foundation for subsequent casual contacts and structured interviews. The analysis presented here is based on:
+
+* Publicly available UPRM documentation
+* Logical inference of stakeholder roles from campus structure
+* Observational understanding of current informal processes
+
+The document is organized according to the elicitation framework presented in the lecture slides, covering:
+
+* Stakeholder identification and liaison role designation
+* Domain document collection and analysis from public sources
+* Planning for initial stakeholder contact and rapport establishment
+* Preliminary hypothesized domain classification using the tagging schema
+
+===== Domain Description Units: Hypothesized Findings
+
+Before presenting the full stakeholder analysis and documentation, here is a record of an initial domain description unit that represents the **hypothesized current state** based on observation and public document review. This follows the format demonstrated in Slide 20. This unit will be validated or refined during planned casual contacts.
+
+====== Domain Description Unit DDU-0001 (Hypothesis)
+
+[frame="all", grid="all", cols="30,70"]
+|===
+| **Field** | **Value**
+| Unit ID | domain-lostfound-0001
+| Stakeholder Role | Campus Security / Policía Universitaria (hypothesized view)
+| Abstractness | Phenomenon
+| Kind | Entity
+| Dynamism | Static (current process) / Active (desired process)
+| Facet | Intrinsic
+| Phenomenon Names | Lost item, Found item, Claimant, Custodian, Logbook, Storage location, Identification verification
+| Hypothesized Description | "When someone finds an item, they typically bring it to the security office or the nearest building office. A physical logbook is maintained with date, item description, and location found. Claimants must describe the item before viewing. Unclaimed items are held for an informal period before disposal or donation. No formal campus-wide policy exists."
+| Validation Status | **Pending** - To be confirmed during planned casual contact with Security representative
+|===
+
+===== Stakeholder Analysis
+
+====== Review of Stakeholder List
+
+Following Slide 26 ("review stakeholder list"), stakeholders who are expected to possess knowledge about the current informal lost and found process at UPRM have been identified. The question "_still adequate?_" will be addressed during and after initial contacts. Each stakeholder group includes a **role-based liaison designation**—the specific position or office that will serve as the primary point of contact.
+
+====== Stakeholder Groups and Liaison Roles
+
+.Stakeholder Group 1: Students (Item Losers)
+[frame="all", grid="rows", cols="20,40,40"]
+|===
+| **Attribute** | **Description** | **Notes**
+| Group Name | Students who lose personal items | Primary "customers" of the lost and found process
+| Estimated Population | ~12,000+ (UPRM total enrollment) |
+| Domain Perspective | Experience the emotional/financial impact of loss; navigate the current informal system with uncertainty
+| Knowledge Type | Tacit knowledge of searching behaviors, frustration points, and informal communication channels (WhatsApp groups, bulletin boards)
+| Liaison Role Designation | Representative from Consejo General de Estudiantes (CGE) | Specific contact to be identified during outreach
+| Adequacy Assessment | _Adequate for initial contact_ - Students represent the demand side of the system but may lack knowledge of administrative constraints
+|===
+
+.Stakeholder Group 2: Students (Item Finders)
+[frame="all", grid="rows", cols="20,40,40"]
+|===
+| **Attribute** | **Description** | **Notes**
+| Group Name | Students who find lost items | First point of physical custody for found items
+| Estimated Population | ~12,000+ (subset of student body) |
+| Domain Perspective | Ethical decision-making (keep vs. turn in); knowledge of where to deliver items; barriers to reporting
+| Knowledge Type | Awareness of nearby authority figures; understanding of item value perception
+| Liaison Role Designation | Same CGE representative as above | May also include student organization leaders from high-traffic areas
+| Adequacy Assessment | _Needs expansion_ - Students who find items may have different motivations than those who lose items. Consider separate interview protocol during questionnaire phase
+|===
+
+.Stakeholder Group 3: Campus Security / Policía Universitaria
+[frame="all", grid="rows", cols="20,40,40"]
+|===
+| **Attribute** | **Description** | **Notes**
+| Group Name | Oficina de Seguridad / Policía Universitaria | Primary official custodian of found property
+| Estimated Population | ~20-30 officers and staff |
+| Domain Perspective | Responsible for safeguarding items; maintaining logbooks; verifying claimants; disposing of unclaimed items
+| Knowledge Type | Explicit knowledge of current informal procedures; implicit knowledge of common item types, claim patterns, and disposal practices
+| Liaison Role Designation | Supervisor de Turno or Oficial Designado, Oficina de Seguridad | Contact to be established via in-person visit during casual contact phase
+| Contact Information | Oficina de Seguridad, (787) 832-4040 | Extension to be obtained during contact
+| Adequacy Assessment | _Anticipated as Critical_ - This is expected to be the most important stakeholder group for understanding current state
+|===
+
+.Stakeholder Group 4: Building Administrators and Custodial Staff
+[frame="all", grid="rows", cols="20,40,40"]
+|===
+| **Attribute** | **Description** | **Notes**
+| Group Name | Building Administrators, Secretaries, and Conserjes | Secondary custodians of found items at the building level
+| Estimated Population | ~50-100 across campus buildings |
+| Domain Perspective | First recipients of items found in classrooms, laboratories, and common areas; hold items temporarily before transfer to Security
+| Knowledge Type | Building-specific patterns (for example, items left after exams); local storage practices; informal communication with departments
+| Liaison Role Designation | Asistente Administrativo / Secretaria de Departamento | Selected academic department (for example: INEL, Física, or Chardón) as representative; other building types to be sampled later
+| Adequacy Assessment | _Adequate but requires coordination_ - Multiple buildings operate independently. A stratified sample of building types will be needed
+|===
+
+.Stakeholder Group 5: Library Circulation Desk Staff
+[frame="all", grid="rows", cols="20,40,40"]
+|===
+| **Attribute** | **Description** | **Notes**
+| Group Name | Biblioteca General - Circulation Desk | High-volume area with established lost and found procedures
+| Estimated Population | ~10-15 staff members |
+| Domain Perspective | Manage lost items in a controlled access environment; handle items left in study areas, carrels, and computer stations
+| Knowledge Type | Formalized logbook procedures; high-value item handling (laptops, calculators); integration with library patron records
+| Liaison Role Designation | Supervisor de Circulación, Biblioteca General | Contact to be established via Circulation Desk during casual contact phase
+| Adequacy Assessment | _Anticipated as Adequate_ - Library represents a mature microcosm of lost and found operations that can inform broader campus process
+|===
+
+.Stakeholder Group 6: Student Center Information Desk
+[frame="all", grid="rows", cols="20,40,40"]
+|===
+| **Attribute** | **Description** | **Notes**
+| Group Name | Centro de Estudiantes - Information Desk | Central hub for student activity and inquiries
+| Estimated Population | ~5-10 staff members |
+| Domain Perspective | Receive found items from high-traffic social areas; field lost item inquiries from students
+| Knowledge Type | Understanding of student search behavior; informal referral practices to Security or building offices
+| Liaison Role Designation | Encargado del Centro de Estudiantes | Contact to be established via Information Desk during casual contact phase
+| Adequacy Assessment | _Anticipated as Adequate_ - This location serves as a natural aggregation point for student-facing services
+|===
+
+.Stakeholder Group 7: Rectoría / Dean of Students Office
+[frame="all", grid="rows", cols="20,40,40"]
+|===
+| **Attribute** | **Description** | **Notes**
+| Group Name | Oficina del Decano de Estudiantes | Administrative oversight and policy-making authority
+| Estimated Population | ~5-10 administrative staff |
+| Domain Perspective | Responsible for student welfare; potential authority to formalize or improve lost and found policies
+| Knowledge Type | Policy constraints; liability considerations; institutional risk management
+| Liaison Role Designation | Asistente del Decano de Estudiantes | Contact to be established for policy-layer understanding during later phase
+| Adequacy Assessment | _Adequate for policy layer_ - Essential for understanding institutional constraints and approval pathways; lower priority for initial contacts
+|===
+
+====== Stakeholder Summary
+
+[cols="<,<,<,<", options="header"]
+|===
+| Group | Adequacy | Liaison Status | Interview Priority
+| Students (Losers) | Adequate | Role identified; contact pending | High
+| Students (Finders) | Needs Expansion | Role identified; contact pending | High
+| Campus Security | Critical | Role identified; contact pending | Critical
+| Building Staff | Adequate | Role identified; contact pending | Medium
+| Library Staff | Adequate | Role identified; contact pending | Medium
+| Student Center Staff | Adequate | Role identified; contact pending | Medium
+| Dean of Students | Adequate | Role identified; contact pending | Low (policy phase)
+|===
+
+===== Domain Documentation Collection
+
+Following the guidance in Slides 42–52 ("elicitation studies"), existing artifacts about the current informal process have been collected from publicly available sources. This section documents the sources examined.
+
+====== Document Inventory
+
+**Regulatory and Policy Documents**
+
+.DOC-001: UPRM Reglamento General de Estudiantes
+[frame="all", grid="rows", cols="30,70"]
+|===
+| **Field** | **Content**
+| Document ID | DOC-REG-001
+| Title | Reglamento General de Estudiantes de la Universidad de Puerto Rico, Recinto Universitario de Mayagüez
+| Source | UPRM Rectoría / Oficina del Decano de Estudiantes
+| Location | https://www.uprm.edu/procuraduria/wp-content/uploads/sites/235/2023/06/Reglamento-general-estudiantes-UPR-RUM.pdf
+| Relevance | Contains sections on student responsibilities and campus conduct; may include references to lost property procedures
+| Findings | Preliminary review found no explicit policy section dedicated to lost and found property. References to "propiedad" appear in context of damage to university property, not lost personal items. This _absence_ of formal policy is a significant domain fact.
+| Unit Tag (preliminary) | Facet: Regulatory; Kind: Entity (Policy)
+|===
+
+**Web Resources**
+
+.DOC-002: Oficina de Seguridad Web Page
+[frame="all", grid="rows", cols="30,70"]
+|===
+| **Field** | **Content**
+| Document ID | DOC-WEB-001
+| Title | Oficina de Seguridad - UPRM
+| Source | UPRM Website
+| Location | https://www.uprm.edu/seguridad/
+| Relevance | Official campus security presence; logical home for lost and found information
+| Findings | Web page contains information about emergency procedures, parking, and crime prevention. **No mention of lost and found services.** This represents a gap between actual services provided and public documentation.
+| Unit Tag (preliminary) | Facet: Support Technology (Web); Kind: Entity (Information Resource)
+|===
+
+.DOC-003: Biblioteca General Lost & Found FAQ
+[frame="all", grid="rows", cols="30,70"]
+|===
+| **Field** | **Content**
+| Document ID | DOC-WEB-002
+| Title | Biblioteca General - Lost & Found / Objetos Perdidos FAQ
+| Source | UPRM Virtual Reference / Biblioteca General
+| Location | https://virtualref.uprm.edu/faq/404317
+| Relevance | Library provides lost and found services within its facility; this is the only publicly documented lost and found resource found
+| Findings | Confirms that lost items can be recovered at the **Colección de Circulación** of the Biblioteca General, where there is a designated "Lost & Found" area. However, policy details (claim requirements, holding period) are not published.
+| Unit Tag (preliminary) | Facet: Intrinsic; Kind: Service
+|===
+
+**Physical Artifacts (Expected / To Be Documented)**
+
+_Note: The following entries describe artifacts that are known or reasonably expected to exist based on campus knowledge. Photographic documentation will be obtained during casual contacts with stakeholder permission._
+
+.ART-001: Security Office Logbook (Expected)
+[frame="all", grid="rows", cols="30,70"]
+|===
+| **Field** | **Content**
+| Artifact ID | ART-LOG-001
+| Title | Libreta de Objetos Perdidos - Oficina de Seguridad (Expected)
+| Source | To be documented during planned casual contact with Security
+| Expected Description | Based on typical practice, likely a composition notebook with handwritten entries containing: date, brief item description, location found, and disposition
+| Anticipated Findings | The logbook is expected to be the primary record-keeping mechanism. Likely lacks: unique identifiers, structured claimant verification fields, finder contact information, retention period documentation
+| Unit Tag (preliminary) | Facet: Support Technology (Manual Record); Kind: Entity (Record)
+| Documentation Status | **Pending** - To be confirmed and documented during casual contact
+|===
+
+.ART-002: Library Circulation Desk Logbook (Expected)
+[frame="all", grid="rows", cols="30,70"]
+|===
+| **Field** | **Content**
+| Artifact ID | ART-LOG-002
+| Title | Objetos Olvidados - Biblioteca General (Expected)
+| Source | To be documented during planned casual contact with Library Circulation Desk
+| Expected Description | Based on library professional standards, likely a more structured system (binder with forms or basic digital log) including: date/time, item description, location within library, staff initials, claimant information, disposition date
+| Anticipated Findings | Library expected to maintain more structured records than Security. This may include categories and claimant identification fields. Represents a more mature local process.
+| Unit Tag (preliminary) | Facet: Support Technology (Structured Record); Kind: Entity (Record)
+| Documentation Status | **Pending** - To be confirmed and documented during casual contact
+|===
+
+====== Document Repository Structure
+
+All collected documents and planned artifact documentation will be stored in the following shared repository structure:
+
+[frame="all", grid="all"]
+|===
+| **Repository Location** | https://drive.google.com/drive/folders/168qgMNqovVbA4DzfTAB4KZIEIX7JAUG7?usp=sharing
+| **Folder Structure** |
+* `/regulations/` - Policy documents and student handbooks 
+
+* `/web_screenshots/` - Captured web pages with timestamps
+
+* `/artifact_photos/` - Photographs of logbooks and physical records (to be added after contacts)
+
+* `/interview_notes/` - Notes from casual and structured contacts (to be added)
+
+| **Access Control** | Restricted to course instructor and project team
+|===
+
+===== Planning for Initial Stakeholder Contact and Rapport Establishment
+
+====== Casual Contact Plan
+
+Following Slide 26 ("casual contact to stakeholders > rapport > initial capture of views"), brief, unstructured conversations will be conducted with stakeholder representatives to establish rapport and capture initial views before questionnaire design. This section outlines the plan for these contacts.
+
+**Planned Contact 1: Campus Security**
+
+[frame="all", grid="rows", cols="25,75"]
+|===
+| **Field** | **Details**
+| Contact ID | CC-PLAN-001
+| Stakeholder Role | Supervisor de Turno / Oficial, Oficina de Seguridad
+| Planned Location | Oficina de Seguridad (in person visit)
+| Planned Approach | Introduce project, explain academic purpose, request brief (10-15 minute) conversation about current lost and found process
+| Purpose | Establish rapport, understand basic workflow, confirm logbook existence, gauge willingness for future structured interview
+| Key Questions (Informal) | 
+* "When someone brings a found item here, what happens next?"
+
+* "Is there a logbook or record kept of items?"
+
+* "What happens to items that are never claimed?"
+
+* "How do you verify that someone claiming an item is the true owner?"
+|===
+
+**Planned Contact 2: Building Administrator**
+
+[frame="all", grid="rows", cols="25,75"]
+|===
+| **Field** | **Details**
+| Contact ID | CC-PLAN-002
+| Stakeholder Role | Asistente Administrativo / Secretaria, Departamento Académico
+| Planned Location | Main office of selected academic building (for example: Stefani, Chardón, or Física)
+| Planned Approach | Introduce project, inquire about building-level practices for items found in classrooms
+| Purpose | Understand building-level lost and found practices, coordination with Security, seasonal patterns
+| Key Questions (Informal) |
+* "If a student finds a calculator after an exam and brings it here, what do you do with it?"
+
+* "Do you keep a box or designated area for lost items?"
+
+* "How long do you typically hold items before sending them to Security or disposing of them?"
+
+* "Do students often come looking for lost items at the department office?"
+|===
+
+**Planned Contact 3: Library Circulation Desk**
+
+[frame="all", grid="rows", cols="25,75"]
+|===
+| **Field** | **Details**
+| Contact ID | CC-PLAN-003
+| Stakeholder Role | Personal de Circulación, Biblioteca General
+| Planned Location | Circulation Desk, Biblioteca General
+| Planned Approach | Observe and inquire about lost and found procedures (library is a high-traffic area with more formalized process, as evidenced by public FAQ)
+| Purpose | Understand library's structured approach, identify practices that could scale campus-wide
+| Key Questions (Informal) |
+* "The library website mentions a Lost & Found service. How does that process work?"
+
+* "Do you keep a log of items? What information is recorded?"
+
+* "What happens to high-value items like laptops or calculators?"
+
+* "How long are items held before disposal or donation?"
+|===
+
+====== Trustworthiness Assessment Framework
+
+Following the guidance in Slides 66–68 ("elicitation report"), the following framework will be used to assess trustworthiness after contacts are made:
+
+[cols="<,<,<", options="header"]
+|===
+| Criterion | Assessment Approach | Notes
+| Position Authority | Confirm stakeholder's operational role | Direct responsibility vs. peripheral knowledge
+| Apparent Candor | Evaluate openness during conversation | Willingness to discuss informal practices
+| Consistency Check | Cross-validate with other stakeholders | Compare statements across contacts
+| Documentation Corroboration | Compare verbal statements with physical evidence | Logbook existence, web content accuracy
+|===
+
+===== Preliminary Domain Classification and Tagging
+
+Following the tagging schema presented in Slides 12–15, 20, preliminary classification to the UPRM Lost and Found domain are applied based on current understanding from document analysis and logical inference. This hypothesized classification will be validated through planned stakeholder contacts.
+
+====== Domain Fact Tagging Schema
+
+The following tags will be applied to all domain description units collected:
+
+[cols="<,<", options="header"]
+|===
+| Tag Category | Applicable Values for This Domain
+| **Category** | Lost and Found Operations, Campus Services, Student Affairs
+| **Stakeholder Group** | Students (Losers), Students (Finders), Security, Building Staff, Library Staff, Administration
+| **Phenomenon or Concept** | Loss, Finding, Custody, Claim, Verification, Disposition, Reunification
+| **Kind** | Entity (Item, Record, Location), Function (Receive, Store, Verify, Release), Event (Loss, Finding, Claim), Behavior (Search, Report, Inquire)
+| **Attribute** | Active (Claimant searching), Inert (Item in storage), Reactive (Security responding to inquiry)
+| **Facet** | Intrinsic (Item characteristics, Custody chain), Support Technology (Logbooks, Web forms), Regulatory (University policy), Social (Trust, Ethics)
+|===
+
+====== Domain Characterization (Hypothesized)
+
+Based on current understanding from public documents and logical inference (pending stakeholder validation), the following preliminary classification is provided:
+
+**Is the Domain Active or Inert?**
+
+[frame="all", grid="all", cols="25,75"]
+|===
+| **Current State (Hypothesized)** | **Predominantly Inert**
+| **Justification** |
+* Items are expected to be stored passively until a claimant initiates contact
+
+* Logbooks are likely static records updated only upon receipt or claim
+
+* No proactive outreach to potential owners is evident from web presence
+
+* Security web page contains no mention of lost and found services, suggesting reactive rather than proactive posture
+
+* Staff are not expected to actively search for owners
+| **Basis for Hypothesis** |
+* Absence of lost and found information on Security web page (DOC-WEB-001)
+
+* Absence of formal policy in student regulations (DOC-REG-001)
+
+* Typical practice at comparable institutions without formal systems
+
+* Library's FAQ indicates items are held for pickup, not proactively returned
+| **Validation Method** | Confirm through Security contact: "Do you ever try to contact the owner if you find an ID or named item?"; observe whether logbook contains fields for owner contact attempts
+|===
+
+[frame="all", grid="all", cols="25,75"]
+|===
+| **Desired Future State** | **Active (Dynamic Item Movement)**
+| **Justification** |
+* A formalized system could include proactive notification (for example, email alerts for items logged with student ID)
+
+* Digital tracking would enable status updates and owner matching
+
+* Integration with campus directory could facilitate outreach
+| **Basis for Hypothesis** |
+* Ubiquity of UPRM email addresses for all students enables communication
+
+* Library's expected more structured approach (to be confirmed) suggests active tracking is feasible
+
+* Student expectation in 2026 is for digital, trackable services
+|===
+
+====== Additional Attribute Classifications (Hypothesized)
+
+[cols="<,<,<,<", options="header"]
+|===
+| Domain Element | Kind | Attribute | Facet
+| Lost Item | Entity | Inert (until claimed) | Intrinsic
+| Claimant Search | Behavior | Active | Intrinsic
+| Security Logbook | Entity | Inert | Support Technology
+| Verification Process | Function | Reactive | Intrinsic
+| Item Disposal | Event | Active | Regulatory
+| Finder's Ethical Decision | Behavior | Active | Social
+| Building Storage Box | Entity | Inert | Support Technology
+| Policy Gap (Absence) | Entity (Absence) | Static | Regulatory
+|===
+
+===== Acquisition Process Review
+
+Following Slide 37 ("review acquisition process"), the current state of stakeholder representation and process guidance is evaluated based on planning.
+
+====== Representation of Stakeholder Groups
+
+[frame="all", grid="rows", cols="30,70"]
+|===
+| **Question** | **Assessment**
+| Are all stakeholder groups represented? | Seven groups identified; two additional groups may need consideration:
+* **IT Services** - If digital solution is proposed, they become a stakeholder
+* **Legal Counsel** - For policy development and liability questions
+| Are any groups over-represented? | Not at this planning stage
+| Are any groups under-represented? | Direct student perspective is currently through proxy only; student contact is planned for questionnaire phase
+|===
+
+====== Adequacy of Guidance
+
+[frame="all", grid="rows", cols="30,70"]
+|===
+| **Question** | **Assessment**
+| Is there adequate guidance for the next phase? | **Partially adequate.** The collected documentation (web pages, regulations, library FAQ) provides sufficient context to design a focused questionnaire. However, the following gaps will need to be addressed through casual contacts:
+* Confirmation of current workflow (actual vs. hypothesized)
+
+* Understanding of variability across buildings
+
+* Baseline data on item volumes and claim rates
+| Recommended Next Steps | 
+* Complete planned casual contacts with Security, Building Admin, and Library
+
+* Document actual logbook formats and procedures with photographs (with permission)
+
+* Use findings to refine questionnaire for Acquisition Process II
+|===
+
+---
