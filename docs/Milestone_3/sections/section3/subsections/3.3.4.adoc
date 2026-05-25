@@ -89,3 +89,144 @@ Based on the findings above, we can support the following claims:
 * C3: Privacy concerns exist and influence what information people are willing to share publicly.
 * C4: Finder behavior is inconsistent, suggesting the need for clearer guidance and safer handoff/verification.
 * C5: False claims are a concern for some users, indicating the need for robust verification and trust-building features in the system.
+
+---
+
+---
+
+==== *Requirement Acquisition Techniques and Stakeholder Context Expansion*
+
+[discrete]
+==== Purpose
+
+While the questionnaire provided quantitative and open-ended evidence regarding lost-and-found experiences at UPRM, additional acquisition techniques can provide deeper contextual understanding about stakeholder behavior, workflows, and operational constraints.
+
+These techniques complement the questionnaire findings by helping explain *why* certain problems occur and how stakeholders interact with the current recovery process.
+
+[discrete]
+==== Stakeholder Interviews
+
+====== Purpose
+
+Stakeholder interviews allow developers to gather more detailed information regarding user experiences, frustrations, and expectations related to the lost-and-found process.
+
+Unlike questionnaires, interviews support follow-up questions and clarification, making them useful for understanding operational and trust-related concerns in greater depth.
+
+====== Target Stakeholders
+
+- Students who have lost items
+- Students who have found items
+- Administrative staff handling found items
+- Security personnel
+
+====== Example Information Gathered
+
+Interviews may help uncover:
+
+- Difficulties when searching across multiple campus locations
+- Concerns regarding privacy and false claims
+- Current verification procedures
+- Administrative challenges in managing reports
+- Expectations regarding notifications and report tracking
+
+====== Example Findings
+
+Example interview findings may include:
+
+- Students are unsure which office should be checked first after losing an item.
+- Administrative custodians spend significant time responding to repeated status inquiries.
+- Users are uncomfortable sharing personal contact information publicly.
+- Staff members are concerned about fraudulent recovery attempts.
+
+====== Example Requirements Supported
+
+The findings above support requirements such as:
+
+- The system shall centralize lost-and-found reporting.
+- Users shall receive updates regarding report status.
+- The system shall support private communication mechanisms.
+- Administrative custodians shall verify ownership before approving recovery.
+
+[discrete]
+==== Observation of Existing Campus Processes
+
+====== Purpose
+
+Observation focuses on studying how lost-and-found activities currently occur across campus environments. This technique helps identify workflow inefficiencies and operational patterns that stakeholders may not explicitly describe during interviews or questionnaires.
+
+====== Observation Areas
+
+Observation may focus on:
+
+- How found items are submitted
+- How offices record information
+- How students attempt recovery
+- How ownership verification occurs
+- How communication is handled between stakeholders
+
+====== Example Findings
+
+Observation may reveal that:
+
+- Different campus departments maintain disconnected records.
+- Students often check multiple offices before locating information.
+- Administrative staff manually track reports using paper or spreadsheets.
+- Some items remain unclaimed due to lack of centralized visibility.
+
+====== Example Requirements Supported
+
+These findings support requirements such as:
+
+- The system shall maintain a centralized repository of reports.
+- Administrative custodians shall access shared report dashboards.
+- Reports shall support status tracking.
+- The system shall maintain recovery history records.
+
+[discrete]
+==== User Stories and Scenario Discussions
+
+====== Purpose
+
+User stories and scenario discussions help connect stakeholder goals with realistic campus situations. These techniques focus on understanding stakeholder motivations and expected interactions with the system.
+
+====== Example User Stories
+
+*US5:* As a Student Claimant, I want to receive updates regarding my report so that I know whether my item has been found.
+
+*US6:* As a Finder, I want to quickly submit information about a discovered item so that it can be returned efficiently.
+
+*US7:* As an Administrative Custodian, I want to verify ownership before approving recovery so that fraudulent claims are prevented.
+
+====== Example Scenario
+
+A student notices several hours later that a calculator was left behind after class. The student checks nearby offices and group chats before submitting a lost-item report.
+
+Meanwhile, another student submits a found-item report describing a calculator discovered in the same building.
+
+An administrative custodian reviews both reports, compares identifying details, and verifies ownership before approving recovery.
+
+====== Example Requirements Supported
+
+This scenario supports requirements such as:
+
+- Users shall submit lost-item and found-item reports digitally.
+- Reports shall support item descriptions and image uploads.
+- The system shall notify users regarding potential matches.
+- Administrative custodians shall validate ownership claims before release approval.
+
+[discrete]
+==== Relationship to Questionnaire Findings
+
+These acquisition techniques complement the questionnaire findings described previously.
+
+For example:
+
+- Questionnaire findings showed that students often check multiple locations before recovering an item.
+- Observation and interviews help explain that reporting processes are currently fragmented across departments.
+
+Similarly:
+
+- Questionnaire findings identified privacy concerns and fear of false claims.
+- Interviews and scenario discussions help determine what verification and privacy mechanisms stakeholders expect from the system.
+
+Together, these acquisition techniques strengthen the connection between stakeholder evidence and future requirements specification.
