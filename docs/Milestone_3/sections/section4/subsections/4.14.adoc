@@ -56,3 +56,50 @@ Mitigation Strategy:
 - Encourage detailed descriptions and images
 
 ---
+
+==== [Lecture Topic Task]: Obstacle Based Verification of Lost Item Report Recovery
+:author: Victoria Miranda Osuna
+
+===== Goal
+
+Verify that the Lost & Found app can identify and handle obstacles that may prevent a reported item from being successfully recovered, using goal obstacle analysis and countermeasure goals.
+
+===== Proposed Solution
+
+    - Define the main recovery goal such as users should be able to find and recover reported lost items.
+
+        * Users successfully report lost items.
+        * Matching reports connect lost and found items correctly.
+        * Users communicate with each other to arrange recovery.
+        * Recovered items are marked as completed in the system.
+
+    - Identify obstacles that obstruct this goal, such as unclear item descriptions, outdated reports, or failed contact attempts.
+
+        * Item descriptions are missing important identifying details.
+        * Users provide incorrect or inactive contact information.
+        * Reports remain active after items are already recovered.
+        * Users fail to respond to recovery notifications.
+
+    - Organize obstacles using refinement to show how different failure conditions contribute to recovery failure.
+
+        * Poor descriptions → Incorrect report matching.
+        * Failed notifications → No communication between users.
+        * Outdated reports → False recovery opportunities.
+        * Verification failure → Incorrect ownership claims.
+
+    - Add countermeasure goals, such as report expiration reminders or contact confirmation, to reduce recovery failure.
+
+        * Send reminders for inactive or unresolved reports.
+        * Require mandatory fields during report creation.
+        * Verify contact information before reports are published.
+        * Add ownership confirmation before marking items as recovered.
+
+===== Success Criteria
+
+* The main recovery goal and its obstructing obstacles are clearly identified.
+* Obstacles are refined into smaller, vulnerable causes.
+* Each major obstacle includes a possible countermeasure goal.
+* The final goal model shows improved reliability for item recovery.
+
+---
+
