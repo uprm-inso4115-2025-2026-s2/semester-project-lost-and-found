@@ -9,6 +9,7 @@ import SignupPage from "./pages/SignupPage";
 import { AuthProvider } from "./AuthProvider";
 import RequireAuth from "./RequireAuth";
 import ReportDetailPage from "./pages/ReportDetailsPage";
+import TagGraphPage from "./pages/TagGraphPage";
 
 function App() {
   return (
@@ -59,13 +60,22 @@ function App() {
           }
         />
 
-        <Route 
-          path="/details/:reportId" 
+        <Route
+          path="/details/:reportId"
           element={
             <RequireAuth>
               <ReportDetailPage />
             </RequireAuth>
-          } 
+          }
+        />
+
+        <Route
+          path="/tag-graph"
+          element={
+            <RequireAuth>
+              <TagGraphPage />
+            </RequireAuth>
+          }
         />
 
       </Routes>

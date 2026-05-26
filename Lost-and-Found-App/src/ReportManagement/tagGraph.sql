@@ -2,8 +2,7 @@ create or replace function getTagGraph(maxTags int default 10) --create or repla
 returns table (
     tagName text, --stores tag name as text
     count int --stores how many tags appear
-) as $$
-
+)
 language sql
 stable
 as $$

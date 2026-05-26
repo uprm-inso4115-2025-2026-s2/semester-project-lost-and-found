@@ -1,0 +1,126 @@
+.tagGraphPage {
+  max-width: auto-fit;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  color: #111111;
+}
+
+.tagGraphHeader {
+  background: #17a45b;
+  color: white;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tagGraphHeader h1 {
+  margin: 0;
+  font-size: clamp(16px, 4vw, 22px);
+  flex: 1;
+}
+
+.tagGraphBackBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tagGraphBackBtn img {
+  width: 22px;
+  height: 22px;
+  filter: brightness(0) invert(1);
+}
+
+.tagGraphSubtitle {
+  margin: 0 0 24px 0;
+  color: #666;
+  font-size: 14px;
+  text-align: center;
+  padding: 16px 20px 0;
+}
+
+.tagGraphContent {
+  padding: 0 20px 32px;
+  flex: 1;
+}
+
+.tagGraphList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.tagGraphRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tagGraphLabel {
+  width: 110px;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: right;
+}
+
+.tagGraphBarWrap {
+  flex: 1;
+  background: #f0f0f0;
+  border-radius: 999px;
+  height: 24px;
+  overflow: hidden;
+}
+
+.tagGraphBar {
+  height: 100%;
+  background: #17a45b;
+  border-radius: 999px;
+  transition: width 0.4s ease;
+  min-width: 4px;
+}
+
+.tagGraphCount {
+  width: 28px;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  text-align: left;
+}
+
+/* States */
+.tagGraphState {
+  border: 1px dashed #d8d8d8;
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  color: #777;
+  background: #fafafa;
+  margin: 20px;
+}
+
+.tagGraphStateError {
+  border-color: #f5c6cb;
+  background: #fff5f5;
+  color: #c62828;
+}
+
+.tagGraphStateLabel {
+  font-size: 15px;
+  margin: 0;
+}
