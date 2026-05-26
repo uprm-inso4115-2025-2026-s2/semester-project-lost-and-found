@@ -138,3 +138,92 @@ Each persona captures goals, fears, permissions, and 3 stakeholder-driven requir
 - entity["organization","NIST","nist"]. "Risk Management Framework." NIST Special Publication 800-37 Revision 2, National Institute of Standards and Technology, 2018, https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-37r2.pdf.  
 - entity["organization","OWASP","web security org"]. "Threat Modeling." OWASP Foundation, https://owasp.org/www-project-threat-dragon/.  
 - entity["organization","Nielsen Norman Group","ux research firm"]. "Personas and Scenarios." Nielsen Norman Group, https://www.nngroup.com/topic/personas/.
+
+---
+==== Requirement Dependency Mapping
+:author: Ivanier Bellido
+
+This section documents requirement dependencies across major functional modules of the Lost & Found system. Software requirements rarely exist in isolation. Many depend on the existence, correctness, or timing of other requirements in order to provide meaningful functionality.
+
+This analysis identifies logical requirement dependencies and explains how they affect implementation sequencing, integration planning, and coordination between modules such as authentication, reporting, search, moderation, and notifications.
+
+[discrete]
+===== Dependency Types
+
+For this analysis, requirement dependencies are grouped into the following types:
+
+* *Prerequisite dependency*: one requirement must exist before another can function correctly.
+* *Enabling dependency*: one requirement significantly improves or activates the usefulness of another.
+* *Bidirectional dependency*: two requirements influence each other and must be designed with mutual awareness.
+* *Integration dependency*: separate modules must exchange data or behavior correctly for both requirements to work as intended.
+
+[discrete]
+===== Requirement Dependency Table
+
+[cols="1,3,2,4"]
+|===
+| ID | Dependency Relationship | Type | Explanation
+
+| D1
+| Authentication depends on institutional email validation
+| Prerequisite
+| Access control for the platform depends on verifying that users belong to the UPRM community. Without institutional email validation, authenticated access cannot be enforced consistently.
+
+| D2
+| Report creation depends on authenticated user access
+| Prerequisite
+| If the system restricts usage to institutional users, then submitting lost or found reports depends on prior authentication.
+
+| D3
+| Search and filtering depend on structured report data
+| Prerequisite
+| Search by category, date, or location only works properly if reports are submitted with standardized and complete fields.
+
+| D4
+| Potential-match notifications depend on report creation and searchable item data
+| Enabling
+| The notification system only becomes useful after lost and found reports exist and contain enough structured information to support matching logic.
+
+| D5
+| Moderation depends on report visibility and report submission workflow
+| Integration
+| Administrative review can only occur if reports are submitted into the platform and exposed through an appropriate moderation process.
+
+| D6
+| Controlled visibility depends on authentication and report data design
+| Integration
+| Limiting exposure of personal information requires both secure user access and careful design of what report information is displayed.
+
+| D7
+| Image upload depends on report submission
+| Prerequisite
+| Images are attached as part of a lost or found report, so image handling cannot exist independently from reporting functionality.
+
+| D8
+| Matching efficiency depends on both report quality and search/filter mechanisms
+| Bidirectional
+| Better reports improve search results, while better search/filter features increase the practical usefulness of reported data. Each strengthens the other.
+
+|===
+
+[discrete]
+===== Dependency Impact on Development Planning
+
+The identified dependencies suggest that implementation should follow a logical sequence rather than treating all modules as independent. Authentication and data structure definition should be addressed early because they support reporting, visibility control, and access restrictions. Reporting functionality should also be implemented before advanced search, matching, and notification features because those later capabilities depend on the existence of structured report data. 
+
+This dependency structure also affects integration across teams. The team working on authentication must coordinate with teams responsible for reporting and controlled visibility. Likewise, teams developing notifications or moderation features depend on the structure and lifecycle of reports being clearly defined. This means dependency awareness reduces duplicated work and lowers the risk of integration conflicts. :contentReference[oaicite:2]{index=2}
+
+[discrete]
+===== Analysis
+
+The Lost & Found platform shows a layered dependency structure. Core foundational requirements include authentication, institutional access control, and structured reporting. These support intermediate capabilities such as search, filtering, and controlled visibility. More advanced or supportive functions such as notifications, moderation, and potential matching depend on those earlier layers.
+
+This analysis shows that dependencies are not only technical but also organizational. Some requirements depend on shared agreements about data fields, visibility rules, and responsibility boundaries across teams. Documenting these dependencies helps establish a more coherent implementation order and improves traceability within the requirements documentation.
+
+[discrete]
+===== Conclusion
+
+Requirement dependency mapping helps clarify how the Lost & Found system should be developed and integrated. The requirements are interconnected, and several features only become meaningful when earlier supporting requirements are already in place.
+
+By documenting prerequisite, enabling, bidirectional, and integration dependencies, the project gains a clearer understanding of implementation order, cross-team coordination needs, and architectural relationships between modules. This strengthens traceability and supports more organized development of the Lost & Found platform.
+---
