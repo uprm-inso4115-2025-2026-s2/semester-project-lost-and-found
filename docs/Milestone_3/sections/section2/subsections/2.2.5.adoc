@@ -2,6 +2,34 @@
 
 ==== *Machine Requirements*
 
+===== Report Lifecycle State Machine (System Behavior)
+
+[.added]#The following state machine diagram models the complete lifecycle of a
+report from creation to resolution or expiration. This behavioral model
+clarifies how multiple Machine Requirements work together to enforce system
+behavior.#
+
+[.added]#**How this diagram enhances understanding:**#
+
+[.added]#- Without the diagram, the relationship between HWRQ-001 (device access),
+  SWRQ-002 (Supabase persistence), ENVRQ-006 (RLS policies), and ENVRQ-010
+  (email notifications) would appear as isolated technical constraints rather
+  than a coherent behavioral flow.#
+
+[.added]#- The explicit separation of `Draft` (client-side, before persistence)
+  from `Active` (server-side, persisted) explains why form validation (SWRQ-004)
+  must occur before the Supabase insert operation (SWRQ-002).#
+
+[.added]#- The `Expired` state demonstrates how ENVRQ-008 (FERPA compliance)
+  requires automatic cleanup of stale student data after 30 days, with admin
+  notification (ENVRQ-010) as a prerequisite to deletion.#
+
+[.added]#- The `Resolved` → `Reopened` → `Active` transition shows why rate
+  limiting (ENVRQ-009) is necessary to prevent abuse of the reopening mechanism.#
+
+image::report-lifecycle-state-machine.png[Report Lifecycle State Machine, align=center, pdfwidth=90%]
+_Figure: Report Lifecycle State Machine - Behavioral model linking Machine Requirements to system behavior._
+
 .Hardware, Software, and Environmental Requirements
 [cols="1,3,3,3", options="header"]
 |===
