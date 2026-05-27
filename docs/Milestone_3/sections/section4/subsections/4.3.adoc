@@ -622,3 +622,60 @@ Questions:
 6. How should the system protect private information if it is exposed? 
 
 ---
+
+---
+
+==== Static and Dynamic Elements in the Lost & Found Notification System
+:author: Diego Ríos Morales
+
+The Lost & Found notification system contains both static and dynamic domain elements. Static elements are components that remain relatively unchanged throughout the lifecycle of the platform, while dynamic elements evolve depending on user actions, administrative actions, or system events. Understanding the distinction between these two types of elements helps developers better model workflows, notifications, and report management processes inside the system.
+
+The classification of domain elements also improves maintainability and system organization by separating stable platform structures from continuously changing states and behaviors.
+
+===== Static Elements
+
+Static elements are components that remain mostly stable and provide structure to the platform. These elements do not frequently change during normal system operation and are used to define consistent rules and categories within the Lost & Found application.
+
+Examples of static elements within the platform include:
+
+* User roles
+* Report identifiers
+* Item categories
+* Notification types
+* Verification rules
+* Department classifications
+* Predefined claim requirements
+
+These components help maintain consistency across the system and allow workflows to operate under a predictable structure.
+
+===== Dynamic Elements
+
+Dynamic elements are components that evolve over time depending on interactions, workflows, or external events. These elements are continuously updated as users submit reports, administrators review claims, or notifications are generated.
+
+Examples of dynamic elements include:
+
+* Notification read/unread status
+* Claim approval status
+* Report lifecycle state
+* Verification progress
+* Active user sessions
+* Claim review outcomes
+* Report visibility state
+
+Unlike static elements, dynamic elements are highly dependent on user activity and system processes.
+
+===== Relationship Between Static and Dynamic Elements
+
+Static and dynamic elements work together to support the Lost & Found workflows implemented within the platform. Static elements define the structure and rules of the system, while dynamic elements represent the changing state of reports, claims, and notifications during operation.
+
+For example, notification categories and verification requirements remain fixed as static elements, while notification delivery status and verification progress change dynamically as users interact with the platform. Similarly, item categories remain constant while claim states evolve throughout the verification process.
+
+This interaction between stable structures and changing behaviors allows the platform to maintain organization while still adapting to ongoing user and administrative actions.
+
+===== Importance to the Lost & Found Platform
+
+Identifying static and dynamic domain elements helps developers better understand how the system behaves over time and how different components interact with one another. This classification can also support future improvements related to workflow management, notification handling, and claim verification logic.
+
+By separating stable concepts from changing system states, the development team can design features that are easier to maintain, extend, and analyze throughout the lifecycle of the platform.
+
+---

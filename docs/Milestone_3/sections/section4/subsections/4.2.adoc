@@ -138,3 +138,70 @@ Each persona captures goals, fears, permissions, and 3 stakeholder-driven requir
 - entity["organization","NIST","nist"]. "Risk Management Framework." NIST Special Publication 800-37 Revision 2, National Institute of Standards and Technology, 2018, https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-37r2.pdf.  
 - entity["organization","OWASP","web security org"]. "Threat Modeling." OWASP Foundation, https://owasp.org/www-project-threat-dragon/.  
 - entity["organization","Nielsen Norman Group","ux research firm"]. "Personas and Scenarios." Nielsen Norman Group, https://www.nngroup.com/topic/personas/.
+
+---
+
+==== [Lecture Topic Task]: Navigation Flow Traceability
+:author: Joel Torres Cruz
+
+This entry traces the navigation structure of the Lost & Found UPRM platform to the user stories and requirements that justify each route. It applies traceability concepts to the UI layer, establishing why each route exists, who can access it, and what domain need it serves.
+
+===== Traceability Table
+
+[cols="1,1,2,2", options="header"]
+|===
+| Route | Access Level | User Story | Justification
+
+| `/login`
+| Public
+| As an unregistered or logged-out user, I want to log in so I can access the platform.
+| Authentication is required before any domain interaction. This route must be public so unauthenticated users can enter the system.
+
+| `/signup`
+| Public
+| As a new user, I want to create an account so I can report and claim items.
+| New users must be able to register without prior authentication. Blocking this route would prevent onboarding entirely.
+
+| `/`
+| Protected
+| As a logged-in user, I want to browse all active reports so I can search for my lost item or identify a found one.
+| The home page displays sensitive community data (report details, locations, user-submitted images). Only authenticated UPRM members should access it.
+
+| `/create-report`
+| Protected
+| As a logged-in user, I want to submit a lost or found report so it becomes visible to the community.
+| Report creation is a domain action tied to a specific user identity. An unauthenticated user cannot be associated with a report, making this route inherently protected.
+
+| `/details/:reportId`
+| Protected
+| As a logged-in user, I want to view the full details of a report so I can assess whether it matches my item and initiate a claim.
+| The details page exposes recovery-sensitive information including item descriptions and claim status. Access must be restricted to authenticated users.
+
+| `/profile`
+| Protected
+| As a logged-in user, I want to view and manage my account information so I can keep my contact details up to date.
+| Profile data (email, phone number, avatar) is personal and user-specific. This route is meaningless without an authenticated identity.
+
+| `/history`
+| Protected
+| As a logged-in user, I want to see all the reports I have submitted so I can track their status over time.
+| User history is scoped entirely to the authenticated user's records. Exposing this route publicly would either leak private data or return no meaningful content.
+|===
+
+===== Access Level Justification Summary
+
+[discrete]
+====== Public Routes
+
+Routes are public when they serve users who have not yet established an identity in the system. `/login` and `/signup` are the only two public routes because they are the entry points into the authentication flow. Blocking them would make users never be able to authenticate in the first place.
+
+[discrete]
+====== Protected Routes
+
+All remaining routes are protected via the `RequireAuth` wrapper, which redirects unauthenticated users to `/login`. This design decision is justified by three domain-level reasons:
+
+* Reports contain community-submitted personal data that should not be publicly indexed or accessible.
+* Every meaningful action in the platform (submitting, viewing, claiming, managing) is tied to a verified UPRM user identity.
+* The recovery code system, which is central to the claim flow, would be trivially exploitable without authentication.
+
+---
