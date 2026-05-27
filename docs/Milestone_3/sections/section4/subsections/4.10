@@ -1,0 +1,84 @@
+---
+
+==== Domain Narrative Rewriting for Report Discovery Workflows
+
+:author: Nelson Caban
+
+===== Introduction
+
+In the Lost & Found system, users need to discover reports that match the item they lost or found. This discovery process includes viewing reports, filtering them by status, filtering them by category, and using the search bar to narrow down results. These actions can be described as separate interface behaviors, but they can also be rewritten into a clearer domain narrative using higher-level concepts.
+
+This lecture topic task applies Domain Analysis and Concept Formation. The lecture explains that domain analysis includes reviewing domain description units, forming concepts, and searching for inconsistencies, conflicts, and incompletenesses. It also explains that lower-level domain phenomena can be abstracted into higher-level domain concepts and rewritten into a domain narrative.
+
+===== Domain Description Units
+
+The following domain description units describe report discovery in the Lost & Found system:
+
+* A user can view reports in the Lost & Found system.
+* A report has a title, description, category, status, location, date, image, and tags.
+* A user can filter reports by status, such as Active, Claimed, or Closed.
+* A user can filter reports by category.
+* A user can use the search bar to find reports.
+* A report can appear in the results if it matches the selected status, selected category, and search query.
+* A user can select a report from the results to view more information about the item.
+* A user can claim or return a report depending on the report state.
+
+These statements describe individual behaviors of the system. However, they do not yet fully explain the higher-level purpose of report discovery.
+
+===== Concept Formation
+
+Using concept formation, the lower-level behaviors can be abstracted into broader domain concepts.
+
+.Report Discovery Concepts
+[cols="1,1,1", options="header"]
+|===
+| Lower-Level Element
+| Higher-Level Concept
+| Purpose in the Domain
+
+| Title, description, and tags
+| Searchable report attributes
+| Information used to match a user query with relevant reports
+
+| Status filter
+| Report state constraint
+| Limits results based on the current lifecycle state of a report
+
+| Category filter
+| Classification constraint
+| Limits results based on the type of item reported
+
+| Search bar
+| Discovery mechanism
+| Allows users to locate reports using keywords
+
+| Report card
+| Report summary
+| Presents important report information before the user opens the full report
+
+| Claim and return actions
+| Recovery actions
+| Allow users to move a report toward resolution
+|===
+
+These abstractions help describe the report discovery workflow in a more organized way. Instead of describing the system only as buttons, search inputs, and report cards, the system can be described using domain concepts such as searchable attributes, constraints, report summaries, and recovery actions.
+
+===== Rewritten Domain Narrative
+
+A Lost & Found user searches through report summaries to identify reports that may correspond to a lost or found item. Each report contains searchable attributes, including its title, description, and tags. The user may apply report state constraints, such as Active, Claimed, or Closed, to limit results based on the report lifecycle. The user may also apply classification constraints, such as item category, to narrow the discovery space.
+
+The system evaluates each report by comparing the report state, category, and searchable attributes against the user's selected filters and search query. Reports that satisfy these constraints are shown as report summaries. From these summaries, the user can inspect relevant item information and perform recovery actions, such as claiming an item, returning an item, or sending a report back to the active lost item state.
+
+This narrative describes report discovery as a domain process instead of only a user interface interaction. It connects searching, filtering, viewing, and acting on reports into one complete workflow.
+
+===== Analysis
+
+The rewritten narrative improves the original low-level description because it gives a clearer explanation of why each part of the workflow exists. The search bar is not only an input field; it is a discovery mechanism. The status tabs are not only buttons; they are report state constraints. The category dropdown is not only a filter; it is a classification constraint. The item cards are not only visual components; they are report summaries that help users decide whether a report is relevant.
+
+This supports the lecture's concept formation process because lower-level domain elements are abstracted into more general concepts. These concepts can then be used to make the system documentation more consistent and easier to understand.
+
+===== Conclusion
+
+The Lost & Found report discovery workflow can be better documented by rewriting individual interface behaviors into a higher-level domain narrative. This helps clarify how users move from searching and filtering to identifying and acting on relevant reports. By using concepts such as searchable attributes, report state constraints, classification constraints, report summaries, and recovery actions, the system documentation becomes more aligned with the principles of domain analysis and concept formation.
+
+---
