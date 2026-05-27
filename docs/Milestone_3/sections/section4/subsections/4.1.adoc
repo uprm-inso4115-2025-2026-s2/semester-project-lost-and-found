@@ -2845,4 +2845,130 @@ By implementing role restrictions, validation checks, secure claim handling, and
 * TypeScript Documentation: https://www.typescriptlang.org/docs/
 ---
 
+---
+==== Common System Abstractions
+:author: Diego Rios Morales
 
+===== Overview
+
+As the Lost & Found platform continues to grow, several features and components begin to serve similar purposes. Instead of analyzing every feature individually, the system can be better understood by grouping related functionality into broader domain abstractions. These abstractions make the platform easier to design, explain, and maintain because they organize the system around shared responsibilities rather than isolated features.
+
+===== Report Management
+
+One of the main abstractions in the platform is Report Management. This abstraction includes everything related to creating and managing lost or found item reports.
+
+Examples include:
+* Creating lost item reports
+* Creating found item reports
+* Adding descriptions and images
+* Updating report information
+* Tracking report status
+* Storing item location details
+
+Instead of treating each report-related feature as a separate system component, this abstraction allows them to be viewed as part of a single reporting workflow.
+
+===== Notification and Alert System
+
+The Notification and Alert System groups together features responsible for informing users about important activity within the platform.
+
+Examples include:
+* Notifications for possible item matches
+* Alerts when a report is updated
+* Status change notifications
+* Messages related to user activity
+
+This abstraction helps centralize communication features and improves the overall user experience by keeping users informed without requiring them to constantly check the platform manually.
+
+===== User Interaction
+
+The User Interaction abstraction represents the different ways users engage with the system and navigate through the platform.
+
+This includes:
+* Viewing reports
+* Browsing item listings
+* Navigating between pages
+* Contacting other users
+* Confirming actions such as deleting an account or report
+
+Grouping these features together helps emphasize the user experience side of the application and highlights how users interact with the platform as a whole.
+
+===== Verification Process
+
+The Verification Process abstraction focuses on improving trust and reliability within the system. Since users can submit information freely, certain features are needed to help validate reports and ownership claims.
+
+Examples include:
+* Verifying ownership of an item
+* Reviewing report details
+* Identifying incomplete or suspicious submissions
+* Confirming item matches before resolution
+
+This abstraction supports the credibility of the platform and helps reduce false claims or misuse.
+
+===== Account and Profile Management
+
+Another important abstraction is Account and Profile Management, which contains features related to user identity and account control.
+
+Examples include:
+* User registration
+* Login and logout functionality
+* Profile pages
+* Managing account information
+* Account deletion
+
+By grouping these features together, the platform separates user management responsibilities from report and notification functionality.
+
+===== Search and Discovery
+
+The Search and Discovery abstraction focuses on helping users quickly locate relevant information within the system.
+
+This includes:
+* Searching for lost or found items
+* Filtering reports by category
+* Browsing recent reports
+* Discovering possible report matches
+
+This abstraction improves accessibility and makes the platform more practical for users trying to recover lost belongings efficiently.
+
+===== Mapping of Components to Abstractions
+
+[cols="2,2", options="header"]
+|===
+| System Component
+| Related Abstraction
+
+| Lost item submission form
+| Report Management
+
+| Found item submission form
+| Report Management
+
+| Match notification
+| Notification and Alert System
+
+| User profile page
+| Account and Profile Management
+
+| Delete account feature
+| Account and Profile Management
+
+| Search bar
+| Search and Discovery
+
+| Ownership confirmation process
+| Verification Process
+
+| Contacting another user
+| User Interaction
+|===
+
+===== Benefits of Using Abstractions
+
+Organizing the Lost & Found platform into higher-level abstractions improves the clarity of the system design. Developers can focus on broader responsibilities instead of isolated features, making the platform easier to maintain and expand over time.
+
+These abstractions also help improve communication between team members because related features are grouped under shared concepts. This makes it easier to understand how existing and future functionality fits into the overall architecture of the platform.
+
+==== Conclusion
+
+The Lost & Found platform contains many interconnected features that can be simplified through domain abstractions. By grouping related functionality into concepts such as Report Management, User Interaction, Verification Processes, and Notifications, the system becomes easier to analyze, document, and maintain. These abstractions provide a clearer understanding of how the platform operates while supporting future scalability and development.
+
+---
