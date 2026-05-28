@@ -193,6 +193,7 @@ async function handleSendBackToLost(reportId: string) {
           </button>
         ))}
         <CategoryDropdown onCategoryChange={setCategoryFilter} />
+        <button className="tagGraphBtn" onClick={() => navigate("/tag-graph")}>📊</button>
       </div>
 
       {showSearch && (

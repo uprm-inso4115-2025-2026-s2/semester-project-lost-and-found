@@ -44,6 +44,47 @@
   font-size: clamp(18px, 4vw, 22px);
 }
 
+.tagGraphBtn {
+  position: relative;
+  padding: 8px clamp(8px, 2.5vw, 12px);
+  border-radius: 20px;
+  border: none;
+  background: #2db86d;
+  color: white;
+  font-size: clamp(13px, 3vw, 16px);
+  cursor: pointer;
+  min-height: 36px;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+
+.tagGraphBtn:hover {
+  background: white;
+  color: #17a45b;
+}
+
+.tagGraphBtn::after {
+  content: "View Tag Graph";
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.tagGraphBtn:hover::after {
+  opacity: 1;
+}
+
 .statusTabs {
   display: flex;
   gap: clamp(4px, 1.5vw, 8px);
