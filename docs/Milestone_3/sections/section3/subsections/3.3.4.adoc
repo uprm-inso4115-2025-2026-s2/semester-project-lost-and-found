@@ -92,8 +92,6 @@ Based on the findings above, we can support the following claims:
 
 ---
 
----
-
 ==== *Requirement Acquisition Techniques and Stakeholder Context Expansion*
 :author: Tomas Esteban Gomez Mojica
 
@@ -107,20 +105,20 @@ These techniques complement the questionnaire findings by helping explain *why* 
 [discrete]
 ==== Stakeholder Interviews
 
-====== Purpose
+===== Purpose
 
 Stakeholder interviews allow developers to gather more detailed information regarding user experiences, frustrations, and expectations related to the lost-and-found process.
 
 Unlike questionnaires, interviews support follow-up questions and clarification, making them useful for understanding operational and trust-related concerns in greater depth.
 
-====== Target Stakeholders
+===== Target Stakeholders
 
 - Students who have lost items
 - Students who have found items
 - Administrative staff handling found items
 - Security personnel
 
-====== Example Information Gathered
+===== Example Information Gathered
 
 Interviews may help uncover:
 
@@ -130,7 +128,7 @@ Interviews may help uncover:
 - Administrative challenges in managing reports
 - Expectations regarding notifications and report tracking
 
-====== Example Findings
+===== Example Findings
 
 Example interview findings may include:
 
@@ -139,7 +137,7 @@ Example interview findings may include:
 - Users are uncomfortable sharing personal contact information publicly.
 - Staff members are concerned about fraudulent recovery attempts.
 
-====== Example Requirements Supported
+===== Example Requirements Supported
 
 The findings above support requirements such as:
 
@@ -151,11 +149,11 @@ The findings above support requirements such as:
 [discrete]
 ==== Observation of Existing Campus Processes
 
-====== Purpose
+===== Purpose
 
 Observation focuses on studying how lost-and-found activities currently occur across campus environments. This technique helps identify workflow inefficiencies and operational patterns that stakeholders may not explicitly describe during interviews or questionnaires.
 
-====== Observation Areas
+===== Observation Areas
 
 Observation may focus on:
 
@@ -165,7 +163,7 @@ Observation may focus on:
 - How ownership verification occurs
 - How communication is handled between stakeholders
 
-====== Example Findings
+===== Example Findings
 
 Observation may reveal that:
 
@@ -174,7 +172,7 @@ Observation may reveal that:
 - Administrative staff manually track reports using paper or spreadsheets.
 - Some items remain unclaimed due to lack of centralized visibility.
 
-====== Example Requirements Supported
+===== Example Requirements Supported
 
 These findings support requirements such as:
 
@@ -186,11 +184,11 @@ These findings support requirements such as:
 [discrete]
 ==== User Stories and Scenario Discussions
 
-====== Purpose
+===== Purpose
 
 User stories and scenario discussions help connect stakeholder goals with realistic campus situations. These techniques focus on understanding stakeholder motivations and expected interactions with the system.
 
-====== Example User Stories
+===== Example User Stories
 
 *US5:* As a Student Claimant, I want to receive updates regarding my report so that I know whether my item has been found.
 
@@ -198,7 +196,7 @@ User stories and scenario discussions help connect stakeholder goals with realis
 
 *US7:* As an Administrative Custodian, I want to verify ownership before approving recovery so that fraudulent claims are prevented.
 
-====== Example Scenario
+===== Example Scenario
 
 A student notices several hours later that a calculator was left behind after class. The student checks nearby offices and group chats before submitting a lost-item report.
 
@@ -206,7 +204,7 @@ Meanwhile, another student submits a found-item report describing a calculator d
 
 An administrative custodian reviews both reports, compares identifying details, and verifies ownership before approving recovery.
 
-====== Example Requirements Supported
+===== Example Requirements Supported
 
 This scenario supports requirements such as:
 
