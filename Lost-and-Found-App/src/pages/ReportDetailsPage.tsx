@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient.ts";
 import "./ReportDetailsPage.css";
 import { editReport, getReport, reOpenReport } from "../ReportManagement/ReportDatabaseManagement";
+import { useAuth } from "../AuthProvider";
 import backIcon from "../assets/icons/back.svg";
 import calendarIcon from "../assets/icons/calendar.svg";
 import locationIcon from "../assets/icons/location.svg";
@@ -42,6 +43,7 @@ function toDateInputValue(d: Date): string {
 const ReportDetailPage: React.FC = () => {
   const { reportId } = useParams();
   const navigate = useNavigate();
+  const { isGuest } = useAuth();
   const [report, setReport] = useState<Report | null>(null);
 
   const [showClaimModal, setShowClaimModal] = useState(false);
@@ -66,9 +68,12 @@ const ReportDetailPage: React.FC = () => {
   const [editError, setEditError] = useState<string | null>(null);
   const [editSaving, setEditSaving] = useState(false);
 
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteMessage, setDeleteMessage] = useState("");
+
   const isAuthor =
     !!report && !!userEmail && report.getCreatedBy() === userEmail;
-  
+
   const isClaimer =
     !!report && !!userEmail && report.getClaimedBy() === userEmail;
 
@@ -80,60 +85,44 @@ const ReportDetailPage: React.FC = () => {
     if (!reportId) return;
     getReport(reportId).then(setReport);
   }, [reportId]);
-  
+
   const handleOpenClaim = async () => {
-  console.log("=== CLAIM DEBUG ===");
-  console.log("Report exists:", !!report);
-  console.log("User email:", userEmail);
-  console.log("Report createdBy:", report?.getCreatedBy());
-  console.log("isAuthor:", isAuthor);
-  console.log("==================");
+    if (!report || !userEmail) return;
 
-  if (!report || !userEmail) return;
-
-  // RESTRICTION 1: User cannot claim their own report
-  if (isAuthor) {
-    console.log("BLOCKED: User is the author");
-    setStatusError("You cannot claim your own report.");
-    setTimeout(() => setStatusError(null), 3000);
-    return;
-  }
-
-  // RESTRICTION 2: Already claimed reports can't be claimed again
-  if (report.getRawStatus() === "CLAIMED" && !isClaimer) {
-    console.log("BLOCKED: Already claimed by someone else");
-    setStatusError("This report has already been claimed by someone else.");
-    setTimeout(() => setStatusError(null), 3000);
-    return;
-  }
-
-  setCodeCopied(false);
-  
-  // If user is the claimer, show their code
-  if (report.getRawStatus() === "CLAIMED" && isClaimer) {
-    if (claimCode === null) {
-      setClaimCode(report.getRecoveryCode());
+    if (isAuthor) {
+      setStatusError("You cannot claim your own report.");
+      setTimeout(() => setStatusError(null), 3000);
+      return;
     }
-    setClaimStep("code");
+
+    if (report.getRawStatus() === "CLAIMED" && !isClaimer) {
+      setStatusError("This report has already been claimed by someone else.");
+      setTimeout(() => setStatusError(null), 3000);
+      return;
+    }
+
+    setCodeCopied(false);
+
+    if (report.getRawStatus() === "CLAIMED" && isClaimer) {
+      if (claimCode === null) setClaimCode(report.getRecoveryCode());
+      setClaimStep("code");
+      setShowClaimModal(true);
+      return;
+    }
+
+    setClaimStep("confirm");
+    setClaimCode(null);
     setShowClaimModal(true);
-    return;
-  }
-  
-  // First time claiming — show confirm prompt
-  setClaimStep("confirm");
-  setClaimCode(null);
-  setShowClaimModal(true);
-};
-  
+  };
+
   const handleCloseModal = () => {
     setShowClaimModal(false);
     setCodeCopied(false);
   };
-  
+
   const handleClaim = async () => {
     if (!reportId || !report || !userEmail) return;
 
-    // Double-check: user can't claim their own report
     if (isAuthor) {
       setStatusError("You cannot claim your own report.");
       setShowClaimModal(false);
@@ -153,20 +142,16 @@ const ReportDetailPage: React.FC = () => {
           setClaimCode(newCode);
           setClaimStep("code");
         } else {
-          // Lost type: lookup owner and notify
           const { data, error } = await supabase
             .from("UserAccounts")
             .select()
             .eq("Email", report.getCreatedBy())
             .single();
-          if (!data) {
-            console.error(error);
-          }
+          if (!data) console.error(error);
 
           report.setStatus("CLAIMED");
           report.setClaimedBy(user?.email || "");
           await editReport(report.getID(), report);
-          // In-app notification placeholder
         }
       }
     } catch (error) {
@@ -196,7 +181,6 @@ const ReportDetailPage: React.FC = () => {
     }
   };
 
-  // RESTRICTION 3: Only author can archive/resolve the report
   const handleResolve = async () => {
     if (!report || !isAuthor) {
       setStatusError("Only the report author can close this report.");
@@ -213,8 +197,6 @@ const ReportDetailPage: React.FC = () => {
     try {
       report.setStatus("RESOLVED");
       await editReport(report.getID(), report);
-      
-      // Refresh the report to show updated status
       const refreshed = await getReport(report.getID());
       if (refreshed) setReport(refreshed);
     } catch (error) {
@@ -223,7 +205,6 @@ const ReportDetailPage: React.FC = () => {
     }
   };
 
-  // RESTRICTION 4: Only author can reopen a resolved report
   const handleReopen = async () => {
     if (!report || !isAuthor) {
       setStatusError("Only the report author can reopen this report.");
@@ -239,9 +220,7 @@ const ReportDetailPage: React.FC = () => {
 
     try {
       const success = await reOpenReport(report.getID(), userEmail);
-      
       if (success) {
-        // Refresh the report to show updated status
         const refreshed = await getReport(report.getID());
         if (refreshed) setReport(refreshed);
       } else {
@@ -279,28 +258,16 @@ const ReportDetailPage: React.FC = () => {
   const handleAddEditTag = () => {
     const trimmed = editTagInput.trim();
     if (!trimmed) return;
-    if (trimmed.length > 12) {
-      setEditError("Tag must be 12 characters or less");
-      return;
-    }
-    if (editTags.includes(trimmed)) {
-      setEditError("Tag already exists");
-      return;
-    }
-    if (editTags.length >= 10) {
-      setEditError("Maximum of 10 tags reached");
-      return;
-    }
+    if (trimmed.length > 12) { setEditError("Tag must be 12 characters or less"); return; }
+    if (editTags.includes(trimmed)) { setEditError("Tag already exists"); return; }
+    if (editTags.length >= 10) { setEditError("Maximum of 10 tags reached"); return; }
     setEditTags((prev) => [...prev, trimmed]);
     setEditTagInput("");
     setEditError(null);
   };
 
   const handleEditTagKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleAddEditTag();
-    }
+    if (e.key === "Enter") { e.preventDefault(); handleAddEditTag(); }
   };
 
   const removeEditTag = (tag: string) => {
@@ -318,7 +285,6 @@ const ReportDetailPage: React.FC = () => {
     setEditError(null);
 
     try {
-      // Re-verify authorship against current session before writing.
       const { data: { user } } = await supabase.auth.getUser();
       if (!user?.email || user.email !== report.getCreatedBy()) {
         setEditError("Only the report's author can edit it.");
@@ -334,7 +300,6 @@ const ReportDetailPage: React.FC = () => {
           .from("ReportImages")
           .upload(fileName, editImageFile);
         if (uploadError) {
-          console.error("Upload Error:", uploadError);
           setEditError("Could not upload the new image. Try again.");
           setEditSaving(false);
           return;
@@ -350,13 +315,9 @@ const ReportDetailPage: React.FC = () => {
       report.setDateFound(new Date(editDate));
       report.setLocation(editLocation.trim());
       report.setCategory(editCategory);
-      
-      for (const t of report.getTags().slice()) {
-        report.removeTag(t);
-      }
-      for (const t of editTags) {
-        report.addTag(t);
-      }
+
+      for (const t of report.getTags().slice()) report.removeTag(t);
+      for (const t of editTags) report.addTag(t);
       report.setImage(nextImageUrl ?? "");
 
       const replacement = Report.fromSupabase(
@@ -404,16 +365,11 @@ const ReportDetailPage: React.FC = () => {
     }
   };
 
-  if (!report) {
-    return <div className="detailsPage">Loading...</div>;
-  }
+  if (!report) return <div className="detailsPage">Loading...</div>;
 
   const statusColor =
-    report.getRawStatus() === "ACTIVE"
-      ? "#ef4444"
-      : report.getRawStatus() === "CLAIMED"
-      ? "#3b82f6"
-      : "#10b981";
+    report.getRawStatus() === "ACTIVE" ? "#ef4444" :
+    report.getRawStatus() === "CLAIMED" ? "#3b82f6" : "#10b981";
 
   const canClaim = !isAuthor && report.getRawStatus() !== "CLAIMED";
   const canUnclaim = isClaimer && report.getRawStatus() === "CLAIMED";
@@ -422,7 +378,6 @@ const ReportDetailPage: React.FC = () => {
 
   return (
     <div className="detailsPage">
-      {/* Green Hero */}
       <div className="detailsHero">
         <div className="detailsHeroBg">
           <button className="detailsBackBtn" onClick={() => navigate(-1)}>
@@ -434,22 +389,16 @@ const ReportDetailPage: React.FC = () => {
         </div>
         <div className="detailsImageFrame">
           {report.getImageURL() ? (
-            <img
-              src={report.getImageURL()}
-              alt={report.getTitle()}
-              className="detailsImage"
-            />
+            <img src={report.getImageURL()} alt={report.getTitle()} className="detailsImage" />
           ) : (
             <div className="detailsPlaceholder">No Image</div>
           )}
         </div>
       </div>
 
-      {/* Content */}
       <div className="detailsContent">
         <h1 className="detailsTitle">{report.getTitle()}</h1>
 
-        {/* Status Error Message */}
         {statusError && (
           <div className="statusErrorBanner" role="alert">
             <span>⚠️</span>
@@ -457,110 +406,90 @@ const ReportDetailPage: React.FC = () => {
           </div>
         )}
 
-        {/* Info Row */}
         <div className="detailsInfoRow">
           <div className="infoItem">
             <span className="infoLabel category">☆ CATEGORY</span>
             <span className="infoValue">{report.getCategory()}</span>
           </div>
           <div className="infoItem">
-            <span className="infoLabel location"><img src={locationIcon} alt="loc" className="infoIcon"/> LOCATION</span>
+            <span className="infoLabel location">
+              <img src={locationIcon} alt="loc" className="infoIcon" /> LOCATION
+            </span>
             <span className="infoValue">{report.getLocation()}</span>
           </div>
           <div className="infoItem">
-            <span className="infoLabel date"><img src={calendarIcon} alt="date" className="infoIcon"/> DATE</span>
-            <span className="infoValue">
-              {report.getDateFound().toLocaleDateString()}
+            <span className="infoLabel date">
+              <img src={calendarIcon} alt="date" className="infoIcon" /> DATE
             </span>
+            <span className="infoValue">{report.getDateFound().toLocaleDateString()}</span>
           </div>
         </div>
 
-        {/* Tags */}
         <div className="tagsSection">
-          <h3><img src={tagIcon} alt="tags" style={{width:18,height:18,marginRight:8}}/> Tags</h3>
+          <h3><img src={tagIcon} alt="tags" style={{ width: 18, height: 18, marginRight: 8 }} /> Tags</h3>
           <div className="tagsContainer">
             {report.getTags().map((tag, index) => (
-              <span key={index} className="tagPill">
-                {tag}
-              </span>
+              <span key={index} className="tagPill">{tag}</span>
             ))}
           </div>
         </div>
 
-        {/* Description */}
         <div className="descriptionSection">
           <h3>Description</h3>
           <div className="descriptionBox">{report.getDescription()}</div>
         </div>
 
-        {/* Primary Action Buttons */}
+        {/* Primary Actions */}
         <div className="detailsActions">
           {report.getRawStatus() !== "RESOLVED" && (
             <button
               className="claimBtn"
-              disabled={isAuthor || (!canClaim && !isClaimer)}
-              onClick={handleOpenClaim}
-              title={isAuthor ? "You cannot claim your own report" : ""}
+              disabled={isGuest ? false : isAuthor || (!canClaim && !isClaimer)}
+              onClick={isGuest ? () => navigate("/login") : handleOpenClaim}
+              title={
+                isGuest ? "Log in to claim items" :
+                isAuthor ? "You cannot claim your own report" : ""
+              }
             >
-              {isClaimer ? "View Code" : canClaim ? "Claim Item" : (report.getStatus() === "Claimed" ? "Claimed" : "Can't Claim")}
+              {isGuest
+                ? "Log in to Claim"
+                : isClaimer
+                ? "View Code"
+                : canClaim
+                ? "Claim Item"
+                : report.getStatus() === "Claimed"
+                ? "Claimed"
+                : "Can't Claim"}
             </button>
           )}
-          <button className="contactBtn">
-            Contact
-          </button>
+          <button className="contactBtn">Contact</button>
         </div>
-        {/* Secondary Action Buttons */}
-        <div className="detailsActionsSecondary">
-          {canUnclaim && (
-            <button
-              className="unclaimBtn"
-              onClick={handleUnClaim}
-            >
-              Unclaim
-            </button>
-          )}
-          {isAuthor && (
-            <>
-              <button
-                className="editBtn"
-                onClick={handleOpenEdit}
-                type="button"
-              >
-                ✎ Edit
-              </button>
-              
-              <button
-                className="deleteReportBtn"
-                onClick={() => {
-                  setDeleteMessage("");
-                  setShowDeleteModal(true);
-                }}
-                type="button"
-              >
-                Delete Report
-              </button>
-              
-              {canResolve && (
-                <button
-                  className="resolveBtn"
-                  onClick={handleResolve}
-                  type="button"
-                >
-                  ✓ Mark as Resolved
+
+        {/* Secondary Actions — hidden from guests */}
+        {!isGuest && (
+          <div className="detailsActionsSecondary">
+            {canUnclaim && (
+              <button className="unclaimBtn" onClick={handleUnClaim}>Unclaim</button>
+            )}
+            {isAuthor && (
+              <>
+                <button className="editBtn" onClick={handleOpenEdit} type="button">
+                  ✎ Edit
                 </button>
-              )}
-              {canReopen && (
-                <button
-                  className="reopenBtn"
-                  onClick={handleReopen}
-                  type="button"
-                >
-                  ↻ Reopen Report
-                </button>
-              )}
-            </>
-          )}
-        </div>
+                {canResolve && (
+                  <button className="resolveBtn" onClick={handleResolve} type="button">
+                    ✓ Mark as Resolved
+                  </button>
+                )}
+                {canReopen && (
+                  <button className="reopenBtn" onClick={handleReopen} type="button">
+                    ↻ Reopen Report
+                  </button>
+                )}
+              </>
+            )}
+          </div>
+        )}
       </div>
 
       {/* CLAIM MODAL */}
@@ -573,7 +502,9 @@ const ReportDetailPage: React.FC = () => {
 
             {claimStep === "confirm" ? (
               <>
-                <div className="claimModalIcon"><img src={lockIcon} alt="lock" style={{width:48,height:48}}/></div>
+                <div className="claimModalIcon">
+                  <img src={lockIcon} alt="lock" style={{ width: 48, height: 48 }} />
+                </div>
                 <h2 className="claimModalTitle">Claim This Item?</h2>
                 <p className="claimModalSubtitle">
                   You're about to claim <strong>{report.getTitle()}</strong>.
@@ -581,18 +512,16 @@ const ReportDetailPage: React.FC = () => {
                 </p>
                 <div className="claimModalInfoCard">
                   <div className="claimInfoRow">
-                    <img src={pinIcon} alt="pin" style={{width:16,height:16}}/>
+                    <img src={pinIcon} alt="pin" style={{ width: 16, height: 16 }} />
                     <span>{report.getLocation()}</span>
                   </div>
                   <div className="claimInfoRow">
-                    <img src={calendarIcon} alt="date" style={{width:16,height:16}}/>
+                    <img src={calendarIcon} alt="date" style={{ width: 16, height: 16 }} />
                     <span>{report.getDateFound().toLocaleDateString()}</span>
                   </div>
                 </div>
                 <div className="claimModalActions">
-                  <button className="claimModalCancel" onClick={handleCloseModal}>
-                    Cancel
-                  </button>
+                  <button className="claimModalCancel" onClick={handleCloseModal}>Cancel</button>
                   <button
                     className="claimModalConfirm"
                     onClick={handleClaim}
@@ -604,22 +533,19 @@ const ReportDetailPage: React.FC = () => {
               </>
             ) : (
               <>
-                <div className="claimSuccessIcon"><img src={checkIcon} alt="ok" style={{width:48,height:48}}/></div>
+                <div className="claimSuccessIcon">
+                  <img src={checkIcon} alt="ok" style={{ width: 48, height: 48 }} />
+                </div>
                 <h2 className="claimModalTitle">Item Claimed!</h2>
                 <p className="claimModalSubtitle">
-                  Show this code at the Lost &amp; Found office to pick up your
-                  item. Keep it safe!
+                  Show this code at the Lost &amp; Found office to pick up your item.
                 </p>
                 <div className="claimCodeCard">
                   <span className="claimCodeLabel">Recovery Code</span>
                   <div className="claimCodeValue">
-                    {String(claimCode)
-                      .split("")
-                      .map((digit, i) => (
-                        <span key={i} className="claimCodeDigit">
-                          {digit}
-                        </span>
-                      ))}
+                    {String(claimCode).split("").map((digit, i) => (
+                      <span key={i} className="claimCodeDigit">{digit}</span>
+                    ))}
                   </div>
                   <button
                     className={`claimCopyBtn ${codeCopied ? "copied" : ""}`}
@@ -629,15 +555,13 @@ const ReportDetailPage: React.FC = () => {
                   </button>
                 </div>
                 <div className="claimNote">
-                  <img src={pinIcon} alt="note" style={{width:16,height:16}} />
+                  <img src={pinIcon} alt="note" style={{ width: 16, height: 16 }} />
                   <span>
                     Present this code at the library Lost &amp; Found desk.
                     Screenshot or copy it before closing.
                   </span>
                 </div>
-                <button className="claimModalDone" onClick={handleCloseModal}>
-                  Done
-                </button>
+                <button className="claimModalDone" onClick={handleCloseModal}>Done</button>
               </>
             )}
           </div>
@@ -648,27 +572,14 @@ const ReportDetailPage: React.FC = () => {
       {showEditModal && (
         <div className="editOverlay" onClick={handleCloseEdit}>
           <div className="editModal" onClick={(e) => e.stopPropagation()}>
-            <button
-              className="claimModalClose"
-              onClick={handleCloseEdit}
-              disabled={editSaving}
-            >
-              ✕
-            </button>
-
+            <button className="claimModalClose" onClick={handleCloseEdit} disabled={editSaving}>✕</button>
             <h2 className="claimModalTitle">Edit Report</h2>
-            <p className="claimModalSubtitle">
-              Update the fields below. Only you can edit this report.
-            </p>
+            <p className="claimModalSubtitle">Update the fields below. Only you can edit this report.</p>
 
             <div className="editFormGrid">
               <label className="editField">
                 <span>Title</span>
-                <input
-                  value={editTitle}
-                  onChange={(e) => setEditTitle(e.target.value)}
-                  disabled={editSaving}
-                />
+                <input value={editTitle} onChange={(e) => setEditTitle(e.target.value)} disabled={editSaving} />
               </label>
 
               <label className="editField">
@@ -690,31 +601,17 @@ const ReportDetailPage: React.FC = () => {
 
               <label className="editField">
                 <span>Date</span>
-                <input
-                  type="date"
-                  value={editDate}
-                  onChange={(e) => setEditDate(e.target.value)}
-                  disabled={editSaving}
-                />
+                <input type="date" value={editDate} onChange={(e) => setEditDate(e.target.value)} disabled={editSaving} />
               </label>
 
               <label className="editField">
                 <span>Location</span>
-                <input
-                  value={editLocation}
-                  onChange={(e) => setEditLocation(e.target.value)}
-                  disabled={editSaving}
-                />
+                <input value={editLocation} onChange={(e) => setEditLocation(e.target.value)} disabled={editSaving} />
               </label>
 
               <label className="editField">
                 <span>Description</span>
-                <textarea
-                  rows={3}
-                  value={editDescription}
-                  onChange={(e) => setEditDescription(e.target.value)}
-                  disabled={editSaving}
-                />
+                <textarea rows={3} value={editDescription} onChange={(e) => setEditDescription(e.target.value)} disabled={editSaving} />
               </label>
 
               <label className="editField">
@@ -744,12 +641,7 @@ const ReportDetailPage: React.FC = () => {
                     onKeyDown={handleEditTagKey}
                     disabled={editSaving}
                   />
-                  <button
-                    type="button"
-                    className="editMiniBtn"
-                    onClick={handleAddEditTag}
-                    disabled={editSaving}
-                  >
+                  <button type="button" className="editMiniBtn" onClick={handleAddEditTag} disabled={editSaving}>
                     Add
                   </button>
                 </div>
@@ -757,39 +649,21 @@ const ReportDetailPage: React.FC = () => {
                   {editTags.map((tag) => (
                     <span className="editChip" key={tag}>
                       #{tag}
-                      <button
-                        type="button"
-                        className="editChipClose"
-                        onClick={() => removeEditTag(tag)}
-                        aria-label={`Remove ${tag}`}
-                        disabled={editSaving}
-                      >
-                        ×
-                      </button>
+                      <button type="button" className="editChipClose" onClick={() => removeEditTag(tag)} disabled={editSaving}>×</button>
                     </span>
                   ))}
-                  {!editTags.length && (
-                    <span className="editMuted">No tags yet</span>
-                  )}
+                  {!editTags.length && <span className="editMuted">No tags yet</span>}
                 </div>
               </label>
 
               <label className="editField">
                 <span>Image</span>
                 <ImageUploadInput
-                  onValidFile={(file) => {
-                    setEditImageFile(file);
-                    setEditClearImage(false);
-                  }}
-                  onClear={() => {
-                    setEditImageFile(undefined);
-                    setEditClearImage(true);
-                  }}
+                  onValidFile={(file) => { setEditImageFile(file); setEditClearImage(false); }}
+                  onClear={() => { setEditImageFile(undefined); setEditClearImage(true); }}
                 />
                 {!editImageFile && !editClearImage && report.getImageURL() && (
-                  <span className="editMuted">
-                    Current image will be kept unless you upload a new one.
-                  </span>
+                  <span className="editMuted">Current image will be kept unless you upload a new one.</span>
                 )}
               </label>
             </div>
@@ -802,18 +676,8 @@ const ReportDetailPage: React.FC = () => {
             )}
 
             <div className="claimModalActions">
-              <button
-                className="claimModalCancel"
-                onClick={handleCloseEdit}
-                disabled={editSaving}
-              >
-                Cancel
-              </button>
-              <button
-                className="claimModalConfirm"
-                onClick={handleSaveEdit}
-                disabled={editSaving}
-              >
+              <button className="claimModalCancel" onClick={handleCloseEdit} disabled={editSaving}>Cancel</button>
+              <button className="claimModalConfirm" onClick={handleSaveEdit} disabled={editSaving}>
                 {editSaving ? "Saving..." : "Save Changes"}
               </button>
             </div>
