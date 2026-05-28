@@ -3328,6 +3328,113 @@ This aligns with domain-driven design and requirements engineering theory, where
 A clear boundary for the Lost & Found system distinguishes internal domain elements from external environmental dependencies. This distinction helps the team keep requirements focused, avoid scope creep, and preserve a consistent domain model. Explicitly identifying the environment supports better analysis, design, and project discipline.
 
 ---
+
+==== Assumptions Analysis for the Lost & Found System
+:author: Angel A. Villegas Colon
+:date: May 2026
+
+===== Purpose
+
+This subsection identifies core assumptions in the Lost & Found domain and explains how documenting them improves clarity, consistency, and robustness in the system model.
+
+===== Core Domain Assumptions
+
+The Lost & Found system relies on several implicit assumptions that affect design and behavior.
+
+1. User honesty
+- The system assumes that users submit truthful descriptions and claim information.
+2. Item recoverability
+- The system assumes that lost items are recoverable in the real world and that reports can lead to successful reunions.
+3. Valid identity claims
+- The system assumes that claimants can provide proof or verification data that correctly ties them to the reported item.
+4. Reasonable reporting behavior
+- The system assumes users will report items in a timely manner and follow the expected reporting process.
+5. Stable environment data
+- The system assumes that locations, categories, and item metadata remain valid long enough for matching and recovery.
+
+===== Assumptions vs. Formal Rules
+
+Assumptions are beliefs about the domain that are not enforced by the system itself. Formal rules are explicit constraints or behavior the system must implement.
+
+*Example distinctions:*
+
+- Assumption: reporters are honest about item details.
+- Formal rule: the system restricts access to verification fields and requires authentication before claim submission.
+
+- Assumption: a found item can be recovered.
+- Formal rule: the system allows transitions from Active to Returned or Closed states and records status changes.
+
+- Assumption: identity claims can be validated.
+- Formal rule: the system supports private verification fields and claim review workflows.
+
+===== Environmental Assumptions vs. System-Controlled Rules
+
+*Environmental assumptions* depend on the outside world and cannot be fully controlled by the system.
+
+- People will behave honestly.
+- Lost items remain available for recovery.
+- Physical locations remain accessible.
+
+*System-controlled rules* are behaviors the system can enforce directly.
+
+- Authentication and authorization requirements.
+- Metadata validation for report submission.
+- Report lifecycle management and status transitions.
+- Access control for public versus private report data.
+
+Distinguishing these helps keep the model realistic and prevents the system from being expected to solve environmental problems.
+
+===== Risks of Unverified Assumptions
+
+If assumptions remain implicit, the system design can develop gaps or vulnerabilities.
+
+*Logical gaps*
+
+- Assuming honesty without verification can permit false claims and undermine the recovery process.
+
+*Vulnerabilities*
+
+- Assuming item recoverability may lead to workflows that do not handle lost or unclaimed reports gracefully.
+
+*Inconsistencies*
+
+- Assuming identity proof is always available can make the claim review process brittle when users lack required evidence.
+
+Explicitly identifying assumptions exposes these risks before they become embedded in requirements.
+
+===== Documenting and Validating Domain Assumptions
+
+To improve reliability, the team should explicitly document assumptions and validate them over time.
+
+*Methods to document assumptions:*
+
+- Maintain an assumptions log linked to requirements or user stories.
+- Add a subsection to the requirements documentation for domain assumptions.
+- Use tables or bullet lists to separate assumptions from formal rules.
+
+*Methods to validate assumptions:*
+
+- Review assumptions with stakeholders and subject-matter experts.
+- Test assumptions with real user interviews or pilot experiments.
+- Monitor actual system usage and update assumptions when they prove false or incomplete.
+
+===== How Assumption Documentation Improves Reliability
+
+Documenting assumptions makes the Lost & Found model more reliable by:
+
+- Clarifying what the system is expected to enforce versus what it depends on externally.
+- Preventing hidden gaps in requirements and design.
+- Creating a shared understanding among developers, stakeholders, and reviewers.
+- Enabling proactive mitigation when assumptions do not hold.
+
+When assumptions are explicit, the team can identify which domain elements need stronger rules, verification, or alternative handling.
+
+===== Summary
+
+Identifying and modeling domain assumptions strengthens the Lost & Found system by improving clarity, consistency, and robustness. The model becomes easier to validate, less prone to hidden logical gaps, and better aligned with the distinction between domain rules and environmental reality.
+
+---
+
 ==== Classification of Dynamic and Reactive Frontend Behaviors Using Domain Attributes
 :author: Natanael Batista Alvarez
 
