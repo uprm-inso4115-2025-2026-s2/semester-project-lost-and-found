@@ -3253,8 +3253,6 @@ Frontend behaviors can be interpreted as different types of domain attributes de
 
 The platform contains static structures, dynamic content interpretation, and reactive system responses triggered by user activity.
 
----
-
 ====== Static Frontend Behaviors
 
 Static behaviors represent interface structures that remain mostly fixed regardless of user interaction or application state.
@@ -3262,29 +3260,21 @@ Static behaviors represent interface structures that remain mostly fixed regardl
 Examples:
 
 * Navigation structure
-
 * Global page layout
-
 * Form organization
-
 * Static labels and instructions
-
 * ItemCard structural layout
 
 Observed frontend behaviors:
+
 * Persistent page sections remain visible across routes
-
 * Form field arrangement remains constant
-
 * ItemCard layout structure remains fixed while content changes
 
 Conceptual meaning:
 
 * Stable interface structure
-
 * Persistent domain representation
-
----
 
 ====== Dynamic Frontend Behaviors
 
@@ -3293,34 +3283,23 @@ Dynamic behaviors occur when frontend content changes depending on application s
 Examples:
 
 * Dynamic rendering of reports
-
 * Search filtering
-
 * Authentication-based rendering
-
 * Conditional action buttons
-
 * Empty state rendering
-
 * Image previews after upload
 
 Observed frontend behaviors:
 
 * Report lists re-render after filtering
-
 * Navigation changes depending on authentication state
-
 * Claim/Edit/Delete buttons appear conditionally
-
 * Empty-state messages appear when no results exist
 
 Conceptual meaning:
 
 * State-dependent interface interpretation
-
 * Dynamic content behavior
-
----
 
 ====== Reactive Frontend Behaviors
 
@@ -3329,62 +3308,42 @@ Reactive behaviors occur when the interface immediately responds to user actions
 Examples:
 
 * Validation error messages
-
 * Loading indicators
-
 * Duplicate report warnings
-
 * Claim confirmation modals
-
 * Success and error notifications
-
 * Active tab state changes
 
 Observed frontend behaviors:
 
 * Invalid form fields display inline errors
-
 * Loading states disable actions and display progress indicators
-
 * DuplicateWarningModal appears after duplicate detection
-
 * Tab selection instantly updates visual state
 
 Conceptual meaning:
 
 * Reactive system feedback
-
 * Immediate frontend response behavior
-
----
 
 ====== Ambiguity Scenarios
 
 1. Multiple Rapid Actions
-
 * Repeated clicks may trigger duplicate operations or inconsistent state updates
 
-
 2. Loading State Conflicts
-
 * Multiple asynchronous requests may update the interface out of order
 
-
 3. Duplicate Detection Timing
-
 * Duplicate warnings may appear after report submission, creating uncertain workflow interpretation
 
-
 4. Missing Feedback
-
 * Delayed system responses may cause repeated user actions
 
 
 5. Conditional Rendering Conflicts
 
 * Interface actions may appear available even when authentication state becomes invalid
-
----
 
 ====== Component Classification
 
@@ -3423,8 +3382,6 @@ Conceptual meaning:
 |Reactive feedback behavior
 |===
 
----
-
 ====== Domain Insight
 
 The Lost & Found platform demonstrates that frontend interfaces contain multiple domain attribute types simultaneously.
@@ -3432,30 +3389,24 @@ The Lost & Found platform demonstrates that frontend interfaces contain multiple
 The system combines:
 
 * static interface structures,
-
 * dynamic state-dependent rendering,
-
 * and reactive frontend responses.
 
 These behaviors emerge from the relationship between:
 
 * user interaction,
-
 * application state,
-
 * and frontend interpretation of system events.
 
 The platform therefore models Domain Attributes through:
 
 * conditional rendering,
-
 * validation systems,
-
 * filtering behaviors,
-
 * and reactive UI feedback mechanisms.
 
 ---
+
 ==== Stakeholder Identification and Domain Acquisition Planning Report
 :author: Keishlyany Sanabria (@keisanabria)
 :toc: macro
