@@ -99,34 +99,36 @@ To strengthen evidence for future milestones:
 ==== Requirements Acquisition for Account Creation System
 :author: Sebastian Suarez
 
-
 ===== Overview
 
 This section focuses on gathering requirements for the Account Creation System by soliciting input from likely users and other relevant parties. The objective is to guide the development of a secure, intuitive, and privacy-respecting registration process for the Lost & Found application.
 
 This document distinguishes between:
+
 * *Acquisition* (the process of collecting questions and responses)
 * *Elicitation* (the analysis and interpretation of those responses)
 
 ===== Requirements Acquisition (Questionnaire)
 
+[.discrete]
 ====== Purpose
 
 The questionnaire is designed to collect insights regarding:
+
 - the types of information users anticipate providing during registration
 - preferred authentication options (such as email, SSO, etc.)
 - privacy and security worries users may have
 - challenges or frustrations encountered when creating accounts
 - features or changes that would make the process smoother or inspire more confidence
 
-======= Method (Acquisition)
+*Method (Acquisition)*
 
 - Data collection: Google Form (preferred) or one-on-one interviews.
 - Intended participants: students, staff, and faculty who are potential users.
 - Survey period: May/20/2026 - May/24/2026
 - Number of responses: N = 19
 
-======= Questionnaire
+*Questionnaire*
 
 [cols="1,4",options="header"]
 |===
@@ -145,6 +147,7 @@ The questionnaire is designed to collect insights regarding:
 
 ===== Elicitation Summary (Preliminary Findings)
 
+[.discrete]
 ====== Method (Elicitation)
 
 * Respondents: N = 19
@@ -154,6 +157,7 @@ The questionnaire is designed to collect insights regarding:
 ** Small sample size
 ** Limited faculty representation
 
+[.discrete]
 ====== Findings (Evidence)
 
 * F1: All respondents expect to provide at least name and email; 6/10 expect to provide student ID.
@@ -166,6 +170,7 @@ The questionnaire is designed to collect insights regarding:
 * F8: 9/10 rate quick account creation as important (4 or 5 out of 5).
 * F9: Preferred account recovery: email reset (most common), then admin help.
 
+[.discrete]
 ====== What These Findings Support (Concrete Claims)
 
 * C1: Simplicity and clarity are critical for user adoption; complex or unclear forms lead to abandonment.
@@ -173,13 +178,13 @@ The questionnaire is designed to collect insights regarding:
 * C3: University branding and clear privacy policy increase trust in the process.
 * C4: Most users are comfortable using their university email, but sensitive data requests should be minimized.
 
+[.discrete]
 ====== Follow-up Plan (Stronger Evidence)
 
 * Expand the survey to 30+ users, including more faculty and staff.
 * Test alternative authentication flows (SSO, phone verification) for usability.
 * Gather feedback on draft privacy policy and terms of service.
 * Compare with best practices from other campus platforms.
-
 
 ==== Conclusion
 This requirements acquisition process has provided valuable insights into user expectations and concerns regarding account creation for the Lost & Found platform. The findings will inform the design of a secure, user-friendly, and trustworthy account creation system that meets the needs of our campus community. Future efforts will focus on expanding the evidence base and iterating on the design based on user feedback.
