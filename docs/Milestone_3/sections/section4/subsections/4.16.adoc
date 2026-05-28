@@ -1,1 +1,227 @@
 === *Modeling System Agents and Responsibilities*
+
+---
+==== Modeling system agents for Lost and Found
+:author: Naedra Feliciano
+===== 1. Identifying Relevant System Agents:
+Human Agents: 
+
+- Students and Faculty (UPRM): Report lost/ found items
+- Admins: review repots and manage them in case of misuse or abuse
+
+System (Software) Agents:
+
+- Notification Agent: Sends alerts and messages
+- Manage Reports (Lost or Found) Agent 
+- Authentication agent: Handles login and signup
+
+(There's more, but for now, let's just focus on these ones)
+
+
+===== 2. Classify each identified agent (environmental or Software):
+
+- Human agents are *environmental agents*:
+- System agents are *Software-to-be agents*
+
+===== 3. Characterizing System Agents:
+(capabilities(monitor, control), Responsibilities, operation performers,
+ wishes and beliefs, dependencies)
+
+[cols="1,1, 10, 8, 8, 8,1", options="header", valign="top"]
+|===
+|Agent |Category |Capabilities |Responsibilities |Operation Performers |Wishes and Beliefs |Dependencies
+
+|Students and Faculty
+|Environmental
+a|
+*Monitor*
+
+- View item listings and notifications
+- View item details (location, images, description)
+- View status of submitted reports
+- Receive notifications
+
+*Control*
+
+- Create and edit reports
+- Send messages
+- Filter reports
+- Claim/Verify ownership
+- Upload images
+a|
+- Report lost or found items
+- Cooperate during ownership verification
+- Help maintain trustworthy reports
+a|
+- Submit report efficiently (5-10 min)
+- Respond to verification promptly
+- Submit reports with minimal effort
+a|
+*Wishes*
+
+- Efficient and safe recovery process
+- Trustworthy platform
+- Accurate match suggestions
+
+*Beliefs*
+
+- Other users are honest and trustworthy
+|Authentication and Notification
+
+|Admins
+|Environmental
+a|
+*Monitor*
+
+- View reports
+- Monitor user activity
+- Review flagged/suspicious behavior
+
+*Control*
+
+- Delete reports or remove fake/abusive posts
+- Suspend or ban users
+- Edit/correct reported content
+a|
+- Maintain system integrity
+- Prevent or manage misuse
+- Enforce rules
+- Ensure safety and quality of reports
+a|
+- Accurate decision making
+- Fast response to abuse reports
+a|
+*Wishes*
+
+- Safe and secure platform
+- Minimal abuse/fake reports
+- Accessible, easy-to-use system
+
+*Beliefs*
+
+- Some users may misuse the platform
+- Some users may be unethical
+|Authentication, Manage Reports, Notifications
+
+|Notification
+|Software
+a|
+*Monitor*
+
+- Detect possible matches
+- Detect new messages
+- Report updates (e.g., expiration)
+
+*Control*
+
+- Notify users about matches
+- Send emails
+- Push notifications/app alerts
+a|
+- Inform users about relevant events
+a|
+- Fast delivery of notifications
+a|
+*Wishes*
+
+- Keep users engaged and informed
+
+*Beliefs*
+
+- Timely alerts improve recovery success
+|Matching, Authentication, Report Management, Messaging
+
+|Manage Reports (Lost/Found)
+|Software
+a|
+*Monitor*
+
+- New report submissions
+- Report status changes
+- Report updates
+
+*Control*
+
+- Create, update/edit, delete reports
+- Validate report structure
+- Organize/filter reports (category, location, dates, tags)
+a|
+- Ensure consistency and validity of reports
+a|
+- Efficient storage (Supabase)
+- Scalable handling of many reports
+- Fast report creation/retrieval
+a|
+*Wishes*
+
+- Organized, easy-to-use report system
+- Minimal duplicates/fake reports/spam
+- Accessible system
+
+*Beliefs*
+
+- Users may submit incomplete/inaccurate data
+- Users may be unethical when claiming reports
+- Users may not know how to report lost/found items
+|Authentication, Notification
+
+|Authentication
+|Software
+a|
+*Monitor*
+
+- Login attempts
+- Signup requests
+- Failed authentication attempts
+
+*Control*
+
+- Authenticate users
+- Logout users
+- Enforce access permissions
+a|
+- Verify user identity
+- Ensure secure access
+- Prevent unauthorized access
+a|
+- Fast login verification
+- Secure authentication
+a|
+*Wishes*
+
+- Secure system access
+
+*Beliefs*
+
+- Some login attempts may be malicious
+- Some users may forget credentials
+|Database, Notifications
+|===
+
+==== 3. Diagrams:
+
+Represent at least 1 relationship between agents using a simple diagram
+
+image::AgentSimpleRelationShip.drawio.png[Agent Simple Relationship, align=center, pdfwidth=80%]
+_Figure 4.16.1. - 1. Agent Simple Relationship Diagram._
+
+Agent operation performers Diagram for Students and Faculty
+
+image::OperationPerformers.png[Operation Performers for Students and Faculty, align=center, pdfwidth=80%]
+_Figure 4.16.2. - 2. Operation Performers for Students and Faculty Agents._
+
+Agent Dependencies for Students and Faculty with Manage Reports (Simple diagram)
+
+image::AgentDependency.png[Dependencies along agents, align=center, pdfwidth=80%]
+_Figure 4.16.3. - 3. Dependencies for Students and Faculty with Manage Report._
+
+Agent Capabilities Diagram (Monitor and Control)
+
+image::SimpleAgentCapabilities.png[ Agent Capabilities Diagram, align=center, pdfwidth=80%]
+_Figure 4.16.4. - 3. Students and Faculty Capabilities Diagram._
+
+References:
+Van Lamsweerde, Chapter 11: "Modeling System Agents and
+Responsibilities", (2019)
+
+---
