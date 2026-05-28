@@ -3685,6 +3685,7 @@ Following Slide 37 ("review acquisition process"), the current state of stakehol
 |===
 
 ---
+
 ==== [Lecture Topic Task] Email Domain Verification as a Domain Process
 :author: Sebastian Suarez
 
