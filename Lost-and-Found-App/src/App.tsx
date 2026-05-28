@@ -11,6 +11,7 @@ import ReportCreatePage from "./pages/ReportCreatePage";
 import ProfilePage from "./pages/ProfilePage";
 import UserHistoryPage from "./pages/UserHistoryPage";
 import ReportDetailPage from "./pages/ReportDetailsPage";
+import TagGraphPage from "./pages/TagGraphPage";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
             />
           </RequireAuth>
         } />
+        <Route path="/tag-graph" element={<RequireAuth><TagGraphPage /></RequireAuth>} />
       </Routes>
     </AuthProvider>
   );
