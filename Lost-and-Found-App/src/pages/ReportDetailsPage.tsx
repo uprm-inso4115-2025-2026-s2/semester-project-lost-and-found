@@ -405,8 +405,8 @@ const ReportDetailPage: React.FC = () => {
   };
 
   if (!report) {
-    return <div className="detailsPage">Loading...</div>;
-  }
+  return <div className="detailsPage">Loading... (reportId: {reportId})</div>;
+}
 
   const statusColor =
     report.getRawStatus() === "ACTIVE"
@@ -495,20 +495,22 @@ const ReportDetailPage: React.FC = () => {
 
         {/* Primary Action Buttons */}
         <div className="detailsActions">
-          {report.getRawStatus() !== "RESOLVED" && (
+          {report.getRawStatus() !== "RESOLVED" && !isAuthor && (
             <button
               className="claimBtn"
-              disabled={isAuthor || (!canClaim && !isClaimer)}
+              disabled={!canClaim && !isClaimer}
               onClick={handleOpenClaim}
-              title={isAuthor ? "You cannot claim your own report" : ""}
             >
-              {isClaimer ? "View Code" : canClaim ? "Claim Item" : (report.getStatus() === "Claimed" ? "Claimed" : "Can't Claim")}
+              {isClaimer ? "View Code" : canClaim ? "Claim Item" : "Claimed"}
             </button>
           )}
-          <button className="contactBtn">
-            Contact
-          </button>
+          {!isAuthor && (
+            <button className="contactBtn">
+              Contact
+            </button>
+          )}
         </div>
+
         {/* Secondary Action Buttons */}
         <div className="detailsActionsSecondary">
           {canUnclaim && (
