@@ -1,17 +1,17 @@
-create or replace function getTagGraph(maxTags int default 10) --create or replace function to get the tag graph data for the top tags
+create or replace function get_tag_graph(max_tags int default 10)
 returns table (
-    tagName text, --stores tag name as text
-    count int --stores how many tags appear
+    "tagName" text,
+    count int
 )
 language sql
 stable
 as $$
-    select trim(tag) as "tagName", count(*) as count --select the tag name and count of how many times it appears
-    from reports, unnest(tags) as tag --unnest the tags array to get individual tags
-    where tag is not null and trim(tag) <> '' and lower(trim(tag)) <> 'none' --filter out null and empty tags
-    group by trim(tag) --group by the trimmed tag name
-    order by count desc, trim(tag) asc --order by count in descending order and then by tag name in ascending order
-    limit maxTags; --limit the results to the specified number of top tags
+    select trim(tag) as "tagName", count(*)::int as count
+    from reports, unnest(tags) as tag
+    where tag is not null and trim(tag) <> '' and lower(trim(tag)) <> 'none'
+    group by trim(tag)
+    order by count desc, trim(tag) asc
+    limit max_tags;
 $$;
 
 -- Inlude in tagGraphService.ts
