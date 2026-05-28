@@ -196,10 +196,6 @@ Reports should not be analyzed alone, but with their context.
 
 ---
 
-
-
-
-
 ==== User Interaction Flow #562
 :author: Natanael Batista Alvarez
 
@@ -208,11 +204,7 @@ Identify and interpret frontend interaction patterns in the Lost & Found platfor
 
 ===== Proposed Solution
 
-Frontend interactions are not only user actions. They also represent conceptual system behaviors formed through the relationship between user input, interface state, and frontend response.
-
-The platform contains multiple interaction concepts that emerge from reactive UI behavior.
-
----
+Frontend interactions are not only user actions. They also represent conceptual system behaviors formed through the relationship between user input, interface state, and frontend response. The platform contains multiple interaction concepts that emerge from reactive UI behavior.
 
 ====== Authentication and Verification Concept
 
@@ -221,29 +213,22 @@ The authentication flow represents a verification interaction between the user a
 Examples:
 
 * User submits login form
-
 * System validates credentials
-
 * Frontend displays authentication error
-
 * Successful login redirects user to protected pages
 
 Observed frontend behaviors:
 
 * Error message rendering
-
 * Route protection using RequireAuth
-
 * Redirect after authentication
 
 Conceptual meaning:
 
-* Verification behavior
-
+* Verification behavio
 * Access-control interaction
 
----
-
+[.discrete]
 ====== Dynamic Filtering Concept
 
 The homepage interaction model represents a filtering and state-transition concept.
@@ -251,27 +236,21 @@ The homepage interaction model represents a filtering and state-transition conce
 Examples:
 
 * User switches between Active, Claimed, and Closed tabs
-
 * User filters reports by category
-
 * User searches reports by tags
 
 Observed frontend behaviors:
 
 * Dynamic re-rendering of ItemCards
-
 * Active tab visual state
-
 * Real-time filtering updates
 
 Conceptual meaning:
 
 * Dynamic content interpretation
-
 * State transition behavior
 
----
-
+[.discrete]
 ====== Reactive Validation Concept
 
 The report creation flow represents reactive validation behavior.
@@ -279,31 +258,23 @@ The report creation flow represents reactive validation behavior.
 Examples:
 
 * Required field validation
-
 * Duplicate tag warnings
-
 * Invalid image type detection
-
 * Duplicate report detection modal
 
 Observed frontend behaviors:
 
 * Validation error rendering
-
 * Warning popups
-
 * Submission blocking
-
 * DuplicateWarningModal activation
 
 Conceptual meaning:
 
 * Reactive feedback system
-
 * Preventive verification behavior
 
----
-
+[.discrete]
 ====== Claim Negotiation Concept
 
 The claim interaction flow represents a negotiation and confirmation behavior between stakeholders.
@@ -311,31 +282,23 @@ The claim interaction flow represents a negotiation and confirmation behavior be
 Examples:
 
 * User opens claim modal
-
 * System requests confirmation
-
 * Recovery code is generated
-
 * Claim enters loading state
 
 Observed frontend behaviors:
 
 * Modal overlays
-
 * Claim loading indicators
-
 * Conditional action rendering
-
 * Claim confirmation workflow
 
 Conceptual meaning:
 
 * Verification workflow
-
 * Human-driven confirmation process
 
----
-
+[.discrete]
 ====== Dynamic Content Rendering Concept
 
 Frontend content changes depending on available system data and interface conditions.
@@ -343,65 +306,46 @@ Frontend content changes depending on available system data and interface condit
 Examples:
 
 * Empty report lists
-
 * Loading report state
-
 * Missing image placeholders
-
 * Conditional button rendering
 
 Observed frontend behaviors:
 
 * "Loading reports..." message
-
 * "No reports found" state
-
 * Placeholder image rendering
-
 * Conditional action availability
 
 Conceptual meaning:
 
 * Conditional interface interpretation
-
 * Dynamic reactive rendering
 
----
-
+[.discrete]
 ====== Ambiguity Scenarios
 
 1. Duplicate Interpretation
 
 * Similar reports may represent the same item
-
 * System must interpret possible matches
-
----
 
 2. Incomplete Input
 
 * User submits insufficient information
-
 * Frontend cannot complete validation
-
----
 
 3. Concurrent Interaction
 
 * Multiple rapid actions occur during loading states
-
 * Interface state may become inconsistent
-
----
 
 4. Missing Feedback
 
 * User action produces unclear or delayed response
-
 * Interaction meaning becomes ambiguous
 
----
-
+[.discrete]
 ====== Domain Insight
 
 The Lost & Found platform demonstrates that frontend interactions can be interpreted as conceptual behaviors rather than isolated UI events.
@@ -409,21 +353,15 @@ The Lost & Found platform demonstrates that frontend interactions can be interpr
 The system forms interaction concepts through:
 
 * reactive validation,
-
 * dynamic filtering,
-
 * negotiation workflows,
-
 * state transitions,
-
 * and conditional rendering behaviors.
 
 These concepts emerge from the relationship between:
 
 * user intention,
-
 * frontend state,
-
 * and reactive system response.
 
 ---
