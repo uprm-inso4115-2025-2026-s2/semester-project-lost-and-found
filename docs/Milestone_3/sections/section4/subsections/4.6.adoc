@@ -531,30 +531,96 @@ van lamsweerde, A.(2009), Chapter 6: Requirements Evolution , INSO4115(Class not
 
 --- 
 
-==== [Lecture Topic Task] Traceability and Change Impact Analysis in the Lost & Found System
+==== [Lecture Topic Task] Traceability Management Analysis
 :author: Victoria Miranda Osuna
 
-===== Proposed Solution
+===== GOAL
 
--Define traceability links between requirements, software modules, databases, and user records.
+Analyze how traceability management supports requirements evolution and
+consistency maintenance in a lost-and-found application.
 
-    Create traceability links connecting lost-item reporting requirements to inventory management modules.
-    Link claimant verification requirements to user-record databases and authentication components.
-    Connect notification requirements to email or SMS notification services.
-    Maintain links between software modules, test data, user manuals, and database records to support consistency management.
-    Use dependency, revision, use, and derivation links to represent relationships between system components.
 
--Analyze how requirement changes affect dependent system components.
+===== PROPOSED SOLUTION
 
-    Evaluate how modifications to item-tracking requirements impact inventory databases and notification workflows.
-    Assess whether changes to claimant verification rules require updates to authentication modules and user records.
-    Identify dependent software artifacts such as reports, logs, test data, and user documentation affected by requirement changes.
-    Use traceability chains to localize and assess change impact across connected components.
-    Apply change evaluation and prioritization to determine feasibility, risks, benefits, and implementation cost before consolidation.
+1. Define traceability links between requirements, software modules,
+   databases, and user records.
 
--Use forward and backward traceability to track requirement dependencies and change impact.
+    - Create traceability links connecting lost-item reporting
+      requirements to inventory management modules.
+    - Link claimant verification requirements to user-record databases
+      and authentication components.
+    - Connect notification requirements to email or SMS notification
+      services.
+    - Maintain links between software modules, test data, user manuals,
+      and database records to support consistency management.
+    - Use dependency, revision, use, and derivation links to represent
+      relationships between system components.
 
-    Use forward traceability to determine where a requirement is implemented within software modules, databases, and notification systems.
-    Use backward traceability to identify why a requirement exists and where it originated.
-    Follow dependency links horizontally and vertically to propagate requirement changes throughout the system.
-    Track relationships between requirements, implementation artifacts, and supporting documentation to preserve consistency during system evolution.
+
+2. Analyze how requirement changes affect dependent system components.
+
+    - Evaluate how modifications to item-tracking requirements impact
+      inventory databases and notification workflows.
+    - Assess whether changes to claimant verification rules require
+      updates to authentication modules and user records.
+    - Identify dependent software artifacts such as reports, logs,
+      test data, and user documentation affected by requirement changes.
+    - Use traceability chains to localize and assess change impact
+      across connected components.
+    - Apply change evaluation and prioritization to determine
+      feasibility, risks, benefits, and implementation cost before
+      consolidation.
+
+
+3. Use forward and backward traceability to track requirement
+   dependencies and change impact.
+
+    - Use forward traceability to determine where a requirement is
+      implemented within software modules, databases, and notification
+      systems.
+    - Use backward traceability to identify why a requirement exists
+      and where it originated.
+    - Follow dependency links horizontally and vertically to propagate
+      requirement changes throughout the system.
+    - Track relationships between requirements, implementation
+      artifacts, and supporting documentation to preserve consistency
+      during system evolution.
+
+
+===== SUCCESS CRITERIA
+
+    - Requirements and related system components are connected through
+      traceability links.
+    - Change requests are evaluated and consolidated before
+      implementation.
+    - Traceability management helps maintain accurate inventory and
+      ownership records during system evolution.
+
+
+
+
+
+===== Feature Diagram for Accounts
+
+Author: Dylan M. Oliver Martinez
+Date: May 22, 2026
+
+====== Features
+
+Account without admin access: A user that does not have the permissions of being an adminsitrator. They can utilize the platform as a normal account without admin abilities.
+
+Admin: A user that can utilize admin abilities, including the ability to edit and delete content.
+
+Create Report: With this feature, the user can create reports of items they have either found or lost. Both admins and non-admins can utilize this feature.
+
+View Report: With this feature, the user can view reports of items. Both admins and non-admins can utilize this feature.
+
+Edit Report: With this feature, the user has the ability to change the content in a report of a lost or found item. This feature is exclusive to admins.
+
+Delete Post:  With this feature, the user has the ability to delete a report of a lost or found item.  This feature is exclusive to admins.
+
+====== Feature Diagram
+
+Below is the feature diagram that demonstrates what the Account class is capable of doing within the platform.
+
+image::feature-diagram-account.png[caption="Feature Diagram for Accounts",width=800,align ="center"]
