@@ -2,6 +2,7 @@ import { requireAdmin } from "../UserProfilesAccount/AdminAccess";
 import { deleteUserAndReports } from "../UserProfilesAccount/UserAccountManagement";
 import { supabase } from "../supabaseClient";
 import { sendEmailNotification } from "../UserProfilesAccount/NotificationService";
+import { recordAuditEntry } from "../UserProfilesAccount/AuditService";
 
 /**
  * Allows admins to delete user accounts.
@@ -64,6 +65,13 @@ If you believe this action was taken in error, please contact support.
             subject,
             message
         );
+    }
+
+    // Record audit entry for account deletion
+    try {
+        await recordAuditEntry("ACCOUNT_DELETE", "ACCOUNT", userId, { reason, deletedAccountEmail: userData.Email });
+    } catch (err) {
+        console.error("Audit logging failed for account deletion", err);
     }
 
     return {

@@ -1,6 +1,7 @@
 import { supabase } from "../supabaseClient";
 import { requireAdmin } from "../UserProfilesAccount/AdminAccess";
 import { sendEmailNotification } from "../UserProfilesAccount/NotificationService";
+import { recordAuditEntry } from "../UserProfilesAccount/AuditService";
 
 /**
  * Allows adminins to edit reports.
@@ -46,6 +47,13 @@ export async function adminEditReport(
             success: false,
             message: updateError.message
         };
+    }
+
+    // Record audit entry for report update
+    try {
+        await recordAuditEntry("REPORT_UPDATE", "REPORT", reportId, { updatedFields, adminMessage });
+    } catch (err) {
+        console.error("Audit logging failed for report update", err);
     }
 
     // Notify user
@@ -111,6 +119,13 @@ export async function adminDeleteReport(
             success: false,
             message: deleteError.message
         };
+    }
+
+    // Record audit entry for report deletion
+    try {
+        await recordAuditEntry("REPORT_DELETE", "REPORT", reportId, { reason });
+    } catch (err) {
+        console.error("Audit logging failed for report deletion", err);
     }
 
     // Notify user
