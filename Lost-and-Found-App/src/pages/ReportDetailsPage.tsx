@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient.ts";
 import "./ReportDetailsPage.css";
-import { editReport, getReport, reOpenReport } from "../ReportManagement/ReportDatabaseManagement";
+import { deleteReport, editReport, getReport, reOpenReport } from "../ReportManagement/ReportDatabaseManagement";
 import { useAuth } from "../AuthProvider";
 import backIcon from "../assets/icons/back.svg";
 import calendarIcon from "../assets/icons/calendar.svg";
@@ -357,6 +357,12 @@ const ReportDetailPage: React.FC = () => {
     }
   };
 
+  const handleDelete = async () => {
+    if (report && report.getCreatedBy() === (await supabase.auth.getUser()).data.user?.email) {
+      await deleteReport(report.getID());
+    }
+  }
+
   const handleCopyCode = () => {
     if (claimCode !== null) {
       navigator.clipboard.writeText(String(claimCode));
@@ -488,8 +494,8 @@ const ReportDetailPage: React.FC = () => {
                 <button
                   className="deleteReportBtn"
                   onClick={() => {
-                    setDeleteMessage("");
-                    setShowDeleteModal(true);
+                    handleDelete();
+                    navigate(-1);
                   }}
                   type="button"
                 >
