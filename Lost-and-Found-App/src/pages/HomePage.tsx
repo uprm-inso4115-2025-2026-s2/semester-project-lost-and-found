@@ -37,6 +37,15 @@ export default function HomePage() {
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>("ALL");
   const [reports, setReports] = useState<Report[]>([]);
   const [loading, setLoading] = useState(true);
+  const [userEmail, setUserEmail] = useState("");
+
+useEffect(() => {
+  supabase.auth.getUser().then(({ data: { user } }) => setUserEmail(user?.email || ""));
+  
+  getAllReports()
+    .then(setReports)
+    .finally(() => setLoading(false));
+}, []);
 
   useEffect(() => {
     getAllReports()
@@ -217,6 +226,7 @@ async function handleSendBackToLost(reportId: string) {
         ) : (
           filteredReports.map((report) => (
           <ItemCard
+            key={report.getID()}
             reportId={report.getID()}
             title={report.getTitle()}
             description={report.getDescription()}
@@ -227,11 +237,11 @@ async function handleSendBackToLost(reportId: string) {
             locationLabel={report.getLocation()}
             status={toItemStatus(report.getStatus()) ?? "Active"}
             imageUrl={report.getImageURL() || undefined}
-            onClaim={handleClaim}
+            onClaim={report.getCreatedBy() !== userEmail ? handleClaim : undefined}
             onReturn={handleReturn}
             onSendBackToLost={handleSendBackToLost}
           />
-          ))
+        ))
         )}
       </section>
 

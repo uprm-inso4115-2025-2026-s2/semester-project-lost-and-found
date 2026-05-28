@@ -1,60 +1,63 @@
 import { supabase } from "../supabaseClient";
-import { sendWelcomeEmail } from "./NotificationService";
 
-async function createAccount(username: string, password: string, email: string, phonenumber: string) {
-    // Auth user creation
-    const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-        email: email,
-        password: password
-    });
+/** Returns true if the email belongs to an official UPR domain. */
+export function isUPREmail(email: string): boolean {
+  const domain = email.trim().toLowerCase().split("@")[1] ?? "";
+  return (
+    domain === "upr.edu" ||
+    domain === "uprm.edu" ||
+    domain.endsWith(".upr.edu") ||
+    domain.endsWith(".uprm.edu")
+  );
+}
 
-    if (signUpError) {
-        console.error("Error creating auth user:", signUpError);
-        return null;
-    }
+async function createAccount(
+  username: string,
+  password: string,
+  email: string,
+  phonenumber: string
+): Promise<{ data: any[] | null; error: string | null }> {
+  if (!isUPREmail(email)) {
+    return {
+      data: null,
+      error:
+        "Only @upr.edu email addresses can create an account. " +
+        "If you don't have a UPR account you can browse as a Guest.",
+    };
+  }
 
-        // Inserts into UserAccounts table with the new user's ID and stuff
-    // Inserts into UserAccounts table with the new user's ID and stuff
-    const rawPhone = phonenumber ?? "";
-    const digits = rawPhone.replace(/\D/g, "");
-    const phoneNumeric = digits.length ? Number(digits) : null;
+  const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+    email,
+    password,
+  });
 
-    const { data: insertData, error: insertError } = await supabase
-        .from("UserAccounts")
-        .insert([
-            {
-                Username: username,
-                Password: password,
-                Email: email,
-                Phonenumber: phoneNumeric
-            }
-        ])
-        .select();
+  if (signUpError) {
+    console.error("Error creating auth user:", signUpError);
+    return { data: null, error: signUpError.message };
+  }
 
-    if (insertError) {
-        console.error("Error inserting into UserAccounts table:", insertError);
-        return null;
-    }
+  const rawPhone = phonenumber ?? "";
+  const digits = rawPhone.replace(/\D/g, "");
+  const phoneNumeric = digits.length ? Number(digits) : null;
 
-    if (!insertData) {
-        console.warn("Insert succeeded but returned no data (insertData is null)");
-    }
+  const { data: insertData, error: insertError } = await supabase
+    .from("UserAccounts")
+    .insert([
+      {
+        Username: username,
+        Email: email,
+        Phonenumber: phoneNumeric,
+      },
+    ])
+    .select();
 
-    // Welcome email temporarily disabled because of some error I had.
-    // To re-enable, uncomment the code below.
-    /*
-    try {
-        const notification = await sendWelcomeEmail(email, username);
-        if (!notification.success) {
-            console.warn("Welcome email dispatch failed:", notification.error);
-        }
-    } catch (err) {
-        console.error("Unexpected error sending welcome email:", err);
-    }
-    */
+  if (insertError) {
+    console.error("Error inserting into UserAccounts table:", insertError);
+    return { data: null, error: insertError.message };
+  }
 
-    console.log("Account created and inserted into UserAccounts:", insertData);
-    return insertData;
+  console.log("Account created:", insertData);
+  return { data: insertData, error: null };
 }
 
 export default createAccount;

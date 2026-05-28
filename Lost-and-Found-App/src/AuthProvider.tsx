@@ -1,13 +1,16 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "./supabaseClient";
-import type { Session, User } from "@supabase/supabase-js";
+import type { User } from "@supabase/supabase-js";
 
 type AuthContextType = {
   user: User | null;
   loading: boolean;
+  isGuest: boolean;
   signIn: (email: string, password: string) => Promise<any>;
   signUp: (email: string, password: string) => Promise<any>;
   signOut: () => Promise<any>;
+  enterAsGuest: () => void;
+  exitGuest: () => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -21,6 +24,9 @@ export const useAuth = () => {
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isGuest, setIsGuest] = useState(() =>
+    sessionStorage.getItem("isGuest") === "true"
+  );
 
   useEffect(() => {
     let mounted = true;
@@ -29,7 +35,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (!mounted) return;
       const sessionUser = data.session?.user ?? null;
 
-      // If we have a session, verify the user still exists in UserAccounts
       if (sessionUser) {
         const { data: accountData, error: accountError } = await supabase
           .from("UserAccounts")
@@ -38,7 +43,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           .single();
 
         if (accountError || !accountData) {
-          // User was deleted! Clear the stale session
           await supabase.auth.signOut();
           setUser(null);
         } else {
@@ -64,7 +68,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setUser(null);
           return;
         }
-
+        sessionStorage.removeItem("isGuest");
+        setIsGuest(false);
         setUser(sessionUser);
       } else {
         setUser(null);
@@ -79,15 +84,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signIn = async (email: string, password: string) => {
     const res = await supabase.auth.signInWithPassword({ email, password });
-
-    // If auth returned an error,, propagate it directly
     if ((res as any)?.error) return res;
 
-    // Get the email to check
-    const sessionUser = (res as any)?.data?.user ?? (res as any)?.data?.session?.user ?? null;
+    const sessionUser = (res as any)?.data?.user ?? null;
     const userEmail = sessionUser?.email ?? email;
 
-    // Verify that a row still exists in the UserAccounts table
     const { data: accountData, error: accountError } = await supabase
       .from("UserAccounts")
       .select("User_ID")
@@ -95,9 +96,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       .single();
 
     if (accountError || !accountData) {
-      console.log(accountError, !accountData);
-
-      // Clear the created/returned session and return a friendly error
       await supabase.auth.signOut();
       return { error: { message: "Account not found or has been deleted." } };
     }
@@ -105,14 +103,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return res;
   };
 
-  const signUp = (email: string, password: string) => {
-    return supabase.auth.signUp({ email, password });
+  const signUp = (email: string, password: string) =>
+    supabase.auth.signUp({ email, password });
+
+  const signOut = async () => {
+    sessionStorage.removeItem("isGuest");
+    setIsGuest(false);
+    return supabase.auth.signOut();
   };
 
-  const signOut = () => supabase.auth.signOut();
+  const enterAsGuest = () => {
+    sessionStorage.setItem("isGuest", "true");
+    setIsGuest(true);
+  };
+
+  const exitGuest = () => {
+    sessionStorage.removeItem("isGuest");
+    setIsGuest(false);
+  };
 
   return (
-    <AuthContext.Provider value={{ user, loading, signIn, signUp, signOut }}>
+    <AuthContext.Provider value={{ user, loading, isGuest, signIn, signUp, signOut, enterAsGuest, exitGuest }}>
       {children}
     </AuthContext.Provider>
   );
