@@ -58,53 +58,45 @@ Mitigation Strategy:
 ---
 
 ==== [Lecture Topic Task] Goal Diagram For Returning Lost Items
-:author: Andres Cruz
+:author: Andrés Cruz
 
 ===== Introduction
 This diagram models the potential risks when returning an item and the countermeasures that can be taken to minimize the risks and increase the chances of an item being returned to its rightful owner.
 
-
 image::RiskModelingDiagram.png[Risk Modeling Diagram, align=center, pdfwidth=80%]
-
 
 ===== Event
 * Name: Lost/Found Item Reported
 ** Def: Item is registered into the system.
 
-
 * Name: Item Match Found
 ** Def: User claims a reported item.
 
-
 * Name: Owner Notified
 ** Def: Loser receives a claim notification when claiming an item or receives a notification when their item is found.
+
 ===== Risks
 * Name: Incomplete Description
 ** Def: Report lacks information such as description, location or category.
 
-
 * Name: Duplicate Report Filed
 ** Def: Reports of the same type that cover the same lost item.
-
 
 * Name: Category Mismatch
 ** Def: Categories are filed inconsistently or do not correspond to the item in the report.
 
-
 * Name: Missing Contact Info
 ** Def: User does not have valid identification to verify identity before claiming an item.
+
 ===== Countermeasures
 * Name: Mandatory Info
 ** Def: Have fields such as title, location, description, and category as mandatory fields.
 
-
 * Name: Automatic Duplicate Detection
 ** Def: Compare a new report to existing reports to find similarities before registering the new report.
 
-
 * Name: Guided Category Setting
 ** Def: Have a structured category system such as a dropdown menu to avoid ambiguous and inconsistent categories.
-
 
 * Name: Claim Code Verification
 ** Def: Provide a claim code once a user claims a lost item to verify claimer identity when retrieving a lost item.
