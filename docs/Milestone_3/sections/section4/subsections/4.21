@@ -1,0 +1,89 @@
+==== Searchable Report Attributes
+:author: Adiel Soto
+
+The Lost & Found system depends heavily on searchable report attributes to help users quickly locate relevant lost or found items. These attributes represent the information stored in each report that can be used by the search and filtering system. Instead of treating every field independently, related fields can be grouped into broader domain concepts that describe how users naturally search for information.
+
+Users typically do not search using only one exact field. Instead, they combine multiple concepts such as item identity, location, or report condition to narrow down results. Because of this, the system organizes lower-level report fields into higher-level concepts that improve discoverability and make the search process more intuitive.
+
+===== Main Searchable Attributes
+
+The primary searchable fields in a Lost & Found report include:
+
+* Title
+* Description
+* Tags
+* Category
+* Location
+* Status
+* Date
+* Item condition
+* Owner information
+* Claim status
+
+Each attribute contributes differently to how users discover reports. Some attributes identify the item itself, while others describe its context, ownership, or current lifecycle state.
+
+===== Domain Concept Grouping
+
+The searchable fields can be grouped into broader domain concepts that represent the way users think when searching for items.
+
+[cols="1,2,2", options="header"]
+|===
+|Domain Concept
+|Related Fields
+|Purpose in Search
+
+|Item Identification
+|Title, Description, Tags
+|Helps users identify the object based on names, keywords, colors, brands, or unique characteristics.
+
+|Classification
+|Category, Item Type
+|Allows reports to be grouped into categories such as electronics, clothing, accessories, documents, or keys.
+
+|Location Context
+|Location, Last Seen Area, Found Area
+|Enables users to search based on where an item was lost or discovered.
+
+|Report Lifecycle
+|Status, Claim Status
+|Shows the current state of the report such as active, matched, claimed, resolved, or expired.
+
+|Temporal Context
+|Date Lost, Date Found, Date Reported
+|Allows filtering reports according to time periods and recent activity.
+
+|Ownership & Verification
+|Owner Information, Contact Information
+|Supports verification and claim validation during the recovery process.
+
+|Physical Characteristics
+|Item Condition, Color, Brand, Size
+|Improves precision when multiple similar items exist.
+|===
+
+===== Analysis of Search Behavior
+
+The searchable attributes reveal important domain concepts because they reflect the way users naturally attempt to recover items. For example, a student searching for a missing laptop may remember the location and color but not the exact report title. Another user may search by category first and then filter results by date or status.
+
+This behavior demonstrates that searching is not tied to isolated fields, but instead to broader conceptual groups. The system therefore benefits from organizing report data around concepts such as identification, location, classification, and lifecycle state.
+
+These concepts also influence system behavior. Search filters, recommendation systems, and matching algorithms rely on the relationships between searchable attributes. For example:
+
+* Matching algorithms may compare titles, tags, and descriptions to identify similar reports.
+* Location-based searches help narrow down possible matches.
+* Status filtering prevents resolved or expired reports from cluttering active searches.
+* Temporal filtering helps prioritize recent reports.
+
+By grouping searchable fields into domain concepts, the Lost & Found system becomes easier to navigate, improves report discoverability, and better reflects real-world user search behavior.
+
+===== Impact on Domain Concept Formation
+
+The analysis of searchable report attributes helps define core concepts within the Lost & Found domain model. These concepts are not arbitrary technical groupings; they emerge directly from user interaction patterns and system requirements.
+
+For example:
+
+* “Item Identification” becomes a domain concept because users consistently rely on descriptive information to recognize belongings.
+* “Location Context” forms another domain concept because physical location is essential in lost-item recovery.
+* “Report Lifecycle” exists because reports continuously transition between states during the recovery process.
+
+As a result, searchable attributes do more than store data. They shape how the domain itself is modeled, how reports interact with one another, and how users experience the system.
