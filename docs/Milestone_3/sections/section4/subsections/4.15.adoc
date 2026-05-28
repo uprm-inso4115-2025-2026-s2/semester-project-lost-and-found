@@ -1,1 +1,11 @@
 === *Modeling Conceptual Objects with Class Diagrams*
+
+==== [Lecture Topic Task] Goal Diagram For Returning Lost Items
+:author: Andres Cruz
+
+===== Introduction
+This diagram models the Report class with its corresponding properties and relationships with other agents.
+
+image::ReportClassDiagram.png[Report Class Diagram, align=center, pdfwidth=80%]
+
+---
