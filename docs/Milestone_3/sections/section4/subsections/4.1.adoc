@@ -3238,3 +3238,50 @@ By combining authentication, permission validation, lifecycle restrictions, and 
 
 A well-defined ownership model improves security, consistency, reliability, and user trust throughout the entire Lost & Found process.
 
+---
+
+==== [Lecture Topic Task] Email Domain Verification as a Domain Process
+:author: Sebastian Suarez
+
+===== Overview
+Email domain verification is a critical process in the Lost & Found system because it ensures that only users with valid institutional email addresses can create accounts and access certain features. This process helps maintain the integrity of the user base and prevents unauthorized access. This analysis classifies email domain verification as a domain process, identifies its key steps, and explains how it contributes to the overall security and reliability of the platform. 
+
+===== Email Domain Verification Process
+
+The email domain verification process can be broken down into the following steps:
+1. User Registration: A user attempts to create an account by providing their email address and other required information.
+2. Email Format Validation: The system checks if the provided email address is in a valid format.
+3. Domain Extraction: The system extracts the domain part of the email address (the portion after the '@' symbol).
+4. Domain Validation: The system checks if the extracted domain matches a predefined list of allowed institutional domains.
+5. Verification Email Generation: If the domain is valid, the system generates a verification email containing a unique verification link or code.
+6. Email Delivery: The system sends the verification email to the user's provided email address.
+7. User Verification: The user clicks the verification link or enters the verification code, which confirms their email address and activates their account.
+
+===== Classification of the Process
+
+[cols="1,2", options="header"]
+|===
+| Step | Classification
+| User Registration
+| Event - This is the initial trigger for the email domain verification process.
+| Email Format Validation
+| Function - This is a system function that checks the validity of the email format.
+| Domain Extraction
+| Function - This is a system function that processes the email address to extract the domain.
+| Domain Validation
+| Function - This is a system function that checks the extracted domain against allowed domains.
+| Verification Email Generation
+| Function - This is a system function that creates the verification email content.
+| Email Delivery
+| Function - This is a system function that handles the sending of the verification email.
+| User Verification
+| Event - This is the user action that completes the verification process.
+|===
+
+===== Security and Reliability Implications
+
+Email domain verification enhances security by ensuring that only users with valid institutional email addresses can create accounts. This helps prevent unauthorized access and reduces the likelihood of fraudulent accounts. It also contributes to the reliability of the platform by maintaining a trusted user base, which is essential for the integrity of the Lost & Found system. By enforcing email domain verification, the system can also ensure that users are more likely to be legitimate members of the institution, which can improve user engagement and trust in the platform. 
+
+===== Conclusion
+
+Email domain verification is a crucial domain process in the Lost & Found system that helps maintain security and reliability. By classifying it as a series of functions and events, we can better understand how it fits into the overall user registration workflow and how it contributes to the integrity of the platform. Implementing robust email domain verification ensures that the system remains secure and that users can trust the platform for reporting and claiming lost items.
