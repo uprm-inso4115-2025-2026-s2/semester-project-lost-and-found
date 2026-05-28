@@ -1,73 +1,42 @@
 import { Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./AuthProvider";
+import GuestBanner from "./GuestBanner";
+import RequireAuth from "./RequireAuth";
+import GuestRoute from "./GuestRoute";
+
 import HomePage from "./pages/HomePage";
-import ReportCreatePage from "./pages/ReportCreatePage";
-import ProfilePage from "./pages/ProfilePage";
-import type { ProfilePageProps } from "./pages/ProfilePage";
-import UserHistoryPage from "./pages/UserHistoryPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
-import { AuthProvider } from "./AuthProvider";
-import RequireAuth from "./RequireAuth";
+import ReportCreatePage from "./pages/ReportCreatePage";
+import ProfilePage from "./pages/ProfilePage";
+import UserHistoryPage from "./pages/UserHistoryPage";
 import ReportDetailPage from "./pages/ReportDetailsPage";
 
 function App() {
   return (
     <AuthProvider>
+      <GuestBanner />
+
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login"  element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
 
-        <Route
-          path="/"
-          element={
-            <RequireAuth>
-              <HomePage />
-            </RequireAuth>
-          }
-        />
+        <Route path="/"           element={<GuestRoute><HomePage /></GuestRoute>} />
+        <Route path="/details/:reportId" element={<GuestRoute><ReportDetailPage /></GuestRoute>} />
 
-        <Route
-          path="/history"
-          element={
-            <RequireAuth>
-              <UserHistoryPage />
-            </RequireAuth>
-          }
-        />
-
-        <Route
-          path="/create-report"
-          element={
-            <RequireAuth>
-              <ReportCreatePage />
-            </RequireAuth>
-          }
-        />
-
-        <Route
-          path="/profile"
-          element={
-            <RequireAuth>
-              <ProfilePage
-                firstName="Juanjo"
-                lastName="Santiago"
-                username="juanjo23"
-                email="juanjo.santiago23@upr.edu"
-                avatarUrl={undefined}
-              />
-            </RequireAuth>
-          }
-        />
-
-        <Route 
-          path="/details/:reportId" 
-          element={
-            <RequireAuth>
-              <ReportDetailPage />
-            </RequireAuth>
-          } 
-        />
-
+        <Route path="/create-report" element={<RequireAuth><ReportCreatePage /></RequireAuth>} />
+        <Route path="/history"       element={<RequireAuth><UserHistoryPage /></RequireAuth>} />
+        <Route path="/profile"       element={
+          <RequireAuth>
+            <ProfilePage
+              firstName="Juanjo"
+              lastName="Santiago"
+              username="juanjo23"
+              email="juanjo.santiago23@upr.edu"
+              avatarUrl={undefined}
+            />
+          </RequireAuth>
+        } />
       </Routes>
     </AuthProvider>
   );

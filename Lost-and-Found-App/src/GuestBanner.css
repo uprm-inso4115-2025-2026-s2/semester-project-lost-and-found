@@ -1,0 +1,58 @@
+.guestBanner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fffbeb;
+  border-bottom: 1.5px solid #fcd34d;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  color: #78350f;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  flex-wrap: wrap;
+}
+
+.guestBanner__icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.guestBanner__text {
+  flex: 1;
+  min-width: 200px;
+}
+
+.guestBanner__actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.guestBanner__btn {
+  padding: 5px 14px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.15s;
+}
+
+.guestBanner__btn:hover { opacity: 0.85; }
+
+.guestBanner__btn--login {
+  background: transparent;
+  border: 1.5px solid #92400e;
+  color: #92400e;
+}
+
+.guestBanner__btn--login:hover {
+  background: #fef3c7;
+  opacity: 1;
+}
+
+.guestBanner__btn--signup {
+  background: #08b257;
+  color: #fff;
+}
