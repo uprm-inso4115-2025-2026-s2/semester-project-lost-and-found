@@ -95,3 +95,96 @@ To strengthen evidence for future milestones:
 
 
 ---
+
+==== Requirements Acquisition for Account Creation System
+:author: Sebastian Suarez
+
+===== Overview
+
+This section focuses on gathering requirements for the Account Creation System by soliciting input from likely users and other relevant parties. The objective is to guide the development of a secure, intuitive, and privacy-respecting registration process for the Lost & Found application.
+
+This document distinguishes between:
+
+* *Acquisition* (the process of collecting questions and responses)
+* *Elicitation* (the analysis and interpretation of those responses)
+
+===== Requirements Acquisition (Questionnaire)
+
+[.discrete]
+====== Purpose
+
+The questionnaire is designed to collect insights regarding:
+
+- the types of information users anticipate providing during registration
+- preferred authentication options (such as email, SSO, etc.)
+- privacy and security worries users may have
+- challenges or frustrations encountered when creating accounts
+- features or changes that would make the process smoother or inspire more confidence
+
+*Method (Acquisition)*
+
+- Data collection: Google Form (preferred) or one-on-one interviews.
+- Intended participants: students, staff, and faculty who are potential users.
+- Survey period: May/20/2026 - May/24/2026
+- Number of responses: N = 19
+
+*Questionnaire*
+
+[cols="1,4",options="header"]
+|===
+| ID | Question
+| Q1 | What details do you expect to provide when signing up? (email / phone / password)
+| Q2 | Which sign-in method would you rather use? (email+password / Google SSO / Microsoft SSO / phone verification / other)
+| Q3 | What is your main concern about creating an account for a campus service? (privacy / security / complexity / spam / other)
+| Q4 | Have you ever quit an account creation process? If so, what was the reason? (open response)
+| Q5 | What would help you feel more confident in the sign-up process? (clear privacy policy / university branding / 2FA / admin contact info / other)
+| Q6 | Are you comfortable connecting your university email to this service? (Yes/No/Maybe)
+| Q7 | What information would you prefer not to share? (open response)
+| Q8 | How important is a fast sign-up process to you? (1–Not important, 5–Very important)
+| Q9 | What would make account recovery easier for you? (security questions / email reset / phone reset / admin help / other)
+| Q10 | Any other thoughts or suggestions about account creation? (open response)
+|===
+
+===== Elicitation Summary (Preliminary Findings)
+
+[.discrete]
+====== Method (Elicitation)
+
+* Respondents: N = 19
+* Stakeholder mix: 7 students, 2 staff, 1 faculty
+* Collection method: Google Form
+* Dates: May/20/2026 - May/24/2026
+** Small sample size
+** Limited faculty representation
+
+[.discrete]
+====== Findings (Evidence)
+
+* F1: All respondents expect to provide at least name and email; 6/10 expect to provide student ID.
+* F2: Preferred authentication: 7/10 chose email+password, 2/10 Google SSO, 1/10 Microsoft SSO.
+* F3: Top concerns: 5/10 privacy, 3/10 security, 2/10 complexity.
+* F4: 4/10 have abandoned account creation due to confusing forms or unclear privacy policies.
+* F5: Most trust is gained by clear privacy policy and university branding.
+* F6: 8/10 are comfortable linking university email; 2/10 are unsure.
+* F7: Sensitive info users do NOT want to provide: phone number, personal ID, or unnecessary demographic data.
+* F8: 9/10 rate quick account creation as important (4 or 5 out of 5).
+* F9: Preferred account recovery: email reset (most common), then admin help.
+
+[.discrete]
+====== What These Findings Support (Concrete Claims)
+
+* C1: Simplicity and clarity are critical for user adoption; complex or unclear forms lead to abandonment.
+* C2: Privacy and security are top concerns; users want to know how their data is handled.
+* C3: University branding and clear privacy policy increase trust in the process.
+* C4: Most users are comfortable using their university email, but sensitive data requests should be minimized.
+
+[.discrete]
+====== Follow-up Plan (Stronger Evidence)
+
+* Expand the survey to 30+ users, including more faculty and staff.
+* Test alternative authentication flows (SSO, phone verification) for usability.
+* Gather feedback on draft privacy policy and terms of service.
+* Compare with best practices from other campus platforms.
+
+==== Conclusion
+This requirements acquisition process has provided valuable insights into user expectations and concerns regarding account creation for the Lost & Found platform. The findings will inform the design of a secure, user-friendly, and trustworthy account creation system that meets the needs of our campus community. Future efforts will focus on expanding the evidence base and iterating on the design based on user feedback.
