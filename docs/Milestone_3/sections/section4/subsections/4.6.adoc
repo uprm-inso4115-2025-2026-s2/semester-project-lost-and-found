@@ -595,3 +595,32 @@ consistency maintenance in a lost-and-found application.
       implementation.
     - Traceability management helps maintain accurate inventory and
       ownership records during system evolution.
+
+
+
+
+
+===== Feature Diagram for Accounts
+
+Author: Dylan M. Oliver Martinez
+Date: May 22, 2026
+
+====== Features
+
+Account without admin access: A user that does not have the permissions of being an adminsitrator. They can utilize the platform as a normal account without admin abilities.
+
+Admin: A user that can utilize admin abilities, including the ability to edit and delete content.
+
+Create Report: With this feature, the user can create reports of items they have either found or lost. Both admins and non-admins can utilize this feature.
+
+View Report: With this feature, the user can view reports of items. Both admins and non-admins can utilize this feature.
+
+Edit Report: With this feature, the user has the ability to change the content in a report of a lost or found item. This feature is exclusive to admins.
+
+Delete Post:  With this feature, the user has the ability to delete a report of a lost or found item.  This feature is exclusive to admins.
+
+====== Feature Diagram
+
+Below is the feature diagram that demonstrates what the Account class is capable of doing within the platform.
+
+image::feature-diagram-account.png[caption="Feature Diagram for Accounts",width=800,align ="center"]
