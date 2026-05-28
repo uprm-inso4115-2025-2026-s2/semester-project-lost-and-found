@@ -3718,3 +3718,397 @@ Email domain verification enhances security by ensuring that only users with val
 ===== Conclusion
 
 Email domain verification is a crucial domain process in the Lost & Found system that helps maintain security and reliability. By classifying it as a series of functions and events, we can better understand how it fits into the overall user registration workflow and how it contributes to the integrity of the platform. Implementing robust email domain verification ensures that the system remains secure and that users can trust the platform for reporting and claiming lost items.
+
+---
+
+=== Domain Acquisition for Authentication Stakeholders in Lost & Found
+:author: Javier Ventosa
+
+==== Introduction
+
+Domain acquisition is the process of collecting facts about a domain from the people and groups connected to that domain. In domain engineering, this includes studying the domain, talking to stakeholders, recording their views, and organizing the collected information before deeper analysis is done.
+
+For the Lost & Found system, authentication is an important part of the domain because users need different types of access depending on who they are. A regular institutional user may need full access to report, claim, or manage lost items. A non-institutional or guest user may only need limited access. Administrators may need additional permissions to review reports, manage users, and control system activity.
+
+This lecture topic task applies domain acquisition to the User & Authentication team by identifying authentication stakeholders, collecting authentication-related domain facts, and showing how those facts can be recorded as domain description units.
+
+==== Lecture Topic Connection
+
+The lecture on domain acquisition explains that domain acquisition involves eliciting facts from domain stakeholders, recording those facts, and roughly structuring or classifying them before deeper analysis. It also explains that domain facts can be recorded as domain description units and tagged by stakeholder group, phenomenon or concept, kind, attribute, and facet.
+
+This connects directly to authentication in the Lost & Found system because authentication requirements should not be guessed only from a technical point of view. They should come from the needs of the people who use, manage, or depend on the system.
+
+For example, the User & Authentication team needs to know:
+
+* Who should be able to create an account.
+* What type of email should be accepted.
+* What access level each user type should receive.
+* What actions require authentication.
+* What actions should be restricted to administrators.
+* What should happen when a user logs in, logs out, or has invalid credentials.
+
+By using domain acquisition, these details can be collected, organized, and later transformed into clearer system requirements.
+
+==== Authentication Stakeholders
+
+The main stakeholders involved in authentication for the Lost & Found system are:
+
+===== Institutional Users
+
+Institutional users are students, professors, or staff members who use an official university email account. They are important stakeholders because they are likely the main users of the platform. They may need to report lost items, search for found items, claim items, and manage their own submissions.
+
+===== Guest or Non-Institutional Users
+
+Guest users are users who do not have an official institutional email. These users may still need to view information, but they may not be allowed to perform every action in the system. Their role matters because the system needs to decide what limited access means.
+
+===== Administrators
+
+Administrators are responsible for managing the system. They may need permission to review item reports, approve or reject submissions, edit incorrect information, remove inappropriate content, and manage user access. Their authentication needs are different because they require elevated privileges.
+
+===== Developers
+
+Developers are stakeholders because they implement the authentication logic. They need clear rules about roles, permissions, protected routes, and user access levels. Without clear domain facts, developers may implement inconsistent or incomplete authentication behavior.
+
+==== Authentication Domain Facts to Collect
+
+Domain acquisition for authentication should collect facts such as:
+
+* Which users are allowed to register.
+* Which email domains are considered institutional.
+* Whether non-institutional users can create accounts.
+* What access level should be assigned to each user type.
+* Which pages require login.
+* Which pages can be viewed without login.
+* Which actions require full access.
+* Which actions are restricted to administrators.
+* What error message should appear when login fails.
+* What should happen when a user logs out.
+* What should happen when a session expires.
+* How the system should prevent unauthorized access.
+
+These facts help the User & Authentication team avoid unclear assumptions. They also make the authentication workflow easier to implement and test.
+
+==== Domain Description Units for Authentication
+
+Domain description units are useful because they record domain facts in a structured way. Below are examples related to authentication in the Lost & Found system.
+
+===== Domain Description Unit 1
+
+* Unit ID: auth-001
+* Stakeholder Group: Institutional Users
+* Domain Fact: Institutional users can register using an official university email address.
+* Phenomenon or Concept: User registration
+* Kind: Event
+* Attribute: Discrete
+* Facet: Intrinsic authentication rule
+
+===== Domain Description Unit 2
+
+* Unit ID: auth-002
+* Stakeholder Group: Guest Users
+* Domain Fact: Non-institutional users may have limited or view-only access.
+* Phenomenon or Concept: Access level
+* Kind: Entity
+* Attribute: Static
+* Facet: Access control rule
+
+===== Domain Description Unit 3
+
+* Unit ID: auth-003
+* Stakeholder Group: Administrators
+* Domain Fact: Administrators can access restricted management features that regular users cannot access.
+* Phenomenon or Concept: Administrator role
+* Kind: Entity
+* Attribute: Static
+* Facet: Permission rule
+
+===== Domain Description Unit 4
+
+* Unit ID: auth-004
+* Stakeholder Group: Developers
+* Domain Fact: Protected routes must verify that the user is authenticated before allowing access.
+* Phenomenon or Concept: Protected route
+* Kind: Behavior
+* Attribute: Reactive
+* Facet: Support technology
+
+===== Domain Description Unit 5
+
+* Unit ID: auth-005
+* Stakeholder Group: All Users
+* Domain Fact: When a user enters invalid login information, the system should show a clear error message.
+* Phenomenon or Concept: Login error handling
+* Kind: Behavior
+* Attribute: Reactive
+* Facet: User interaction
+
+==== How Domain Acquisition Improves Authentication
+
+Domain acquisition improves authentication because it helps the team understand the real rules of the system before implementation. Instead of only coding login and registration screens, the team can first define what each user type needs and what each user type is allowed to do.
+
+This helps the project in several ways:
+
+* It reduces confusion about access levels.
+* It helps developers implement protected routes correctly.
+* It makes login and registration behavior easier to test.
+* It helps define the difference between institutional users, guest users, and administrators.
+* It prevents missing requirements, such as expired sessions or invalid login messages.
+* It improves communication between developers and stakeholders.
+
+For the Lost & Found system, this is especially important because authentication affects trust and security. If users can access pages they should not access, the system becomes unreliable. If valid users cannot access features they need, the system becomes frustrating to use.
+
+==== Recommended Authentication Acquisition Questions
+
+To apply domain acquisition, the team can ask questions such as:
+
+* Who should be allowed to create an account?
+* Should all users have the same permissions?
+* What makes a user institutional?
+* What should a non-institutional user be allowed to do?
+* What actions should require login?
+* What actions should require administrator access?
+* What should happen when a user enters the wrong password?
+* What should happen when a user tries to access a restricted page?
+* Should the system remember a logged-in user after refreshing the page?
+* What information should be stored in the user profile?
+
+The answers to these questions can be converted into domain facts, domain description units, and later into implementation requirements.
+
+==== Risks of Not Doing Domain Acquisition
+
+If the User & Authentication team does not perform domain acquisition, the authentication workflow may become incomplete or inconsistent.
+
+Possible risks include:
+
+* Users receiving the wrong access level.
+* Guest users accessing restricted features.
+* Administrators missing important management permissions.
+* Developers implementing different assumptions about roles.
+* Login and registration behavior not matching stakeholder expectations.
+* Protected routes being implemented inconsistently.
+* Confusing error messages for users.
+
+These risks can affect the usability, reliability, and security of the Lost & Found system.
+
+==== Conclusion
+
+Domain acquisition is useful for the User & Authentication team because it provides a structured way to collect and organize authentication requirements. By identifying stakeholders and recording authentication facts as domain description units, the team can better understand how login, registration, email verification, access levels, and role permissions should work.
+
+For the Lost & Found system, authentication is not only a technical feature. It is part of the domain because it controls who can use the system, what actions they can perform, and how secure the platform is. Applying domain acquisition helps make the authentication workflow clearer, safer, and easier to implement.
+
+==== References
+
+* Marko Schütz-Schmuck, "Domain Acquisition", University of Puerto Rico at Mayagüez.
+* Marko Schütz-Schmuck, "Domain Stakeholders", University of Puerto Rico at Mayagüez.
+* Marko Schütz-Schmuck, "Overview of Domain Engineering", University of Puerto Rico at Mayagüez.
+
+---
+
+==== [Lecture Topic Task] Ownership and Access Control Analysis in the Lost & Found System
+:author: Adiel-Soto-Rodriguez
+
+===== Overview
+
+Ownership and access control are essential concepts in the Lost & Found system because they determine who can manage reports, modify information, and verify ownership claims. Without clear ownership rules, the system could become vulnerable to unauthorized edits, fraudulent claims, and inconsistent report states.
+
+This Lecture Topic Task analyzes how ownership is established, transferred, and enforced throughout the lifecycle of a report, while also examining how access control mechanisms protect system integrity and reliability.
+
+===== Ownership Model
+
+In the Lost & Found platform, ownership refers to the relationship between a user and a report they created or successfully claimed.
+
+Ownership is established when a user submits either a Lost Item Report or a Found Item Report. The system associates the report with the creator’s authenticated account through a unique user identifier.
+
+Ownership determines which actions a user is allowed to perform on the report.
+
+Examples include:
+
+* Editing report information
+* Deleting a report
+* Updating report details
+* Viewing restricted report management controls
+
+Users who do not own the report may still view public listing information but cannot modify the report unless they have elevated permissions such as Admin or Staff roles.
+
+===== Ownership Lifecycle Classification
+
+[cols="1,1,2", options="header"]
+|===
+| Step | Classification | Description
+
+| User creates a report
+| Event
+| A user submits a Lost or Found Item Report, establishing report ownership.
+
+| Report ownership assignment
+| Function
+| The system links the report to the creator’s user ID and stores ownership metadata.
+
+| Owner edits or deletes report
+| Behavior
+| Ownership grants permission to modify or remove the report under allowed conditions.
+
+| Other users browse reports
+| Behavior
+| Non-owners may view listings but cannot modify ownership-protected fields.
+
+| Admin overrides permissions
+| Function
+| Administrative roles may edit, archive, or resolve reports regardless of ownership.
+
+| Claim verification and ownership transfer
+| Event
+| Ownership context changes after verification and successful return of the item.
+
+| Permission validation
+| Function
+| The backend checks whether the acting user has authorization before applying modifications.
+|===
+
+===== Access Control Enforcement
+
+The system enforces access control using authentication, role-based permissions, and backend verification rules.
+
+====== Authentication
+
+Only authenticated users may create or manage reports. During login, the system identifies the user and associates their account with a unique identifier.
+
+Authentication is handled automatically by the system.
+
+Examples include:
+
+* Login validation
+* Session management
+* Token verification
+* User identity tracking
+
+Without authentication, ownership cannot be reliably enforced.
+
+====== Permission Checks
+
+Whenever a user attempts to edit or delete a report, the backend verifies:
+
+* Whether the user owns the report
+* Whether the user has elevated permissions
+* Whether the report state allows modification
+
+For example:
+
+* Owners may edit their own reports
+* Non-owners cannot modify reports
+* Admins may override restrictions when necessary
+
+These checks are automatic and occur before any database update is applied.
+
+====== Restricted Modifications
+
+Certain actions become restricted depending on the report lifecycle state.
+
+Examples include:
+
+* Reports with active claim requests may lock sensitive fields
+* Claimed items may no longer be editable by regular users
+* Archived reports become read-only
+
+This prevents inconsistent or fraudulent modifications during verification processes.
+
+===== Automatic vs Human-Controlled Processes
+
+====== Automatically Handled by the System
+
+The following actions are enforced automatically:
+
+* User authentication
+* Ownership assignment
+* Permission verification
+* Session validation
+* Role-based access control
+* Prevention of unauthorized updates
+* Lifecycle state validation
+
+These processes ensure consistency and security without requiring manual review for every operation.
+
+====== Human-Controlled Decisions
+
+Some situations require human judgment and administrative intervention.
+
+Examples include:
+
+* Reviewing disputed ownership claims
+* Resolving conflicting claim requests
+* Approving ownership transfers
+* Handling suspicious or fraudulent reports
+* Overriding incorrect report information
+
+Human moderation is necessary because ownership disputes often involve subjective or incomplete evidence.
+
+===== Complex Ownership Scenarios
+
+====== Scenario 1: Anonymous Report Submission
+
+A user submits a Found Item Report anonymously without exposing personal information publicly.
+
+*Complexity introduced:*
+
+* The system still needs an internal ownership reference
+* Moderators may need to contact the reporter privately
+* Ownership exists internally even if hidden publicly
+
+*Expected system behavior:*
+
+* The report is internally tied to the authenticated account
+* Public viewers cannot see the reporter identity
+* Admins retain access for moderation and verification
+
+This balances privacy with accountability.
+
+====== Scenario 2: Disputed Ownership Claim
+
+Two users claim the same lost laptop and both provide partial identifying details.
+
+*Complexity introduced:*
+
+* Ownership cannot be determined automatically
+* Both claims may appear valid initially
+* Incorrect approval could return the item to the wrong person
+
+*Expected system behavior:*
+
+* The report enters Pending Verification
+* Staff/Admin reviews additional proof-of-ownership details
+* Only one ownership transfer may be approved
+* Audit logs preserve the review history
+
+This scenario demonstrates why ownership verification cannot rely entirely on automated logic.
+
+===== Security and Behavioral Impact
+
+Ownership enforcement improves the system in several ways:
+
+*Security*
+
+* Prevents unauthorized report modifications
+* Reduces fraudulent claims
+* Protects sensitive information
+
+*Behavioral Reliability*
+
+* Ensures reports follow valid lifecycle transitions
+* Prevents conflicting ownership states
+* Maintains trust in the recovery process
+
+*System Integrity*
+
+* Preserves accountability for report actions
+* Ensures auditability of edits and ownership changes
+* Maintains consistent relationships between users and reports
+
+===== Conclusion
+
+Ownership and access control are fundamental components of the Lost & Found system because they define who may manage reports and how sensitive operations are protected.
+
+By combining authentication, permission validation, lifecycle restrictions, and human moderation, the platform can prevent unauthorized actions while still supporting realistic recovery workflows and dispute resolution.
+
+A well-defined ownership model improves security, consistency, reliability, and user trust throughout the entire Lost & Found process.
+
+---
