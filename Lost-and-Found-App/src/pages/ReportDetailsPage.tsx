@@ -365,7 +365,13 @@ const ReportDetailPage: React.FC = () => {
     }
   };
 
-  if (!report) return <div className="detailsPage">Loading...</div>;
+  if (!report) {
+    return (
+      <div className="detailsPage">
+        Loading... {reportId && `(reportId: ${reportId})`}
+      </div>
+    );
+  }
 
   const statusColor =
     report.getRawStatus() === "ACTIVE" ? "#ef4444" :
@@ -441,10 +447,10 @@ const ReportDetailPage: React.FC = () => {
 
         {/* Primary Actions */}
         <div className="detailsActions">
-          {report.getRawStatus() !== "RESOLVED" && (
+          {report.getRawStatus() !== "RESOLVED" && !isAuthor && (
             <button
               className="claimBtn"
-              disabled={isGuest ? false : isAuthor || (!canClaim && !isClaimer)}
+              disabled={isGuest ? false : (!canClaim && !isClaimer)}
               onClick={isGuest ? () => navigate("/login") : handleOpenClaim}
               title={
                 isGuest ? "Log in to claim items" :
@@ -462,7 +468,9 @@ const ReportDetailPage: React.FC = () => {
                 : "Can't Claim"}
             </button>
           )}
-          <button className="contactBtn">Contact</button>
+          {!isAuthor && (
+            <button className="contactBtn">Contact</button>
+          )}
         </div>
 
         {/* Secondary Actions — hidden from guests */}
@@ -476,6 +484,18 @@ const ReportDetailPage: React.FC = () => {
                 <button className="editBtn" onClick={handleOpenEdit} type="button">
                   ✎ Edit
                 </button>
+
+                <button
+                  className="deleteReportBtn"
+                  onClick={() => {
+                    setDeleteMessage("");
+                    setShowDeleteModal(true);
+                  }}
+                  type="button"
+                >
+                  Delete Report
+                </button>
+
                 {canResolve && (
                   <button className="resolveBtn" onClick={handleResolve} type="button">
                     ✓ Mark as Resolved
