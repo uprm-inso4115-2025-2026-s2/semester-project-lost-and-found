@@ -58,45 +58,45 @@ Intermediate values (2, 4, 6, 8) may be used when necessary.
 
 This scale allows team members to express relative importance in a structured and quantifiable way, forming the basis for the prioritization process described in the next section.
 
-===== Decision Interpretation Guidelines
+===== [.added]#Decision Interpretation Guidelines#
 
-The prioritization results should be interpreted using consistent decision rules so that requirement rankings remain understandable and justified.
+[.added]#The prioritization results should be interpreted using consistent decision rules so that requirement rankings remain understandable and justified.#
 
-The following guidelines support interpretation of Value and Cost comparisons:
+[.added]#The following guidelines support interpretation of Value and Cost comparisons:#
 
-* High-value, low-cost requirements should generally receive the highest priority.
-* High-value, high-cost requirements should be evaluated against available resources and project deadlines.
-* Low-value, low-cost requirements may be considered if they support usability or reduce future rework.
-* Low-value, high-cost requirements should generally be deferred unless they are required for compliance, safety, or core system operation.
+* [.added]#High-value, low-cost requirements should generally receive the highest priority.#
+* [.added]#High-value, high-cost requirements should be evaluated against available resources and project deadlines.#
+* [.added]#Low-value, low-cost requirements may be considered if they support usability or reduce future rework.#
+* [.added]#Low-value, high-cost requirements should generally be deferred unless they are required for compliance, safety, or core system operation.#
 
-===== Sensitivity Considerations
+===== [.added]#Sensitivity Considerations#
 
-The team recognizes that prioritization outcomes may change if the relative importance of Value and Cost changes.
+[.added]#The team recognizes that prioritization outcomes may change if the relative importance of Value and Cost changes.#
 
-For example:
+[.added]#For example:#
 
-* Increasing the weight of Value may favor user-facing features that directly improve item recovery.
-* Increasing the weight of Cost may favor simpler features that can be implemented quickly.
-* Equal weighting may provide a balanced view between usefulness and feasibility.
+* [.added]#Increasing the weight of Value may favor user-facing features that directly improve item recovery.#
+* [.added]#Increasing the weight of Cost may favor simpler features that can be implemented quickly.#
+* [.added]#Equal weighting may provide a balanced view between usefulness and feasibility.#
 
-Sensitivity analysis helps determine whether prioritization decisions remain stable under different assumptions.
+[.added]#Sensitivity analysis helps determine whether prioritization decisions remain stable under different assumptions.#
 
-===== Tie-Breaking Rules
+===== [.added]#Tie-Breaking Rules#
 
-When two requirements receive similar prioritization results, the team should apply tie-breaking rules.
+[.added]#When two requirements receive similar prioritization results, the team should apply tie-breaking rules.#
 
-Tie-breaking considerations include:
+[.added]#Tie-breaking considerations include:#
 
-* direct contribution to successful item recovery
-* impact on user trust and safety
-* dependency on other features
-* implementation risk
-* relevance to the current milestone
+* [.added]#direct contribution to successful item recovery#
+* [.added]#impact on user trust and safety#
+* [.added]#dependency on other features#
+* [.added]#implementation risk#
+* [.added]#relevance to the current milestone#
 
-These rules help prevent arbitrary prioritization decisions and support more transparent requirement selection.
+[.added]#These rules help prevent arbitrary prioritization decisions and support more transparent requirement selection.#
 
-===== Summary
+===== [.added]#Summary#
 
-Adding decision guidelines and sensitivity considerations improves the requirements prioritization process by making the interpretation of Value and Cost comparisons more explicit.
+[.added]#Adding decision guidelines and sensitivity considerations improves the requirements prioritization process by making the interpretation of Value and Cost comparisons more explicit.#
 
-This supports more consistent decision-making and helps the team justify why certain requirements should be implemented earlier than others.
+[.added]#This supports more consistent decision-making and helps the team justify why certain requirements should be implemented earlier than others.#
