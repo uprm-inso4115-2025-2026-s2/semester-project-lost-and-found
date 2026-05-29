@@ -54,3 +54,68 @@ The Lost & Found system supports multiple types of user interactions related to 
 . The claim is approved or rejected.
 
 *Result:* If approved, the item can be returned to the owner.
+
+===== Scenario Validation and Edge Case Considerations
+
+The following validation requirements and edge cases should be considered when implementing the documented workflows.
+
+====== Reporting a Lost Item
+
+Preconditions:
+
+* User is authenticated.
+* Required item information is available.
+* The report contains a valid date and description.
+
+Potential edge cases and failure conditions:
+
+* Missing required fields.
+* Invalid date values.
+* Duplicate reports for the same item.
+* Network interruption during submission.
+
+====== Posting a Found Item
+
+Preconditions:
+
+* User is authenticated.
+* Item details can be reasonably described.
+
+Potential edge cases and failure conditions:
+
+* Missing location information.
+* Incomplete item descriptions.
+* Invalid submission data.
+* Duplicate found-item listings.
+
+====== Submitting an Item Claim
+
+Preconditions:
+
+* Matching item listing exists.
+* User is authenticated.
+
+Potential edge cases and failure conditions:
+
+* Claim submitted for an unrelated item.
+* Missing ownership evidence.
+* Duplicate claim requests.
+* Item already returned to another user.
+
+====== Reviewing a Claim
+
+Preconditions:
+
+* Administrator privileges are available.
+* Claim information has been submitted.
+
+Potential edge cases and failure conditions:
+
+* Insufficient ownership evidence.
+* Incomplete claim information.
+* Conflicting claim requests.
+* Administrative processing errors.
+
+====== Expected Validation Outcomes
+
+The system should reject incomplete submissions, notify users when validation fails, and preserve data consistency throughout all item lifecycle operations.
