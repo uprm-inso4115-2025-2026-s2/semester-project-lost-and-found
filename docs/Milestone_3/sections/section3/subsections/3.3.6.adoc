@@ -77,6 +77,87 @@ image::Event-Trace-Admin.png[Use Case Diagram, align=center, pdfwidth=80%]
 
 *Result:* User has an account and access to the platform's features.
 
+image::user_account_creation_event_trace_diagram.png[User Account Creation Event Trace Diagram, align=center, pdfwidth=50%]
+_User Account Creation Event Trace Diagram_
+
+===== [.added]#Scenario Validation Considerations#
+
+[.added]#The following validation requirements and edge cases should be considered when implementing the documented workflows.#
+
+====== [.added]#Reporting a Lost Item#
+
+[.added]#Preconditions:#
+
+* [.added]#User is authenticated.#
+* [.added]#Required item information is available.#
+* [.added]#The report contains a valid date and description.#
+
+[.added]#Potential failure cases:#
+
+* [.added]#Missing required fields.#
+* [.added]#Invalid date values.#
+* [.added]#Duplicate reports for the same item.#
+* [.added]#Network interruption during submission.#
+
+====== [.added]#Posting a Found Item#
+
+[.added]#Preconditions:#
+
+* [.added]#User is authenticated.#
+* [.added]#Item details can be reasonably described.#
+
+[.added]#Potential failure cases:#
+
+* [.added]#Missing location information.#
+* [.added]#Incomplete item descriptions.#
+* [.added]#Invalid submission data.#
+* [.added]#Duplicate found-item listings.#
+
+====== [.added]#Submitting an Item Claim#
+
+[.added]#Preconditions:#
+
+* [.added]#Matching item listing exists.#
+* [.added]#User is authenticated.#
+
+[.added]#Potential failure cases:#
+
+* [.added]#Claim submitted for an unrelated item.#
+* [.added]#Missing ownership evidence.#
+* [.added]#Duplicate claim requests.#
+* [.added]#Item already returned to another user.#
+
+====== [.added]#Reviewing a Claim#
+
+[.added]#Preconditions:#
+
+* [.added]#Administrator privileges are available.#
+* [.added]#Claim information has been submitted.#
+
+[.added]#Potential failure cases:#
+
+* [.added]#Insufficient ownership evidence.#
+* [.added]#Incomplete claim information.#
+* [.added]#Conflicting claim requests.#
+* [.added]#Administrative processing errors.#
+
+====== [.added]#User Account Creation#
+
+[.added]#Preconditions:#
+
+* [.added]#User has access to a valid UPR email address.#
+* [.added]#Required registration information is available.#
+
+[.added]#Potential failure cases:#
+
+* [.added]#Invalid UPR email address.#
+* [.added]#Email already registered.#
+* [.added]#Missing required account information.#
+* [.added]#Authentication service unavailable.#
+
+====== [.added]#Expected Validation Outcomes#
+
+[.added]#The system should reject incomplete submissions, notify users when validation fails, and preserve data consistency throughout all item lifecycle operations.#
 image::Event-Trace-Register.png[User Account Creation Event Trace Diagram, align=center, pdfwidth=50%]
 [.added]#_Event trace diagram for creating an account_#
 
