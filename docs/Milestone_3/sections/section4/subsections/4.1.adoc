@@ -4218,4 +4218,360 @@ By combining authentication, permission validation, lifecycle restrictions, and 
 
 A well-defined ownership model improves security, consistency, reliability, and user trust throughout the entire Lost & Found process.
 
+= Domain Event Modeling for Report Lifecycle Transitions
+Author: Jose Valentin
+Date: May 27, 2026
+
+== Introduction
+
+The Lost & Found platform depends heavily on the correct handling of report lifecycle transitions. Reports continuously evolve through different states as users interact with them, claim items, resolve issues, or reopen reports when necessary.
+
+This document models the domain events associated with report lifecycle transitions using concepts from domain event modeling and state transition analysis discussed in lecture material. The goal is to identify the major events that affect reports, define their trigger conditions, and analyze how those events modify report states throughout the system.
+
+== System Context
+
+A report within the Lost & Found system represents an item that has either been lost or found by a user. Throughout its lifecycle, the report may undergo multiple transitions depending on user actions and system validation.
+
+Primary actors involved:
+
+* Report Author
+* Claiming User
+* Administrator
+* Lost & Found Platform
+
+== Report Lifecycle States
+
+The following lifecycle states are used within the platform:
+
+[cols="1,3"]
+|===
+|State |Description
+
+|ACTIVE
+|Report is visible and available for interaction
+
+|CLAIMED
+|A user has claimed the report and verification is pending
+
+|RESOLVED
+|The item has been successfully returned or resolved
+
+|ARCHIVED
+|The report is closed and no longer active
+
+|DELETED
+|The report has been permanently removed
+|===
+
+== Domain Event Identification
+
+The platform contains several major domain events that trigger lifecycle transitions.
+
+[cols="1,2,2,2"]
+|===
+|Event ID |Domain Event |Trigger |Resulting Transition
+
+|E1
+|Report Created
+|User submits report form
+|NULL → ACTIVE
+
+|E2
+|Report Edited
+|Author edits report
+|ACTIVE → ACTIVE
+
+|E3
+|Report Claimed
+|Another user claims report
+|ACTIVE → CLAIMED
+
+|E4
+|Report Unclaimed
+|Claimer cancels claim
+|CLAIMED → ACTIVE
+
+|E5
+|Report Resolved
+|Author closes resolved report
+|CLAIMED → RESOLVED
+
+|E6
+|Report Reopened
+|Author reopens resolved report
+|RESOLVED → ACTIVE
+
+|E7
+|Report Archived
+|Author or admin archives report
+|RESOLVED → ARCHIVED
+
+|E8
+|Report Deleted
+|Author deletes report
+|ACTIVE/RESOLVED → DELETED
+|===
+
+== Event Modeling Analysis
+
+=== Event E1: Report Created
+
+==== Description
+
+Occurs when a user submits a new lost or found item report.
+
+==== Trigger Conditions
+
+* User is authenticated
+* Required report fields are completed
+* Report passes validation checks
+
+==== Result
+
+* New database record is created
+* Report state becomes ACTIVE
+
+[source,typescript]
+----
+const report = Report.Create({
+  title,
+  description,
+  location,
+  category,
+  createdBy: user.id
+});
+----
+
+== Event E2: Report Edited
+
+=== Description
+
+Allows the author to modify report information.
+
+=== Trigger Conditions
+
+* User must be report author
+* Report must not be archived or deleted
+
+=== Result
+
+* Existing report fields are updated
+* State remains ACTIVE
+
+[source,typescript]
+----
+if (currentUser.id !== report.createdBy) {
+  throw new Error("Unauthorized edit");
+}
+----
+
+== Event E3: Report Claimed
+
+=== Description
+
+Occurs when a user attempts to recover an item.
+
+=== Trigger Conditions
+
+* User is authenticated
+* User is not the report author
+* Report is currently ACTIVE
+* Report has not already been claimed
+
+==== Result
+
+* Claimer information is stored
+* Claim code is generated
+* State changes to CLAIMED
+
+[source,typescript]
+----
+if (report.createdBy === currentUser.id) {
+  throw new Error("Cannot claim own report");
+}
+----
+
+== Event E4: Report Unclaimed
+
+=== Description
+
+Allows a claimer to cancel their claim.
+
+=== Trigger Conditions
+
+* User is the current claimer
+* Report state is CLAIMED
+
+=== Result
+
+* Claim information is removed
+* Report becomes ACTIVE again
+
+== Event E5: Report Resolved
+
+=== Description
+
+Marks the report as successfully completed.
+
+=== Trigger Conditions
+
+* User is report author or administrator
+* Claim verification process is completed
+
+==== Result
+
+* State changes from CLAIMED to RESOLVED
+* Claim workflow ends
+
+== Event E6: Report Reopened
+
+=== Description
+
+Allows previously resolved reports to become active again.
+
+=== Trigger Conditions
+
+* User is report author
+* Report state is RESOLVED
+
+=== Result
+
+* State changes back to ACTIVE
+* Claiming becomes available again
+
+[source,typescript]
+----
+const canReopen =
+  report.status === "RESOLVED" &&
+  currentUser.id === report.createdBy;
+----
+
+== Event E7: Report Archived
+
+=== Description
+
+Moves resolved reports into a closed historical state.
+
+=== Trigger Conditions
+
+* User is report author or administrator
+* Report has already been resolved
+
+=== Result
+
+* Report becomes ARCHIVED
+* Report interactions are disabled
+
+== Event E8: Report Deleted
+
+=== Description
+
+Permanently removes a report from the platform.
+
+=== Trigger Conditions
+
+* User is report author
+* User confirms deletion action
+
+=== Result
+
+* Database entry is removed
+* Report state becomes DELETED
+
+== Lifecycle Transition Diagram
+
+[plantuml]
+----
+@startuml
+
+[*] --> ACTIVE : Report Created
+
+ACTIVE --> ACTIVE : Report Edited
+
+ACTIVE --> CLAIMED : Report Claimed
+
+CLAIMED --> ACTIVE : Report Unclaimed
+
+CLAIMED --> RESOLVED : Report Resolved
+
+RESOLVED --> ACTIVE : Report Reopened
+
+RESOLVED --> ARCHIVED : Report Archived
+
+ACTIVE --> DELETED : Report Deleted
+
+RESOLVED --> DELETED : Report Deleted
+
+ARCHIVED --> [*]
+
+DELETED --> [*]
+
+@enduml
+----
+
+== Event Constraints and Validation Rules
+
+[cols="1,3"]
+|===
+|Constraint ID |Rule
+
+|C1
+|Users cannot claim their own reports
+
+|C2
+|Only one active claim may exist per report
+
+|C3
+|Only report authors may edit reports
+
+|C4
+|Only authors or administrators may archive reports
+
+|C5
+|Only authors may reopen resolved reports
+
+|C6
+|Deleted reports cannot transition to another state
+|===
+
+== Event Dependencies
+
+Several lifecycle events depend on previous transitions:
+
+* Reports must be ACTIVE before being CLAIMED
+* Reports must be CLAIMED before being RESOLVED
+* Reports must be RESOLVED before being ARCHIVED
+* Reports may only be REOPENED from the RESOLVED state
+
+These dependencies help maintain state consistency and prevent invalid operations.
+
+== Current Platform Integration
+
+The current implementation already supports several lifecycle restrictions:
+
+* Claim prevention for report authors
+* Claim ownership validation
+* Status-based report controls
+* Author-only reopen functionality
+* Restricted archive and resolution actions
+
+These rules align closely with the domain transition model described in this document.
+
+== Final Analysis
+
+Domain event modeling helps clarify how reports evolve throughout the Lost & Found platform. By formally identifying lifecycle events, trigger conditions, and state transitions, the system becomes easier to validate, secure, and maintain.
+
+The lifecycle model also improves consistency between frontend behavior, backend validation, and database state management.
+
+== Conclusion
+
+The Lost & Found platform relies on structured lifecycle transitions to maintain report integrity and secure user interactions. Through domain event modeling, the platform can better control report operations such as claiming, resolving, reopening, and deletion.
+
+Clearly defined events and transition constraints reduce ambiguity, improve consistency, and support reliable system behavior across all report management workflows.
+
+== References
+
+* Schütz-Schmuck, M. Domain Engineering and Requirements Analysis Lecture Slides. University of Puerto Rico at Mayagüez.
+* TypeScript Documentation: https://www.typescriptlang.org/docs/
+* Supabase Documentation: https://supabase.com/docs
 ---
