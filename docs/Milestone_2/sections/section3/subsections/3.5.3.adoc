@@ -61,3 +61,46 @@ Each countermeasure is justified based on its expected effectiveness in reducing
 | Detects accidental disclosure of sensitive details in public fields
 | Users are alerted; prevents privacy violations
 |===
+
+===== Countermeasure Evaluation Criteria
+
+The effectiveness of each countermeasure should be evaluated to determine whether the associated risk has been reduced to an acceptable level.
+
+Evaluation criteria provide a structured method for assessing whether implemented countermeasures achieve their intended objectives while preserving usability and stakeholder expectations.
+
+[cols="2,4", options="header"]
+|===
+| Countermeasure Category | Evaluation Criteria
+
+| Structured reporting forms
+| Percentage of submitted reports containing complete required information
+
+| Input validation
+| Number of invalid submissions detected before system acceptance
+
+| Reporting guidance and templates
+| Reduction in incomplete or ambiguous item descriptions
+
+| Administrative override controls
+| Percentage of overrides accompanied by documented justification
+
+| Audit logging
+| Ability to reconstruct and verify administrative actions
+
+| User notifications
+| Successful delivery of notifications related to administrative actions
+
+| Privacy controls
+| Number of unauthorized disclosures of sensitive information
+
+| Access restrictions
+| Verification that sensitive information is accessible only to authorized actors
+|===
+
+===== Evaluation Considerations
+
+Countermeasure effectiveness should be reviewed periodically throughout project development and operation.
+
+When evaluation results indicate that a countermeasure is not sufficiently reducing risk, additional controls or revised mitigation strategies may be required.
+
+This evaluation process supports continuous improvement of system reliability, security, privacy protection, and stakeholder trust.
