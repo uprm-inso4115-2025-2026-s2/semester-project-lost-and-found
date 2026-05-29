@@ -11,9 +11,9 @@ This section describes example user interaction scenarios for the Lost & Found s
 The Lost & Found system supports multiple types of user interactions related to reporting, searching, and recovering items. The following scenarios present common flows that help define how users and administrators are expected to interact with the system.
 
 image::use-case-diagram.png[Use Case Diagram, align=center, pdfwidth=80%]
-_Use case diagram describing interactions between actors and the platform_
+[.added]#_Use case diagram describing interactions between actors and the platform_#
 
-===== Scenario 1: Reporting a Lost Item
+===== [.changed]#Scenario 1: Reporting a Lost Item#
 
 *Actor:* User
 
@@ -24,30 +24,33 @@ _Use case diagram describing interactions between actors and the platform_
 
 *Result:* The lost item is stored in the system and can later be matched with found items.
 
-===== Scenario 2: Posting a Found Item
+image::Event-Trace-Report-Form.png[Use Case Diagram, align=center, pdfwidth=80%]
+[.added]#_Event trace diagram for submitting a report_#
 
-*Actor:* Finder (User)
+===== [.removed]#Scenario 2: Posting a Found Item#
 
-. A user finds an item on campus.
-. The user logs into the platform.
-. The user selects "Post Found Item."
-. The user enters details about the item and where it was found.
-. The system publishes the found item listing.
+[.removed]#*Actor:* Finder (User)#
 
-*Result:* The found item becomes visible to users searching for lost items.
+. [.removed]#A user finds an item on campus.#
+. [.removed]#The user logs into the platform.#
+. [.removed]#The user selects "Post Found Item."#
+. [.removed]#The user enters details about the item and where it was found.#
+. [.removed]#The system publishes the found item listing.#
 
-===== Scenario 3: Submitting an Item Claim
+[.removed]#*Result:* The found item becomes visible to users searching for lost items.#
 
-*Actor:* User
+===== [.removed]#Scenario 3: Submitting an Item Claim#
 
-. A user searches the platform for a lost item.
-. The user finds a listing that matches their item.
-. The user submits a claim request.
-. The system records the claim and sends it for review.
+[.removed]#*Actor:* User#
 
-*Result:* The claim is stored in the system and awaits verification.
+. [.removed]#A user searches the platform for a lost item.#
+. [.removed]#The user finds a listing that matches their item.#
+. [.removed]#The user submits a claim request.#
+. [.removed]#The system records the claim and sends it for review.#
 
-===== Scenario 4: Admin Reviews a Claim
+[.removed]#*Result:* The claim is stored in the system and awaits verification.#
+
+===== [.changed]#Scenario 2: Admin Reviews a Claim#
 
 *Actor:* Administrator
 
@@ -58,7 +61,10 @@ _Use case diagram describing interactions between actors and the platform_
 
 *Result:* If approved, the item can be returned to the owner.
 
-===== Scenario 5: User Creates an Account
+image::Event-Trace-Admin.png[Use Case Diagram, align=center, pdfwidth=80%]
+[.added]#_Event trace diagram for an admin deleting a report_#
+
+===== [.changed]#Scenario 3: User Creates an Account#
 
 *Actor:* User
 
@@ -71,5 +77,17 @@ _Use case diagram describing interactions between actors and the platform_
 
 *Result:* User has an account and access to the platform's features.
 
-image::user_account_creation_event_trace_diagram.png[User Account Creation Event Trace Diagram, align=center, pdfwidth=50%]
-_User Account Creation Event Trace Diagram_
+image::Event-Trace-Register.png[User Account Creation Event Trace Diagram, align=center, pdfwidth=50%]
+[.added]#_Event trace diagram for creating an account_#
+
+===== [.added]#Scenario 4: User Searches for Report#
+
+[.added]#*Actor:* User#
+
+. [.added]#The user enters keywords into the search bar.#
+. [.added]#The user selects a report to view its details.#
+
+[.added]#*Result:* User can search for specific reports#
+
+image::Event-Trace-Search.png[User Account Creation Event Trace Diagram, align=center, pdfwidth=50%]
+[.added]#_User Account Creation Event Trace Diagram_#
