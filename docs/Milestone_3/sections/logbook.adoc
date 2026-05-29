@@ -1,45 +1,47 @@
-
 [.discrete]
 == *Logbook*
 
-[cols="3,^2,5",options="header",]
+[cols="3,5",options="header",]
 |===
-| Name | Section | Added/Modified
+| Name | Section (#IssueNumber)
 
-| Jean P. I. SÃ¡nchez
-| 5., 2.2.1., 2.2.3., 2.2.4., 3.2.
-| Modified/Added
+| https://github.com/JeanSanchezFelix[Jean P. I. Sánchez]
+| 3.4.2 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/428[#428]), 3.6.3 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/428[#432]), 3.3.5 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/481[#481], https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/622[#622]), 2.3 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/45[#45]), 3.1 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/45[#46], https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/619[#619]), 3.2 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/49[#49], https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/391[#391], https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/620[#620]), 2.2.3 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/387[#387], https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/615[#615]), 2.2.4 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/388[#388], https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/616[#616]), 2.1.2 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/611[#611]), 2.2.1 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/613[#613]), 2.2.5 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/617[#617]), 2.3.1 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/618[#618]), 3.3.2 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/621[#621])
 
-| Leanelys GonzÃ¡lez Orama
-| 1.2.1, 1.5., 2.2.1
-| Modified/Added
+| https://github.com/leanelys[Leanelys González Orama]
+| 1.3.1 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/16[#16]), 2.1.4 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/24[#24]), 2.2.1 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/40[#40], https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/385[#385]), 2.2.2 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/41[#41]), 1.2.1 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/375[#375]), 1.2.2 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/376[#376]), 1.5 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/379[#379]), 3.6.2 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/320[#320], https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/624[#624])
 
-| Abby Gotay Almonte
-| 2.1.4., 2.3.1.
-| Modified/Added
+| https://github.com/abby-1b[Abby Gotay Almonte]
+| 2.1.4 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/383[#383]), 2.1.5 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/16[#384]), 2.3.1 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/389[#389])
 
-| Anthony H Martinez-Gomez
-| 1.2.2, 1.3.2, 1.2.3
-| Modified 
+| https://github.com/anthonyharriel[Anthony H. Martinez Gomez]
+| 1.1 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/7[#7]), 2.1.1 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/380[#380])
 
-| Lianette Alberto
-| 1.3.2
-| Modified
+| https://github.com/LianetteAlberto[Lianette Alberto]
+| 1.3.1 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/377[#377])
 
-| Tasnim Said Khader
-| 2.1.2, 2.1.3
-| Modified
+| https://github.com/tasnim2204[Tasnim Said Khader]
+| 1.1 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/374[#374]), 1.2.2 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/10[#10]), 1.2.3 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/11[#11]), 1.3.2 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/17[#17]), 1.4 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/18[#18], https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/374[#374], https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/378[#378]), 1.5 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/19[#19]), 2.1.2 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/22[#22], https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/381[#381]), 2.1.3 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/377[#23], https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/382[#382]), 2.2.3 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/42[#42]), 3.1 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/493[#493])
 
-| Naedra Feliciano
-| 3.1, 2.2.2
-| Added, Modified
+| https://github.com/Naedra[Naedra Feliciano]
+| 2.2.2 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/386[#386], https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/614[#614]), 3.1 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/390[#390])
 
-| Keishlyany M. Sanabria Santana
-| 2.3.1, 2.2.5
-| Added
+| https://github.com/keisanabria[Keishlyany M. Sanabria Santana]
+| 2.1.5 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/25[#25]), 2.2.4 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/43[#43]), 2.2.5 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/44[#44], https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/580[#580]), 2.3.1 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/579[#579])
 
-| Jean Sanchez
-| 2.2.5, 3.1, 3.2, 3.3.2, 3.3.5, 3.3.6
-| Modified/Added: clarified terminology and requirement wording, restored verification links in the machine requirements table, refined stakeholder discovery and traceability language, and repositioned supporting diagrams so they sit next to the explanations they support.
+| https://github.com/Adiel-Soto[Adiel Soto Rodriguez]
+| 1.2.1 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/9[#9])
+
+| https://github.com/AlbertoRodriguez10[Alberto Rodriguez]
+| 3.6.1 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/642[#642])
+
+| https://github.com/jventosa28[Javier Ventosa]
+| 2.1.1 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/610[#610])
+
+| https://github.com/Fernando18Torres[Fernando Torres]
+| 3.3.7 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/623[#623])
+
+| https://github.com/jose-valentin[Jose Valentin]
+| 1.2.1 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/605[#605]), 2.1.4 (https://github.com/uprm-inso4115-2025-2026-s2/semester-project-lost-and-found/issues/612[#612]), 
 
 |===
