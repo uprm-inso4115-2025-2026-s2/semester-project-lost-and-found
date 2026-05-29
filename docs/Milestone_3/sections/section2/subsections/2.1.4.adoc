@@ -1,59 +1,77 @@
-==== *Events, Actions, and Behaviors*
+==== Events, Actions, and Behaviors
 
-This section integrates domain events, actions, and typical behaviors into the Ubiquitous Language for the campus Lost & Found domain. All entries are system-independent, classified strictly as Event or Action, and linked to domain entities. Scenario analysis is included to surface missing or implied domain concepts.
+[.changed]#This section defines the domain events, actor-driven actions, and composite behaviors that constitute the Ubiquitous Language for the campus Lost & Found domain. All concepts are strictly domain-level and system-independent. Events, actions, and behaviors are defined here in direct relationship to the entities established in the preceding subsections; they are not a separate conceptual layer but an integral dimension of those same entities.#
+
+[.removed]#The derivation and justification of these categories including the rationale for distinguishing events from actions and the criteria for valid behavior alternation belongs to the analytic section (Section 3) and has been relocated there.#
 
 ===== Domain Events
 
-Events are observable facts that have occurred in the domain. They are immutable records of domain reality (what happened), not prescriptions for how a system must implement them.
+[.changed]#An event is an instantaneous, observable fact that has occurred in the domain. Events have no duration and no actor: they record *what happened*, not who did it or how long it took. If a concept implies an actor or a span of time, it is an action or a behavior, not an event.#
 
 [cols="1,3,2,2", options="header"]
 |===
-| *Event* | *Definition* | *Trigger* | *Observable Condition / Resulting State*
+| *Event* | *Definition* | *What triggers it* | *Observable Resulting State*
 
 | Lost item reported
-| A member declares that an identifiable item has been lost.
-| A member provides a description, approximate location, and time of loss.
-| A Lost Item report exists with status **active**; report contains description, time, and location.
+| [.changed]#The instant a lost-item report becomes visible to the community.#
+| [.changed]#Completion of the submit lost report action.#
+| A Lost Item report exists with status *active*; it contains description, time, and location.
 
 | Found item reported
-| A member declares that an identifiable item has been found.
-| A member provides a description of the found item, location found, and time found.
-| A Found Item report exists with status **active**; report contains description, location, and time.
+| [.changed]#The instant a found-item report becomes visible to the community.#
+| [.changed]#Completion of the submit found report action.#
+| A Found Item report exists with status *active*; it contains description, location, and time.
+
+| Report updated
+| [.added]#The instant a report's details change.#
+| [.added]#Completion of the update report action by the original reporter.#
+| [.added]#The report record reflects the amended details; a modification timestamp exists.#
 
 | Claim initiated
-| A member expresses intent to recover an item associated with a report.
-| A member contacts the reporter or otherwise signals intent to claim/return the item.
-| A claim record or contact metadata exists; an off-platform or in-person recovery process begins.
+| [.changed]#The instant a member's intent to recover an item is recorded.#
+| [.changed]#Completion of the initiate claim action.#
+| A claim record exists; an off-platform or in-person recovery process may begin.
 
-| Claim verified
-| The parties have established sufficient evidence or mutual confirmation that the claimant is the rightful owner.
-| Parties perform identity/ownership confirmation (e.g., matching unique details, in-person ID check).
-| A verification note or record exists indicating verification succeeded; parties proceed to transfer.
+| [.changed]#Ownership confirmed#
+| [.changed]#The instant sufficient evidence of ownership is on record.#
+| [.changed]#Completion of the verify claim action by the parties involved.#
+| [.changed]#A verification note exists indicating confirmation succeeded; parties may proceed to handover.#
 
 | Item returned
-| Physical possession of the item transfers from the finder to the owner.
-| Finder and owner complete a physical handover.
-| A return record exists; custody of the item is with the owner; associated report may be updated.
+| [.changed]#The instant physical custody of the item passes to the owner.#
+| [.changed]#Completion of the transfer item custody action.#
+| [.changed]#A return record exists; the item is in the owner's possession.#
 
 | Report resolved
-| The matter associated with a report is considered closed (item returned, owner gives up, or other resolution).
-| Owner or finder declares closure, or parties agree resolution through other means.
-| Report status changes to **resolved**; no further recovery actions are expected.
+| The instant a report's matter is considered closed.
+| [.changed]#Completion of the mark resolved action.#
+| Report status changes to *resolved*; no further recovery actions are expected.
 
 | Report challenged
-| A member raises a domain-level concern about a report (suspicion of fraud, duplicate, or inappropriate content).
-| A member identifies an issue and communicates the concern to an oversight actor.
-| A challenge record exists; the report enters a review workflow.
+| [.changed]#The instant a concern about a report is formally recorded.#
+| [.changed]#Completion of the challenge report action.#
+| A challenge record exists; the report enters a review state.
+
+| [.added]#Challenge cleared#
+| [.added]#The instant a challenge is dismissed and the report is reinstated as active.#
+| [.added]#Completion of the clear challenge action by a reviewer.#
+| [.added]#The challenge record is closed; the report status returns to *active*.#
 
 | Report removed
-| A report is permanently withdrawn from public circulation due to policy or community enforcement.
-| An authorized reviewer determines removal is warranted after review.
-| Report status changes to **removed**; the report is no longer visible to the community.
+| [.changed]#The instant a report is permanently withdrawn from community circulation.#
+| [.changed]#Completion of the remove report action by an authorized reviewer.#
+| Report status changes to *removed*; the report is no longer visible to the community.
 |===
+
+[.added]#*Reclassifications from previous version:*#
+
+[.added]#"Claim verified" was renamed *Ownership confirmed* to make clear it is an instantaneous fact (ownership is on record) rather than a process. The prior wording implied a duration ("parties perform … confirmation"), which belongs to the *verify claim* action, not the event.#
+
+[.added]#"Flag cleared" has been added as a discrete event so the moderation behavior has a proper closing event after a challenge is dismissed.#
 
 ===== Domain Actions
 
-Actions are intentional activities performed by domain actors. Actions are distinct from events: actions describe what actors do; events describe what is observed.
+[.changed]#An action is an intentional activity performed by a domain actor. Actions have an actor and may have duration. They are distinct from events: an action describes what an actor *does*; the corresponding event records the instantaneous fact that results.#
 
 [cols="1,2,3,1", options="header"]
 |===
@@ -70,23 +88,23 @@ Actions are intentional activities performed by domain actors. Actions are disti
 | Member; FoundItemReport
 
 | Update report
-| Member
+| Member (original reporter)
 | Amend or add details to an existing report (e.g., additional identifying marks, corrected location).
 | Report; Member
 
 | Initiate claim
 | Member
-| Express intent to recover an item by contacting the reporter or otherwise signaling a claim.
+| Signal intent to recover an item by contacting the reporter or otherwise registering a claim.
 | Claim; Member; Report
 
-| Verify claim (external identity verification)
-| Members involved in a claim
-| Confirm identity or ownership through domain-level means (in-person ID, unique item detail, institutional credential).
+| [.changed]#Verify claim#
+| [.changed]#Members involved in the claim (claimant and finder)#
+| [.changed]#Confirm identity or ownership through domain-level means (in-person identification, unique item detail, institutional credential). This is the activity that precedes the *Ownership confirmed* event.#
 | Claim; Member
 
-| Transfer item custody (handover)
+| Transfer item custody
 | Finder and Owner
-| Physically hand the item from finder to owner, including any agreed verification steps.
+| Physically hand the item from finder to owner, completing any agreed confirmation steps.
 | Item; Member
 
 | Mark resolved
@@ -96,13 +114,18 @@ Actions are intentional activities performed by domain actors. Actions are disti
 
 | Challenge report
 | Member
-| Raise a domain concern about a report's legitimacy or content.
+| Raise a domain concern about a report's legitimacy, accuracy, or content.
 | Report; Challenge; Member
 
 | Review challenge
 | Administrator or designated reviewer
-| Examine a challenged report and decide whether to clear the challenge or remove the report.
+| Examine a challenged report and decide whether to clear or escalate.
 | Report; Challenge; Administrator
+
+| [.added]#Clear challenge#
+| [.added]#Administrator or designated reviewer#
+| [.added]#Dismiss a challenge and reinstate the report as active after review finds no violation.#
+| [.added]#Report; Challenge; Administrator#
 
 | Remove report
 | Administrator or designated reviewer
@@ -110,234 +133,149 @@ Actions are intentional activities performed by domain actors. Actions are disti
 | Report; Administrator
 |===
 
-===== Behaviors (Scenarios)
+===== Behaviors
 
-Behaviors are composite sequences of actions and events that represent typical domain workflows. Each step maps to a defined domain action or event. These scenarios are system-independent: they describe what happens in the community, not how a system must implement it.
+[.changed]#A behavior is a structured sequence that *strictly alternates* actions and events. Each behavior describes a typical domain workflow at the community level. A valid behavior begins with an action (the first intentional step an actor takes) and alternates action → event → action → event throughout. A sequence that lists only events, or only actions, is not a well-formed behavior.#
 
-====== Reporting an Item
+[.changed]#These scenarios are system-independent: they describe what happens in the campus community, not how any software system must implement the workflow.#
 
-1. Action: Submit lost report or Submit found report
-2. Event: Lost item reported or Found item reported
-3. Action (optional): Update report
+====== Reporting a Lost or Found Item
+
+[cols="1,1,3", options="header"]
+|===
+| Step | Type | Description
+
+| 1
+| *Action*
+| Member performs *submit lost report* or *submit found report*.
+
+| 2
+| *Event*
+| *Lost item reported* or *Found item reported*: the report is now publicly visible.
+
+| 3 (optional)
+| *Action*
+| Member performs *update report* to add or correct details.
+
+| 4 (optional, follows step 3)
+| *Event*
+| *Report updated*: the amended details are on record.
+|===
 
 *Outcome:* A public domain report exists and is discoverable by other members.
 
-*Notes:* Reporting actors are responsible for the accuracy of details. Updates are domain actions that produce observable modifications.
+====== Item Lifecycle: Finding and Claiming an Item
 
-====== Finding and Claiming an Item
+*Precondition:* A member has identified a potentially matching report through browsing or searching activities.
 
-1. Action: Member searches available reports (informational activity; not an event)
-2. Action: Initiate claim
-3. Event: Claim initiated
-4. Action: Verify claim (external identity verification)
-5. Event: Claim verified
-6. Action: Transfer item custody (handover)
-7. Event: Item returned
-8. Action: Mark resolved
-9. Event: Report resolved
+[cols="1,1,3", options="header"]
+|===
+| Step | Type | Description
+
+| 1
+| *Action*
+| Member performs *initiate claim*.
+
+| 2
+| *Event*
+| *Claim initiated*: intent to recover is on record.
+
+| 3
+| *Action*
+| Parties perform *verify claim*.
+
+| 4
+| *Event*
+| *Ownership confirmed*: evidence of ownership is on record.
+
+| 5
+| *Action*
+| Finder and owner perform *transfer item custody*.
+
+| 6
+| *Event*
+| *Item returned*: physical custody has changed hands.
+
+| 7
+| *Action*
+| Owner or finder performs *mark resolved*.
+
+| 8
+| *Event*
+| *Report resolved*: the report is closed.
+|===
 
 *Outcome:* Item custody transfers to the rightful owner and the report is closed.
 
-*Notes:* Verification is a social/domain action that may use institutional credentials or unique item details; it is outside system enforcement unless the community defines a domain-level verification protocol.
+[.added]#*Note on step 1:* Browsing or searching reports is an informational activity. It is listed to give the behavior a realistic starting point, but it does not produce a domain event and does not break the alternation rule because it precedes the first action in the claim sub-sequence (step 2).#
 
-====== Return and Resolution without Handover
+====== Resolution without a Finder Handover
 
-1. Action: Owner locates item independently (not via the finder)
-2. Action: Owner marks resolved
-3. Event: Report resolved
+[cols="1,1,3", options="header"]
+|===
+| Step | Type | Description
 
-*Outcome:* Report closes without an Item returned event involving the finder. This scenario distinguishes the resolution from the physical return.
+| 1
+| *Action*
+| [.changed]#Owner independently locates item (outside the domain workflow) and performs *mark resolved*.#
+
+| 2
+| *Event*
+| *Report resolved*: the report is closed without an *Item returned* event.
+|===
+
+*Outcome:* Report closes without a physical handover through the finder. This scenario distinguishes report closure from physical item return.
 
 ====== Moderation and Trust Management
 
-1. Action: Challenge report
-2. Event: Report challenged
-3. Action: Review challenge
-4. If valid: Action: Clear challenge → Event: Flag cleared (report remains active)
-5. If invalid: Action: Remove report → Event: Report removed
+[cols="1,1,3", options="header"]
+|===
+| Step | Type | Description
+
+| 1
+| *Action*
+| Member performs *challenge report*.
+
+| 2
+| *Event*
+| *Report challenged*: the concern is on record and the report enters review.
+
+| 3
+| *Action*
+| Reviewer performs *review challenge*.
+
+| 4a (if valid challenge)
+| *Action*
+| Reviewer performs *remove report*.
+
+| 5a
+| *Event*
+| *Report removed*: report is permanently withdrawn.
+
+| 4b (if invalid challenge)
+| *Action*
+| [.added]#Reviewer performs *clear challenge*.#
+
+| 5b
+| *Event*
+| [.added]#*Challenge cleared*: report is reinstated as active.#
+|===
 
 *Outcome:* Community integrity is preserved through domain review and enforcement.
 
 ===== Conceptual Function Signatures
 
-*Purpose:* These conceptual functions describe the core domain operations from a system-independent perspective, including their purpose, required inputs, outputs, and dependencies. They map to the domain events and actions defined above.
+[.removed]#The conceptual function signatures previously included in this section (authenticateUser, authorizeAction, registerLostItem, registerFoundItem, modifyReport, changeReportStatus, verifyOwnership, searchReports, filterReports, sendMessage, flagReport, moderateReport, categorizeReport, notifyUserOfMatch, computeReturnRate) have been removed from Section 2.#
+ 
+[.removed]#*Rationale:* These signatures are system-level constructs (typed parameters, return types, dependency statements) that belong in the analytic or design sections, not in a descriptive domain vocabulary section. Their inclusion here conflated implementation concerns with domain-level concepts. They have been relocated to Section 3 (Analytic Part).#
 
-====== Authenticate User
+== Log Book
 
-```
-authenticateUser(email: UPREmail, token: AuthToken): AuthenticatedSession
-```
+[cols="3,^2,5",options="header",]
+|===
+| Name | Section | Added/Modified
 
-- *Description:* Verifies a user's credentials using the official UPR authentication system and establishes an authenticated session.
-- *Conceptual Inputs:* UPR email, UPR authentication token.
-- *Conceptual Output:* Authenticated session (represents the user's logged-in state).
-- *Dependencies:* Relies on the UPR identity provider for credential validation.
-- *Related Domain Events/Actions:* This function enables all authenticated actions; it is a prerequisite for *Submit lost report*, *Submit found report*, *Update report*, *Initiate claim*, *Challenge report*, etc.
-
-====== Authorize Action
-
-```
-authorizeAction(user: Person, action: Action): AuthorizationDecision
-```
-
-- *Description:* Determines whether a user is permitted to perform a specific action (e.g., creating a report, moderating content) based on their role.
-- *Conceptual Inputs:* User, requested action.
-- *Conceptual Output:* Permission decision (allowed/denied).
-- *Dependencies:* Depends on the user's assigned role and the system's authorization rules.
-- *Related Domain Events/Actions:* Used to enforce permissions for actions such as *Modify Report*, *Mark resolved*, *Review challenge*, *Remove report*.
-
-====== Register Lost Item
-
-```
-registerLostItem(lost: Item, reporter: Person, lostAt: Location, lostOn: DateTime, category: Category): LostItemReport
-```
-
-- *Description:* Creates a report for an item that has been lost. The report is initially marked as active.
-- *Conceptual Inputs:* Reporter (user), item description, location where lost, date/time lost, category.
-- *Conceptual Output:* Lost item report.
-- *Dependencies:* Requires the user to be authenticated and the category to exist.
-- *Related Domain Events/Actions:* Corresponds to *Submit lost report* (action) and *Lost item reported* (event).
-
-====== Register Found Item
-
-```
-registerFoundItem(found: Item, finder: Person, foundAt: Location, foundOn: DateTime, category: Category): FoundItemReport
-```
-
-- *Description:* Creates a report for an item that has been found. The report is initially marked as active.
-- *Conceptual Inputs:* Finder (user), item description, location found, date/time found, category.
-- *Conceptual Output:* Found item report.
-- *Dependencies:* Requires the user to be authenticated and the category to exist. The finder may be optional depending on the domain rules.
-- *Related Domain Events/Actions:* Corresponds to *Submit found report* (action) and *Found item reported* (event).
-
-====== Modify Report
-
-```
-modifyReport(report: Report, updatedDetails: ReportUpdate): Report
-```
-
-- *Description:* Updates the details of an existing report while preserving data integrity.
-- *Conceptual Inputs:* Report, updated details (the fields to change).
-- *Conceptual Output:* Updated report.
-- *Dependencies:* Only the original author or an administrator may modify a report.
-- *Related Domain Events/Actions:* Corresponds to *Update report* (action). The resulting change may be observed as an update to the report state.
-
-====== Change Report Status
-
-```
-changeReportStatus(report: Report, newStatus: ReportStatus): Report
-```
-
-- *Description:* Transitions a report through its lifecycle states (e.g., active, returned, closed).
-- *Conceptual Inputs:* Report, new status.
-- *Conceptual Output:* Updated report.
-- *Dependencies:* Status changes may be restricted based on the user's role and the current report state.
-- *Related Domain Events/Actions:* Corresponds to *Mark resolved* (action) and may also apply to *Report removed* (event) when status changes to removed.
-
-====== Verify Ownership
-
-```
-verifyOwnership(foundReport: FoundItemReport, claimant: Person, verificationDetails: VerificationData): VerificationResult
-```
-
-- *Description:* Confirms that a claimant is the rightful owner of a found item by comparing private verification details (e.g., serial numbers, unique identifiers) with those stored in the report.
-- *Conceptual Inputs:* Found report, claimant (user), verification details.
-- *Conceptual Output:* Verification result (success/failure).
-- *Dependencies:* Requires the verification details to be provided by the claimant; may trigger a status change or reward handling if successful.
-- *Related Domain Events/Actions:* Corresponds to *Verify claim (external identity verification)* (action) and *Claim verified* (event).
-
-====== Search Reports
-
-```
-searchReports(keywords: SearchQuery): ReportList
-```
-
-- *Description:* Finds reports that match a set of search keywords, covering both lost and found items.
-- *Conceptual Inputs:* Search keywords.
-- *Conceptual Output:* List of matching reports.
-- *Dependencies:* The search may be performed by any user without authentication.
-- *Related Domain Events/Actions:* This is an informational activity referenced in the *Finding and Claiming an Item* behavior; it does not directly correspond to a domain event or action in the tables.
-
-====== Filter Reports
-
-```
-filterReports(status: ReportStatus, category: Category, location: Location, dateRange: DateRange): ReportList
-```
-
-- *Description:* Narrows search results by applying criteria such as status, category, location, or date range.
-- *Conceptual Inputs:* Status, category, location, date range.
-- *Conceptual Output:* List of filtered reports.
-- *Dependencies:* Can be combined with a keyword search to refine results further.
-- *Related Domain Events/Actions:* Like search, this is an informational activity supporting discovery.
-
-====== Send Message
-
-```
-sendMessage(sender: Person, report: Report, content: MessageContent): Message
-```
-
-- *Description:* Allows a user to contact another user regarding a specific report without exposing personal contact details. The system mediates the communication.
-- *Conceptual Inputs:* Sender (user), report, message content.
-- *Conceptual Output:* Message record (stored for audit and delivery).
-- *Dependencies:* Both sender and recipient must be authenticated; the message is tied to a report.
-- *Related Domain Events/Actions:* This function supports the *Initiate claim* action by providing a mediated communication channel.
-
-====== Flag Report
-
-```
-flagReport(report: Report, flaggedBy: Person, reason: FlagReason): FlagRecord
-```
-
-- *Description:* Enables a user to report potentially inappropriate or suspicious content for administrative review.
-- *Conceptual Inputs:* Report, user flagging, reason.
-- *Conceptual Output:* Flag record.
-- *Dependencies:* Flagging does not automatically remove content; it creates a record for later moderation.
-- *Related Domain Events/Actions:* Corresponds to *Challenge report* (action) and *Report challenged* (event).
-
-====== Moderate Report
-
-```
-moderateReport(report: Report, admin: Person, action: ModerationAction): Report
-```
-
-- *Description:* Allows an administrator to review a flagged report and take action (e.g., edit, remove, approve).
-- *Conceptual Inputs:* Report, administrator, action to perform.
-- *Conceptual Output:* Updated report or removal confirmation.
-- *Dependencies:* Only users with the administrator role may perform moderation actions.
-- *Related Domain Events/Actions:* Corresponds to *Review challenge* (action). If removal is chosen, it leads to *Report removed* (event).
-
-====== Categorize Report
-
-```
-categorizeReport(report: Report, category: Category): Report
-```
-
-- *Description:* Assigns a category from the standardized taxonomy to a report, aiding in organization and filtering.
-- *Conceptual Inputs:* Report, category.
-- *Conceptual Output:* Updated report.
-- *Dependencies:* The category must exist in the system's taxonomy.
-- *Related Domain Events/Actions:* This is part of *Submit lost report* and *Submit found report* actions, and may be updated via *Update report*.
-
-====== Notify User of Match
-
-```
-notifyUserOfMatch(user: Person, matchedReport: Report): Notification
-```
-
-- *Description:* Generates an alert for a user when the system detects a potential match between a lost report and a found report.
-- *Conceptual Inputs:* User, matched report.
-- *Conceptual Output:* Notification (sent to the user).
-- *Dependencies:* The match detection is performed by the system based on configurable criteria.
-- *Related Domain Events/Actions:* This function is a system-initiated action; it does not correspond directly to a domain event or action in the tables but supports the discovery workflow.
-
-====== Compute Return Rate
-
-```
-computeReturnRate(dateRange: DateRange, category: Category, location: Location): ReturnRate
-```
-
-- *Description:* Calculates the percentage of items successfully returned relative to the total number of resolved reports.
-- *Conceptual Inputs:* None.
-- *Conceptual Output:* Return rate percentage.
-- *Dependencies:* Operates on aggregate report data and is typically used for administrative dashboards.
-- *Related Domain Events/Actions:* This is an analytical function that uses the *Report resolved* events and *Item returned* events to compute the metric.
+| Jose Valentin
+| 2.1.4 Events, Actions, and Behaviors
+| Corrected classification of all events to be instantaneous and actor-free. Renamed "Claim verified" to "Ownership confirmed" to remove implied duration. Added "Report updated" and "Challenge cleared" events to complete behavior alternation. Added "Clear challenge" action. Rebuilt item lifecycle behavior (previously had no actions) into a strict action→event alternating sequence. Added step-type column to all behavior tables for clarity. Removed conceptual function signatures (system-level constructs relocated to Section 3). Removed conceptual derivation content (relocated to Section 3 analytic part). Added explanatory note clarifying why events/actions/behaviors are co-located with entities rather than in a separate section.
+|===
