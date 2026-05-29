@@ -1,6 +1,6 @@
 import { supabase } from "../supabaseClient";
 
-export type NotificationType = "WELCOME" | "REPORT_POSTED" | "ACCOUNT_UPDATE" | null;
+export type NotificationType = "WELCOME" | "REPORT_POSTED" | "ACCOUNT_UPDATE" | "ITEM_FOUND" | null;
 
 export async function sendEmailNotification(
   email: string,

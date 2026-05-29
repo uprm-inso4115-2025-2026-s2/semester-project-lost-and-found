@@ -14,6 +14,7 @@ import pinIcon from "../assets/icons/pin.svg";
 import closeIcon from "../assets/icons/close.svg";
 import { Report, type Category, type ReportType } from "../ReportManagement/Reports";
 import { ImageUploadInput } from "../components/ImageUploadInput";
+import { sendUserNotification } from "../UserProfilesAccount/NotificationService.ts";
 
 const EDIT_CATEGORIES: Category[] = [
   "ELECTRONICS",
@@ -67,9 +68,6 @@ const ReportDetailPage: React.FC = () => {
   const [editClearImage, setEditClearImage] = useState(false);
   const [editError, setEditError] = useState<string | null>(null);
   const [editSaving, setEditSaving] = useState(false);
-
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [deleteMessage, setDeleteMessage] = useState("");
 
   const isAuthor =
     !!report && !!userEmail && report.getCreatedBy() === userEmail;
@@ -148,7 +146,7 @@ const ReportDetailPage: React.FC = () => {
             .eq("Email", report.getCreatedBy())
             .single();
           if (!data) console.error(error);
-
+          await sendUserNotification(report.getCreatedBy() || "", "Your item has been found!", "The item you lost in your report " + report.getTitle() + " has been found, you may claim it at the Lost and Found office in the campus library.", "ITEM_FOUND", true);
           report.setStatus("CLAIMED");
           report.setClaimedBy(user?.email || "");
           await editReport(report.getID(), report);

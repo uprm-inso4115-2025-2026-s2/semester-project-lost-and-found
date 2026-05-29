@@ -127,23 +127,6 @@ export const ItemCard: React.FC<ItemCardProps> = ({
           ) : null}
           
         <div className="cardActions">
-          {status === "Active" && onClaim && (
-            <button className="actionBtn" onClick={(e) => {e.stopPropagation(); onClaim(reportId)}}>
-              Claim
-            </button>
-          )}
-
-          {status === "Claimed" && onReturn && (
-            <button className="actionBtn" onClick={(e) => {e.stopPropagation(); onReturn(reportId)}}>
-              Close
-            </button>
-          )}
-
-          {status === "Closed" && onSendBackToLost && (
-              <button className="actionBtn" onClick={(e) => {e.stopPropagation(); onSendBackToLost(reportId)}}>
-                Re-open
-              </button>
-          )}
         </div>
         </div>
       </div>
