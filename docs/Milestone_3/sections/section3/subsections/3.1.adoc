@@ -42,7 +42,7 @@ The report is distinct from the item itself; the item exists in the real world, 
 
 The owner, finder and holder could be students, community member
 
-[.modified]* Administrator: moderation authority.
+[.changed]#* Administrator: moderation authority.#
 
 *Ownership*:
 Relationship between a report and the person who created it. It identifies who is responsible for the report on the domain.

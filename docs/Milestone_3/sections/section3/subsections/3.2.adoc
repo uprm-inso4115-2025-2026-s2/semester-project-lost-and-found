@@ -76,7 +76,7 @@ a|
 - Preserved traceability of edits.
 - Clarified workflow for non-owner edit attempts.
 
-===== *Scenario 2: Javier — Reporting a Found Wallet *
+===== *Scenario 2: Javier — Reporting a Found Wallet*
 
 Javier, a student walking past the cafeteria around 1:30 PM, finds a brown leather walletF on the ground. He picks it up but notices it contains a student ID and other personal documents. He wants to report it without exposing sensitive information.
 
