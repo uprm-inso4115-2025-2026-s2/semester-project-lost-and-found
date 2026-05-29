@@ -205,3 +205,119 @@ All remaining routes are protected via the `RequireAuth` wrapper, which redirect
 * The recovery code system, which is central to the claim flow, would be trivially exploitable without authentication.
 
 ---
+
+==== State Transition Conflict Analysis in Lost & Found Report Lifecycles
+:author: Leanelys Gonzalez Orama
+
+This entry analyzes the consistency and validity of report lifecycle transitions within the Lost & Found platform. The purpose is to evaluate whether the documented report states and workflow transitions properly represent expected system behavior and stakeholder expectations.
+
+The analysis focuses on identifying conflicting transitions, undefined behaviors, ambiguous state changes, and inconsistencies between documented workflows and system requirements.
+
+===== Report Lifecycle Overview
+
+The Lost & Found platform depends on report lifecycle management to organize item recovery workflows and track the progression of reports throughout the system.
+
+Common lifecycle stages include:
+
+* Report creation
+* Pending verification
+* Claim submission
+* Claim review
+* Approved recovery
+* Rejected claims
+* Closed reports
+
+These lifecycle transitions help maintain organization, transparency, and workflow consistency across the platform.
+
+===== Transition Analysis Overview
+
+The following table summarizes the evaluation of report state transitions and their observed conflicts or inconsistencies.
+
+[cols="2,3,2", options="header"]
+|===
+| Lifecycle Transition | Transition Evaluation | Observations
+
+| Open Report → Claim Submitted
+| Supports the beginning of ownership verification workflows.
+| Evaluation revealed the need for clearer validation requirements before claim submission.
+
+| Claim Submitted → Under Review
+| Supports moderation and verification activities.
+| Some workflow descriptions lacked explicit review conditions and reviewer responsibilities.
+
+| Under Review → Approved
+| Supports successful ownership confirmation and recovery coordination.
+| Validation identified inconsistent approval criteria across artifacts.
+
+| Under Review → Rejected
+| Supports moderation control and invalid claim handling.
+| Certain sections lacked clear rejection reasoning procedures.
+
+| Approved → Closed
+| Supports completion of recovery workflows.
+| Transition descriptions required clearer confirmation behaviors before closure.
+|===
+
+===== Identified Lifecycle Conflicts
+
+During analysis, several lifecycle inconsistencies and transition conflicts were identified.
+
+Examples included:
+
+* Undefined transition conditions
+* Multiple interpretations of report states
+* Missing rejection handling procedures
+* Ambiguous review responsibilities
+* Incomplete descriptions of closure conditions
+
+These inconsistencies created risks of conflicting workflow interpretations and unclear system behavior expectations.
+
+===== Validation of Transition Logic
+
+The evaluation process helped validate whether the documented lifecycle logic properly represented realistic report management workflows.
+
+This process contributed to:
+
+* Clarifying state transition behaviors
+* Improving workflow understanding
+* Identifying missing lifecycle conditions
+* Refining moderation logic
+* Improving consistency between requirements and workflows
+
+The transition analysis strengthened the reliability and readability of lifecycle documentation.
+
+===== Importance of Lifecycle Consistency
+
+Consistent lifecycle modeling is important because report states directly affect user interactions, moderation activities, and recovery coordination processes.
+
+For the Lost & Found platform, lifecycle consistency analysis helped the team:
+
+* Detect ambiguous workflow behaviors
+* Improve transition clarity
+* Refine state management logic
+* Improve requirement interpretation
+* Strengthen documentation quality
+
+This process contributed to creating more understandable and maintainable workflow documentation.
+
+===== Relationship Between Lifecycle Modeling and Requirements Engineering
+
+Lifecycle analysis supports requirements engineering by ensuring that documented workflows remain aligned with stakeholder expectations and intended system behaviors.
+
+For the Lost & Found platform, transition evaluation helped:
+
+* Improve traceability between requirements and workflows
+* Clarify moderation procedures
+* Refine ownership verification logic
+* Improve workflow transparency
+* Reduce contradictory process descriptions
+
+This analysis improved the consistency and precision of the project documentation.
+
+===== Conclusion
+
+The state transition conflict analysis helped improve the clarity and consistency of the Lost & Found platform report lifecycle documentation.
+
+By evaluating lifecycle states and workflow transitions, the project identified inconsistencies, refined transition logic, and strengthened the relationship between requirements, workflows, and expected system behavior.
+
+---
