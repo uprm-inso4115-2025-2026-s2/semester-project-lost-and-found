@@ -244,12 +244,14 @@ In the Lost and Found application, authentication services verify user identity 
 Modern systems rarely operate through a single component. Instead, they combine multiple services that interact continuously during application workflows.
 
 For the Lost and Found system:
+
 - authentication services validate user identity,
 - communication services coordinate interactions between users,
 - notification services automate feedback and updates,
 - and backend services maintain data consistency.
 
 If these views are not properly integrated, the system may experience:
+
 - duplicate notifications,
 - inconsistent report states,
 - missing communication events,
@@ -271,6 +273,7 @@ The following labels are referenced throughout this analysis:
 The authentication system controls access to the application and ensures that only verified users may perform protected actions.
 
 The authentication workflow includes:
+
 1. User registration
 2. Login verification
 3. Session validation
@@ -280,6 +283,7 @@ The authentication workflow includes:
 Authentication is important because notification and communication workflows depend on verified user identities. Notifications should only be sent to authenticated users associated with valid reports and claims.
 
 The Lost and Found application uses authentication to:
+
 - identify report owners,
 - associate claims with users,
 - protect communication channels,
@@ -289,6 +293,7 @@ The Lost and Found application uses authentication to:
 Communication services coordinate interactions between users and the system.
 
 Examples of communication events include:
+
 - report submissions,
 - ownership claims,
 - report updates,
@@ -298,6 +303,7 @@ Examples of communication events include:
 Communication workflows improve user awareness and reduce uncertainty during the reporting process.
 
 The communication system must ensure that:
+
 - users receive accurate updates,
 - messages correspond to valid system actions,
 - and communication history remains consistent with database records.
@@ -306,6 +312,7 @@ The communication system must ensure that:
 The notification system is one of the most important integrated services in the project. Notifications automate communication events and provide users with immediate system feedback.
 
 The Lost and Found application uses notifications to:
+
 - confirm account creation,
 - confirm report submission,
 - notify users when reports are updated,
@@ -329,6 +336,7 @@ This demonstrates how frontend systems, authentication services, databases, and 
 
 ===== Notification Service Architecture
 The project integrates notifications using:
+
 - Supabase Edge Functions,
 - email automation,
 - and the Resend API service.
@@ -336,12 +344,14 @@ The project integrates notifications using:
 The notification system works by sending HTTP requests to an Edge Function whenever important application events occur.
 
 Examples include:
+
 - creating a report,
 - updating a report,
 - creating a user account,
 - or processing a claim.
 
 The Edge Function then:
+
 - validates the request,
 - formats the email content,
 - communicates with the Resend API,
@@ -378,6 +388,7 @@ The Edge Function then:
 The notification system depends heavily on other system views.
 
 For example:
+
 - authentication validates the user identity,
 - the database stores report information,
 - the backend processes workflow logic,
@@ -386,6 +397,7 @@ For example:
 These services cannot operate independently because each depends on information produced by the others.
 
 A report-confirmation email, for example, requires:
+
 - a valid authenticated user,
 - a successful database insertion,
 - and a properly functioning notification service.
@@ -420,6 +432,7 @@ Integrating automated notifications provides several advantages for the Lost and
 Although the notification system improves usability, it also introduces challenges.
 
 Potential risks include:
+
 - duplicate notifications,
 - failed email delivery,
 - incorrect recipients,
@@ -427,6 +440,7 @@ Potential risks include:
 - and notification spam.
 
 These risks can be reduced through:
+
 - backend validation,
 - retry handling,
 - event logging,
@@ -434,6 +448,7 @@ These risks can be reduced through:
 
 ===== Practical Improvements for the Project
 Based on this analysis, the notification system could be improved through:
+
 - notification history tracking,
 - in-app notifications,
 - real-time alerts,
@@ -441,6 +456,7 @@ Based on this analysis, the notification system could be improved through:
 - and user-configurable notification preferences.
 
 Future improvements could also include:
+
 - SMS notifications,
 - push notifications,
 - and advanced event filtering systems.
@@ -456,6 +472,7 @@ By integrating authentication services, backend processing, databases, and notif
 - Supabase Documentation. https://supabase.com/docs. Accessed 2026-05-13.
 - Resend API Documentation. https://resend.com/docs. Accessed 2026-05-13.
 - NIST. "Digital Identity Guidelines." National Institute of Standards and Technology, https://pages.nist.gov/800-63-3/. Accessed 2026-05-13.
+
 ---
 
 ==== Formal Specification of Report Status Transition Rules in the Lost & Found System
