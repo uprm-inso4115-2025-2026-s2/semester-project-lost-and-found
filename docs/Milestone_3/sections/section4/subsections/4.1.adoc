@@ -1109,6 +1109,149 @@ A defined sequence of actions in the platform (example: Report -> Listing -> Cla
 * *Sensitive item* depends on both item type and details exposed (not only item type).
 
 ---
+
+==== [Lecture Topic Task] Information Precision and Description Quality in Lost Item Reports
+:author: Noel Colon Mena
+===== Overview
+
+The quality and precision of information collected in Lost Item Reports significantly affects the reliability of the Lost & Found domain. Incomplete, vague, or ambiguous descriptions can reduce recoverability, complicate verification procedures, and create inconsistencies during claim evaluation.
+
+This Lecture Topic Task analyzes how the precision and completeness of item descriptions influence the quality of domain information within the Lost & Found system.
+
+===== Information Precision in Lost Item Reports
+
+Lost Item Reports vary greatly in the amount and quality of information provided by users.
+
+Highly precise reports contain:
+
+* Specific item names
+* Unique identifying characteristics
+* Accurate locations
+* Distinguishable physical details
+* Relevant timestamps
+
+Low-precision reports often contain:
+
+* Generic object descriptions
+* Missing identifying details
+* Unclear locations
+* Ambiguous terminology
+* Incomplete report fields
+
+The precision of these descriptions directly impacts how easily items can be identified and recovered.
+
+===== Classification of Description Quality
+
+====== High-Precision Reports
+
+High-precision reports contain detailed information that uniquely distinguishes an item from similar objects.
+
+Examples include:
+
+* “Black TI-84 Plus calculator with a blue sticker on the back.”
+* “Silver Hydro Flask with dent near the cap and UPRM sticker.”
+* “Blue Jansport backpack containing a red physics notebook.”
+
+These descriptions improve matching accuracy and ownership verification.
+
+====== Partial-Precision Reports
+
+Partial-precision reports contain some useful identifying information but lack enough detail for strong differentiation.
+
+Examples include:
+
+* “Black backpack lost near Chardón.”
+* “Wireless headphones left in classroom.”
+* “Water bottle lost in library.”
+
+These descriptions may produce multiple possible matches and require additional verification.
+
+====== Low-Precision Reports
+
+Low-precision reports provide minimal or highly ambiguous information.
+
+Examples include:
+
+* “Lost phone.”
+* “Missing keys.”
+* “Lost item somewhere on campus.”
+
+These reports reduce recoverability and make verification significantly more difficult.
+
+===== Effects of Incomplete Information
+
+Incomplete or low-quality descriptions can create several domain problems:
+
+* Increased difficulty during item matching
+* Higher likelihood of conflicting claims
+* Greater dependence on manual verification
+* Reduced reliability of report searches
+* Longer recovery times
+* Increased administrative uncertainty
+
+The absence of distinguishing details weakens the overall quality of domain information.
+
+===== Description Quality and Ownership Verification
+
+Description precision also affects the verification process during claim evaluation.
+
+Strong descriptions improve verification by:
+
+* Providing unique identifying characteristics
+* Supporting ownership confirmation
+* Reducing fraudulent claims
+* Improving confidence during approval decisions
+
+Weak descriptions increase uncertainty and may require additional questioning or administrative review.
+
+====== Example Verification Scenario
+
+A claimant attempts to recover a laptop.
+
+*High-quality description:*
+
+* “13-inch silver MacBook Air with a Puerto Rico flag sticker.”
+
+*Low-quality description:*
+
+* “Silver laptop.”
+
+The first description provides significantly stronger evidence for ownership verification.
+
+===== Information Quality Improvement Strategies
+
+Several practices can improve description quality within the Lost & Found domain:
+
+* Require minimum identifying information
+* Encourage inclusion of unique physical characteristics
+* Use structured report templates
+* Separate generic fields from distinguishing details
+* Validate incomplete report submissions
+* Prompt users for additional descriptive information
+
+These practices improve the overall reliability and consistency of the domain model.
+
+===== Impact on Domain Reliability
+
+Information precision improves domain reliability by:
+
+* Increasing report distinguishability
+* Improving item recoverability
+* Supporting accurate verification
+* Reducing ambiguity during matching
+* Improving consistency across reports
+
+Higher-quality descriptions strengthen the overall effectiveness of the Lost & Found workflow.
+
+===== Conclusion
+
+Information precision and description quality play an important role in the Lost & Found domain because they directly affect recoverability, verification reliability, and domain consistency.
+
+By improving the completeness and clarity of Lost Item Reports, the system can better support accurate matching, ownership confirmation, and long-term domain reliability.
+
+
+---
+
 ==== [Lecture Topic Task] Domain Validation and Verification for the Lost & Found System
 :author: Noel Colon Mena
 
@@ -1206,6 +1349,136 @@ Together, these processes strengthen the accuracy, consistency, and maintainabil
 Domain validation and verification help ensure that the Lost & Found platform accurately represents real-world workflows while maintaining internally consistent behavior.
 
 By enforcing lifecycle rules, validating report data, and preventing invalid operations, the system can maintain reliable and trustworthy domain behavior throughout the item recovery process.
+
+---
+
+==== [Lecture Topic Task] Domain Temporal Constraints and Retention Policies in the Lost & Found System
+:author: Noel Colon Mena
+
+
+===== Overview
+
+Temporal constraints are an important part of the Lost & Found domain because many workflows depend on time-based conditions and deadlines. Report visibility, claim eligibility, archival behavior, and lifecycle transitions are all influenced by temporal policies.
+
+This Lecture Topic Task analyzes how retention periods, expiration windows, and time-driven constraints affect the behavior and consistency of the Lost & Found system.
+
+===== Temporal Constraints in the Lost & Found Domain
+
+The Lost & Found system contains several domain activities that depend on time-sensitive behavior.
+
+Examples include:
+
+* Report expiration periods
+* Claim submission deadlines
+* Archival scheduling
+* Temporary verification windows
+* Retention duration for recovered items
+* Automatic closure of inactive reports
+
+These constraints help regulate how long reports remain active and how the system manages aging information.
+
+===== Report Retention Policies
+
+Retention policies define how long reports remain stored and visible within the system.
+
+====== Active Reports
+
+Active reports remain visible while an item is still being searched for, verified, or claimed.
+
+Typical constraints include:
+
+* Reports remain active for a limited duration
+* Reports may expire after prolonged inactivity
+* Claims may temporarily suspend expiration timers
+
+====== Archived Reports
+
+Archived reports are retained for historical or administrative purposes but are removed from active workflows.
+
+Archival constraints include:
+
+* Archived items are excluded from public searches
+* Archived reports remain accessible to administrators
+* Archived reports may still be used for audit or verification purposes
+
+
+===== Temporal Lifecycle Transitions
+
+Several report transitions are triggered by temporal conditions rather than direct user interaction.
+
+Examples include:
+
+[cols="2,2,2", options="header"]
+|===
+| Current State | Temporal Condition | Resulting State
+
+| Active
+| No activity for 30 days
+| Expired
+
+| Claimed
+| Verification window exceeded
+| Reopened
+
+| Returned
+| Retention period completed
+| Archived
+
+| Pending Verification
+| Claim response timeout
+| Claim Rejected
+|===
+
+These transitions help maintain consistent lifecycle management throughout the system.
+
+===== Invalid Temporal Scenarios
+
+Temporal constraints also prevent inconsistent or invalid domain behavior.
+
+====== Scenario 1: Expired Report Reappears in Active Search
+
+A report marked as expired incorrectly appears in public search results.
+
+*Expected behavior:*
+
+* Expired reports should be filtered from active searches
+* Only administrators may access expired records
+
+====== Scenario 2: Claim Submitted After Retention Deadline
+
+A claimant attempts to recover an item after the retention window has ended.
+
+*Expected behavior:*
+
+* The claim is rejected
+* The report remains archived or closed
+
+====== Scenario 3: Archived Item Returns to Active State Without Authorization
+
+An archived report is accidentally restored to an active lifecycle state.
+
+*Expected behavior:*
+
+* Administrative review is required
+* Unauthorized lifecycle restoration is prevented
+
+===== Impact on Domain Consistency
+
+Temporal constraints improve consistency within the Lost & Found domain by:
+
+* Preventing outdated reports from remaining indefinitely active
+* Reducing stale or conflicting search results
+* Supporting predictable report lifecycle behavior
+* Establishing clear recovery and retention windows
+* Improving long-term system organization
+
+These policies ensure that the system evolves consistently over time while maintaining reliable report management.
+
+===== Conclusion
+
+Temporal constraints and retention policies play a significant role in the Lost & Found domain by controlling how reports evolve, expire, and are archived over time.
+
+By defining expiration windows, retention periods, and time-driven transitions, the system can maintain accurate lifecycle behavior and improve long-term consistency across Lost & Found workflows.
 
 ---
 
