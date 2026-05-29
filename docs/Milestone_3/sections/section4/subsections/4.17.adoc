@@ -141,7 +141,9 @@ If the state model exposes problems, the project can improve in at least two pra
 ==== Semi-Formal Reasoning with Use Case Constraints for Lost & Found Claim Validation
 :author: Fabian Acevedo
 
-This entry analyzes the claim validation workflow in the Lost & Found system using semi-formal reasoning techniques. The goal is to model how the system processes item claims and identify the key constraints that prevent invalid ownership assignments while keeping the experience simple for students and administrators.
+This entry analyzes the claim validation workflow in the Lost & Found system using semi-formal reasoning techniques. The goal is to model how the system
+processes item claims and identify the key constraints that prevent invalid ownership assignments while keeping the experience simple for students and
+administrators.
 
 ===== Actors Involved
 
@@ -155,8 +157,8 @@ The following actors participate in the claim validation process:
 
 The diagram below models the claim validation process as a UML activity diagram. Decision points are marked with diamond shapes and represent the constraints the system enforces at each stage.
 
-image::claim-validation-activity.png[Claim Validation Activity Diagram, align=center, pdfwidth=85%]
-_Figure 4.1.X. - 1. UML Activity Diagram for the Claim Validation Workflow in the Lost & Found System._
+image::Claim_Validation.png[Claim Validation Activity Diagram, align=center, pdfwidth=85%]
+_Figure 4.17.2. - 1. UML Activity Diagram for the Claim Validation Workflow in the Lost & Found System._
 
 The workflow follows these steps:
 
