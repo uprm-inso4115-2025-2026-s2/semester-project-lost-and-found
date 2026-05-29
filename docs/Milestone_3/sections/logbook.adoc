@@ -32,7 +32,7 @@
 
 | Naedra Feliciano
 | 3.1, 2.2.2
-| Added
+| Added, Modified
 
 | Keishlyany M. Sanabria Santana
 | 2.3.1, 2.2.5
