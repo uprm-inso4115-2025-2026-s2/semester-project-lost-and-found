@@ -456,3 +456,166 @@ By integrating authentication services, backend processing, databases, and notif
 - Supabase Documentation. https://supabase.com/docs. Accessed 2026-05-13.
 - Resend API Documentation. https://resend.com/docs. Accessed 2026-05-13.
 - NIST. "Digital Identity Guidelines." National Institute of Standards and Technology, https://pages.nist.gov/800-63-3/. Accessed 2026-05-13.
+---
+
+==== Formal Specification of Report Status Transition Rules in the Lost & Found System
+:author: Fabian Acevedo
+
+This entry defines a formal specification for how report statuses move through the Lost & Found system. The goal is to document all valid and invalid transitions, the preconditions that guard each change, and the invariants the system must always satisfy — connecting these to formal reasoning concepts covered in lecture.
+
+===== Report States
+
+The system defines three core states in `Reports.ts` as the `ReportStatus` type, with two additional logical states inferred from the report's `type` field and administrative context:
+
+[cols="1,1,3", options="header"]
+|===
+| State ID | State Name | Description
+
+| S0 | *ACTIVE*
+| The report has been submitted and is visible on the home feed. The item has not yet been claimed. This is the initial state for all reports.
+
+| S1 | *CLAIMED*
+| A user has initiated a claim. A recovery code has been generated and stored. The item is pending physical pickup at the Lost & Found office.
+
+| S2 | *RESOLVED*
+| The item has been physically returned to its owner. The report is closed. This is a terminal state.
+
+| S3 | *CLOSED*
+| A report that has been inactive for 90 days with no claim activity, so the report is closed.
+|===
+
+===== State Transition Model
+
+The diagram below shows all states as nodes and all transitions as directed edges. Valid transitions are shown with solid arrows; invalid transitions that the system must reject are shown with dashed red arrows.
+
+image::Report_Status.png[Report Status State Machine, align=center, pdfwidth=85%]
+_Figure 4.18.1. - 3. State Machine Diagram for Report Status Transitions in the Lost & Found System._
+
+===== Valid Transitions
+
+[cols="1,1,1,3", options="header"]
+|===
+| From | To | Trigger | Preconditions
+
+| S0 ACTIVE
+| S1 CLAIMED
+| User taps "Claim Item" and confirms
+a|
+* Report type must be `FOUND`
+* Requesting user must be authenticated
+* Report must currently be in `ACTIVE` state
+* No other claim is already in progress
+
+| S1 CLAIMED
+| S2 RESOLVED
+| Administrator marks item as returned
+a|
+* Administrator must present the correct recovery code
+* Report must currently be in `CLAIMED` state
+* `claimedBy` field must be non-empty
+
+| S0 ACTIVE
+| S3 CLOSED
+| Scheduled job after 90 days of inactivity
+a|
+* Report has been `ACTIVE` for longer than the configured threshold
+* No claim has been initiated
+
+| S1 CLAIMED
+| S0 ACTIVE
+| User or admin unclaims the report
+a|
+* The requesting user must be the original claimant, or an administrator
+* Report must currently be in `CLAIMED` state
+* Recovery code is invalidated on transition
+|===
+
+===== Invalid Transitions
+
+The `setStatus` method in `Reports.ts` enforces these rejections at the model level by throwing an error on disallowed transitions:
+
+[cols="1,1,2", options="header"]
+|===
+| From | To | Reason Rejected
+
+| S2 RESOLVED | S0 ACTIVE | A returned item cannot be re-opened. The report is a closed record.
+| S2 RESOLVED | S1 CLAIMED | A resolved report cannot be re-claimed.
+| S0 ACTIVE | S2 RESOLVED | An item cannot be marked returned without first being claimed — skipping the code verification step would bypass the administrator check.
+| S1 CLAIMED | S1 CLAIMED | Re-claiming an already claimed report (by a different user) is rejected. The `claimedBy` field is immutable once set until the report returns to `ACTIVE`.
+|===
+
+===== Preconditions and Postconditions
+
+Using pre/post condition notation as covered in lecture:
+
+----
+Transition: ACTIVE → CLAIMED
+
+PRE:
+  report.status == ACTIVE
+  report.type == FOUND
+  user.isAuthenticated == true
+  report.claimedBy == ""
+
+POST:
+  report.status == CLAIMED
+  report.claimedBy == user.email
+  report.recoveryCode != 0
+  recoveryCode is a 6-digit integer (100000 ≤ code ≤ 999999)
+----
+
+----
+Transition: CLAIMED → RESOLVED
+
+PRE:
+  report.status == CLAIMED
+  report.claimedBy != ""
+  presented_code == report.recoveryCode
+
+POST:
+  report.status == RESOLVED
+  item has been physically released to claimant
+----
+
+===== System Invariants
+
+The following invariants must hold at all times, regardless of which transition has occurred:
+
+*Invariant I1 — Code Integrity:*
+If `report.status == CLAIMED`, then `report.recoveryCode` must be a non-zero 6-digit integer and `report.claimedBy` must be a non-empty string. A claimed report with a missing code or claimant is an inconsistent state.
+
+----
+INVARIANT I1:
+  report.status == CLAIMED →
+    (report.recoveryCode >= 100000 ∧
+     report.recoveryCode <= 999999 ∧
+     report.claimedBy ≠ "")
+----
+
+*Invariant I2 — Terminal State Immutability:*
+Once a report reaches `RESOLVED`, no field other than audit metadata may be modified. The title, description, claimant, and recovery code are frozen.
+
+----
+INVARIANT I2:
+  report.status == RESOLVED →
+    ∀ future states s: s.status == RESOLVED
+----
+
+*Invariant I3 — Single Active Claim:*
+At any point in time, at most one user may hold a valid claim on a given report. No two users can have the same report in `CLAIMED` state simultaneously.
+
+----
+INVARIANT I3:
+  ∀ report r: ¬∃ u1, u2 (u1 ≠ u2 ∧
+    r.status == CLAIMED ∧
+    r.claimedBy == u1.email ∧
+    r.claimedBy == u2.email)
+----
+
+===== Connection to System Correctness and Consistency
+
+Formal specification of state transitions supports system correctness in two concrete ways. First, it makes implicit assumptions testable — Invariant I1, for example, can be turned directly into a unit test that queries the database for any `CLAIMED` reports with a zero or missing recovery code. Second, it surfaces edge cases that informal descriptions miss — the invalid transition `ACTIVE → RESOLVED` was not explicitly rejected in the original `setStatus` implementation until the transition table made the gap visible.
+
+From a requirements engineering perspective, the state machine serves as a contract between the frontend, the backend service layer, and the database. Any future feature (such as admin moderation or dispute resolution) must either fit within the defined transitions or formally extend the specification, preventing ad-hoc status mutations that could corrupt the record.
+
+---

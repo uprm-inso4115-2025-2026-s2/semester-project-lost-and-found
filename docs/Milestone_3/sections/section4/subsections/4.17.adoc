@@ -137,3 +137,67 @@ If the state model exposes problems, the project can improve in at least two pra
 - "Model Checking." Stanford University, https://web.stanford.edu/class/cs357/lecture12.pdf. Accessed 2026-05-13.
 - Merz, Stephan. "Model Checking: A Tutorial Overview." University of Illinois at Urbana-Champaign, https://courses.grainger.illinois.edu/cs477/sp2018/resources/papers/model-checking-tutorial.pdf. Accessed 2026-05-13.
 
+
+==== Semi-Formal Reasoning with Use Case Constraints for Lost & Found Claim Validation
+:author: Fabian Acevedo
+
+This entry analyzes the claim validation workflow in the Lost & Found system using semi-formal reasoning techniques. The goal is to model how the system
+processes item claims and identify the key constraints that prevent invalid ownership assignments while keeping the experience simple for students and
+administrators.
+
+===== Actors Involved
+
+The following actors participate in the claim validation process:
+
+* *Claiming User* — A student or campus member who believes an item belongs to them and initiates a claim through the platform.
+* *System* — The Lost & Found application, which enforces business rules, generates recovery codes, and manages report status transitions.
+* *Administrator / Moderator* — A staff member at the Lost & Found office (library) who physically verifies the claim by matching the recovery code before releasing the item.
+
+===== Claim Validation Workflow
+
+The diagram below models the claim validation process as a UML activity diagram. Decision points are marked with diamond shapes and represent the constraints the system enforces at each stage.
+
+image::Claim_Validation.png[Claim Validation Activity Diagram, align=center, pdfwidth=85%]
+_Figure 4.17.2. - 1. UML Activity Diagram for the Claim Validation Workflow in the Lost & Found System._
+
+The workflow follows these steps:
+
+. The user opens a report marked as *Found* (Active status).
+. The user taps *Claim Item* and confirms the claim prompt (shown only the first time).
+. *Decision Point 1 — Report Type Check:* The system verifies the report is of type `FOUND`. Lost-type reports follow a different notification path and do not generate a recovery code at this stage.
+. *Decision Point 2 — Already Claimed Check:* The system checks if the report status is already `CLAIMED`. If so, and the requesting user matches `claimedBy`, the existing recovery code is returned without generating a new one.
+. *Decision Point 3 — Authenticated User Check:* The system requires the user to be authenticated. An anonymous session cannot initiate or complete a claim.
+. If all checks pass: the system transitions the report status to `CLAIMED`, generates a 6-digit recovery code via `getNewRecoveryCode()`, stores it in the database alongside the claiming user's email, and displays the code to the user.
+. The user presents the recovery code at the Lost & Found office. The administrator matches it against the stored code and releases the item, after which the status transitions to `RESOLVED`.
+
+===== Key Constraints Identified
+
+[cols="1,3", options="header"]
+|===
+| Constraint | Description
+
+| C1 — Report Type
+| Only reports of type `FOUND` generate a recovery code. `LOST`-type reports trigger an owner notification instead, since the finder is the one who submitted the report.
+
+| C2 — Single Active Claim
+| Once a report reaches `CLAIMED` status, no other user can initiate a new claim. The system returns the existing code only to the original claimant, preventing duplicate claims.
+
+| C3 — Authentication Required
+| The claiming action requires a valid authenticated session (`supabase.auth.getUser()`). Unauthenticated users cannot claim an item, protecting against anonymous abuse.
+
+| C4 — Code Immutability After Claim
+| After a recovery code is generated and saved, subsequent views of the code by the same claimant retrieve the stored value rather than generating a new one, ensuring the code the administrator holds matches what the user shows.
+
+| C5 — Status Transition Validity
+| The `Report` class enforces allowed transitions. `ACTIVE → CLAIMED` is valid; attempting to re-claim an already `RESOLVED` report is rejected at the model level.
+|===
+
+===== Connection to Semi-Formal Reasoning
+
+Semi-formal reasoning sits between natural language descriptions and fully formal mathematical specifications. Use case constraints, as covered in lecture, serve as semi-formal tools because they express system behavior with enough precision to guide implementation and testing without requiring full predicate logic.
+
+In this workflow, each decision point corresponds directly to a use case precondition or guard condition. For example, the guard _[report.type == FOUND]_ on the code-generation step is a semi-formal constraint: it is precise enough to be implemented as a conditional check in code (`report.getType() === "Found"`) but is expressed at the requirements level without formal notation.
+
+This approach supports better requirement analysis by making implicit assumptions explicit — for instance, the assumption that only the finder can post a `FOUND` report, and therefore only the claimant needs a code, was surfaced by modeling the workflow rather than discovering it during implementation.
+
+---
