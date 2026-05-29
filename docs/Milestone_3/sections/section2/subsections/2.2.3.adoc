@@ -40,11 +40,11 @@ All reports represent unresolved situations at the moment of creation.
 ====== Finder Traceability
 
 *Domain basis*:  
-The person who finds an item is not always the same as the one who returns it, and follow-up communication may be required.
+[.changed]#The person who finds an item is not always the same as the office or holder that keeps it afterward, and follow-up communication may be required.#
 
 *Requirements*:
 
-* [[REQ-REPORT-F-04]]REQ-REPORT-F-04: The system must record the **Finder** associated with a **Found Item Report**.
+* [[REQ-REPORT-F-04]]REQ-REPORT-F-04: The system must record the **Finder** associated with a **Found Item Report** and the current **Holder** / **Custody Location** when custody changes after discovery.
 
 [discrete]
 ====== Report Ownership
@@ -69,7 +69,7 @@ Reports originate from identifiable domain actors (loser or finder), and ownersh
 ====== Search Mechanism
 
 *Domain basis*:  
-Items lack unique identifiers and are described using non-standard, free-form language, requiring retrieval based on partial descriptions.
+[.changed]#Items lack unique identifiers and are described using non-standard, free-form language. Several similar items may exist at once, so retrieval must support keyword search over partial descriptions and related metadata.#
 
 *Requirements*:
 
@@ -111,7 +111,7 @@ Matching is required because lost and found reports are created independently an
 ====== Owner Tracking
 
 *Domain basis*:  
-The individual who lost an item needs visibility into the recovery process.
+[.changed]#The individual who lost an item needs visibility into the recovery process, including who currently has the item and whether it is still recoverable.#
 
 *Requirements*:
 
@@ -128,16 +128,16 @@ False claims may occur due to non-unique items and public visibility of reports.
 
 *Requirements*:
 
-* [[REQ-CLAIM-F-01]]REQ-CLAIM-F-01: The system must restrict confirmation of **Item Returned** to authenticated actors associated with the report.
+* [[REQ-CLAIM-F-01]]REQ-CLAIM-F-01: The system must restrict confirmation of [.changed]#**Return Completed**# to authenticated actors associated with the report.
 
-* [[REQ-CLAIM-F-02]]REQ-CLAIM-F-02: The system must require validation of ownership using private report attributes before confirming **Item Returned**.
+* [[REQ-CLAIM-F-02]]REQ-CLAIM-F-02: The system must require validation of ownership using private report attributes before confirming [.changed]#**Return Completed**#.
 
 [discrete]
 ====== Recovery Definition
 
 *Clarification*:
 
-- **Recovery** corresponds to the event **Item Returned**  
+- **Recovery** corresponds to the event [.changed]#**Return Completed**#  
 - **Returned** is a terminal state representing successful closure  
 - **Closure** may occur as:
   - successful closure (**Returned**)  

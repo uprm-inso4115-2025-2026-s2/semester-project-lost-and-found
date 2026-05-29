@@ -27,8 +27,8 @@ why the implementation section does not include notification services or
 real-time features.#
 
 [.added]#**Diagram 3 (Conceptual ERD)** reveals the domain's core relationship:
-a `Match` connects a lost report to a found report. This explains the
-`create-then-persist` workflow shown below—both report types share a common
+a `Match` connects a lost report to a found report. This supports the report
+submission and matching flow shown below—both report types share a common
 abstract `Report` class before specialization.#
 
 image::system-context-diagram.png[System Context Diagram, align=center, pdfwidth=80%]
@@ -86,7 +86,7 @@ This fragment clarifies that:
 
 ===== Report Creation Flow (Lost / Found)
 
-The system follows a *create-then-persist* workflow: first an in-memory report instance is constructed, then it is saved to the database. This separation clarifies the difference between a draft report (without system-assigned fields) and a stored record.
+[.changed]#The section below describes how a validated report submission is handed to the persistence boundary. A report is the record of the reporting event, not the item itself; it captures the item description, the reporting actor, and the state needed for search, verification, and recovery.#
 
 When a user reports a lost or found item, the system must:
 
@@ -139,7 +139,7 @@ class ReportPersisted extends Report {
 }
 ----
 
-The insertion function now follows a clear *create-then-persist* pattern: an input instance is created first, then its data is mapped to the database schema.
+[.changed]#The persistence adapter then maps the validated submission data to the database schema.#
 
 [source,tsx]
 ----
@@ -201,17 +201,23 @@ These fragments demonstrate several architectural decisions:
 - Ownership is enforced at insertion (`user_id` bound to session).
 - Status lifecycle begins as `"active"`.
 - Supabase Row Level Security (RLS) policies enforce access constraints.
-- The class hierarchy separates *input* (no system fields) from *persisted* (with id, status, timestamps), making the create-then-persist workflow explicit.
+- [.changed]#The class hierarchy separates *input* (no system fields) from *persisted* (with id, status, timestamps), making the storage boundary explicit.#
 - Precise types (`Date`, `URL`, `UUID`) replace generic strings, improving maintainability and domain alignment.
 
 Without this code, it would be difficult to concretely show how domain concepts such as *Reporting*, *Ownership*, and *Lifecycle State* are realized.
+
+[.added]#The behavior shown here is verified by the anchors in Section 3.2,
+especially <<TEST-REPORT-01>>, <<TEST-REPORT-02>>, <<TEST-REPORT-03>>,
+<<TEST-REPORT-04>>, <<TEST-REPORT-05>>, <<TEST-SEARCH-01>>,
+<<TEST-SEARCH-02>>, <<TEST-SEARCH-03>>, <<TEST-SEARCH-04>>, and
+<<TEST-SEARCH-05>>.#
 
 The diagram below illustrates the flow of data and control during report creation, highlighting the interaction between the React client and Supabase backend, as well as the enforcement of ownership and security policies:
 
 image::report-creation-flow.png[Report Creation Flow, align=center, pdfwidth=80%]
 _Figure 2.3.1. - 1. Report Creation Flow (React + Supabase)._
 
-As shown, the user initiates the report creation from the React client, which then interacts with Supabase to authenticate the user and insert the report into the database. The ownership of the report is established through the `user_id` field, and RLS policies ensure that only the owner can modify their reports.
+[.changed]#As shown, the user initiates the report submission from the React client, which then interacts with Supabase to authenticate the user and insert the report data into the database. The ownership of the report is established through the `user_id` field, and RLS policies ensure that only the owner can modify their reports.#
 
 
 ===== Row-Level Security (Ownership Enforcement)
@@ -273,3 +279,10 @@ This fragment illustrates:
 
 This design directly supports the domain behavior of *Matching* by enabling
 visual comparison while maintaining structural database normalization.
+
+===== ERD Source Appendix
+
+[.added]#The source below captures the same conceptual structure for the report creation flow, but in a more abstract form. It is included for completeness and to show the direct lineage from the conceptual ERD to the implemented code structure.#
+
+image::ER_model.png[Report Creation Flow, align=center, pdfwidth=80%]
+_Figure 2.3.1. - 2. Entity-Relationship Diagram for Reports._

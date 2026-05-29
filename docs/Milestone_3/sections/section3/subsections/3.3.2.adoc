@@ -5,6 +5,12 @@
 
 In order to connect domain engineering and requirements engineering, representative stakeholder perspectives were identified and modeled as personas. These personas capture goals, behaviors, and constraints within the UPRM lost and found domain. They serve as a foundation for deriving user stories and refining functional requirements. 
 
+[.added]#Stakeholders were discovered through interview fragments, questionnaire
+responses, scenario walkthroughs, and repeated observation of who handles item
+custody. The purpose of this section is to document the current stakeholder
+coverage and show how additional stakeholders can be found later if the domain
+reveals new handoffs or responsibilities.#
+
 [discrete]
 ==== Stakeholder Groups
 
@@ -12,19 +18,19 @@ In order to connect domain engineering and requirements engineering, representat
 |===
 |Stakeholder |Role |Responsibilities |Primary Goals
 
-|Claimants
+|Owners / Claimants
 |Individuals who lose items and attempt recovery.
-|Reporting lost items, searching for matches, verifying ownership. 
-|Recover belongings quickly, minimize effort, protect personal information. 
+|Reporting lost items, searching for matches, verifying ownership.
+|Recover belongings quickly, minimize effort, protect personal information.
 
 |Finders
 |Individuals who discover misplaced items.
 |Reporting found items and providing descriptive details.
 |Return items to rightful owners with minimal friction. 
 
-|Administrative Custodians
-|Authorized personnel responsible for oversight and moderation. 
-|Reviewing reports, resolving misuse, maintaining data integrity. 
+|Administrative Custodians / Moderators
+|Authorized personnel responsible for oversight and moderation.
+|Reviewing reports, resolving misuse, maintaining data integrity.
 |Ensure trustworthy system operation and prevent abuse.
 |===
 
@@ -53,6 +59,12 @@ In order to connect domain engineering and requirements engineering, representat
     * Ensure items are properly matched
     * Maintain organized tracking
 - *Day-in-the-life narrative:* Maria receives a lost ID card and wants a reliable way to record it so the owner can find it. She also needs oversight tools to verify claims and update report status once the item is returned.
+
+[.added]#Additional stakeholders can be identified by following the same
+discovery path used here: examine custody handoffs, look for repeated manual
+work, inspect escalation points, and interview the people who currently answer
+questions when the system does not. Likely additions include library staff,
+security staff, faculty, and technical support.#
 
 [discrete]
 ==== Elicitation Questionnaire
