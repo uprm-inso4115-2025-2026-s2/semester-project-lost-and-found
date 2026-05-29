@@ -10,6 +10,35 @@ abstract. Each fragment directly supports a design decision explained in the
 accompanying text.
 ====
 
+===== Conceptual Diagrams: System Scope and Problem Framing
+
+[.added]#The following three diagrams complement the implementation fragments by
+clarifying the system's boundaries, external dependencies, and conceptual domain
+structure.#
+
+[.added]#**Diagram 1 (System Context)** shows that the Lost & Found platform
+delegates authentication to UPR's SSO provider via Supabase OAuth. This explains
+why the code fragment in the next section never handles passwords directly.#
+
+[.added]#**Diagram 2 (Problem Framing)** explicitly demarcates inside-scope
+responsibilities (report creation, ownership enforcement, basic matching) from
+out-of-scope features (ML matching, messaging, mobile apps). This clarifies
+why the implementation section does not include notification services or
+real-time features.#
+
+[.added]#**Diagram 3 (Conceptual ERD)** reveals the domain's core relationship:
+a `Match` connects a lost report to a found report. This explains the
+`create-then-persist` workflow shown below—both report types share a common
+abstract `Report` class before specialization.#
+
+image::system-context-diagram.png[System Context Diagram, align=center, pdfwidth=80%]
+_Figure 2.3.0 - 1: System Context Diagram — The Lost & Found platform interacts with four external systems._
+
+image::problem-framing-diagram.png[Problem Framing Diagram, align=center, pdfwidth=80%]
+_Figure 2.3.0 - 2: Problem Framing Diagram — Explicit scope boundaries._
+
+image::conceptual-erd.png[Conceptual ERD, align=center, pdfwidth=80%]
+_Figure 2.3.0 - 3: Conceptual Entity-Relationship Diagram — Domain structure with Match as core business entity._
 
 ===== Authentication via UPR SSO (Supabase OAuth)
 
