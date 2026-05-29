@@ -1,4 +1,4 @@
-==== Events, Actions, and Behaviors
+==== *Events, Actions, and Behaviors*
 
 [.changed]#This section defines the domain events, actor-driven actions, and composite behaviors that constitute the Ubiquitous Language for the campus Lost & Found domain. All concepts are strictly domain-level and system-independent. Events, actions, and behaviors are defined here in direct relationship to the entities established in the preceding subsections; they are not a separate conceptual layer but an integral dimension of those same entities.#
 
@@ -268,14 +268,3 @@
 [.removed]#The conceptual function signatures previously included in this section (authenticateUser, authorizeAction, registerLostItem, registerFoundItem, modifyReport, changeReportStatus, verifyOwnership, searchReports, filterReports, sendMessage, flagReport, moderateReport, categorizeReport, notifyUserOfMatch, computeReturnRate) have been removed from Section 2.#
  
 [.removed]#*Rationale:* These signatures are system-level constructs (typed parameters, return types, dependency statements) that belong in the analytic or design sections, not in a descriptive domain vocabulary section. Their inclusion here conflated implementation concerns with domain-level concepts. They have been relocated to Section 3 (Analytic Part).#
-
-== Log Book
-
-[cols="3,^2,5",options="header",]
-|===
-| Name | Section | Added/Modified
-
-| Jose Valentin
-| 2.1.4 Events, Actions, and Behaviors
-| Corrected classification of all events to be instantaneous and actor-free. Renamed "Claim verified" to "Ownership confirmed" to remove implied duration. Added "Report updated" and "Challenge cleared" events to complete behavior alternation. Added "Clear challenge" action. Rebuilt item lifecycle behavior (previously had no actions) into a strict action→event alternating sequence. Added step-type column to all behavior tables for clarity. Removed conceptual function signatures (system-level constructs relocated to Section 3). Removed conceptual derivation content (relocated to Section 3 analytic part). Added explanatory note clarifying why events/actions/behaviors are co-located with entities rather than in a separate section.
-|===
