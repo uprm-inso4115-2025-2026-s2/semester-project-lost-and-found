@@ -6,53 +6,95 @@ Each term is annotated with its *type* (entity, event, state, behavior, function
 [.changed]
 ===== Type: Entity & Phase: Domain
 
-*Lost Item*:: Personal belonging whose owner no longer knows its location.
+*Lost Item*:: 
 
-*Found Item*:: Personal belonging discovered by someone other than its owner.
+. Personal belonging whose owner no longer knows its location.
 
-*Owner*:: Individual who has legitimate claim over a lost item.
+*Found Item*:: 
 
-*Finder*:: Individual who discovers a lost item.
+. Personal belonging discovered by someone other than its owner.
 
-*Holder*:: A person or office temporarily responsible for keeping a found item.
+*Owner*:: 
 
-*Loss Location*:: Area where an item is believed to have been lost.
+. Individual who has legitimate claim over a lost item.
 
-*Discovery Location*:: Area where an item is found, which may differ from the loss location.
+*Finder*:: 
 
-*Custody Location*:: The place where a found item is kept while awaiting return.
+. Individual who discovers a lost item.
 
-*Report*:: A recorded description of a lost or found item used to support identification and recovery.
+*Holder*:: 
+
+. A person or office temporarily responsible for keeping a found item.
+
+*Loss Location*:: 
+
+. Area where an item is believed to have been lost.
+
+*Discovery Location*:: 
+
+. Area where an item is found, which may differ from the loss location.
+
+*Custody Location*:: 
+
+. The place where a found item is kept while awaiting return.
+
+*Report*:: 
+
+. A recorded description of a lost or found item used to support identification and recovery.
 
 [.changed]
 ===== Type: State & Phase: Domain
 
-*Holding Period*:: The duration during which a found item remains under custody before alternative handling is considered.
+*Holding Period*:: 
 
-*Unclaimed*:: State of a found item after the holding period expires without successful return.
+. The duration during which a found item remains under custody before alternative handling is considered.
 
-*Active Report*:: State in which a report is open and recovery is still expected.
+*Unclaimed*:: 
 
-*Closed Report*:: State in which no further recovery actions are expected.
+. State of a found item after the holding period expires without successful return.
+
+*Active Report*:: 
+
+. State in which a report is open and recovery is still expected.
+
+*Closed Report*:: 
+
+. State in which no further recovery actions are expected.
 
 [.changed]
 ===== Type: Event & Phase: Domain
 
-*Loss Realization*:: The moment an individual becomes aware that an item is missing.
+*Loss Realization*:: 
 
-*Item Found*:: The moment an item is discovered by someone other than its owner.
+. The moment an individual becomes aware that an item is missing.
 
-*Item Handed Over*:: The completed transfer of a found item to a holder or custody location.
+*Item Found*:: 
 
-*Item Reported*:: The moment a lost or found item is formally recorded in the system.
+. The moment an item is discovered by someone other than its owner.
 
-*Claim Filed*:: The moment a claimant submits an ownership assertion for a found item.
+*Item Handed Over*:: 
 
-*Return Completed*:: The moment a found item is successfully transferred back to its owner.
+. The completed transfer of a found item to a holder or custody location.
 
-*Holding Period Expired*:: The moment when a defined holding period ends without successful return.
+*Item Reported*:: 
 
-*Report Closure Recorded*:: The moment the report lifecycle reaches its terminal close state.
+. The moment a lost or found item is formally recorded in the system.
+
+*Claim Filed*:: 
+
+. The moment a claimant submits an ownership assertion for a found item.
+
+*Return Completed*:: 
+
+. The moment a found item is successfully transferred back to its owner.
+
+*Holding Period Expired*:: 
+
+. The moment when a defined holding period ends without successful return.
+
+*Report Closure Recorded*:: 
+
+. The moment the report lifecycle reaches its terminal close state.
 
 [.changed]
 ===== Type: Behavior & Phase: Domain
