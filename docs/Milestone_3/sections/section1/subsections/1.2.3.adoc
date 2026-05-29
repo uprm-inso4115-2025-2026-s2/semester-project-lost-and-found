@@ -1,28 +1,42 @@
 ==== *Ideas*
 
-Initial brainstorming focused on identifying practical ways to reduce unresolved lost-item cases and improve visibility across the campus community. The proposed ideas aim to transition from the recognized need for coordination and transparency toward potential forms of support.
+This section lists early candidate directions that could address the needs described above. These are not requirements. They are ideas to explore and narrow down.
 
-===== Technical Support Concepts
+We do not treat "a digital system" as the goal by itself. The goal is a quicker and clearer recovery path. If a digital tool helps, we use it. If a process change helps, we use that too.
 
-Provide a shared digital space where members of the campus community can report lost and found items.
-Enable searching or browsing of reported items to help individuals determine whether their belongings have been located.
-Allow secure communication between individuals involved in a lost-and-found case to coordinate recovery.
-Use categorization or tagging to improve organization and discovery of reported items.
-Offer automated alerts when newly reported items resemble previously reported losses.
-Include administrative oversight to review sensitive or inappropriate reports and maintain trust.
+===== Candidate directions for coordination and visibility
 
-===== Process and Community Improvements
+* A single place to check, even if the actual item is stored somewhere else.
+  People lose time because they do not know where to start. One direction is to provide a common place where students and staff can check what has been found and where it was handed over (high level location only). This can reduce repeated visits to multiple offices.
 
-Encourage consistent reporting behavior across students, staff, and campus offices.
-Reduce reliance on fragmented communication channels such as informal messages or social media.
-Improve transparency in how lost items are handled and tracked within the university environment.
-Promote a culture of responsibility and cooperation around returning found belongings.
+* A consistent minimum set of fields for reporting, regardless of channel.
+  Even without changing how items are physically handled, a shared format helps. At minimum, reports capture what the item is, when it was lost or found (time window if needed), and a broad location. The point is enough consistency so people can recognize and match items.
 
-===== Additional or Alternative Considerations
+* Short guidance on what to do when you find something.
+  Finders often hesitate because they do not want to give an item to the wrong person. A simple guide can reduce hesitation: where to hand items over, what information to record, and what details should not be posted publicly.
 
-Pilot the approach within a limited campus group before broader adoption.
-Provide guidance or training for the entity responsible for maintaining the process.
-Explore integration with existing campus communication or information channels.
-Consider future expansion to support broader campus safety or notification needs.
+===== Candidate directions for safer claiming and fewer disputes
 
-These ideas represent early directions rather than finalized requirements. They serve to guide further domain understanding, requirement definition, and evaluation of feasible approaches that meaningfully address the identified needs.
+* Keep public details minimal for sensitive items, and move proof to the claim step.
+  For items like IDs, keys, wallets, and electronics, public posts should avoid details that make fake claims easy. The idea is to keep recognition possible while reserving unique identifying details for verification.
+
+* Simple verification prompts.
+  Instead of leaving verification to guesswork, the process can suggest the kinds of proofs that usually work (for example, describe a unique mark, identify contents, or confirm a detail that is not shown publicly). This reduces disputes and awkward handoffs.
+
+===== Candidate directions for responsibility and maintenance
+
+* Clarify who can act as a custody point, without assuming a single "lost and found office."
+  Items can end up in different places. One direction is to recognize multiple custody points (for example, library desk, security office, department offices) and make it clear which points participate. This is more specific than saying "an entity responsible for maintaining the process."
+
+* Define a basic holding period and what happens afterwards.
+  Some offices keep items only for some time. A direction is to agree on a holding period policy (even if it differs by office) and define what "expired", "unclaimed", or "archived" means so people do not keep checking forever.
+
+===== Candidate directions for scope control
+
+* Start small.
+  A pilot can be limited to one area (for example, one faculty building, or one custody point such as the library) to learn what works before expanding.
+
+* Use the channels people already use, but do not rely on them alone.
+  Group chats exist and provide some access control through membership, but information gets buried and is hard to track. One direction is to complement existing channels with a more stable record, rather than replacing everything at once.
+
+These ideas are meant to be evaluated and refined based on feasibility, privacy and misuse risk, and how well they reduce repeated searching and uncertainty.
