@@ -56,3 +56,202 @@ Mitigation Strategy:
 - Encourage detailed descriptions and images
 
 ---
+
+==== Obstacle Analysis
+:author: Naedra Feliciano
+
+===== Main Goals and subgoals derived from the main goal:
+====== *Goal 1* :Successful Report Creation
+*Subgoals:*
+
+- Users can report lost or found items
+- Users can write item descriptions
+- Users can upload images of the items(optional)
+- Users can input important report details such as: location, date, item category
+- Reports are saved and submitted without complications
+
+*Goal Negation:*
+    Reports are not successfully created
+
+====== Simple Goal model
+
+Obstacle models as goal-anchored fault trees(Format Extracted/Inspired from class notes Chapter 9, page 30 )
+
+image::Obstacle-models-as-goal-anchored-fault-trees.png[ Simple obstacle model as goal anchored trees, align=center, pdfwidth=80%]
+_Figure 4.14.1. -  Simple obstacle model as goal anchored trees._
+
+
+====== Obstacle Analysis
+|===
+|*Obstacle*| *Likelihood*|*Severity*| *Description*
+|Incomplete item descriptions
+|High
+|Medium 
+|Missing details reduce matching accuracy 
+
+|Users upload inappropriate  images
+|High
+|High
+|Images may be unrelated, blurry or offensive
+
+|Users abandon report creation before submission
+|Medium
+|Medium
+|Reports never completed or saved in the system
+
+
+
+|Incorrect item category selection
+|Medium
+|Medium
+|Items become harder to search and match accurately
+
+|Server failure during submission
+|Low
+|High
+|Reports may not be stored properly
+
+|Duplicate reports
+|Medium
+|High
+|Multiple listings may confuse and reduce efficiency 
+
+|Users enter false information
+|Low-Medium
+|High
+|Fake reports reduce system trust and safety
+
+|Missing description, location or date information
+|Medium
+|High
+|Matching lost or found items becomes difficult
+|===
+
+====== Countermeasures for major obstacles
+a) Obstacle: Incomplete item descriptions
+Category: Inaccuracy Obstacle
+Countermeasures:
+
+- Require mandatory description fields and provide examples or templates for users
+
+b) Obstacle: Users upload inappropriate images
+Category: Threat Obstacle
+Countermeasures:
+
+- Implement image moderation, file validation, reporting mechanisms, admin reviews and deletion of inappropriate posts
+
+c) Obstacle: Users abandon report creation before submission
+Category: Dissatisfaction Obstacle
+Countermeasures:
+
+- Enable auto save drafts and simplify the reporting interface
+
+d) Obstacle: Incorrect item category selection
+Category:Inaccuracy Obstacle
+Countermeasures:
+
+- Provide predefined categories with  clear suggestions 
+
+e) Obstacle: Server failure during submission
+Category:Hazard Obstacle
+Countermeasures:
+
+- Use backup storage and confirmation messages
+
+f) Obstacle: Duplicated reports
+Category:Misinformation Obstacle
+Countermeasures:
+
+- Detect similar reports using item details and notify users before submission
+
+g) Obstacle: Users enter false information
+Category: Threat Obstacle
+Countermeasures:
+
+- Require authentication with university credentials and allow report verification
+
+h) Obstacle: Missing description, location, or date
+Category: Misinformation Obstacle
+Countermeasures:
+
+- Make critical fields mandatory before submission
+
+====== *Goal 2* : Secure and Reliable user access:
+*Subgoals:*
+
+- Users can authenticate with university(uprm) credentials
+- Unauthorized access is prevented
+- User data and sensitive information remains private
+- Platform remains available during peak usage
+- Reports are stored reliably. 
+
+
+*Goal Negation:*
+    Unauthorized users gain access and sensitive user data becomes compromised
+
+
+
+====== Obstacle Analysis
+|===
+|*Obstacle*| *Likelihood*|*Severity*| *Description*
+
+|Weak password security
+|Medium
+|High
+|User accounts may become compromised or may be easy to hack
+
+|Unauthorized system access
+|Medium
+|High
+|Attackers or non authorized people may access sensitive data
+
+|Server overload during peak usage
+|Medium
+|High
+|System becomes slow or unavailable
+
+|Data breach or privacy leak
+|Low
+|High
+|Sensitive user information may be exposed
+
+|Authentication service failure
+|Low
+|High
+|Users cannot log into the platform
+
+|===
+
+====== Countermeasures for major obstacles
+
+a) Obstacle:Weak password security
+Category: Threat Obstacle
+Countermeasures:
+
+- Enforce strong password policies and secure authentication protocols such as multi-factor authentication
+
+
+b) Obstacle:Unauthorized system access
+Category: Threat Obstacle
+Countermeasures:
+
+- Implement role-based access control and secure login validation
+
+c)Obstacle: Server overload during peak usage
+Category: Hazard Obstacle
+Countermeasures:
+
+- Use scalable cloud infrastructure and load balancing
+
+d) Obstacle: Data breach or privacy leak
+Category: Threat Obstacle
+Countermeasures:
+
+- Encrypt sensitive data and follow secure database practices
+
+e) Obstacle: Authentication service failure
+Category: Hazard Obstacle
+Countermeasures:
+
+- Add backup authentication methods and monitoring systems
+
