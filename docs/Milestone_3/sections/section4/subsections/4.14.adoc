@@ -60,46 +60,27 @@ Mitigation Strategy:
 ==== [Lecture Topic Task]: Obstacle Based Verification of Lost Item Report Recovery
 :author: Victoria Miranda Osuna
 
-===== Goal
+The goal of this task is to verify that the Lost & Found application can identify and handle obstacles 
+that may prevent users from successfully recovering reported items through goal obstacle analysis and 
+countermeasure goals. The main recovery goal is to ensure users can find and recover lost items by allowing 
+them to submit reports, connect matching lost and found items, communicate with other users, and mark 
+recovered items as completed within the system.
 
-Verify that the Lost & Found app can identify and handle obstacles that may prevent a reported item from being successfully recovered, using goal obstacle analysis and countermeasure goals.
+To support this goal, the system must identify obstacles that could interfere with successful recovery. 
+Common obstacles include unclear or incomplete item descriptions, incorrect or inactive contact information, 
+outdated reports that remain active after recovery, and users failing to respond to notifications. These 
+obstacles can be refined into smaller failure conditions to show how they contribute to recovery failure. For 
+example, poor descriptions may lead to incorrect report matching, failed notifications may prevent communication
+ between users, outdated reports may create false recovery opportunities, and verification failures may result 
+ in incorrect ownership claims.
 
-===== Proposed Solution
+Countermeasure goals are added to reduce the likelihood of recovery failure and improve system reliability. 
+These include sending reminders for inactive or unresolved reports, requiring mandatory fields during report 
+creation, verifying contact information before reports are published, and adding ownership confirmation 
+before items are marked as recovered. The final model is considered successful when the main recovery goal 
+and its obstacles are clearly identified, obstacles are refined into smaller causes, and each major obstacle
+ includes a corresponding countermeasure to improve the reliability of item recovery.
 
-    - Define the main recovery goal such as users should be able to find and recover reported lost items.
-
-        * Users successfully report lost items.
-        * Matching reports connect lost and found items correctly.
-        * Users communicate with each other to arrange recovery.
-        * Recovered items are marked as completed in the system.
-
-    - Identify obstacles that obstruct this goal, such as unclear item descriptions, outdated reports, or failed contact attempts.
-
-        * Item descriptions are missing important identifying details.
-        * Users provide incorrect or inactive contact information.
-        * Reports remain active after items are already recovered.
-        * Users fail to respond to recovery notifications.
-
-    - Organize obstacles using refinement to show how different failure conditions contribute to recovery failure.
-
-        * Poor descriptions → Incorrect report matching.
-        * Failed notifications → No communication between users.
-        * Outdated reports → False recovery opportunities.
-        * Verification failure → Incorrect ownership claims.
-
-    - Add countermeasure goals, such as report expiration reminders or contact confirmation, to reduce recovery failure.
-
-        * Send reminders for inactive or unresolved reports.
-        * Require mandatory fields during report creation.
-        * Verify contact information before reports are published.
-        * Add ownership confirmation before marking items as recovered.
-
-===== Success Criteria
-
-* The main recovery goal and its obstructing obstacles are clearly identified.
-* Obstacles are refined into smaller, vulnerable causes.
-* Each major obstacle includes a possible countermeasure goal.
-* The final goal model shows improved reliability for item recovery.
 
 ---
 
