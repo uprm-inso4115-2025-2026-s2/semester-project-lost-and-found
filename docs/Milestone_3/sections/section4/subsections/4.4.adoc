@@ -226,6 +226,7 @@ Below is the state machine diagram that demonstrates the flow of functions of th
 
 image::State-Machine-Diagram-Admin.png[caption="State Machine Diagram for Admin",width=800,align ="center"]
 
+---
 
 ==== Claim Workflow Completeness Analysis
 :author: Diego Rios Morales
@@ -241,6 +242,7 @@ This analysis identifies incomplete workflow cases, explains their potential imp
 One unclear scenario occurs when multiple users attempt to claim the same lost item at nearly the same time. The current workflow does not clearly define how the system should prioritize or resolve competing claims.
 
 Possible issues include:
+
 * Two users submitting ownership claims simultaneously
 * Conflicting verification evidence
 * The original report owner responding to one claimant but not another
@@ -264,6 +266,7 @@ The system should include a structured claim resolution process. Claims could be
 Another incomplete workflow occurs when one side of the verification process becomes inactive. For example, a finder may stop responding after posting a found item, or the original owner may never complete verification steps.
 
 Currently, the workflow does not clearly explain:
+
 * How long claims remain active
 * Whether claims expire automatically
 * What happens to unresolved reports
@@ -287,6 +290,7 @@ The platform should define inactivity thresholds and automated claim expiration 
 The current workflow assumes that users can successfully prove ownership of an item, but it does not clearly define what qualifies as acceptable evidence.
 
 Examples of unclear situations include:
+
 * A user provides vague item descriptions
 * Multiple users describe the same item similarly
 * No images or receipts are available
@@ -304,6 +308,7 @@ Without clear requirements, verification decisions may become inconsistent.
 ====== Recommendation
 
 The system should establish standardized ownership verification guidelines. Examples may include requiring:
+
 * Distinctive item characteristics
 * Proof of purchase
 * Additional photographs
@@ -316,6 +321,7 @@ Defining these rules improves consistency and reduces ambiguity during the verif
 The workflow currently does not fully describe how the platform handles intentionally false claims or malicious users attempting to abuse the system.
 
 Potential issues include:
+
 * Users repeatedly submitting fake claims
 * Spam claim requests
 * Attempts to steal valuable items
@@ -331,6 +337,7 @@ Potential issues include:
 ====== Recommendation
 
 The platform should include moderation and abuse prevention mechanisms such as:
+
 * Claim attempt limits
 * Reporting suspicious users
 * Temporary account restrictions
@@ -343,6 +350,7 @@ These protections would improve the overall reliability and security of the plat
 The current claim workflow establishes a strong foundation, but several areas require additional clarification to fully support real-world usage. Expanding the workflow to address disputes, inactivity, insufficient evidence, and malicious behavior would significantly improve the reliability of the system.
 
 A more complete workflow model should include:
+
 * Clearly defined verification rules
 * Claim expiration policies
 * Dispute resolution procedures
