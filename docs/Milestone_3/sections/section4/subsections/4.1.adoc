@@ -5869,3 +5869,86 @@ The Lost & Found system depends on both tangible and intangible domain elements.
 *Framework:* Schütz-Schmuck, M. (2021). *Domain Attributes*. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
 
 ---
+
+==== Domain Acquisition Report
+
+===== Conduct Domain Acquisition
+:author: Lianette Alberto
+
+===== Introduction
+
+Lost items such as IDs, wallets, keys, calculators, headphones, laptops, and water bottles are common at the University of Puerto Rico at Mayaguez (UPRM). Currently, there is no centralized system that allows students or staff to easily report and recover lost items. Most recovery attempts depend on social media posts, word-of-mouth communication, or visiting offices individually.
+
+To better understand this problem and support the design of a centralized Lost & Found platform, a domain acquisition study was conducted using stakeholder identification, interviews, questionnaires, and domain fact collection techniques inspired by the lecture material.
+
+===== Stakeholder Identification
+
+|===
+| Stakeholder Group - Role in the System
+
+| Students - Report lost or found items and search for missing belongings
+
+| Security Staff - Receive reports and manage sensitive items
+
+| Department Offices - Temporarily store found items
+
+| Library Staff - Handle frequently forgotten study materials and electronics
+
+| Student Organizations - Help spread information and announcements
+
+|===
+
+===== Interview / Questionnaire Guide
+
+. What do you usually do when you lose an item on campus?
+. Have you ever found an item belonging to someone else? What did you do with it?
+. What problems exist in the current lost and found process?
+. What type of information should a lost item report include?
+. Would photos help identify lost items faster?
+. How important would notifications be for matching lost and found items?
+. Would you trust a centralized Lost & Found platform at UPRM?
+. What concerns would you have regarding privacy or security?
+. Which campus locations have the highest number of lost items?
+. What features would improve the recovery process?
+
+===== Summary of Findings
+
+After analyzing expected stakeholder responses, several common problems and needs were identified:
+
+* Students often rely on Instagram stories, WhatsApp groups, or friends to recover lost items.
+* Many students do not know where to report found items.
+* Different offices manage lost items differently, causing inconsistency.
+* Important information such as item location, time, and photos are usually missing from reports.
+* Students expressed interest in receiving notifications when matching items are posted.
+* Security and privacy concerns were raised for sensitive items such as IDs, wallets, and electronics.
+* These findings support the need for a centralized digital platform that standardizes reporting and communication.
+
+===== Domain Description Units
+
+====== Domain Unit 001
+* Stakeholder: Student
+* Kind: Function
+* Description: Students want the ability to upload photos and locations of lost items to improve recovery chances.
+
+====== Domain Unit 002
+* Stakeholder: Security Staff
+* Kind: Process
+* Description: Security personnel need a consistent method to register and manage found items.
+
+====== Domain Unit 003
+* Stakeholder: Library Staff
+* Kind: Event
+* Description: Study materials and electronics are frequently left in library study areas during exam periods.
+
+====== Domain Unit 004
+* Stakeholder: Department Offices
+* Kind: Function
+* Description: Offices need a simple way to verify item ownership before returning valuable items.
+
+===== Conclusion
+
+The domain acquisition process helped identify the main stakeholders, challenges, and workflows involved in recovering lost items at UPRM. The collected information demonstrates that the current process is fragmented and inefficient, which often causes permanent loss of personal belongings.
+
+The findings gathered through interviews, questionnaires, and domain description units provide a strong foundation for designing a centralized Lost & Found platform capable of improving communication, organization, and item recovery across campus.
+
+---
