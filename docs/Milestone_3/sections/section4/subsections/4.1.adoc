@@ -500,6 +500,163 @@ By understanding these behaviors, the platform can implement workflows and verif
 
 ---
 
+==== Rules and Regulations Facet Analysis
+:author: Omar A. Cordero Maldonado (omar-cordero)
+
+The rules and regulations facet describes the formal policies, constraints, and institutional guidelines that govern how the Lost and Found platform operates. These rules define what users are allowed to do, how items must be handled, and what restrictions exist to ensure fairness, security, privacy, and accountability within the system.
+
+Unlike operational workflows or technical implementation details, this facet focuses on enforceable domain rules. These rules are essential because Lost and Found systems operate in environments where ownership must be verified, sensitive items may be involved, and institutional policies (such as campus regulations) must be followed strictly.
+
+===== Ownership Verification Rules
+
+Ownership verification rules define the conditions under which a user is allowed to reclaim a lost item. Since multiple users may attempt to claim the same item, strict verification is required to ensure correct ownership.
+
+Typical rules include:
+
+* Users must provide a detailed description of the item before approval
+* Unique identifiers (serial numbers, engravings, or contents) may be required for high-value items
+* Claims must be reviewed and approved by moderators before item release
+* In-person identification may be required in campus environments
+
+*Realistic Example:* A student attempting to reclaim a lost laptop must correctly identify the device’s model, sticker placement, and at least one other characteristic before the item can be released.
+
+===== Privacy and Visibility Restrictions
+
+Privacy rules ensure that sensitive or personally identifiable information is not exposed through public listings.
+
+Typical restrictions include:
+
+* Personal data found on items (names on IDs, addresses, phone numbers) must not be publicly visible
+* Sensitive documents must be masked or hidden from public users
+* Contact information is only shared after successful ownership validation
+* Images may be blurred or partially redacted when necessary
+
+*Realistic Example:* A found wallet listing may show “black leather wallet with student ID card inside,” but the system must not display the name or ID number publicly until ownership is verified.
+
+===== Item Retention Policies
+
+Retention policies define how long items remain in the system before being transferred, donated, or disposed of. These rules ensure that storage is managed efficiently and unclaimed items do not accumulate indefinitely.
+
+Typical rules include:
+
+* Standard retention period (commonly 30–90 days)
+* High-value items may have extended retention periods
+* Perishable or unsafe items are discarded immediately or handled according to safety regulations
+* Unclaimed items may be transferred to administrative offices or donated after the retention period
+
+*Realistic Example:* A lunchbox is found with food inside, some of the food may need to be discarded to avoid it going bad and causing issues.
+
+===== Moderator and Administrator Permissions
+
+The system must define clear boundaries for what moderators and administrators are allowed to do in order to maintain system integrity and accountability.
+
+Typical rules include:
+
+* Moderators may review, approve, or reject ownership claims
+* Administrators may override retention policies in exceptional cases
+* Administrators manage user access, reports, and system-wide configurations
+* All moderation actions must be logged for audit purposes
+
+*Realistic Example:* If two users claim the same item, a moderator compares verification evidence and approves only the user who correctly identifies private details, while the decision is recorded in an audit log.
+
+===== Prohibited and Restricted Items Handling
+
+Certain items require special handling due to legal, safety, or ethical constraints. The platform must enforce strict rules for these cases.
+
+Typical rules include:
+
+* Illegal or dangerous items (weapons, drugs, hazardous materials) must be immediately escalated to campus security or authorities
+* Sensitive documents (passports, IDs) require secure handling and restricted access
+* Perishable items (food, medicine) are not stored long-term and are disposed of safely
+* Items that violate institutional policy are removed from public listings
+
+*Realistic Example:* If a weapon is reported as found on campus, it must not enter the normal Lost and Found workflow and must instead be immediately reported to security personnel.
+
+===== User Compliance and Reporting Rules
+
+Users interacting with the system must follow certain behavioral and procedural rules to ensure accurate reporting and fair usage.
+
+Typical rules include:
+
+* Users must not submit false ownership claims
+* Users must provide truthful and complete information when reporting items
+* Duplicate or spam reports may be removed or flagged
+* Users may be restricted or suspended for repeated misuse of the system
+
+*Realistic Example:* A user who repeatedly submits false claims may have their account flagged, and further claims may require additional verification before being accepted.
+
+===== Summary
+
+The Rules and Regulations facet defines the formal constraints that govern how the Lost and Found platform operates and ensures fair, secure, and compliant handling of items and user interactions.
+
+Key regulatory areas include:
+
+* Ownership verification rules
+* Privacy and visibility restrictions
+* Item retention policies
+* Moderator and administrator permissions
+* Prohibited and restricted item handling
+* User compliance requirements
+
+Together, these rules ensure that the Lost and Found platform maintains trust, accountability, and institutional compliance while supporting safe and reliable item recovery within a campus environment.
+
+---
+
+==== Support Technology Facet Analysis
+:author: Omar A. Cordero Maldonado (omar-cordero)
+
+The support technology facet describes the underlying systems and infrastructure that enable the Lost and Found platform to operate. This includes the tools used for authentication, data storage, search, notifications, and media handling.
+
+===== Authentication Systems
+
+The platform uses Supabase Auth for user identity verification. Authentication is managed through a custom `AuthProvider` component that exposes session state across the app, and a `RequireAuth` guard that redirects unauthenticated users to the login page.
+
+Users who register with a `@upr.edu` email are granted `full_access` (can submit and manage reports). All other email domains receive `view_only` access.
+
+*Example:* A student visits the app and is redirected to `/login`. After signing in with their UPR email, Supabase Auth returns a session and the access control module grants them full platform access.
+
+===== Database and Storage Systems
+
+All structured data is stored in a Supabase PostgreSQL database. The `reports` table holds item reports (title, description, location, category, tags, status, type, image URL, and creator). The `UserAccounts` table stores user profiles (username, email, phone number).
+
+Item images are uploaded to a Supabase Storage bucket called `ReportImages`. The upload produces a public URL that is saved alongside the report in the database. Only `.jpeg` and `.png` files are accepted, validated client-side before any upload occurs.
+
+*Example:* A student submits a found wallet with a photo. The image is uploaded to Supabase Storage and its public URL is stored in the `reports` table. Other users see the photo rendered in the item card on the home page.
+
+===== Search and Filtering Systems
+
+The home page supports three layers of client-side filtering: a status tab (Active / Claimed / Closed), a category dropdown (Electronics, Personal, Office Supplies, Other), and a keyword search that checks whether the query appears in a report's title, description, or tags.
+
+When a new report is submitted, a duplicate check runs automatically. It compares the new report against all active reports of the same type using a weighted similarity score: title (40%), description (30%), location (20%), and category (10%). Reports scoring 60% or above are flagged and shown to the user in a warning modal.
+
+*Example:* A student searching for a lost phone selects the Active tab, picks Electronics, and types "iPhone" in the search bar. Only reports whose title, description, or tags contain a matching word are shown.
+
+===== Notification Systems
+
+Transactional emails are sent through a Supabase Edge Function called `send-email`. The platform currently sends a report confirmation email after a user successfully submits a new item report.
+
+*Example:* After submitting a found backpack report, the user receives an email confirming that their report has been logged.
+
+===== Image and File Handling Systems
+
+Users can attach a photo when creating a report. The upload component validates the file format client-side (MIME type and extension) before showing a live preview. On form submission, the file is uploaded to Supabase Storage using a timestamped filename. If the upload fails, the submission is aborted.
+
+On the home page, item images are loaded lazily and fall back to a placeholder if the URL is unavailable. Hovering over a card shows a full-size floating image preview.
+
+*Example:* A staff member uploads a `.jpeg` photo of found keys. The component validates the format, shows a preview, and on submit stores the image in Supabase Storage. Students browsing the grid see the photo directly in the item card.
+
+===== Summary
+
+The platform is built on a Supabase backend (Auth, PostgreSQL, Storage, Edge Functions) and a React/TypeScript frontend bundled with Vite. Key support technologies include:
+
+* Authentication via Supabase Auth with domain-based access control
+* Structured data storage in Supabase PostgreSQL and images in Supabase Storage
+* Client-side filtering by status, category, and keywords across title, description, and tags, plus similarity-based duplicate detection
+* Email notifications dispatched through a Supabase Edge Function
+* Client-side image validation with lazy-loaded display and hover preview in item cards
+
+
+
 ==== Domain Attributes in Authentication
 :author: Dylan M. Oliver Martinez
 
@@ -2845,7 +3002,1196 @@ By implementing role restrictions, validation checks, secure claim handling, and
 * TypeScript Documentation: https://www.typescriptlang.org/docs/
 ---
 
+==== Common System Abstractions
+:author: Diego Rios Morales
 
+===== Overview
+
+As the Lost & Found platform continues to grow, several features and components begin to serve similar purposes. Instead of analyzing every feature individually, the system can be better understood by grouping related functionality into broader domain abstractions. These abstractions make the platform easier to design, explain, and maintain because they organize the system around shared responsibilities rather than isolated features.
+
+===== Report Management
+
+One of the main abstractions in the platform is Report Management. This abstraction includes everything related to creating and managing lost or found item reports.
+
+Examples include:
+* Creating lost item reports
+* Creating found item reports
+* Adding descriptions and images
+* Updating report information
+* Tracking report status
+* Storing item location details
+
+Instead of treating each report-related feature as a separate system component, this abstraction allows them to be viewed as part of a single reporting workflow.
+
+===== Notification and Alert System
+
+The Notification and Alert System groups together features responsible for informing users about important activity within the platform.
+
+Examples include:
+* Notifications for possible item matches
+* Alerts when a report is updated
+* Status change notifications
+* Messages related to user activity
+
+This abstraction helps centralize communication features and improves the overall user experience by keeping users informed without requiring them to constantly check the platform manually.
+
+===== User Interaction
+
+The User Interaction abstraction represents the different ways users engage with the system and navigate through the platform.
+
+This includes:
+* Viewing reports
+* Browsing item listings
+* Navigating between pages
+* Contacting other users
+* Confirming actions such as deleting an account or report
+
+Grouping these features together helps emphasize the user experience side of the application and highlights how users interact with the platform as a whole.
+
+===== Verification Process
+
+The Verification Process abstraction focuses on improving trust and reliability within the system. Since users can submit information freely, certain features are needed to help validate reports and ownership claims.
+
+Examples include:
+* Verifying ownership of an item
+* Reviewing report details
+* Identifying incomplete or suspicious submissions
+* Confirming item matches before resolution
+
+This abstraction supports the credibility of the platform and helps reduce false claims or misuse.
+
+===== Account and Profile Management
+
+Another important abstraction is Account and Profile Management, which contains features related to user identity and account control.
+
+Examples include:
+* User registration
+* Login and logout functionality
+* Profile pages
+* Managing account information
+* Account deletion
+
+By grouping these features together, the platform separates user management responsibilities from report and notification functionality.
+
+===== Search and Discovery
+
+The Search and Discovery abstraction focuses on helping users quickly locate relevant information within the system.
+
+This includes:
+* Searching for lost or found items
+* Filtering reports by category
+* Browsing recent reports
+* Discovering possible report matches
+
+This abstraction improves accessibility and makes the platform more practical for users trying to recover lost belongings efficiently.
+
+===== Mapping of Components to Abstractions
+
+[cols="2,2", options="header"]
+|===
+| System Component
+| Related Abstraction
+
+| Lost item submission form
+| Report Management
+
+| Found item submission form
+| Report Management
+
+| Match notification
+| Notification and Alert System
+
+| User profile page
+| Account and Profile Management
+
+| Delete account feature
+| Account and Profile Management
+
+| Search bar
+| Search and Discovery
+
+| Ownership confirmation process
+| Verification Process
+
+| Contacting another user
+| User Interaction
+|===
+
+===== Benefits of Using Abstractions
+
+Organizing the Lost & Found platform into higher-level abstractions improves the clarity of the system design. Developers can focus on broader responsibilities instead of isolated features, making the platform easier to maintain and expand over time.
+
+These abstractions also help improve communication between team members because related features are grouped under shared concepts. This makes it easier to understand how existing and future functionality fits into the overall architecture of the platform.
+
+==== Conclusion
+
+The Lost & Found platform contains many interconnected features that can be simplified through domain abstractions. By grouping related functionality into concepts such as Report Management, User Interaction, Verification Processes, and Notifications, the system becomes easier to analyze, document, and maintain. These abstractions provide a clearer understanding of how the platform operates while supporting future scalability and development.
+
+---
+
+==== Domain Boundary Analysis for the Lost & Found System
+:author: Angel A. Villegas Colon
+:date: May 2026
+
+===== Purpose
+
+This subsection defines the boundary between the Lost & Found system and its environment. It clarifies which elements belong to the domain model and which remain external dependencies, supporting conceptual coherence and disciplined requirements modeling.
+
+===== System Boundary
+
+The Lost & Found domain includes the elements that the system is directly responsible for managing and reasoning about.
+
+*Core domain elements:*
+- Reports for lost items and found items
+- Report lifecycle states (Active, Returned, Closed)
+- Verification logic that supports ownership validation
+- Matching and search operations
+- User-facing record status and report metadata
+
+These elements are inside the domain boundary because they are part of the system’s internal model and behavior.
+
+===== External Environment
+
+The environment contains elements that influence the system but are not modeled as internal system responsibilities.
+
+*External dependencies include:*
+
+1. Physical campus space and pickup locations (building locations, lost-and-found offices, classrooms, gym areas)
+2. Social media and informal communication channels (WhatsApp groups, Facebook pages, campus bulletin boards)
+3. Human honesty and behavior (truthfulness of reporters, willingness to cooperate, potential theft)
+4. Institutional policies and campus security rules (access permissions, physical custody of recovered items)
+5. External time and event context (games, classes, ceremonies affecting item loss patterns)
+
+At least three of these dependencies—campus physical space, social media channels, and human honesty—are clearly outside the system boundary.
+
+===== Boundary Responsibilities vs. Environment
+
+*Domain responsibilities:*
+
+- Storing and managing reports
+- Updating report status through its lifecycle
+- Applying verification rules and match heuristics
+- Presenting search and discovery features to users
+
+*External responsibilities:*
+
+- Capturing where an item was physically lost or found
+- Determining whether a finder or owner is honest
+- Enforcing campus security or institutional handling procedures
+- Disseminating notifications through external communication channels
+
+By keeping these responsibilities separate, the model avoids treating the environment as if it were part of the system core.
+
+===== Why Boundary Clarity Improves Modeling Discipline
+
+Clear domain boundaries improve modeling discipline in several ways:
+
+- They prevent scope creep by excluding external concerns that would bloat the system model.
+- They reduce conceptual confusion about what the system must build versus what it must observe.
+- They support a focused ubiquitous language: terms like "report," "verification," and "status" remain internal, while "campus location" and "social media" stay external.
+- They make requirement definitions more precise and easier to validate against stakeholder needs.
+
+From lecture theory, domain delimitation is essential because it defines the interface between the system and the world. A well-defined boundary indicates:
+
+- what the system owns internally,
+- what it depends on externally,
+- and where responsibility shifts from the system to its environment.
+
+Improper boundary definition can lead to:
+
+- scope creep, where the model tries to include campus geography or user psychology as functional features,
+- modeling confusion, where internal domain terms become overloaded with environmental meaning,
+- brittle requirements, because the system is asked to solve problems that are actually outside its intended responsibility.
+
+===== Direct Connection to Lecture Theory
+
+Lecture theory on domain delimitation emphasizes that the boundary is the line where the system’s domain model ends and the surrounding environment begins. In this case:
+
+- The Lost & Found domain is centered on reports, states, and verification logic.
+- The environment includes the physical campus, communication channels, and human behavior.
+
+This aligns with domain-driven design and requirements engineering theory, where correct boundary definition is the foundation of conceptual coherence and disciplined system modeling.
+
+===== Summary
+
+A clear boundary for the Lost & Found system distinguishes internal domain elements from external environmental dependencies. This distinction helps the team keep requirements focused, avoid scope creep, and preserve a consistent domain model. Explicitly identifying the environment supports better analysis, design, and project discipline.
+
+---
+
+==== Assumptions Analysis for the Lost & Found System
+:author: Angel A. Villegas Colon
+:date: May 2026
+
+===== Purpose
+
+This subsection identifies core assumptions in the Lost & Found domain and explains how documenting them improves clarity, consistency, and robustness in the system model.
+
+===== Core Domain Assumptions
+
+The Lost & Found system relies on several implicit assumptions that affect design and behavior.
+
+1. User honesty
+- The system assumes that users submit truthful descriptions and claim information.
+2. Item recoverability
+- The system assumes that lost items are recoverable in the real world and that reports can lead to successful reunions.
+3. Valid identity claims
+- The system assumes that claimants can provide proof or verification data that correctly ties them to the reported item.
+4. Reasonable reporting behavior
+- The system assumes users will report items in a timely manner and follow the expected reporting process.
+5. Stable environment data
+- The system assumes that locations, categories, and item metadata remain valid long enough for matching and recovery.
+
+===== Assumptions vs. Formal Rules
+
+Assumptions are beliefs about the domain that are not enforced by the system itself. Formal rules are explicit constraints or behavior the system must implement.
+
+*Example distinctions:*
+
+- Assumption: reporters are honest about item details.
+- Formal rule: the system restricts access to verification fields and requires authentication before claim submission.
+
+- Assumption: a found item can be recovered.
+- Formal rule: the system allows transitions from Active to Returned or Closed states and records status changes.
+
+- Assumption: identity claims can be validated.
+- Formal rule: the system supports private verification fields and claim review workflows.
+
+===== Environmental Assumptions vs. System-Controlled Rules
+
+*Environmental assumptions* depend on the outside world and cannot be fully controlled by the system.
+
+- People will behave honestly.
+- Lost items remain available for recovery.
+- Physical locations remain accessible.
+
+*System-controlled rules* are behaviors the system can enforce directly.
+
+- Authentication and authorization requirements.
+- Metadata validation for report submission.
+- Report lifecycle management and status transitions.
+- Access control for public versus private report data.
+
+Distinguishing these helps keep the model realistic and prevents the system from being expected to solve environmental problems.
+
+===== Risks of Unverified Assumptions
+
+If assumptions remain implicit, the system design can develop gaps or vulnerabilities.
+
+*Logical gaps*
+
+- Assuming honesty without verification can permit false claims and undermine the recovery process.
+
+*Vulnerabilities*
+
+- Assuming item recoverability may lead to workflows that do not handle lost or unclaimed reports gracefully.
+
+*Inconsistencies*
+
+- Assuming identity proof is always available can make the claim review process brittle when users lack required evidence.
+
+Explicitly identifying assumptions exposes these risks before they become embedded in requirements.
+
+===== Documenting and Validating Domain Assumptions
+
+To improve reliability, the team should explicitly document assumptions and validate them over time.
+
+*Methods to document assumptions:*
+
+- Maintain an assumptions log linked to requirements or user stories.
+- Add a subsection to the requirements documentation for domain assumptions.
+- Use tables or bullet lists to separate assumptions from formal rules.
+
+*Methods to validate assumptions:*
+
+- Review assumptions with stakeholders and subject-matter experts.
+- Test assumptions with real user interviews or pilot experiments.
+- Monitor actual system usage and update assumptions when they prove false or incomplete.
+
+===== How Assumption Documentation Improves Reliability
+
+Documenting assumptions makes the Lost & Found model more reliable by:
+
+- Clarifying what the system is expected to enforce versus what it depends on externally.
+- Preventing hidden gaps in requirements and design.
+- Creating a shared understanding among developers, stakeholders, and reviewers.
+- Enabling proactive mitigation when assumptions do not hold.
+
+When assumptions are explicit, the team can identify which domain elements need stronger rules, verification, or alternative handling.
+
+===== Summary
+
+Identifying and modeling domain assumptions strengthens the Lost & Found system by improving clarity, consistency, and robustness. The model becomes easier to validate, less prone to hidden logical gaps, and better aligned with the distinction between domain rules and environmental reality.
+
+---
+
+==== Classification of Dynamic and Reactive Frontend Behaviors Using Domain Attributes
+:author: Natanael Batista Alvarez
+
+===== Goal
+Analyze and classify frontend behaviors in the Lost & Found platform using Domain Attributes concepts such as static, dynamic, and reactive behaviors.
+
+===== Proposed Solution
+
+====== Key Idea
+Frontend behaviors can be interpreted as different types of domain attributes depending on how the interface changes, reacts, or remains stable during interaction.
+
+The platform contains static structures, dynamic content interpretation, and reactive system responses triggered by user activity.
+
+====== Static Frontend Behaviors
+
+Static behaviors represent interface structures that remain mostly fixed regardless of user interaction or application state.
+
+Examples:
+
+* Navigation structure
+* Global page layout
+* Form organization
+* Static labels and instructions
+* ItemCard structural layout
+
+Observed frontend behaviors:
+
+* Persistent page sections remain visible across routes
+* Form field arrangement remains constant
+* ItemCard layout structure remains fixed while content changes
+
+Conceptual meaning:
+
+* Stable interface structure
+* Persistent domain representation
+
+====== Dynamic Frontend Behaviors
+
+Dynamic behaviors occur when frontend content changes depending on application state, user input, or retrieved data.
+
+Examples:
+
+* Dynamic rendering of reports
+* Search filtering
+* Authentication-based rendering
+* Conditional action buttons
+* Empty state rendering
+* Image previews after upload
+
+Observed frontend behaviors:
+
+* Report lists re-render after filtering
+* Navigation changes depending on authentication state
+* Claim/Edit/Delete buttons appear conditionally
+* Empty-state messages appear when no results exist
+
+Conceptual meaning:
+
+* State-dependent interface interpretation
+* Dynamic content behavior
+
+====== Reactive Frontend Behaviors
+
+Reactive behaviors occur when the interface immediately responds to user actions or system events.
+
+Examples:
+
+* Validation error messages
+* Loading indicators
+* Duplicate report warnings
+* Claim confirmation modals
+* Success and error notifications
+* Active tab state changes
+
+Observed frontend behaviors:
+
+* Invalid form fields display inline errors
+* Loading states disable actions and display progress indicators
+* DuplicateWarningModal appears after duplicate detection
+* Tab selection instantly updates visual state
+
+Conceptual meaning:
+
+* Reactive system feedback
+* Immediate frontend response behavior
+
+====== Ambiguity Scenarios
+
+1. Multiple Rapid Actions
+* Repeated clicks may trigger duplicate operations or inconsistent state updates
+
+2. Loading State Conflicts
+* Multiple asynchronous requests may update the interface out of order
+
+3. Duplicate Detection Timing
+* Duplicate warnings may appear after report submission, creating uncertain workflow interpretation
+
+4. Missing Feedback
+* Delayed system responses may cause repeated user actions
+
+
+5. Conditional Rendering Conflicts
+
+* Interface actions may appear available even when authentication state becomes invalid
+
+====== Component Classification
+
+[cols="1,2", options="header"]
+|===
+|Component |Domain Attribute Classification
+
+|NavBar
+|Static structure, Dynamic authentication rendering
+
+|HomePage
+|Dynamic report rendering, Reactive loading behavior
+
+|ReportList
+|Dynamic content behavior
+
+|ItemCard
+|Static layout, Dynamic content rendering, Reactive interaction behavior
+
+|ReportCreatePage
+|Static form structure, Reactive validation behavior
+
+|ReportDetailsPage
+|Dynamic content rendering, Reactive claim workflow
+
+|ImageUploadInput
+|Reactive validation and preview behavior
+
+|DuplicateWarningModal
+|Reactive duplicate-detection behavior
+
+|RequireAuth
+|Dynamic route protection behavior
+
+|Toast / Notification System
+|Reactive feedback behavior
+|===
+
+====== Domain Insight
+
+The Lost & Found platform demonstrates that frontend interfaces contain multiple domain attribute types simultaneously.
+
+The system combines:
+
+* static interface structures,
+* dynamic state-dependent rendering,
+* and reactive frontend responses.
+
+These behaviors emerge from the relationship between:
+
+* user interaction,
+* application state,
+* and frontend interpretation of system events.
+
+The platform therefore models Domain Attributes through:
+
+* conditional rendering,
+* validation systems,
+* filtering behaviors,
+* and reactive UI feedback mechanisms.
+
+---
+
+==== Stakeholder Identification and Domain Acquisition Planning Report
+:author: Keishlyany Sanabria (@keisanabria)
+:toc: macro
+:toclevels: 3
+
+toc::[]
+
+===== Introduction
+
+This deliverable corresponds to _Acquisition Process I_ (Slides 21–31)—eliciting domain facts, recording those facts, and performing preliminary classification *before* systematic interviews commence.
+
+**Document Status**: This document serves as a **planning framework** for domain acquisition activities. It establishes the foundation for subsequent casual contacts and structured interviews. The analysis presented here is based on:
+
+* Publicly available UPRM documentation
+* Logical inference of stakeholder roles from campus structure
+* Observational understanding of current informal processes
+
+The document is organized according to the elicitation framework presented in the lecture slides, covering:
+
+* Stakeholder identification and liaison role designation
+* Domain document collection and analysis from public sources
+* Planning for initial stakeholder contact and rapport establishment
+* Preliminary hypothesized domain classification using the tagging schema
+
+===== Domain Description Units: Hypothesized Findings
+
+Before presenting the full stakeholder analysis and documentation, here is a record of an initial domain description unit that represents the **hypothesized current state** based on observation and public document review. This follows the format demonstrated in Slide 20. This unit will be validated or refined during planned casual contacts.
+
+====== Domain Description Unit DDU-0001 (Hypothesis)
+
+[frame="all", grid="all", cols="30,70"]
+|===
+| **Field** | **Value**
+| Unit ID | domain-lostfound-0001
+| Stakeholder Role | Campus Security / Policía Universitaria (hypothesized view)
+| Abstractness | Phenomenon
+| Kind | Entity
+| Dynamism | Static (current process) / Active (desired process)
+| Facet | Intrinsic
+| Phenomenon Names | Lost item, Found item, Claimant, Custodian, Logbook, Storage location, Identification verification
+| Hypothesized Description | "When someone finds an item, they typically bring it to the security office or the nearest building office. A physical logbook is maintained with date, item description, and location found. Claimants must describe the item before viewing. Unclaimed items are held for an informal period before disposal or donation. No formal campus-wide policy exists."
+| Validation Status | **Pending** - To be confirmed during planned casual contact with Security representative
+|===
+
+===== Stakeholder Analysis
+
+====== Review of Stakeholder List
+
+Following Slide 26 ("review stakeholder list"), stakeholders who are expected to possess knowledge about the current informal lost and found process at UPRM have been identified. The question "_still adequate?_" will be addressed during and after initial contacts. Each stakeholder group includes a **role-based liaison designation**—the specific position or office that will serve as the primary point of contact.
+
+====== Stakeholder Groups and Liaison Roles
+
+.Stakeholder Group 1: Students (Item Losers)
+[frame="all", grid="rows", cols="20,40,40"]
+|===
+| **Attribute** | **Description** | **Notes**
+| Group Name | Students who lose personal items | Primary "customers" of the lost and found process
+| Estimated Population | ~12,000+ (UPRM total enrollment) |
+| Domain Perspective | Experience the emotional/financial impact of loss; navigate the current informal system with uncertainty
+| Knowledge Type | Tacit knowledge of searching behaviors, frustration points, and informal communication channels (WhatsApp groups, bulletin boards)
+| Liaison Role Designation | Representative from Consejo General de Estudiantes (CGE) | Specific contact to be identified during outreach
+| Adequacy Assessment | _Adequate for initial contact_ - Students represent the demand side of the system but may lack knowledge of administrative constraints
+|===
+
+.Stakeholder Group 2: Students (Item Finders)
+[frame="all", grid="rows", cols="20,40,40"]
+|===
+| **Attribute** | **Description** | **Notes**
+| Group Name | Students who find lost items | First point of physical custody for found items
+| Estimated Population | ~12,000+ (subset of student body) |
+| Domain Perspective | Ethical decision-making (keep vs. turn in); knowledge of where to deliver items; barriers to reporting
+| Knowledge Type | Awareness of nearby authority figures; understanding of item value perception
+| Liaison Role Designation | Same CGE representative as above | May also include student organization leaders from high-traffic areas
+| Adequacy Assessment | _Needs expansion_ - Students who find items may have different motivations than those who lose items. Consider separate interview protocol during questionnaire phase
+|===
+
+.Stakeholder Group 3: Campus Security / Policía Universitaria
+[frame="all", grid="rows", cols="20,40,40"]
+|===
+| **Attribute** | **Description** | **Notes**
+| Group Name | Oficina de Seguridad / Policía Universitaria | Primary official custodian of found property
+| Estimated Population | ~20-30 officers and staff |
+| Domain Perspective | Responsible for safeguarding items; maintaining logbooks; verifying claimants; disposing of unclaimed items
+| Knowledge Type | Explicit knowledge of current informal procedures; implicit knowledge of common item types, claim patterns, and disposal practices
+| Liaison Role Designation | Supervisor de Turno or Oficial Designado, Oficina de Seguridad | Contact to be established via in-person visit during casual contact phase
+| Contact Information | Oficina de Seguridad, (787) 832-4040 | Extension to be obtained during contact
+| Adequacy Assessment | _Anticipated as Critical_ - This is expected to be the most important stakeholder group for understanding current state
+|===
+
+.Stakeholder Group 4: Building Administrators and Custodial Staff
+[frame="all", grid="rows", cols="20,40,40"]
+|===
+| **Attribute** | **Description** | **Notes**
+| Group Name | Building Administrators, Secretaries, and Conserjes | Secondary custodians of found items at the building level
+| Estimated Population | ~50-100 across campus buildings |
+| Domain Perspective | First recipients of items found in classrooms, laboratories, and common areas; hold items temporarily before transfer to Security
+| Knowledge Type | Building-specific patterns (for example, items left after exams); local storage practices; informal communication with departments
+| Liaison Role Designation | Asistente Administrativo / Secretaria de Departamento | Selected academic department (for example: INEL, Física, or Chardón) as representative; other building types to be sampled later
+| Adequacy Assessment | _Adequate but requires coordination_ - Multiple buildings operate independently. A stratified sample of building types will be needed
+|===
+
+.Stakeholder Group 5: Library Circulation Desk Staff
+[frame="all", grid="rows", cols="20,40,40"]
+|===
+| **Attribute** | **Description** | **Notes**
+| Group Name | Biblioteca General - Circulation Desk | High-volume area with established lost and found procedures
+| Estimated Population | ~10-15 staff members |
+| Domain Perspective | Manage lost items in a controlled access environment; handle items left in study areas, carrels, and computer stations
+| Knowledge Type | Formalized logbook procedures; high-value item handling (laptops, calculators); integration with library patron records
+| Liaison Role Designation | Supervisor de Circulación, Biblioteca General | Contact to be established via Circulation Desk during casual contact phase
+| Adequacy Assessment | _Anticipated as Adequate_ - Library represents a mature microcosm of lost and found operations that can inform broader campus process
+|===
+
+.Stakeholder Group 6: Student Center Information Desk
+[frame="all", grid="rows", cols="20,40,40"]
+|===
+| **Attribute** | **Description** | **Notes**
+| Group Name | Centro de Estudiantes - Information Desk | Central hub for student activity and inquiries
+| Estimated Population | ~5-10 staff members |
+| Domain Perspective | Receive found items from high-traffic social areas; field lost item inquiries from students
+| Knowledge Type | Understanding of student search behavior; informal referral practices to Security or building offices
+| Liaison Role Designation | Encargado del Centro de Estudiantes | Contact to be established via Information Desk during casual contact phase
+| Adequacy Assessment | _Anticipated as Adequate_ - This location serves as a natural aggregation point for student-facing services
+|===
+
+.Stakeholder Group 7: Rectoría / Dean of Students Office
+[frame="all", grid="rows", cols="20,40,40"]
+|===
+| **Attribute** | **Description** | **Notes**
+| Group Name | Oficina del Decano de Estudiantes | Administrative oversight and policy-making authority
+| Estimated Population | ~5-10 administrative staff |
+| Domain Perspective | Responsible for student welfare; potential authority to formalize or improve lost and found policies
+| Knowledge Type | Policy constraints; liability considerations; institutional risk management
+| Liaison Role Designation | Asistente del Decano de Estudiantes | Contact to be established for policy-layer understanding during later phase
+| Adequacy Assessment | _Adequate for policy layer_ - Essential for understanding institutional constraints and approval pathways; lower priority for initial contacts
+|===
+
+====== Stakeholder Summary
+
+[cols="<,<,<,<", options="header"]
+|===
+| Group | Adequacy | Liaison Status | Interview Priority
+| Students (Losers) | Adequate | Role identified; contact pending | High
+| Students (Finders) | Needs Expansion | Role identified; contact pending | High
+| Campus Security | Critical | Role identified; contact pending | Critical
+| Building Staff | Adequate | Role identified; contact pending | Medium
+| Library Staff | Adequate | Role identified; contact pending | Medium
+| Student Center Staff | Adequate | Role identified; contact pending | Medium
+| Dean of Students | Adequate | Role identified; contact pending | Low (policy phase)
+|===
+
+===== Domain Documentation Collection
+
+Following the guidance in Slides 42–52 ("elicitation studies"), existing artifacts about the current informal process have been collected from publicly available sources. This section documents the sources examined.
+
+====== Document Inventory
+
+**Regulatory and Policy Documents**
+
+.DOC-001: UPRM Reglamento General de Estudiantes
+[frame="all", grid="rows", cols="30,70"]
+|===
+| **Field** | **Content**
+| Document ID | DOC-REG-001
+| Title | Reglamento General de Estudiantes de la Universidad de Puerto Rico, Recinto Universitario de Mayagüez
+| Source | UPRM Rectoría / Oficina del Decano de Estudiantes
+| Location | https://www.uprm.edu/procuraduria/wp-content/uploads/sites/235/2023/06/Reglamento-general-estudiantes-UPR-RUM.pdf
+| Relevance | Contains sections on student responsibilities and campus conduct; may include references to lost property procedures
+| Findings | Preliminary review found no explicit policy section dedicated to lost and found property. References to "propiedad" appear in context of damage to university property, not lost personal items. This _absence_ of formal policy is a significant domain fact.
+| Unit Tag (preliminary) | Facet: Regulatory; Kind: Entity (Policy)
+|===
+
+**Web Resources**
+
+.DOC-002: Oficina de Seguridad Web Page
+[frame="all", grid="rows", cols="30,70"]
+|===
+| **Field** | **Content**
+| Document ID | DOC-WEB-001
+| Title | Oficina de Seguridad - UPRM
+| Source | UPRM Website
+| Location | https://www.uprm.edu/seguridad/
+| Relevance | Official campus security presence; logical home for lost and found information
+| Findings | Web page contains information about emergency procedures, parking, and crime prevention. **No mention of lost and found services.** This represents a gap between actual services provided and public documentation.
+| Unit Tag (preliminary) | Facet: Support Technology (Web); Kind: Entity (Information Resource)
+|===
+
+.DOC-003: Biblioteca General Lost & Found FAQ
+[frame="all", grid="rows", cols="30,70"]
+|===
+| **Field** | **Content**
+| Document ID | DOC-WEB-002
+| Title | Biblioteca General - Lost & Found / Objetos Perdidos FAQ
+| Source | UPRM Virtual Reference / Biblioteca General
+| Location | https://virtualref.uprm.edu/faq/404317
+| Relevance | Library provides lost and found services within its facility; this is the only publicly documented lost and found resource found
+| Findings | Confirms that lost items can be recovered at the **Colección de Circulación** of the Biblioteca General, where there is a designated "Lost & Found" area. However, policy details (claim requirements, holding period) are not published.
+| Unit Tag (preliminary) | Facet: Intrinsic; Kind: Service
+|===
+
+**Physical Artifacts (Expected / To Be Documented)**
+
+_Note: The following entries describe artifacts that are known or reasonably expected to exist based on campus knowledge. Photographic documentation will be obtained during casual contacts with stakeholder permission._
+
+.ART-001: Security Office Logbook (Expected)
+[frame="all", grid="rows", cols="30,70"]
+|===
+| **Field** | **Content**
+| Artifact ID | ART-LOG-001
+| Title | Libreta de Objetos Perdidos - Oficina de Seguridad (Expected)
+| Source | To be documented during planned casual contact with Security
+| Expected Description | Based on typical practice, likely a composition notebook with handwritten entries containing: date, brief item description, location found, and disposition
+| Anticipated Findings | The logbook is expected to be the primary record-keeping mechanism. Likely lacks: unique identifiers, structured claimant verification fields, finder contact information, retention period documentation
+| Unit Tag (preliminary) | Facet: Support Technology (Manual Record); Kind: Entity (Record)
+| Documentation Status | **Pending** - To be confirmed and documented during casual contact
+|===
+
+.ART-002: Library Circulation Desk Logbook (Expected)
+[frame="all", grid="rows", cols="30,70"]
+|===
+| **Field** | **Content**
+| Artifact ID | ART-LOG-002
+| Title | Objetos Olvidados - Biblioteca General (Expected)
+| Source | To be documented during planned casual contact with Library Circulation Desk
+| Expected Description | Based on library professional standards, likely a more structured system (binder with forms or basic digital log) including: date/time, item description, location within library, staff initials, claimant information, disposition date
+| Anticipated Findings | Library expected to maintain more structured records than Security. This may include categories and claimant identification fields. Represents a more mature local process.
+| Unit Tag (preliminary) | Facet: Support Technology (Structured Record); Kind: Entity (Record)
+| Documentation Status | **Pending** - To be confirmed and documented during casual contact
+|===
+
+====== Document Repository Structure
+
+All collected documents and planned artifact documentation will be stored in the following shared repository structure:
+
+[frame="all", grid="all"]
+|===
+| **Repository Location** | https://drive.google.com/drive/folders/168qgMNqovVbA4DzfTAB4KZIEIX7JAUG7?usp=sharing
+| **Folder Structure** |
+* `/regulations/` - Policy documents and student handbooks 
+
+* `/web_screenshots/` - Captured web pages with timestamps
+
+* `/artifact_photos/` - Photographs of logbooks and physical records (to be added after contacts)
+
+* `/interview_notes/` - Notes from casual and structured contacts (to be added)
+
+| **Access Control** | Restricted to course instructor and project team
+|===
+
+===== Planning for Initial Stakeholder Contact and Rapport Establishment
+
+====== Casual Contact Plan
+
+Following Slide 26 ("casual contact to stakeholders > rapport > initial capture of views"), brief, unstructured conversations will be conducted with stakeholder representatives to establish rapport and capture initial views before questionnaire design. This section outlines the plan for these contacts.
+
+**Planned Contact 1: Campus Security**
+
+[frame="all", grid="rows", cols="25,75"]
+|===
+| **Field** | **Details**
+| Contact ID | CC-PLAN-001
+| Stakeholder Role | Supervisor de Turno / Oficial, Oficina de Seguridad
+| Planned Location | Oficina de Seguridad (in person visit)
+| Planned Approach | Introduce project, explain academic purpose, request brief (10-15 minute) conversation about current lost and found process
+| Purpose | Establish rapport, understand basic workflow, confirm logbook existence, gauge willingness for future structured interview
+| Key Questions (Informal) | 
+* "When someone brings a found item here, what happens next?"
+
+* "Is there a logbook or record kept of items?"
+
+* "What happens to items that are never claimed?"
+
+* "How do you verify that someone claiming an item is the true owner?"
+|===
+
+**Planned Contact 2: Building Administrator**
+
+[frame="all", grid="rows", cols="25,75"]
+|===
+| **Field** | **Details**
+| Contact ID | CC-PLAN-002
+| Stakeholder Role | Asistente Administrativo / Secretaria, Departamento Académico
+| Planned Location | Main office of selected academic building (for example: Stefani, Chardón, or Física)
+| Planned Approach | Introduce project, inquire about building-level practices for items found in classrooms
+| Purpose | Understand building-level lost and found practices, coordination with Security, seasonal patterns
+| Key Questions (Informal) |
+* "If a student finds a calculator after an exam and brings it here, what do you do with it?"
+
+* "Do you keep a box or designated area for lost items?"
+
+* "How long do you typically hold items before sending them to Security or disposing of them?"
+
+* "Do students often come looking for lost items at the department office?"
+|===
+
+**Planned Contact 3: Library Circulation Desk**
+
+[frame="all", grid="rows", cols="25,75"]
+|===
+| **Field** | **Details**
+| Contact ID | CC-PLAN-003
+| Stakeholder Role | Personal de Circulación, Biblioteca General
+| Planned Location | Circulation Desk, Biblioteca General
+| Planned Approach | Observe and inquire about lost and found procedures (library is a high-traffic area with more formalized process, as evidenced by public FAQ)
+| Purpose | Understand library's structured approach, identify practices that could scale campus-wide
+| Key Questions (Informal) |
+* "The library website mentions a Lost & Found service. How does that process work?"
+
+* "Do you keep a log of items? What information is recorded?"
+
+* "What happens to high-value items like laptops or calculators?"
+
+* "How long are items held before disposal or donation?"
+|===
+
+====== Trustworthiness Assessment Framework
+
+Following the guidance in Slides 66–68 ("elicitation report"), the following framework will be used to assess trustworthiness after contacts are made:
+
+[cols="<,<,<", options="header"]
+|===
+| Criterion | Assessment Approach | Notes
+| Position Authority | Confirm stakeholder's operational role | Direct responsibility vs. peripheral knowledge
+| Apparent Candor | Evaluate openness during conversation | Willingness to discuss informal practices
+| Consistency Check | Cross-validate with other stakeholders | Compare statements across contacts
+| Documentation Corroboration | Compare verbal statements with physical evidence | Logbook existence, web content accuracy
+|===
+
+===== Preliminary Domain Classification and Tagging
+
+Following the tagging schema presented in Slides 12–15, 20, preliminary classification to the UPRM Lost and Found domain are applied based on current understanding from document analysis and logical inference. This hypothesized classification will be validated through planned stakeholder contacts.
+
+====== Domain Fact Tagging Schema
+
+The following tags will be applied to all domain description units collected:
+
+[cols="<,<", options="header"]
+|===
+| Tag Category | Applicable Values for This Domain
+| **Category** | Lost and Found Operations, Campus Services, Student Affairs
+| **Stakeholder Group** | Students (Losers), Students (Finders), Security, Building Staff, Library Staff, Administration
+| **Phenomenon or Concept** | Loss, Finding, Custody, Claim, Verification, Disposition, Reunification
+| **Kind** | Entity (Item, Record, Location), Function (Receive, Store, Verify, Release), Event (Loss, Finding, Claim), Behavior (Search, Report, Inquire)
+| **Attribute** | Active (Claimant searching), Inert (Item in storage), Reactive (Security responding to inquiry)
+| **Facet** | Intrinsic (Item characteristics, Custody chain), Support Technology (Logbooks, Web forms), Regulatory (University policy), Social (Trust, Ethics)
+|===
+
+====== Domain Characterization (Hypothesized)
+
+Based on current understanding from public documents and logical inference (pending stakeholder validation), the following preliminary classification is provided:
+
+**Is the Domain Active or Inert?**
+
+[frame="all", grid="all", cols="25,75"]
+|===
+| **Current State (Hypothesized)** | **Predominantly Inert**
+| **Justification** |
+* Items are expected to be stored passively until a claimant initiates contact
+
+* Logbooks are likely static records updated only upon receipt or claim
+
+* No proactive outreach to potential owners is evident from web presence
+
+* Security web page contains no mention of lost and found services, suggesting reactive rather than proactive posture
+
+* Staff are not expected to actively search for owners
+| **Basis for Hypothesis** |
+* Absence of lost and found information on Security web page (DOC-WEB-001)
+
+* Absence of formal policy in student regulations (DOC-REG-001)
+
+* Typical practice at comparable institutions without formal systems
+
+* Library's FAQ indicates items are held for pickup, not proactively returned
+| **Validation Method** | Confirm through Security contact: "Do you ever try to contact the owner if you find an ID or named item?"; observe whether logbook contains fields for owner contact attempts
+|===
+
+[frame="all", grid="all", cols="25,75"]
+|===
+| **Desired Future State** | **Active (Dynamic Item Movement)**
+| **Justification** |
+* A formalized system could include proactive notification (for example, email alerts for items logged with student ID)
+
+* Digital tracking would enable status updates and owner matching
+
+* Integration with campus directory could facilitate outreach
+| **Basis for Hypothesis** |
+* Ubiquity of UPRM email addresses for all students enables communication
+
+* Library's expected more structured approach (to be confirmed) suggests active tracking is feasible
+
+* Student expectation in 2026 is for digital, trackable services
+|===
+
+====== Additional Attribute Classifications (Hypothesized)
+
+[cols="<,<,<,<", options="header"]
+|===
+| Domain Element | Kind | Attribute | Facet
+| Lost Item | Entity | Inert (until claimed) | Intrinsic
+| Claimant Search | Behavior | Active | Intrinsic
+| Security Logbook | Entity | Inert | Support Technology
+| Verification Process | Function | Reactive | Intrinsic
+| Item Disposal | Event | Active | Regulatory
+| Finder's Ethical Decision | Behavior | Active | Social
+| Building Storage Box | Entity | Inert | Support Technology
+| Policy Gap (Absence) | Entity (Absence) | Static | Regulatory
+|===
+
+===== Acquisition Process Review
+
+Following Slide 37 ("review acquisition process"), the current state of stakeholder representation and process guidance is evaluated based on planning.
+
+====== Representation of Stakeholder Groups
+
+[frame="all", grid="rows", cols="30,70"]
+|===
+| **Question** | **Assessment**
+| Are all stakeholder groups represented? | Seven groups identified; two additional groups may need consideration:
+* **IT Services** - If digital solution is proposed, they become a stakeholder
+* **Legal Counsel** - For policy development and liability questions
+| Are any groups over-represented? | Not at this planning stage
+| Are any groups under-represented? | Direct student perspective is currently through proxy only; student contact is planned for questionnaire phase
+|===
+
+====== Adequacy of Guidance
+
+[frame="all", grid="rows", cols="30,70"]
+|===
+| **Question** | **Assessment**
+| Is there adequate guidance for the next phase? | **Partially adequate.** The collected documentation (web pages, regulations, library FAQ) provides sufficient context to design a focused questionnaire. However, the following gaps will need to be addressed through casual contacts:
+* Confirmation of current workflow (actual vs. hypothesized)
+
+* Understanding of variability across buildings
+
+* Baseline data on item volumes and claim rates
+| Recommended Next Steps | 
+* Complete planned casual contacts with Security, Building Admin, and Library
+
+* Document actual logbook formats and procedures with photographs (with permission)
+
+* Use findings to refine questionnaire for Acquisition Process II
+|===
+
+---
+
+==== [Lecture Topic Task] Email Domain Verification as a Domain Process
+:author: Sebastian Suarez
+
+===== Overview
+Email domain verification is a critical process in the Lost & Found system because it ensures that only users with valid institutional email addresses can create accounts and access certain features. This process helps maintain the integrity of the user base and prevents unauthorized access. This analysis classifies email domain verification as a domain process, identifies its key steps, and explains how it contributes to the overall security and reliability of the platform. 
+
+===== Email Domain Verification Process
+
+The email domain verification process can be broken down into the following steps:
+1. User Registration: A user attempts to create an account by providing their email address and other required information.
+2. Email Format Validation: The system checks if the provided email address is in a valid format.
+3. Domain Extraction: The system extracts the domain part of the email address (the portion after the '@' symbol).
+4. Domain Validation: The system checks if the extracted domain matches a predefined list of allowed institutional domains.
+5. Verification Email Generation: If the domain is valid, the system generates a verification email containing a unique verification link or code.
+6. Email Delivery: The system sends the verification email to the user's provided email address.
+7. User Verification: The user clicks the verification link or enters the verification code, which confirms their email address and activates their account.
+
+===== Classification of the Process
+
+[cols="1,2", options="header"]
+|===
+| Step | Classification
+| User Registration
+| Event - This is the initial trigger for the email domain verification process.
+| Email Format Validation
+| Function - This is a system function that checks the validity of the email format.
+| Domain Extraction
+| Function - This is a system function that processes the email address to extract the domain.
+| Domain Validation
+| Function - This is a system function that checks the extracted domain against allowed domains.
+| Verification Email Generation
+| Function - This is a system function that creates the verification email content.
+| Email Delivery
+| Function - This is a system function that handles the sending of the verification email.
+| User Verification
+| Event - This is the user action that completes the verification process.
+|===
+
+===== Security and Reliability Implications
+
+Email domain verification enhances security by ensuring that only users with valid institutional email addresses can create accounts. This helps prevent unauthorized access and reduces the likelihood of fraudulent accounts. It also contributes to the reliability of the platform by maintaining a trusted user base, which is essential for the integrity of the Lost & Found system. By enforcing email domain verification, the system can also ensure that users are more likely to be legitimate members of the institution, which can improve user engagement and trust in the platform. 
+
+===== Conclusion
+
+Email domain verification is a crucial domain process in the Lost & Found system that helps maintain security and reliability. By classifying it as a series of functions and events, we can better understand how it fits into the overall user registration workflow and how it contributes to the integrity of the platform. Implementing robust email domain verification ensures that the system remains secure and that users can trust the platform for reporting and claiming lost items.
+
+---
+
+==== Report Discovery Domain Description Units
+:author: Adiel Soto
+
+The report discovery process in the Lost & Found system can be analyzed by separating the workflow into smaller domain description units. Each unit represents one specific behavior performed either by the user or by the system during the process of searching, filtering, viewing, and interacting with reports.
+
+These units help describe how report discovery operates at a lower level before larger domain concepts are formed. By analyzing each behavior independently, the system’s functionality becomes easier to model and understand.
+
+===== Domain Description Units
+
+[cols="1,3,2", options="header"]
+|===
+|Unit ID
+|Domain Description Unit
+|Primary Behavior Type
+
+|DDU-1
+|A user enters keywords into the search bar to locate reports related to a lost or found item.
+|Search Behavior
+
+|DDU-2
+|The system compares the entered keywords against report titles, descriptions, and tags.
+|Search Processing
+
+|DDU-3
+|The system returns a list of reports that match the user’s search terms.
+|Result Generation
+
+|DDU-4
+|A user filters reports by category such as electronics, clothing, accessories, or documents.
+|Filtering Behavior
+
+|DDU-5
+|A user filters reports by status such as active, resolved, matched, or expired.
+|Filtering Behavior
+
+|DDU-6
+|A user filters reports using a specific location where the item was lost or found.
+|Filtering Behavior
+
+|DDU-7
+|The system removes reports from the visible results that do not satisfy the selected filters.
+|Filter Processing
+
+|DDU-8
+|The system sorts reports based on relevance, recency, or matching criteria.
+|Sorting Behavior
+
+|DDU-9
+|A user opens a report to view additional details about the item.
+|Report Viewing
+
+|DDU-10
+|The system displays report information including title, description, category, location, and status.
+|Information Presentation
+
+|DDU-11
+|A user compares report details with their own missing or found item.
+|User Evaluation
+
+|DDU-12
+|The system displays images attached to a report to improve item identification.
+|Information Presentation
+
+|DDU-13
+|A user initiates a claim request after identifying a possible matching report.
+|Report Action
+
+|DDU-14
+|The system restricts certain report actions depending on ownership and permissions.
+|Access Control Behavior
+
+|DDU-15
+|A user saves or bookmarks a report for future review.
+|User Interaction
+
+|DDU-16
+|The system updates visible report results when filters or search terms change.
+|Dynamic Search Behavior
+
+|DDU-17
+|The system hides expired or resolved reports from default active searches.
+|Lifecycle Filtering
+
+|DDU-18
+|A user clears search filters to restart the discovery process.
+|Search Reset Behavior
+|===
+
+===== Analysis of the Discovery Process
+
+The report discovery workflow is composed of multiple small behaviors that work together to help users locate relevant reports efficiently. Some units describe direct user actions, while others describe automatic system responses.
+
+For example:
+
+* DDUs 1–3 focus on keyword-based searching.
+* DDUs 4–7 focus on filtering behavior.
+* DDUs 8–10 focus on report presentation and result organization.
+* DDUs 11–15 focus on user interaction with reports.
+* DDUs 16–18 focus on dynamic system updates and lifecycle management.
+
+Breaking the workflow into domain description units helps isolate individual responsibilities within the system. Instead of describing report discovery as one large process, the workflow becomes a collection of smaller understandable behaviors.
+
+===== Connection to Domain Concept Formation
+
+These domain description units later contribute to the formation of higher-level domain concepts within the Lost & Found system.
+
+For example:
+
+* Search-related units contribute to the “Search & Discovery” domain concept.
+* Filtering-related units contribute to the “Report Classification” concept.
+* Viewing and claim-related units contribute to the “User Interaction” concept.
+* Lifecycle-related units contribute to the “Report Management” concept.
+
+This process follows the lecture methodology of reading and analyzing domain description units first before grouping them into broader conceptual structures. By identifying small observable behaviors, the system’s domain model becomes more accurate, modular, and easier to maintain.
+
+---
+==== Searchable Report Attributes
+:author: Adiel Soto
+
+The Lost & Found system depends heavily on searchable report attributes to help users quickly locate relevant lost or found items. These attributes represent the information stored in each report that can be used by the search and filtering system. Instead of treating every field independently, related fields can be grouped into broader domain concepts that describe how users naturally search for information.
+
+Users typically do not search using only one exact field. Instead, they combine multiple concepts such as item identity, location, or report condition to narrow down results. Because of this, the system organizes lower-level report fields into higher-level concepts that improve discoverability and make the search process more intuitive.
+
+===== Main Searchable Attributes
+
+The primary searchable fields in a Lost & Found report include:
+
+* Title
+* Description
+* Tags
+* Category
+* Location
+* Status
+* Date
+* Item condition
+* Owner information
+* Claim status
+
+Each attribute contributes differently to how users discover reports. Some attributes identify the item itself, while others describe its context, ownership, or current lifecycle state.
+
+===== Domain Concept Grouping
+
+The searchable fields can be grouped into broader domain concepts that represent the way users think when searching for items.
+
+[cols="1,2,2", options="header"]
+|===
+|Domain Concept
+|Related Fields
+|Purpose in Search
+
+|Item Identification
+|Title, Description, Tags
+|Helps users identify the object based on names, keywords, colors, brands, or unique characteristics.
+
+|Classification
+|Category, Item Type
+|Allows reports to be grouped into categories such as electronics, clothing, accessories, documents, or keys.
+
+|Location Context
+|Location, Last Seen Area, Found Area
+|Enables users to search based on where an item was lost or discovered.
+
+|Report Lifecycle
+|Status, Claim Status
+|Shows the current state of the report such as active, matched, claimed, resolved, or expired.
+
+|Temporal Context
+|Date Lost, Date Found, Date Reported
+|Allows filtering reports according to time periods and recent activity.
+
+|Ownership & Verification
+|Owner Information, Contact Information
+|Supports verification and claim validation during the recovery process.
+
+|Physical Characteristics
+|Item Condition, Color, Brand, Size
+|Improves precision when multiple similar items exist.
+|===
+
+===== Analysis of Search Behavior
+
+The searchable attributes reveal important domain concepts because they reflect the way users naturally attempt to recover items. For example, a student searching for a missing laptop may remember the location and color but not the exact report title. Another user may search by category first and then filter results by date or status.
+
+This behavior demonstrates that searching is not tied to isolated fields, but instead to broader conceptual groups. The system therefore benefits from organizing report data around concepts such as identification, location, classification, and lifecycle state.
+
+These concepts also influence system behavior. Search filters, recommendation systems, and matching algorithms rely on the relationships between searchable attributes. For example:
+
+* Matching algorithms may compare titles, tags, and descriptions to identify similar reports.
+* Location-based searches help narrow down possible matches.
+* Status filtering prevents resolved or expired reports from cluttering active searches.
+* Temporal filtering helps prioritize recent reports.
+
+By grouping searchable fields into domain concepts, the Lost & Found system becomes easier to navigate, improves report discoverability, and better reflects real-world user search behavior.
+
+===== Impact on Domain Concept Formation
+
+The analysis of searchable report attributes helps define core concepts within the Lost & Found domain model. These concepts are not arbitrary technical groupings; they emerge directly from user interaction patterns and system requirements.
+
+For example:
+
+* “Item Identification” becomes a domain concept because users consistently rely on descriptive information to recognize belongings.
+* “Location Context” forms another domain concept because physical location is essential in lost-item recovery.
+* “Report Lifecycle” exists because reports continuously transition between states during the recovery process.
+
+As a result, searchable attributes do more than store data. They shape how the domain itself is modeled, how reports interact with one another, and how users experience the system.
+
+---
 === Domain Acquisition for Authentication Stakeholders in Lost & Found
 :author: Javier Ventosa
 
@@ -3026,8 +4372,6 @@ For the Lost & Found system, authentication is not only a technical feature. It 
 * Marko Schütz-Schmuck, "Domain Acquisition", University of Puerto Rico at Mayagüez.
 * Marko Schütz-Schmuck, "Domain Stakeholders", University of Puerto Rico at Mayagüez.
 * Marko Schütz-Schmuck, "Overview of Domain Engineering", University of Puerto Rico at Mayagüez.
-
-You can paste this directly at the end of your file:
 
 ---
 
@@ -3238,3 +4582,564 @@ By combining authentication, permission validation, lifecycle restrictions, and 
 
 A well-defined ownership model improves security, consistency, reliability, and user trust throughout the entire Lost & Found process.
 
+---
+
+==== Domain Narrative Rewriting for Report Discovery Workflows
+
+:author: Nelson Caban
+
+===== Introduction
+
+In the Lost & Found system, users need to discover reports that match the item they lost or found. This discovery process includes viewing reports, filtering them by status, filtering them by category, and using the search bar to narrow down results. These actions can be described as separate interface behaviors, but they can also be rewritten into a clearer domain narrative using higher-level concepts.
+
+This lecture topic task applies Domain Analysis and Concept Formation. The lecture explains that domain analysis includes reviewing domain description units, forming concepts, and searching for inconsistencies, conflicts, and incompletenesses. It also explains that lower-level domain phenomena can be abstracted into higher-level domain concepts and rewritten into a domain narrative.
+
+===== Domain Description Units
+
+The following domain description units describe report discovery in the Lost & Found system:
+
+* A user can view reports in the Lost & Found system.
+* A report has a title, description, category, status, location, date, image, and tags.
+* A user can filter reports by status, such as Active, Claimed, or Closed.
+* A user can filter reports by category.
+* A user can use the search bar to find reports.
+* A report can appear in the results if it matches the selected status, selected category, and search query.
+* A user can select a report from the results to view more information about the item.
+* A user can claim or return a report depending on the report state.
+
+These statements describe individual behaviors of the system. However, they do not yet fully explain the higher-level purpose of report discovery.
+
+===== Concept Formation
+
+Using concept formation, the lower-level behaviors can be abstracted into broader domain concepts.
+
+.Report Discovery Concepts
+[cols="1,1,1", options="header"]
+|===
+| Lower-Level Element
+| Higher-Level Concept
+| Purpose in the Domain
+
+| Title, description, and tags
+| Searchable report attributes
+| Information used to match a user query with relevant reports
+
+| Status filter
+| Report state constraint
+| Limits results based on the current lifecycle state of a report
+
+| Category filter
+| Classification constraint
+| Limits results based on the type of item reported
+
+| Search bar
+| Discovery mechanism
+| Allows users to locate reports using keywords
+
+| Report card
+| Report summary
+| Presents important report information before the user opens the full report
+
+| Claim and return actions
+| Recovery actions
+| Allow users to move a report toward resolution
+|===
+
+These abstractions help describe the report discovery workflow in a more organized way. Instead of describing the system only as buttons, search inputs, and report cards, the system can be described using domain concepts such as searchable attributes, constraints, report summaries, and recovery actions.
+
+===== Rewritten Domain Narrative
+
+A Lost & Found user searches through report summaries to identify reports that may correspond to a lost or found item. Each report contains searchable attributes, including its title, description, and tags. The user may apply report state constraints, such as Active, Claimed, or Closed, to limit results based on the report lifecycle. The user may also apply classification constraints, such as item category, to narrow the discovery space.
+
+The system evaluates each report by comparing the report state, category, and searchable attributes against the user's selected filters and search query. Reports that satisfy these constraints are shown as report summaries. From these summaries, the user can inspect relevant item information and perform recovery actions, such as claiming an item, returning an item, or sending a report back to the active lost item state.
+
+This narrative describes report discovery as a domain process instead of only a user interface interaction. It connects searching, filtering, viewing, and acting on reports into one complete workflow.
+
+===== Analysis
+
+The rewritten narrative improves the original low-level description because it gives a clearer explanation of why each part of the workflow exists. The search bar is not only an input field; it is a discovery mechanism. The status tabs are not only buttons; they are report state constraints. The category dropdown is not only a filter; it is a classification constraint. The item cards are not only visual components; they are report summaries that help users decide whether a report is relevant.
+
+This supports the lecture's concept formation process because lower-level domain elements are abstracted into more general concepts. These concepts can then be used to make the system documentation more consistent and easier to understand.
+
+===== Conclusion
+
+The Lost & Found report discovery workflow can be better documented by rewriting individual interface behaviors into a higher-level domain narrative. This helps clarify how users move from searching and filtering to identifying and acting on relevant reports. By using concepts such as searchable attributes, report state constraints, classification constraints, report summaries, and recovery actions, the system documentation becomes more aligned with the principles of domain analysis and concept formation.
+
+---
+
+==== Incompleteness Analysis of Search and Filtering Features
+
+:author: Nelson Caban
+
+===== Introduction
+
+The Lost & Found system includes search and filtering features that help users find reports related to lost or found items. These features are important because users may not remember the exact category or tag assigned to an item. They may instead search using words from the title or description of a report.
+
+This lecture topic task applies Domain Analysis and Concept Formation by analyzing the current search and filtering behavior for incompletenesses. In this case, the focus is on identifying missing search behavior in the Lost & Found report discovery process.
+
+===== Current Domain Description Units
+
+The following domain description units describe the current search and filtering behavior:
+
+* A user can search for reports using the search bar.
+* A report can contain tags.
+* A report can contain a title.
+* A report can contain a description.
+* A report can belong to a category.
+* A report can have a status, such as Active, Claimed, or Closed.
+* The system filters reports by status.
+* The system filters reports by category.
+* The system filters reports by the user's search query.
+* The previous search behavior focused on matching the search query with report tags.
+
+These description units show that the system has several pieces of report information available. However, if the search bar only checks tags, then the system does not fully use all available report information for discovery.
+
+===== Identified Incompleteness
+
+The main incompleteness is that the search bar can be described as a general report discovery tool, but its behavior may only search through tags. This creates an incomplete search experience because reports also contain titles and descriptions that may include important searchable information.
+
+For example, a report may have the title "Black Hydro Flask" and the description "Found near the library entrance." If the report does not include a tag such as "bottle" or "library," a user searching for "Hydro Flask" or "library" may not find the report if the search only checks tags.
+
+This shows an incompleteness in the domain behavior:
+
+* The system has searchable information in the title.
+* The system has searchable information in the description.
+* The system has searchable information in the tags.
+* The search bar should support report discovery.
+* However, the search bar may only use tags.
+
+Therefore, the search behavior is incomplete because it does not fully use the searchable attributes available in a report.
+
+===== Concept Formation
+
+The incomplete behavior can be improved by forming a higher-level concept called searchable report attributes.
+
+.Searchable Report Attribute Concepts
+[cols="1,1,1", options="header"]
+|===
+| Report Field
+| Domain Concept
+| Search Purpose
+
+| Title
+| Primary item identifier
+| Helps users search by the main name or label of the item
+
+| Description
+| Detailed item information
+| Helps users search using details, context, or item characteristics
+
+| Tags
+| Keyword metadata
+| Helps users search using assigned labels or keywords
+
+| Category
+| Classification constraint
+| Helps users narrow results by item type
+
+| Status
+| Report state constraint
+| Helps users narrow results by report lifecycle state
+|===
+
+By grouping title, description, and tags under the concept of searchable report attributes, the system can support a more complete search model.
+
+===== Improved Domain Narrative
+
+A user enters a search query to discover reports that may match a lost or found item. The system treats the report title, description, and tags as searchable report attributes. The system compares the user's query against these searchable attributes while also respecting the selected report state and category constraints. Reports that match the search query and satisfy the active filters are displayed to the user as report summaries.
+
+This improved narrative removes the incompleteness found in the earlier behavior because the search bar is no longer limited to tag metadata. Instead, it searches across the main report information that users are most likely to remember.
+
+===== Recommended Solution
+
+The recommended solution is to keep the existing tag search functionality while extending the search bar to also search through report titles and descriptions.
+
+The search logic should check whether the user's search query matches any of the following:
+
+* Report title
+* Report description
+* Report tags
+
+The system should also preserve the existing status and category filters. This means that a report should only appear if it matches the active status tab, matches the selected category filter, and matches the search query when a query is provided.
+
+This approach improves the completeness of the search feature without removing previous functionality.
+
+===== Validation Scenarios
+
+The following scenarios can be used to validate the improved behavior:
+
+* If a user searches for a word found in a report title, the report should appear.
+* If a user searches for a word found in a report description, the report should appear.
+* If a user searches for a word found in a report tag, the report should still appear.
+* If the search bar is empty, the system should continue showing reports based on the selected status and category filters.
+* If a report does not match the selected status, it should not appear even if the search query matches.
+* If a report does not match the selected category, it should not appear unless the category filter is set to all categories.
+* Existing tag search functionality should continue working after title and description search are added.
+
+===== Analysis
+
+This incompleteness analysis shows that the search feature should not only depend on tags. Tags are useful, but they are not always complete or predictable. Users may search using natural words from the title or description instead of exact tags assigned to the report. By expanding the search bar to include title and description, the system better supports real user behavior.
+
+This also improves the domain model because title, description, and tags can now be understood as part of the same higher-level concept: searchable report attributes. This abstraction makes the system easier to document, maintain, and extend in the future.
+
+===== Conclusion
+
+The Lost & Found search and filtering system had an incomplete discovery behavior when the search bar only considered tags. Since reports also contain titles and descriptions, those fields should be included as searchable report attributes. Extending the search functionality to include title, description, and tags creates a more complete and useful report discovery process while preserving the existing filtering structure.
+
+= Domain Event Modeling for Report Lifecycle Transitions
+Author: Jose Valentin
+Date: May 27, 2026
+
+== Introduction
+
+The Lost & Found platform depends heavily on the correct handling of report lifecycle transitions. Reports continuously evolve through different states as users interact with them, claim items, resolve issues, or reopen reports when necessary.
+
+This document models the domain events associated with report lifecycle transitions using concepts from domain event modeling and state transition analysis discussed in lecture material. The goal is to identify the major events that affect reports, define their trigger conditions, and analyze how those events modify report states throughout the system.
+
+== System Context
+
+A report within the Lost & Found system represents an item that has either been lost or found by a user. Throughout its lifecycle, the report may undergo multiple transitions depending on user actions and system validation.
+
+Primary actors involved:
+
+* Report Author
+* Claiming User
+* Administrator
+* Lost & Found Platform
+
+== Report Lifecycle States
+
+The following lifecycle states are used within the platform:
+
+[cols="1,3"]
+|===
+|State |Description
+
+|ACTIVE
+|Report is visible and available for interaction
+
+|CLAIMED
+|A user has claimed the report and verification is pending
+
+|RESOLVED
+|The item has been successfully returned or resolved
+
+|ARCHIVED
+|The report is closed and no longer active
+
+|DELETED
+|The report has been permanently removed
+|===
+
+== Domain Event Identification
+
+The platform contains several major domain events that trigger lifecycle transitions.
+
+[cols="1,2,2,2"]
+|===
+|Event ID |Domain Event |Trigger |Resulting Transition
+
+|E1
+|Report Created
+|User submits report form
+|NULL → ACTIVE
+
+|E2
+|Report Edited
+|Author edits report
+|ACTIVE → ACTIVE
+
+|E3
+|Report Claimed
+|Another user claims report
+|ACTIVE → CLAIMED
+
+|E4
+|Report Unclaimed
+|Claimer cancels claim
+|CLAIMED → ACTIVE
+
+|E5
+|Report Resolved
+|Author closes resolved report
+|CLAIMED → RESOLVED
+
+|E6
+|Report Reopened
+|Author reopens resolved report
+|RESOLVED → ACTIVE
+
+|E7
+|Report Archived
+|Author or admin archives report
+|RESOLVED → ARCHIVED
+
+|E8
+|Report Deleted
+|Author deletes report
+|ACTIVE/RESOLVED → DELETED
+|===
+
+== Event Modeling Analysis
+
+=== Event E1: Report Created
+
+==== Description
+
+Occurs when a user submits a new lost or found item report.
+
+==== Trigger Conditions
+
+* User is authenticated
+* Required report fields are completed
+* Report passes validation checks
+
+==== Result
+
+* New database record is created
+* Report state becomes ACTIVE
+
+[source,typescript]
+----
+const report = Report.Create({
+  title,
+  description,
+  location,
+  category,
+  createdBy: user.id
+});
+----
+
+== Event E2: Report Edited
+
+=== Description
+
+Allows the author to modify report information.
+
+=== Trigger Conditions
+
+* User must be report author
+* Report must not be archived or deleted
+
+=== Result
+
+* Existing report fields are updated
+* State remains ACTIVE
+
+[source,typescript]
+----
+if (currentUser.id !== report.createdBy) {
+  throw new Error("Unauthorized edit");
+}
+----
+
+== Event E3: Report Claimed
+
+=== Description
+
+Occurs when a user attempts to recover an item.
+
+=== Trigger Conditions
+
+* User is authenticated
+* User is not the report author
+* Report is currently ACTIVE
+* Report has not already been claimed
+
+==== Result
+
+* Claimer information is stored
+* Claim code is generated
+* State changes to CLAIMED
+
+[source,typescript]
+----
+if (report.createdBy === currentUser.id) {
+  throw new Error("Cannot claim own report");
+}
+----
+
+== Event E4: Report Unclaimed
+
+=== Description
+
+Allows a claimer to cancel their claim.
+
+=== Trigger Conditions
+
+* User is the current claimer
+* Report state is CLAIMED
+
+=== Result
+
+* Claim information is removed
+* Report becomes ACTIVE again
+
+== Event E5: Report Resolved
+
+=== Description
+
+Marks the report as successfully completed.
+
+=== Trigger Conditions
+
+* User is report author or administrator
+* Claim verification process is completed
+
+==== Result
+
+* State changes from CLAIMED to RESOLVED
+* Claim workflow ends
+
+== Event E6: Report Reopened
+
+=== Description
+
+Allows previously resolved reports to become active again.
+
+=== Trigger Conditions
+
+* User is report author
+* Report state is RESOLVED
+
+=== Result
+
+* State changes back to ACTIVE
+* Claiming becomes available again
+
+[source,typescript]
+----
+const canReopen =
+  report.status === "RESOLVED" &&
+  currentUser.id === report.createdBy;
+----
+
+== Event E7: Report Archived
+
+=== Description
+
+Moves resolved reports into a closed historical state.
+
+=== Trigger Conditions
+
+* User is report author or administrator
+* Report has already been resolved
+
+=== Result
+
+* Report becomes ARCHIVED
+* Report interactions are disabled
+
+== Event E8: Report Deleted
+
+=== Description
+
+Permanently removes a report from the platform.
+
+=== Trigger Conditions
+
+* User is report author
+* User confirms deletion action
+
+=== Result
+
+* Database entry is removed
+* Report state becomes DELETED
+
+== Lifecycle Transition Diagram
+
+[plantuml]
+----
+@startuml
+
+[*] --> ACTIVE : Report Created
+
+ACTIVE --> ACTIVE : Report Edited
+
+ACTIVE --> CLAIMED : Report Claimed
+
+CLAIMED --> ACTIVE : Report Unclaimed
+
+CLAIMED --> RESOLVED : Report Resolved
+
+RESOLVED --> ACTIVE : Report Reopened
+
+RESOLVED --> ARCHIVED : Report Archived
+
+ACTIVE --> DELETED : Report Deleted
+
+RESOLVED --> DELETED : Report Deleted
+
+ARCHIVED --> [*]
+
+DELETED --> [*]
+
+@enduml
+----
+
+== Event Constraints and Validation Rules
+
+[cols="1,3"]
+|===
+|Constraint ID |Rule
+
+|C1
+|Users cannot claim their own reports
+
+|C2
+|Only one active claim may exist per report
+
+|C3
+|Only report authors may edit reports
+
+|C4
+|Only authors or administrators may archive reports
+
+|C5
+|Only authors may reopen resolved reports
+
+|C6
+|Deleted reports cannot transition to another state
+|===
+
+== Event Dependencies
+
+Several lifecycle events depend on previous transitions:
+
+* Reports must be ACTIVE before being CLAIMED
+* Reports must be CLAIMED before being RESOLVED
+* Reports must be RESOLVED before being ARCHIVED
+* Reports may only be REOPENED from the RESOLVED state
+
+These dependencies help maintain state consistency and prevent invalid operations.
+
+== Current Platform Integration
+
+The current implementation already supports several lifecycle restrictions:
+
+* Claim prevention for report authors
+* Claim ownership validation
+* Status-based report controls
+* Author-only reopen functionality
+* Restricted archive and resolution actions
+
+These rules align closely with the domain transition model described in this document.
+
+== Final Analysis
+
+Domain event modeling helps clarify how reports evolve throughout the Lost & Found platform. By formally identifying lifecycle events, trigger conditions, and state transitions, the system becomes easier to validate, secure, and maintain.
+
+The lifecycle model also improves consistency between frontend behavior, backend validation, and database state management.
+
+== Conclusion
+
+The Lost & Found platform relies on structured lifecycle transitions to maintain report integrity and secure user interactions. Through domain event modeling, the platform can better control report operations such as claiming, resolving, reopening, and deletion.
+
+Clearly defined events and transition constraints reduce ambiguity, improve consistency, and support reliable system behavior across all report management workflows.
+
+== References
+
+* Schütz-Schmuck, M. Domain Engineering and Requirements Analysis Lecture Slides. University of Puerto Rico at Mayagüez.
+* TypeScript Documentation: https://www.typescriptlang.org/docs/
+* Supabase Documentation: https://supabase.com/docs
+---

@@ -255,3 +255,75 @@ Countermeasures:
 
 - Add backup authentication methods and monitoring systems
 
+==== [Lecture Topic Task]: Obstacle Based Verification of Lost Item Report Recovery
+:author: Victoria Miranda Osuna
+
+The goal of this task is to verify that the Lost & Found application can identify and handle obstacles 
+that may prevent users from successfully recovering reported items through goal obstacle analysis and 
+countermeasure goals. The main recovery goal is to ensure users can find and recover lost items by allowing 
+them to submit reports, connect matching lost and found items, communicate with other users, and mark 
+recovered items as completed within the system.
+
+To support this goal, the system must identify obstacles that could interfere with successful recovery. 
+Common obstacles include unclear or incomplete item descriptions, incorrect or inactive contact information, 
+outdated reports that remain active after recovery, and users failing to respond to notifications. These 
+obstacles can be refined into smaller failure conditions to show how they contribute to recovery failure. For 
+example, poor descriptions may lead to incorrect report matching, failed notifications may prevent communication
+ between users, outdated reports may create false recovery opportunities, and verification failures may result 
+ in incorrect ownership claims.
+
+Countermeasure goals are added to reduce the likelihood of recovery failure and improve system reliability. 
+These include sending reminders for inactive or unresolved reports, requiring mandatory fields during report 
+creation, verifying contact information before reports are published, and adding ownership confirmation 
+before items are marked as recovered. The final model is considered successful when the main recovery goal 
+and its obstacles are clearly identified, obstacles are refined into smaller causes, and each major obstacle
+ includes a corresponding countermeasure to improve the reliability of item recovery.
+
+
+---
+
+==== [Lecture Topic Task] Goal Diagram For Returning Lost Items
+:author: Andrés Cruz
+
+===== Introduction
+This diagram models the potential risks when returning an item and the countermeasures that can be taken to minimize the risks and increase the chances of an item being returned to its rightful owner.
+
+image::RiskModelingDiagram.png[Risk Modeling Diagram, align=center, pdfwidth=80%]
+
+===== Event
+* Name: Lost/Found Item Reported
+** Def: Item is registered into the system.
+
+* Name: Item Match Found
+** Def: User claims a reported item.
+
+* Name: Owner Notified
+** Def: Loser receives a claim notification when claiming an item or receives a notification when their item is found.
+
+===== Risks
+* Name: Incomplete Description
+** Def: Report lacks information such as description, location or category.
+
+* Name: Duplicate Report Filed
+** Def: Reports of the same type that cover the same lost item.
+
+* Name: Category Mismatch
+** Def: Categories are filed inconsistently or do not correspond to the item in the report.
+
+* Name: Missing Contact Info
+** Def: User does not have valid identification to verify identity before claiming an item.
+
+===== Countermeasures
+* Name: Mandatory Info
+** Def: Have fields such as title, location, description, and category as mandatory fields.
+
+* Name: Automatic Duplicate Detection
+** Def: Compare a new report to existing reports to find similarities before registering the new report.
+
+* Name: Guided Category Setting
+** Def: Have a structured category system such as a dropdown menu to avoid ambiguous and inconsistent categories.
+
+* Name: Claim Code Verification
+** Def: Provide a claim code once a user claims a lost item to verify claimer identity when retrieving a lost item.
+
+---
