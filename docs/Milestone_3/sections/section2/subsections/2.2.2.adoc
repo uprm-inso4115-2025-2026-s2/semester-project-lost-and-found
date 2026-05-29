@@ -45,7 +45,7 @@ The following personas represent direct users of the platform:
 
 | *Needs* a| 
 * [.changed]#Quick access to information about where lost items might be#
-* [.changed]#Being able to easily distinguish between different types of lost items (e.g different categories)#
+* [.changed]#Being able to easily distinguish between different types of lost items (e.g. different categories)#
 * [.changed]#Being able to know the time and location of report#
 
 | *Platform Interaction* | [.changed]#Prioritizes quickly locating and recovering personal electronics when they are misplaced.#
@@ -81,17 +81,17 @@ The following personas represent direct users of the platform:
 * 6:30 am: Wakes up and starts getting ready for her daily walk
 * 8:00 am: Arrives at the University
 * 8:30 am: Attends her first biology class
-* 10:00 am : Arrives at the lab and begins preparing and cleaning the workspace
-* 12:00 pm Finds a calculator on a lab table and asks nearby students if it belongs to anyone but no one claims it.
-* 12:10 pm : Stores the calculator in a lab drawer and informs the next lab assistant in case someone comes looking for it
-* 1:00 pm : Eats lunch at a cafe with friends
-* 2:20 pm : Returns to  campus for another class
+* 10:00 am: Arrives at the lab and begins preparing and cleaning the workspace
+* 12:00 pm: Finds a calculator on a lab table and asks nearby students if it belongs to anyone but no one claims it.
+* 12:10 pm: Stores the calculator in a lab drawer and informs the next lab assistant in case someone comes looking for it
+* 1:00 pm: Eats lunch at a cafe with friends
+* 2:20 pm: Returns to  campus for another class
 * 4:00 pm: Meets with a friend to study
 * 5:00 pm: Checks and responds to emails
 * 6:00 pm: Eats dinner 
 * 7:00 pm: Studies and starts preparing lab material for the next day
 * 9:00 pm: Watch two episodes of Gilmore Girls
-* 10:30pm : Goes to sleep
+* 10:30pm: Goes to sleep
 
 | *Goals* | [.removed]#Quickly report found items so the owner can reclaim them# [.added]#Ensure found items are safely returned to their owners#.
 
@@ -103,7 +103,7 @@ The following personas represent direct users of the platform:
 * [.changed]#Being able to visually document found items (e.g., taking photos for reference)#
 * Minimal required fields
 
-| *Platform Interaction* | [.changed] #Reports found items from her laptop after finishing a lab shift.#
+| *Platform Interaction* | [.changed]#Reports found items from her laptop after finishing a lab shift.#
 
 | *Keep in mind when* | Designing the user flow for reporting a found item
 |===
@@ -126,26 +126,26 @@ The following personas represent direct users of the platform:
 
 | *Tech setup* | Mid-end desktop in his home for everyday use and an iPhone 12
 
-| *Story* | On his way back to his car after a class, Daniel finds a phone on the ground that clearly fell out of someone's bag. [.removed]#Having heard of the lost and found platform, he decides to submit it to the platform. He gets an institutional email from someone claiming the phone is theirs. He is, however, slightly skeptical of this given that the phone has little to no information that could help identify the person as the rightful owner.# [.added]#Unsure of the proper procedure for handling found items he keeps the phone and posts a message on a UPRM Facebook campus page asking if someone lost a phone near the physics building.Later, someone contacts him claiming the phone is theirs, but Daniel remains skeptical because there is little information available to confirm ownership.#
+| *Story* | On his way back to his car after a class, Daniel finds a phone on the ground that clearly fell out of someone's bag. [.removed]#Having heard of the lost and found platform, he decides to submit it to the platform. He gets an institutional email from someone claiming the phone is theirs. He is, however, slightly skeptical of this given that the phone has little to no information that could help identify the person as the rightful owner.# [.added]#Unsure of the proper procedure for handling found items he keeps the phone and posts a message on a UPRM Facebook campus page asking if someone lost a phone near the physics building. Later, someone contacts him claiming the phone is theirs, but Daniel remains skeptical because there is little information available to confirm ownership.#
 
 | *Day in the life* a| 
 
-* 5:00 am Wakes up and starts getting ready
-* 6:30 am : Reviews physics notes and starts preparing for the course
-* 7:00 am : Stops at a "Panadería" to get coffee and breakfast
-* 7:50 am : Arrives at campus
+* 5:00 am: Wakes up and starts getting ready
+* 6:30 am: Reviews physics notes and starts preparing for the course
+* 7:00 am: Stops at a "Panadería" to get coffee and breakfast
+* 7:50 am: Arrives at campus
 * 8:30 am: Offers office hours, responds to students emails and grades tests
-* 10:45 am : Goes to the student center to warm up his lunch and meet with a colleague
-* 12:30 pm : Takes a class
-* 1:45 pm : Walks to the parking lot to his car and drives back home
-* 2:00 pm : Stops for gas
-* 2:26 pm : Stops at his apartment and play with his cats
-* 3:00 pm : Visits his grandparents house and has dinner there
-* 4:45 pm : Goes back home and joins a departamental online meeting
-* 5:50 pm : Review the course presentation, fix some typos and review the material
+* 10:45 am: Goes to the student center to warm up his lunch and meet with a colleague
+* 12:30 pm: Takes a class
+* 1:45 pm: Walks to the parking lot to his car and drives back home
+* 2:00 pm: Stops for gas
+* 2:26 pm: Stops at his apartment and play with his cats
+* 3:00 pm: Visits his grandparents house and has dinner there
+* 4:45 pm: Goes back home and joins a departamental online meeting
+* 5:50 pm: Review the course presentation, fix some typos and review the material
 * 6:55 pm: Corrects some tests
-* 8:35 pm : Takes a shower and reads his favorite book
-* 12: 00 am : Goes to sleep
+* 8:35 pm: Takes a shower and reads his favorite book
+* 12:00 am: Goes to sleep
 
 | *Goals* | Ensure the lost item is being returned to its true owner 
 
@@ -186,20 +186,20 @@ The following personas represent direct users of the platform:
 
 | *Day in the life* a| 
 
-* 8:30 am : Wakes up and drinks a cup of coffee
-* 9:00 am : Uses his computer and starts working on his online job as finance counselor
-* 1:00 pm : Eats lunch
-* 2:20 pm : Arrives at college to attend class
-* 3:50 pm : Goes to Gym
-* 4:45 pm : Goes to the Supermarket do buy food
-* 6:23 pm : Cooks dinner
-* 7:30 pm : Watches a baseball game
-* 8:00 pm : Uses his phone to watch social media
-* 9:48 pm : Prepares the clothes for the next day
-* 10:47 pm : Goes to sleep
-* 12: 05 am : Wakes up and drink a cup of water
-* 12:25 am : Reviews emails and text messages
-* 1:08 am : Goes back to sleep
+* 8:30 am: Wakes up and drinks a cup of coffee
+* 9:00 am: Uses his computer and starts working on his online job as finance counselor
+* 1:00 pm: Eats lunch
+* 2:20 pm: Arrives at college to attend class
+* 3:50 pm: Goes to Gym
+* 4:45 pm: Goes to the Supermarket do buy food
+* 6:23 pm: Cooks dinner
+* 7:30 pm: Watches a baseball game
+* 8:00 pm: Uses his phone to watch social media
+* 9:48 pm: Prepares the clothes for the next day
+* 10:47 pm: Goes to sleep
+* 12:05 am: Wakes up and drink a cup of water
+* 12:25 am: Reviews emails and text messages
+* 1:08 am: Goes back to sleep
 
 | *Goals* | Read and navigate through content easily despite visual impairment
 
@@ -241,16 +241,16 @@ As mentioned, it's not just direct users of the platform that benefit from it; o
 
 | *Day in the life* a|
 
-* 10:00 am : Wakes up and starts getting ready for college
-* 11:00 am : Arrives at the University and eats at the cafeteria
-* 11:30 am : Reports at the Library to her job
-* 3:20 pm : Heads to her class
-* 4:34 pm : Walks to her dorm while listening to a audio book
-* 5:00 pm : Finish a crochet plushie that she has to deliver the next day
-* 6:46 pm : Discuss with her roomate the ending of a book she finished the night before
-* 7:49 pm : Study mandarin using Duolingo
-* 8:50 pm : Call her parents and clean the dorm
-* 9:50 : Goes to sleep
+* 10:00 am: Wakes up and starts getting ready for college
+* 11:00 am: Arrives at the University and eats at the cafeteria
+* 11:30 am: Reports at the Library to her job
+* 3:20 pm: Heads to her class
+* 4:34 pm: Walks to her dorm while listening to a audio book
+* 5:00 pm: Finish a crochet plushie that she has to deliver the next day
+* 6:46 pm: Discuss with her roomate the ending of a book she finished the night before
+* 7:49 pm: Study mandarin using Duolingo
+* 8:50 pm: Call her parents and clean the dorm
+* 9:50 pm: Goes to sleep
 
 | *Goals* a| 
 * Reduce physical storage of lost items
@@ -293,19 +293,19 @@ As mentioned, it's not just direct users of the platform that benefit from it; o
 
 | *Day in the life* a| 
 
-* 8:30 am : Wakes up and looks at social media apps
-* 9:00 am : Prepares  backpack and starts getting ready for class
-* 9:35 am : Picks up a friend for college
-* 9:46 am : Arrives at the University an is late for class
-* 9:50 am : Rushes to the Nursing auditorium, notice items left behind from previous class, but ignores it due to time pressure
-* 11:30 am : Reunites with a proffessor to talk about his nursery practices
-* 12:30 pm : Attends lab
-* 3:30 pm : Eats a snack while finishing a homework paper
-* 4:45 pm : Attends class
-* 6:00 pm : Goes to the Mayaguez Mall to buy new shoes for his practice at the hospital 
-* 9:00 pm : Prepares his clothes and hospital backpack with all the essentials
-* 10:50 pm : Reviews class notes to make sure he performs basic vital signs properly and doesn't forget anything
-* 12:00 am : Goes to sleep
+* 8:30 am: Wakes up and looks at social media apps
+* 9:00 am: Prepares  backpack and starts getting ready for class
+* 9:35 am: Picks up a friend for college
+* 9:46 am: Arrives at the University an is late for class
+* 9:50 am: Rushes to the Nursing auditorium, notice items left behind from previous class, but ignores it due to time pressure
+* 11:30 am: Reunites with a proffessor to talk about his nursery practices
+* 12:30 pm: Attends lab
+* 3:30 pm: Eats a snack while finishing a homework paper
+* 4:45 pm: Attends class
+* 6:00 pm: Goes to the Mayaguez Mall to buy new shoes for his practice at the hospital 
+* 9:00 pm: Prepares his clothes and hospital backpack with all the essentials
+* 10:50 pm: Reviews class notes to make sure he performs basic vital signs properly and doesn't forget anything
+* 12:00 am: Goes to sleep
 
 | *Goals* | Help others in immediate situations
 
@@ -345,25 +345,25 @@ As mentioned, it's not just direct users of the platform that benefit from it; o
 
 | *Tech setup* | Samsung s26, smartwatch, desktop computer mainly used for work and a personal computer also used for work and personal tasks
 
-| *Story* | Sara visits the university campus often to pick up or drop off her son.One afternoon, while waiting for her son she decides to take a walk on campus. While walking she notices a backpack and a tablet left on a bench.She waits to see if the owner comes back, but after 10 minutes no one came for the items.She [.changed]# is aware that there is usually a process on campus for handling lost items, but she is unsure how it works#. She picks up the items and leaves them at a nearby office. She asks her son [.changed]#to inform nearby campus staff about the found items#.She hopes the owner [.changed]#becomes aware that the items were found and is able to retrieve them#.
+| *Story* | Sara visits the university campus often to pick up or drop off her son.One afternoon, while waiting for her son she decides to take a walk on campus. While walking she notices a backpack and a tablet left on a bench.She waits to see if the owner comes back, but after 10 minutes no one came for the items. She [.changed]#is aware that there is usually a process on campus for handling lost items, but she is unsure how it works#. She picks up the items and leaves them at a nearby office. She asks her son [.changed]#to inform nearby campus staff about the found items#. She hopes the owner [.changed]#becomes aware that the items were found and is able to retrieve them#.
 
 | *Day in the life* a| 
 
-* 4:30 am : Wakes up, prepares breakfast, cleans the kitchen and  the living room
-* 5:35 am : Checks her schedule to see all upcoming appointments of the day
-* 6:00 am : Wakes her son up and tells him to prepare for college
-* 7:00 am : Drop her son and drives to work
-* 12:30 am : Eats lunch, while taking with collegues about new travel offers
-* 3:30 pm : Drives to college to pick up her son
-* 4:00 pm :  Walks on campus while waiting that his son finishes his last class
-* 4:10 pm : Notices unattended backpack and tablet on a bench and waits to see if someone comes to pick up the items
-* 4:20 pm : After waiting, considers what to do but is unsure how to report them 
-* 4:25 pm : Reunites with her son and leaves the items at a nearby office
-* 4:50 pm : Is worried about the items owner and hopes that the person can retrieve its lost items, so she asks her son to create a report, to let know the owner that they found the items
+* 4:30 am: Wakes up, prepares breakfast, cleans the kitchen and the living room
+* 5:35 am: Checks her schedule to see all upcoming appointments of the day
+* 6:00 am: Wakes her son up and tells him to prepare for college
+* 7:00 am: Drop her son and drives to work
+* 12:30 am: Eats lunch, while taking with collegues about new travel offers
+* 3:30 pm: Drives to college to pick up her son
+* 4:00 pm:  Walks on campus while waiting that his son finishes his last class
+* 4:10 pm: Notices unattended backpack and tablet on a bench and waits to see if someone comes to pick up the items
+* 4:20 pm: After waiting, considers what to do but is unsure how to report them 
+* 4:25 pm: Reunites with her son and leaves the items at a nearby office
+* 4:50 pm: Is worried about the items owner and hopes that the person can retrieve its lost items, so she asks her son to create a report, to let know the owner that they found the items
 * 5:00 pm: Goes home and prepares dinner
 * 6:00 pm:  Plays boardgames with the family
 * 7:34 pm: Watch an episode of her favorite show
-* 9:00 pm : Goes to sleep 
+* 9:00 pm: Goes to sleep 
 
 | *Goals* | Handle situations quickly and responsibly without disrupting her schedule
 
@@ -380,11 +380,11 @@ As mentioned, it's not just direct users of the platform that benefit from it; o
 | *Platform Interaction* | [.changed]#Does not have a clear way to formally report found items and instead relies on leaving them at nearby offices or informing people on campus#
 
 | *Keep in mind when* a| 
-[.removed]#* Designing access for non-university users (e.g. parents, visitors)#
-[.removed]#* Ensuring the system is intuitive for people unfamiliar with reporting processes#
-[.added]#* Designing clear procedural guidance for visitors interacting with campus spaces#
-[.removed]#Providing quick and accessible reporting alternatives for time-constrained users#
-*[.added]#Guidance on how non-university members should proceed when they find items on campus (e.g., directed to staff or physical reporting points)#
+* [.removed]#Designing access for non-university users (e.g. parents, visitors)#
+* [.removed]#Ensuring the system is intuitive for people unfamiliar with reporting processes#
+* [.added]#Designing clear procedural guidance for visitors interacting with campus spaces#
+* [.removed]#Providing quick and accessible reporting alternatives for time-constrained users#
+* [.added]#Guidance on how non-university members should proceed when they find items on campus (e.g., directed to staff or physical reporting points)#
 |===
 
 // ==========================================================================================
@@ -409,17 +409,17 @@ As mentioned, it's not just direct users of the platform that benefit from it; o
 
 | *Day in the life* a| 
 
-* 10:00 am : Wakes up,grabs breakfast
-* 10:25 am : Walks to the library for morning study section
-* 10:54 am : Notices a power bank on the table, no one is around, hesitate to report it or leaving it
-* 12:45 pm : Decides to take it with him temporarily
-* 1:20 pm : Attends class, keep power bank on his backpack
-* 2:30 pm : Eats lunch in the Cafeteria, uses the power bank to charge his phone
-* 3:30 pm : Attends second class
-* 4:00 pm : Meets with friends, tells them about the power bank he found. Friends tell him, that if no one has claimed it, he should keep it
-* 5:10 pm : Goes home, study for a test, charges the power bank
-* 6:00 pm : Plays video games all night 
-* 1:23 am : Goes to sleep
+* 10:00 am: Wakes up,grabs breakfast
+* 10:25 am: Walks to the library for morning study section
+* 10:54 am: Notices a power bank on the table, no one is around, hesitate to report it or leaving it
+* 12:45 pm: Decides to take it with him temporarily
+* 1:20 pm: Attends class, keep power bank on his backpack
+* 2:30 pm: Eats lunch in the Cafeteria, uses the power bank to charge his phone
+* 3:30 pm: Attends second class
+* 4:00 pm: Meets with friends, tells them about the power bank he found. Friends tell him, that if no one has claimed it, he should keep it
+* 5:10 pm: Goes home, study for a test, charges the power bank
+* 6:00 pm: Plays video games all night 
+* 1:23 am: Goes to sleep
 
 
 | *Goals* | Resolve situations quickly while minimizing personal effort, even if that involves keeping found items
@@ -448,7 +448,6 @@ Key Insights derived from Personas:
 
 - Not all users are motivated to report found items, therefore the system must minimize effort and improve accessibility.
 - Some users may justify keeping found items(will never report them as found)
-[.removed]#- Restricting access to university members excludes the participation of external possible
-contributors such as parents, guests, visitors, community members.This suggest the need of a guest reporting option.#
+- [.removed]#Restricting access to university members excludes the participation of external possible contributors such as parents, guests, visitors, community members.This suggest the need of a guest reporting option.#
 - Users may fear giving the found items to the wrong person requiring clear ownership verification
 - Accessibility is critical for usability 
