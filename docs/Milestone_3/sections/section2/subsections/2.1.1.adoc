@@ -1,11 +1,10 @@
-[.changed]
 ==== Domain Rough Sketches (Raw Observations and Traceable Concept Derivation)
 
-The table below captures raw statements and field notes as they were recorded, while adding more situational context for each observation. Details such as approximate location, time of day, environmental conditions, actors involved, immediate reactions, and follow-up actions are included when available or reasonably remembered. Unknown details are still marked as unknown rather than invented.
+[.added]#The table below captures raw statements and field notes as they were recorded, while adding more situational context for each observation. Details such as approximate location, time of day, environmental conditions, actors involved, immediate reactions, and follow-up actions are included when available or reasonably remembered. Unknown details are still marked as unknown rather than invented.#
 
 ===== Raw observations (unprocessed)
 
-The table below keeps each observation grounded in raw domain evidence. Each unit separates the original field note from contextual details, assumptions or interpretations, and possible implications for later analysis.
+[.changed]#The table below keeps each observation grounded in raw domain evidence. Each unit separates the original field note from contextual details, assumptions or interpretations, and possible implications for later analysis.#
 
 [cols="1,3,3,3,3",options="header"]
 |===
@@ -190,25 +189,25 @@ The concepts below are derived from the raw observation table above. Each concep
 | Perceived risk of theft or misuse increases urgency and changes user behavior.
 | 3, 6, 12, 17
 
-| Location uncertainty
-| Some users cannot identify a single exact loss location and instead remember a route, area, building vicinity, or set of possible locations.
-| 2, 12, 13, 16
+| [.added]#Location uncertainty#
+| [.added]#Some users cannot identify a single exact loss location and instead remember a route, area, building vicinity, or set of possible locations.#
+| [.added]#2, 12, 13, 16#
 
-| Custody traceability
-| Once an item is moved from its original location to a drawer, office, library, or security desk, users need a way to trace where it went and who currently holds it.
-| 3, 7, 8, 11, 14
+| [.added]#Custody traceability#
+| [.added]#Once an item is moved from its original location to a drawer, office, library, or security desk, users need a way to trace where it went and who currently holds it.#
+| [.added]#3, 7, 8, 11, 14#
 |===
 
 ===== Missing specifics to collect next
 
-We intentionally did not invent details that were not captured in the raw observations. Next time we collect observations, we will explicitly capture more situational details that can support later requirement derivation and assumption validation.
+[.changed]#We intentionally did not invent details that were not captured in the raw observations. Next time we collect observations, we will explicitly capture more situational details that can support later requirement derivation and assumption validation.#
 
-* Keys: car keys vs apartment keys vs lab keys vs keycard, plus whether they were found near vehicles, offices, classrooms, or outdoor paths (obs #2 and #12).
-* Earbuds: model, color, case markings, whether found with case, and approximate location of discovery or loss (obs #4).
-* Chargers: USB-C vs Lightning vs laptop charger block and cable, classroom/building location, class period, and time noticed missing (obs #1).
-* Retention: approximate duration range, whether it differs by office, and what happens after the retention period ends (obs #8).
-* Location precision: building, room number, floor, entrance, nearby landmark, route, or outdoor area when exact location is uncertain.
-* Time detail: approximate time lost, time noticed missing, and time item was found or turned in.
-* Actor detail: who found the item, who received it, who stored it, and who was contacted afterward.
-* Action detail: whether the owner retraced steps, checked group chats, contacted offices, canceled access, or visited security.
-* Environmental detail: office availability, after-hours conditions, outdoor/weather exposure, crowd level, and visibility of signage.
+* [.changed]#Keys: car keys vs apartment keys vs lab keys vs keycard, plus whether they were found near vehicles, offices, classrooms, or outdoor paths (obs #2 and #12).#
+* [.changed]#Earbuds: model, color, case markings, whether found with case, and approximate location of discovery or loss (obs #4).#
+* [.changed]#Chargers: USB-C vs Lightning vs laptop charger block and cable, classroom/building location, class period, and time noticed missing (obs #1).#
+* [.changed]#Retention: approximate duration range, whether it differs by office, and what happens after the retention period ends (obs #8).#
+* [.added]#Location precision: building, room number, floor, entrance, nearby landmark, route, or outdoor area when exact location is uncertain.#
+* [.added]#Time detail: approximate time lost, time noticed missing, and time item was found or turned in.#
+* [.added]#Actor detail: who found the item, who received it, who stored it, and who was contacted afterward.#
+* [.added]#Action detail: whether the owner retraced steps, checked group chats, contacted offices, canceled access, or visited security.#
+* [.added]#Environmental detail: office availability, after-hours conditions, outdoor/weather exposure, crowd level, and visibility of signage.#
