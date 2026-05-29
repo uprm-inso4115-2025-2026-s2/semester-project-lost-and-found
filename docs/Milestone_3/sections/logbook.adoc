@@ -6,11 +6,11 @@
 |===
 | Name | Section | Added/Modified
 
-| Jean P. I. Sánchez
+| Jean P. I. SÃ¡nchez
 | 5., 2.2.1., 2.2.3., 2.2.4., 3.2.
 | Modified/Added
 
-| Leanelys González Orama
+| Leanelys GonzÃ¡lez Orama
 | 1.2.1, 1.5., 2.2.1
 | Modified/Added
 
@@ -37,5 +37,9 @@
 | Keishlyany M. Sanabria Santana
 | 2.3.1, 2.2.5
 | Added
+
+| Jean Sanchez
+| 2.2.5, 3.1, 3.2, 3.3.2, 3.3.5, 3.3.6
+| Modified/Added: clarified terminology and requirement wording, restored verification links in the machine requirements table, refined stakeholder discovery and traceability language, and repositioned supporting diagrams so they sit next to the explanations they support.
 
 |===

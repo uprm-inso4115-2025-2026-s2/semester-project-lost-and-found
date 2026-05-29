@@ -1,3 +1,6 @@
+== *Descriptive Part*
+=== *Domain Description*
+
 ==== Domain Rough Sketches (Raw Observations and Traceable Concept Derivation)
 
 [.added]#The table below captures raw statements and field notes as they were recorded, while adding more situational context for each observation. Details such as approximate location, time of day, environmental conditions, actors involved, immediate reactions, and follow-up actions are included when available or reasonably remembered. Unknown details are still marked as unknown rather than invented.#

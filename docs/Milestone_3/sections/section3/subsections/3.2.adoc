@@ -413,7 +413,7 @@ a|
 
 **Date:** `2026-03-04` 
 
-**Purpose:** Verify that the Lost & Found platform’s requirements, workflows, and system behavior match real-world expectations and are correctly implemented. This includes input validation, report lifecycle management, moderation workflows, access control, and search functionality.
+[.changed]#**Purpose:** Validate that the Lost & Found platform’s requirements, workflows, and system behavior match real-world expectations and stakeholder needs. Verification is handled separately through the documented test cases and implementation checks. This includes input validation, report lifecycle management, moderation workflows, access control, and search functionality.#
 
 **Participants:**  
 

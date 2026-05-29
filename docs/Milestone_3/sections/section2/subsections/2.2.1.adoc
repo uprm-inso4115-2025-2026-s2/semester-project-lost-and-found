@@ -59,6 +59,11 @@
 - F1.4 Edit and manage own reports
 - F1.5 Automatic ownership binding (user-session association)
 
+[.added]#User stories, epics, and features describe the solution from the user's
+perspective, while requirements describe the properties the system must satisfy.
+They are intentionally paired: the first expresses value and intent, and the
+second formalizes the system obligation that makes that value possible.#
+
 [discrete]
 ===== _US.REPORT.01: Submit a lost item report | ReqRef: <<REQ-REPORT-F-01>>_
 
@@ -114,7 +119,7 @@ _"As a user who found an item, I want to upload photos of it so that the owner c
     - F2.5 Status-based filtering (active/resolved)
 
 [discrete]
-===== _US.SEARCH.01: Filter reports by category | ReqRef: <<REQ-SEARCH-F-01>>_
+===== _US.SEARCH.01: Filter reports by category | ReqRef: <<REQ-SEARCH-F-02>>_
 
 _"As a user who lost an item, I want to filter listings by category so that I can narrow down results and find my missing item."_
 
@@ -127,9 +132,9 @@ _"As a user who lost an item, I want to filter listings by category so that I ca
 |===
 
 [discrete]
-===== _US.SEARCH.02: Search by keyword | ReqRef: <<REQ-SEARCH-F-02>>_
+===== _US.SEARCH.02: Search by keyword | ReqRef: <<REQ-SEARCH-F-01>>_
 
-_"As a user who lost an item, I want to filter listings by category so that I can narrow down results and find my item faster."_
+[.changed]#_"As a user who lost an item, I want to search listings by keyword so that I can narrow down results and find my item faster."_#
 
 *Acceptance criteria:*
 
@@ -139,9 +144,10 @@ _"As a user who lost an item, I want to filter listings by category so that I ca
 |Keyword entered |Search executed |Matching reports are displayed.
 |===
 
+[discrete]
 ===== _US.SEARCH.03: Identify item status clearly | ReqRef: <<REQ-SEARCH-F-03>>_
 
-_"As a user who lost an item, I want to clearly see whether a listing is still lost or has been found so that I can focus only on relevant reports."_
+[.changed]#_"As a user who lost an item, I want to clearly see whether a listing is still lost or has been found so that I can focus only on relevant reports."_#
 
 *Acceptance criteria:*
 
@@ -157,8 +163,8 @@ _"As a user who lost an item, I want to clearly see whether a listing is still l
 [cols="1,2,2,2",options="header,autowidth"]
 |===
 |Story ID |Feature |ReqRef |Notes
-|[[US-SEARCH-01]]US-SEARCH-01 |F2.1 |<<REQ-SEARCH-F-01>> |Category filtering logic.
-|[[US-SEARCH-02]]US-SEARCH-02 |F2.2, F2.3 |<<REQ-SEARCH-F-02>> |Search and sorting.
+|[[US-SEARCH-01]]US-SEARCH-01 |F2.1 |<<REQ-SEARCH-F-02>> |Category filtering logic.
+|[[US-SEARCH-02]]US-SEARCH-02 |F2.2, F2.3 |<<REQ-SEARCH-F-01>> |Keyword search and sorting.
 |[[US-SEARCH-03]]US-SEARCH-03 |F2.4, F2.5 |<<REQ-SEARCH-F-03>> |Report labelling (lost/found).
 |===
 
