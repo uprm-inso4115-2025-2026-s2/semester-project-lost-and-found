@@ -82,8 +82,8 @@ a|
 - <<US-CLAIM-02>>
 
 | [[IR013]]IR013
-| All reports persist after reaching terminal states (Returned, Closed, Expired), allowing retrieval for audits or references without loss of information.
-| Persistence of past events; terminal states prevent deletion; reports retrievable for reference.
+| [.changed]#All reports persist after reaching terminal states (Returned, Closed, Expired), allowing retrieval for audits or references without loss of information. Terminal reports remain available for reference even when they are removed from active search.#
+| [.changed]#Persistence of past events; terminal states prevent deletion; reports retrievable for reference while excluded from active recovery workflows.#
 a| 
 - <<US-ADMIN-01>>
 - <<US-CLAIM-02>>
@@ -115,8 +115,8 @@ a|
 - <<US-CLAIM-01>>
 
 | [[IR018]]IR018
-| Administrators modify or remove report representations directly, with all changes logged in the audit trail and internal state updated immediately.
-| Administrative oversight; internal state reflects modifications/removals; audit logs preserve event history.
+| [.changed]#Administrators modify or remove report representations directly, with all changes logged in the audit trail and internal state updated immediately. In this document, `remove` means taking a report out of active/public circulation, `archive` means retaining it for reference, and `delete` means permanent removal only if policy explicitly allows it.#
+| [.changed]#Administrative oversight; internal state reflects modifications/removals; audit logs preserve event history and preserve the distinction between removal, archiving, and deletion.#
 a| 
 - <<US-ADMIN-01>>
 |===

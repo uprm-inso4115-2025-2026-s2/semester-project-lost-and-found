@@ -1,5 +1,4 @@
 
-
 ==== *Machine Requirements*
 
 ===== Report Lifecycle State Machine (System Behavior)
@@ -24,7 +23,7 @@ behavior.#
   requires automatic cleanup of stale student data after 30 days, with admin
   notification (ENVRQ-010) as a prerequisite to deletion.#
 
-[.added]#- The `Resolved` → `Reopened` → `Active` transition shows why rate
+[.added]#- The `Resolved` -> `Reopened` -> `Active` transition shows why rate
   limiting (ENVRQ-009) is necessary to prevent abuse of the reopening mechanism.#
 
 image::report-lifecycle-state-machine.png[Report Lifecycle State Machine, align=center, pdfwidth=90%]
@@ -40,106 +39,116 @@ _Figure: Report Lifecycle State Machine - Behavioral model linking Machine Requi
 a| * <<REQ-UX-NF-01>>
 * <<REQ-SEARCH-F-01>>
 * <<REQ-REPORT-F-01>>
-| Verify that opening the application on supported desktop browsers with ≥1 Mbps connection allows all core features to function without errors.
+| Browser/device checks in Section 3.2
 
 | [[HWRQ-002]]HWRQ-002
 | The system must support client access from mobile devices (smartphones/tablets) with responsive design at minimum 320px screen width.
 a| * <<REQ-UX-NF-01>>
-| Verify by testing the application on multiple mobile devices with screen width ≥320px and confirming layout adapts correctly and functionality remains intact.
+| Mobile/responsive checks in Section 3.2
 
 | [[SWRQ-001]]SWRQ-001
 | The frontend must be developed using TypeScript 5.0+ and React 18.2+ with Node.js 18.0+ runtime.
 a| * <<REQ-UX-NF-01>>
 * <<REQ-REPORT-F-01>>
 * <<REQ-SEARCH-F-01>>
-| Verify by inspecting project dependencies and running the application to confirm builds without type or runtime errors.
+| Build/runtime checks in Section 3.2
 
 | [[SWRQ-002]]SWRQ-002
 | The system must integrate Supabase JavaScript SDK 2.0+ for backend services including authentication, database, and storage.
 a| * <<REQ-REPORT-F-01>>
 * <<REQ-REPORT-F-02>>
 * <<REQ-CLAIM-F-01>>
-| Verify by performing authentication and database operations via Supabase SDK and confirming successful responses.
+| <<TEST-REPORT-01>>, <<TEST-REPORT-04>>
 
 | [[SWRQ-003]]SWRQ-003
 | The system must utilize TailwindCSS 3.0+ for responsive UI implementation.
 a| * <<REQ-UX-NF-01>>
-| Verify by inspecting UI classes and testing multiple viewport sizes to ensure layout responsiveness.
+| Responsive UI checks in Section 3.2
 
 | [[SWRQ-004]]SWRQ-004
 | The system must implement form validation using React Hook Form with Zod or Yup schema validation.
 a| * <<REQ-REPORT-F-01>>
 * <<REQ-REPORT-F-02>>
-| Verify by submitting valid and invalid data and confirming correct validation messages are displayed.
+| <<TEST-REPORT-01>>, <<TEST-REPORT-02>>, <<TEST-REPORT-03>>
 
 | [[SWRQ-005]]SWRQ-005
 | The system must support image upload functionality with file size limit of 10MB per image for JPEG, PNG, and GIF formats.
 a| * <<REQ-REPORT-F-02>>
-| Verify by uploading various image formats and sizes, confirming acceptance or rejection according to the requirement.
+| <<TEST-REPORT-04>>, <<TEST-SEARCH-04>>
 
 | [[SWRQ-006]]SWRQ-006
 | The development environment must include Jest, React Testing Library, and Cypress/Playwright for testing.
 a| * <<REQ-UX-NF-01>>
 * <<REQ-SEARCH-F-01>>
-| Verify by running automated test suites in all frameworks and confirming tests pass successfully.
+| Scenario-based verification suite in Section 3.2
 
 | [[ENVRQ-001]]ENVRQ-001
 | The system must maintain API response latency under 500ms for standard operations under normal load.
 a| * <<REQ-SEARCH-F-01>>
 * <<REQ-REPORT-F-01>>
-| Verify by measuring response times under normal load and confirming ≤500ms latency.
+| Search/report performance checks in Section 3.2
 
 | [[ENVRQ-002]]ENVRQ-002
 | The system must support concurrent users with minimum 100 simultaneous active sessions.
 a| * <<REQ-SEARCH-F-01>>
 * <<REQ-REPORT-F-01>>
-| Verify by simulating 100 concurrent users and confirming the system operates without errors.
+| Load/concurrency checks in Section 3.2
 
 | [[ENVRQ-003]]ENVRQ-003
 | The system must enforce HTTPS-only communication with WSS for real-time features.
 a| * <<REQ-CLAIM-F-01>>
 * <<REQ-CLAIM-F-02>>
-| Verify by attempting HTTP connections and confirming only HTTPS/WSS connections are accepted.
+| Security checks in Section 3.2
 
 | [[ENVRQ-004]]ENVRQ-004
 | The system must support latest 2 versions of Chrome, Firefox, Safari, and Edge browsers on desktop and mobile.
 a| * <<REQ-UX-NF-01>>
-| Verify by testing all specified browser versions and confirming consistent behavior.
+| Browser compatibility checks in Section 3.2
 
 | [[ENVRQ-005]]ENVRQ-005
 | The system must integrate with UPR.edu authentication system via SSO/OAuth protocols.
 a| * <<REQ-CLAIM-F-01>>
 * <<REQ-ADMIN-F-01>>
-| Verify by performing login via UPR SSO and confirming authentication succeeds.
+| <<TEST-REPORT-01>>, <<TEST-MOD-03>>
 
 | [[ENVRQ-006]]ENVRQ-006
 | The system must implement Row Level Security (RLS) policies in PostgreSQL for all data access.
 a| * <<REQ-CLAIM-F-02>>
 * <<REQ-ADMIN-F-01>>
-| Verify by attempting unauthorized access and confirming RLS blocks it.
+| <<TEST-REPORT-03>>
 
 | [[ENVRQ-007]]ENVRQ-007
 | The system must achieve page load time under 3 seconds and search query responses under 2 seconds.
 a| * <<REQ-SEARCH-F-01>>
 * <<REQ-REPORT-F-01>>
-| Verify by measuring page load and search response times under normal usage conditions.
+| <<TEST-SEARCH-01>>, <<TEST-SEARCH-05>>
 
 | [[ENVRQ-008]]ENVRQ-008
 | The system must comply with FERPA regulations and university data protection policies for student information.
 a| * <<REQ-REPORT-F-01>>
 * <<REQ-REPORT-F-02>>
 * <<REQ-CLAIM-F-01>>
-| Verify by auditing data handling and confirming compliance with FERPA and university policies.
+| <<TEST-REPORT-05>>, <<TEST-MOD-03>>
 
 | [[ENVRQ-009]]ENVRQ-009
 | The system must implement rate limiting on all API endpoints to prevent abuse.
 a| * <<REQ-SEARCH-F-01>>
 * <<REQ-REPORT-F-01>>
-| Verify by sending high-frequency requests and confirming rate limits are enforced.
+| <<TEST-MOD-01>>, <<TEST-SEARCH-01>>
 
 | [[ENVRQ-010]]ENVRQ-010
 | The system must support email notifications through configured SMTP with templated messaging.
 a| * <<REQ-CLAIM-F-01>>
 * <<REQ-CLAIM-F-02>>
-| Verify by triggering notifications and confirming emails are delivered correctly with templates.
+| <<TEST-MOD-03>>
 |===
+
+===== SADT Source Appendix
+
+[.added]#The source below expresses the activity-and-data. It is intentionally SADT-style: each activity callout states the main input, control, output, and mechanism so the workflow can be read as a structured process model rather than a simple sequence diagram.#
+
+[.added]#This appendix complements, rather than replaces, the verification
+anchors listed above.#
+
+image::SADT.png[Report Creation Flow, align=center, pdfwidth=80%]
+_Figure 2.3.1. - 2. Structured Analysis and Design Technique (SADT) Diagram_

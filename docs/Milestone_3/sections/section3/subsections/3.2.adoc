@@ -9,6 +9,11 @@ Validation activities focus on confirming that the modeled concepts (*Report*, *
 
 These scenario walkthroughs are used during feedback sessions with students, teaching assistants, and administrative staff to surface overlooked edge cases and feature ideas. Each scenario step is explicitly linked to both functional and interface requirements, with expected outcomes and validation checks clearly defined.
 
+[.added]#The diagram below shows execution steps and decision points, not just the stakeholders or reports involved.#
+
+image::SystemOperationDiagram.png[System Operation Diagram, align=center, pdfwidth=80%]
+_Figure: System Operation Diagram - Illustrating the execution flow of validation scenarios, including user actions, system responses, and decision points._
+
 ===== Scenario 1: María — Reporting a Lost Laptop
 
 María, a third-year Computer Science student, studies in the university library until the evening. The next morning, she realizes that her silver HP laptop is missing. She is unsure of the exact location where she left it, but recalls that it was likely in one of the study rooms she used.
@@ -71,7 +76,7 @@ a|
 - Preserved traceability of edits.
 - Clarified workflow for non-owner edit attempts.
 
-===== *Scenario 2: Javier — Reporting a Found Wallet *
+===== *Scenario 2: Javier — Reporting a Found Wallet*
 
 Javier, a student walking past the cafeteria around 1:30 PM, finds a brown leather walletF on the ground. He picks it up but notices it contains a student ID and other personal documents. He wants to report it without exposing sensitive information.
 
@@ -408,7 +413,7 @@ a|
 
 **Date:** `2026-03-04` 
 
-**Purpose:** Verify that the Lost & Found platform’s requirements, workflows, and system behavior match real-world expectations and are correctly implemented. This includes input validation, report lifecycle management, moderation workflows, access control, and search functionality.
+[.changed]#**Purpose:** Validate that the Lost & Found platform’s requirements, workflows, and system behavior match real-world expectations and stakeholder needs. Verification is handled separately through the documented test cases and implementation checks. This includes input validation, report lifecycle management, moderation workflows, access control, and search functionality.#
 
 **Participants:**  
 
