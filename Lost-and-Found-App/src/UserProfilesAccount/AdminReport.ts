@@ -1,6 +1,6 @@
 import { supabase } from "../supabaseClient";
 import { requireAdmin } from "../UserProfilesAccount/AdminAccess";
-import { sendEmailNotification } from "../UserProfilesAccount/NotificationService";
+import { sendUserNotification } from "../UserProfilesAccount/NotificationService";
 import { recordAuditEntry } from "../UserProfilesAccount/AuditService";
 
 /**
@@ -58,16 +58,12 @@ export async function adminEditReport(
 
     // Notify user
     if (report.Email) {
-        await sendEmailNotification(
+        await sendUserNotification(
             report.Email,
             "Your report was updated by an administrator",
-            `
-An administrator updated your report.
-
-Report ID: ${reportId}
-
-${adminMessage ? `Administrator message:\n${adminMessage}` : ""}
-            `
+            `An administrator updated your report.\n\nReport ID: ${reportId}\n\n${adminMessage ? `Administrator message:\n${adminMessage}` : ""}`,
+            "ACCOUNT_UPDATE",
+            true
         );
     }
 
@@ -130,15 +126,12 @@ export async function adminDeleteReport(
 
     // Notify user
     if (report.Email) {
-        await sendEmailNotification(
+        await sendUserNotification(
             report.Email,
             "Your report was deleted by an administrator",
-            `
-Your report has been removed.
-
-Reason:
-${reason || "Administrative action"}
-            `
+            `Your report has been removed.\n\nReason:\n${reason || "Administrative action"}`,
+            "ACCOUNT_UPDATE",
+            true
         );
     }
 

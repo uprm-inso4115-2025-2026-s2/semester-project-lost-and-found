@@ -1,7 +1,7 @@
 import { requireAdmin } from "../UserProfilesAccount/AdminAccess";
 import { deleteUserAndReports } from "../UserProfilesAccount/UserAccountManagement";
 import { supabase } from "../supabaseClient";
-import { sendEmailNotification } from "../UserProfilesAccount/NotificationService";
+import { sendUserNotification } from "../UserProfilesAccount/NotificationService";
 import { recordAuditEntry } from "../UserProfilesAccount/AuditService";
 
 /**
@@ -49,21 +49,14 @@ export async function adminDeleteAccount(
     if (userData.Email) {
         const subject = "Your account was removed by an administrator";
 
-        const message = `
-Hello ${userData.Username || ""},
+        const message = `Hello ${userData.Username || ""},\n\nYour account has been removed by an administrator.\n\n${reason ? `Reason: ${reason}` : ""}\n\nIf you believe this action was taken in error, please contact support.`;
 
-Your account has been removed by an administrator.
-
-${reason ? `Reason: ${reason}` : ""}
-
-If you believe this action was taken in error, please contact support.
-
-`;
-
-        await sendEmailNotification(
+        await sendUserNotification(
             userData.Email,
             subject,
-            message
+            message,
+            "ACCOUNT_UPDATE",
+            true
         );
     }
 
