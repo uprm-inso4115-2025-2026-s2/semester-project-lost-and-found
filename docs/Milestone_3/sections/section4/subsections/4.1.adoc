@@ -3238,3 +3238,208 @@ By combining authentication, permission validation, lifecycle restrictions, and 
 
 A well-defined ownership model improves security, consistency, reliability, and user trust throughout the entire Lost & Found process.
 
+---
+
+==== Domain Narrative Rewriting for Report Discovery Workflows
+
+:author: Nelson Caban
+
+===== Introduction
+
+In the Lost & Found system, users need to discover reports that match the item they lost or found. This discovery process includes viewing reports, filtering them by status, filtering them by category, and using the search bar to narrow down results. These actions can be described as separate interface behaviors, but they can also be rewritten into a clearer domain narrative using higher-level concepts.
+
+This lecture topic task applies Domain Analysis and Concept Formation. The lecture explains that domain analysis includes reviewing domain description units, forming concepts, and searching for inconsistencies, conflicts, and incompletenesses. It also explains that lower-level domain phenomena can be abstracted into higher-level domain concepts and rewritten into a domain narrative.
+
+===== Domain Description Units
+
+The following domain description units describe report discovery in the Lost & Found system:
+
+* A user can view reports in the Lost & Found system.
+* A report has a title, description, category, status, location, date, image, and tags.
+* A user can filter reports by status, such as Active, Claimed, or Closed.
+* A user can filter reports by category.
+* A user can use the search bar to find reports.
+* A report can appear in the results if it matches the selected status, selected category, and search query.
+* A user can select a report from the results to view more information about the item.
+* A user can claim or return a report depending on the report state.
+
+These statements describe individual behaviors of the system. However, they do not yet fully explain the higher-level purpose of report discovery.
+
+===== Concept Formation
+
+Using concept formation, the lower-level behaviors can be abstracted into broader domain concepts.
+
+.Report Discovery Concepts
+[cols="1,1,1", options="header"]
+|===
+| Lower-Level Element
+| Higher-Level Concept
+| Purpose in the Domain
+
+| Title, description, and tags
+| Searchable report attributes
+| Information used to match a user query with relevant reports
+
+| Status filter
+| Report state constraint
+| Limits results based on the current lifecycle state of a report
+
+| Category filter
+| Classification constraint
+| Limits results based on the type of item reported
+
+| Search bar
+| Discovery mechanism
+| Allows users to locate reports using keywords
+
+| Report card
+| Report summary
+| Presents important report information before the user opens the full report
+
+| Claim and return actions
+| Recovery actions
+| Allow users to move a report toward resolution
+|===
+
+These abstractions help describe the report discovery workflow in a more organized way. Instead of describing the system only as buttons, search inputs, and report cards, the system can be described using domain concepts such as searchable attributes, constraints, report summaries, and recovery actions.
+
+===== Rewritten Domain Narrative
+
+A Lost & Found user searches through report summaries to identify reports that may correspond to a lost or found item. Each report contains searchable attributes, including its title, description, and tags. The user may apply report state constraints, such as Active, Claimed, or Closed, to limit results based on the report lifecycle. The user may also apply classification constraints, such as item category, to narrow the discovery space.
+
+The system evaluates each report by comparing the report state, category, and searchable attributes against the user's selected filters and search query. Reports that satisfy these constraints are shown as report summaries. From these summaries, the user can inspect relevant item information and perform recovery actions, such as claiming an item, returning an item, or sending a report back to the active lost item state.
+
+This narrative describes report discovery as a domain process instead of only a user interface interaction. It connects searching, filtering, viewing, and acting on reports into one complete workflow.
+
+===== Analysis
+
+The rewritten narrative improves the original low-level description because it gives a clearer explanation of why each part of the workflow exists. The search bar is not only an input field; it is a discovery mechanism. The status tabs are not only buttons; they are report state constraints. The category dropdown is not only a filter; it is a classification constraint. The item cards are not only visual components; they are report summaries that help users decide whether a report is relevant.
+
+This supports the lecture's concept formation process because lower-level domain elements are abstracted into more general concepts. These concepts can then be used to make the system documentation more consistent and easier to understand.
+
+===== Conclusion
+
+The Lost & Found report discovery workflow can be better documented by rewriting individual interface behaviors into a higher-level domain narrative. This helps clarify how users move from searching and filtering to identifying and acting on relevant reports. By using concepts such as searchable attributes, report state constraints, classification constraints, report summaries, and recovery actions, the system documentation becomes more aligned with the principles of domain analysis and concept formation.
+
+---
+
+==== Incompleteness Analysis of Search and Filtering Features
+
+:author: Nelson Caban
+
+===== Introduction
+
+The Lost & Found system includes search and filtering features that help users find reports related to lost or found items. These features are important because users may not remember the exact category or tag assigned to an item. They may instead search using words from the title or description of a report.
+
+This lecture topic task applies Domain Analysis and Concept Formation by analyzing the current search and filtering behavior for incompletenesses. In this case, the focus is on identifying missing search behavior in the Lost & Found report discovery process.
+
+===== Current Domain Description Units
+
+The following domain description units describe the current search and filtering behavior:
+
+* A user can search for reports using the search bar.
+* A report can contain tags.
+* A report can contain a title.
+* A report can contain a description.
+* A report can belong to a category.
+* A report can have a status, such as Active, Claimed, or Closed.
+* The system filters reports by status.
+* The system filters reports by category.
+* The system filters reports by the user's search query.
+* The previous search behavior focused on matching the search query with report tags.
+
+These description units show that the system has several pieces of report information available. However, if the search bar only checks tags, then the system does not fully use all available report information for discovery.
+
+===== Identified Incompleteness
+
+The main incompleteness is that the search bar can be described as a general report discovery tool, but its behavior may only search through tags. This creates an incomplete search experience because reports also contain titles and descriptions that may include important searchable information.
+
+For example, a report may have the title "Black Hydro Flask" and the description "Found near the library entrance." If the report does not include a tag such as "bottle" or "library," a user searching for "Hydro Flask" or "library" may not find the report if the search only checks tags.
+
+This shows an incompleteness in the domain behavior:
+
+* The system has searchable information in the title.
+* The system has searchable information in the description.
+* The system has searchable information in the tags.
+* The search bar should support report discovery.
+* However, the search bar may only use tags.
+
+Therefore, the search behavior is incomplete because it does not fully use the searchable attributes available in a report.
+
+===== Concept Formation
+
+The incomplete behavior can be improved by forming a higher-level concept called searchable report attributes.
+
+.Searchable Report Attribute Concepts
+[cols="1,1,1", options="header"]
+|===
+| Report Field
+| Domain Concept
+| Search Purpose
+
+| Title
+| Primary item identifier
+| Helps users search by the main name or label of the item
+
+| Description
+| Detailed item information
+| Helps users search using details, context, or item characteristics
+
+| Tags
+| Keyword metadata
+| Helps users search using assigned labels or keywords
+
+| Category
+| Classification constraint
+| Helps users narrow results by item type
+
+| Status
+| Report state constraint
+| Helps users narrow results by report lifecycle state
+|===
+
+By grouping title, description, and tags under the concept of searchable report attributes, the system can support a more complete search model.
+
+===== Improved Domain Narrative
+
+A user enters a search query to discover reports that may match a lost or found item. The system treats the report title, description, and tags as searchable report attributes. The system compares the user's query against these searchable attributes while also respecting the selected report state and category constraints. Reports that match the search query and satisfy the active filters are displayed to the user as report summaries.
+
+This improved narrative removes the incompleteness found in the earlier behavior because the search bar is no longer limited to tag metadata. Instead, it searches across the main report information that users are most likely to remember.
+
+===== Recommended Solution
+
+The recommended solution is to keep the existing tag search functionality while extending the search bar to also search through report titles and descriptions.
+
+The search logic should check whether the user's search query matches any of the following:
+
+* Report title
+* Report description
+* Report tags
+
+The system should also preserve the existing status and category filters. This means that a report should only appear if it matches the active status tab, matches the selected category filter, and matches the search query when a query is provided.
+
+This approach improves the completeness of the search feature without removing previous functionality.
+
+===== Validation Scenarios
+
+The following scenarios can be used to validate the improved behavior:
+
+* If a user searches for a word found in a report title, the report should appear.
+* If a user searches for a word found in a report description, the report should appear.
+* If a user searches for a word found in a report tag, the report should still appear.
+* If the search bar is empty, the system should continue showing reports based on the selected status and category filters.
+* If a report does not match the selected status, it should not appear even if the search query matches.
+* If a report does not match the selected category, it should not appear unless the category filter is set to all categories.
+* Existing tag search functionality should continue working after title and description search are added.
+
+===== Analysis
+
+This incompleteness analysis shows that the search feature should not only depend on tags. Tags are useful, but they are not always complete or predictable. Users may search using natural words from the title or description instead of exact tags assigned to the report. By expanding the search bar to include title and description, the system better supports real user behavior.
+
+This also improves the domain model because title, description, and tags can now be understood as part of the same higher-level concept: searchable report attributes. This abstraction makes the system easier to document, maintain, and extend in the future.
+
+===== Conclusion
+
+The Lost & Found search and filtering system had an incomplete discovery behavior when the search bar only considered tags. Since reports also contain titles and descriptions, those fields should be included as searchable report attributes. Extending the search functionality to include title, description, and tags creates a more complete and useful report discovery process while preserving the existing filtering structure.
+
+---
