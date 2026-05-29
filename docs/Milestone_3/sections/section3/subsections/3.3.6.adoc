@@ -74,81 +74,81 @@ _Use case diagram describing interactions between actors and the platform_
 image::user_account_creation_event_trace_diagram.png[User Account Creation Event Trace Diagram, align=center, pdfwidth=50%]
 _User Account Creation Event Trace Diagram_
 
-===== Scenario Validation Considerations
+===== [.added]#Scenario Validation Considerations#
 
-The following validation requirements and edge cases should be considered when implementing the documented workflows.
+[.added]#The following validation requirements and edge cases should be considered when implementing the documented workflows.#
 
-====== Reporting a Lost Item
+====== [.added]#Reporting a Lost Item#
 
-Preconditions:
+[.added]#Preconditions:#
 
-* User is authenticated.
-* Required item information is available.
-* The report contains a valid date and description.
+* [.added]#User is authenticated.#
+* [.added]#Required item information is available.#
+* [.added]#The report contains a valid date and description.#
 
-Potential failure cases:
+[.added]#Potential failure cases:#
 
-* Missing required fields.
-* Invalid date values.
-* Duplicate reports for the same item.
-* Network interruption during submission.
+* [.added]#Missing required fields.#
+* [.added]#Invalid date values.#
+* [.added]#Duplicate reports for the same item.#
+* [.added]#Network interruption during submission.#
 
-====== Posting a Found Item
+====== [.added]#Posting a Found Item#
 
-Preconditions:
+[.added]#Preconditions:#
 
-* User is authenticated.
-* Item details can be reasonably described.
+* [.added]#User is authenticated.#
+* [.added]#Item details can be reasonably described.#
 
-Potential failure cases:
+[.added]#Potential failure cases:#
 
-* Missing location information.
-* Incomplete item descriptions.
-* Invalid submission data.
-* Duplicate found-item listings.
+* [.added]#Missing location information.#
+* [.added]#Incomplete item descriptions.#
+* [.added]#Invalid submission data.#
+* [.added]#Duplicate found-item listings.#
 
-====== Submitting an Item Claim
+====== [.added]#Submitting an Item Claim#
 
-Preconditions:
+[.added]#Preconditions:#
 
-* Matching item listing exists.
-* User is authenticated.
+* [.added]#Matching item listing exists.#
+* [.added]#User is authenticated.#
 
-Potential failure cases:
+[.added]#Potential failure cases:#
 
-* Claim submitted for an unrelated item.
-* Missing ownership evidence.
-* Duplicate claim requests.
-* Item already returned to another user.
+* [.added]#Claim submitted for an unrelated item.#
+* [.added]#Missing ownership evidence.#
+* [.added]#Duplicate claim requests.#
+* [.added]#Item already returned to another user.#
 
-====== Reviewing a Claim
+====== [.added]#Reviewing a Claim#
 
-Preconditions:
+[.added]#Preconditions:#
 
-* Administrator privileges are available.
-* Claim information has been submitted.
+* [.added]#Administrator privileges are available.#
+* [.added]#Claim information has been submitted.#
 
-Potential failure cases:
+[.added]#Potential failure cases:#
 
-* Insufficient ownership evidence.
-* Incomplete claim information.
-* Conflicting claim requests.
-* Administrative processing errors.
+* [.added]#Insufficient ownership evidence.#
+* [.added]#Incomplete claim information.#
+* [.added]#Conflicting claim requests.#
+* [.added]#Administrative processing errors.#
 
-====== User Account Creation
+====== [.added]#User Account Creation#
 
-Preconditions:
+[.added]#Preconditions:#
 
-* User has access to a valid UPR email address.
-* Required registration information is available.
+* [.added]#User has access to a valid UPR email address.#
+* [.added]#Required registration information is available.#
 
-Potential failure cases:
+[.added]#Potential failure cases:#
 
-* Invalid UPR email address.
-* Email already registered.
-* Missing required account information.
-* Authentication service unavailable.
+* [.added]#Invalid UPR email address.#
+* [.added]#Email already registered.#
+* [.added]#Missing required account information.#
+* [.added]#Authentication service unavailable.#
 
-====== Expected Validation Outcomes
+====== [.added]#Expected Validation Outcomes#
 
-The system should reject incomplete submissions, notify users when validation fails, and preserve data consistency throughout all item lifecycle operations.
+[.added]#The system should reject incomplete submissions, notify users when validation fails, and preserve data consistency throughout all item lifecycle operations.#
