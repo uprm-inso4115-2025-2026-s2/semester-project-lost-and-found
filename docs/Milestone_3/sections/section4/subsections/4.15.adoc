@@ -9,3 +9,123 @@ This diagram models the Report class with its corresponding properties and relat
 image::ReportClassDiagram.png[Report Class Diagram, align=center, pdfwidth=80%]
 
 ---
+
+---
+
+==== Requirements Evolution Analysis for Lost & Found Notification Preferences
+:author: Fabian Acevedo
+
+This entry studies how notification-related requirements in the Lost & Found platform may evolve over time. The purpose is to classify which requirements are stable and which are likely to change as the system matures, and to explain what design decisions can support that flexibility.
+
+===== Current Notification Behavior
+
+The system currently contains a notification service that sends an email when a report is created. The claim flow also includes a placeholder for notifying the original reporter of a `LOST` item when someone claims it, using a phone number lookup from the `UserAccounts` table. Beyond these two touchpoints, notification behavior is largely unimplemented and represents a primary area of future growth.
+
+===== Documented Notification Requirements
+
+The following requirements were identified by reviewing the current codebase and reasoning about the expected user journey:
+
+[cols="1,1,3", options="header"]
+|===
+| ID | Requirement | Description
+
+| NR-01
+| Report Created Email
+| When a user submits a new report (Lost or Found), the system sends a confirmation email to the submitter.
+
+| NR-02
+| Claim Initiated Alert
+| When a `FOUND` item is claimed, the system notifies the claimer with their recovery code. Currently delivered in-app only; no out-of-app channel exists.
+
+| NR-03
+| Owner Notification on Claim
+| When a `LOST` item is claimed (matched), the original reporter is notified so they can coordinate retrieval. *Partially stubbed* — phone number is retrieved but the send step is a placeholder.
+
+| NR-04
+| Status Change Notification
+| When a report transitions to `RESOLVED`, both the finder and the claimant should be notified that the item was successfully returned.
+
+| NR-05
+| Duplicate Report Alert
+| When a submitted report is flagged as a potential duplicate by `DuplicateVerification`, the submitter is shown a modal in-app. No async/push channel exists for this.
+|===
+
+===== Requirements Evolution Table
+
+The table below maps each requirement to its possible future changes and the impact those changes would have on the system, following the RE Chapter 6 framework for requirements evolution.
+
+[cols="2,2,2,1", options="header"]
+|===
+| Current requirement | Possible future change | Impact on system | Stability
+
+| NR-01 — Email on report creation +
+_Trigger: report submitted_ +
+_Channel: email_
+| None anticipated. Email confirmation on submission is a stable, well-understood expectation. The trigger and recipient are unlikely to change.
+| Minimal — existing `sendReportCreatedEmail` function can remain as-is.
+| *Stable*
+
+| NR-02 — In-app claim code delivery +
+_Trigger: item claimed_ +
+_Channel: in-app only_
+| Expand to email or push notification so users receive the code even if they navigate away from the app.
+| Medium — requires abstracting the delivery channel from the claim handler; the code generation logic stays the same.
+| *Stable core, evolving channel*
+
+| NR-03 — Owner notification on claim +
+_Trigger: LOST item matched_ +
+_Channel: SMS (stubbed)_
+| Channel may shift to in-app messaging or email as privacy expectations evolve. Recipient logic may change if anonymous reporting is added.
+| High — current stub is embedded in the claim handler; needs extraction into a dedicated notification workflow.
+| *Likely to change*
+
+| NR-04 — Status change notification +
+_Trigger: report → RESOLVED_ +
+_Channel: not yet implemented_
+| Could become push notification, email digest, or both. Recipients may expand to include campus officers or moderators as the platform grows.
+| High — no existing implementation; design must be flexible from the start to avoid lock-in to a single channel.
+| *Likely to change*
+
+| NR-05 — Duplicate report alert +
+_Trigger: duplicate detected_ +
+_Channel: synchronous in-app modal_
+| If the system introduces async processing or moderation queues, this may need to become an asynchronous notification rather than a blocking modal.
+| Medium — the detection logic (`DuplicateVerification.ts`) is already separate; only the delivery mechanism needs updating.
+| *Likely to change*
+
+| NR-06 — Institutional announcements +
+_Trigger: admin broadcast_ +
+_Channel: not yet implemented_
+| As the user base grows, admins may need to push campus-wide alerts (e.g. high-value item found, office hours change). This is a new requirement class not present in the current system.
+| High — requires a new sender role, a broadcast channel, and a preference opt-out mechanism.
+| *New / future*
+
+| NR-07 — User notification preferences +
+_Trigger: user settings change_ +
+_Channel: not yet implemented_
+| Users should be able to choose which events they are notified about and through which channel (email, push, SMS). This becomes necessary once more than one channel exists.
+| High — requires a `UserNotificationPreferences` table in Supabase and a preferences UI.
+| *New / future*
+|===
+
+===== Stable vs. Likely-to-Change Summary
+
+* *Stable requirements* — NR-01 is the only fully stable requirement. Its trigger, recipient, and channel are unlikely to change as the platform scales.
+* *Stable core, evolving channel* — NR-02 has a fixed purpose (deliver the recovery code) but the delivery mechanism will likely expand beyond in-app display.
+* *Likely to change* — NR-03, NR-04, and NR-05 are all subject to channel, recipient, or trigger changes as the system matures and user expectations grow.
+* *Future requirements* — NR-06 and NR-07 do not exist yet but are predictable consequences of the system growing beyond a small user base.
+
+===== Design Decisions That Support Future Evolution
+
+The main risk of requirements evolution in this area is *channel coupling* — if notification logic is written directly into report handlers (as the current stub does with the Supabase query inside the claim handler), adding a new channel requires modifying business logic files rather than a dedicated service.
+
+The existing `NotificationService.ts` file is a positive signal: it isolates the send logic behind a function interface. To support future evolution, the following design decisions are recommended:
+
+* *Abstract the channel:* `sendReportCreatedEmail` should become `sendNotification(user, event, channel)` or use an event-driven pattern so the same trigger can fan out to email, SMS, and push without changing the caller.
+* *Externalize preferences:* A `UserNotificationPreferences` table in Supabase would allow users to opt in or out of channels per event type, making NR-04, NR-05, and future NR-07 configurable without code changes.
+* *Treat NR-03 as a workflow, not a one-liner:* The owner notification on claim involves lookup, formatting, and delivery — this warrants its own service function rather than being embedded in the claim handler.
+* *Design NR-06 with a sender role:* Institutional announcements require an admin broadcast capability that does not exist today. Adding a `role` field to `UserAccounts` and a broadcast endpoint to `NotificationService.ts` early avoids a larger refactor later.
+
+These decisions align with the RE Chapter 6 principle of designing for change: by identifying volatile requirements early, the team can invest in abstractions that reduce future rework and keep the notification system extensible as UPRM's Lost & Found platform grows.
+
+---
