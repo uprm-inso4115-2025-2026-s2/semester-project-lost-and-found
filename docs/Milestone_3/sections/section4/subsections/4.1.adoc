@@ -500,6 +500,163 @@ By understanding these behaviors, the platform can implement workflows and verif
 
 ---
 
+==== Rules and Regulations Facet Analysis
+:author: Omar A. Cordero Maldonado (omar-cordero)
+
+The rules and regulations facet describes the formal policies, constraints, and institutional guidelines that govern how the Lost and Found platform operates. These rules define what users are allowed to do, how items must be handled, and what restrictions exist to ensure fairness, security, privacy, and accountability within the system.
+
+Unlike operational workflows or technical implementation details, this facet focuses on enforceable domain rules. These rules are essential because Lost and Found systems operate in environments where ownership must be verified, sensitive items may be involved, and institutional policies (such as campus regulations) must be followed strictly.
+
+===== Ownership Verification Rules
+
+Ownership verification rules define the conditions under which a user is allowed to reclaim a lost item. Since multiple users may attempt to claim the same item, strict verification is required to ensure correct ownership.
+
+Typical rules include:
+
+* Users must provide a detailed description of the item before approval
+* Unique identifiers (serial numbers, engravings, or contents) may be required for high-value items
+* Claims must be reviewed and approved by moderators before item release
+* In-person identification may be required in campus environments
+
+*Realistic Example:* A student attempting to reclaim a lost laptop must correctly identify the device’s model, sticker placement, and at least one other characteristic before the item can be released.
+
+===== Privacy and Visibility Restrictions
+
+Privacy rules ensure that sensitive or personally identifiable information is not exposed through public listings.
+
+Typical restrictions include:
+
+* Personal data found on items (names on IDs, addresses, phone numbers) must not be publicly visible
+* Sensitive documents must be masked or hidden from public users
+* Contact information is only shared after successful ownership validation
+* Images may be blurred or partially redacted when necessary
+
+*Realistic Example:* A found wallet listing may show “black leather wallet with student ID card inside,” but the system must not display the name or ID number publicly until ownership is verified.
+
+===== Item Retention Policies
+
+Retention policies define how long items remain in the system before being transferred, donated, or disposed of. These rules ensure that storage is managed efficiently and unclaimed items do not accumulate indefinitely.
+
+Typical rules include:
+
+* Standard retention period (commonly 30–90 days)
+* High-value items may have extended retention periods
+* Perishable or unsafe items are discarded immediately or handled according to safety regulations
+* Unclaimed items may be transferred to administrative offices or donated after the retention period
+
+*Realistic Example:* A lunchbox is found with food inside, some of the food may need to be discarded to avoid it going bad and causing issues.
+
+===== Moderator and Administrator Permissions
+
+The system must define clear boundaries for what moderators and administrators are allowed to do in order to maintain system integrity and accountability.
+
+Typical rules include:
+
+* Moderators may review, approve, or reject ownership claims
+* Administrators may override retention policies in exceptional cases
+* Administrators manage user access, reports, and system-wide configurations
+* All moderation actions must be logged for audit purposes
+
+*Realistic Example:* If two users claim the same item, a moderator compares verification evidence and approves only the user who correctly identifies private details, while the decision is recorded in an audit log.
+
+===== Prohibited and Restricted Items Handling
+
+Certain items require special handling due to legal, safety, or ethical constraints. The platform must enforce strict rules for these cases.
+
+Typical rules include:
+
+* Illegal or dangerous items (weapons, drugs, hazardous materials) must be immediately escalated to campus security or authorities
+* Sensitive documents (passports, IDs) require secure handling and restricted access
+* Perishable items (food, medicine) are not stored long-term and are disposed of safely
+* Items that violate institutional policy are removed from public listings
+
+*Realistic Example:* If a weapon is reported as found on campus, it must not enter the normal Lost and Found workflow and must instead be immediately reported to security personnel.
+
+===== User Compliance and Reporting Rules
+
+Users interacting with the system must follow certain behavioral and procedural rules to ensure accurate reporting and fair usage.
+
+Typical rules include:
+
+* Users must not submit false ownership claims
+* Users must provide truthful and complete information when reporting items
+* Duplicate or spam reports may be removed or flagged
+* Users may be restricted or suspended for repeated misuse of the system
+
+*Realistic Example:* A user who repeatedly submits false claims may have their account flagged, and further claims may require additional verification before being accepted.
+
+===== Summary
+
+The Rules and Regulations facet defines the formal constraints that govern how the Lost and Found platform operates and ensures fair, secure, and compliant handling of items and user interactions.
+
+Key regulatory areas include:
+
+* Ownership verification rules
+* Privacy and visibility restrictions
+* Item retention policies
+* Moderator and administrator permissions
+* Prohibited and restricted item handling
+* User compliance requirements
+
+Together, these rules ensure that the Lost and Found platform maintains trust, accountability, and institutional compliance while supporting safe and reliable item recovery within a campus environment.
+
+---
+
+==== Support Technology Facet Analysis
+:author: Omar A. Cordero Maldonado (omar-cordero)
+
+The support technology facet describes the underlying systems and infrastructure that enable the Lost and Found platform to operate. This includes the tools used for authentication, data storage, search, notifications, and media handling.
+
+===== Authentication Systems
+
+The platform uses Supabase Auth for user identity verification. Authentication is managed through a custom `AuthProvider` component that exposes session state across the app, and a `RequireAuth` guard that redirects unauthenticated users to the login page.
+
+Users who register with a `@upr.edu` email are granted `full_access` (can submit and manage reports). All other email domains receive `view_only` access.
+
+*Example:* A student visits the app and is redirected to `/login`. After signing in with their UPR email, Supabase Auth returns a session and the access control module grants them full platform access.
+
+===== Database and Storage Systems
+
+All structured data is stored in a Supabase PostgreSQL database. The `reports` table holds item reports (title, description, location, category, tags, status, type, image URL, and creator). The `UserAccounts` table stores user profiles (username, email, phone number).
+
+Item images are uploaded to a Supabase Storage bucket called `ReportImages`. The upload produces a public URL that is saved alongside the report in the database. Only `.jpeg` and `.png` files are accepted, validated client-side before any upload occurs.
+
+*Example:* A student submits a found wallet with a photo. The image is uploaded to Supabase Storage and its public URL is stored in the `reports` table. Other users see the photo rendered in the item card on the home page.
+
+===== Search and Filtering Systems
+
+The home page supports three layers of client-side filtering: a status tab (Active / Claimed / Closed), a category dropdown (Electronics, Personal, Office Supplies, Other), and a keyword search that checks whether the query appears in a report's title, description, or tags.
+
+When a new report is submitted, a duplicate check runs automatically. It compares the new report against all active reports of the same type using a weighted similarity score: title (40%), description (30%), location (20%), and category (10%). Reports scoring 60% or above are flagged and shown to the user in a warning modal.
+
+*Example:* A student searching for a lost phone selects the Active tab, picks Electronics, and types "iPhone" in the search bar. Only reports whose title, description, or tags contain a matching word are shown.
+
+===== Notification Systems
+
+Transactional emails are sent through a Supabase Edge Function called `send-email`. The platform currently sends a report confirmation email after a user successfully submits a new item report.
+
+*Example:* After submitting a found backpack report, the user receives an email confirming that their report has been logged.
+
+===== Image and File Handling Systems
+
+Users can attach a photo when creating a report. The upload component validates the file format client-side (MIME type and extension) before showing a live preview. On form submission, the file is uploaded to Supabase Storage using a timestamped filename. If the upload fails, the submission is aborted.
+
+On the home page, item images are loaded lazily and fall back to a placeholder if the URL is unavailable. Hovering over a card shows a full-size floating image preview.
+
+*Example:* A staff member uploads a `.jpeg` photo of found keys. The component validates the format, shows a preview, and on submit stores the image in Supabase Storage. Students browsing the grid see the photo directly in the item card.
+
+===== Summary
+
+The platform is built on a Supabase backend (Auth, PostgreSQL, Storage, Edge Functions) and a React/TypeScript frontend bundled with Vite. Key support technologies include:
+
+* Authentication via Supabase Auth with domain-based access control
+* Structured data storage in Supabase PostgreSQL and images in Supabase Storage
+* Client-side filtering by status, category, and keywords across title, description, and tags, plus similarity-based duplicate detection
+* Email notifications dispatched through a Supabase Edge Function
+* Client-side image validation with lazy-loaded display and hover preview in item cards
+
+
+
 ==== Domain Attributes in Authentication
 :author: Dylan M. Oliver Martinez
 
