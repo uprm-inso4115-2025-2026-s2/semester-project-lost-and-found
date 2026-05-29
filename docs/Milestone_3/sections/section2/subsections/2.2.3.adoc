@@ -128,16 +128,16 @@ False claims may occur due to non-unique items and public visibility of reports.
 
 *Requirements*:
 
-* [[REQ-CLAIM-F-01]]REQ-CLAIM-F-01: The system must restrict confirmation of **Item Returned** to authenticated actors associated with the report.
+* [[REQ-CLAIM-F-01]]REQ-CLAIM-F-01: The system must restrict confirmation of [.changed]#**Return Completed**# to authenticated actors associated with the report.
 
-* [[REQ-CLAIM-F-02]]REQ-CLAIM-F-02: The system must require validation of ownership using private report attributes before confirming **Item Returned**.
+* [[REQ-CLAIM-F-02]]REQ-CLAIM-F-02: The system must require validation of ownership using private report attributes before confirming [.changed]#**Return Completed**#.
 
 [discrete]
 ====== Recovery Definition
 
 *Clarification*:
 
-- **Recovery** corresponds to the event **Item Returned**  
+- **Recovery** corresponds to the event [.changed]#**Return Completed**#  
 - **Returned** is a terminal state representing successful closure  
 - **Closure** may occur as:
   - successful closure (**Returned**)  
