@@ -1,11 +1,36 @@
-==== *Needs*
+[.changed]
+==== Needs
 
-Lost personal belongings such as keys, identification cards, wallets, laptops, and academic materials are a frequent occurrence within the university environment. Despite how common these situations are, there is no clear, consistent, or trusted process that allows individuals to report lost items, discover found belongings, or follow the progress of recovery efforts. As a result, many lost items are never returned to their owners.
+This section lists what people and offices need in order for item recovery to be quicker, more predictable, and less frustrating. These are needs, not solution features.
 
-Students and staff experience unnecessary stress, frustration, and loss of time when attempting to recover missing belongings. Current informal approaches—such as word of mouth, scattered social media posts, or visiting multiple campus offices—lack visibility, reliability, and coordination. This fragmentation creates uncertainty about whether an item has been found and discourages both reporting and follow-through.
+===== Evidence note (small sample)
 
-From an organizational perspective, campus entities responsible for handling found items lack a standardized method for recording reports, managing information, and ensuring accountability. The absence of a structured process increases manual effort, introduces communication gaps, and reduces trust in the overall lost-and-found experience.
+We ran a short questionnaire (N = 10, 8 students and 2 security staff). In this sample, 8/10 respondents reported losing at least one item in the last 6 months and the most common items mentioned were water bottles, chargers, earbuds, and keys. This is a small convenience sample and is treated as preliminary evidence, not campus wide statistics.
 
-There is therefore a clear need to support a more transparent, coordinated, and dependable way for the campus community to report, track, and recover lost belongings. Addressing this need would reduce unresolved losses, lower frustration for students and staff, and improve confidence in how lost items are managed within the university environment.
+===== Need 1: A clear starting point when an item is missing
 
-Additionally, stakeholders involved in developing and maintaining such support require a clear understanding of the domain, actors, and operational constraints surrounding lost-and-found activities. Establishing this shared understanding is necessary to define appropriate requirements, ensure alignment with real user needs, and guide the project toward meaningful and sustainable impact.
+When someone notices an item is missing, they need a clear and reliable place to start. Without a clear starting point, people end up checking multiple offices and channels and repeating the same effort. The need is clarity about where to check and how to check.
+
+===== Need 2: Enough information to recognize an item, without oversharing
+
+People need reports to contain enough detail for recognition, but not so much detail that it becomes easy for someone else to fake a claim. This matters for items like IDs, keys, wallets, and electronics. In our questionnaire, privacy boundaries were common, especially around contact information, ID details, and exact locations.
+
+===== Need 3: Basic guidance for ownership verification
+
+Finders and offices need simple guidance on what counts as reasonable proof. Owners also need to understand what they should be ready to provide. Without guidance, returns depend on guesswork, which increases hesitation and disputes.
+
+===== Need 4: A consistent way for offices to record and retrieve information
+
+Offices that receive found items need a consistent way to record what was received and later answer questions like “Has a MacBook been turned in” without relying only on a drawer check. The need is consistency and retrievability of information, including dates, location context, and a minimal description.
+
+===== Need 5: Visibility of the item status over time
+
+People need to know whether recovery is still plausible. That requires clear status meaning, for example active, resolved because returned, expired or unclaimed after a holding period, removed for policy reasons. This reduces repeated checking and helps set expectations.
+
+===== Need 6: Time and location detail that matches real memory
+
+People often do not remember a single exact time or exact place. They need support for time windows and a set of likely locations. This matters because available offices depend on time of day and because people often notice the loss later, not immediately.
+
+===== Need 7: Clear custody roles in the process
+
+Recovery involves more than one role. The person who finds an item is not always the same as the person who hands it over. Items can be held by a person or by an office for some time. These roles and handoffs need to be clear so the process is predictable.
