@@ -86,3 +86,202 @@ The following questions are designed to gather domain-specific information:
 *US3:* As an Admininstrative Custodian, I want to rview reports so that I can prevent misuse. 
 
 *US4:* As a Student Claimant, I want my personal information kept private so that my data is protected. 
+
+---
+
+==== [Lecture Topic Task] Fully Elaborated Personas for the Lost & Found System
+:author: Abdiel Cotto
+
+*Framework:* Schütz-Schmuck, M. (2021). _Domain Stakeholders_ [Lecture slides — "How to elaborate a persona," "Persona Template Starting Points I, II, III," "Benefits of using personas"]. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+===== Overview
+
+This Lecture Topic Task complements the general stakeholder persona development strategy already documented above (Tasnim Said Khader, derived from issue #361). That earlier work introduced the *Student Claimant* and *Administrative Custodian* stakeholder groups but described each persona with only a role, age, background, goals, and a short narrative.
+
+The Domain Stakeholders lecture explicitly calls for personas to be *fully elaborated* — fictional but believable people described with enough personal, professional, and attitudinal richness that the development team can reason about them as concrete individuals. Following the *Persona Template Starting Points I, II, and III* slides, each persona below includes all of the following fields:
+
+* *Personal* — name, place of birth/residence, age, personal interests, background
+* *Professional* — employment/role, position within the institution, decision-making responsibilities, degree of influence
+* *Stakeholder group* — which segment the persona represents
+* *Key usage goals* — what they want to improve or accomplish using the Lost & Found system
+* *Fears* — specific anxieties that color how they approach the system
+* *Day-in-the-life* — first-person narrative of a typical day, with a Lost & Found intersection
+* *Attitude toward tasks* — beliefs and feelings that shape how they use the system
+* *Open-ended questions* — the questions the persona would naturally ask about the platform
+* *Content preference* — preferred communication channel, tone, and style
+
+Two personas are elaborated, one per distinct stakeholder group:
+
+. *Sofía Pagán Vázquez* — a student claimant who loses items regularly (Student Claimant group, extending Carlos Rivera from #361).
+. *Don Rafael "Rafa" Ortiz Méndez* — a university staff member managing the found-items office (Administrative Custodian group, extending Maria Gonzalez from #361).
+
+===== Persona 1: Sofía Pagán Vázquez — The Habitual Loser
+
+====== Personal
+
+* *Name:* Sofía Pagán Vázquez (goes by "Sofi" with friends).
+* *Place of birth / residence:* Born in Caguas, Puerto Rico; currently lives in a shared off-campus apartment in Mayagüez, two blocks from the Stefani entrance.
+* *Age:* 21.
+* *Personal interests:* Member of the UPRM volleyball intramural team, plays acoustic guitar at her church on Sundays, takes a lot of phone photos, watches K-dramas with her roommates, has a part-time crochet shop on Instagram.
+* *Background:* Third-year Industrial Engineering student with a minor in Spanish. Always carries a heavily-loaded backpack: a 14" laptop, a Hydroflask water bottle, a cable pouch, AirPods, a graphing calculator, two notebooks, and a wallet with her UPRM ID and ATH card. She loses something small — earrings, hair claw, AirPod case, ID card — roughly twice a month, and something significant — calculator, water bottle, jacket, sometimes the wallet — about once a semester. She has a habit of leaving items on shared library tables when she gets up to grab coffee, and on the floor next to her seat in lecture halls.
+
+====== Professional
+
+* *Employment / role:* Full-time undergraduate student; part-time student tutor for INME (Industrial Engineering) freshmen courses, paid hourly by her department.
+* *Position within the institution:* Registered undergraduate; tutor under the INME tutoring program; member of the IIE (Institute of Industrial Engineers) student chapter.
+* *Decision-making responsibilities:* None at the institutional level. She decides which classes to take, where to study, and how to spend her tutoring stipend. She has no authority over the Lost & Found platform itself.
+* *Degree of influence:* Low–medium as an individual, but high as a representative of the *modal user* — the typical UPRM undergraduate whose interactions the platform must serve smoothly. If the system frustrates her, she tells her tutoring cohort, her IIE chapter, and the four roommates she lives with. Word-of-mouth among students materially affects adoption.
+
+====== Stakeholder group
+
+*Student Claimant* — a registered student who frequently loses small personal belongings on campus and who uses the platform primarily from the *owner* side: reporting losses, browsing found items, initiating claims.
+
+====== Key usage goals
+
+. Submit a lost-item report from her phone in under two minutes, while still walking between classes.
+. Check, at a glance, whether anyone has turned in a found item that matches what she lost — without scrolling through dozens of unrelated listings.
+. Get notified the moment a plausible match appears, so she does not have to keep opening the app.
+. Coordinate pickup at a building she actually visits (Stefani, the General Library, Chardón) without exposing her phone number or home address.
+. Maintain a personal sense of competence — recover lost items quickly enough that she doesn't have to tell her parents she lost the calculator again.
+
+====== Fears
+
+* *Looking irresponsible.* She is the eldest of three siblings and the first in her family to attend UPRM. Replacing a lost laptop or ID feels like proof of a personal failing, not a forgivable accident.
+* *Not being able to prove ownership.* If someone else finds her water bottle and claims it, she fears she has no way to demonstrate it was hers (no serial number, no purchase receipt for inexpensive items).
+* *Public exposure.* She is uncomfortable with her full name or photo appearing on a public listing. She has experienced unwanted DMs after public posts in WhatsApp building groups.
+* *Wasted trips.* Walking from Stefani to Chardón to claim an item and discovering the office is closed, the item isn't actually hers, or staff isn't familiar with the platform.
+* *Repeated friction.* That the act of reporting becomes so tedious she stops doing it and quietly accepts the loss.
+
+====== Day-in-the-life (first-person narrative)
+
+> "I wake up around 7:00 a.m. and pack my backpack while my roommate makes coffee. By 7:50 I'm walking to my 8:00 INEL 3105 lecture in Stefani. I sit toward the back, put my water bottle on the floor next to my chair, and pull out my laptop. After class, the professor stays late to answer my question, so I rush out — and I leave the water bottle behind. I don't realize it until 10:30, when I'm in the library and reach for it.
+>
+> I open the Lost & Found app on my phone while I'm still sitting at the library table. I tap *Report Lost Item*, fill in the title 'Hydroflask, light pink with sticker of a cat,' pick the *Personal items* category, type 'Stefani room ~S-114' in location, set the time to '8:00–9:00 a.m. today,' attach a photo I already had on my camera roll, and submit. That whole flow takes me about ninety seconds — I time it because I have a quiz at 11.
+>
+> Between classes I refresh the *Found items* tab and filter to *Stefani*, *Personal items*, *Today*. Nothing new yet. At 1:00 p.m. I get a push notification: 'Potential match: pink water bottle, turned in to library front desk.' I tap through, recognize my own sticker in the photo, and hit *Initiate Claim*. The app asks me to type a private detail not shown in the public listing — I write 'there's a faded volleyball sticker under the cat' — and confirms my claim is *Pending Verification*.
+>
+> Between my 2:30 and 4:00 classes I walk to the library front desk, show my UPRM ID, and the librarian on duty pulls the bottle out of a cabinet, checks the underside, marks the report as *Returned* in the system, and hands it back. I take five seconds to leave a thank-you note in the app and head to my next class. The whole loss-to-recovery cycle takes about six hours, mostly waiting; my active time on the platform is under three minutes. By dinner I've forgotten the incident — until I tell my roommates and we laugh, because this is the third water bottle this semester."
+
+====== Attitude toward tasks
+
+* *Pragmatic and time-pressed.* She uses the platform like she uses Google Maps: quickly, on her phone, between other activities. She has no patience for multi-step wizards.
+* *Privacy-protective by default.* She assumes anything she types into a form may be seen by strangers and will avoid fields that feel intrusive unless the platform clearly explains why they are required.
+* *Trusting of institutional staff.* If a librarian or office staff member confirms an item is hers, she does not need additional system-level proof.
+* *Mildly self-critical.* Every interaction with the platform mildly reinforces the feeling that she "should be more careful" — so any tone that piles on shame will push her away. She responds better to neutral, matter-of-fact UI copy than to playful warnings.
+* *Indifferent to features she doesn't use.* She will not explore advanced filters, settings, or notification preferences unless a friend recommends them.
+
+====== Open-ended questions she would ask
+
+* "Can I report a lost item without showing my full name and phone number to whoever turned it in?"
+* "If I report something today and someone turns it in next week, will I know — or do I have to keep checking?"
+* "How do I prove this water bottle / calculator / ID is mine if I don't have a receipt?"
+* "What happens if I claim something and it turns out not to be mine — does that count against me somehow?"
+* "Can I pick up the item somewhere other than the building where it was found?"
+* "Is there any way to undo a report if I find the item on my own before anyone turns it in?"
+* "Does the system tell whoever finds my item that it was *me* who lost it, or just that someone is looking for one like it?"
+
+====== Content preference
+
+* *Preferred channel:* In-app push notifications for time-sensitive events (match found, claim approved/rejected, pickup reminder); a single daily summary by institutional email if there are non-urgent updates. She mutes SMS for anything that is not a verification code.
+* *Tone:* Short, neutral, factual. She prefers "Match found in Stefani" over "We found something exciting!".
+* *Style:* Bulleted, scannable; uses concrete nouns (item name, building, time) instead of vague phrases. Spanish-friendly: she switches between English and Spanish, so copy that supports both — or at least uses simple, unambiguous English — is most accessible.
+* *Length:* Notifications under one screen; full report views fit on a phone without horizontal scrolling.
+
+===== Persona 2: Don Rafael "Rafa" Ortiz Méndez — The Found-Items Office Custodian
+
+====== Personal
+
+* *Name:* Rafael Ortiz Méndez; known across campus as "Don Rafa".
+* *Place of birth / residence:* Born and raised in San Germán; lives in Hormigueros with his wife Carmen and a teenage son. Commutes about 25 minutes each way to UPRM.
+* *Age:* 52.
+* *Personal interests:* Domino tournaments on weekends with friends from his old high-school cohort, restoring his late father's 1985 Toyota Corolla, gardening (mostly ají dulce and recao), Sunday Mass at his parish, watching the Indios de Mayagüez baseball season with his son.
+* *Background:* Has worked at UPRM for 24 years, the last 11 in the Office of Student Affairs in front-desk and administrative-coordinator roles. Started as a clerical assistant after a degree in Office Administration from a local technical institute. Has a reputation among colleagues for never losing paperwork and for remembering students' names years after they graduate. Comfortable with computers in a "I learned it because I had to" way — confident with email, the campus SIS, Excel, and the existing paper logbook, less confident with new mobile apps.
+
+====== Professional
+
+* *Employment / role:* Administrative Coordinator I, Office of Student Affairs (Decanato de Estudiantes).
+* *Position within the institution:* Reports directly to the office's Administrative Director and indirectly to the Associate Dean of Students. Supervises one part-time student worker. He is the de facto "owner" of the campus found-items intake process for items turned in to Student Affairs — although he is not the only intake point on campus (the General Library, campus security, and several department offices also receive items).
+* *Decision-making responsibilities:* Decides when an unclaimed item is moved from active storage to the long-term cabinet; decides whether to escalate a suspicious or disputed claim to the Associate Dean; decides which items are clearly disposable (single broken pencils, used napkins) and which must be logged. He is also the institutional contact who answers parents' phone calls about a "missing wallet" or "missing laptop" — a politically sensitive responsibility.
+* *Degree of influence:* High *within his office*. He is the operational expert on the current paper-based workflow and his buy-in is critical to any platform adoption. Across the campus, his influence is medium: department secretaries respect his way of handling intake but each maintains their own local practices.
+
+====== Stakeholder group
+
+*Administrative Custodian* — privileged staff personnel responsible for receiving turned-in items, registering them in the system, reviewing claim requests, verifying ownership, and physically returning items. Has access to moderation and verification fields not visible to ordinary users.
+
+====== Key usage goals
+
+. Replace the current paper logbook with a digital record that he can search by date, category, and building, without losing the structure he has already built.
+. Reduce repetitive intake typing — many turned-in items are similar (water bottles, hoodies, ID cards) and he wants templates or quick-add options.
+. Verify claims confidently: see private proof-of-ownership fields, compare them to the item in hand, and approve or reject in two or three taps.
+. Avoid disputes: maintain a clean audit trail so that if a parent later calls, he can point to who turned the item in, when, who claimed it, and what proof was provided.
+. Reduce the volume of in-person walk-ins by routing more first-contact through the platform — but without alienating older faculty and staff who will continue to walk over with items in hand.
+. Preserve his standing as the office's most reliable person; not be blamed for items "lost in the system".
+
+====== Fears
+
+* *Approving the wrong claim.* That he hands an expensive laptop or a wallet with documents to someone who isn't the rightful owner and the real owner later complains to the Associate Dean.
+* *Losing the paper trail.* That a software outage or accidental deletion erases the intake record for a sensitive item (an ID card, prescription bottle) and he has no offline backup.
+* *Being held responsible for items he never received.* That a student reports they "turned in a wallet at Student Affairs" when in fact they left it on a different desk in a different building, and the system has no way to distinguish which custodial hub actually holds it.
+* *Looking outdated.* That a young supervisor or external auditor concludes the office is "behind the times" because he prefers paper logs alongside the platform.
+* *Privacy breaches.* That he is the one who accidentally exposes a student's ID number or home address by mis-tagging a field as public.
+* *Being overwhelmed at peak times.* Finals week and the start of each semester produce intake spikes; he fears the platform will not keep up and he will fall behind.
+
+====== Day-in-the-life (first-person narrative)
+
+> "I arrive at the office by 7:30 a.m., make café with the same Bunn machine we've had since 2013, and unlock the cabinet where last week's unclaimed items live. By 7:50 I've opened my email, the campus SIS, and the Lost & Found platform on my desktop browser. There are usually two or three pending claim requests waiting from overnight.
+>
+> The first walk-in arrives at 8:10 — a professor from Civil Engineering with a black backpack she found outside Chardón yesterday afternoon. I greet her by name, ask the usual questions (where exactly, what time, did anything fall out), and turn the screen so she can see the form. I create a *Found Item Report* with category *Bags*, location *Chardón — main entrance*, time *yesterday ~3:00 p.m.*, and I take a photo with the office's tablet. The platform attaches the photo, and I tag the report as *Sensitivity Level 2* because the backpack obviously has documents inside. I do not open the wallet visible in the front pocket — instead, I scribble three details on a sticky note as private verification questions: 'red lanyard with hospital logo,' 'book titled Estructuras II,' 'small bottle of ibuprofen.' I paste those into the *Verification Notes* field that only staff can see. The backpack goes into Cabinet B, slot 7, and I write 'B-7' on the platform's *Storage Location* field. The whole intake takes about four minutes.
+>
+> Between 9:00 and 11:00 I work through three claim requests. One is straightforward: a student named Marisol describes a pair of AirPods in their case, mentions a specific scratch on the back, the scratch matches what I see on the item, and her UPRM ID matches the email on her account. I approve the claim in the platform, mark *Pending Pickup*, and send her a notification telling her to come anytime before 4:00 p.m. The second claim looks weaker — the description is generic and matches information that is already public in the listing. I tap *Request More Info* and the platform sends a templated message asking for a specific private detail. I park that claim and keep moving.
+>
+> The third claim is the kind I dread. Two students have claimed the same calculator: one says the case has 'a sticker of an anime girl,' the other says 'a sticker of Goku.' Goku is what I see on the case. I approve one and reject the other, leaving a written reason in the platform. I keep my screen recording on for those decisions — a habit from before the platform existed, when I used to keep photocopies. If the rejected student complains, I send the audit log to the Associate Dean.
+>
+> At 11:30 I print the daily intake summary the platform generates, three-hole-punch it, and add it to the binder I keep next to my desk. Yes, I still keep the binder. The students laugh, my supervisor calls it 'belt and suspenders,' but the day the server is down during finals week, my binder is what saves us.
+>
+> Lunch is 12:00 to 1:00. Afternoons are heavier on walk-in pickups than morning intakes. By 4:00 p.m. I lock the cabinets, review what is still unclaimed after thirty days (the platform shows me a list), and queue a small batch for archival. I close my browser, take my thermos, and walk to my car. Some days I think about how different this work was when everything lived in one composition notebook on the front desk — and how the platform, for all my grumbling, has actually made me more confident, not less."
+
+====== Attitude toward tasks
+
+* *Methodical and paper-redundant.* He treats the platform as the official record but cross-references his paper binder for high-stakes items. He will not abandon the binder until he has personally verified that the platform's backup and audit features are reliable.
+* *Skeptical of automation he can't audit.* Automated matching, automated archival, automated category guesses — he wants each to be visible and overridable. He is comfortable with software that says "here is my suggestion" and uncomfortable with software that quietly acts on its own.
+* *Protective of the office's reputation.* He treats every disputed claim as a potential complaint to the Dean and over-documents accordingly.
+* *Respectful but firm with claimants.* He believes most students are honest but a few will try to take advantage; the platform's verification step lets him be polite about asking for proof.
+* *Slow to adopt, fast to standardize.* It takes him a few weeks to trust a new feature, but once he trusts it, he will be the one who teaches the student worker and the other building front desks how to use it.
+
+====== Open-ended questions he would ask
+
+* "How do I correct a report I submitted with a wrong category or location, without losing the original record?"
+* "When two students claim the same item, how does the system decide whose request I see first?"
+* "Can I export the day's intake into a PDF or CSV I can keep in my binder?"
+* "If the platform goes down during finals week, how do I keep accepting items, and how do I enter them later without breaking the audit trail?"
+* "What happens to an item that nobody claims after thirty days, sixty days, the end of the semester? Who decides?"
+* "Can I block or flag an account that submitted three obviously fake claims?"
+* "If a parent calls and asks about their child's lost ID, what is the policy for what I am allowed to confirm to them?"
+* "Can I see, for any item I hold, exactly who has looked at it on the platform — staff or otherwise?"
+
+====== Content preference
+
+* *Preferred channel:* Institutional email for everything that is not strictly real-time; a desktop-browser dashboard for daily work. He uses the mobile app only when he is walking back from another building. He prefers not to be paged on his personal phone outside office hours.
+* *Tone:* Formal but warm. Professional Spanish or English, complete sentences, no slang. He responds well to copy that addresses him as "Sr. Ortiz" or "Don Rafa" rather than "Hey Rafael."
+* *Style:* Tabular and structured. Lists of pending claims with clear status badges, summary rows with counts, printable views. He is comfortable with dense information density as long as it is well-organized — he is not a UI minimalist.
+* *Length:* Daily summary emails can be long; in-app notifications should be short and link out to the full record.
+
+===== Cross-Persona Observations and Use in Requirements
+
+These two personas sit at opposite ends of the platform's interaction surface — Sofía from the *owner* side, Rafa from the *custodian* side — and their tensions are productive for requirements work:
+
+* *Speed vs. rigor.* Sofía wants two-minute reporting and instant notifications; Rafa wants documented verification and an auditable trail. The platform must support both without forcing either to bend to the other's pace.
+* *Privacy vs. accountability.* Sofía wants minimal personal information exposed; Rafa needs enough information to verify and to defend his decisions later. The minimum-necessary-disclosure rule from the Glossary and Edge Cases analyses is what reconciles them.
+* *Mobile vs. desktop.* Sofía lives in the mobile app; Rafa lives in a desktop browser. Feature parity between the two clients is not a "nice to have" — it determines whether either persona is well-served.
+* *Notification volume.* Sofía wants push for matches; Rafa wants email for summaries. The notification system must support per-role preferences, not a single global default.
+* *Trust in the system.* Sofía trusts the platform implicitly and will not double-check it; Rafa trusts it conditionally and will keep a parallel binder. Both attitudes are reasonable — the platform earns broader trust by giving Rafa the audit features that *justify* Sofía's trust.
+
+These tensions feed directly into requirements derivation: user stories should be checked against each persona, and any story that cannot be told from both perspectives is a hint that either the story or the persona is incomplete.
+
+===== Connection to Lecture
+
+This task applies the *personas* methodology from the *Domain Stakeholders* lecture, specifically the slides "How to elaborate a persona," "Persona Template Starting Points I/II/III," and "Benefits of using personas." It extends the prior #361 stakeholder development work, which identified the stakeholder groups and produced sketch-level personas, by elaborating two concrete personas — one Student Claimant, one Administrative Custodian — with the full set of template fields, in enough detail to be used directly in user-story derivation, journey mapping, and requirements validation.
+
+===== References
+
+Schütz-Schmuck, M. (2021). _Domain Stakeholders_ [Lecture slides]. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
