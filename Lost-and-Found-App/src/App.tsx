@@ -12,6 +12,7 @@ import ProfilePage from "./pages/ProfilePage";
 import UserHistoryPage from "./pages/UserHistoryPage";
 import ReportDetailPage from "./pages/ReportDetailsPage";
 import TagGraphPage from "./pages/TagGraphPage";
+import NotificationsPage from "./pages/NotificationsPage";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             />
           </RequireAuth>
         } />
+        <Route path="/notifications" element={<RequireAuth><NotificationsPage /></RequireAuth>} />
         <Route path="/tag-graph" element={<RequireAuth><TagGraphPage /></RequireAuth>} />
       </Routes>
     </AuthProvider>
