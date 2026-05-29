@@ -273,3 +273,10 @@ This fragment illustrates:
 
 This design directly supports the domain behavior of *Matching* by enabling
 visual comparison while maintaining structural database normalization.
+
+===== ERD Source Appendix
+
+[.added]#The source below captures the same conceptual structure for the report creation flow, but in a more abstract form. It is included for completeness and to show the direct lineage from the conceptual ERD to the implemented code structure.#
+
+image::ER_model.png[Report Creation Flow, align=center, pdfwidth=80%]
+_Figure 2.3.1. - 2. Entity-Relationship Diagram for Reports._

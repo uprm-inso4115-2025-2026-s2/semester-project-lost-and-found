@@ -143,3 +143,10 @@ a| * <<REQ-CLAIM-F-01>>
 * <<REQ-CLAIM-F-02>>
 | Verify by triggering notifications and confirming emails are delivered correctly with templates.
 |===
+
+===== SADT Source Appendix
+
+[.added]#The source below expresses the activity-and-data. It is intentionally SADT-style: each activity callout states the main input, control, output, and mechanism so the workflow can be read as a structured process model rather than a simple sequence diagram.#
+
+image::SADT.png[Report Creation Flow, align=center, pdfwidth=80%]
+_Figure 2.3.1. - 2. Structured Analysis and Design Technique (SADT) Diagram_
