@@ -143,3 +143,89 @@ and the refined sub goals contribute to effective item recovery and a better use
 
 
 ---
+
+==== [Lecture Topic Task] Goal Diagram For Returning Lost Items
+:author: Andres Cruz
+
+==== Introduction
+This goal diagram models the objectives of the Lost and Found platform relating to the process of returning an Item. The root goal, 'Lost Item Returned', represents the system's primary goal, ensuring that a found item is returned to its rightful owner. The diagram details the subgoals and necessary connections that lead to the fulfillment of the root goal.
+
+image::LostItemReturnedGoalDiagram.png[Lost Item Returned, align=center, pdfwidth=80%]
+
+==== Goals
+* Goal: Achieve [Lost Item Returned]
+** Def: Every registered found item must be eventually returned to its verified owner.
+** Category: Functional
+** Priority: Highest
+
+===== Or-Refined Goals
+* Goal: Achieve [Owner Claimed Item]
+** Def: For a lost report the owner must be notified whenever the item is found in order for them to retrieve their item.
+** Category: Functional
+** Priority: High
+** Assignment: Loser
+
+* Goal: Achieve [Item Reported Found by a Finder]
+** Def: For a found report the claimant must be able to identify their lost item and claim the item from the report in the system.
+** Category: Functional
+** Priority: High
+** Assignment: Finder, then Loser
+
+===== And-Refined Goals
+* Goal: Achieve [Item Registered to System]
+** Def: A found item must have its information registered into the system before matching or retrieval.
+** Category: Functional
+** Priority: Highest
+
+* Goal: Achieve [Owner Matched with Lost Item]
+** Def: An item must be matched with a claimer before a retrieval can occur.
+Category: Functional
+Priority: High
+
+* Goal: Achieve[Item Retrieved by Owner]
+** Def: A lost item must be physically handed to the claimant and the report be marked as closed.
+** Category: Functional
+** Priority: High
+
+* Goal: Achieve [Owner Identity Verified]
+** Def: A claimant's identity must be verified by staff before a handoff can occur.
+** Category: Security / Integrity
+** Priority: High
+** Assignment: Staff
+
+* Goal: Achieve [Item Handed Over to Owner]
+** Def: every claimed item must be handed over to the claimant.
+** Category: Functional
+** Priority: High
+** Assignment: Staff
+
+===== Leaf Goals
+* Goal: Achieve [Item Details Registered]
+** Def: Every registered lost item must have details such as description, title, location lost/found, and category recorded within the system.
+** Category: Functional
+** Priority: High
+** Assignment: Finder / Loser
+
+===== Soft Goals
+* Goal: Achieve [Item Image Included]    
+** Def: Every reported item within the system may have an image of the lost item included in the report.
+** Category: Functional
+** Priority: Medium
+** Assignment: Finder / Loser
+
+==== Refinements
+* Refinement: Lost Item Returned {Item Registered to System, Owner Matched with Lost item, Item Retrieved by Owner}
+** Type: AND-refinement
+** Tactic: Milestone - Each subgoal is a milestone on the path to the root goal
+** Argument: Satisfying all three subgoals is sufficient for LostItemReturned given the domain property that an item returned to its owner was registered, matched, and physically handed over.
+
+* Refinement: Owner Matched with Lost Item {Owner Claimed Item | Item Reported Found by Finder}
+** Type: OR-refinement
+** Tactic: Alternative Assignments - alternatives for different report types.
+** Argument: For different report types a different condition must be met so that the item is matched with its owner.
+
+* Refinement: Item Retrieved by Owner {Owner identity Verified, Item Handed Over to Owner}
+** Type: AND-refinement
+** Tactic: Milestone - Each subgoal is a milestone on the path to the root goal
+** Argument: All subgoals must be met in order for the item to be retrieved by its owner to ensure integrity.
+---
