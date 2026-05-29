@@ -624,3 +624,126 @@ Delete Post:  With this feature, the user has the ability to delete a report of 
 Below is the feature diagram that demonstrates what the Account class is capable of doing within the platform.
 
 image::feature-diagram-account.png[caption="Feature Diagram for Accounts",width=800,align ="center"]
+
+
+--- 
+
+---
+
+==== Evolution of Lost & Found Reporting Requirements
+:author: Tomas Gomez
+
+This entry analyzes how the reporting-related requirements of the Lost & Found platform evolved throughout the semester as the team refined stakeholder needs, improved workflows, and adapted implementation decisions during development.
+
+Rather than focusing on future requirement volatility, this analysis focuses on how initially broad requirements became more structured, detailed, and implementation-oriented over time.
+
+===== Initial Reporting Expectations
+
+At the beginning of the project, reporting functionality was described in a very general manner.
+
+The initial expectations mainly focused on:
+
+* Allowing users to report lost items
+* Allowing users to report found items
+* Centralizing reports in a single platform
+* Improving visibility of campus item recovery processes
+
+At this stage, the requirements were intentionally broad because the team was still exploring the domain and understanding stakeholder needs.
+
+===== Requirement Refinement During Development
+
+As development progressed, the reporting requirements became more detailed and structured.
+
+The table below summarizes how different aspects of the reporting workflow evolved throughout implementation.
+
+[cols="2,3,2", options="header"]
+|===
+| Initial Requirement | Evolution During Development | Resulting Implementation Impact
+
+| Simple item submission
+| Reporting workflows expanded to include categories, descriptions, locations, timestamps, and optional images.
+| Required more structured forms and validation logic.
+
+| Basic lost/found distinction
+| Reports became associated with explicit statuses such as Lost, Found, Claimed, and Returned.
+| Improved workflow tracking and interface organization.
+
+| Centralized report visibility
+| Filtering and categorized item views became necessary as report quantity and complexity increased.
+| Required additional interface organization and search-related functionality.
+
+| Basic claim interaction
+| Ownership verification and moderation workflows became more detailed during development discussions.
+| Introduced more administrative review considerations.
+
+| General usability expectations
+| Stakeholder feedback emphasized clarity, accessibility, and simpler navigation behaviors.
+| Led to interface refinement and improved report presentation.
+|===
+
+===== Causes of Requirements Evolution
+
+Several factors contributed to the evolution of the reporting requirements throughout the semester.
+
+====== Increased Domain Understanding
+
+As the team continued researching the Lost & Found process on campus, the understanding of real-world reporting scenarios became more detailed.
+
+This revealed the need for:
+
+* Better item classification
+* Improved report clarity
+* More organized recovery workflows
+* Clearer report states and transitions
+
+====== Stakeholder and Team Discussions
+
+Requirements also evolved through team discussions and continuous evaluation of usability concerns.
+
+Features that originally appeared simple often required additional refinement once implementation considerations were discussed.
+
+Examples included:
+
+* Determining what information should be mandatory
+* Deciding how reports should be categorized
+* Improving report visibility for users
+* Clarifying ownership claim interactions
+
+====== Implementation Constraints and Refinement
+
+Some requirements changed as technical and interface-level decisions were made during development.
+
+This caused certain functionalities to become:
+
+* More structured
+* More modular
+* Better aligned with usability expectations
+* More realistic within project limitations
+
+===== Documentation Evolution
+
+The reporting requirements also became more refined within project documentation itself.
+
+Early documentation described the reporting process using broad conceptual descriptions, while later milestones introduced:
+
+* More explicit workflows
+* Better-defined report states
+* More detailed user interactions
+* Clearer scenario descriptions
+* Improved terminology consistency
+
+This demonstrates how documentation evolved alongside implementation progress.
+
+===== Importance of Requirements Evolution
+
+Analyzing reporting requirement evolution helps demonstrate that software requirements rarely remain static during development.
+
+As stakeholder understanding, technical decisions, and workflow complexity increase, requirements naturally become more refined and implementation-oriented.
+
+For the Lost & Found platform, this evolution helped transform an initially broad reporting concept into a more structured and usable system workflow.
+
+===== Conclusion
+
+The reporting requirements of the Lost & Found platform evolved significantly throughout the semester as the team improved its understanding of stakeholder needs, workflow organization, and usability expectations.
+
+This evolution demonstrates how Requirements Evolution contributes to transforming abstract project ideas into more refined and structured software behaviors supported by both implementation and documentation refinement.

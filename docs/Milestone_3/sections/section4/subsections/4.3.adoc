@@ -679,3 +679,102 @@ Identifying static and dynamic domain elements helps developers better understan
 By separating stable concepts from changing system states, the development team can design features that are easier to maintain, extend, and analyze throughout the lifecycle of the platform.
 
 ---
+
+---
+
+==== Validation of Stakeholder Goals Through Scenario-Based Requirement Mapping
+:author: Tomas Gomez
+
+This entry evaluates how the documented user scenarios of the Lost & Found platform support stakeholder goals and expected system behaviors. The purpose is to analyze whether the implemented workflows and documented interactions remain aligned with the original stakeholder expectations identified during requirements engineering activities.
+
+The analysis focuses on validating the consistency, clarity, and completeness of the system scenarios through requirement evaluation techniques.
+
+===== Stakeholder Goals
+
+During domain analysis and stakeholder discussions, several primary stakeholder goals were identified.
+
+These included:
+
+* Simplifying the process of reporting lost and found items
+* Improving item recovery visibility
+* Providing organized and understandable workflows
+* Supporting ownership verification processes
+* Reducing confusion during claim interactions
+
+These goals became the foundation for the system scenarios documented throughout the project.
+
+===== Scenario Evaluation Overview
+
+The following table analyzes how documented scenarios support stakeholder goals and identifies areas requiring refinement or clarification.
+
+[cols="2,3,2", options="header"]
+|===
+| Scenario | Stakeholder Goal Validation | Evaluation Observations
+
+| Lost Item Reporting
+| Supports the goal of simplifying item reporting through structured submission workflows.
+| Validation identified the need for clearer required fields and better reporting guidance.
+
+| Found Item Registration
+| Supports centralized visibility of recoverable items and encourages campus participation.
+| Scenario refinement improved item categorization and report organization.
+
+| Claim Submission
+| Supports recovery coordination between users and the system.
+| Evaluation revealed the importance of clearer ownership verification expectations.
+
+| Claim Review Workflow
+| Supports stakeholder expectations regarding moderation and claim legitimacy.
+| Validation highlighted the need for more explicit review behaviors and approval conditions.
+
+| Item Status Tracking
+| Supports transparency during recovery workflows.
+| Scenario consistency improved after introducing clearer report state transitions.
+|===
+
+===== Scenario Consistency Evaluation
+
+During evaluation, several scenario inconsistencies and ambiguities were identified.
+
+Examples included:
+
+* Unclear ownership verification expectations
+* Incomplete report transition descriptions
+* Missing validation behaviors
+* Broad scenario descriptions lacking workflow detail
+
+As a result, scenarios were refined to better represent expected system interactions and stakeholder intentions.
+
+===== Requirement Validation Through Scenarios
+
+Scenario analysis helped validate whether the documented requirements properly supported stakeholder expectations.
+
+This process contributed to:
+
+* Clarifying user interactions
+* Improving workflow understanding
+* Identifying missing behaviors
+* Refining scenario structure
+* Improving documentation consistency
+
+By evaluating scenarios against stakeholder goals, the project documentation became more precise and aligned with expected system behavior.
+
+===== Importance of Scenario-Based Evaluation
+
+Scenario-based evaluation is important because it helps verify whether system behaviors remain understandable, realistic, and aligned with stakeholder expectations.
+
+For the Lost & Found platform, evaluating scenarios allowed the team to:
+
+* Detect unclear workflow descriptions
+* Improve requirement interpretation
+* Refine user interaction logic
+* Strengthen documentation quality
+* Improve consistency between goals and workflows
+
+This process contributed to producing more reliable and understandable requirement documentation.
+
+===== Conclusion
+
+The evaluation of stakeholder goals through scenario-based requirement mapping helped improve the consistency and clarity of the Lost & Found platform documentation.
+
+By validating scenarios against stakeholder expectations, the project refined its workflows, clarified user interactions, and strengthened the relationship between documented requirements and expected system behavior.
