@@ -4344,16 +4344,16 @@ const report = Report.Create({
 
 == Event E2: Report Edited
 
-==== Description
+=== Description
 
 Allows the author to modify report information.
 
-==== Trigger Conditions
+=== Trigger Conditions
 
 * User must be report author
 * Report must not be archived or deleted
 
-==== Result
+=== Result
 
 * Existing report fields are updated
 * State remains ACTIVE
@@ -4367,11 +4367,11 @@ if (currentUser.id !== report.createdBy) {
 
 == Event E3: Report Claimed
 
-==== Description
+=== Description
 
 Occurs when a user attempts to recover an item.
 
-==== Trigger Conditions
+=== Trigger Conditions
 
 * User is authenticated
 * User is not the report author
@@ -4393,27 +4393,27 @@ if (report.createdBy === currentUser.id) {
 
 == Event E4: Report Unclaimed
 
-==== Description
+=== Description
 
 Allows a claimer to cancel their claim.
 
-==== Trigger Conditions
+=== Trigger Conditions
 
 * User is the current claimer
 * Report state is CLAIMED
 
-==== Result
+=== Result
 
 * Claim information is removed
 * Report becomes ACTIVE again
 
 == Event E5: Report Resolved
 
-==== Description
+=== Description
 
 Marks the report as successfully completed.
 
-==== Trigger Conditions
+=== Trigger Conditions
 
 * User is report author or administrator
 * Claim verification process is completed
@@ -4425,16 +4425,16 @@ Marks the report as successfully completed.
 
 == Event E6: Report Reopened
 
-==== Description
+=== Description
 
 Allows previously resolved reports to become active again.
 
-==== Trigger Conditions
+=== Trigger Conditions
 
 * User is report author
 * Report state is RESOLVED
 
-==== Result
+=== Result
 
 * State changes back to ACTIVE
 * Claiming becomes available again
@@ -4448,32 +4448,32 @@ const canReopen =
 
 == Event E7: Report Archived
 
-==== Description
+=== Description
 
 Moves resolved reports into a closed historical state.
 
-==== Trigger Conditions
+=== Trigger Conditions
 
 * User is report author or administrator
 * Report has already been resolved
 
-==== Result
+=== Result
 
 * Report becomes ARCHIVED
 * Report interactions are disabled
 
 == Event E8: Report Deleted
 
-==== Description
+=== Description
 
 Permanently removes a report from the platform.
 
-==== Trigger Conditions
+=== Trigger Conditions
 
 * User is report author
 * User confirms deletion action
 
-==== Result
+=== Result
 
 * Database entry is removed
 * Report state becomes DELETED
