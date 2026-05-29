@@ -4093,3 +4093,122 @@ Email domain verification enhances security by ensuring that only users with val
 ===== Conclusion
 
 Email domain verification is a crucial domain process in the Lost & Found system that helps maintain security and reliability. By classifying it as a series of functions and events, we can better understand how it fits into the overall user registration workflow and how it contributes to the integrity of the platform. Implementing robust email domain verification ensures that the system remains secure and that users can trust the platform for reporting and claiming lost items.
+
+---
+
+==== Report Discovery Domain Description Units
+:author: Adiel Soto
+
+The report discovery process in the Lost & Found system can be analyzed by separating the workflow into smaller domain description units. Each unit represents one specific behavior performed either by the user or by the system during the process of searching, filtering, viewing, and interacting with reports.
+
+These units help describe how report discovery operates at a lower level before larger domain concepts are formed. By analyzing each behavior independently, the system’s functionality becomes easier to model and understand.
+
+===== Domain Description Units
+
+[cols="1,3,2", options="header"]
+|===
+|Unit ID
+|Domain Description Unit
+|Primary Behavior Type
+
+|DDU-1
+|A user enters keywords into the search bar to locate reports related to a lost or found item.
+|Search Behavior
+
+|DDU-2
+|The system compares the entered keywords against report titles, descriptions, and tags.
+|Search Processing
+
+|DDU-3
+|The system returns a list of reports that match the user’s search terms.
+|Result Generation
+
+|DDU-4
+|A user filters reports by category such as electronics, clothing, accessories, or documents.
+|Filtering Behavior
+
+|DDU-5
+|A user filters reports by status such as active, resolved, matched, or expired.
+|Filtering Behavior
+
+|DDU-6
+|A user filters reports using a specific location where the item was lost or found.
+|Filtering Behavior
+
+|DDU-7
+|The system removes reports from the visible results that do not satisfy the selected filters.
+|Filter Processing
+
+|DDU-8
+|The system sorts reports based on relevance, recency, or matching criteria.
+|Sorting Behavior
+
+|DDU-9
+|A user opens a report to view additional details about the item.
+|Report Viewing
+
+|DDU-10
+|The system displays report information including title, description, category, location, and status.
+|Information Presentation
+
+|DDU-11
+|A user compares report details with their own missing or found item.
+|User Evaluation
+
+|DDU-12
+|The system displays images attached to a report to improve item identification.
+|Information Presentation
+
+|DDU-13
+|A user initiates a claim request after identifying a possible matching report.
+|Report Action
+
+|DDU-14
+|The system restricts certain report actions depending on ownership and permissions.
+|Access Control Behavior
+
+|DDU-15
+|A user saves or bookmarks a report for future review.
+|User Interaction
+
+|DDU-16
+|The system updates visible report results when filters or search terms change.
+|Dynamic Search Behavior
+
+|DDU-17
+|The system hides expired or resolved reports from default active searches.
+|Lifecycle Filtering
+
+|DDU-18
+|A user clears search filters to restart the discovery process.
+|Search Reset Behavior
+|===
+
+===== Analysis of the Discovery Process
+
+The report discovery workflow is composed of multiple small behaviors that work together to help users locate relevant reports efficiently. Some units describe direct user actions, while others describe automatic system responses.
+
+For example:
+
+* DDUs 1–3 focus on keyword-based searching.
+* DDUs 4–7 focus on filtering behavior.
+* DDUs 8–10 focus on report presentation and result organization.
+* DDUs 11–15 focus on user interaction with reports.
+* DDUs 16–18 focus on dynamic system updates and lifecycle management.
+
+Breaking the workflow into domain description units helps isolate individual responsibilities within the system. Instead of describing report discovery as one large process, the workflow becomes a collection of smaller understandable behaviors.
+
+===== Connection to Domain Concept Formation
+
+These domain description units later contribute to the formation of higher-level domain concepts within the Lost & Found system.
+
+For example:
+
+* Search-related units contribute to the “Search & Discovery” domain concept.
+* Filtering-related units contribute to the “Report Classification” concept.
+* Viewing and claim-related units contribute to the “User Interaction” concept.
+* Lifecycle-related units contribute to the “Report Management” concept.
+
+This process follows the lecture methodology of reading and analyzing domain description units first before grouping them into broader conceptual structures. By identifying small observable behaviors, the system’s domain model becomes more accurate, modular, and easier to maintain.
+
+---
