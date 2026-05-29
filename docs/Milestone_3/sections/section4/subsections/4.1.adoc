@@ -5594,3 +5594,278 @@ Taken together, these facets give a layered picture of the Lost & Found domain: 
 Schütz-Schmuck, M. (2021). _Domain Engineering — Domain Facets_ [Lecture slides]. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
 
 ---
+
+==== Modeling Hybrid Domain Phenomena in the Lost and Found System
+:author: Iralys Sánchez Milián
+
+===== 1. Introduction
+
+In domain engineering, a hybrid domain phenomenon combines both discrete and continuous behavior. Discrete behavior refers to specific events, actions, or state changes, while continuous behavior refers to processes that evolve over time.
+
+In the Lost & Found system, several domain phenomena are hybrid because they involve clear system events, such as creating reports or sending notifications, while also depending on time-based behavior, such as report aging, waiting periods, and delayed responses.
+
+===== 2. Hybrid Domain Phenomena
+
+[options="header"]
+|===
+| Domain Phenomenon | Discrete Components | Continuous Components | Justification
+
+| Report Lifecycle
+| A report is created, edited, claimed, approved, resolved, or closed through specific user or admin actions.
+| The report remains active over time, becomes older, and may lose relevance as days pass.
+| This is hybrid because the report changes through discrete states, but its usefulness and urgency evolve continuously over time.
+
+| Claim and Ownership Verification
+| A user submits a claim, provides identifying details, and the claim is accepted or rejected.
+| The claim may remain pending for hours or days while the owner or administrator reviews it.
+| This is hybrid because claim decisions are discrete, but the verification process includes an ongoing waiting period.
+
+| Notification Timing
+| Notifications are generated when a match, claim, message, or status update occurs.
+| Notifications may remain unread, delayed, or pending over time.
+| This is hybrid because notifications are triggered by discrete events, while their delivery and response behavior depend on time.
+
+| Search and Discovery Activity
+| A user enters a keyword, applies filters, or selects a report from the results.
+| Search results change over time as new reports are added, old reports age, and item statuses change.
+| This is hybrid because each search is a discrete action, but the searchable data changes continuously as the system evolves.
+|===
+
+===== 3. Explanation of Hybrid Behavior
+
+====== 3.1 Discrete Components
+
+Discrete components are system events or actions that occur at specific moments. In the Lost & Found system, examples include:
+
+* Creating a lost or found report
+* Submitting a claim
+* Accepting or rejecting a claim
+* Sending a notification
+* Applying search filters
+* Closing a resolved report
+
+These actions cause clear state changes in the system and can be represented through events, database updates, and workflow transitions.
+
+====== 3.2 Continuous Components
+
+Continuous components involve time-based behavior or gradual change. In this system, examples include:
+
+* A report aging over time
+* A claim remaining pending
+* A notification staying unread
+* Search results becoming outdated
+* The relevance of a report decreasing as more time passes
+
+These behaviors do not occur as a single event. Instead, they evolve while the system continues operating.
+
+====== 3.3 Why These Phenomena Are Hybrid
+
+These phenomena are hybrid because they cannot be fully understood using only discrete events or only continuous behavior. For example, a report has discrete states such as open, claimed, and resolved, but the value of that report also depends on how much time has passed since it was created.
+
+Similarly, a notification is generated at a specific moment, but its importance depends on how long it remains unread. Because these phenomena combine state transitions with time-based evolution, they qualify as hybrid domain phenomena.
+
+===== 4. Design Implications
+
+This classification impacts system design in several ways:
+
+* *State Management:* Reports, claims, and notifications require clear state definitions.
+* *Time-Based Logic:* The system may need timestamps, expiration rules, reminders, or sorting by recency.
+* *Workflow Modeling:* Hybrid phenomena require workflows that combine user actions with time-aware behavior.
+* *Database Design:* Tables should store both state values and timestamps.
+* *Testing:* The system must be tested for immediate actions and delayed behaviors, such as pending claims or unread notifications.
+
+===== 5. Conclusion
+
+The Lost & Found system contains several hybrid domain phenomena because many workflows combine discrete events with continuous time-based behavior. Reports, claims, notifications, and search activity all depend on specific system actions while also evolving over time. Recognizing these phenomena as hybrid helps improve the system's data model, workflow design, and testing strategy.
+
+===== References
+
+Framework: Schütz-Schmuck, M. (2021). Domain Attributes. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+---
+
+==== Analysis of Domain Dimensionality in the Lost and Found System
+:author: Iralys Sánchez Milián
+
+===== 1. Introduction
+
+In domain engineering, dimensionality refers to the way domain elements can be represented according to their structure, attributes, and relationships. Some elements are simple and atomic, while others involve time, space, or multiple interacting attributes.
+
+In the Lost & Found system, dimensionality affects how reports, locations, timestamps, users, and search filters are represented in the database and used by the system.
+
+===== 2. Domain Element Dimensionality
+
+[options="header"]
+|===
+| Domain Element | Dimension Type | System Representation | Justification
+
+| Report Status
+| Atomic / Single-Dimensional
+| A simple field such as `status`, with values like open, claimed, resolved, or closed.
+| The report status represents one current state at a time and can be modeled as a single value.
+
+| Report Lifecycle
+| Time-Based / Sequential
+| A sequence of events with timestamps, such as created, updated, claimed, and resolved.
+| The lifecycle depends on the order of events over time, making it a time-related dimension.
+
+| Item Location
+| Spatial / Multi-Dimensional
+| Fields such as building, room, campus area, or location description.
+| Location may involve multiple spatial components and affects search and matching.
+
+| Search Filters
+| Multi-Dimensional
+| A combination of keyword, category, date, status, location, and item type.
+| Search depends on several independent dimensions that users combine to narrow results.
+
+| User Identity
+| Attribute-Based / Multi-Dimensional
+| User ID, name, email, role, and authentication status.
+| A user is represented through multiple attributes that affect access, ownership, and communication.
+|===
+
+===== 3. Explanation of Dimensionality
+
+====== 3.1 Atomic or Single-Dimensional Elements
+
+Atomic elements can be represented as simple values. In the Lost & Found system, report status is a good example. A report can be open, claimed, resolved, or closed.
+
+This type of element is easy to model because it can be stored as a single database field. However, even simple values can affect system behavior. For example, a closed report should not be available for new claims.
+
+====== 3.2 Time-Based Elements
+
+Some domain elements depend on time. The report lifecycle is time-based because a report passes through a sequence of events. A report may be created, edited, claimed, reviewed, and eventually closed.
+
+This affects data modeling because the system may need to store timestamps for each important event. It also affects behavior because the system may sort reports by recency, identify old unresolved reports, or send reminders for pending claims.
+
+====== 3.3 Spatial Elements
+
+Location is a spatial domain element. In a campus Lost & Found system, location may include a building, classroom, hallway, office, cafeteria, or general area.
+
+This affects search and matching because users often remember where an item was lost or found. The system may need structured location fields instead of relying only on free-text descriptions.
+
+====== 3.4 Multi-Dimensional Elements
+
+Search filters are multi-dimensional because users may combine several criteria at once. For example, a user may search for an active electronics report near the library from the last week.
+
+This requires the system to support multiple searchable fields and combine them correctly. The database must store enough structured information to make these filters useful.
+
+===== 4. Design Implications
+
+This dimensionality analysis impacts system design in several ways:
+
+* *Data Modeling*: Atomic values can be stored as simple fields, while time-based and spatial elements may require additional tables or structured fields.
+* *Search and Filtering*: Multi-dimensional elements require the system to combine several criteria at once.
+* *System Behavior*: Time-based dimensions affect report aging, reminders, and workflow transitions.
+* *Database Structure*: Reports should include attributes such as category, location, timestamp, status, and user ID.
+* *User Experience*: Structured dimensions help users find relevant reports faster.
+
+===== 5. Conclusion
+
+The Lost & Found system includes domain elements with different types of dimensionality. Some elements, such as report status, are simple and atomic. Others, such as report lifecycle, location, search filters, and user identity, require time-based, spatial, or multi-attribute representation. Understanding these dimensions helps improve database design, search functionality, and system behavior.
+
+===== References
+
+*Framework:* Schütz-Schmuck, M. (2021). *Domain Attributes*. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+---
+
+==== Tangible vs Intangible Domain Elements in the Lost and Found System
+:author: Iralys Sánchez Milián
+
+===== 1. Introduction
+
+In domain engineering, domain elements can be classified as tangible or intangible. Tangible elements are physical objects or places that exist in the real world. Intangible elements are non-physical concepts, records, states, or data representations used by the system.
+
+In the Lost & Found system, this distinction is important because the system manages physical lost and found items through digital records. The real-world object may be tangible, but the system usually interacts with an intangible representation of that object.
+
+===== 2. Domain Element Classification
+
+[options="header"]
+|===
+| Domain Element | Type | System Representation | Justification
+
+| Lost Item
+| Tangible
+| A report containing description, category, image, and last seen location.
+| The lost item is a physical object, such as a phone, backpack, ID card, or calculator.
+
+| Found Item
+| Tangible
+| A found item report with location, timestamp, description, and optional image.
+| The found item exists physically and may need to be returned to its owner.
+
+| Campus Location
+| Tangible
+| A location field, such as building, room, hallway, or general campus area.
+| Locations are physical places where items are lost or found.
+
+| Report
+| Intangible
+| A digital record stored in the system database.
+| The report is not the physical item itself; it is a data representation of the item and event.
+
+| User Identity
+| Intangible
+| Account information such as user ID, name, email, role, and authentication status.
+| Identity is represented through data and is used for access control, ownership, and communication.
+
+| Claim Status
+| Intangible
+| A status value such as pending, accepted, rejected, or completed.
+| Claim status is a system state that affects workflow but does not exist physically.
+
+| Notification
+| Intangible
+| A system-generated message or alert.
+| A notification is digital information used to inform users about claims, matches, or updates.
+|===
+
+===== 3. Explanation of Classification
+
+====== 3.1 Tangible Elements
+
+Tangible elements are physical objects or places in the real world. In the Lost & Found system, lost items, found items, and campus locations are tangible because they can be physically observed or experienced.
+
+Examples include:
+
+* A lost backpack
+* A found calculator
+* A classroom where an item was last seen
+* A library desk where an item was found
+
+These elements are central to the system because the purpose of the system is to help users recover real physical objects.
+
+====== 3.2 Intangible Elements
+
+Intangible elements are digital records, states, or concepts that represent or support the real-world process. Reports, user identities, claim statuses, and notifications are intangible because they exist as data or system behavior rather than physical objects.
+
+Examples include:
+
+* A report stored in the database
+* A user's authentication status
+* A pending claim
+* A notification about a possible match
+
+These elements are necessary because the system cannot directly manage the physical item without storing information about it.
+
+===== 4. Design Implications
+
+This classification impacts system design in several ways:
+
+* *Data Modeling*: Tangible elements must be represented through structured digital records.
+* *Privacy Controls*: Intangible user data must be protected from unauthorized access.
+* *Verification Logic*: The system needs a way to compare claims against item details.
+* *Search Functionality*: Tangible item characteristics, such as category and location, must be stored as searchable attributes.
+* *Workflow Management*: Intangible statuses must accurately reflect the real-world recovery process.
+
+===== 5. Conclusion
+
+The Lost & Found system depends on both tangible and intangible domain elements. Tangible elements, such as lost items, found items, and campus locations, form the real-world basis of the system. Intangible elements, such as reports, identities, statuses, and notifications, allow the system to organize, search, verify, and communicate information about those physical objects. Understanding this distinction helps improve data modeling, privacy protection, and workflow accuracy.
+
+===== References
+
+*Framework:* Schütz-Schmuck, M. (2021). *Domain Attributes*. Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+---
