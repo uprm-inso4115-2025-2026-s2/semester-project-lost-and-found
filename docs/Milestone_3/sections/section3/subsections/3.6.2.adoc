@@ -110,17 +110,17 @@ Using the computed relative values and costs, a value-cost diagram is constructe
 image::Value-Cost-Diagram-Epics.jpg[Value-Cost Diagram, align=center, pdfwidth=80%]
 _Figure 3.6.2. - 1. Value-Cost Trade-off Analysis_
 
-===== Final Prioritization
+===== [.changed]#Final Prioritization#
 
 - *High Priority*
   * E1: Reporting Lost and Found Items — highest value with lowest cost; core system functionality.
-  * E2: Search and Discovery — high value with moderate cost; essential for usability.
 
 - *Medium Priority*
-  * E3: Safe Claim and Ownership Verification — high value but also high cost; should be implemented incrementally.
+  * E2: Search and Discovery — high value with moderate cost; essential for usability.
 
 - *Low Priority*
-  * E4: Accessibility and Usability — important but less critical for initial deployment.
   * E5: Administrative Oversight — supports system integrity but not core recovery flow.
+  * E4: Accessibility and Usability — important but less critical for initial deployment.
+  * E3: Safe Claim and Ownership Verification — high value but also high cost; should be implemented incrementally.
 
 This prioritization supports a development strategy focused on delivering maximum impact with efficient use of resources.
