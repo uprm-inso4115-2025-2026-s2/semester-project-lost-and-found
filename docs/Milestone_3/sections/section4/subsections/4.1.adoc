@@ -5952,3 +5952,121 @@ The domain acquisition process helped identify the main stakeholders, challenges
 The findings gathered through interviews, questionnaires, and domain description units provide a strong foundation for designing a centralized Lost & Found platform capable of improving communication, organization, and item recovery across campus.
 
 ---
+
+=== Ubiquitous Language Consistency Analysis Across Lost & Found Domain Artifacts
+:author: Leanelys Gonzalez Orama
+
+This entry analyzes the consistency of domain terminology used throughout the Lost & Found platform documentation and related project artifacts. The purpose is to evaluate whether the vocabulary, concepts, and definitions used across requirements, workflows, diagrams, and scenarios remain aligned and understandable for all stakeholders involved in the project.
+
+The analysis focuses on identifying inconsistent terminology usage, ambiguous concepts, and communication mismatches that may negatively affect documentation quality, stakeholder understanding, and system interpretation.
+
+==== Importance of Ubiquitous Language
+
+In requirements engineering and domain modeling, a ubiquitous language refers to a shared vocabulary consistently used by stakeholders, developers, and documentation artifacts to describe the system domain.
+
+For the Lost & Found platform, maintaining a consistent language is important because the system involves multiple interacting concepts, including:
+
+* Lost item reports
+* Found item registration
+* Ownership verification
+* Claim validation
+* Report lifecycle states
+* Notification workflows
+* User interactions
+
+Consistency across these concepts helps reduce misunderstandings and improves collaboration between technical and non-technical stakeholders.
+
+==== Terminology Evaluation Overview
+
+The following table summarizes examples of terminology consistency evaluation across project artifacts.
+
+[cols="2,3,2", options="header"]
+|===
+| Domain Concept | Consistency Evaluation | Observations
+
+| Report Status
+| Evaluated across workflows, state models, and requirement descriptions.
+| Some artifacts used inconsistent naming conventions for report states and transitions.
+
+| Claim Verification
+| Compared across claim workflows and ownership validation procedures.
+| Certain sections described verification behaviors differently, creating ambiguity.
+
+| Lost and Found Reports
+| Evaluated between user scenarios, UI descriptions, and documentation.
+| Terminology became more consistent after refining report categorization descriptions.
+
+| User Roles
+| Compared between stakeholder analysis and workflow descriptions.
+| Some artifacts lacked clear distinction between finder, owner, and administrator responsibilities.
+
+| Notification Processes
+| Reviewed across communication workflows and system behaviors.
+| Validation identified inconsistent references to alerts, notifications, and status updates.
+|===
+
+==== Identified Consistency Issues
+
+During evaluation, several terminology inconsistencies were identified throughout the documentation.
+
+Examples included:
+
+* Multiple names used for the same report state
+* Ambiguous references to ownership validation
+* Inconsistent descriptions of user responsibilities
+* Different terminology for notification-related behaviors
+* Broad definitions lacking domain specificity
+
+These inconsistencies increased the possibility of misinterpretation between stakeholders and implementation teams.
+
+==== Standardization Improvements
+
+To improve consistency, terminology refinement and standardization activities were performed.
+
+This process contributed to:
+
+* Establishing clearer definitions for domain concepts
+* Aligning terminology across workflows and requirements
+* Improving communication between stakeholders
+* Reducing ambiguity in documentation
+* Strengthening traceability between artifacts
+
+The refinement process improved the overall readability and coherence of the project documentation.
+
+==== Relationship Between Language and Requirements Quality
+
+Consistent domain language directly affects requirements quality because unclear terminology can produce misunderstandings, incomplete implementations, and conflicting interpretations.
+
+For the Lost & Found platform, ubiquitous language analysis helped:
+
+* Improve workflow clarity
+* Simplify stakeholder communication
+* Strengthen documentation consistency
+* Improve interpretation of domain rules
+* Reduce conflicting requirement descriptions
+
+This analysis contributed to producing more understandable and maintainable requirement artifacts.
+
+==== Importance of Consistency Analysis
+
+Consistency analysis is important because large software projects often involve multiple contributors, evolving documentation, and changing system requirements.
+
+Without a shared language, project artifacts may become disconnected or contradictory over time.
+
+For the Lost & Found platform, terminology consistency analysis helped the team:
+
+* Detect ambiguous domain concepts
+* Improve requirement interpretation
+* Refine documentation structure
+* Improve traceability between artifacts
+* Strengthen communication quality across the project
+
+This process contributed to maintaining a more organized and coherent domain representation.
+
+==== Conclusion
+
+The ubiquitous language consistency analysis helped improve the clarity, coherence, and maintainability of the Lost & Found platform documentation.
+
+By evaluating terminology usage across domain artifacts, the project identified inconsistencies, refined shared vocabulary, and strengthened the relationship between requirements, workflows, and stakeholder understanding.
+
+---
