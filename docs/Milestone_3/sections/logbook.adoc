@@ -19,8 +19,8 @@
 | Modified/Added
 
 | Anthony H Martinez-Gomez
-| 2.1.1.
-| Modified/Added
+| 1.2.2, 1.3.2, 1.2.3
+| Modified 
 
 | Lianette Alberto
 | 1.3.2
