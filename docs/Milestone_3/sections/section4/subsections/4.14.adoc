@@ -255,6 +255,8 @@ Countermeasures:
 
 - Add backup authentication methods and monitoring systems
 
+---
+
 ==== [Lecture Topic Task]: Obstacle Based Verification of Lost Item Report Recovery
 :author: Victoria Miranda Osuna
 
