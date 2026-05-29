@@ -25,23 +25,23 @@ The management rules are:
 |Artifact type |Canonical location |Role in traceability
 
 |Domain concepts
-|link:3.1.adoc[3.1.adoc]
+|<<concept-analysis,Concept Analysis>>
 |Defines the vocabulary and abstractions that requirements are built on.
 
 |Stakeholder discovery
-|link:3.3.2.adoc[3.3.2.adoc]
+|<<stakeholder-discovery-and-expansion,Stakeholder Discovery and Expansion>>
 |Explains who the actors are and how additional stakeholders can be found.
 
 |Validation scenarios
-|link:3.3.6.adoc[3.3.6.adoc]
+|<<validation-trategy,Validation Strategy>>
 |Shows realistic walkthroughs used to validate stakeholder expectations.
 
 |Verification tests
-|link:3.2.adoc[3.2.adoc]
+|<<scenario-based-verification-tests,Verification Tests>>
 |Contains the test anchors that verify the documented requirements.
 
 |Implementation fragments
-|link:../../section2/subsections/2.3.1.adoc[2.3.1.adoc]
+|<<implementation, Implementation>>
 |Shows how the requirements are realized in the current React + Supabase implementation.
 |===
 
