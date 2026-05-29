@@ -112,6 +112,38 @@ Overall, goal modeling supports better system planning and development.
 
 ---
 
+==== [Lecture Topic Task]: Goal Refinement and Goal Diagrams
+:author: Victoria Miranda Osuna
+
+The goal is to analyze how goal refinement and goal diagrams can organize and model 
+the objectives of a Lost & Found platform while maintaining consistency between high 
+level stakeholder goals and lower level operational goals. High level objectives 
+include successfully recovering lost items, improving communication between users, 
+maintaining secure claim verification, and increasing platform reliability and trust. 
+These objectives can be represented through goal diagrams to show how different system 
+functions contribute to the overall platform purpose.
+
+Lower level goals such as item reporting, notifications, claim verification, and search
+ filtering support the platform’s main objectives. Accurate item reporting improves 
+ matching between lost and found items, while notifications keep users informed about recovery 
+ progress. Claim verification reduces false ownership claims, and search filters improve 
+ recovery efficiency. The analysis also examines conflicts between usability, security, and 
+ recovery efficiency goals. For example, faster recovery processes may reduce verification 
+ accuracy, while stronger verification procedures can slow recovery times. Simplified reporting
+  forms may collect insufficient information, and excessive notifications may overwhelm users.
+
+Why and how questioning techniques are used to refine broad platform goals into smaller 
+assignable sub goals. Questions such as “Why recover items quickly?” lead to goals focused on 
+improving user satisfaction, while “How to recover items quickly?” results in solutions like 
+automated notifications. Similarly, verifying ownership helps prevent fraudulent claims, and 
+requiring item descriptions or proof images supports that goal. Success is achieved when goal
+refinements clearly show relationships between high level and low level objectives, goal 
+diagrams demonstrate alternative refinement paths, conflicts between goals are documented, 
+and the refined sub goals contribute to effective item recovery and a better user experience.
+
+
+---
+
 ==== [Lecture Topic Task] Goal Diagram For Returning Lost Items
 :author: Andres Cruz
 
