@@ -2845,398 +2845,325 @@ By implementing role restrictions, validation checks, secure claim handling, and
 * TypeScript Documentation: https://www.typescriptlang.org/docs/
 ---
 
-
-=== Domain Acquisition for Authentication Stakeholders in Lost & Found
-:author: Javier Ventosa
-
-==== Introduction
-
-Domain acquisition is the process of collecting facts about a domain from the people and groups connected to that domain. In domain engineering, this includes studying the domain, talking to stakeholders, recording their views, and organizing the collected information before deeper analysis is done.
-
-For the Lost & Found system, authentication is an important part of the domain because users need different types of access depending on who they are. A regular institutional user may need full access to report, claim, or manage lost items. A non-institutional or guest user may only need limited access. Administrators may need additional permissions to review reports, manage users, and control system activity.
-
-This lecture topic task applies domain acquisition to the User & Authentication team by identifying authentication stakeholders, collecting authentication-related domain facts, and showing how those facts can be recorded as domain description units.
-
-==== Lecture Topic Connection
-
-The lecture on domain acquisition explains that domain acquisition involves eliciting facts from domain stakeholders, recording those facts, and roughly structuring or classifying them before deeper analysis. It also explains that domain facts can be recorded as domain description units and tagged by stakeholder group, phenomenon or concept, kind, attribute, and facet.
-
-This connects directly to authentication in the Lost & Found system because authentication requirements should not be guessed only from a technical point of view. They should come from the needs of the people who use, manage, or depend on the system.
-
-For example, the User & Authentication team needs to know:
-
-* Who should be able to create an account.
-* What type of email should be accepted.
-* What access level each user type should receive.
-* What actions require authentication.
-* What actions should be restricted to administrators.
-* What should happen when a user logs in, logs out, or has invalid credentials.
-
-By using domain acquisition, these details can be collected, organized, and later transformed into clearer system requirements.
-
-==== Authentication Stakeholders
-
-The main stakeholders involved in authentication for the Lost & Found system are:
-
-===== Institutional Users
-
-Institutional users are students, professors, or staff members who use an official university email account. They are important stakeholders because they are likely the main users of the platform. They may need to report lost items, search for found items, claim items, and manage their own submissions.
-
-===== Guest or Non-Institutional Users
-
-Guest users are users who do not have an official institutional email. These users may still need to view information, but they may not be allowed to perform every action in the system. Their role matters because the system needs to decide what limited access means.
-
-===== Administrators
-
-Administrators are responsible for managing the system. They may need permission to review item reports, approve or reject submissions, edit incorrect information, remove inappropriate content, and manage user access. Their authentication needs are different because they require elevated privileges.
-
-===== Developers
-
-Developers are stakeholders because they implement the authentication logic. They need clear rules about roles, permissions, protected routes, and user access levels. Without clear domain facts, developers may implement inconsistent or incomplete authentication behavior.
-
-==== Authentication Domain Facts to Collect
-
-Domain acquisition for authentication should collect facts such as:
-
-* Which users are allowed to register.
-* Which email domains are considered institutional.
-* Whether non-institutional users can create accounts.
-* What access level should be assigned to each user type.
-* Which pages require login.
-* Which pages can be viewed without login.
-* Which actions require full access.
-* Which actions are restricted to administrators.
-* What error message should appear when login fails.
-* What should happen when a user logs out.
-* What should happen when a session expires.
-* How the system should prevent unauthorized access.
-
-These facts help the User & Authentication team avoid unclear assumptions. They also make the authentication workflow easier to implement and test.
-
-==== Domain Description Units for Authentication
-
-Domain description units are useful because they record domain facts in a structured way. Below are examples related to authentication in the Lost & Found system.
-
-===== Domain Description Unit 1
-
-* Unit ID: auth-001
-* Stakeholder Group: Institutional Users
-* Domain Fact: Institutional users can register using an official university email address.
-* Phenomenon or Concept: User registration
-* Kind: Event
-* Attribute: Discrete
-* Facet: Intrinsic authentication rule
-
-===== Domain Description Unit 2
-
-* Unit ID: auth-002
-* Stakeholder Group: Guest Users
-* Domain Fact: Non-institutional users may have limited or view-only access.
-* Phenomenon or Concept: Access level
-* Kind: Entity
-* Attribute: Static
-* Facet: Access control rule
-
-===== Domain Description Unit 3
-
-* Unit ID: auth-003
-* Stakeholder Group: Administrators
-* Domain Fact: Administrators can access restricted management features that regular users cannot access.
-* Phenomenon or Concept: Administrator role
-* Kind: Entity
-* Attribute: Static
-* Facet: Permission rule
-
-===== Domain Description Unit 4
-
-* Unit ID: auth-004
-* Stakeholder Group: Developers
-* Domain Fact: Protected routes must verify that the user is authenticated before allowing access.
-* Phenomenon or Concept: Protected route
-* Kind: Behavior
-* Attribute: Reactive
-* Facet: Support technology
-
-===== Domain Description Unit 5
-
-* Unit ID: auth-005
-* Stakeholder Group: All Users
-* Domain Fact: When a user enters invalid login information, the system should show a clear error message.
-* Phenomenon or Concept: Login error handling
-* Kind: Behavior
-* Attribute: Reactive
-* Facet: User interaction
-
-==== How Domain Acquisition Improves Authentication
-
-Domain acquisition improves authentication because it helps the team understand the real rules of the system before implementation. Instead of only coding login and registration screens, the team can first define what each user type needs and what each user type is allowed to do.
-
-This helps the project in several ways:
-
-* It reduces confusion about access levels.
-* It helps developers implement protected routes correctly.
-* It makes login and registration behavior easier to test.
-* It helps define the difference between institutional users, guest users, and administrators.
-* It prevents missing requirements, such as expired sessions or invalid login messages.
-* It improves communication between developers and stakeholders.
-
-For the Lost & Found system, this is especially important because authentication affects trust and security. If users can access pages they should not access, the system becomes unreliable. If valid users cannot access features they need, the system becomes frustrating to use.
-
-==== Recommended Authentication Acquisition Questions
-
-To apply domain acquisition, the team can ask questions such as:
-
-* Who should be allowed to create an account?
-* Should all users have the same permissions?
-* What makes a user institutional?
-* What should a non-institutional user be allowed to do?
-* What actions should require login?
-* What actions should require administrator access?
-* What should happen when a user enters the wrong password?
-* What should happen when a user tries to access a restricted page?
-* Should the system remember a logged-in user after refreshing the page?
-* What information should be stored in the user profile?
-
-The answers to these questions can be converted into domain facts, domain description units, and later into implementation requirements.
-
-==== Risks of Not Doing Domain Acquisition
-
-If the User & Authentication team does not perform domain acquisition, the authentication workflow may become incomplete or inconsistent.
-
-Possible risks include:
-
-* Users receiving the wrong access level.
-* Guest users accessing restricted features.
-* Administrators missing important management permissions.
-* Developers implementing different assumptions about roles.
-* Login and registration behavior not matching stakeholder expectations.
-* Protected routes being implemented inconsistently.
-* Confusing error messages for users.
-
-These risks can affect the usability, reliability, and security of the Lost & Found system.
-
-==== Conclusion
-
-Domain acquisition is useful for the User & Authentication team because it provides a structured way to collect and organize authentication requirements. By identifying stakeholders and recording authentication facts as domain description units, the team can better understand how login, registration, email verification, access levels, and role permissions should work.
-
-For the Lost & Found system, authentication is not only a technical feature. It is part of the domain because it controls who can use the system, what actions they can perform, and how secure the platform is. Applying domain acquisition helps make the authentication workflow clearer, safer, and easier to implement.
-
-==== References
-
-* Marko Schütz-Schmuck, "Domain Acquisition", University of Puerto Rico at Mayagüez.
-* Marko Schütz-Schmuck, "Domain Stakeholders", University of Puerto Rico at Mayagüez.
-* Marko Schütz-Schmuck, "Overview of Domain Engineering", University of Puerto Rico at Mayagüez.
-
-You can paste this directly at the end of your file:
-
----
-
-==== [Lecture Topic Task] Ownership and Access Control Analysis in the Lost & Found System
-:author: Adiel-Soto-Rodriguez
+==== Common System Abstractions
+:author: Diego Rios Morales
 
 ===== Overview
 
-Ownership and access control are essential concepts in the Lost & Found system because they determine who can manage reports, modify information, and verify ownership claims. Without clear ownership rules, the system could become vulnerable to unauthorized edits, fraudulent claims, and inconsistent report states.
+As the Lost & Found platform continues to grow, several features and components begin to serve similar purposes. Instead of analyzing every feature individually, the system can be better understood by grouping related functionality into broader domain abstractions. These abstractions make the platform easier to design, explain, and maintain because they organize the system around shared responsibilities rather than isolated features.
 
-This Lecture Topic Task analyzes how ownership is established, transferred, and enforced throughout the lifecycle of a report, while also examining how access control mechanisms protect system integrity and reliability.
+===== Report Management
 
-===== Ownership Model
-
-In the Lost & Found platform, ownership refers to the relationship between a user and a report they created or successfully claimed.
-
-Ownership is established when a user submits either a Lost Item Report or a Found Item Report. The system associates the report with the creator’s authenticated account through a unique user identifier.
-
-Ownership determines which actions a user is allowed to perform on the report.
+One of the main abstractions in the platform is Report Management. This abstraction includes everything related to creating and managing lost or found item reports.
 
 Examples include:
+* Creating lost item reports
+* Creating found item reports
+* Adding descriptions and images
+* Updating report information
+* Tracking report status
+* Storing item location details
 
-* Editing report information
-* Deleting a report
-* Updating report details
-* Viewing restricted report management controls
+Instead of treating each report-related feature as a separate system component, this abstraction allows them to be viewed as part of a single reporting workflow.
 
-Users who do not own the report may still view public listing information but cannot modify the report unless they have elevated permissions such as Admin or Staff roles.
+===== Notification and Alert System
 
-===== Ownership Lifecycle Classification
+The Notification and Alert System groups together features responsible for informing users about important activity within the platform.
 
-[cols="1,1,2", options="header"]
+Examples include:
+* Notifications for possible item matches
+* Alerts when a report is updated
+* Status change notifications
+* Messages related to user activity
+
+This abstraction helps centralize communication features and improves the overall user experience by keeping users informed without requiring them to constantly check the platform manually.
+
+===== User Interaction
+
+The User Interaction abstraction represents the different ways users engage with the system and navigate through the platform.
+
+This includes:
+* Viewing reports
+* Browsing item listings
+* Navigating between pages
+* Contacting other users
+* Confirming actions such as deleting an account or report
+
+Grouping these features together helps emphasize the user experience side of the application and highlights how users interact with the platform as a whole.
+
+===== Verification Process
+
+The Verification Process abstraction focuses on improving trust and reliability within the system. Since users can submit information freely, certain features are needed to help validate reports and ownership claims.
+
+Examples include:
+* Verifying ownership of an item
+* Reviewing report details
+* Identifying incomplete or suspicious submissions
+* Confirming item matches before resolution
+
+This abstraction supports the credibility of the platform and helps reduce false claims or misuse.
+
+===== Account and Profile Management
+
+Another important abstraction is Account and Profile Management, which contains features related to user identity and account control.
+
+Examples include:
+* User registration
+* Login and logout functionality
+* Profile pages
+* Managing account information
+* Account deletion
+
+By grouping these features together, the platform separates user management responsibilities from report and notification functionality.
+
+===== Search and Discovery
+
+The Search and Discovery abstraction focuses on helping users quickly locate relevant information within the system.
+
+This includes:
+* Searching for lost or found items
+* Filtering reports by category
+* Browsing recent reports
+* Discovering possible report matches
+
+This abstraction improves accessibility and makes the platform more practical for users trying to recover lost belongings efficiently.
+
+===== Mapping of Components to Abstractions
+
+[cols="2,2", options="header"]
 |===
-| Step | Classification | Description
+| System Component
+| Related Abstraction
 
-| User creates a report
-| Event
-| A user submits a Lost or Found Item Report, establishing report ownership.
+| Lost item submission form
+| Report Management
 
-| Report ownership assignment
-| Function
-| The system links the report to the creator’s user ID and stores ownership metadata.
+| Found item submission form
+| Report Management
 
-| Owner edits or deletes report
-| Behavior
-| Ownership grants permission to modify or remove the report under allowed conditions.
+| Match notification
+| Notification and Alert System
 
-| Other users browse reports
-| Behavior
-| Non-owners may view listings but cannot modify ownership-protected fields.
+| User profile page
+| Account and Profile Management
 
-| Admin overrides permissions
-| Function
-| Administrative roles may edit, archive, or resolve reports regardless of ownership.
+| Delete account feature
+| Account and Profile Management
 
-| Claim verification and ownership transfer
-| Event
-| Ownership context changes after verification and successful return of the item.
+| Search bar
+| Search and Discovery
 
-| Permission validation
-| Function
-| The backend checks whether the acting user has authorization before applying modifications.
+| Ownership confirmation process
+| Verification Process
+
+| Contacting another user
+| User Interaction
 |===
 
-===== Access Control Enforcement
+===== Benefits of Using Abstractions
 
-The system enforces access control using authentication, role-based permissions, and backend verification rules.
+Organizing the Lost & Found platform into higher-level abstractions improves the clarity of the system design. Developers can focus on broader responsibilities instead of isolated features, making the platform easier to maintain and expand over time.
 
-====== Authentication
+These abstractions also help improve communication between team members because related features are grouped under shared concepts. This makes it easier to understand how existing and future functionality fits into the overall architecture of the platform.
 
-Only authenticated users may create or manage reports. During login, the system identifies the user and associates their account with a unique identifier.
+==== Conclusion
 
-Authentication is handled automatically by the system.
+The Lost & Found platform contains many interconnected features that can be simplified through domain abstractions. By grouping related functionality into concepts such as Report Management, User Interaction, Verification Processes, and Notifications, the system becomes easier to analyze, document, and maintain. These abstractions provide a clearer understanding of how the platform operates while supporting future scalability and development.
 
-Examples include:
+---
 
-* Login validation
-* Session management
-* Token verification
-* User identity tracking
+==== Domain Boundary Analysis for the Lost & Found System
+:author: Angel A. Villegas Colon
+:date: May 2026
 
-Without authentication, ownership cannot be reliably enforced.
+===== Purpose
 
-====== Permission Checks
+This subsection defines the boundary between the Lost & Found system and its environment. It clarifies which elements belong to the domain model and which remain external dependencies, supporting conceptual coherence and disciplined requirements modeling.
 
-Whenever a user attempts to edit or delete a report, the backend verifies:
+===== System Boundary
 
-* Whether the user owns the report
-* Whether the user has elevated permissions
-* Whether the report state allows modification
+The Lost & Found domain includes the elements that the system is directly responsible for managing and reasoning about.
 
-For example:
+*Core domain elements:*
+- Reports for lost items and found items
+- Report lifecycle states (Active, Returned, Closed)
+- Verification logic that supports ownership validation
+- Matching and search operations
+- User-facing record status and report metadata
 
-* Owners may edit their own reports
-* Non-owners cannot modify reports
-* Admins may override restrictions when necessary
+These elements are inside the domain boundary because they are part of the system’s internal model and behavior.
 
-These checks are automatic and occur before any database update is applied.
+===== External Environment
 
-====== Restricted Modifications
+The environment contains elements that influence the system but are not modeled as internal system responsibilities.
 
-Certain actions become restricted depending on the report lifecycle state.
+*External dependencies include:*
 
-Examples include:
+1. Physical campus space and pickup locations (building locations, lost-and-found offices, classrooms, gym areas)
+2. Social media and informal communication channels (WhatsApp groups, Facebook pages, campus bulletin boards)
+3. Human honesty and behavior (truthfulness of reporters, willingness to cooperate, potential theft)
+4. Institutional policies and campus security rules (access permissions, physical custody of recovered items)
+5. External time and event context (games, classes, ceremonies affecting item loss patterns)
 
-* Reports with active claim requests may lock sensitive fields
-* Claimed items may no longer be editable by regular users
-* Archived reports become read-only
+At least three of these dependencies—campus physical space, social media channels, and human honesty—are clearly outside the system boundary.
 
-This prevents inconsistent or fraudulent modifications during verification processes.
+===== Boundary Responsibilities vs. Environment
 
-===== Automatic vs Human-Controlled Processes
+*Domain responsibilities:*
 
-====== Automatically Handled by the System
+- Storing and managing reports
+- Updating report status through its lifecycle
+- Applying verification rules and match heuristics
+- Presenting search and discovery features to users
 
-The following actions are enforced automatically:
+*External responsibilities:*
 
-* User authentication
-* Ownership assignment
-* Permission verification
-* Session validation
-* Role-based access control
-* Prevention of unauthorized updates
-* Lifecycle state validation
+- Capturing where an item was physically lost or found
+- Determining whether a finder or owner is honest
+- Enforcing campus security or institutional handling procedures
+- Disseminating notifications through external communication channels
 
-These processes ensure consistency and security without requiring manual review for every operation.
+By keeping these responsibilities separate, the model avoids treating the environment as if it were part of the system core.
 
-====== Human-Controlled Decisions
+===== Why Boundary Clarity Improves Modeling Discipline
 
-Some situations require human judgment and administrative intervention.
+Clear domain boundaries improve modeling discipline in several ways:
 
-Examples include:
+- They prevent scope creep by excluding external concerns that would bloat the system model.
+- They reduce conceptual confusion about what the system must build versus what it must observe.
+- They support a focused ubiquitous language: terms like "report," "verification," and "status" remain internal, while "campus location" and "social media" stay external.
+- They make requirement definitions more precise and easier to validate against stakeholder needs.
 
-* Reviewing disputed ownership claims
-* Resolving conflicting claim requests
-* Approving ownership transfers
-* Handling suspicious or fraudulent reports
-* Overriding incorrect report information
+From lecture theory, domain delimitation is essential because it defines the interface between the system and the world. A well-defined boundary indicates:
 
-Human moderation is necessary because ownership disputes often involve subjective or incomplete evidence.
+- what the system owns internally,
+- what it depends on externally,
+- and where responsibility shifts from the system to its environment.
 
-===== Complex Ownership Scenarios
+Improper boundary definition can lead to:
 
-====== Scenario 1: Anonymous Report Submission
+- scope creep, where the model tries to include campus geography or user psychology as functional features,
+- modeling confusion, where internal domain terms become overloaded with environmental meaning,
+- brittle requirements, because the system is asked to solve problems that are actually outside its intended responsibility.
 
-A user submits a Found Item Report anonymously without exposing personal information publicly.
+===== Direct Connection to Lecture Theory
 
-*Complexity introduced:*
+Lecture theory on domain delimitation emphasizes that the boundary is the line where the system’s domain model ends and the surrounding environment begins. In this case:
 
-* The system still needs an internal ownership reference
-* Moderators may need to contact the reporter privately
-* Ownership exists internally even if hidden publicly
+- The Lost & Found domain is centered on reports, states, and verification logic.
+- The environment includes the physical campus, communication channels, and human behavior.
 
-*Expected system behavior:*
+This aligns with domain-driven design and requirements engineering theory, where correct boundary definition is the foundation of conceptual coherence and disciplined system modeling.
 
-* The report is internally tied to the authenticated account
-* Public viewers cannot see the reporter identity
-* Admins retain access for moderation and verification
+===== Summary
 
-This balances privacy with accountability.
+A clear boundary for the Lost & Found system distinguishes internal domain elements from external environmental dependencies. This distinction helps the team keep requirements focused, avoid scope creep, and preserve a consistent domain model. Explicitly identifying the environment supports better analysis, design, and project discipline.
 
-====== Scenario 2: Disputed Ownership Claim
+---
 
-Two users claim the same lost laptop and both provide partial identifying details.
+==== Assumptions Analysis for the Lost & Found System
+:author: Angel A. Villegas Colon
+:date: May 2026
 
-*Complexity introduced:*
+===== Purpose
 
-* Ownership cannot be determined automatically
-* Both claims may appear valid initially
-* Incorrect approval could return the item to the wrong person
+This subsection identifies core assumptions in the Lost & Found domain and explains how documenting them improves clarity, consistency, and robustness in the system model.
 
-*Expected system behavior:*
+===== Core Domain Assumptions
 
-* The report enters Pending Verification
-* Staff/Admin reviews additional proof-of-ownership details
-* Only one ownership transfer may be approved
-* Audit logs preserve the review history
+The Lost & Found system relies on several implicit assumptions that affect design and behavior.
 
-This scenario demonstrates why ownership verification cannot rely entirely on automated logic.
+1. User honesty
+- The system assumes that users submit truthful descriptions and claim information.
+2. Item recoverability
+- The system assumes that lost items are recoverable in the real world and that reports can lead to successful reunions.
+3. Valid identity claims
+- The system assumes that claimants can provide proof or verification data that correctly ties them to the reported item.
+4. Reasonable reporting behavior
+- The system assumes users will report items in a timely manner and follow the expected reporting process.
+5. Stable environment data
+- The system assumes that locations, categories, and item metadata remain valid long enough for matching and recovery.
 
-===== Security and Behavioral Impact
+===== Assumptions vs. Formal Rules
 
-Ownership enforcement improves the system in several ways:
+Assumptions are beliefs about the domain that are not enforced by the system itself. Formal rules are explicit constraints or behavior the system must implement.
 
-*Security*
+*Example distinctions:*
 
-* Prevents unauthorized report modifications
-* Reduces fraudulent claims
-* Protects sensitive information
+- Assumption: reporters are honest about item details.
+- Formal rule: the system restricts access to verification fields and requires authentication before claim submission.
 
-*Behavioral Reliability*
+- Assumption: a found item can be recovered.
+- Formal rule: the system allows transitions from Active to Returned or Closed states and records status changes.
 
-* Ensures reports follow valid lifecycle transitions
-* Prevents conflicting ownership states
-* Maintains trust in the recovery process
+- Assumption: identity claims can be validated.
+- Formal rule: the system supports private verification fields and claim review workflows.
 
-*System Integrity*
+===== Environmental Assumptions vs. System-Controlled Rules
 
-* Preserves accountability for report actions
-* Ensures auditability of edits and ownership changes
-* Maintains consistent relationships between users and reports
+*Environmental assumptions* depend on the outside world and cannot be fully controlled by the system.
 
-===== Conclusion
+- People will behave honestly.
+- Lost items remain available for recovery.
+- Physical locations remain accessible.
 
-Ownership and access control are fundamental components of the Lost & Found system because they define who may manage reports and how sensitive operations are protected.
+*System-controlled rules* are behaviors the system can enforce directly.
 
-By combining authentication, permission validation, lifecycle restrictions, and human moderation, the platform can prevent unauthorized actions while still supporting realistic recovery workflows and dispute resolution.
+- Authentication and authorization requirements.
+- Metadata validation for report submission.
+- Report lifecycle management and status transitions.
+- Access control for public versus private report data.
 
-A well-defined ownership model improves security, consistency, reliability, and user trust throughout the entire Lost & Found process.
+Distinguishing these helps keep the model realistic and prevents the system from being expected to solve environmental problems.
+
+===== Risks of Unverified Assumptions
+
+If assumptions remain implicit, the system design can develop gaps or vulnerabilities.
+
+*Logical gaps*
+
+- Assuming honesty without verification can permit false claims and undermine the recovery process.
+
+*Vulnerabilities*
+
+- Assuming item recoverability may lead to workflows that do not handle lost or unclaimed reports gracefully.
+
+*Inconsistencies*
+
+- Assuming identity proof is always available can make the claim review process brittle when users lack required evidence.
+
+Explicitly identifying assumptions exposes these risks before they become embedded in requirements.
+
+===== Documenting and Validating Domain Assumptions
+
+To improve reliability, the team should explicitly document assumptions and validate them over time.
+
+*Methods to document assumptions:*
+
+- Maintain an assumptions log linked to requirements or user stories.
+- Add a subsection to the requirements documentation for domain assumptions.
+- Use tables or bullet lists to separate assumptions from formal rules.
+
+*Methods to validate assumptions:*
+
+- Review assumptions with stakeholders and subject-matter experts.
+- Test assumptions with real user interviews or pilot experiments.
+- Monitor actual system usage and update assumptions when they prove false or incomplete.
+
+===== How Assumption Documentation Improves Reliability
+
+Documenting assumptions makes the Lost & Found model more reliable by:
+
+- Clarifying what the system is expected to enforce versus what it depends on externally.
+- Preventing hidden gaps in requirements and design.
+- Creating a shared understanding among developers, stakeholders, and reviewers.
+- Enabling proactive mitigation when assumptions do not hold.
+
+When assumptions are explicit, the team can identify which domain elements need stronger rules, verification, or alternative handling.
+
+===== Summary
+
+Identifying and modeling domain assumptions strengthens the Lost & Found system by improving clarity, consistency, and robustness. The model becomes easier to validate, less prone to hidden logical gaps, and better aligned with the distinction between domain rules and environmental reality.
 
 ---
 
@@ -3991,4 +3918,955 @@ For example:
 
 As a result, searchable attributes do more than store data. They shape how the domain itself is modeled, how reports interact with one another, and how users experience the system.
 
+---
+=== Domain Acquisition for Authentication Stakeholders in Lost & Found
+:author: Javier Ventosa
+
+==== Introduction
+
+Domain acquisition is the process of collecting facts about a domain from the people and groups connected to that domain. In domain engineering, this includes studying the domain, talking to stakeholders, recording their views, and organizing the collected information before deeper analysis is done.
+
+For the Lost & Found system, authentication is an important part of the domain because users need different types of access depending on who they are. A regular institutional user may need full access to report, claim, or manage lost items. A non-institutional or guest user may only need limited access. Administrators may need additional permissions to review reports, manage users, and control system activity.
+
+This lecture topic task applies domain acquisition to the User & Authentication team by identifying authentication stakeholders, collecting authentication-related domain facts, and showing how those facts can be recorded as domain description units.
+
+==== Lecture Topic Connection
+
+The lecture on domain acquisition explains that domain acquisition involves eliciting facts from domain stakeholders, recording those facts, and roughly structuring or classifying them before deeper analysis. It also explains that domain facts can be recorded as domain description units and tagged by stakeholder group, phenomenon or concept, kind, attribute, and facet.
+
+This connects directly to authentication in the Lost & Found system because authentication requirements should not be guessed only from a technical point of view. They should come from the needs of the people who use, manage, or depend on the system.
+
+For example, the User & Authentication team needs to know:
+
+* Who should be able to create an account.
+* What type of email should be accepted.
+* What access level each user type should receive.
+* What actions require authentication.
+* What actions should be restricted to administrators.
+* What should happen when a user logs in, logs out, or has invalid credentials.
+
+By using domain acquisition, these details can be collected, organized, and later transformed into clearer system requirements.
+
+==== Authentication Stakeholders
+
+The main stakeholders involved in authentication for the Lost & Found system are:
+
+===== Institutional Users
+
+Institutional users are students, professors, or staff members who use an official university email account. They are important stakeholders because they are likely the main users of the platform. They may need to report lost items, search for found items, claim items, and manage their own submissions.
+
+===== Guest or Non-Institutional Users
+
+Guest users are users who do not have an official institutional email. These users may still need to view information, but they may not be allowed to perform every action in the system. Their role matters because the system needs to decide what limited access means.
+
+===== Administrators
+
+Administrators are responsible for managing the system. They may need permission to review item reports, approve or reject submissions, edit incorrect information, remove inappropriate content, and manage user access. Their authentication needs are different because they require elevated privileges.
+
+===== Developers
+
+Developers are stakeholders because they implement the authentication logic. They need clear rules about roles, permissions, protected routes, and user access levels. Without clear domain facts, developers may implement inconsistent or incomplete authentication behavior.
+
+==== Authentication Domain Facts to Collect
+
+Domain acquisition for authentication should collect facts such as:
+
+* Which users are allowed to register.
+* Which email domains are considered institutional.
+* Whether non-institutional users can create accounts.
+* What access level should be assigned to each user type.
+* Which pages require login.
+* Which pages can be viewed without login.
+* Which actions require full access.
+* Which actions are restricted to administrators.
+* What error message should appear when login fails.
+* What should happen when a user logs out.
+* What should happen when a session expires.
+* How the system should prevent unauthorized access.
+
+These facts help the User & Authentication team avoid unclear assumptions. They also make the authentication workflow easier to implement and test.
+
+==== Domain Description Units for Authentication
+
+Domain description units are useful because they record domain facts in a structured way. Below are examples related to authentication in the Lost & Found system.
+
+===== Domain Description Unit 1
+
+* Unit ID: auth-001
+* Stakeholder Group: Institutional Users
+* Domain Fact: Institutional users can register using an official university email address.
+* Phenomenon or Concept: User registration
+* Kind: Event
+* Attribute: Discrete
+* Facet: Intrinsic authentication rule
+
+===== Domain Description Unit 2
+
+* Unit ID: auth-002
+* Stakeholder Group: Guest Users
+* Domain Fact: Non-institutional users may have limited or view-only access.
+* Phenomenon or Concept: Access level
+* Kind: Entity
+* Attribute: Static
+* Facet: Access control rule
+
+===== Domain Description Unit 3
+
+* Unit ID: auth-003
+* Stakeholder Group: Administrators
+* Domain Fact: Administrators can access restricted management features that regular users cannot access.
+* Phenomenon or Concept: Administrator role
+* Kind: Entity
+* Attribute: Static
+* Facet: Permission rule
+
+===== Domain Description Unit 4
+
+* Unit ID: auth-004
+* Stakeholder Group: Developers
+* Domain Fact: Protected routes must verify that the user is authenticated before allowing access.
+* Phenomenon or Concept: Protected route
+* Kind: Behavior
+* Attribute: Reactive
+* Facet: Support technology
+
+===== Domain Description Unit 5
+
+* Unit ID: auth-005
+* Stakeholder Group: All Users
+* Domain Fact: When a user enters invalid login information, the system should show a clear error message.
+* Phenomenon or Concept: Login error handling
+* Kind: Behavior
+* Attribute: Reactive
+* Facet: User interaction
+
+==== How Domain Acquisition Improves Authentication
+
+Domain acquisition improves authentication because it helps the team understand the real rules of the system before implementation. Instead of only coding login and registration screens, the team can first define what each user type needs and what each user type is allowed to do.
+
+This helps the project in several ways:
+
+* It reduces confusion about access levels.
+* It helps developers implement protected routes correctly.
+* It makes login and registration behavior easier to test.
+* It helps define the difference between institutional users, guest users, and administrators.
+* It prevents missing requirements, such as expired sessions or invalid login messages.
+* It improves communication between developers and stakeholders.
+
+For the Lost & Found system, this is especially important because authentication affects trust and security. If users can access pages they should not access, the system becomes unreliable. If valid users cannot access features they need, the system becomes frustrating to use.
+
+==== Recommended Authentication Acquisition Questions
+
+To apply domain acquisition, the team can ask questions such as:
+
+* Who should be allowed to create an account?
+* Should all users have the same permissions?
+* What makes a user institutional?
+* What should a non-institutional user be allowed to do?
+* What actions should require login?
+* What actions should require administrator access?
+* What should happen when a user enters the wrong password?
+* What should happen when a user tries to access a restricted page?
+* Should the system remember a logged-in user after refreshing the page?
+* What information should be stored in the user profile?
+
+The answers to these questions can be converted into domain facts, domain description units, and later into implementation requirements.
+
+==== Risks of Not Doing Domain Acquisition
+
+If the User & Authentication team does not perform domain acquisition, the authentication workflow may become incomplete or inconsistent.
+
+Possible risks include:
+
+* Users receiving the wrong access level.
+* Guest users accessing restricted features.
+* Administrators missing important management permissions.
+* Developers implementing different assumptions about roles.
+* Login and registration behavior not matching stakeholder expectations.
+* Protected routes being implemented inconsistently.
+* Confusing error messages for users.
+
+These risks can affect the usability, reliability, and security of the Lost & Found system.
+
+==== Conclusion
+
+Domain acquisition is useful for the User & Authentication team because it provides a structured way to collect and organize authentication requirements. By identifying stakeholders and recording authentication facts as domain description units, the team can better understand how login, registration, email verification, access levels, and role permissions should work.
+
+For the Lost & Found system, authentication is not only a technical feature. It is part of the domain because it controls who can use the system, what actions they can perform, and how secure the platform is. Applying domain acquisition helps make the authentication workflow clearer, safer, and easier to implement.
+
+==== References
+
+* Marko Schütz-Schmuck, "Domain Acquisition", University of Puerto Rico at Mayagüez.
+* Marko Schütz-Schmuck, "Domain Stakeholders", University of Puerto Rico at Mayagüez.
+* Marko Schütz-Schmuck, "Overview of Domain Engineering", University of Puerto Rico at Mayagüez.
+
+---
+
+==== [Lecture Topic Task] Ownership and Access Control Analysis in the Lost & Found System
+:author: Adiel-Soto-Rodriguez
+
+===== Overview
+
+Ownership and access control are essential concepts in the Lost & Found system because they determine who can manage reports, modify information, and verify ownership claims. Without clear ownership rules, the system could become vulnerable to unauthorized edits, fraudulent claims, and inconsistent report states.
+
+This Lecture Topic Task analyzes how ownership is established, transferred, and enforced throughout the lifecycle of a report, while also examining how access control mechanisms protect system integrity and reliability.
+
+===== Ownership Model
+
+In the Lost & Found platform, ownership refers to the relationship between a user and a report they created or successfully claimed.
+
+Ownership is established when a user submits either a Lost Item Report or a Found Item Report. The system associates the report with the creator’s authenticated account through a unique user identifier.
+
+Ownership determines which actions a user is allowed to perform on the report.
+
+Examples include:
+
+* Editing report information
+* Deleting a report
+* Updating report details
+* Viewing restricted report management controls
+
+Users who do not own the report may still view public listing information but cannot modify the report unless they have elevated permissions such as Admin or Staff roles.
+
+===== Ownership Lifecycle Classification
+
+[cols="1,1,2", options="header"]
+|===
+| Step | Classification | Description
+
+| User creates a report
+| Event
+| A user submits a Lost or Found Item Report, establishing report ownership.
+
+| Report ownership assignment
+| Function
+| The system links the report to the creator’s user ID and stores ownership metadata.
+
+| Owner edits or deletes report
+| Behavior
+| Ownership grants permission to modify or remove the report under allowed conditions.
+
+| Other users browse reports
+| Behavior
+| Non-owners may view listings but cannot modify ownership-protected fields.
+
+| Admin overrides permissions
+| Function
+| Administrative roles may edit, archive, or resolve reports regardless of ownership.
+
+| Claim verification and ownership transfer
+| Event
+| Ownership context changes after verification and successful return of the item.
+
+| Permission validation
+| Function
+| The backend checks whether the acting user has authorization before applying modifications.
+|===
+
+===== Access Control Enforcement
+
+The system enforces access control using authentication, role-based permissions, and backend verification rules.
+
+====== Authentication
+
+Only authenticated users may create or manage reports. During login, the system identifies the user and associates their account with a unique identifier.
+
+Authentication is handled automatically by the system.
+
+Examples include:
+
+* Login validation
+* Session management
+* Token verification
+* User identity tracking
+
+Without authentication, ownership cannot be reliably enforced.
+
+====== Permission Checks
+
+Whenever a user attempts to edit or delete a report, the backend verifies:
+
+* Whether the user owns the report
+* Whether the user has elevated permissions
+* Whether the report state allows modification
+
+For example:
+
+* Owners may edit their own reports
+* Non-owners cannot modify reports
+* Admins may override restrictions when necessary
+
+These checks are automatic and occur before any database update is applied.
+
+====== Restricted Modifications
+
+Certain actions become restricted depending on the report lifecycle state.
+
+Examples include:
+
+* Reports with active claim requests may lock sensitive fields
+* Claimed items may no longer be editable by regular users
+* Archived reports become read-only
+
+This prevents inconsistent or fraudulent modifications during verification processes.
+
+===== Automatic vs Human-Controlled Processes
+
+====== Automatically Handled by the System
+
+The following actions are enforced automatically:
+
+* User authentication
+* Ownership assignment
+* Permission verification
+* Session validation
+* Role-based access control
+* Prevention of unauthorized updates
+* Lifecycle state validation
+
+These processes ensure consistency and security without requiring manual review for every operation.
+
+====== Human-Controlled Decisions
+
+Some situations require human judgment and administrative intervention.
+
+Examples include:
+
+* Reviewing disputed ownership claims
+* Resolving conflicting claim requests
+* Approving ownership transfers
+* Handling suspicious or fraudulent reports
+* Overriding incorrect report information
+
+Human moderation is necessary because ownership disputes often involve subjective or incomplete evidence.
+
+===== Complex Ownership Scenarios
+
+====== Scenario 1: Anonymous Report Submission
+
+A user submits a Found Item Report anonymously without exposing personal information publicly.
+
+*Complexity introduced:*
+
+* The system still needs an internal ownership reference
+* Moderators may need to contact the reporter privately
+* Ownership exists internally even if hidden publicly
+
+*Expected system behavior:*
+
+* The report is internally tied to the authenticated account
+* Public viewers cannot see the reporter identity
+* Admins retain access for moderation and verification
+
+This balances privacy with accountability.
+
+====== Scenario 2: Disputed Ownership Claim
+
+Two users claim the same lost laptop and both provide partial identifying details.
+
+*Complexity introduced:*
+
+* Ownership cannot be determined automatically
+* Both claims may appear valid initially
+* Incorrect approval could return the item to the wrong person
+
+*Expected system behavior:*
+
+* The report enters Pending Verification
+* Staff/Admin reviews additional proof-of-ownership details
+* Only one ownership transfer may be approved
+* Audit logs preserve the review history
+
+This scenario demonstrates why ownership verification cannot rely entirely on automated logic.
+
+===== Security and Behavioral Impact
+
+Ownership enforcement improves the system in several ways:
+
+*Security*
+
+* Prevents unauthorized report modifications
+* Reduces fraudulent claims
+* Protects sensitive information
+
+*Behavioral Reliability*
+
+* Ensures reports follow valid lifecycle transitions
+* Prevents conflicting ownership states
+* Maintains trust in the recovery process
+
+*System Integrity*
+
+* Preserves accountability for report actions
+* Ensures auditability of edits and ownership changes
+* Maintains consistent relationships between users and reports
+
+===== Conclusion
+
+Ownership and access control are fundamental components of the Lost & Found system because they define who may manage reports and how sensitive operations are protected.
+
+By combining authentication, permission validation, lifecycle restrictions, and human moderation, the platform can prevent unauthorized actions while still supporting realistic recovery workflows and dispute resolution.
+
+A well-defined ownership model improves security, consistency, reliability, and user trust throughout the entire Lost & Found process.
+
+---
+
+==== Domain Narrative Rewriting for Report Discovery Workflows
+
+:author: Nelson Caban
+
+===== Introduction
+
+In the Lost & Found system, users need to discover reports that match the item they lost or found. This discovery process includes viewing reports, filtering them by status, filtering them by category, and using the search bar to narrow down results. These actions can be described as separate interface behaviors, but they can also be rewritten into a clearer domain narrative using higher-level concepts.
+
+This lecture topic task applies Domain Analysis and Concept Formation. The lecture explains that domain analysis includes reviewing domain description units, forming concepts, and searching for inconsistencies, conflicts, and incompletenesses. It also explains that lower-level domain phenomena can be abstracted into higher-level domain concepts and rewritten into a domain narrative.
+
+===== Domain Description Units
+
+The following domain description units describe report discovery in the Lost & Found system:
+
+* A user can view reports in the Lost & Found system.
+* A report has a title, description, category, status, location, date, image, and tags.
+* A user can filter reports by status, such as Active, Claimed, or Closed.
+* A user can filter reports by category.
+* A user can use the search bar to find reports.
+* A report can appear in the results if it matches the selected status, selected category, and search query.
+* A user can select a report from the results to view more information about the item.
+* A user can claim or return a report depending on the report state.
+
+These statements describe individual behaviors of the system. However, they do not yet fully explain the higher-level purpose of report discovery.
+
+===== Concept Formation
+
+Using concept formation, the lower-level behaviors can be abstracted into broader domain concepts.
+
+.Report Discovery Concepts
+[cols="1,1,1", options="header"]
+|===
+| Lower-Level Element
+| Higher-Level Concept
+| Purpose in the Domain
+
+| Title, description, and tags
+| Searchable report attributes
+| Information used to match a user query with relevant reports
+
+| Status filter
+| Report state constraint
+| Limits results based on the current lifecycle state of a report
+
+| Category filter
+| Classification constraint
+| Limits results based on the type of item reported
+
+| Search bar
+| Discovery mechanism
+| Allows users to locate reports using keywords
+
+| Report card
+| Report summary
+| Presents important report information before the user opens the full report
+
+| Claim and return actions
+| Recovery actions
+| Allow users to move a report toward resolution
+|===
+
+These abstractions help describe the report discovery workflow in a more organized way. Instead of describing the system only as buttons, search inputs, and report cards, the system can be described using domain concepts such as searchable attributes, constraints, report summaries, and recovery actions.
+
+===== Rewritten Domain Narrative
+
+A Lost & Found user searches through report summaries to identify reports that may correspond to a lost or found item. Each report contains searchable attributes, including its title, description, and tags. The user may apply report state constraints, such as Active, Claimed, or Closed, to limit results based on the report lifecycle. The user may also apply classification constraints, such as item category, to narrow the discovery space.
+
+The system evaluates each report by comparing the report state, category, and searchable attributes against the user's selected filters and search query. Reports that satisfy these constraints are shown as report summaries. From these summaries, the user can inspect relevant item information and perform recovery actions, such as claiming an item, returning an item, or sending a report back to the active lost item state.
+
+This narrative describes report discovery as a domain process instead of only a user interface interaction. It connects searching, filtering, viewing, and acting on reports into one complete workflow.
+
+===== Analysis
+
+The rewritten narrative improves the original low-level description because it gives a clearer explanation of why each part of the workflow exists. The search bar is not only an input field; it is a discovery mechanism. The status tabs are not only buttons; they are report state constraints. The category dropdown is not only a filter; it is a classification constraint. The item cards are not only visual components; they are report summaries that help users decide whether a report is relevant.
+
+This supports the lecture's concept formation process because lower-level domain elements are abstracted into more general concepts. These concepts can then be used to make the system documentation more consistent and easier to understand.
+
+===== Conclusion
+
+The Lost & Found report discovery workflow can be better documented by rewriting individual interface behaviors into a higher-level domain narrative. This helps clarify how users move from searching and filtering to identifying and acting on relevant reports. By using concepts such as searchable attributes, report state constraints, classification constraints, report summaries, and recovery actions, the system documentation becomes more aligned with the principles of domain analysis and concept formation.
+
+---
+
+==== Incompleteness Analysis of Search and Filtering Features
+
+:author: Nelson Caban
+
+===== Introduction
+
+The Lost & Found system includes search and filtering features that help users find reports related to lost or found items. These features are important because users may not remember the exact category or tag assigned to an item. They may instead search using words from the title or description of a report.
+
+This lecture topic task applies Domain Analysis and Concept Formation by analyzing the current search and filtering behavior for incompletenesses. In this case, the focus is on identifying missing search behavior in the Lost & Found report discovery process.
+
+===== Current Domain Description Units
+
+The following domain description units describe the current search and filtering behavior:
+
+* A user can search for reports using the search bar.
+* A report can contain tags.
+* A report can contain a title.
+* A report can contain a description.
+* A report can belong to a category.
+* A report can have a status, such as Active, Claimed, or Closed.
+* The system filters reports by status.
+* The system filters reports by category.
+* The system filters reports by the user's search query.
+* The previous search behavior focused on matching the search query with report tags.
+
+These description units show that the system has several pieces of report information available. However, if the search bar only checks tags, then the system does not fully use all available report information for discovery.
+
+===== Identified Incompleteness
+
+The main incompleteness is that the search bar can be described as a general report discovery tool, but its behavior may only search through tags. This creates an incomplete search experience because reports also contain titles and descriptions that may include important searchable information.
+
+For example, a report may have the title "Black Hydro Flask" and the description "Found near the library entrance." If the report does not include a tag such as "bottle" or "library," a user searching for "Hydro Flask" or "library" may not find the report if the search only checks tags.
+
+This shows an incompleteness in the domain behavior:
+
+* The system has searchable information in the title.
+* The system has searchable information in the description.
+* The system has searchable information in the tags.
+* The search bar should support report discovery.
+* However, the search bar may only use tags.
+
+Therefore, the search behavior is incomplete because it does not fully use the searchable attributes available in a report.
+
+===== Concept Formation
+
+The incomplete behavior can be improved by forming a higher-level concept called searchable report attributes.
+
+.Searchable Report Attribute Concepts
+[cols="1,1,1", options="header"]
+|===
+| Report Field
+| Domain Concept
+| Search Purpose
+
+| Title
+| Primary item identifier
+| Helps users search by the main name or label of the item
+
+| Description
+| Detailed item information
+| Helps users search using details, context, or item characteristics
+
+| Tags
+| Keyword metadata
+| Helps users search using assigned labels or keywords
+
+| Category
+| Classification constraint
+| Helps users narrow results by item type
+
+| Status
+| Report state constraint
+| Helps users narrow results by report lifecycle state
+|===
+
+By grouping title, description, and tags under the concept of searchable report attributes, the system can support a more complete search model.
+
+===== Improved Domain Narrative
+
+A user enters a search query to discover reports that may match a lost or found item. The system treats the report title, description, and tags as searchable report attributes. The system compares the user's query against these searchable attributes while also respecting the selected report state and category constraints. Reports that match the search query and satisfy the active filters are displayed to the user as report summaries.
+
+This improved narrative removes the incompleteness found in the earlier behavior because the search bar is no longer limited to tag metadata. Instead, it searches across the main report information that users are most likely to remember.
+
+===== Recommended Solution
+
+The recommended solution is to keep the existing tag search functionality while extending the search bar to also search through report titles and descriptions.
+
+The search logic should check whether the user's search query matches any of the following:
+
+* Report title
+* Report description
+* Report tags
+
+The system should also preserve the existing status and category filters. This means that a report should only appear if it matches the active status tab, matches the selected category filter, and matches the search query when a query is provided.
+
+This approach improves the completeness of the search feature without removing previous functionality.
+
+===== Validation Scenarios
+
+The following scenarios can be used to validate the improved behavior:
+
+* If a user searches for a word found in a report title, the report should appear.
+* If a user searches for a word found in a report description, the report should appear.
+* If a user searches for a word found in a report tag, the report should still appear.
+* If the search bar is empty, the system should continue showing reports based on the selected status and category filters.
+* If a report does not match the selected status, it should not appear even if the search query matches.
+* If a report does not match the selected category, it should not appear unless the category filter is set to all categories.
+* Existing tag search functionality should continue working after title and description search are added.
+
+===== Analysis
+
+This incompleteness analysis shows that the search feature should not only depend on tags. Tags are useful, but they are not always complete or predictable. Users may search using natural words from the title or description instead of exact tags assigned to the report. By expanding the search bar to include title and description, the system better supports real user behavior.
+
+This also improves the domain model because title, description, and tags can now be understood as part of the same higher-level concept: searchable report attributes. This abstraction makes the system easier to document, maintain, and extend in the future.
+
+===== Conclusion
+
+The Lost & Found search and filtering system had an incomplete discovery behavior when the search bar only considered tags. Since reports also contain titles and descriptions, those fields should be included as searchable report attributes. Extending the search functionality to include title, description, and tags creates a more complete and useful report discovery process while preserving the existing filtering structure.
+
+= Domain Event Modeling for Report Lifecycle Transitions
+Author: Jose Valentin
+Date: May 27, 2026
+
+== Introduction
+
+The Lost & Found platform depends heavily on the correct handling of report lifecycle transitions. Reports continuously evolve through different states as users interact with them, claim items, resolve issues, or reopen reports when necessary.
+
+This document models the domain events associated with report lifecycle transitions using concepts from domain event modeling and state transition analysis discussed in lecture material. The goal is to identify the major events that affect reports, define their trigger conditions, and analyze how those events modify report states throughout the system.
+
+== System Context
+
+A report within the Lost & Found system represents an item that has either been lost or found by a user. Throughout its lifecycle, the report may undergo multiple transitions depending on user actions and system validation.
+
+Primary actors involved:
+
+* Report Author
+* Claiming User
+* Administrator
+* Lost & Found Platform
+
+== Report Lifecycle States
+
+The following lifecycle states are used within the platform:
+
+[cols="1,3"]
+|===
+|State |Description
+
+|ACTIVE
+|Report is visible and available for interaction
+
+|CLAIMED
+|A user has claimed the report and verification is pending
+
+|RESOLVED
+|The item has been successfully returned or resolved
+
+|ARCHIVED
+|The report is closed and no longer active
+
+|DELETED
+|The report has been permanently removed
+|===
+
+== Domain Event Identification
+
+The platform contains several major domain events that trigger lifecycle transitions.
+
+[cols="1,2,2,2"]
+|===
+|Event ID |Domain Event |Trigger |Resulting Transition
+
+|E1
+|Report Created
+|User submits report form
+|NULL → ACTIVE
+
+|E2
+|Report Edited
+|Author edits report
+|ACTIVE → ACTIVE
+
+|E3
+|Report Claimed
+|Another user claims report
+|ACTIVE → CLAIMED
+
+|E4
+|Report Unclaimed
+|Claimer cancels claim
+|CLAIMED → ACTIVE
+
+|E5
+|Report Resolved
+|Author closes resolved report
+|CLAIMED → RESOLVED
+
+|E6
+|Report Reopened
+|Author reopens resolved report
+|RESOLVED → ACTIVE
+
+|E7
+|Report Archived
+|Author or admin archives report
+|RESOLVED → ARCHIVED
+
+|E8
+|Report Deleted
+|Author deletes report
+|ACTIVE/RESOLVED → DELETED
+|===
+
+== Event Modeling Analysis
+
+=== Event E1: Report Created
+
+==== Description
+
+Occurs when a user submits a new lost or found item report.
+
+==== Trigger Conditions
+
+* User is authenticated
+* Required report fields are completed
+* Report passes validation checks
+
+==== Result
+
+* New database record is created
+* Report state becomes ACTIVE
+
+[source,typescript]
+----
+const report = Report.Create({
+  title,
+  description,
+  location,
+  category,
+  createdBy: user.id
+});
+----
+
+== Event E2: Report Edited
+
+=== Description
+
+Allows the author to modify report information.
+
+=== Trigger Conditions
+
+* User must be report author
+* Report must not be archived or deleted
+
+=== Result
+
+* Existing report fields are updated
+* State remains ACTIVE
+
+[source,typescript]
+----
+if (currentUser.id !== report.createdBy) {
+  throw new Error("Unauthorized edit");
+}
+----
+
+== Event E3: Report Claimed
+
+=== Description
+
+Occurs when a user attempts to recover an item.
+
+=== Trigger Conditions
+
+* User is authenticated
+* User is not the report author
+* Report is currently ACTIVE
+* Report has not already been claimed
+
+==== Result
+
+* Claimer information is stored
+* Claim code is generated
+* State changes to CLAIMED
+
+[source,typescript]
+----
+if (report.createdBy === currentUser.id) {
+  throw new Error("Cannot claim own report");
+}
+----
+
+== Event E4: Report Unclaimed
+
+=== Description
+
+Allows a claimer to cancel their claim.
+
+=== Trigger Conditions
+
+* User is the current claimer
+* Report state is CLAIMED
+
+=== Result
+
+* Claim information is removed
+* Report becomes ACTIVE again
+
+== Event E5: Report Resolved
+
+=== Description
+
+Marks the report as successfully completed.
+
+=== Trigger Conditions
+
+* User is report author or administrator
+* Claim verification process is completed
+
+==== Result
+
+* State changes from CLAIMED to RESOLVED
+* Claim workflow ends
+
+== Event E6: Report Reopened
+
+=== Description
+
+Allows previously resolved reports to become active again.
+
+=== Trigger Conditions
+
+* User is report author
+* Report state is RESOLVED
+
+=== Result
+
+* State changes back to ACTIVE
+* Claiming becomes available again
+
+[source,typescript]
+----
+const canReopen =
+  report.status === "RESOLVED" &&
+  currentUser.id === report.createdBy;
+----
+
+== Event E7: Report Archived
+
+=== Description
+
+Moves resolved reports into a closed historical state.
+
+=== Trigger Conditions
+
+* User is report author or administrator
+* Report has already been resolved
+
+=== Result
+
+* Report becomes ARCHIVED
+* Report interactions are disabled
+
+== Event E8: Report Deleted
+
+=== Description
+
+Permanently removes a report from the platform.
+
+=== Trigger Conditions
+
+* User is report author
+* User confirms deletion action
+
+=== Result
+
+* Database entry is removed
+* Report state becomes DELETED
+
+== Lifecycle Transition Diagram
+
+[plantuml]
+----
+@startuml
+
+[*] --> ACTIVE : Report Created
+
+ACTIVE --> ACTIVE : Report Edited
+
+ACTIVE --> CLAIMED : Report Claimed
+
+CLAIMED --> ACTIVE : Report Unclaimed
+
+CLAIMED --> RESOLVED : Report Resolved
+
+RESOLVED --> ACTIVE : Report Reopened
+
+RESOLVED --> ARCHIVED : Report Archived
+
+ACTIVE --> DELETED : Report Deleted
+
+RESOLVED --> DELETED : Report Deleted
+
+ARCHIVED --> [*]
+
+DELETED --> [*]
+
+@enduml
+----
+
+== Event Constraints and Validation Rules
+
+[cols="1,3"]
+|===
+|Constraint ID |Rule
+
+|C1
+|Users cannot claim their own reports
+
+|C2
+|Only one active claim may exist per report
+
+|C3
+|Only report authors may edit reports
+
+|C4
+|Only authors or administrators may archive reports
+
+|C5
+|Only authors may reopen resolved reports
+
+|C6
+|Deleted reports cannot transition to another state
+|===
+
+== Event Dependencies
+
+Several lifecycle events depend on previous transitions:
+
+* Reports must be ACTIVE before being CLAIMED
+* Reports must be CLAIMED before being RESOLVED
+* Reports must be RESOLVED before being ARCHIVED
+* Reports may only be REOPENED from the RESOLVED state
+
+These dependencies help maintain state consistency and prevent invalid operations.
+
+== Current Platform Integration
+
+The current implementation already supports several lifecycle restrictions:
+
+* Claim prevention for report authors
+* Claim ownership validation
+* Status-based report controls
+* Author-only reopen functionality
+* Restricted archive and resolution actions
+
+These rules align closely with the domain transition model described in this document.
+
+== Final Analysis
+
+Domain event modeling helps clarify how reports evolve throughout the Lost & Found platform. By formally identifying lifecycle events, trigger conditions, and state transitions, the system becomes easier to validate, secure, and maintain.
+
+The lifecycle model also improves consistency between frontend behavior, backend validation, and database state management.
+
+== Conclusion
+
+The Lost & Found platform relies on structured lifecycle transitions to maintain report integrity and secure user interactions. Through domain event modeling, the platform can better control report operations such as claiming, resolving, reopening, and deletion.
+
+Clearly defined events and transition constraints reduce ambiguity, improve consistency, and support reliable system behavior across all report management workflows.
+
+== References
+
+* Schütz-Schmuck, M. Domain Engineering and Requirements Analysis Lecture Slides. University of Puerto Rico at Mayagüez.
+* TypeScript Documentation: https://www.typescriptlang.org/docs/
+* Supabase Documentation: https://supabase.com/docs
 ---
