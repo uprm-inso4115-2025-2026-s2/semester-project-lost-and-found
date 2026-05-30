@@ -1,0 +1,102 @@
+=== *Requirements Prioritization and Decision Analysis*
+
+
+==== *Evaluation Criteria Definition*
+
+This section defines the evaluation criteria used to prioritize system features. The goal is to establish a clear and justified basis for comparing requirements before applying decision-making techniques.
+
+===== Criteria Selection
+
+The prioritization process is based on two primary evaluation criteria:
+
+- *Value*: Represents the contribution of a feature toward achieving the system’s primary objective, which is to maximize successful item recovery and improve user interaction within the Lost & Found platform.
+- *Cost*: Represents the estimated implementation effort required for each feature, including development complexity, integration difficulty, and maintenance overhead.
+
+===== Criteria Justification
+
+These criteria were selected through team discussion and consensus. Each team member proposed and evaluated potential criteria, including usability, security, scalability, and reliability.
+
+To formalize the decision, team members independently identified the criteria they considered most relevant for prioritization. The results were consolidated as follows:
+
+[cols="1,3", options="header"]
+|===
+| Team Member | Proposed Criteria
+
+| Diego Ríos
+| Value, Cost, Security, Usability
+
+| Leanelys González
+| Value, Cost, Security
+
+| Jose Valentin
+| Value, Cost, Scalability
+
+| Jean Sánchez
+| Value, Cost, Reliability, Scalability
+|===
+
+From this comparison, *Value* and *Cost* were the only criteria consistently selected by all team members.
+
+After discussion, the team agreed that:
+
+- *Value* captures the functional importance and user impact of each feature.
+- *Cost* captures the feasibility and resource constraints associated with implementation.
+
+Other criteria were considered but excluded to avoid overcomplicating the decision model. The team concluded that Value and Cost provide a balanced and sufficient framework for early-stage prioritization.
+
+===== Evaluation Scale
+
+To ensure consistent comparisons, the team adopted the standard AHP pairwise comparison scale:
+
+- 1 – Equal contribution or cost  
+- 3 – Slightly more  
+- 5 – Strongly more  
+- 7 – Very strongly more  
+- 9 – Extremely more  
+
+Intermediate values (2, 4, 6, 8) may be used when necessary.
+
+This scale allows team members to express relative importance in a structured and quantifiable way, forming the basis for the prioritization process described in the next section.
+
+===== [.added]#Decision Interpretation Guidelines#
+
+[.added]#The prioritization results should be interpreted using consistent decision rules so that requirement rankings remain understandable and justified.#
+
+[.added]#The following guidelines support interpretation of Value and Cost comparisons:#
+
+* [.added]#High-value, low-cost requirements should generally receive the highest priority.#
+* [.added]#High-value, high-cost requirements should be evaluated against available resources and project deadlines.#
+* [.added]#Low-value, low-cost requirements may be considered if they support usability or reduce future rework.#
+* [.added]#Low-value, high-cost requirements should generally be deferred unless they are required for compliance, safety, or core system operation.#
+
+===== [.added]#Sensitivity Considerations#
+
+[.added]#The team recognizes that prioritization outcomes may change if the relative importance of Value and Cost changes.#
+
+[.added]#For example:#
+
+* [.added]#Increasing the weight of Value may favor user-facing features that directly improve item recovery.#
+* [.added]#Increasing the weight of Cost may favor simpler features that can be implemented quickly.#
+* [.added]#Equal weighting may provide a balanced view between usefulness and feasibility.#
+
+[.added]#Sensitivity analysis helps determine whether prioritization decisions remain stable under different assumptions.#
+
+===== [.added]#Tie-Breaking Rules#
+
+[.added]#When two requirements receive similar prioritization results, the team should apply tie-breaking rules.#
+
+[.added]#Tie-breaking considerations include:#
+
+* [.added]#direct contribution to successful item recovery#
+* [.added]#impact on user trust and safety#
+* [.added]#dependency on other features#
+* [.added]#implementation risk#
+* [.added]#relevance to the current milestone#
+
+[.added]#These rules help prevent arbitrary prioritization decisions and support more transparent requirement selection.#
+
+===== [.added]#Summary#
+
+[.added]#Adding decision guidelines and sensitivity considerations improves the requirements prioritization process by making the interpretation of Value and Cost comparisons more explicit.#
+
+[.added]#This supports more consistent decision-making and helps the team justify why certain requirements should be implemented earlier than others.#

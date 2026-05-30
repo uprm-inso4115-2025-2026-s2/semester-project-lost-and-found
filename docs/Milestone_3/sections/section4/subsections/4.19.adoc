@@ -1,0 +1,41 @@
+= [Lecture Topic Task] Decision Log for Key Tradeoffs 
+:author: Anthony H Martinez-Gomez
+:toc: left
+:toclevels: 3
+
+== Overview
+
+This section records three project decisions as tradeoffs. Each entry includes the decision, alternatives considered, why we chose what we chose, and what it changes for requirements and implementation.
+
+== Decision 1: Who is allowed to submit reports
+
+[cols="1,4",options="header"]
+|===
+| Field | Content
+| Decision | Only UPRM community members (authenticated) can submit lost or found reports.
+| Alternatives considered | 1) Allow guests to submit found reports without login. 2) Allow anyone to view and submit reports publicly. 3) Allow guests to submit, but require staff approval before publishing.
+| Why this decision | Campus items can be sensitive (IDs, keys, devices). Requiring authentication reduces spam and gives accountability when disputes happen. It also matches the environment where most reporting is expected to be done by UPRM students and staff.
+| Implications | Reporting requires login. Guest access can remain read only (or limited browsing). If guests are allowed later, we would need an intake or approval step to prevent abuse.
+|===
+
+== Decision 2: What details are shown publicly for sensitive items
+
+[cols="1,4",options="header"]
+|===
+| Field | Content
+| Decision | Public listings show only minimum safe details for sensitive items. Details used for verification are not shown publicly.
+| Alternatives considered | 1) Show full details publicly (faster recognition, higher fraud risk). 2) Hide all sensitive listings completely (safer, but reduces recovery). 3) Show details only after a claim request is submitted.
+| Why this decision | If too many details are public, it becomes easier to fake claim items. If everything is hidden, real owners cannot tell whether an item might be theirs. Minimum disclosure keeps the listing useful while keeping verification information private.
+| Implications | We need a clear split between public fields and verification fields. Photos may need redaction rules. The claim process must ask for private details that are not visible in the listing.
+|===
+
+== Decision 3: How long found items remain active before they are closed or archived
+
+[cols="1,4",options="header"]
+|===
+| Field | Content
+| Decision | Found item reports remain active for a defined retention period, then transition to an archived or expired state instead of being deleted.
+| Alternatives considered | 1) Delete old reports after a set time. 2) Keep all reports active forever. 3) Archive after a period but keep searchable history with clear status.
+| Why this decision | Offices often hold items for a limited time. If the platform keeps items active forever, search results become cluttered and misleading. Deleting removes traceability. Archiving preserves history while keeping active search clean.
+| Implications | We need clear lifecycle states (active, resolved/returned, archived/expired, removed). The UI should default to active results but allow viewing archived history. Policy details (exact duration, per office differences) should be documented and revisited as we learn more.
+|===

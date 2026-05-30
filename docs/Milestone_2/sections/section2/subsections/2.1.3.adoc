@@ -1,4 +1,4 @@
-[.changed]
+
 ==== *Narrative*
 Within the university environment, personal belongings frequently change hands unintentionally. A student may leave a backpack in a classroom, misplace keys in a laboratory, or forget an ID card in the library. In each of these situations, the items becomes a *Lost Item* from the perspective of its *Owner*. The owner's primary concern is retrieving the belonging safely and efficiently. 
 

@@ -1,0 +1,179 @@
+=== *Requirements Verification and Validation*
+
+==== Requirements Verification and Validation for the Lost and Found Platform
+:author: Lianette Alberto Muñoz
+:date: March 2026
+
+===== Introduction:
+
+The UPRM Lost & Found Platform is a proposed web/mobile system designed to help students, faculty, and staff report and recover lost items across the university campus. Because the system manages user reports, item descriptions, images, and communication between finders and owners, it is important to ensure that the system requirements are correct, complete, and aligned with stakeholder needs. Requirements verification and validation help guarantee that the system behaves as intended and that it effectively addresses the problem of lost items on campus.
+
+===== System Overview:
+
+The platform allows members of the UPRM community to report lost or found items, search existing reports, and contact other users through secure messaging. The system is designed to reduce the number of permanently lost items and provide a centralized location where students can check if their belongings have been found.
+
+    • Reporting lost items with photos, descriptions, and location information.
+    • Reporting found items and making them visible to other users.
+    • Searching and filtering items using keywords or categories.
+    • Messaging between finders and owners to arrange item return.
+    • Notification alerts when matching items are reported. Requirements Verification:
+
+===== Requirements Verification:
+
+Validation ensures that the requirements actually meet stakeholder needs and solve the intended problem. Validation focuses on confirming that the system will support real users and their goals.
+
+• Prototype Testing: Users interact with early versions of the interface to evaluate usability.
+• Stakeholder Feedback: Students and campus staff review features and provide suggestions.
+• User Surveys: Feedback is collected about whether the system solves the lost-item problem effectively.
+• Scenario Testing: Realistic scenarios are used to simulate how users will interact with the platform.
+
+===== Example Requirements Traceability:
+
+    Requirement:
+        - Report lost item
+        - Upload item photos
+        - Search items
+        - Messaging system
+
+    Verification Method:
+        - Requirement review
+        - Prototype Testing
+        - Functional Testing
+        - Design review
+
+    Validation Method:
+        - User Testing
+        - User Feedback
+        - Scenario Testing
+        - Pilot Testing
+
+===== Acceptance Criteria:
+
+    • Users can successfully report lost or found items with photos and descriptions.
+    • The search feature allows users to locate items using keywords or categories.
+    • Messaging between finders and owners works reliably and securely.
+    • The system responds within an acceptable time frame for user interactions.
+    • Users confirm through testing that the platform helps them locate lost belongings
+
+===== Conclusion:
+
+Verification and validation are essential processes in requirements engineering. By systematically reviewing requirements, testing system features, and gathering stakeholder feedback, the development team can ensure that the Lost & Found platform is reliable, useful, and aligned with the needs of the UPRM community. A well-executed verification and validation plan increases system quality and improves the chances that the platform will successfully
+reduce the number of permanently lost items on campus.
+
+---
+
+==== [Lecture Topic Task]: Interface Requirements Traceability for the Report Submission Feature
+:author: Joel Torres Cruz
+
+This entry traces the Report Submission feature of the Lost & Found UPRM platform from its origin in the real-world domain down to the UI components the user interacts with. It applies interface requirements traceability concepts to establish a clear chain of accountability between domain phenomena, user needs, interface requirements, and visible UI elements.
+
+===== Traceability Chain
+
+[discrete]
+====== Step 1 — Domain Phenomenon
+
+In the real world, a member of the UPRM community loses or finds an item on campus. There is no structured way to record or communicate this event to others. The need to document the item's details, what it is, where it was seen, and when, is the domain phenomenon that drives this feature.
+
+*Phenomenon:* A person observes a lost or found item and needs to record it so that others can search for and identify it.
+
+[discrete]
+====== Step 2 — User Story
+
+[cols="1,4", options="header"]
+|===
+| ID | User Story
+
+| US-REPORT-01
+| As a registered UPRM community member, I want to submit a report for a lost item so that others can help me find it.
+
+| US-REPORT-02
+| As a registered UPRM community member, I want to submit a report for a found item so that the owner can locate and claim it.
+|===
+
+[discrete]
+====== Step 3 — Interface Requirements
+
+The following interface requirements are derived from the domain phenomenon and govern how the system must behave during report submission.
+
+[cols="1,4", options="header"]
+|===
+| ID | Interface Requirement
+
+| IR001
+| When an Owner reports a lost item, the system creates a Lost Item Report representing the real-world loss event. It initializes all descriptive attributes (category, description, location, time) using the Owner's input.
+
+| IR002
+| When a Finder reports a found item, the system generates a Found Item Report linked to the Finder. The report's descriptive attributes reflect the initial observation.
+
+| IR003
+| The system records category, description, location, and time directly from user input and updates the internal representation immediately.
+
+| IR006
+| The system locks immutable attributes (report type, creation timestamp) and rejects any attempted modifications.
+|===
+
+[discrete]
+====== Step 4 — UI Components
+
+The interface requirements above are realized by the following UI components in the codebase.
+
+[cols="1,2,3", options="header"]
+|===
+| Component | Location | Purpose
+
+| Report Creation Form
+| `src/pages/ReportCreatePage.tsx`
+| Main form where the user fills in all report details. Handles both Lost and Found report types.
+
+| Report Type Selector
+| `src/pages/ReportCreatePage.tsx`
+| Toggle that lets the user choose between Lost and Found, setting the immutable report type (IR006).
+
+| Category Dropdown
+| `src/components/`
+| Allows the user to select a category (Electronics, Personal, Office Supplies, Other) for the item (IR003).
+
+| Description Text Input
+| `src/pages/ReportCreatePage.tsx`
+| Free-text field for the user to describe the item (IR001, IR002, IR003).
+
+| Location Field
+| `src/pages/ReportCreatePage.tsx`
+| Input capturing where the item was lost or found (IR001, IR002, IR003).
+
+| Date Field
+| `src/pages/ReportCreatePage.tsx`
+| Input capturing when the event occurred (IR001, IR002, IR003).
+
+| Image Upload
+| `src/pages/ReportCreatePage.tsx`
+| Optional image upload stored in the Supabase `ReportImages` bucket (IR003).
+
+| Tag Input
+| `src/pages/ReportCreatePage.tsx`
+| Allows the user to attach descriptive tags to the report for search support.
+
+| Submit Button
+| `src/pages/ReportCreatePage.tsx`
+| Triggers form validation and persists the report via `ReportDatabaseManagement.ts`.
+|===
+
+[discrete]
+====== Step 5 — What the User Sees
+
+When a logged-in user navigates to `/create-report`, they are presented with a form containing the following visible elements:
+
+* A toggle to select Lost or Found as the report type.
+* A dropdown to pick the item category.
+* A text field for a written description of the item.
+* A location field to indicate where the item was lost or found.
+* A date picker for when the event occurred.
+* A tag input for optional keyword tags.
+* An image upload button for an optional photo.
+* A Submit button that saves the report and redirects the user upon success.
+
+If a similar report already exists, the duplicate detection logic in `DuplicateVerification.ts` displays a warning to the user before submission is finalized.
+
+Upon successful submission, the report is assigned `status = ACTIVE`, associated with the authenticated user's email via `createdBy`, and becomes visible on the Home Page card grid.
+
+---

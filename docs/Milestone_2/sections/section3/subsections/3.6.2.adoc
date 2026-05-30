@@ -1,4 +1,4 @@
-[.added]
+
 ==== *Requirements Prioritization using AHP*
 
 This section applies the Analytic Hierarchy Process (AHP) to determine the relative priority of system features based on the evaluation criteria defined previously. The analysis focuses on Epics E1 through E5.

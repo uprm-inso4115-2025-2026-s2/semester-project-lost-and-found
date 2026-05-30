@@ -1,0 +1,102 @@
+==== *Stakeholder Discovery and Expansion*
+
+[discrete]
+==== Stakeholder Persona Development and Elicitation Strategy
+
+In order to connect domain engineering and requirements engineering, representative stakeholder perspectives were identified and modeled as personas. These personas capture goals, behaviors, and constraints within the UPRM lost and found domain. They serve as a foundation for deriving user stories and refining functional requirements. 
+
+[.added]#Stakeholders were discovered through interview fragments, questionnaire
+responses, scenario walkthroughs, and repeated observation of who handles item
+custody. The purpose of this section is to document the current stakeholder
+coverage and show how additional stakeholders can be found later if the domain
+reveals new handoffs or responsibilities.#
+
+[discrete]
+==== Stakeholder Groups
+
+[col="1,1,1,1", options="header"]
+|===
+|Stakeholder |Role |Responsibilities |Primary Goals
+
+|Owners / Claimants
+|Individuals who lose items and attempt recovery.
+|Reporting lost items, searching for matches, verifying ownership.
+|Recover belongings quickly, minimize effort, protect personal information.
+
+|Finders
+|Individuals who discover misplaced items.
+|Reporting found items and providing descriptive details.
+|Return items to rightful owners with minimal friction. 
+
+|Administrative Custodians / Moderators
+|Authorized personnel responsible for oversight and moderation.
+|Reviewing reports, resolving misuse, maintaining data integrity.
+|Ensure trustworthy system operation and prevent abuse.
+|===
+
+[discrete]
+==== Personas
+1. Student Claimant
+- *Name:* Carlos Rivera
+- *Age:* 20
+- *Role:* Undergraduate Student
+- *Background:* Carlos is a second-year engineering student who spends most of his time in classrooms, at the library or in study lounges. He frequently carries multiple items including a laptop, notebook, student ID and access cards. 
+- *Goals:*
+    * Quickly report lost belongings
+    * Rearch for potential matches
+    * Maintain privacy of personal information
+    * Receive timely updates on recovery progress
+- *Day-in-the-life narrative:* Carlos realizes he left his calculator in a classroom after a lecture and he wants a simple way to report the loss and check whether someone has found it. He prefers not to publicly share personal contact details but wants to be notified if a matching item appears. 
+
+2. Administrative Custodian
+- *Name:* Maria Gonzalez
+- *Age:* 38
+- *Role:* Administrative Staff Member
+- *Background:* Maria works in a campus office that frequently receives lost items. She manually records information and struggles to keep track of inquiries.
+- *Goals:*
+    * Monitor reports for accuracy
+    * Prevent misuse or false claims
+    * Ensure items are properly matched
+    * Maintain organized tracking
+- *Day-in-the-life narrative:* Maria receives a lost ID card and wants a reliable way to record it so the owner can find it. She also needs oversight tools to verify claims and update report status once the item is returned.
+
+[.added]#Additional stakeholders can be identified by following the same
+discovery path used here: examine custody handoffs, look for repeated manual
+work, inspect escalation points, and interview the people who currently answer
+questions when the system does not. Likely additions include library staff,
+security staff, faculty, and technical support.#
+
+[discrete]
+==== Elicitation Questionnaire
+The following questions are designed to gather domain-specific information:
+
+* *Participant Information*
+- Who is being interviewed?
+- What is their role in the lost and found process?
+- How frequently do they encounter lost items?
+
+* *Item Discovery*
+- Where are items most commonly found?
+- What information is typically available when an item is discovered?
+- What actions are taken after finding an item?
+
+* *Reporting Process*
+- How are lost items currently reported?
+- What information is necessary to identify an item?
+- What challenges occur during reporting?
+
+* *Verification and Recovery*
+- How is ownership currently verified?
+- What information is used to confirm claims?
+- What happens after an item is returned?
+
+===== Initial User Stories
+*US1:* As a Student Claimant, I want to report a lost item so that others can help me recover. 
+
+*US2:* As a Finder, i want to report a discovered item so that it can be returned to its owner.
+
+*US3:* As an Admininstrative Custodian, I want to rview reports so that I can prevent misuse. 
+
+*US4:* As a Student Claimant, I want my personal information kept private so that my data is protected. 
+
+

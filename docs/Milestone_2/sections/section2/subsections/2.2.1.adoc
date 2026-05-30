@@ -53,8 +53,8 @@
 
 *Features (F1):*
 
-- [.changed]#F1.1 Lost item submission#
-- [.changed]#F1.2 Found item submission#
+- F1.1 Lost item submission
+- F1.2 Found item submission
 - F1.3 Image upload support
 - F1.4 Edit and manage own reports
 - F1.5 Automatic ownership binding (user-session association)
@@ -62,7 +62,7 @@
 [discrete]
 ===== _US.REPORT.01: Submit a lost item report | ReqRef: <<REQ-REPORT-F-01>>_
 
-[.changed]#_"As a user who lost an item, I want to report it lost so that others can help locate it."_#
+_"As a user who lost an item, I want to report it lost so that others can help locate it."_
 
 *Acceptance criteria:*
 
@@ -76,7 +76,7 @@
 [discrete]
 ===== _US.REPORT.02: Submit a found item report | ReqRef: <<REQ-REPORT-F-02>>_
 
-[.changed]#_"As a user who found an item, I want to upload photos of it so that the owner can identify it."_#
+_"As a user who found an item, I want to upload photos of it so that the owner can identify it."_
 
 *Acceptance criteria:*
 
@@ -116,7 +116,7 @@
 [discrete]
 ===== _US.SEARCH.01: Filter reports by category | ReqRef: <<REQ-SEARCH-F-01>>_
 
-[.changed]#_"As a user who lost an item, I want to filter listings by category so that I can narrow down results and find my missing item."_#
+_"As a user who lost an item, I want to filter listings by category so that I can narrow down results and find my missing item."_
 
 *Acceptance criteria:*
 
@@ -129,7 +129,7 @@
 [discrete]
 ===== _US.SEARCH.02: Search by keyword | ReqRef: <<REQ-SEARCH-F-02>>_
 
-[.changed]#_"As a user who lost an item, I want to filter listings by category so that I can narrow down results and find my item faster."_#
+_"As a user who lost an item, I want to filter listings by category so that I can narrow down results and find my item faster."_
 
 *Acceptance criteria:*
 
@@ -139,16 +139,16 @@
 |Keyword entered |Search executed |Matching reports are displayed.
 |===
 
-===== [.added]#_US.SEARCH.03: Identify item status clearly | ReqRef: <<REQ-SEARCH-F-03>>_#
+===== _US.SEARCH.03: Identify item status clearly | ReqRef: <<REQ-SEARCH-F-03>>_
 
-[.added]#_"As a user who lost an item, I want to clearly see whether a listing is still lost or has been found so that I can focus only on relevant reports."_#
+_"As a user who lost an item, I want to clearly see whether a listing is still lost or has been found so that I can focus only on relevant reports."_
 
-[.added]#*Acceptance criteria:*#
+*Acceptance criteria:*
 
 [cols="1,1,2",options="header,autowidth"]
 |===
 |Given |When |Then
-|[.added]#Listings displayed# |[.added]#User views results# |[.added]#Each listing clearly indicates lost or found status#
+|Listings displayed | User views results | Each listing clearly indicates lost or found status
 |===
 
 [discrete]
@@ -159,7 +159,7 @@
 |Story ID |Feature |ReqRef |Notes
 |[[US-SEARCH-01]]US-SEARCH-01 |F2.1 |<<REQ-SEARCH-F-01>> |Category filtering logic.
 |[[US-SEARCH-02]]US-SEARCH-02 |F2.2, F2.3 |<<REQ-SEARCH-F-02>> |Search and sorting.
-|[.added]#[[US-SEARCH-03]]US-SEARCH-03# |[.added]#F2.4, F2.5# |[.added]#<<REQ-SEARCH-F-03>># |[.added]#Report labelling (lost/found)#.
+|[[US-SEARCH-03]]US-SEARCH-03 |F2.4, F2.5 |<<REQ-SEARCH-F-03>> |Report labelling (lost/found).
 |===
 
 &#160;
@@ -194,7 +194,7 @@ _"As a user who lost an item, I want to contact the finder through institutional
 [discrete]
 ===== _US.CLAIM.02: Mark item as resolved | ReqRef: <<REQ-CLAIM-F-02>>_
 
-[.changed]#_"As a user who reported a lost item, I want to be able to mark an item as resolved so that others know it has been returned."_#
+_"As a user who reported a lost item, I want to be able to mark an item as resolved so that others know it has been returned."_
 
 *Acceptance criteria:*
 
@@ -205,11 +205,10 @@ _"As a user who lost an item, I want to contact the finder through institutional
 |===
 
 
-===== [.added]#_US.CLAIM.03: Verify ownership before returning an item | ReqRef: <<REQ-CLAIM-F-03>>_#
+===== _US.CLAIM.03: Verify ownership before returning an item | ReqRef: <<REQ-CLAIM-F-03>>_
 
-[.added]#_"As a user who found an item, I want guidance on how to verify ownership so that I can return it to the correct person."_#
+_"As a user who found an item, I want guidance on how to verify ownership so that I can return it to the correct person."_
 
-[.added]
 [cols="1,1,2",options="header,autowidth"]
 |===
 |Given |When |Then
@@ -224,7 +223,7 @@ _"As a user who lost an item, I want to contact the finder through institutional
 |Story ID |Feature |ReqRef |Notes
 |[[US-CLAIM-01]]US-CLAIM-01 |F3.1 |<<REQ-CLAIM-F-01>> |Secure communication.
 |[[US-CLAIM-02]]US-CLAIM-02 |F3.3 |<<REQ-CLAIM-F-02>> |Lifecycle transition.
-|[.added]#[[US-CLAIM-03]]US-CLAIM-03# |[.added]#F3.2# |[.added]#<<REQ-CLAIM-F-03>># |[.added]#Ownership verification guidance.#
+|[[US-CLAIM-03]]US-CLAIM-03 |F3.2 |<<REQ-CLAIM-F-03>> |Ownership verification guidance.
 |===
 
 &#160;
@@ -257,16 +256,16 @@ _"As a mobile user, I want the interface to be responsive so that I can use it o
 |===
 
 [discrete]
-===== [.added]#_US.UX.02: Understand status without relying on color | ReqRef: <<REQ-UX-NF-02>>_#
+===== _US.UX.02: Understand status without relying on color | ReqRef: <<REQ-UX-NF-02>>_
 
-[.added]#_"As a color-blind user, I want status indicators to include labels or icons so that I can understand them properly."_#
+_"As a color-blind user, I want status indicators to include labels or icons so that I can understand them properly."_
 
-[.added]#*Acceptance criteria:*#
+*Acceptance criteria:*
 
 [cols="1,1,2",options="header,autowidth"]
 |===
 |Given |When |Then
-|[.added]#Listings displayed# |[.added]#User views status# |[.added]#Status is understandable without relying on color alone#
+|Listings displayed |User views status |Status is understandable without relying on color alone
 |===
 
 [discrete]
@@ -276,7 +275,7 @@ _"As a mobile user, I want the interface to be responsive so that I can use it o
 |===
 |Story ID |Feature |ReqRef |Notes
 |[[US-UX-01]]US-UX-01 |F4.3 |<<REQ-UX-NF-01>> |Responsive design rule.
-|[.added]#[[US-UX-02]]US-UX-02# |[.added]#F4.2# |[.added]#<<REQ-UX-NF-02>># |[.added]#Accessibility for the visually impaired.#
+|[[US-UX-02]]US-UX-02 |F4.2 |<<REQ-UX-NF-02>> |Accessibility for the visually impaired.
 |===
 
 &#160;

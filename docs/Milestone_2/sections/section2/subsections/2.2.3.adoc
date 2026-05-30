@@ -2,7 +2,7 @@
 
 This section defines functional requirements that arise directly from the lost-and-found domain described in the narrative. Each requirement is grounded in domain properties such as delayed reporting, distributed custody, ownership uncertainty, and the need for structured matching and verification.
 
-[.changed]
+
 ===== Reporting Requirements
 
 [discrete]
@@ -62,7 +62,7 @@ Reports originate from identifiable domain actors (loser or finder), and ownersh
 
 * [[REQ-REPORT-F-07]]REQ-REPORT-F-07: The system must require a registered UPRM community member to create a **Report** for a **Found Item**.
 
-[.changed]
+
 ===== Search and Discovery Requirements
 
 [discrete]
@@ -87,7 +87,7 @@ Items lack unique identifiers and are described using non-standard, free-form la
 
 * [[REQ-SEARCH-F-03]]REQ-SEARCH-F-03: The system must present **Reports** in a form that enables comparison between **Lost Item Reports** and **Found Item Reports** to support **Matching**.
 
-[.changed]
+
 ===== Matching and Tracking Requirements
 
 [discrete]
@@ -117,7 +117,7 @@ The individual who lost an item needs visibility into the recovery process.
 
 * [[REQ-MATCH-F-04]]REQ-MATCH-F-04: The system must provide visibility of the current state of a **Report** to its associated owner.
 
-[.changed]
+
 ===== Claim Verification and Recovery Requirements
 
 [discrete]
@@ -148,7 +148,7 @@ False claims may occur due to non-unique items and public visibility of reports.
 
 * [[REQ-CLAIM-F-03]]REQ-CLAIM-F-03: The system must transition a **Report** from **Active** to **Returned** upon successful recovery.
 
-[.changed]
+
 ===== Closure Requirements
 
 [discrete]
@@ -177,7 +177,7 @@ Inactive reports must not interfere with ongoing recovery efforts but remain acc
 
 * [[REQ-CLOSE-F-05]]REQ-CLOSE-F-05: The system must distinguish non-active reports from **Active** reports in all retrieval and search results.
 
-[.changed]
+
 ===== Administrative Oversight Requirements
 
 *Domain basis*:  
@@ -191,7 +191,7 @@ Reports may contain incorrect, misleading, or inappropriate content and require 
 
 * [[REQ-ADMIN-F-03]]REQ-ADMIN-F-03: The system must support administrative override of report states in cases of dispute or misuse.
 
-[.changed]
+
 ===== Accessibility and Usability Requirements
 
 *Domain basis*:  

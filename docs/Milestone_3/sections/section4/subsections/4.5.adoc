@@ -1,0 +1,248 @@
+=== *Requirements Quality Assurance*
+
+==== File Upload and Storage Architecture for the Lost and Found System
+:author: Abby Gotay Almonte
+
+===== Introduction
+
+The Lost & Found Platform relies heavily on visual evidence to facilitate item identification and verification. Users upload images when reporting lost or found items, making file upload and storage a critical architectural component. A well-designed file upload system enhances trust, improves matching accuracy, and supports the verification workflows that are central to the platform's mission of returning lost items to their rightful owners.
+
+This analysis examines the domain aspects, technical considerations, and integration points for file uploads within the Lost and Found system, with a focus on creating a scalable, secure, and maintainable architecture.
+
+===== Domain Aspects of File Uploads
+
+In the Lost and Found domain, uploaded files—primarily images—serve several essential purposes:
+
+* **Visual Evidence**: Photos provide tangible proof that an item exists and matches the description in a report.
+* **Identification Aid**: Distinctive visual features (scratches, stickers, wear patterns) help owners confirm ownership during claim verification.
+* **Trust Building**: Publicly visible images in listings increase confidence that reports are genuine.
+* **Administrative Reference**: Staff and moderators use images to verify matches and resolve disputes.
+
+The file upload process integrates with key domain workflows:
+
+* **Lost Item Reporting**: Owners upload photos from their perspective, showing identifying marks.
+* **Found Item Reporting**: Finders capture the item as discovered, including context and condition.
+* **Claim Verification**: Comparison of uploaded images helps validate ownership claims.
+* **Dispute Resolution**: Historical images provide evidence for contested claims.
+
+===== Technical Architecture Considerations
+
+===== Storage Strategy
+
+The system must choose between several storage approaches:
+
+* **Cloud Object Storage** (Recommended): Services like AWS S3, Google Cloud Storage, or Azure Blob Storage offer scalability, durability, and built-in CDN integration. This approach separates storage from application servers and simplifies backup management.
+
+* **Local Server Storage**: Storing files on the application server's filesystem is simpler initially but lacks scalability and redundancy. This approach may suffice for small-scale deployments but becomes problematic as usage grows.
+
+* **Hybrid Approach**: Critical metadata in the database with file references, while actual files reside in cloud storage.
+
+===== File Organization
+
+A logical directory structure improves management and retrieval:
+
+```mermaid
+graph TD
+    A[/uploads/] --> B[year/]
+    B --> C[month/]
+    C --> D[report_id/]
+    D --> E[original/]
+    D --> F[thumbnail/]
+    D --> G[medium/]
+    C --> H[temp/]
+    
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#f3e5f5
+    style D fill:#f3e5f5
+    style E fill:#e8f5e8
+    style F fill:#e8f5e8
+    style G fill:#e8f5e8
+    style H fill:#fff3e0
+```
+
+* **Naming Convention**: Use UUIDs for filenames to prevent collisions and information leakage (e.g., `550e8400-e29b-41d4-a716-446655440000.jpg`).
+* **Metadata Storage**: Store file metadata (original filename, MIME type, size, upload timestamp, uploader
+  * **Medium** (800×600): For detailed view
+  * **Original**: Preserved for verification purposes
+* **Security Scanning**: Scan uploaded files for malware or malicious content.
+
+===== Security Considerations
+
+* **File Type Validation**: Validate both file extension and MIME type to prevent upload of executable files.
+* **Size Limits**: Enforce reasonable limits to prevent denial-of-service attacks.
+* **Access Control**: Implement proper authentication and authorization for file access.
+* **Content Delivery**: Serve images through CDN with appropriate caching headers.
+* **Data Privacy**: Consider blurring or redacting sensitive information (faces, ID cards) in publicly accessible images.
+
+===== Integration with the Broader System
+
+===== Database Relationships
+
+In a Supabase-based architecture, file metadata is stored in database tables while the actual files are managed through Supabase Storage. This separation allows for efficient querying of metadata while leveraging Supabase's built-in file storage capabilities.
+
+**File Metadata Table Concept**:
+The system maintains a table (e.g., `uploaded_files`) that stores metadata about each uploaded file, including:
+* Unique identifier (UUID)
+* Reference to the associated report
+* Original filename and MIME type
+* File size and upload timestamp
+* Uploader reference
+* Public/private visibility flag
+* Storage path reference within Supabase Storage
+
+**Relationship Management**:
+* **Foreign Key Relationships**: Files are linked to specific reports and users through foreign key constraints, ensuring data integrity.
+* **Soft Delete Pattern**: Instead of physically deleting records, a `deleted_at` timestamp or `is_deleted` flag can be used to maintain referential integrity while supporting audit requirements.
+* **Audit Trail**: Supabase's built-in Row Level Security (RLS) policies and audit logging capabilities can track file access and modifications.
+
+**Supabase Storage Integration**:
+Files are stored in Supabase Storage buckets organized by report ID and date, with automatic URL generation for secure access. The storage path in the metadata table points to the file's location within Supabase Storage.
+
+===== API Design
+
+RESTful endpoints for file operations:
+
+* `POST /api/reports/{id}/uploads` - Upload new files
+* `GET /api/uploads/{id}` - Retrieve file metadata
+* `GET /api/uploads/{id}/content` - Download file content
+* `DELETE /api/uploads/{id}` - Remove a file (with authorization checks)
+
+===== Performance Optimization
+
+* **CDN Integration**: Use a content delivery network for global image distribution.
+* **Lazy Loading**: Load images only when they enter the viewport.
+* **Progressive Enhancement**: Serve lower-quality images first, then enhance.
+* **Caching Strategy**: Implement appropriate cache headers (ETag, Last-Modified).
+
+===== Backup and Retention Policies
+
+* **Regular Backups**: Include uploaded files in system backups.
+* **Retention Periods**: Define policies for how long files are kept (e.g., 1 year after report closure).
+* **Compliance**: Ensure storage practices comply with institutional data policies.
+
+===== Domain Attribute Analysis
+
+Applying the domain attribute framework to file uploads:
+
+* **Continuity/Discreteness**: Uploaded files are *discrete* phenomena—each file is a distinct entity with specific properties. The upload event itself is a discrete state transition triggered by user action.
+
+* **Statics/Dynamics**: 
+  - *Dynamic inert*: Files change only when explicitly uploaded or deleted by users.
+  - *Static*: Once uploaded, file content remains unchanged unless explicitly replaced.
+
+* **Tangibility**: Digital files are *intangible precise*—they exist as exact byte sequences without physical manifestation, yet they represent tangible real-world items.
+
+* **Dimensionality**: 
+  - *Zero-dimensional*: Individual files are atomic values.
+  - *One-dimensional*: Collections of files associated with a report form ordered sequences.
+  - *Multi-dimensional*: The relationship between files, reports, users, and verification workflows creates a graph structure.
+
+===== Example Implementation Flow
+
+1. **User initiates upload** during report creation or editing.
+2. **Frontend validates** file size and type before transmission.
+3. **Backend receives** file, performs security checks, and generates unique identifier.
+4. **Image processing** creates multiple versions for different use cases.
+5. **Metadata stored** in database with reference to the report.
+6. **File stored** in cloud storage with proper access controls.
+7. **URLs returned** to frontend for display.
+
+===== Conclusion
+
+---
+---
+==== Quality Assurance Audit of the Domain Description
+:author: Tasnim Said Khader
+
+==== Introduction
+To ensure a consistent and reliable domain theory, a quality assurance audit was performed on the collected *Domain Description Units (DDUs)* obtained during domain acquisition. The audit focused on identifying inconsistencies, contradictions, incomplete assumptions, and differences between stakeholder perspectives.
+
+The inspection specifically searched for situations in which different sources implied both a property *P* and its opposite (*not P*), creating inconsistencies that required resolution. Conflicts were analyzed according to their stakeholder origin, facet, and trustworthiness.
+
+==== Audit Method
+
+The audit process involved:
+
+* Reviewing domain description units collected from narratives, brainstorming sessions, personas, and stakeholder assumptions.
+* Comparing statements originating from different stakeholder perspectives.
+* Identifying contradictory or incomplete domain properties.
+* Evaluating the trustworthiness of the sources involved.
+* Establishing a unified domain rule to resolve inconsistencies and strengthen the domain theory.
+
+==== Conflict Analysis
+
+[cols="1,2,2,2,3",options="header"]
+|===
+|Conflict ID
+|Contradictory Properties (P vs not P)
+|Stakeholder / Facet Source
+|Trustworthiness Evaluation
+|Resolution
+
+|C1
+|*P:* A found item remains with the **Finder** until returned.
+*not P:* A found item is transferred to a designated **Holder** or office.
+|Students (finder perspective) vs institutional assumptions (custody perspective)
+|Student narratives are moderately trustworthy for describing observed behavior but limited to individual experiences. Institutional assumptions are more trustworthy for describing recurring campus practices.
+|A found item may temporarily remain with the **Finder**, but can also be transferred to a **Holder** or **Custody Location**. The domain narrative will represent both as valid custody paths.
+
+|C2
+|*P:* Items may remain indefinitely until claimed.
+*not P:* Items become unavailable after a limited period.
+|Owner expectations vs practical custody assumptions
+|Owner expectations are trustworthy regarding desired outcomes but less reliable for operational realities. Custody assumptions are more trustworthy for long-term handling constraints.
+|The concept of a **Holding Period** is introduced. Items remain retrievable for a limited duration, after which they become **Unclaimed Items**.
+
+|C3
+|*P:* Anyone finding an item may return it directly to the **Owner**.
+*not P:* Certain items require mediated handling or verification before return.
+|Finder perspective vs safety and accountability concerns
+|Finder experiences are trustworthy for informal interactions. Accountability concerns are more trustworthy for describing handling of sensitive or high-value belongings.
+|Direct return is possible in some situations, but **Claim Verification** becomes necessary when ownership is uncertain or the item contains identifying or sensitive information.
+
+|C4
+|*P:* Communication about found items occurs through personal interactions only.
+*not P:* Communication may involve offices, instructors, organizations, or public notices.
+|Student experiences vs broader domain observation
+|Personal experiences are trustworthy but incomplete. Broader observations better represent variation in communication channels.
+|The domain narrative recognizes multiple communication channels with varying reach and reliability, influencing return likelihood.
+|===
+
+==== Incommensurate Stakeholder Perspectives
+
+Several stakeholder perspectives were found to be partially incommensurate, meaning they described the same phenomenon from incompatible viewpoints:
+
+* **Owners** emphasize rapid and successful return of belongings.
+* **Finders** emphasize convenience, effort, and uncertainty about responsibility.
+* **Holders** prioritize accountability, temporary custody, and consistency in handling.
+* **Administrative perspectives** emphasize reliability, fairness, and prevention of disputes.
+
+Rather than treating one perspective as universally correct, the domain theory incorporates all perspectives where they represent valid real-world behavior.
+
+==== Trustworthiness Assessment
+
+Trustworthiness was evaluated according to:
+
+* *Directness of experience* — whether the stakeholder personally experiences the phenomenon.
+* *Operational relevance* — whether the stakeholder routinely interacts with the process.
+* *Scope of observation* — whether the perspective reflects isolated cases or recurring domain patterns.
+
+As a result:
+
+* **Student experiences** were considered highly valuable for understanding loss and discovery events, but limited for long-term custody practices.
+* **Custody and administrative assumptions** were considered more reliable for handling, retention, and verification behaviors.
+* **Cross-source agreement** increased confidence in recurring domain concepts.
+
+==== Final Unified Domain Rules
+
+The audit resulted in the following consistent domain rules:
+
+* A Found Item may remain with the Finder or be transferred to a Holder or Custody Location.
+* A Holding Period exists, after which an item may become an Unclaimed Item.
+* Claim Verification is required when ownership is uncertain or direct identification is insufficient.
+* Multiple communication channels exist and vary in effectiveness, influencing the probability of item return.
+* The likelihood of successful return depends on communication reach, timing, identifying characteristics, and temporary custody conditions.
+
+These rules will be incorporated into the official domain narrative and terminology to ensure consistency across future requirements and design activities.
+---

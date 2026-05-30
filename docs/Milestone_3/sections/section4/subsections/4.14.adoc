@@ -1,0 +1,331 @@
+=== *Modeling What Could Go Wrong: Risk Analysis on Goal Models*
+
+==== Risk Analysis for the Lost & Found System
+:author: Fabian Acevedo (@FabianAcevedo1)
+
+The Lost & Found system allows users with UPRM accounts to report lost items, search reports, and contact other users to recover their items.
+Since the app involves user-generated content, personal contact information, and file uploads, there are several risks that may arise and affect
+the reliability, usability, and security of the platform. This document identifies possible risks, evaluates their likelihood and impact
+and provides mitigation strategies.
+
+===== Incorrect or False Reports
+Likelihood: High
+Impact: Medium
+A user may submit a report with incorrect information about an item (wrong location, description, or fake report).
+
+Mitigation Strategy:
+- Require structured input fields when creating a report
+- Allow users to update or delete reports
+- Include report timestamps and categories to help with verification
+
+===== Malicious File Uploads
+Likelihood: Medium
+Impact: High
+A user could try to upload non-image files like a .exe or .mp3 where an image should go.
+
+Mitigation Strategy:
+- Restrict accepted file formats to .png and .jpeg
+- Implement file validation in both frontend and backend
+
+===== Unauthorized Access to Contact Information
+Likelihood: Medium
+Impact: High
+Users without a UPRM account could attempt to access the contact information of report creators.
+
+Mitigation Strategy:
+- Implement a View Only mode for users without a UPRM account
+- Hide user contact information unless the viewer has a UPRM account
+- Require login with a verified UPRM account to interact with reports
+
+===== Report Status Inconsistency
+Likelihood: Medium
+Impact: Medium
+A report may incorrectly remain marked as “Lost” even after the item has been claimed or returned.
+
+Mitigation Strategy:
+- Provide clear status categories (Lost, Claimed, Returned)
+- Ensure backend updates are synchronized with the UI
+
+===== Duplicate Reports
+Likelihood: High
+Impact: Low
+Multiple users may submit reports for the same item, causing confusion.
+
+Mitigation Strategy:
+- Provide tags and search features to check existing reports
+- Encourage detailed descriptions and images
+
+---
+
+==== Obstacle Analysis
+:author: Naedra Feliciano
+
+===== Main Goals and subgoals derived from the main goal:
+====== *Goal 1* :Successful Report Creation
+*Subgoals:*
+
+- Users can report lost or found items
+- Users can write item descriptions
+- Users can upload images of the items(optional)
+- Users can input important report details such as: location, date, item category
+- Reports are saved and submitted without complications
+
+*Goal Negation:*
+    Reports are not successfully created
+
+====== Simple Goal model
+
+Obstacle models as goal-anchored fault trees(Format Extracted/Inspired from class notes Chapter 9, page 30 )
+
+image::Obstacle-models-as-goal-anchored-fault-trees.png[ Simple obstacle model as goal anchored trees, align=center, pdfwidth=80%]
+_Figure 4.14.1. -  Simple obstacle model as goal anchored trees._
+
+
+====== Obstacle Analysis
+|===
+|*Obstacle*| *Likelihood*|*Severity*| *Description*
+|Incomplete item descriptions
+|High
+|Medium 
+|Missing details reduce matching accuracy 
+
+|Users upload inappropriate  images
+|High
+|High
+|Images may be unrelated, blurry or offensive
+
+|Users abandon report creation before submission
+|Medium
+|Medium
+|Reports never completed or saved in the system
+
+
+
+|Incorrect item category selection
+|Medium
+|Medium
+|Items become harder to search and match accurately
+
+|Server failure during submission
+|Low
+|High
+|Reports may not be stored properly
+
+|Duplicate reports
+|Medium
+|High
+|Multiple listings may confuse and reduce efficiency 
+
+|Users enter false information
+|Low-Medium
+|High
+|Fake reports reduce system trust and safety
+
+|Missing description, location or date information
+|Medium
+|High
+|Matching lost or found items becomes difficult
+|===
+
+====== Countermeasures for major obstacles
+a) Obstacle: Incomplete item descriptions
+Category: Inaccuracy Obstacle
+Countermeasures:
+
+- Require mandatory description fields and provide examples or templates for users
+
+b) Obstacle: Users upload inappropriate images
+Category: Threat Obstacle
+Countermeasures:
+
+- Implement image moderation, file validation, reporting mechanisms, admin reviews and deletion of inappropriate posts
+
+c) Obstacle: Users abandon report creation before submission
+Category: Dissatisfaction Obstacle
+Countermeasures:
+
+- Enable auto save drafts and simplify the reporting interface
+
+d) Obstacle: Incorrect item category selection
+Category:Inaccuracy Obstacle
+Countermeasures:
+
+- Provide predefined categories with  clear suggestions 
+
+e) Obstacle: Server failure during submission
+Category:Hazard Obstacle
+Countermeasures:
+
+- Use backup storage and confirmation messages
+
+f) Obstacle: Duplicated reports
+Category:Misinformation Obstacle
+Countermeasures:
+
+- Detect similar reports using item details and notify users before submission
+
+g) Obstacle: Users enter false information
+Category: Threat Obstacle
+Countermeasures:
+
+- Require authentication with university credentials and allow report verification
+
+h) Obstacle: Missing description, location, or date
+Category: Misinformation Obstacle
+Countermeasures:
+
+- Make critical fields mandatory before submission
+
+====== *Goal 2* : Secure and Reliable user access:
+*Subgoals:*
+
+- Users can authenticate with university(uprm) credentials
+- Unauthorized access is prevented
+- User data and sensitive information remains private
+- Platform remains available during peak usage
+- Reports are stored reliably. 
+
+
+*Goal Negation:*
+    Unauthorized users gain access and sensitive user data becomes compromised
+
+
+
+====== Obstacle Analysis
+|===
+|*Obstacle*| *Likelihood*|*Severity*| *Description*
+
+|Weak password security
+|Medium
+|High
+|User accounts may become compromised or may be easy to hack
+
+|Unauthorized system access
+|Medium
+|High
+|Attackers or non authorized people may access sensitive data
+
+|Server overload during peak usage
+|Medium
+|High
+|System becomes slow or unavailable
+
+|Data breach or privacy leak
+|Low
+|High
+|Sensitive user information may be exposed
+
+|Authentication service failure
+|Low
+|High
+|Users cannot log into the platform
+
+|===
+
+====== Countermeasures for major obstacles
+
+a) Obstacle:Weak password security
+Category: Threat Obstacle
+Countermeasures:
+
+- Enforce strong password policies and secure authentication protocols such as multi-factor authentication
+
+
+b) Obstacle:Unauthorized system access
+Category: Threat Obstacle
+Countermeasures:
+
+- Implement role-based access control and secure login validation
+
+c)Obstacle: Server overload during peak usage
+Category: Hazard Obstacle
+Countermeasures:
+
+- Use scalable cloud infrastructure and load balancing
+
+d) Obstacle: Data breach or privacy leak
+Category: Threat Obstacle
+Countermeasures:
+
+- Encrypt sensitive data and follow secure database practices
+
+e) Obstacle: Authentication service failure
+Category: Hazard Obstacle
+Countermeasures:
+
+- Add backup authentication methods and monitoring systems
+
+---
+
+==== [Lecture Topic Task]: Obstacle Based Verification of Lost Item Report Recovery
+:author: Victoria Miranda Osuna
+
+The goal of this task is to verify that the Lost & Found application can identify and handle obstacles 
+that may prevent users from successfully recovering reported items through goal obstacle analysis and 
+countermeasure goals. The main recovery goal is to ensure users can find and recover lost items by allowing 
+them to submit reports, connect matching lost and found items, communicate with other users, and mark 
+recovered items as completed within the system.
+
+To support this goal, the system must identify obstacles that could interfere with successful recovery. 
+Common obstacles include unclear or incomplete item descriptions, incorrect or inactive contact information, 
+outdated reports that remain active after recovery, and users failing to respond to notifications. These 
+obstacles can be refined into smaller failure conditions to show how they contribute to recovery failure. For 
+example, poor descriptions may lead to incorrect report matching, failed notifications may prevent communication
+ between users, outdated reports may create false recovery opportunities, and verification failures may result 
+ in incorrect ownership claims.
+
+Countermeasure goals are added to reduce the likelihood of recovery failure and improve system reliability. 
+These include sending reminders for inactive or unresolved reports, requiring mandatory fields during report 
+creation, verifying contact information before reports are published, and adding ownership confirmation 
+before items are marked as recovered. The final model is considered successful when the main recovery goal 
+and its obstacles are clearly identified, obstacles are refined into smaller causes, and each major obstacle
+ includes a corresponding countermeasure to improve the reliability of item recovery.
+
+
+---
+
+==== [Lecture Topic Task] Goal Diagram For Returning Lost Items
+:author: Andrés Cruz
+
+===== Introduction
+This diagram models the potential risks when returning an item and the countermeasures that can be taken to minimize the risks and increase the chances of an item being returned to its rightful owner.
+
+image::RiskModelingDiagram.png[Risk Modeling Diagram, align=center, pdfwidth=80%]
+
+===== Event
+* Name: Lost/Found Item Reported
+** Def: Item is registered into the system.
+
+* Name: Item Match Found
+** Def: User claims a reported item.
+
+* Name: Owner Notified
+** Def: Loser receives a claim notification when claiming an item or receives a notification when their item is found.
+
+===== Risks
+* Name: Incomplete Description
+** Def: Report lacks information such as description, location or category.
+
+* Name: Duplicate Report Filed
+** Def: Reports of the same type that cover the same lost item.
+
+* Name: Category Mismatch
+** Def: Categories are filed inconsistently or do not correspond to the item in the report.
+
+* Name: Missing Contact Info
+** Def: User does not have valid identification to verify identity before claiming an item.
+
+===== Countermeasures
+* Name: Mandatory Info
+** Def: Have fields such as title, location, description, and category as mandatory fields.
+
+* Name: Automatic Duplicate Detection
+** Def: Compare a new report to existing reports to find similarities before registering the new report.
+
+* Name: Guided Category Setting
+** Def: Have a structured category system such as a dropdown menu to avoid ambiguous and inconsistent categories.
+
+* Name: Claim Code Verification
+** Def: Provide a claim code once a user claims a lost item to verify claimer identity when retrieving a lost item.
+
+---

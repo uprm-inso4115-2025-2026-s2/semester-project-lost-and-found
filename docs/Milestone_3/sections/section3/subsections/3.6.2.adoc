@@ -1,0 +1,126 @@
+
+==== *Requirements Prioritization using AHP*
+
+This section applies the Analytic Hierarchy Process (AHP) to determine the relative priority of system features based on the evaluation criteria defined previously. The analysis focuses on Epics E1 through E5.
+
+===== Methodology
+
+For both Value and Cost, pairwise comparison matrices are constructed using the AHP scale. Each matrix is then normalized to compute the relative weight of each feature. These weights are used to evaluate trade-offs and support prioritization decisions.
+
+===== Team-Based Pairwise Comparison Process
+
+To ensure that prioritization reflects the perspective of the entire team, each member independently performed pairwise comparisons of the Epics (E1–E5) using the AHP scale. Each member considered the relative importance of the Epics according to their expertise and priorities. These comparisons were then aggregated using the arithmetic mean to produce a single consensus matrix for both Value and Cost.
+
+The following table summarizes the detailed contribution process of each team member:
+
+[cols="1,3,3", options="header"]
+|===
+| Team Member | Focus Area | Contribution Details
+
+| Diego Ríos
+| Usability & Security
+| Evaluated Epics based on user interaction ease and security requirements. Rated Accessibility higher for usability, Safe Claim higher for security, and Reporting as foundational but lower risk in comparison to security-critical features.
+
+| Leanelys González
+| System Value & Feasibility
+| Prioritized features that maximize recovery success and overall system value. Focused on minimizing implementation difficulty while keeping high-value features prominent, particularly Reporting (E1) and Search (E2).
+
+| Jose Valentin
+| Scalability & Growth
+| Considered long-term system performance and growth. Rated Search (E2) and Admin (E5) higher to support future system scalability. Safe Claim (E3) was evaluated considering future extensibility of verification mechanisms.
+
+| Jean Sánchez
+| Reliability & Architecture
+| Emphasized system reliability, maintainability, and integration complexity. Rated Reporting (E1) and Safe Claim (E3) higher due to their dependence on robust architecture. Lower weight was assigned to Accessibility (E4) and Admin (E5) as they are supportive but less critical for reliability.
+|===
+
+
+The final matrices presented in this section represent the aggregated result of all individual evaluations.
+
+===== Value Analysis
+
+.Value comparison matrix
+[%autowidth]
+|===
+| Epic | E1 (Reporting) | E2 (Search) | E3 (Safe Claim) | E4 (Accessibility) | E5 (Admin)
+
+| E1 | 1 | 3 | 5 | 7 | 7
+| E2 | 1/3 | 1 | 3 | 5 | 5
+| E3 | 1/5 | 1/3 | 1 | 3 | 3
+| E4 | 1/7 | 1/5 | 1/3 | 1 | 1
+| E5 | 1/7 | 1/5 | 1/3 | 1 | 1
+|===
+
+*Key Observations:*
+
+- Reporting (E1) is the most valuable feature, as it creates the foundational data required for all other system operations.
+- Search (E2) is also highly valuable, enabling users to locate relevant reports.
+- Safe Claim (E3) adds important security but depends on prior matching.
+- Accessibility (E4) and Admin (E5) are supportive features with lower direct impact on recovery.
+
+.Normalized values and Relative Values
+[%autowidth]
+|===
+| Epic | E1 | E2 | E3 | E4 | E5 | Relative Value
+
+| E1 | 0.55 | 0.63 | 0.52 | 0.41 | 0.41 | 0.50
+| E2 | 0.18 | 0.21 | 0.31 | 0.29 | 0.29 | 0.26
+| E3 | 0.11 | 0.07 | 0.10 | 0.18 | 0.18 | 0.13
+| E4 | 0.08 | 0.04 | 0.03 | 0.06 | 0.06 | 0.05
+| E5 | 0.08 | 0.04 | 0.03 | 0.06 | 0.06 | 0.05
+|===
+
+===== Cost Analysis
+
+.Cost Comparison Matrix
+[%autowidth]
+|===
+| Epic | E1 (Reporting) | E2 (Search) | E3 (Safe Claim) | E4 (Accessibility) | E5 (Admin)
+
+| E1 | 1 | 1/3 | 1/7 | 1/5 | 1
+| E2 | 3 | 1 | 1/3 | 1/3 | 3
+| E3 | 7 | 3 | 1 | 3 | 5
+| E4 | 5 | 3 | 1/3 | 1 | 3
+| E5 | 1 | 1/3 | 1/5 | 1/3 | 1
+|===
+
+*Key Observations:*
+
+- Safe Claim (E3) has the highest implementation cost due to complex validation and secure communication requirements.
+- Accessibility (E4) also incurs significant cost due to UI/UX and compliance considerations.
+- Reporting (E1) has the lowest cost, relying on straightforward data entry and storage.
+- Admin (E5) and Search (E2) fall within moderate cost ranges.
+
+.Normalized Values and Relative Costs
+[%autowidth]
+|===
+| Epic | E1 | E2 | E3 | E4 | E5 | Relative Cost
+
+| E1 | 0.06 | 0.04 | 0.07 | 0.04 | 0.08 | 0.06
+| E2 | 0.18 | 0.13 | 0.17 | 0.07 | 0.23 | 0.15
+| E3 | 0.41 | 0.39 | 0.50 | 0.62 | 0.38 | 0.46
+| E4 | 0.29 | 0.39 | 0.17 | 0.21 | 0.23 | 0.26
+| E5 | 0.06 | 0.04 | 0.10 | 0.07 | 0.08 | 0.07
+|===
+
+===== Value-Cost Trade-off Analysis
+
+Using the computed relative values and costs, a value-cost diagram is constructed to visualize feature prioritization.
+
+image::Value-Cost-Diagram-Epics.jpg[Value-Cost Diagram, align=center, pdfwidth=80%]
+_Figure 3.6.2. - 1. Value-Cost Trade-off Analysis_
+
+===== [.changed]#Final Prioritization#
+
+- *High Priority*
+  * E1: Reporting Lost and Found Items — highest value with lowest cost; core system functionality.
+
+- *Medium Priority*
+  * E2: Search and Discovery — high value with moderate cost; essential for usability.
+
+- *Low Priority*
+  * E5: Administrative Oversight — supports system integrity but not core recovery flow.
+  * E4: Accessibility and Usability — important but less critical for initial deployment.
+  * E3: Safe Claim and Ownership Verification — high value but also high cost; should be implemented incrementally.
+
+This prioritization supports a development strategy focused on delivering maximum impact with efficient use of resources.

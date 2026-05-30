@@ -1,0 +1,288 @@
+=== *Implementation*
+==== *Selected Fragments of the Implementation*
+
+[NOTE]
+====
+The following fragments are extracted from the current implementation using
+React (TypeScript) and Supabase. They are included only where natural language
+alone would make architectural or behavioral explanations unnecessarily
+abstract. Each fragment directly supports a design decision explained in the
+accompanying text.
+====
+
+===== Conceptual Diagrams: System Scope and Problem Framing
+
+[.added]#The following three diagrams complement the implementation fragments by
+clarifying the system's boundaries, external dependencies, and conceptual domain
+structure.#
+
+[.added]#**Diagram 1 (System Context)** shows that the Lost & Found platform
+delegates authentication to UPR's SSO provider via Supabase OAuth. This explains
+why the code fragment in the next section never handles passwords directly.#
+
+[.added]#**Diagram 2 (Problem Framing)** explicitly demarcates inside-scope
+responsibilities (report creation, ownership enforcement, basic matching) from
+out-of-scope features (ML matching, messaging, mobile apps). This clarifies
+why the implementation section does not include notification services or
+real-time features.#
+
+[.added]#**Diagram 3 (Conceptual ERD)** reveals the domain's core relationship:
+a `Match` connects a lost report to a found report. This supports the report
+submission and matching flow shown below—both report types share a common
+abstract `Report` class before specialization.#
+
+image::system-context-diagram.png[System Context Diagram, align=center, pdfwidth=80%]
+_Figure 2.3.0 - 1: System Context Diagram — The Lost & Found platform interacts with four external systems._
+
+image::problem-framing-diagram.png[Problem Framing Diagram, align=center, pdfwidth=80%]
+_Figure 2.3.0 - 2: Problem Framing Diagram — Explicit scope boundaries._
+
+image::conceptual-erd.png[Conceptual ERD, align=center, pdfwidth=80%]
+_Figure 2.3.0 - 3: Conceptual Entity-Relationship Diagram — Domain structure with Match as core business entity._
+
+===== Authentication via UPR SSO (Supabase OAuth)
+
+The system relies on institutional authentication. Rather than managing
+passwords internally, authentication is delegated to the university’s SSO
+provider through Supabase OAuth integration.
+
+This supports three domain requirements:
+
+- Institutional identity verification
+- No password storage within the application
+- Stateless session validation using JWT
+
+The following fragment shows the login initiation from the React client:
+
+[source,tsx]
+----
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL!,
+  import.meta.env.VITE_SUPABASE_ANON_KEY!
+);
+
+export async function signInWithUPR() {
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: "azure", // UPR SSO provider
+    options: {
+      redirectTo: `${window.location.origin}/auth/callback`
+    }
+  });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+}
+----
+
+This fragment clarifies that:
+
+- Authentication is fully delegated to the identity provider.
+- The frontend never handles raw credentials.
+- Supabase manages token issuance and session persistence.
+
+
+===== Report Creation Flow (Lost / Found)
+
+[.changed]#The section below describes how a validated report submission is handed to the persistence boundary. A report is the record of the reporting event, not the item itself; it captures the item description, the reporting actor, and the state needed for search, verification, and recovery.#
+
+When a user reports a lost or found item, the system must:
+
+1. Validate structured input.
+2. Persist the record.
+3. Associate it with the authenticated user.
+4. Store images separately.
+
+The following type hierarchy makes the lifecycle explicit:
+
+[source,tsx]
+----
+// Domain types
+type ReportType = "lost" | "found";
+type UUID = string;
+
+// Abstract superclass for all reports
+abstract class Report {
+  constructor(
+    public readonly type: ReportType,
+    public readonly title: string,
+    public readonly description: string,
+    public readonly categoryId: UUID,
+    public readonly location: string,
+    public readonly eventDate: Date, // not just a string
+    public readonly imageUrl?: URL // not just a string
+  ) {}
+}
+
+// Input representation (before persistence)
+class ReportInput extends Report {}
+
+// Persisted representation (after persistence)
+class ReportPersisted extends Report {
+  constructor(
+    type: ReportType,
+    title: string,
+    description: string,
+    categoryId: UUID,
+    location: string,
+    eventDate: Date,
+    imageUrl: URL | undefined,
+    public readonly id: UUID,
+    public readonly userId: UUID,
+    public readonly status: "active" | "resolved" | "expired",
+    public readonly createdAt: Date
+  ) {
+    super(type, title, description, categoryId, location, eventDate, imageUrl);
+  }
+}
+----
+
+[.changed]#The persistence adapter then maps the validated submission data to the database schema.#
+
+[source,tsx]
+----
+export async function createReport(input: ReportInput): Promise<ReportPersisted> {
+  // Authentication check
+  const {
+    data: { user },
+    error: authError
+  } = await supabase.auth.getUser();
+
+  if (authError || !user) {
+    throw new Error("User not authenticated");
+  }
+
+  // Prepare database record from the input instance
+  const dbRecord = {
+    type: input.type,
+    title: input.title,
+    description: input.description,
+    category_id: input.categoryId,
+    location: input.location,
+    event_date: input.eventDate.toISOString(), // serialize Date
+    image_url: input.imageUrl?.toString(),
+    user_id: user.id,
+    status: "active"
+  };
+
+  // Persist
+  const { data, error } = await supabase
+    .from("reports")
+    .insert([ dbRecord ])
+    .select()
+    .single();
+
+  if (error) {
+    throw error;
+  }
+
+  // Rehydrate a ReportPersisted instance
+  return new ReportPersisted(
+    data.type,
+    data.title,
+    data.description,
+    data.category_id,
+    data.location,
+    new Date(data.event_date),
+    data.image_url ? new URL(data.image_url) : undefined,
+    data.id,
+    data.user_id,
+    data.status,
+    new Date(data.created_at)
+  );
+}
+----
+
+These fragments demonstrate several architectural decisions:
+
+- Authentication context is retrieved at runtime.
+- Ownership is enforced at insertion (`user_id` bound to session).
+- Status lifecycle begins as `"active"`.
+- Supabase Row Level Security (RLS) policies enforce access constraints.
+- [.changed]#The class hierarchy separates *input* (no system fields) from *persisted* (with id, status, timestamps), making the storage boundary explicit.#
+- Precise types (`Date`, `URL`, `UUID`) replace generic strings, improving maintainability and domain alignment.
+
+Without this code, it would be difficult to concretely show how domain concepts such as *Reporting*, *Ownership*, and *Lifecycle State* are realized.
+
+[.added]#The behavior shown here is verified by the anchors in Section 3.2,
+especially <<TEST-REPORT-01>>, <<TEST-REPORT-02>>, <<TEST-REPORT-03>>,
+<<TEST-REPORT-04>>, <<TEST-REPORT-05>>, <<TEST-SEARCH-01>>,
+<<TEST-SEARCH-02>>, <<TEST-SEARCH-03>>, <<TEST-SEARCH-04>>, and
+<<TEST-SEARCH-05>>.#
+
+The diagram below illustrates the flow of data and control during report creation, highlighting the interaction between the React client and Supabase backend, as well as the enforcement of ownership and security policies:
+
+image::report-creation-flow.png[Report Creation Flow, align=center, pdfwidth=80%]
+_Figure 2.3.1. - 1. Report Creation Flow (React + Supabase)._
+
+[.changed]#As shown, the user initiates the report submission from the React client, which then interacts with Supabase to authenticate the user and insert the report data into the database. The ownership of the report is established through the `user_id` field, and RLS policies ensure that only the owner can modify their reports.#
+
+
+===== Row-Level Security (Ownership Enforcement)
+
+The domain requires that users can only edit their own reports. This is not
+enforced in the React client alone, but at the database layer through RLS.
+
+The following SQL policy fragment is deployed in Supabase:
+
+[source,sql]
+----
+CREATE POLICY "Users can update their own reports"
+ON reports
+FOR UPDATE
+USING (auth.uid() = user_id);
+----
+
+This fragment clarifies:
+
+- Authorization is enforced at the database level.
+- Client-side manipulation cannot bypass ownership rules.
+- Security logic is centralized and declarative.
+
+The policy operationalizes the abstract concept of *Claim Verification* and
+*Ownership Integrity* in the domain model.
+
+
+===== Image Upload Handling
+
+Images are optional but important for identification. Rather than storing
+binary data inside the reports table, images are stored in Supabase Storage
+and referenced via URL.
+
+[source,tsx]
+----
+export async function uploadImage(file: File): Promise<URL> {
+  const filePath = `reports/${crypto.randomUUID()}-${file.name}`;
+
+  const { error } = await supabase.storage
+    .from("report-images")
+    .upload(filePath, file);
+
+  if (error) throw error;
+
+  const { data } = supabase.storage
+    .from("report-images")
+    .getPublicUrl(filePath);
+
+  return new URL(data.publicUrl);
+}
+----
+
+This fragment illustrates:
+
+- Separation of structured metadata (PostgreSQL) and binary assets (Storage).
+- Use of UUID-based naming to avoid collisions.
+- Public URL generation without exposing storage internals.
+- Explicit `URL` return type, reinforcing that the result is a well-formed URL, not an arbitrary string.
+
+This design directly supports the domain behavior of *Matching* by enabling
+visual comparison while maintaining structural database normalization.
+
+===== ERD Source Appendix
+
+[.added]#The source below captures the same conceptual structure for the report creation flow, but in a more abstract form. It is included for completeness and to show the direct lineage from the conceptual ERD to the implemented code structure.#
+
+image::ER_model.png[Report Creation Flow, align=center, pdfwidth=80%]
+_Figure 2.3.1. - 2. Entity-Relationship Diagram for Reports._

@@ -1,0 +1,122 @@
+
+==== Reporting Interface Requirements 
+
+[cols="1,5,3,3", options="header"]
+|===
+| ID | Interface Requirement | Domain Phenomenon | Linked User Stories/Epics
+
+| [[IR001]]IR001
+| When an Owner reports a lost item, the system creates a Lost Item Report representing the real-world loss event. It initializes all descriptive attributes (category, description, location, time) using the Owner’s observation data, and any subsequent updates overwrite previous values while preserving historical entries.
+| The real-world phenomenon is the loss of an item by an Owner; internally represented as a Lost Item Report; updates occur whenever the Owner modifies the report, keeping historical versions.
+a| 
+- <<US-REPORT-01>>
+
+| [[IR002]]IR002
+| When a Finder reports a found item, the system generates a Found Item Report linked to the Finder. The report’s descriptive attributes reflect the initial observation and are replaced if the Finder edits the information, keeping a record of previous entries.
+| Discovery of an item by a Finder; internal representation as a Found Item Report; updates occur when the Finder edits attributes, preserving history.
+a| 
+- <<US-REPORT-02>>
+
+| [[IR003]]IR003
+| The system records category, description, location, and time directly from Owner or Finder input and updates the internal representation immediately whenever these attributes change.
+| Item characteristics observed by domain actors (Owner/Finder); internal representation mirrors input; modifications immediately update the internal record.
+a| 
+- <<US-REPORT-01>>
+- <<US-REPORT-02>>
+
+| [[IR004]]IR004
+| The system distinguishes public and private attributes. Public attributes display to all domain actors, while private attributes store only Owner-provided knowledge and restrict access to the Owner.
+| Ownership-specific knowledge; internal representation enforces public/private access; updates occur only from the Owner for private data.
+a| 
+- <<US-CLAIM-02>>
+
+| [[IR005]]IR005
+| Owners or Finders can correct or refine descriptive attributes; the system immediately replaces previous values and records modifications in the report’s history.
+| Evolving or incomplete knowledge; internal attributes update with new domain actor input while historical records maintain previous values.
+a| 
+- <<US-REPORT-01>>
+- <<US-REPORT-02>>
+
+| [[IR006]]IR006
+| The system locks immutable attributes (report type, creation timestamp) and rejects any attempted modifications, generating an error notification.
+| Immutable domain events (report type, creation time) are represented as unmodifiable fields; attempted changes are blocked and logged.
+a| 
+- <<US-REPORT-01>>
+- <<US-REPORT-02>>
+
+| [[IR007]]IR007
+| Each report maintains a state attribute reflecting the item’s real-world lifecycle. The system updates the state automatically according to domain events and confirmations from Owners or Finders.
+| Item lifecycle state in the domain; internal state updates mirror real-world transitions triggered by domain actor actions or system rules.
+a| 
+- <<US-CLAIM-02>>
+
+| [[IR008]]IR008
+| When an Owner confirms an item has been returned, the system updates the report state to Returned and records the timestamp and Owner identity.
+| Recovery event by Owner; internal state set to Returned; updates occur upon Owner confirmation.
+a| 
+- <<US-CLAIM-02>>
+
+| [[IR009]]IR009
+| The system enforces authentication for recovery confirmations, associates the confirming Owner with the report, and logs the event in the report’s history.
+| Trusted ownership confirmation; internal representation links authenticated Owner to the report and logs confirmation; updates only on valid authentication.
+a| 
+- <<US-CLAIM-01>>
+- <<US-CLAIM-02>>
+
+| [[IR010]]IR010
+| Administrators can manually transition a report to Closed; the internal state updates and records the timestamp and Administrator identity, preventing further modifications.
+| Abandonment of recovery effort; internal state updates to Closed; timestamp and Administrator identity recorded; further modifications blocked.
+a| 
+- <<US-ADMIN-01>>
+
+| [[IR011]]IR011
+| Reports automatically transition to Expired when the system detects inactivity beyond the defined period, updating the internal state and recording the timestamp.
+| Passage of time without activity; internal state changes to Expired automatically; timestamps logged.
+a| 
+- <<US-ADMIN-01>>
+
+| [[IR012]]IR012
+| The system records every state transition with timestamps and prevents deletion or alteration of historical state entries.
+| Temporal evolution of report state; internal representation stores all state changes immutably; updates reflect domain changes while preserving history.
+a| 
+- <<US-CLAIM-02>>
+
+| [[IR013]]IR013
+| [.changed]#All reports persist after reaching terminal states (Returned, Closed, Expired), allowing retrieval for audits or references without loss of information. Terminal reports remain available for reference even when they are removed from active search.#
+| [.changed]#Persistence of past events; terminal states prevent deletion; reports retrievable for reference while excluded from active recovery workflows.#
+a| 
+- <<US-ADMIN-01>>
+- <<US-CLAIM-02>>
+
+| [[IR014]]IR014
+| The system exposes internal report attributes to enable Owners or Finders to compare items with real-world observations and determine matches, updating search results dynamically.
+| Recognition of items by domain actors; internal searchable attributes; updates occur as observations change.
+a| 
+- <<US-SEARCH-01>>
+- <<US-SEARCH-02>>
+
+| [[IR015]]IR015
+| The system filters reports by category, location, date, and state based on criteria selected by domain actors, updating query results immediately.
+| Human filtering behavior by Owners/Finders; internal representation mirrors selection and updates results dynamically.
+a| 
+- <<US-SEARCH-01>>
+- <<US-SEARCH-02>>
+
+| [[IR016]]IR016
+| The system compares Lost Item Reports with Found Item Reports by evaluating shared descriptive attributes, presenting the comparison to domain actors and updating internal match states.
+| Matching across independent reports; internal comparison state updates when attributes change; results presented to domain actors.
+a| 
+- <<US-SEARCH-02>>
+
+| [[IR017]]IR017
+| The system mediates communication between Owners and Finders regarding a report, enforcing separation of public and private information and logging all interactions internally.
+| Communication between domain actors; internal logs and access controls; updates occur with each interaction.
+a| 
+- <<US-CLAIM-01>>
+
+| [[IR018]]IR018
+| [.changed]#Administrators modify or remove report representations directly, with all changes logged in the audit trail and internal state updated immediately. In this document, `remove` means taking a report out of active/public circulation, `archive` means retaining it for reference, and `delete` means permanent removal only if policy explicitly allows it.#
+| [.changed]#Administrative oversight; internal state reflects modifications/removals; audit logs preserve event history and preserve the distinction between removal, archiving, and deletion.#
+a| 
+- <<US-ADMIN-01>>
+|===

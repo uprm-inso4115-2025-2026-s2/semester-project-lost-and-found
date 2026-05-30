@@ -1,4 +1,4 @@
-[.added]
+
 ==== *Requirements Acquisition Resources and Documentation*
 
 [discrete]

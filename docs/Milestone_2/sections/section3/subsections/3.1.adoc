@@ -27,31 +27,25 @@ Ambiguous terms were clarified and generalized where possible to ensure consiste
 ==== Key Concepts Identified
 
 *Item*:
-[.changed]#Any physical object that can be lost or found.#
+Any physical object that can be lost or found.
 
 *Report*:
-[.changed]# A representation of an occurrence in which a person communicates that an item was either lost or found. This communication may take different forms, such as a note, a bulletin board post or a digital entry. It captures essential information about the event such as title, description, category, location, timestamp, and images.#
+ A representation of an occurrence in which a person communicates that an item was either lost or found. This communication may take different forms, such as a note, a bulletin board post or a digital entry. It captures essential information about the event such as title, description, category, location, timestamp, and images.
 
 The report is distinct from the item itself; the item exists in the real world, while the report is its system representation.
 
-[.added]#*People roles*:#
-[.removed]#*User*:#
-[.removed]#Interview notes distinguished between regular users and administrators. We generalized this into the concept of a *User*, representing any authenticated actor in the system.uprm-inso4115-2025-2026-s2/semester-project-lost-and-found#
+*People roles*:
 
-[.added]#*Finder*: person who found the item.#
-[.added]#*Owner*: person who lost the item.#
-[.added]#*Holder*: person responsible for keeping found items.#
+*Finder*: person who found the item.
+*Owner*: person who lost the item.
+*Holder*: person responsible for keeping found items.
 
-[.added]#The owner, finder and holder could be students, community member#
+The owner, finder and holder could be students, community member
 
-[.removed]#Subtypes include:#
-
-[.removed]#* Regular user (student/community member),#
-
-[.modified]#* Administrator: moderation authority.#
+[.modified]* Administrator: moderation authority.
 
 *Ownership*:
-[.changed]#Relationship between a report and the person who created it. It identifies who is responsible for the report on the domain.# [.removed]#Ownership is enforced at insertion time (user_id bound to session) and protected through Supabase Row Level Security (RLS).#
+Relationship between a report and the person who created it. It identifies who is responsible for the report on the domain.
 
 *Image Asset*:
 Raw notes frequently mentioned uploading photos separately from form data. This led to the abstraction of an *Image Asset* as a distinct concept stored in object storage.
@@ -59,47 +53,45 @@ Raw notes frequently mentioned uploading photos separately from form data. This 
 Images are associated with reports but managed independently at the infrastructure level.
 
 *Report Type*:
-[.changed]#Distinguishes reports as either “lost” or “found”. This distinction reflects important semantic differences in the domain:# 
+Distinguishes reports as either “lost” or “found”. This distinction reflects important semantic differences in the domain: 
 
-* [.added]#*Lost Item report*: typically submitted by someone who lost the item#
-* [.added]#*Found Item report*: typically submitted by someone who found the item#
+* *Lost Item report*: typically submitted by someone who lost the item
+* *Found Item report*: typically submitted by someone who found the item
 
-[.added]#Although both report types share common description elements(such as title, description, category), they differ in the type and reliability of available information. A finder typically knows where the item was found and can often provide images, while an owner may not know the exact location or be able to provide visual evidence.#
+Although both report types share common description elements(such as title, description, category), they differ in the type and reliability of available information. A finder typically knows where the item was found and can often provide images, while an owner may not know the exact location or be able to provide visual evidence.
 
-[.added]#Despite the differences, both are modeled under a single Report structure to maintain conceptual unity, while allowing certain attributes such as location or images to be optional.#
-[.removed]#This preserves structural simplicity while maintaining semantic clarity.#
+Despite the differences, both are modeled under a single Report structure to maintain conceptual unity, while allowing certain attributes such as location or images to be optional.
 
 *Status / Lifecycle State*:
-[.removed]#Notes such as “mark as resolved,” “archive old posts,” and “remove inappropriate reports” led to the abstraction of a *Lifecycle State*.#
 
-[.changed]#Reports evolve over time. A report begins as active and may transition to states such as:#
+Reports evolve over time. A report begins as active and may transition to states such as:
 
 * `resolved`
 * `archived`
 * `removed`
 
-[.changed]#This clarifies the changes in the outcome of the reported occurrence.#
+This clarifies the changes in the outcome of the reported occurrence.
 
 *Claim / Recovery Event*:
-[.changed]#Some narratives included situations such as "I contacted the person and got my item back." This was abstracted as a *Recovery Event*, representing the successful return of an item through coordination between the involved parties (e.g. finder and owner)#
-[.added]#It reflects the resolution of the occurrence associated with a report.#
+Some narratives included situations such as "I contacted the person and got my item back." This was abstracted as a *Recovery Event*, representing the successful return of an item through coordination between the involved parties (e.g. finder and owner)
+It reflects the resolution of the occurrence associated with a report.
 
 *Moderation*:
-[.changed]#Concerns about spam or misleading reports were generalized into the concept of *Moderation*, a privileged capability assigned to administrators. Moderation affects report lifecycle and visibility.#
+Concerns about spam or misleading reports were generalized into the concept of *Moderation*, a privileged capability assigned to administrators. Moderation affects report lifecycle and visibility.
 
 ==== Clarifications and Resolutions
 
 * “Lost item” and “Found item” are not separate entities; both are modeled as *Report* instances with different types.
 * “Post” and “Report” are treated synonymously, but “Report” is adopted as the formal domain term.
-* [.changed]#“Delete” is distinguished from “Archive.” Deletion represents removing a report from consideration(no longer active or visible). Permanent deletion is not essential in this domain. Archiving retains it for reference while marking it as no longer active. This preserves historical information and avoids losing potentially relevant data.#
+* “Delete” is distinguished from “Archive.” Deletion represents removing a report from consideration(no longer active or visible). Permanent deletion is not essential in this domain. Archiving retains it for reference while marking it as no longer active. This preserves historical information and avoids losing potentially relevant data.
 
 
-[.changed]#These clarifications prevent semantic confusion in later stages of analysis and development.#
+These clarifications prevent semantic confusion in later stages of analysis and development.
 
 ==== Relationships and Abstractions:
 
-* [.changed]#A *Person* can create one or more *Reports*.#
-* [.changed]#Each *Report* is associated with exactly one *Person*#
+* A *Person* can create one or more *Reports*.
+* Each *Report* is associated with exactly one *Person*
 * A *Report* may have multiple *Image Assets*.
 * A *Report* has one *Report Type* (`lost` or `found`).
 * A *Report* has one *Lifecycle State* at any time.
@@ -110,12 +102,11 @@ These relationships formalize previously informal interactions.
 
 ==== Reasoning and Process (Domain Level)
 
-[.changed]#This concept analysis is grounded in observations from the descriptive part such as narratives of lost and found items:#
+This concept analysis is grounded in observations from the descriptive part such as narratives of lost and found items:
 
-* [.changed]#Recurring mentions of reporting occurrences and coordinating recovery, led to formalizing *Reports*,*Image Assets* and *Claim/Recovery Event*#
-* [.changed]#Concerns about inappropriate or outdated posts led to modeling *Lifecycle State* explicitly  for reports,reflecting that reports evolve over time.#
-* [.removed]#Infrastructure discussions about Supabase Storage motivated separating *Image Asset* from *Report*.#
-* [.added]#Differentiating lost items reports from found items reports, highlighted the importance of *Report Type* and semantic distinctions#
-* [.added]#Roles mentioned in narratives(e.g. holder, person who lost an item, person who found an item), clarified *People Roles* and their responsibilities#
+* Recurring mentions of reporting occurrences and coordinating recovery, led to formalizing *Reports*,*Image Assets* and *Claim/Recovery Event*
+* Concerns about inappropriate or outdated posts led to modeling *Lifecycle State* explicitly  for reports,reflecting that reports evolve over time.
+* Differentiating lost items reports from found items reports, highlighted the importance of *Report Type* and semantic distinctions
+* Roles mentioned in narratives(e.g. holder, person who lost an item, person who found an item), clarified *People Roles* and their responsibilities
 
-[.changed]#Through this analysis, the *domain understanding* is validated by confirming that all key entities and events, roles and their relationships can realistically be captured.#
+Through this analysis, the *domain understanding* is validated by confirming that all key entities and events, roles and their relationships can realistically be captured.

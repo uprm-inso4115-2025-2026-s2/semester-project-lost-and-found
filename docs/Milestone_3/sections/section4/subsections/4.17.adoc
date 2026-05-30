@@ -1,0 +1,203 @@
+=== *Modeling System Operations*
+
+==== State Model Checking and Inventory Lifecycle
+:author: Adriel Bracero Gonzalez
+
+===== Executive Summary
+This lecture topic task connects *state model checking* to the Inventory and Item Lifecycle design for the Lost and Found application. State model checking is a formal verification approach used to examine whether a finite-state model satisfies required properties across all possible behaviors. In the context of our project, the inventory lifecycle can be treated as a state machine, where each item moves through states such as reported, cataloged, stored, pending_claim, claimed, and disposed. This document explains how model checking can help us detect invalid transitions, unreachable states, dead ends, and unsafe paths.
+
+===== Scope and Objective
+*Scope:* Model checking for the inventory lifecycle state machine, including item intake, custody logging, claim verification, restricted items, retention rules, and disposal.  
+
+*Objective:* Show how the inventory lifecycle can be modeled as a finite state system, analyze it for correctness, and identify practical improvements to the Lost and Found workflow.
+
+===== Why State Model Checking Matters
+State model checking is valuable because it can systematically explore all possible state transitions and identify behavior that violates the intended design. A state machine is a natural fit for a lost-and-found workflow because the process is step-based and rule-driven. Items should only move through valid states, and certain actions should be impossible unless specific conditions are met.
+
+For this project, model checking helps answer questions such as:
+- Can an item skip cataloging and go directly to claimed?
+- Can a disposed item be edited again?
+- Is there any state that can never be reached?
+- Can a claim be stuck forever in pending_claim?
+- Are there unsafe transitions for sensitive items?
+
+===== Source Legend
+The following source labels are used in the analysis below:
+
+- *INV* = inventory lifecycle research
+- *RISK* = risk assessment research
+- *STK* = stakeholder analysis and personas
+- *REQ* = requirements traceability
+- *SFR* = search / tagging / filtering research
+
+===== Inventory Lifecycle as a State Machine
+The inventory lifecycle can be represented as a finite state machine. The basic states are:
+
+- Reported (R)
+- Cataloged (C)
+- Stored (S)
+- Pending Claim (P)
+- Claimed (CL)
+- Disposed (D)
+
+A simple transition model is shown below.
+
+image::../../../../Images/transition_model.png[Inventory Lifecycle State Machine, width=800, align="center"]
+
+===== Transition Rules and Guards
+A transition rule describes when an item may move from one state to another. A guard is a condition that must be true before a transition is allowed.
+
+[cols="1,2,2",options="header"]
+|===
+|Transition |Allowed when |Example guard
+
+|Reported -> Cataloged
+|Staff has reviewed the report and item metadata is complete.
+|Item has title, description, photo, and found-at location.
+
+|Cataloged -> Stored
+|Storage label is assigned and custody log entry is created.
+|storage_location_id is not empty and actor has staff role.
+
+|Stored -> Pending Claim
+|An owner initiates a claim.
+|claim token is valid and item is not under legal hold.
+
+|Pending Claim -> Claimed
+|Verification succeeds and staff releases the item.
+|At least two proof checks are satisfied.
+
+|Stored -> Disposed
+|Hold period expires and disposal is approved.
+|expected_hold_until has passed and disposal approval exists.
+
+|Any non-terminal -> Hold / Review
+|Item is sensitive or suspicious.
+|sensitive_flag is true or abuse risk is detected.
+|===
+
+===== State-Checking Questions
+The model checker should test the following properties:
+
+1. *Safety property:* a disposed item must never be modified again.  
+2. *Safety property:* a claim cannot be completed without verification.  
+3. *Safety property:* restricted items cannot be released without approval.  
+4. *Liveness property:* a valid claim should eventually reach claimed or rejected, rather than remain stuck forever.  
+5. *Reachability property:* each intended state should be reachable under at least one valid path.  
+
+These properties are useful because they detect problems that are easy to miss in manual review, especially when multiple roles, rules, and exceptions interact.
+
+===== Possible Modeling Issues to Check
+State model checking can reveal a number of issues in the inventory lifecycle:
+
+- *Invalid transition:* a report going directly to claimed without cataloging or staff review.  
+- *Unreachable state:* a hold or review state that is defined but never entered by any rule.  
+- *Dead end:* a state that cannot progress, such as pending_claim with no verification or rejection path.  
+- *Unsafe path:* a sensitive item being released without extra approval.  
+- *Repeated mutation bug:* a disposed item still allowing edits or claim attempts.  
+
+===== Results Applied to the Lost and Found System
+[cols="1,2",options="header"]
+|===
+|Finding |Project impact
+
+|Invalid transitions must be blocked
+|The backend should enforce state transitions so the UI cannot bypass verification.
+
+|Pending claim needs a timeout or rejection path
+|Claims should not remain open forever; they need a staff review or expiry rule.
+
+|Sensitive-item holds need explicit rules
+|Security-sensitive items require a separate release path and more logging.
+
+|Disposed must be terminal
+|Once an item is disposed, the system should prevent further edits except administrative audit actions.
+
+|Every state needs a clear owner
+|The RACI model from the stakeholder lecture becomes more useful when each state has an accountable role.
+|===
+
+===== Practical Improvements from Model Checking
+If the state model exposes problems, the project can improve in at least two practical ways:
+
+1. *Backend enforcement of allowed transitions*  
+   The server can reject illegal status changes so only valid lifecycle paths are possible.
+
+2. *Verification and timeout rules for claims*  
+   Pending claims can be forced to either succeed, fail, or expire, preventing indefinite stuck states.
+
+3. *Separate handling for sensitive items*  
+   Items flagged as sensitive can move through a restricted branch with staff or security approval.
+
+4. *Auditability for terminal states*  
+   Claimed and disposed states can store final logs to support disputes or reviews.
+
+===== References
+- Alur, Rajeev, and Mihalis Yannakakis. "Model Checking of Hierarchical State Machines." University of Pennsylvania, https://www.cis.upenn.edu/~alur/Fse98.pdf. Accessed 2026-05-13.
+- "Model Checking." Stanford University, https://web.stanford.edu/class/cs357/lecture12.pdf. Accessed 2026-05-13.
+- Merz, Stephan. "Model Checking: A Tutorial Overview." University of Illinois at Urbana-Champaign, https://courses.grainger.illinois.edu/cs477/sp2018/resources/papers/model-checking-tutorial.pdf. Accessed 2026-05-13.
+
+
+==== Semi-Formal Reasoning with Use Case Constraints for Lost & Found Claim Validation
+:author: Fabian Acevedo
+
+This entry analyzes the claim validation workflow in the Lost & Found system using semi-formal reasoning techniques. The goal is to model how the system
+processes item claims and identify the key constraints that prevent invalid ownership assignments while keeping the experience simple for students and
+administrators.
+
+===== Actors Involved
+
+The following actors participate in the claim validation process:
+
+* *Claiming User* — A student or campus member who believes an item belongs to them and initiates a claim through the platform.
+* *System* — The Lost & Found application, which enforces business rules, generates recovery codes, and manages report status transitions.
+* *Administrator / Moderator* — A staff member at the Lost & Found office (library) who physically verifies the claim by matching the recovery code before releasing the item.
+
+===== Claim Validation Workflow
+
+The diagram below models the claim validation process as a UML activity diagram. Decision points are marked with diamond shapes and represent the constraints the system enforces at each stage.
+
+image::Claim_Validation.png[Claim Validation Activity Diagram, align=center, pdfwidth=85%]
+_Figure 4.17.2. - 1. UML Activity Diagram for the Claim Validation Workflow in the Lost & Found System._
+
+The workflow follows these steps:
+
+. The user opens a report marked as *Found* (Active status).
+. The user taps *Claim Item* and confirms the claim prompt (shown only the first time).
+. *Decision Point 1 — Report Type Check:* The system verifies the report is of type `FOUND`. Lost-type reports follow a different notification path and do not generate a recovery code at this stage.
+. *Decision Point 2 — Already Claimed Check:* The system checks if the report status is already `CLAIMED`. If so, and the requesting user matches `claimedBy`, the existing recovery code is returned without generating a new one.
+. *Decision Point 3 — Authenticated User Check:* The system requires the user to be authenticated. An anonymous session cannot initiate or complete a claim.
+. If all checks pass: the system transitions the report status to `CLAIMED`, generates a 6-digit recovery code via `getNewRecoveryCode()`, stores it in the database alongside the claiming user's email, and displays the code to the user.
+. The user presents the recovery code at the Lost & Found office. The administrator matches it against the stored code and releases the item, after which the status transitions to `RESOLVED`.
+
+===== Key Constraints Identified
+
+[cols="1,3", options="header"]
+|===
+| Constraint | Description
+
+| C1 — Report Type
+| Only reports of type `FOUND` generate a recovery code. `LOST`-type reports trigger an owner notification instead, since the finder is the one who submitted the report.
+
+| C2 — Single Active Claim
+| Once a report reaches `CLAIMED` status, no other user can initiate a new claim. The system returns the existing code only to the original claimant, preventing duplicate claims.
+
+| C3 — Authentication Required
+| The claiming action requires a valid authenticated session (`supabase.auth.getUser()`). Unauthenticated users cannot claim an item, protecting against anonymous abuse.
+
+| C4 — Code Immutability After Claim
+| After a recovery code is generated and saved, subsequent views of the code by the same claimant retrieve the stored value rather than generating a new one, ensuring the code the administrator holds matches what the user shows.
+
+| C5 — Status Transition Validity
+| The `Report` class enforces allowed transitions. `ACTIVE → CLAIMED` is valid; attempting to re-claim an already `RESOLVED` report is rejected at the model level.
+|===
+
+===== Connection to Semi-Formal Reasoning
+
+Semi-formal reasoning sits between natural language descriptions and fully formal mathematical specifications. Use case constraints, as covered in lecture, serve as semi-formal tools because they express system behavior with enough precision to guide implementation and testing without requiring full predicate logic.
+
+In this workflow, each decision point corresponds directly to a use case precondition or guard condition. For example, the guard _[report.type == FOUND]_ on the code-generation step is a semi-formal constraint: it is precise enough to be implemented as a conditional check in code (`report.getType() === "Found"`) but is expressed at the requirements level without formal notation.
+
+This approach supports better requirement analysis by making implicit assumptions explicit — for instance, the assumption that only the finder can post a `FOUND` report, and therefore only the claimant needs a code, was surfaced by modeling the workflow rather than discovering it during implementation.
+
+---

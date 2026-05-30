@@ -1,4 +1,4 @@
-[.added]
+
 ==== *Risk Mitigation and Countermeasures*
 
 Each countermeasure is justified based on its expected effectiveness in reducing the likelihood or impact of the associated risk while considering system usability and stakeholder needs. The following table summarizes the candidate countermeasures for each identified risk, along with their justification and expected outcomes.

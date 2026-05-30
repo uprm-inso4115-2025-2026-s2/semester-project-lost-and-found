@@ -1,5 +1,5 @@
 
-[.changed]
+
 ==== *Machine Requirements*
 
 .Hardware, Software, and Environmental Requirements

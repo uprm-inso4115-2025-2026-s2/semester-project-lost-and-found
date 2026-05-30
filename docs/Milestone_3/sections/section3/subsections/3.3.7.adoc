@@ -1,0 +1,34 @@
+
+==== *Requirements Acquisition Artifacts*
+
+[discrete]
+==== [.changed]#Formulate Domain Narratives for Key Lost and Found Activities#
+
+In accordance with the domain analysis process, raw domain description units must be abstracted into formal concepts and subsequently rewritten into a cohesive domain narrative. [.changed]#In accordance with the domain analysis process, raw domain description units must be abstracted into formal concepts and subsequently rewritten into cohesive domain narratives. Before describing key Lost and Found activities, we must establish the formalized domain terminology abstracted from the Lost and Found environment.#
+
+- *Property*: The abstract concept representing physical objects (e.g., phones, keys, water bottles) that are either lost or found.
+
+- [.changed]#*Actors*: Individuals participating in lost and found scenarios, including Finders (those who discover Property) and Owners (those who have lost Property).#
+
+- *Custodial Hubs*: The abstracted concept for designated physical locations where Property can be securely surrendered or claimed (e.g., Guardia Universitaria, Library Front Desk, Department Offices).
+
+- [.changed]#*Match Event*: A circumstance in which recovered Property appears to correspond to Property reported or believed to be missing.#
+
+===== [.changed]#Domain Narratives for Key Activities:#
+
+====== Workflow A: Reporting and Surrendering Found Property
+- [.removed]#*UI Interaction*: The user clicks the "Report Found Item" button, fills out a form specifying the item's category, location found, and photo. The user then selects a radio button indicating they will drop it off at Campus Security, and clicks "Submit".#
+
+- [.changed]#*Domain Narrative*:#
+[.changed]#A Finder encounters Property that appears to have been unintentionally left behind during normal campus activities. After determining that the Property may belong to another individual, the Finder transports the Property to an appropriate Custodial Hub. Custodial Personnel assume responsibility for safeguarding the Property and may document relevant characteristics such as its appearance, condition, and location of discovery. The Property remains under custodial responsibility until ownership can be established or other institutional procedures are followed.#
+
+
+====== Workflow B: Smart Match Notification and Claim Initiation
+- [.removed]#*UI Interaction*: A student receives a push notification saying "Potential Match Found!". They tap the notification, opening a detailed view of a found item currently located at the Library. They click the "Initiate Claim" button to alert the system they are on their way to pick it up.#
+
+- [.changed]#*Domain Narrative*:#
+[.changed]#An Owner becomes aware that Property is missing and begins searching for information regarding its whereabouts. At some point, information becomes available suggesting that Property with similar characteristics has been recovered and is being held at a Custodial Hub. The Owner travels to the Custodial Hub and participates in an ownership verification process by providing identifying information about the Property. If ownership is successfully established, custodial responsibility is transferred back to the Owner and the Property is returned.#
+
+====== [.added]#Workflow C: Long-Term Custody and Final Disposition of Property#
+
+*Domain Narrative*: Not all recovered Property is successfully claimed. Some items remain in custodial storage for extended periods due to the inability to identify or locate an Owner. During this period, Custodial Personnel maintain responsibility for safeguarding the Property and evaluating any ownership claims that may arise. If no legitimate Owner is identified before the established retention period expires, the Property may be transferred, donated, recycled, disposed of, or otherwise handled according to applicable institutional policies. This action concludes the custodial lifecycle of the Property.

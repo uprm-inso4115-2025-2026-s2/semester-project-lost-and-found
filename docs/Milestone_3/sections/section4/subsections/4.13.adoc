@@ -1,0 +1,231 @@
+=== *Modeling System Objectives with Goal Diagrams*
+
+==== [Lecture Topic Task] Social and Intentional Modeling with iStar 2.0
+:author: Lianette Alberto
+
+===== Introduction
+
+Modern systems are increasingly socio-technical, meaning they combine technology, human interaction, and organizational processes.
+
+Goal-Oriented Requirements Engineering (GORE) focuses on understanding why a system is needed before deciding how it should be built. One of the main frameworks used in GORE is iStar 2.0, which helps developers analyze stakeholder goals, tasks, resources, and dependencies.
+
+A Lost & Found platform at UPRM could benefit from these concepts by improving organization, communication, and user experience.
+
+===== What is GORE?
+
+Goal-Oriented Requirements Engineering (GORE) is a requirements engineering approach focused on identifying stakeholder goals and system motivations.
+
+Instead of only focusing on technical specifications, GORE analyzes:
+
+* User objectives
+* Stakeholder interactions
+* System purpose
+* Decision-making processes
+
+Benefits of GORE include improved communication, better planning, easier identification of requirements, and stronger decision-making.
+
+===== Socio-Technical Systems
+
+A socio-technical system combines technology with human interaction.
+
+Examples include:
+
+* Healthcare systems
+* Online shopping platforms
+* University management systems
+* Lost & Found platforms
+
+The Lost & Found platform is considered socio-technical because it depends on students, administrators, and digital communication working together effectively.
+
+===== What is iStar 2.0?
+
+iStar 2.0 is a goal-modeling framework used in Requirements Engineering to represent stakeholder intentions and dependencies.
+
+It helps analysts understand:
+
+* Who uses the system
+* What goals stakeholders have
+* How actors interact
+* Which resources are necessary
+* What dependencies exist
+
+===== Main Concepts of iStar 2.0
+
+Actors:: Entities that participate in the system.
+
+Goals:: Objectives actors want to achieve.
+
+Tasks:: Actions required to achieve goals.
+
+Resources:: Informational or physical elements needed for tasks.
+
+Qualities:: Desired characteristics such as security or usability.
+
+Dependencies:: Relationships where one actor relies on another.
+
+===== Applying iStar to the Lost & Found Platform
+
+The Lost & Found platform includes several actors such as students, administrators, finders, and the notification system.
+
+Students depend on the platform to report and recover items, while administrators depend on moderation tools to maintain safety and organization.
+
+Modeling these relationships helps developers better understand system requirements before implementation.
+
+===== Examples of Existing Lost & Found Platforms
+
+[cols="1,3", options="header"]
+|===
+| Platform
+| Main Features
+
+| Tile
+| Bluetooth-based item tracking and notifications
+
+| Apple Find My
+| GPS tracking and device location services
+
+| University Lost & Found Offices
+| Physical offices and social media announcements
+|===
+
+===== Benefits of Goal Modeling
+
+Goal modeling provides several benefits:
+
+* Improves organization and communication
+* Helps identify system requirements early
+* Supports better decision-making during planning
+* Creates a more user-centered system design
+
+===== Conclusion
+
+GORE and iStar 2.0 provide powerful tools for understanding socio-technical systems.
+
+Applying these concepts to a Lost & Found platform can improve communication, organization, reliability, and user experience.
+
+Overall, goal modeling supports better system planning and development.
+
+===== References
+
+* Dalpiaz, F., Franch, X., & Horkoff, J. iStar 2.0: A Guided Tour. 2016.
+* iStar 2.0 Presentation Materials.
+
+---
+
+==== [Lecture Topic Task]: Goal Refinement and Goal Diagrams
+:author: Victoria Miranda Osuna
+
+The goal is to analyze how goal refinement and goal diagrams can organize and model 
+the objectives of a Lost & Found platform while maintaining consistency between high 
+level stakeholder goals and lower level operational goals. High level objectives 
+include successfully recovering lost items, improving communication between users, 
+maintaining secure claim verification, and increasing platform reliability and trust. 
+These objectives can be represented through goal diagrams to show how different system 
+functions contribute to the overall platform purpose.
+
+Lower level goals such as item reporting, notifications, claim verification, and search
+ filtering support the platform’s main objectives. Accurate item reporting improves 
+ matching between lost and found items, while notifications keep users informed about recovery 
+ progress. Claim verification reduces false ownership claims, and search filters improve 
+ recovery efficiency. The analysis also examines conflicts between usability, security, and 
+ recovery efficiency goals. For example, faster recovery processes may reduce verification 
+ accuracy, while stronger verification procedures can slow recovery times. Simplified reporting
+  forms may collect insufficient information, and excessive notifications may overwhelm users.
+
+Why and how questioning techniques are used to refine broad platform goals into smaller 
+assignable sub goals. Questions such as “Why recover items quickly?” lead to goals focused on 
+improving user satisfaction, while “How to recover items quickly?” results in solutions like 
+automated notifications. Similarly, verifying ownership helps prevent fraudulent claims, and 
+requiring item descriptions or proof images supports that goal. Success is achieved when goal
+refinements clearly show relationships between high level and low level objectives, goal 
+diagrams demonstrate alternative refinement paths, conflicts between goals are documented, 
+and the refined sub goals contribute to effective item recovery and a better user experience.
+
+
+---
+
+==== [Lecture Topic Task] Goal Diagram For Returning Lost Items
+:author: Andres Cruz
+
+==== Introduction
+This goal diagram models the objectives of the Lost and Found platform relating to the process of returning an Item. The root goal, 'Lost Item Returned', represents the system's primary goal, ensuring that a found item is returned to its rightful owner. The diagram details the subgoals and necessary connections that lead to the fulfillment of the root goal.
+
+image::LostItemReturnedGoalDiagram.png[Lost Item Returned, align=center, pdfwidth=80%]
+
+==== Goals
+* Goal: Achieve [Lost Item Returned]
+** Def: Every registered found item must be eventually returned to its verified owner.
+** Category: Functional
+** Priority: Highest
+
+===== Or-Refined Goals
+* Goal: Achieve [Owner Claimed Item]
+** Def: For a lost report the owner must be notified whenever the item is found in order for them to retrieve their item.
+** Category: Functional
+** Priority: High
+** Assignment: Loser
+
+* Goal: Achieve [Item Reported Found by a Finder]
+** Def: For a found report the claimant must be able to identify their lost item and claim the item from the report in the system.
+** Category: Functional
+** Priority: High
+** Assignment: Finder, then Loser
+
+===== And-Refined Goals
+* Goal: Achieve [Item Registered to System]
+** Def: A found item must have its information registered into the system before matching or retrieval.
+** Category: Functional
+** Priority: Highest
+
+* Goal: Achieve [Owner Matched with Lost Item]
+** Def: An item must be matched with a claimer before a retrieval can occur.
+Category: Functional
+Priority: High
+
+* Goal: Achieve[Item Retrieved by Owner]
+** Def: A lost item must be physically handed to the claimant and the report be marked as closed.
+** Category: Functional
+** Priority: High
+
+* Goal: Achieve [Owner Identity Verified]
+** Def: A claimant's identity must be verified by staff before a handoff can occur.
+** Category: Security / Integrity
+** Priority: High
+** Assignment: Staff
+
+* Goal: Achieve [Item Handed Over to Owner]
+** Def: every claimed item must be handed over to the claimant.
+** Category: Functional
+** Priority: High
+** Assignment: Staff
+
+===== Leaf Goals
+* Goal: Achieve [Item Details Registered]
+** Def: Every registered lost item must have details such as description, title, location lost/found, and category recorded within the system.
+** Category: Functional
+** Priority: High
+** Assignment: Finder / Loser
+
+===== Soft Goals
+* Goal: Achieve [Item Image Included]    
+** Def: Every reported item within the system may have an image of the lost item included in the report.
+** Category: Functional
+** Priority: Medium
+** Assignment: Finder / Loser
+
+==== Refinements
+* Refinement: Lost Item Returned {Item Registered to System, Owner Matched with Lost item, Item Retrieved by Owner}
+** Type: AND-refinement
+** Tactic: Milestone - Each subgoal is a milestone on the path to the root goal
+** Argument: Satisfying all three subgoals is sufficient for LostItemReturned given the domain property that an item returned to its owner was registered, matched, and physically handed over.
+
+* Refinement: Owner Matched with Lost Item {Owner Claimed Item | Item Reported Found by Finder}
+** Type: OR-refinement
+** Tactic: Alternative Assignments - alternatives for different report types.
+** Argument: For different report types a different condition must be met so that the item is matched with its owner.
+
+* Refinement: Item Retrieved by Owner {Owner identity Verified, Item Handed Over to Owner}
+** Type: AND-refinement
+** Tactic: Milestone - Each subgoal is a milestone on the path to the root goal
+** Argument: All subgoals must be met in order for the item to be retrieved by its owner to ensure integrity.
+---

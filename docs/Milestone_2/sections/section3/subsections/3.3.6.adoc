@@ -1,4 +1,4 @@
-[.added]
+
 ==== *Stakeholder Documentation and Justification*
 
 [discrete]

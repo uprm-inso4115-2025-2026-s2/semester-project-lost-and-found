@@ -1,0 +1,181 @@
+
+==== *Stakeholder Documentation and Justification*
+
+[discrete]
+==== Example User Scenarios for the Lost & Found System
+
+This section describes example user interaction scenarios for the Lost & Found system. These scenarios illustrate common behaviors within the platform, including reporting lost items, posting found items, submitting claims, and reviewing claims.
+
+===== Introduction
+
+The Lost & Found system supports multiple types of user interactions related to reporting, searching, and recovering items. The following scenarios present common flows that help define how users and administrators are expected to interact with the system.
+
+image::use-case-diagram.png[Use Case Diagram, align=center, pdfwidth=80%]
+[.added]#_Use case diagram describing interactions between actors and the platform_#
+
+[.added]#The data flow diagram below adds
+value by showing how report information moves between actors, processes, and
+storage without repeating the scenario text.#
+
+image::dataflowdiagram.png[Data Flow Diagram, align=center, pdfwidth=80%]
+[.added]#_Data flow diagram showing information movement within the system_#
+
+===== [.changed]#Scenario 1: Reporting a Lost Item#
+
+*Actor:* User
+
+. A user logs into the Lost & Found platform.
+. The user selects "Report Lost Item."
+. The user enters item details such as description, location, and date lost.
+. The system saves the lost item report and makes it searchable.
+
+*Result:* The lost item is stored in the system and can later be matched with found items.
+
+image::Event-Trace-Report-Form.png[Use Case Diagram, align=center, pdfwidth=80%]
+[.added]#_Event trace diagram for submitting a report_#
+
+===== [.removed]#Scenario 2: Posting a Found Item#
+
+[.removed]#*Actor:* Finder (User)#
+
+. [.removed]#A user finds an item on campus.#
+. [.removed]#The user logs into the platform.#
+. [.removed]#The user selects "Post Found Item."#
+. [.removed]#The user enters details about the item and where it was found.#
+. [.removed]#The system publishes the found item listing.#
+
+[.removed]#*Result:* The found item becomes visible to users searching for lost items.#
+
+===== [.removed]#Scenario 3: Submitting an Item Claim#
+
+[.removed]#*Actor:* User#
+
+. [.removed]#A user searches the platform for a lost item.#
+. [.removed]#The user finds a listing that matches their item.#
+. [.removed]#The user submits a claim request.#
+. [.removed]#The system records the claim and sends it for review.#
+
+[.removed]#*Result:* The claim is stored in the system and awaits verification.#
+
+===== [.changed]#Scenario 2: Admin Reviews a Claim#
+
+*Actor:* Administrator
+
+. The administrator reviews submitted claim requests.
+. The administrator verifies the claim information.
+. The administrator decides whether the claim is valid.
+. The claim is approved or rejected.
+
+*Result:* If approved, the item can be returned to the owner.
+
+image::Event-Trace-Admin.png[Use Case Diagram, align=center, pdfwidth=80%]
+[.added]#_Event trace diagram for an admin deleting a report_#
+
+===== [.changed]#Scenario 3: User Creates an Account#
+
+*Actor:* User
+
+. The user enters account details at the sign-up page.
+ .. If the email is not a UPR email address, an error is shown. The user remains in the sign-up page.
+ .. If the email is a UPR email address, it is validated and the account is created.
+. The user enters the newly-created account credentials at the login page.
+ .. If the account credentials are valid/correct, the user is logged in successfully.
+ .. If the account credentials are not valid/correct, the user is shown an error message and remains in the login page. 
+
+*Result:* User has an account and access to the platform's features.
+
+image::Event-Trace-Register.png[User Account Creation Event Trace Diagram, align=center, pdfwidth=50%]
+_User Account Creation Event Trace Diagram_
+
+===== [.added]#Scenario Validation Considerations#
+
+[.added]#The following validation requirements and edge cases should be considered when implementing the documented workflows.#
+
+====== [.added]#Reporting a Lost Item#
+
+[.added]#Preconditions:#
+
+* [.added]#User is authenticated.#
+* [.added]#Required item information is available.#
+* [.added]#The report contains a valid date and description.#
+
+[.added]#Potential failure cases:#
+
+* [.added]#Missing required fields.#
+* [.added]#Invalid date values.#
+* [.added]#Duplicate reports for the same item.#
+* [.added]#Network interruption during submission.#
+
+====== [.added]#Posting a Found Item#
+
+[.added]#Preconditions:#
+
+* [.added]#User is authenticated.#
+* [.added]#Item details can be reasonably described.#
+
+[.added]#Potential failure cases:#
+
+* [.added]#Missing location information.#
+* [.added]#Incomplete item descriptions.#
+* [.added]#Invalid submission data.#
+* [.added]#Duplicate found-item listings.#
+
+====== [.added]#Submitting an Item Claim#
+
+[.added]#Preconditions:#
+
+* [.added]#Matching item listing exists.#
+* [.added]#User is authenticated.#
+
+[.added]#Potential failure cases:#
+
+* [.added]#Claim submitted for an unrelated item.#
+* [.added]#Missing ownership evidence.#
+* [.added]#Duplicate claim requests.#
+* [.added]#Item already returned to another user.#
+
+====== [.added]#Reviewing a Claim#
+
+[.added]#Preconditions:#
+
+* [.added]#Administrator privileges are available.#
+* [.added]#Claim information has been submitted.#
+
+[.added]#Potential failure cases:#
+
+* [.added]#Insufficient ownership evidence.#
+* [.added]#Incomplete claim information.#
+* [.added]#Conflicting claim requests.#
+* [.added]#Administrative processing errors.#
+
+====== [.added]#User Account Creation#
+
+[.added]#Preconditions:#
+
+* [.added]#User has access to a valid UPR email address.#
+* [.added]#Required registration information is available.#
+
+[.added]#Potential failure cases:#
+
+* [.added]#Invalid UPR email address.#
+* [.added]#Email already registered.#
+* [.added]#Missing required account information.#
+* [.added]#Authentication service unavailable.#
+
+====== [.added]#Expected Validation Outcomes#
+
+[.added]#The system should reject incomplete submissions, notify users when validation fails, and preserve data consistency throughout all item lifecycle operations.#
+image::Event-Trace-Register.png[User Account Creation Event Trace Diagram, align=center, pdfwidth=50%]
+[.added]#_Event trace diagram for creating an account_#
+
+===== [.added]#Scenario 4: User Searches for Report#
+
+[.added]#*Actor:* User#
+
+. [.added]#The user enters keywords into the search bar.#
+. [.added]#The user selects a report to view its details.#
+
+[.added]#*Result:* User can search for specific reports#
+
+image::Event-Trace-Search.png[User Account Creation Event Trace Diagram, align=center, pdfwidth=50%]
+[.added]#_User Account Creation Event Trace Diagram_#

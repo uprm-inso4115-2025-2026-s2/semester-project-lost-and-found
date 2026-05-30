@@ -1,0 +1,638 @@
+=== *Integrating Multiple System Views*
+
+---
+==== Admin Role and Access Control in Lost and Found Systems
+:author: Fernando Torres
+
+Authentication and access control are fundamental components in modern software systems, especially in applications that manage personal information and user-generated reports. In the Lost and Found project, these mechanisms help ensure that only verified users can access protected functionalities such as reporting items, contacting users, and managing account-related information.
+
+The implementation of authentication and authorization improves the security, reliability, and organization of the platform while reducing the risk of fake reports, impersonation, and unauthorized access to sensitive information.
+
+===== Authentication
+
+Authentication is the process of verifying a user's identity before granting access to protected resources within the application. In this project, authentication is implemented using Supabase Authentication integrated with institutional UPR.edu accounts.
+
+By requiring university-based authentication, the platform benefits from already validated institutional identities, helping reduce the creation of fake or anonymous accounts.
+
+Advantages of institutional authentication include:
+
+* Improved accountability between users
+* Reduced risk of impersonation
+* More reliable ownership verification
+* Increased platform trust and credibility
+* Safer communication between users
+
+The application can optionally allow non-authenticated users to browse limited information while restricting sensitive actions to authenticated accounts only.
+
+Examples of actions restricted to authenticated users include:
+
+* Reporting lost items
+* Reporting found items
+* Editing reports that are not of their authorship
+* Viewing personal account information
+
+===== Access Control
+
+Access control determines which actions users are permitted to perform after authentication. Different permission levels help ensure that users only access resources appropriate to their role within the system.
+
+The Lost and Found application uses protected routes and role-based restrictions to secure important functionalities and sensitive information.
+
+Protected features may include:
+
+* Report creation pages
+* Account settings
+* User communication systems
+* Ownership verification information
+* Report management tools
+
+Protected routes prevent unauthorized users from directly accessing restricted pages through URL manipulation or unauthorized requests.
+
+===== Role-Based Access Control
+
+The system also implements role-based access control to separate permissions between regular users and administrators.
+
+Regular authenticated users are allowed to:
+
+* Create reports
+* Edit their own reports
+* Contact other users regarding items
+* Manage personal account information
+
+Administrator accounts have elevated permissions that support moderation and system management responsibilities.
+
+===== Administrator Role Implementation
+
+The administrator role is designed to help maintain the integrity, organization, and security of the platform. Administrators are responsible for reviewing reports, monitoring suspicious activity, and assisting with ownership verification processes.
+
+Administrator permissions may include:
+
+* Reviewing all submitted reports
+* Verifying ownership claims before items are marked as returned
+* Monitoring suspicious or fraudulent activity
+* Managing inappropriate or duplicate reports
+* Reviewing flagged content
+* Assisting with moderation tasks
+* Accessing administrative report management tools
+
+Separating administrator permissions from regular user permissions improves platform organization and reduces unauthorized access to moderation tools.
+
+===== Security Considerations
+
+Security is an essential aspect of authentication and access control systems. Since the Lost and Found platform handles potentially sensitive information, several security mechanisms must be considered during implementation.
+
+Examples of sensitive information include:
+
+* User names
+* Email addresses
+* Contact information
+* Ownership verification details
+* Serial numbers
+
+To protect user information, the system should implement:
+
+* Session validation
+* Secure token handling
+* Protected API requests
+* Database access restrictions
+* Restricted access to sensitive information
+
+These protections help reduce security risks while improving trust and reliability within the platform.
+
+===== Supabase Integration
+
+Supabase Authentication provides backend support for user authentication, session management, and secure access control. The integration between Supabase and the frontend allows authenticated sessions to remain protected while simplifying backend implementation.
+
+Additional Supabase features used in the project include:
+
+* Authentication services
+* Database storage
+* Role-based permissions
+* Secure API communication
+
+Using Supabase simplifies backend development while providing scalable authentication and authorization functionality.
+
+===== Importance in the Project
+
+Authentication and access control are critical for maintaining a safe and organized Lost and Found platform. By restricting sensitive actions to authenticated users and implementing administrator moderation capabilities, the application becomes more trustworthy and secure for all users.
+
+The addition of an administrator role further improves moderation, report verification, and system management capabilities while supporting the overall integrity of the platform.
+
+---
+
+==== Consistency Checker for Search, Tagging, Filtering, and Discovery
+:author: Adriel Bracero Gonzalez
+
+===== Executive Summary
+This lecture topic task applies *consistency checking* to the Lost and Found application's search, tagging, filtering, and discovery subsystem. The goal is to ensure that item metadata, tags, categories, lifecycle state, visibility rules, and search results all agree with one another. In a lost-and-found system, inconsistency can cause real problems: a disposed item may still appear in search, an item may be tagged differently in two places, a filter may return results that violate privacy rules, or an owner may be shown misleading item information.
+
+===== Scope and Objective
+*Scope:* Consistency rules for item metadata, tags, categories, lifecycle state, visibility, and discovery results.  
+
+*Objective:* Define the main consistency rules that should always hold true, identify examples of inconsistent behavior, and explain how consistency checking can improve the reliability of the Lost and Found system.
+
+===== Why Consistency Checking Matters
+Consistency checking is the process of verifying that different parts of a system do not contradict each other. For a search and discovery system, consistency matters because users rely on the data to be accurate and stable. If the same item appears under different categories, violates state rules, or changes meaning across screens, users lose trust in the system.
+
+For this project, consistency checking helps answer questions such as:
+
+- Does the item’s stored category match the category shown in search results?
+- Can a disposed item still appear in discovery?
+- Do filters return items that are allowed to be public?
+- Are tags normalized and applied the same way everywhere?
+- Does the item’s lifecycle state agree with what users are allowed to see?
+
+===== Consistency Model for the Lost and Found System
+A simple consistency flow is shown below.
+
+image::consistency-flow.png[Consistency Flow Diagram,align=center,width=50%]
+
+===== Core Consistency Rules
+The following rules should always hold unless a special exception is explicitly approved.
+
+[cols="1,2,2",options="header"]
+|===
+|Rule ID |Consistency rule |Why it matters
+
+|C-01
+|The item’s category must be the same in the database, search index, and UI result card.
+|Prevents users from seeing different labels for the same item.
+
+|C-02
+|Tags must be normalized consistently (same casing, same synonyms, same spelling).
+|Avoids duplicate or conflicting tags such as "wallet", "Wallet", and "billfold".
+
+|C-03
+|A disposed item must not appear in public discovery or active search results.
+|Prevents false matches and protects the integrity of the lifecycle.
+
+|C-04
+|A pending claim item must not be shown as available for a new claim.
+|Avoids conflicting ownership workflows.
+
+|C-05
+|Sensitive or restricted items must obey visibility limits in search and filtering.
+|Protects privacy and safety.
+
+|C-06
+|If a filter is applied, the result set must only contain items that truly satisfy that filter.
+|Prevents misleading or broken discovery.
+
+|C-07
+|The item’s found location and stored location must not be mixed up in result displays.
+|Keeps search results accurate and understandable.
+
+|C-08
+|Search indexes must be updated when item metadata changes.
+|Prevents stale search results from contradicting the record.
+|===
+
+===== Examples of Inconsistencies to Detect
+Consistency checkers should flag the following situations:
+
+1. *Category mismatch* — the database says "electronics" but the search page shows the item under "clothing".  
+2. *Tag mismatch* — one screen uses "phone" while another uses "mobile" without a synonym rule.  
+3. *Lifecycle conflict* — an item marked as disposed still appears in "recently found" results.  
+4. *Visibility conflict* — a sensitive item is returned to a public user without proper restriction.  
+5. *Location confusion* — the item’s found location is displayed as the storage locker location instead of the place where it was found.  
+
+These inconsistencies are easy to miss when different features update different parts of the system. Consistency checking helps catch them early.
+
+===== High-Level Consistency Checker Diagram
+
+image::Consistency-Checker-Diagram.png[Consistency Checker Diagram,align=center,width=50%]
+
+===== How Consistency Checking Can Be Applied
+Consistency checking can be built into the system in several places:
+
+- *During data entry:* validate that the category and tags match the allowed taxonomy.
+- *During indexing:* compare the search index against the source item record.
+- *During lifecycle updates:* verify that the new state is compatible with the previous state.
+- *During search rendering:* confirm that the UI only shows fields allowed by visibility rules.
+- *During testing:* use sample records to compare stored data, indexed data, and displayed results.
+
+===== Practical Benefits for the Project
+If the consistency rules are enforced, the project gains several practical benefits:
+
+1. *More trustworthy search results*: Users are less likely to find misleading or stale items.
+2. *Lower privacy risk*: Restricted items and hidden fields are less likely to leak into public discovery.
+3. *Better lifecycle control*: Disposed or claimed items stay out of active workflows.
+4. *Cleaner taxonomy*: Normalized tags and categories reduce duplicate labels and improve filtering.
+5. *Easier debugging*: When data, search, and UI disagree, the system can report exactly where the conflict happened.
+
+===== References
+- "Consistency Checking in Software Design." *Computer Science Department Lecture Notes*, Carnegie Mellon University, https://www.cs.cmu.edu/~modelcheck/tour.htm. Accessed 2026-05-25.
+- Huth, Michael, and Mark Ryan. *Logic in Computer Science: Modelling and Reasoning about Systems*. 2nd ed., Cambridge University Press, 2004.
+- "Data Consistency." *IBM Cloud Learn Hub*, https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=quality-data-consistency. Accessed 2026-05-25.
+- "Search Index Consistency." Elastic Documentation, https://www.elastic.co/guide/en/elasticsearch/reference/current/indices.html. Accessed 2026-05-25.
+
+---
+
+==== Modeling Authentication, Communication, and Notification Agents in a Lost and Found System
+:author: Fernando Torres
+
+===== Executive Summary
+This lecture topic task explores how multiple system views are integrated within the Lost and Found application through authentication, communication, and notification services. Modern software systems depend on multiple interconnected components that must work together consistently in order to support secure and reliable workflows.
+
+In the Lost and Found application, authentication services verify user identity and permissions, communication services coordinate interactions between users, and notification services automate updates regarding reports, claims, and inventory activity. This document focuses especially on the notification system and explains how it interacts with other parts of the application architecture to improve usability, system feedback, and workflow automation.
+
+===== Scope and Objective
+*Scope:* Authentication systems, communication workflows, automated notifications, and interaction between frontend services, backend services, and users in the Lost and Found application.
+
+*Objective:* Demonstrate how multiple system views can be integrated to model authentication, communication, and notification workflows while maintaining consistency, scalability, and user awareness across the system.
+
+===== Why Integrating Multiple System Views Matters
+Modern systems rarely operate through a single component. Instead, they combine multiple services that interact continuously during application workflows.
+
+For the Lost and Found system:
+
+- authentication services validate user identity,
+- communication services coordinate interactions between users,
+- notification services automate feedback and updates,
+- and backend services maintain data consistency.
+
+If these views are not properly integrated, the system may experience:
+
+- duplicate notifications,
+- inconsistent report states,
+- missing communication events,
+- unauthorized actions,
+- or poor user experience.
+
+Integrating multiple system views allows the application to behave as a coordinated system rather than disconnected individual components.
+
+===== Source Legend
+The following labels are referenced throughout this analysis:
+
+- *AUTH* = authentication and authorization research
+- *COMM* = communication workflow analysis
+- *NOTIF* = notification system research
+- *SEC* = security and access-control analysis
+- *SYS* = system architecture integration research
+
+===== Authentication System View
+The authentication system controls access to the application and ensures that only verified users may perform protected actions.
+
+The authentication workflow includes:
+
+1. User registration
+2. Login verification
+3. Session validation
+4. Permission enforcement
+5. Access management
+
+Authentication is important because notification and communication workflows depend on verified user identities. Notifications should only be sent to authenticated users associated with valid reports and claims.
+
+The Lost and Found application uses authentication to:
+
+- identify report owners,
+- associate claims with users,
+- protect communication channels,
+- and secure inventory records.
+
+===== Communication System View
+Communication services coordinate interactions between users and the system.
+
+Examples of communication events include:
+
+- report submissions,
+- ownership claims,
+- report updates,
+- item matches,
+- and system confirmations.
+
+Communication workflows improve user awareness and reduce uncertainty during the reporting process.
+
+The communication system must ensure that:
+
+- users receive accurate updates,
+- messages correspond to valid system actions,
+- and communication history remains consistent with database records.
+
+===== Notification System View
+The notification system is one of the most important integrated services in the project. Notifications automate communication events and provide users with immediate system feedback.
+
+The Lost and Found application uses notifications to:
+
+- confirm account creation,
+- confirm report submission,
+- notify users when reports are updated,
+- alert users when potential item matches are found,
+- and communicate claim status changes.
+
+Without automated notifications, users would need to manually check the application repeatedly for updates.
+
+===== Notification Workflow Model
+The notification workflow can be modeled as a sequence of integrated system actions:
+
+1. User performs an action in the frontend.
+2. Authentication validates the user session.
+3. The backend processes the request.
+4. The database stores or updates information.
+5. The notification service detects the event.
+6. An automated email or alert is generated.
+7. The user receives confirmation or status feedback.
+
+This demonstrates how frontend systems, authentication services, databases, and notification agents operate together as interconnected system views.
+
+===== Notification Service Architecture
+The project integrates notifications using:
+
+- Supabase Edge Functions,
+- email automation,
+- and the Resend API service.
+
+The notification system works by sending HTTP requests to an Edge Function whenever important application events occur.
+
+Examples include:
+
+- creating a report,
+- updating a report,
+- creating a user account,
+- or processing a claim.
+
+The Edge Function then:
+
+- validates the request,
+- formats the email content,
+- communicates with the Resend API,
+- and sends the notification to the target user.
+
+===== Notification Events
+[cols="1,2",options="header"]
+|===
+|Event |Notification Action
+
+|User registration
+|Send welcome email confirmation.
+
+|Lost-item report created
+|Send report submission confirmation.
+
+|Found-item report created
+|Notify the reporting user.
+
+|Potential item match detected
+|Send automated match notification.
+
+|Claim request submitted
+|Notify the claimant that review has started.
+
+|Claim resolved
+|Send approval or rejection update.
+
+|Report status updated
+|Notify affected users of changes.
+|===
+
+===== Integration Between System Views
+The notification system depends heavily on other system views.
+
+For example:
+
+- authentication validates the user identity,
+- the database stores report information,
+- the backend processes workflow logic,
+- and the notification service sends updates.
+
+These services cannot operate independently because each depends on information produced by the others.
+
+A report-confirmation email, for example, requires:
+
+- a valid authenticated user,
+- a successful database insertion,
+- and a properly functioning notification service.
+
+===== Benefits of the Notification System
+Integrating automated notifications provides several advantages for the Lost and Found application.
+
+[cols="1,2",options="header"]
+|===
+|Benefit |Impact on Project
+
+|Improved User Feedback
+|Users receive immediate confirmation after actions.
+
+|Better Communication
+|Users stay informed about report updates and claims.
+
+|Reduced Manual Work
+|The system automates repetitive communication tasks.
+
+|Higher Reliability
+|Notifications create consistent workflow feedback.
+
+|Scalability
+|Automated services support larger numbers of users.
+
+|Improved User Experience
+|Users do not need to constantly check the application manually.
+|===
+
+===== Risks and Challenges
+Although the notification system improves usability, it also introduces challenges.
+
+Potential risks include:
+
+- duplicate notifications,
+- failed email delivery,
+- incorrect recipients,
+- delayed communication,
+- and notification spam.
+
+These risks can be reduced through:
+
+- backend validation,
+- retry handling,
+- event logging,
+- and notification throttling policies.
+
+===== Practical Improvements for the Project
+Based on this analysis, the notification system could be improved through:
+
+- notification history tracking,
+- in-app notifications,
+- real-time alerts,
+- retry queues for failed messages,
+- and user-configurable notification preferences.
+
+Future improvements could also include:
+
+- SMS notifications,
+- push notifications,
+- and advanced event filtering systems.
+
+===== Conclusion
+The Lost and Found application demonstrates how multiple system views can be integrated through authentication, communication, and notification workflows. The notification system plays a major role in improving user awareness, automating communication, and maintaining workflow consistency throughout the application.
+
+By integrating authentication services, backend processing, databases, and notification agents, the project creates a more scalable, maintainable, and user-friendly architecture. The notification workflow also demonstrates how multiple interconnected views contribute to the operation of a complete software system.
+
+===== References
+- Sommerville, Ian. *Software Engineering*. 10th Edition. Pearson Education, 2015.
+- Bass, Len, Paul Clements, and Rick Kazman. *Software Architecture in Practice*. Addison-Wesley, 2012.
+- Supabase Documentation. https://supabase.com/docs. Accessed 2026-05-13.
+- Resend API Documentation. https://resend.com/docs. Accessed 2026-05-13.
+- NIST. "Digital Identity Guidelines." National Institute of Standards and Technology, https://pages.nist.gov/800-63-3/. Accessed 2026-05-13.
+
+---
+
+==== Formal Specification of Report Status Transition Rules in the Lost & Found System
+:author: Fabian Acevedo
+
+This entry defines a formal specification for how report statuses move through the Lost & Found system. The goal is to document all valid and invalid transitions, the preconditions that guard each change, and the invariants the system must always satisfy — connecting these to formal reasoning concepts covered in lecture.
+
+===== Report States
+
+The system defines three core states in `Reports.ts` as the `ReportStatus` type, with two additional logical states inferred from the report's `type` field and administrative context:
+
+[cols="1,1,3", options="header"]
+|===
+| State ID | State Name | Description
+
+| S0 | *ACTIVE*
+| The report has been submitted and is visible on the home feed. The item has not yet been claimed. This is the initial state for all reports.
+
+| S1 | *CLAIMED*
+| A user has initiated a claim. A recovery code has been generated and stored. The item is pending physical pickup at the Lost & Found office.
+
+| S2 | *RESOLVED*
+| The item has been physically returned to its owner. The report is closed. This is a terminal state.
+
+| S3 | *CLOSED*
+| A report that has been inactive for 90 days with no claim activity, so the report is closed.
+|===
+
+===== State Transition Model
+
+The diagram below shows all states as nodes and all transitions as directed edges. Valid transitions are shown with solid arrows; invalid transitions that the system must reject are shown with dashed red arrows.
+
+image::Report_Status.png[Report Status State Machine, align=center, pdfwidth=85%]
+_Figure 4.18.1. - 3. State Machine Diagram for Report Status Transitions in the Lost & Found System._
+
+===== Valid Transitions
+
+[cols="1,1,1,3", options="header"]
+|===
+| From | To | Trigger | Preconditions
+
+| S0 ACTIVE
+| S1 CLAIMED
+| User taps "Claim Item" and confirms
+a|
+* Report type must be `FOUND`
+* Requesting user must be authenticated
+* Report must currently be in `ACTIVE` state
+* No other claim is already in progress
+
+| S1 CLAIMED
+| S2 RESOLVED
+| Administrator marks item as returned
+a|
+* Administrator must present the correct recovery code
+* Report must currently be in `CLAIMED` state
+* `claimedBy` field must be non-empty
+
+| S0 ACTIVE
+| S3 CLOSED
+| Scheduled job after 90 days of inactivity
+a|
+* Report has been `ACTIVE` for longer than the configured threshold
+* No claim has been initiated
+
+| S1 CLAIMED
+| S0 ACTIVE
+| User or admin unclaims the report
+a|
+* The requesting user must be the original claimant, or an administrator
+* Report must currently be in `CLAIMED` state
+* Recovery code is invalidated on transition
+|===
+
+===== Invalid Transitions
+
+The `setStatus` method in `Reports.ts` enforces these rejections at the model level by throwing an error on disallowed transitions:
+
+[cols="1,1,2", options="header"]
+|===
+| From | To | Reason Rejected
+
+| S2 RESOLVED | S0 ACTIVE | A returned item cannot be re-opened. The report is a closed record.
+| S2 RESOLVED | S1 CLAIMED | A resolved report cannot be re-claimed.
+| S0 ACTIVE | S2 RESOLVED | An item cannot be marked returned without first being claimed — skipping the code verification step would bypass the administrator check.
+| S1 CLAIMED | S1 CLAIMED | Re-claiming an already claimed report (by a different user) is rejected. The `claimedBy` field is immutable once set until the report returns to `ACTIVE`.
+|===
+
+===== Preconditions and Postconditions
+
+Using pre/post condition notation as covered in lecture:
+
+----
+Transition: ACTIVE → CLAIMED
+
+PRE:
+  report.status == ACTIVE
+  report.type == FOUND
+  user.isAuthenticated == true
+  report.claimedBy == ""
+
+POST:
+  report.status == CLAIMED
+  report.claimedBy == user.email
+  report.recoveryCode != 0
+  recoveryCode is a 6-digit integer (100000 ≤ code ≤ 999999)
+----
+
+----
+Transition: CLAIMED → RESOLVED
+
+PRE:
+  report.status == CLAIMED
+  report.claimedBy != ""
+  presented_code == report.recoveryCode
+
+POST:
+  report.status == RESOLVED
+  item has been physically released to claimant
+----
+
+===== System Invariants
+
+The following invariants must hold at all times, regardless of which transition has occurred:
+
+*Invariant I1 — Code Integrity:*
+If `report.status == CLAIMED`, then `report.recoveryCode` must be a non-zero 6-digit integer and `report.claimedBy` must be a non-empty string. A claimed report with a missing code or claimant is an inconsistent state.
+
+----
+INVARIANT I1:
+  report.status == CLAIMED →
+    (report.recoveryCode >= 100000 ∧
+     report.recoveryCode <= 999999 ∧
+     report.claimedBy ≠ "")
+----
+
+*Invariant I2 — Terminal State Immutability:*
+Once a report reaches `RESOLVED`, no field other than audit metadata may be modified. The title, description, claimant, and recovery code are frozen.
+
+----
+INVARIANT I2:
+  report.status == RESOLVED →
+    ∀ future states s: s.status == RESOLVED
+----
+
+*Invariant I3 — Single Active Claim:*
+At any point in time, at most one user may hold a valid claim on a given report. No two users can have the same report in `CLAIMED` state simultaneously.
+
+----
+INVARIANT I3:
+  ∀ report r: ¬∃ u1, u2 (u1 ≠ u2 ∧
+    r.status == CLAIMED ∧
+    r.claimedBy == u1.email ∧
+    r.claimedBy == u2.email)
+----
+
+===== Connection to System Correctness and Consistency
+
+Formal specification of state transitions supports system correctness in two concrete ways. First, it makes implicit assumptions testable — Invariant I1, for example, can be turned directly into a unit test that queries the database for any `CLAIMED` reports with a zero or missing recovery code. Second, it surfaces edge cases that informal descriptions miss — the invalid transition `ACTIVE → RESOLVED` was not explicitly rejected in the original `setStatus` implementation until the transition table made the gap visible.
+
+From a requirements engineering perspective, the state machine serves as a contract between the frontend, the backend service layer, and the database. Any future feature (such as admin moderation or dispute resolution) must either fit within the defined transitions or formally extend the specification, preventing ad-hoc status mutations that could corrupt the record.
+
+---

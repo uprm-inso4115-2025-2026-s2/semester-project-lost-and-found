@@ -1,4 +1,4 @@
-[.added]
+
 ==== *Requirements Acquisition Artifacts*
 
 [discrete]

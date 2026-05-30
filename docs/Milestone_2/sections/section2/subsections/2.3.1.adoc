@@ -57,7 +57,7 @@ This fragment clarifies that:
 
 ===== Report Creation Flow (Lost / Found)
 
-[.added]#The system follows a *create-then-persist* workflow: first an in-memory report instance is constructed, then it is saved to the database. This separation clarifies the difference between a draft report (without system-assigned fields) and a stored record.#
+The system follows a *create-then-persist* workflow: first an in-memory report instance is constructed, then it is saved to the database. This separation clarifies the difference between a draft report (without system-assigned fields) and a stored record.
 
 When a user reports a lost or found item, the system must:
 
@@ -66,7 +66,7 @@ When a user reports a lost or found item, the system must:
 3. Associate it with the authenticated user.
 4. Store images separately.
 
-[.added]#The following type hierarchy makes the lifecycle explicit:#
+The following type hierarchy makes the lifecycle explicit:
 
 [source,tsx]
 ----
@@ -110,7 +110,7 @@ class ReportPersisted extends Report {
 }
 ----
 
-[.added]#The insertion function now follows a clear *create-then-persist* pattern: an input instance is created first, then its data is mapped to the database schema.#
+The insertion function now follows a clear *create-then-persist* pattern: an input instance is created first, then its data is mapped to the database schema.
 
 [source,tsx]
 ----
@@ -166,16 +166,16 @@ export async function createReport(input: ReportInput): Promise<ReportPersisted>
 }
 ----
 
-[.changed]#These fragments demonstrate several architectural decisions:#
+These fragments demonstrate several architectural decisions:
 
 - Authentication context is retrieved at runtime.
 - Ownership is enforced at insertion (`user_id` bound to session).
 - Status lifecycle begins as `"active"`.
 - Supabase Row Level Security (RLS) policies enforce access constraints.
-- [.added]#The class hierarchy separates *input* (no system fields) from *persisted* (with id, status, timestamps), making the create-then-persist workflow explicit.#
-- [.added]#Precise types (`Date`, `URL`, `UUID`) replace generic strings, improving maintainability and domain alignment.#
+- The class hierarchy separates *input* (no system fields) from *persisted* (with id, status, timestamps), making the create-then-persist workflow explicit.
+- Precise types (`Date`, `URL`, `UUID`) replace generic strings, improving maintainability and domain alignment.
 
-[.changed]#Without this code, it would be difficult to concretely show how domain concepts such as *Reporting*, *Ownership*, and *Lifecycle State* are realized.#
+Without this code, it would be difficult to concretely show how domain concepts such as *Reporting*, *Ownership*, and *Lifecycle State* are realized.
 
 The diagram below illustrates the flow of data and control during report creation, highlighting the interaction between the React client and Supabase backend, as well as the enforcement of ownership and security policies:
 
@@ -240,7 +240,7 @@ This fragment illustrates:
 - Separation of structured metadata (PostgreSQL) and binary assets (Storage).
 - Use of UUID-based naming to avoid collisions.
 - Public URL generation without exposing storage internals.
-- [.added]#Explicit `URL` return type, reinforcing that the result is a well-formed URL, not an arbitrary string.#
+- Explicit `URL` return type, reinforcing that the result is a well-formed URL, not an arbitrary string.
 
 This design directly supports the domain behavior of *Matching* by enabling
 visual comparison while maintaining structural database normalization.

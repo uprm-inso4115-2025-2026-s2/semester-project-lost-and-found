@@ -85,4 +85,4 @@ The following questions are designed to gather domain-specific information:
 
 *US3:* As an Admininstrative Custodian, I want to rview reports so that I can prevent misuse. 
 
-*US4:* As a Student Claimant, I want my personal information kept private so that my data is protected. 
+*US4:* As a Student Claimant, I want my personal information kept private so that my data is protected.

@@ -1,0 +1,190 @@
+=== *Requirements Acquisition*
+
+==== [Lecture Topic Task] Requirements Acquisition Questionnaire + Elicitation Summary
+:author: Anthony H Martinez-Gomez
+:toc: left
+:toclevels: 3
+
+*Framework:* Schütz-Schmuck, M. (2021). _Domain Acquisition / Requirements Acquisition_ (lecture topic). Department of Computer Science and Engineering, University of Puerto Rico at Mayagüez.
+
+===== Overview
+
+This Lecture Topic Task applies requirements acquisition by collecting evidence from campus stakeholders using a questionnaire. The goal is to support domain claims with concrete data and to inform requirements decisions.
+
+This file separates:
+* *Acquisition* (the questions and data collection method)
+* *Elicitation* (the interpretation of the collected responses)
+
+===== Requirements Acquisition (Questionnaire)
+
+====== Purpose
+
+The questionnaire gathers evidence about:
+- how often items are lost/found on campus (in the respondents’ experience)
+- what recovery steps people currently take (offices/places checked)
+- what information people are willing to share publicly
+- what risks people perceive (false claims, privacy concerns)
+- which improvements would make recovery easier
+
+======= Method (Acquisition)
+
+- Collection method: Google Form (recommended) or direct messages.
+- Target stakeholders: students (lost-item owners + finders) and optionally staff who handle found items.
+- Time window: Mar/28/2026 - Apr/5/2026
+- Respondents: N = 10
+
+======= Questionnaire
+
+[cols="1,4",options="header"]
+|===
+| ID | Question
+
+| Q1 | In the last *6 months*, how many times have you lost an item on campus? (0 / 1 / 2–3 / 4+)
+| Q2 | What items did you lose? (keys / ID / earbuds / bottle / charger / laptop / other: ___)
+| Q3 | When you realize you lost something, what is the *first* thing you do? (retrace steps / ask friends / check office / group chat / other)
+| Q4 | In your last loss, which places/offices did you check? (library / security / department office / student affairs / cafeteria / other: ___)
+| Q5 | About how many places did you check before you found it or gave up? (1 / 2 / 3 / 4+)
+| Q6 | How long after losing something do you usually notice it’s missing? (immediately / hours later / next day / other)
+| Q7 | If you have found an item on campus, what did you do? (left it / turned in to office / posted in chat / kept it / other)
+| Q8 | If you turned in a found item, where did you take it? (library / security / department office / student affairs / other)
+| Q9 | What details help you identify your item *without* making it easy to fake-claim it? (open response)
+| Q10 | What details would you *not* share publicly? (name / phone / ID details / exact location / photos / other)
+| Q11 | Have you ever seen/heard of someone falsely claiming an item? (Yes/No). If yes, describe briefly.
+| Q12 | What is the biggest obstacle in the current lost-and-found process at UPRM? (open response)
+| Q13 | If you could change one thing about how lost & found works on campus, what would it be? (open response)
+|===
+
+---
+
+===== Elicitation Summary (Preliminary Findings)
+
+====== Method (Elicitation)
+
+* Respondents: N = 10
+* Stakeholder mix: 8 students, 2 staff (security)
+* Collection method: Google Form 
+* Dates: March 16, 2026 to April 3, 2026
+** Small sample size
+** Limited representation of staff perspectives
+
+====== Findings (Evidence)
+
+* F1 (Frequency): 8/10 respondents reported losing at least one item in the last 6 months.
+* F2 (Most common items): Top items mentioned were: 1) water bottle 2) charger 3) earbuds (tied with keys)
+* F3 (Time-to-realization): Most respondents noticed loss: hours later.
+* F4 (Recovery effort): Median number of places checked before finding/giving up: 2.
+* F5 (Where people check): Most commonly checked places were: library, department offices, and group chats.
+* F6 (Finder behavior): 10/10 respondents reported finding an item at least once; common actions were: turning it in to an office (most common), posting in a chat, or leaving it where it was.
+* F7 (Privacy/trust): Common details people avoid posting publicly: phone/contact info, ID details, and exact locations (also serial numbers/photos of IDs); 5 respondents mentioned false-claim concerns.
+
+====== What These Findings Support (Concrete Claims)
+
+Based on the findings above, we can support the following claims:
+
+* C1: Lost items occur often enough (in our sample) to justify improving the recovery process.
+* C2: Recovery currently requires checking multiple places/channels (place-to-place effort).
+* C3: Privacy concerns exist and influence what information people are willing to share publicly.
+* C4: Finder behavior is inconsistent, suggesting the need for clearer guidance and safer handoff/verification.
+
+====== Follow-up Plan (Stronger Evidence)
+
+To strengthen evidence for future milestones:
+* Expand the survey to at least 30–50 students across multiple faculties.
+* Attempt structured input from staff roles (library desk, security office, department offices).
+* Compare results with any available external studies about lost items on university campuses.
+
+
+---
+
+==== Requirements Acquisition for Account Creation System
+:author: Sebastian Suarez
+
+===== Overview
+
+This section focuses on gathering requirements for the Account Creation System by soliciting input from likely users and other relevant parties. The objective is to guide the development of a secure, intuitive, and privacy-respecting registration process for the Lost & Found application.
+
+This document distinguishes between:
+
+* *Acquisition* (the process of collecting questions and responses)
+* *Elicitation* (the analysis and interpretation of those responses)
+
+===== Requirements Acquisition (Questionnaire)
+
+[.discrete]
+====== Purpose
+
+The questionnaire is designed to collect insights regarding:
+
+- the types of information users anticipate providing during registration
+- preferred authentication options (such as email, SSO, etc.)
+- privacy and security worries users may have
+- challenges or frustrations encountered when creating accounts
+- features or changes that would make the process smoother or inspire more confidence
+
+*Method (Acquisition)*
+
+- Data collection: Google Form (preferred) or one-on-one interviews.
+- Intended participants: students, staff, and faculty who are potential users.
+- Survey period: May/20/2026 - May/24/2026
+- Number of responses: N = 19
+
+*Questionnaire*
+
+[cols="1,4",options="header"]
+|===
+| ID | Question
+| Q1 | What details do you expect to provide when signing up? (email / phone / password)
+| Q2 | Which sign-in method would you rather use? (email+password / Google SSO / Microsoft SSO / phone verification / other)
+| Q3 | What is your main concern about creating an account for a campus service? (privacy / security / complexity / spam / other)
+| Q4 | Have you ever quit an account creation process? If so, what was the reason? (open response)
+| Q5 | What would help you feel more confident in the sign-up process? (clear privacy policy / university branding / 2FA / admin contact info / other)
+| Q6 | Are you comfortable connecting your university email to this service? (Yes/No/Maybe)
+| Q7 | What information would you prefer not to share? (open response)
+| Q8 | How important is a fast sign-up process to you? (1–Not important, 5–Very important)
+| Q9 | What would make account recovery easier for you? (security questions / email reset / phone reset / admin help / other)
+| Q10 | Any other thoughts or suggestions about account creation? (open response)
+|===
+
+===== Elicitation Summary (Preliminary Findings)
+
+[.discrete]
+====== Method (Elicitation)
+
+* Respondents: N = 19
+* Stakeholder mix: 7 students, 2 staff, 1 faculty
+* Collection method: Google Form
+* Dates: May/20/2026 - May/24/2026
+** Small sample size
+** Limited faculty representation
+
+[.discrete]
+====== Findings (Evidence)
+
+* F1: All respondents expect to provide at least name and email; 6/10 expect to provide student ID.
+* F2: Preferred authentication: 7/10 chose email+password, 2/10 Google SSO, 1/10 Microsoft SSO.
+* F3: Top concerns: 5/10 privacy, 3/10 security, 2/10 complexity.
+* F4: 4/10 have abandoned account creation due to confusing forms or unclear privacy policies.
+* F5: Most trust is gained by clear privacy policy and university branding.
+* F6: 8/10 are comfortable linking university email; 2/10 are unsure.
+* F7: Sensitive info users do NOT want to provide: phone number, personal ID, or unnecessary demographic data.
+* F8: 9/10 rate quick account creation as important (4 or 5 out of 5).
+* F9: Preferred account recovery: email reset (most common), then admin help.
+
+[.discrete]
+====== What These Findings Support (Concrete Claims)
+
+* C1: Simplicity and clarity are critical for user adoption; complex or unclear forms lead to abandonment.
+* C2: Privacy and security are top concerns; users want to know how their data is handled.
+* C3: University branding and clear privacy policy increase trust in the process.
+* C4: Most users are comfortable using their university email, but sensitive data requests should be minimized.
+
+[.discrete]
+====== Follow-up Plan (Stronger Evidence)
+
+* Expand the survey to 30+ users, including more faculty and staff.
+* Test alternative authentication flows (SSO, phone verification) for usability.
+* Gather feedback on draft privacy policy and terms of service.
+* Compare with best practices from other campus platforms.
+
+==== Conclusion
+This requirements acquisition process has provided valuable insights into user expectations and concerns regarding account creation for the Lost & Found platform. The findings will inform the design of a secure, user-friendly, and trustworthy account creation system that meets the needs of our campus community. Future efforts will focus on expanding the evidence base and iterating on the design based on user feedback.

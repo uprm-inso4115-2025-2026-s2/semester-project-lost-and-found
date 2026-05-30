@@ -1,0 +1,217 @@
+== *Descriptive Part*
+
+=== *Domain Description*
+
+==== *Domain Rough Sketches*
+
+[.added]#The table below captures raw statements and field notes as they were recorded, while adding more situational context for each observation. Details such as approximate location, time of day, environmental conditions, actors involved, immediate reactions, and follow-up actions are included when available or reasonably remembered. Unknown details are still marked as unknown rather than invented.#
+
+===== Raw observations (unprocessed)
+
+[.changed]#The table below keeps each observation grounded in raw domain evidence. Each unit separates the original field note from contextual details, assumptions or interpretations, and possible implications for later analysis.#
+
+[cols="1,3,3,3,3",options="header"]
+|===
+| # | Raw statement / field note | Contextual details | Assumptions or interpretations | Potential implications
+
+| 1
+| "I left my charger in a classroom. I realized at night. I checked a couple group chats, but nobody replied."
+| Approximate location: classroom in an academic building; exact building and room were not recorded. Approximate time noticed: nighttime, after regular class hours. Environmental context: offices and classrooms may have been closed or less accessible. Relevant actors: student who lost the charger, classmates in group chats, possible professor, and students from later classes. Immediate action: checked informal group chats instead of first contacting an office. Item details: charger; brand/type unknown.
+| The charger may have remained in the classroom, been picked up by another student, or been moved by cleaning/security personnel. The student may have used group chats first because formal lost-and-found procedures were unclear or unavailable at night.
+| The system should capture approximate time noticed, last known classroom, after-hours context, and whether the user already checked informal channels. Office availability may affect recovery likelihood.
+
+| 2
+| "I lost my keys somewhere between the parking lot and the business building. I wasn’t sure if I should check security, the library, or just retrace my steps."
+| Approximate location: outdoor route between a parking lot and the business building. Approximate time: unknown, but likely during a campus transition period. Environmental context: high movement area with multiple possible drop points, including parking area, sidewalks, building entrance, and nearby offices. Relevant actors: owner, passersby, security, library staff, and business building staff. Item details: keys; type not recorded.
+| The owner was unsure where to begin because the item could have been lost across multiple locations. Security, library, and offices were all considered possible recovery points.
+| The system should support uncertain location ranges, route-based reports, and multiple possible places checked. Outdoor and transitional spaces may need different reporting fields than rooms.
+
+| 3
+| "My ID card fell out. I canceled it immediately because I was scared someone would misuse it. Later I found out someone had turned it in to the library."
+| Approximate location: unknown original loss location; recovery location was the library. Approximate time: cancellation occurred before confirmation that the ID had been found. Environmental context: student reacted defensively due to perceived risk. Relevant actors: student owner, unknown finder, and library staff. Item details: student ID card; sensitive details intentionally omitted.
+| The student assumed misuse was possible and acted before checking all physical recovery channels. The item had already entered an informal or semi-formal custody location.
+| The system should support urgent lost-item reporting for sensitive items and indicate where an item has been turned in. It should also reduce unnecessary defensive actions by improving traceability.
+
+| 4
+| "I posted on Instagram that I lost my AirPods. Someone replied saying they found some, but it wasn’t mine."
+| Approximate location: unknown; recovery attempt happened through Instagram. Approximate time: after noticing the item was missing; exact time not recorded. Environmental context: informal social media post created a possible match but lacked verification. Relevant actors: owner, person who replied, unknown finder or claimant. Item details: AirPods; model/color not recorded.
+| The reply may have been a false positive because the description was not specific enough or because several similar items existed on campus.
+| The system should support structured matching while avoiding overexposure of identifying details. Item verification questions may be needed to reduce false claims.
+
+| 5
+| "I don’t know where the lost and found office is. Back home there’s always one central place."
+| Approximate location: general campus context; no specific item or location. Approximate time: stated during discussion about lost-and-found procedures. Environmental context: student appears unfamiliar with campus-specific recovery channels. Relevant actors: student, possible offices/security/library as expected recovery points.
+| The student expected a centralized lost-and-found process but did not know whether one existed on campus.
+| The system should clearly communicate where items can be reported, searched for, or turned in. Lack of central visibility may increase recovery time.
+
+| 6
+| "I found a phone outside the physics building. I didn’t want to leave it there. But I also didn’t want to give it to the wrong person."
+| Approximate location: outside the physics building. Approximate time: not recorded; likely during regular campus activity. Environmental context: outdoor area with passersby and possible weather/security concerns. Relevant actors: finder, unknown owner, passersby, security or building staff. Immediate reaction: finder hesitated between leaving the phone in place and taking responsibility for it. Item details: phone; brand/model unknown.
+| The finder wanted to protect the item but was concerned about incorrect handoff or false claiming.
+| The system should guide finders through safe reporting and custody steps. Found phone reports may require special privacy and verification handling.
+
+| 7
+| "Students bring water bottles, chargers, USB drives, everything. We put them in a drawer with sticky notes. Sometimes people argue over who it belongs to."
+| Approximate location: library handling/storage area. Approximate time: ongoing practice, not tied to a single event. Environmental context: mixed items are stored manually, with inconsistent handwritten notes. Relevant actors: library workers, students who turn in items, and students claiming items. Item details: water bottles, chargers, USB drives, and other mixed items.
+| Manual storage without consistent metadata can lead to weak ownership verification. Arguments may happen because item descriptions and claim evidence are incomplete.
+| The system should support standardized item records, custody status, claim verification, and consistent metadata such as date found, location found, item type, and current storage location.
+
+| 8
+| "We keep items in the office for a few weeks. If nobody claims them, they get discarded or stored somewhere else. There’s no consistent tracking system."
+| Approximate location: security office or administrative office. Approximate time: ongoing office procedure. Environmental context: items are retained temporarily, but duration and final disposition are inconsistent or not formally documented. Relevant actors: security staff, office staff, item owners, and finders. Item details: varied; exact item types not specified.
+| Retention rules exist informally but may vary by office or staff member. Items may become harder to trace once moved or discarded.
+| The system should track retention window, storage location, movement history, and final status. This supports accountability and reduces uncertainty for owners.
+
+| 9
+| "I didn’t report the calculator I found. I just left it on the desk where I found it."
+| Approximate location: desk in a classroom or study area; exact place not recorded. Approximate time: unknown. Environmental context: finder chose passive return by leaving the item in place. Relevant actors: finder, unknown owner, later users of the desk or room. Item details: calculator; model unknown.
+| The finder may have believed the owner would retrace their steps. The finder may also have lacked knowledge of where to report a found item.
+| The system should explain when leaving an item in place is appropriate and when reporting or turning it in is safer. Passive returns may reduce traceability.
+
+| 10
+| Observation: Unattended items in empty classrooms, including notebooks, bottles, and jackets. No signage indicated what to do if an item was found.
+| Approximate location: classroom building. Approximate time: evening. Environmental context: classrooms were empty or low-traffic, and there was no visible instruction for found items. Relevant actors: possible item owners, later classroom users, cleaning/security staff.
+| The absence of signage may discourage reporting or lead to inconsistent finder behavior. Evening timing may reduce access to offices.
+| The system or campus process may need visible guidance in classrooms, including QR codes, signage, or instructions on where to turn items in after hours.
+
+| 11
+| Observation: Drawer labeled "Lost & Found" contains mixed items with handwritten notes. Notes are inconsistent; some are dated and some are not.
+| Approximate location: library third floor office. Approximate time: observed during office/library availability. Environmental context: physical drawer acts as a local lost-and-found repository. Relevant actors: library workers, finders, and item owners. Item details: mixed items; note format inconsistent.
+| Inconsistent note-taking may make it difficult to determine when and where an item was found.
+| The system should standardize required fields for found-item intake, including date found, location found, item type, and current holder.
+
+| 12
+| Observation: Keys found near vehicles in a high-traffic parking area; ownership was hard to identify.
+| Approximate location: parking lot near vehicles. Approximate time: not recorded; likely during arrival/departure periods. Environmental context: high vehicle and pedestrian movement, limited ability to identify owner. Relevant actors: finder, vehicle owners, campus security. Item details: keys; type not recorded.
+| Keys found near vehicles may create security concerns because they could belong to a car, apartment, lab, or office.
+| The system should support sensitive item categories and avoid exposing exact identifying information that could enable misuse. Security involvement may be especially relevant.
+
+| 13
+| "Anyone lose a blue Hydro Flask?" "Where?" "Near Chem building." "No idea whose it is."
+| Approximate location: near the Chemistry building, but exact landmark or room was not specified. Approximate time: not recorded. Environmental context: group chat used to identify owner, but location description was vague. Relevant actors: finder, group chat members, possible owner. Item details: blue Hydro Flask.
+| The vague location may make it harder for the real owner to confirm whether the item is theirs.
+| The system should prompt for more precise location details, such as building entrance, floor, nearby bench, classroom, or office area.
+
+| 14
+| "People come asking 'Has anyone reported a MacBook?' I can’t check anything except the drawer."
+| Approximate location: library worker perspective, likely near a library desk or office. Approximate time: ongoing repeated situation. Environmental context: staff can only inspect physical storage, not a searchable campus-wide record. Relevant actors: library worker, item owners, and possible finders. Item details: MacBook; no searchable record exists.
+| A physical drawer limits staff’s ability to answer questions about items not stored there.
+| The system should support searchable reports across locations and make custody status visible to authorized users.
+
+| 15
+| "I wouldn’t put my phone number publicly. I don’t want random people contacting me."
+| Approximate location: general privacy discussion. Approximate time: during feedback collection. Environmental context: user expressed concern about public contact information. Relevant actors: reporter, unknown viewers, possible claimants. No item specified.
+| Users may avoid reporting if the process requires public personal contact information.
+| The system should support privacy-preserving communication, such as masked contact, internal messaging, or claim requests without exposing phone numbers.
+
+| 16
+| Observation: People retrace steps first; only later ask peers or offices.
+| Approximate location: multiple campus contexts. Approximate time: usually shortly after noticing the item is missing, but before submitting formal reports. Environmental context: users rely on memory and physical search before formal channels. Relevant actors: item owner, peers, and office staff.
+| Users may delay formal reporting because they expect to recover the item by retracing their path.
+| The system should allow users to record places already checked and approximate route history.
+
+| 17
+| "I assumed someone would steal it if I didn’t find it quickly."
+| Approximate location: general discussion; no specific item or location recorded. Approximate time: expressed after a loss scenario. Environmental context: perceived theft risk affected urgency and emotional response. Relevant actors: item owner and unknown potential finder.
+| Fear of theft may cause users to act quickly, cancel cards, post publicly, or repeatedly check locations.
+| The system should support urgency indicators and clear next steps for high-risk or sensitive items.
+|===
+
+===== Evidence add on (questionnaire summary)
+
+* Respondents: N = 10 (8 students, 2 security staff)
+* Collection method: Google Form
+* Dates: March 16, 2026 to April 3, 2026
+* Limitations:
+  ** Small sample size
+  ** Convenience sample (mostly within our network)
+  ** Limited representation of staff perspectives
+
+Key results:
+
+* 8/10 reported losing at least one item in the last 6 months.
+* Common items mentioned: water bottles, chargers, earbuds, keys.
+* Median number of places checked before finding or giving up: 2.
+* Places and channels commonly checked: library, department offices, group chats.
+* Privacy boundaries were common (contact info, ID details, exact locations).
+* 3/10 mentioned concerns about suspicious or false claiming behavior.
+* Most respondents reported noticing the loss later the same day, often within a few hours.
+
+===== Derived concepts (traceable back to raw observations)
+
+The concepts below are derived from the raw observation table above. Each concept includes the observation numbers it is based on so that later concept analysis can be traced back to specific domain evidence.
+
+[cols="2,4,2",options="header"]
+|===
+| Derived concept | What it means | Supported by obs #
+
+| Delayed realization
+| People often notice loss later, sometimes hours later or after offices/classrooms may be closed.
+| 1, 3, 16, 17
+
+| No clear starting point
+| After noticing a loss, people are unsure which office, building, desk, or channel is the right first stop.
+| 2, 5, 9, 14
+
+| Place to place effort
+| Recovery attempts require checking multiple places, routes, offices, and informal communication channels.
+| 2, 3, 14, 16
+
+| Fragmented channels
+| People use informal channels such as social media and group chats, but these do not preserve consistent context or searchable records.
+| 1, 4, 13
+
+| Weak matching / false positives
+| Informal matching creates false positives because descriptions may be incomplete or similar items may exist.
+| 4, 13
+
+| Finder hesitation
+| Finders want to help but may not know whether to leave the item, turn it in, or avoid giving it to the wrong person.
+| 6, 9
+
+| Manual custody
+| Items are stored in offices, drawers, or desks with inconsistent metadata and limited searchability.
+| 7, 8, 11, 14
+
+| Disputes at pickup
+| Weak verification and incomplete item records can lead to disagreements about ownership.
+| 7
+
+| Retention window
+| Items may be held temporarily and later discarded, moved, or stored elsewhere without consistent tracking.
+| 8
+
+| Non reporting / passive return
+| Some finders do not report items and instead leave them where they were found.
+| 9, 10
+
+| Privacy boundary
+| People avoid exposing personal contact information or sensitive item details publicly.
+| 3, 12, 15
+
+| Theft anxiety / urgency escalation
+| Perceived risk of theft or misuse increases urgency and changes user behavior.
+| 3, 6, 12, 17
+
+| [.added]#Location uncertainty#
+| [.added]#Some users cannot identify a single exact loss location and instead remember a route, area, building vicinity, or set of possible locations.#
+| [.added]#2, 12, 13, 16#
+
+| [.added]#Custody traceability#
+| [.added]#Once an item is moved from its original location to a drawer, office, library, or security desk, users need a way to trace where it went and who currently holds it.#
+| [.added]#3, 7, 8, 11, 14#
+|===
+
+===== Missing specifics to collect next
+
+[.changed]#We intentionally did not invent details that were not captured in the raw observations. Next time we collect observations, we will explicitly capture more situational details that can support later requirement derivation and assumption validation.#
+
+* [.changed]#Keys: car keys vs apartment keys vs lab keys vs keycard, plus whether they were found near vehicles, offices, classrooms, or outdoor paths (obs #2 and #12).#
+* [.changed]#Earbuds: model, color, case markings, whether found with case, and approximate location of discovery or loss (obs #4).#
+* [.changed]#Chargers: USB-C vs Lightning vs laptop charger block and cable, classroom/building location, class period, and time noticed missing (obs #1).#
+* [.changed]#Retention: approximate duration range, whether it differs by office, and what happens after the retention period ends (obs #8).#
+* [.added]#Location precision: building, room number, floor, entrance, nearby landmark, route, or outdoor area when exact location is uncertain.#
+* [.added]#Time detail: approximate time lost, time noticed missing, and time item was found or turned in.#
+* [.added]#Actor detail: who found the item, who received it, who stored it, and who was contacted afterward.#
+* [.added]#Action detail: whether the owner retraced steps, checked group chats, contacted offices, canceled access, or visited security.#
+* [.added]#Environmental detail: office availability, after-hours conditions, outdoor/weather exposure, crowd level, and visibility of signage.#

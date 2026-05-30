@@ -1,0 +1,202 @@
+==== *Domain Requirements*
+
+This section defines functional requirements that arise directly from the lost-and-found domain described in the narrative. Each requirement is grounded in domain properties such as delayed reporting, distributed custody, ownership uncertainty, and the need for structured matching and verification.
+
+
+===== Reporting Requirements
+
+[discrete]
+====== Required Report Content
+
+*Domain basis*:  
+Items are often non-unique (e.g., chargers, keys), and false matches occur when descriptions are insufficient.
+
+*Decision*:  
+Structured reports with sufficient descriptive information are required to support reliable matching.
+
+*Requirements*:
+
+* [[REQ-REPORT-F-01]]REQ-REPORT-F-01: The system must accept only **Reports** that include sufficient descriptive attributes to support **Matching**, including at minimum:
+  - item category  
+  - textual description  
+  - approximate location (loss or discovery)  
+  - relevant date or time window  
+
+* [[REQ-REPORT-F-02]]REQ-REPORT-F-02: The system must separate descriptive information into:
+  - public attributes (used for search and matching)
+  - private attributes (used for **Claim Verification**)
+
+[discrete]
+====== Report Initialization
+
+*Domain basis*:  
+All reports represent unresolved situations at the moment of creation.
+
+*Requirements*:
+
+* [[REQ-REPORT-F-03]]REQ-REPORT-F-03: The system must assign the state **Active** to every newly created **Report**.
+
+[discrete]
+====== Finder Traceability
+
+*Domain basis*:  
+[.changed]#The person who finds an item is not always the same as the office or holder that keeps it afterward, and follow-up communication may be required.#
+
+*Requirements*:
+
+* [[REQ-REPORT-F-04]]REQ-REPORT-F-04: The system must record the **Finder** associated with a **Found Item Report** and the current **Holder** / **Custody Location** when custody changes after discovery.
+
+[discrete]
+====== Report Ownership
+
+*Domain basis*:  
+Reports originate from identifiable domain actors (loser or finder), and ownership determines who can modify or verify report information.
+
+*Requirements*:
+
+* [[REQ-REPORT-F-05]]REQ-REPORT-F-05: The system must associate each **Report** with its creator to support ownership, traceability, and controlled modification.
+
+
+* [[REQ-REPORT-F-06]]REQ-REPORT-F-06: The system must require a registered UPRM community member to create a **Report** for a **Lost Item**.
+
+
+* [[REQ-REPORT-F-07]]REQ-REPORT-F-07: The system must require a registered UPRM community member to create a **Report** for a **Found Item**.
+
+
+===== Search and Discovery Requirements
+
+[discrete]
+====== Search Mechanism
+
+*Domain basis*:  
+[.changed]#Items lack unique identifiers and are described using non-standard, free-form language. Several similar items may exist at once, so retrieval must support keyword search over partial descriptions and related metadata.#
+
+*Requirements*:
+
+* [[REQ-SEARCH-F-01]]REQ-SEARCH-F-01: The system must support retrieval of **Reports** based on descriptive attributes of items, including:
+  - textual description  
+  - item category  
+  - approximate location  
+  - date or time window  
+
+* [[REQ-SEARCH-F-02]]REQ-SEARCH-F-02: The system must support filtering of **Reports** by:
+  - category  
+  - location  
+  - date  
+  - report state  
+
+* [[REQ-SEARCH-F-03]]REQ-SEARCH-F-03: The system must present **Reports** in a form that enables comparison between **Lost Item Reports** and **Found Item Reports** to support **Matching**.
+
+
+===== Matching and Tracking Requirements
+
+[discrete]
+====== Domain Basis
+
+Matching is required because lost and found reports are created independently and must be correlated based on partial information.
+
+*Requirements*:
+
+* [[REQ-MATCH-F-01]]REQ-MATCH-F-01: The system must support comparison of **Lost Item Reports** and **Found Item Reports** based on descriptive attributes to identify potential matches.
+
+* [[REQ-MATCH-F-02]]REQ-MATCH-F-02: The system must maintain the current state of each **Report**, including:
+  - Active  
+  - Returned  
+  - Closed  
+  - Expired  
+
+* [[REQ-MATCH-F-03]]REQ-MATCH-F-03: The system must record transitions between report states.
+
+[discrete]
+====== Owner Tracking
+
+*Domain basis*:  
+[.changed]#The individual who lost an item needs visibility into the recovery process, including who currently has the item and whether it is still recoverable.#
+
+*Requirements*:
+
+* [[REQ-MATCH-F-04]]REQ-MATCH-F-04: The system must provide visibility of the current state of a **Report** to its associated owner.
+
+
+===== Claim Verification and Recovery Requirements
+
+[discrete]
+====== Ownership Verification
+
+*Domain basis*:  
+False claims may occur due to non-unique items and public visibility of reports.
+
+*Requirements*:
+
+* [[REQ-CLAIM-F-01]]REQ-CLAIM-F-01: The system must restrict confirmation of [.changed]#**Return Completed**# to authenticated actors associated with the report.
+
+* [[REQ-CLAIM-F-02]]REQ-CLAIM-F-02: The system must require validation of ownership using private report attributes before confirming [.changed]#**Return Completed**#.
+
+[discrete]
+====== Recovery Definition
+
+*Clarification*:
+
+- **Recovery** corresponds to the event [.changed]#**Return Completed**#  
+- **Returned** is a terminal state representing successful closure  
+- **Closure** may occur as:
+  - successful closure (**Returned**)  
+  - manual closure (**Closed**)  
+  - time-based closure (**Expired**)  
+
+*Requirements*:
+
+* [[REQ-CLAIM-F-03]]REQ-CLAIM-F-03: The system must transition a **Report** from **Active** to **Returned** upon successful recovery.
+
+
+===== Closure Requirements
+
+[discrete]
+====== Non-Recovery Closure
+
+*Domain basis*:  
+Not all items are recovered; reports may need to be terminated without recovery.
+
+*Requirements*:
+
+* [[REQ-CLOSE-F-01]]REQ-CLOSE-F-01: The system must support manual transition of a **Report** from **Active** to **Closed** when recovery is no longer expected.
+
+* [[REQ-CLOSE-F-02]]REQ-CLOSE-F-02: The system must support automatic transition of a **Report** from **Active** to **Expired** after a defined period of inactivity.
+
+* [[REQ-CLOSE-F-03]]REQ-CLOSE-F-03: The system must treat **Returned**, **Closed**, and **Expired** as terminal states.
+
+* [[REQ-CLOSE-F-04]]REQ-CLOSE-F-04: The system must retain all non-active reports for reference.
+
+[discrete]
+====== Visibility of Closed Reports
+
+*Domain basis*:  
+Inactive reports must not interfere with ongoing recovery efforts but remain accessible for reference.
+
+*Requirements*:
+
+* [[REQ-CLOSE-F-05]]REQ-CLOSE-F-05: The system must distinguish non-active reports from **Active** reports in all retrieval and search results.
+
+
+===== Administrative Oversight Requirements
+
+*Domain basis*:  
+Reports may contain incorrect, misleading, or inappropriate content and require institutional oversight.
+
+*Requirements*:
+
+* [[REQ-ADMIN-F-01]]REQ-ADMIN-F-01: The system must support administrative review of **Reports**.
+
+* [[REQ-ADMIN-F-02]]REQ-ADMIN-F-02: The system must support modification and removal of **Reports** by authorized administrators when they violate institutional policies.
+
+* [[REQ-ADMIN-F-03]]REQ-ADMIN-F-03: The system must support administrative override of report states in cases of dispute or misuse.
+
+
+===== Accessibility and Usability Requirements
+
+*Domain basis*:  
+Users interact with the system in diverse environments and devices.
+
+*Requirements*:
+
+* [[REQ-UX-NF-01]]REQ-UX-NF-01: The system must provide a responsive, high-contrast interface that adapts to mobile, tablet, and desktop environments without loss of usability.

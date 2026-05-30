@@ -1,6 +1,6 @@
 === *Requirements Prioritization and Decision Analysis*
 
-[.added]
+
 ==== *Evaluation Criteria Definition*
 
 This section defines the evaluation criteria used to prioritize system features. The goal is to establish a clear and justified basis for comparing requirements before applying decision-making techniques.

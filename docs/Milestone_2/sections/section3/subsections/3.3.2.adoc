@@ -1,4 +1,3 @@
-[.added]
 ==== *Stakeholder Discovery and Expansion*
 
 [discrete]

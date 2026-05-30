@@ -1,0 +1,367 @@
+=== *Requirements Concept Formation*
+
+==== Report Negotiation and Claim Confirmation Workflow #220
+:author: Nelson Caban
+
+===== Goal
+Model the interaction workflow that occurs when a user claims that a found item matches their lost item report, capturing the human-driven negotiation process and the role of administrative validation.
+
+===== Proposed Solution
+
+====== Stakeholders Involved
+* Claimant (user who lost the item)
+* Finder (user who found the item)
+* Administrator (system moderator)
+
+====== Workflow Overview
+
+[Claim Submission]
+Claimant submits a claim stating that a found item matches their lost item.
+
+        Claimant --> System : Submit Claim
+        System --> Finder   : Notify Finder of Claim
+
+[Evidence Exchange]
+The system facilitates an exchange of information to validate ownership.
+
+        Finder --> System    : Request Proof (optional)
+        System --> Claimant  : Request Additional Evidence
+        Claimant --> System  : Submit Evidence (description, image, details)
+
+[Evaluation Phase]
+The system and/or admin evaluates the credibility of the claim.
+
+        System --> Admin     : Flag claim for review (if needed)
+        Admin --> System     : Approve / Reject / Request More Info
+
+[Decision Outcome]
+
+Case 1: Claim Accepted
+        Admin/System --> Claimant : Claim Approved
+        Admin/System --> Finder   : Confirm Match
+        System --> Both           : Mark Reports as Matched/Closed
+
+Case 2: Claim Rejected
+        Admin/System --> Claimant : Claim Rejected
+        System --> Report         : Remains Open
+
+Case 3: Incomplete Information
+        Admin/System --> Claimant : Request More Info
+        (loop back to Evidence Exchange)
+
+---
+
+====== Breakdown / Ambiguity Scenarios
+
+1. False Claim
+* Claimant provides incorrect or vague description
+* Finder cannot verify ownership
+
+2. Conflicting Claims
+* Multiple claimants attempt to claim the same item
+
+3. Unresponsive Stakeholder
+* Finder or claimant does not respond in time
+
+4. Partial Match
+* Item descriptions are similar but not conclusive
+
+---
+
+====== Administrative Control Points
+
+* Admin reviews flagged claims with insufficient or suspicious evidence
+* Admin resolves conflicts between multiple claimants
+* Admin enforces deadlines for response (timeouts)
+* Admin has authority to override system decisions
+
+---
+
+====== Domain Insight
+
+This workflow represents a *biddable system*:
+* Human actors (claimant, finder) may behave unpredictably
+* Actions are not guaranteed (e.g., delayed response, incorrect info)
+* Requires monitoring and intervention (admin role)
+
+The negotiation process is iterative and may loop until:
+* sufficient evidence is provided, or
+* the claim is rejected/closed
+
+---
+
+==== Contextual Factors Affecting Report Interpretation
+:author: Nelson Caban
+
+===== Goal
+Analyze how context (time, place, and situation) changes how reports are understood and used in the Lost & Found system.
+
+===== Proposed Solution
+
+====== Key Idea
+A report does not always mean the same thing. Its meaning depends on context like location, time, and the person viewing it.
+
+---
+
+====== Contextual Factors
+
+. Location
+* Where the item was lost or found
+* Affects how likely it is to recover
+
+Example:
+* Classroom - easier to find
+* Public area - harder to find
+
+---
+
+. Time
+* When the item was lost or reported
+* How recent the report is
+
+Example:
+* Lost today - high chance of match
+* Lost weeks ago - low chance
+
+---
+
+. Item Type
+* What kind of item it is
+
+Example:
+* Phone - high priority
+* Water bottle - low priority
+
+---
+
+. Environment
+* What was happening around that time
+
+Example:
+* Big event - many similar reports
+* Normal day - fewer reports
+
+---
+
+. User Perspective
+* Different users see the report differently
+
+Example:
+* Claimant - wants item back
+* Finder - trying to identify owner
+* Admin - checking if claim is valid
+
+---
+
+====== Impact on Reports
+
+Example Report:
+"Black backpack lost near library at 3PM"
+
+Different meanings:
+* Claimant - urgent personal loss
+* Finder - possible match
+* Admin - needs verification (many similar items)
+
+---
+
+====== Scenarios
+
+Scenario 1: Easy Match
+* Unique item
+* Clear location
+* Recent time
+
+* High confidence match
+
+---
+
+Scenario 2: Difficult Match
+* Common item
+* Vague location
+* Unknown time
+
+* Low confidence match
+
+---
+
+====== Conclusion
+
+Context affects:
+* How reports are understood
+* How matches are made
+* How admins make decisions
+
+Reports should not be analyzed alone, but with their context.
+
+---
+
+==== User Interaction Flow #562
+:author: Natanael Batista Alvarez
+
+===== Goal
+Identify and interpret frontend interaction patterns in the Lost & Found platform as higher-level behavioral concepts such as validation, filtering, claim verification, dynamic rendering, and reactive feedback.
+
+===== Proposed Solution
+
+Frontend interactions are not only user actions. They also represent conceptual system behaviors formed through the relationship between user input, interface state, and frontend response. The platform contains multiple interaction concepts that emerge from reactive UI behavior.
+
+====== Authentication and Verification Concept
+
+The authentication flow represents a verification interaction between the user and the system.
+
+Examples:
+
+* User submits login form
+* System validates credentials
+* Frontend displays authentication error
+* Successful login redirects user to protected pages
+
+Observed frontend behaviors:
+
+* Error message rendering
+* Route protection using RequireAuth
+* Redirect after authentication
+
+Conceptual meaning:
+
+* Verification behavio
+* Access-control interaction
+
+[.discrete]
+====== Dynamic Filtering Concept
+
+The homepage interaction model represents a filtering and state-transition concept.
+
+Examples:
+
+* User switches between Active, Claimed, and Closed tabs
+* User filters reports by category
+* User searches reports by tags
+
+Observed frontend behaviors:
+
+* Dynamic re-rendering of ItemCards
+* Active tab visual state
+* Real-time filtering updates
+
+Conceptual meaning:
+
+* Dynamic content interpretation
+* State transition behavior
+
+[.discrete]
+====== Reactive Validation Concept
+
+The report creation flow represents reactive validation behavior.
+
+Examples:
+
+* Required field validation
+* Duplicate tag warnings
+* Invalid image type detection
+* Duplicate report detection modal
+
+Observed frontend behaviors:
+
+* Validation error rendering
+* Warning popups
+* Submission blocking
+* DuplicateWarningModal activation
+
+Conceptual meaning:
+
+* Reactive feedback system
+* Preventive verification behavior
+
+[.discrete]
+====== Claim Negotiation Concept
+
+The claim interaction flow represents a negotiation and confirmation behavior between stakeholders.
+
+Examples:
+
+* User opens claim modal
+* System requests confirmation
+* Recovery code is generated
+* Claim enters loading state
+
+Observed frontend behaviors:
+
+* Modal overlays
+* Claim loading indicators
+* Conditional action rendering
+* Claim confirmation workflow
+
+Conceptual meaning:
+
+* Verification workflow
+* Human-driven confirmation process
+
+[.discrete]
+====== Dynamic Content Rendering Concept
+
+Frontend content changes depending on available system data and interface conditions.
+
+Examples:
+
+* Empty report lists
+* Loading report state
+* Missing image placeholders
+* Conditional button rendering
+
+Observed frontend behaviors:
+
+* "Loading reports..." message
+* "No reports found" state
+* Placeholder image rendering
+* Conditional action availability
+
+Conceptual meaning:
+
+* Conditional interface interpretation
+* Dynamic reactive rendering
+
+[.discrete]
+====== Ambiguity Scenarios
+
+1. Duplicate Interpretation
+
+* Similar reports may represent the same item
+* System must interpret possible matches
+
+2. Incomplete Input
+
+* User submits insufficient information
+* Frontend cannot complete validation
+
+3. Concurrent Interaction
+
+* Multiple rapid actions occur during loading states
+* Interface state may become inconsistent
+
+4. Missing Feedback
+
+* User action produces unclear or delayed response
+* Interaction meaning becomes ambiguous
+
+[.discrete]
+====== Domain Insight
+
+The Lost & Found platform demonstrates that frontend interactions can be interpreted as conceptual behaviors rather than isolated UI events.
+
+The system forms interaction concepts through:
+
+* reactive validation,
+* dynamic filtering,
+* negotiation workflows,
+* state transitions,
+* and conditional rendering behaviors.
+
+These concepts emerge from the relationship between:
+
+* user intention,
+* frontend state,
+* and reactive system response.
+
+---

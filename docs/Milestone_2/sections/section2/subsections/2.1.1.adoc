@@ -1,7 +1,7 @@
 == *Descriptive Part*
 === *Domain Description*
 
-[.changed]
+
 ==== Domain Rough Sketches (Raw Observations and Traceable Concept Derivation)
 
 ===== Raw observations (unprocessed)
@@ -98,7 +98,6 @@ The table below captures statements and field notes as they were recorded, plus 
 | No item specified
 |===
 
-[.added]
 ===== Evidence add on (questionnaire summary)
 
 * Respondents: N = 10 (8 students, 2 security staff)

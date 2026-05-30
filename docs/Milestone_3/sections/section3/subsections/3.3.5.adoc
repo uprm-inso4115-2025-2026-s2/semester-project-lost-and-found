@@ -1,0 +1,98 @@
+==== *Traceability Management Cycle*
+
+[.added]#This section explains how traceability is managed without duplicating the
+full requirement catalog. It uses `REQ-REPORT-F-01` as the representative slice
+and points to the canonical locations where each type of evidence lives.#
+
+===== Traceability Strategy
+
+Traceability in this milestone is requirement-centered and bidirectional.
+Each functional requirement serves as the anchor, and every downstream artifact
+links back to that anchor instead of copying requirement text into multiple
+places.
+
+The management rules are:
+
+* Keep one canonical source for each artifact type.
+* Link backward to user stories, epics, and features.
+* Link forward to domain requirements, interface requirements, machine requirements, validation scenarios, verification tests, and implementation fragments.
+* When a requirement changes, update the links at the canonical source rather than duplicating the new wording everywhere.
+
+===== Canonical Reference Map
+
+[cols="1,2,3", options="header"]
+|===
+|Artifact type |Canonical location |Role in traceability
+
+|Domain concepts
+|<<concept-analysis,Concept Analysis>>
+|Defines the vocabulary and abstractions that requirements are built on.
+
+|Stakeholder discovery
+|<<stakeholder-discovery-and-expansion,Stakeholder Discovery and Expansion>>
+|Explains who the actors are and how additional stakeholders can be found.
+
+|Validation scenarios
+|<<validation-trategy,Validation Strategy>>
+|Shows realistic walkthroughs used to validate stakeholder expectations.
+
+|Verification tests
+|<<scenario-based-verification-tests,Verification Tests>>
+|Contains the test anchors that verify the documented requirements.
+
+|Implementation fragments
+|<<implementation, Implementation>>
+|Shows how the requirements are realized in the current React + Supabase implementation.
+|===
+
+===== Example Traceability Slice
+
+The report-creation slice is the clearest example of how the traceability chain works:
+
+* Backward traceability starts at `REQ-REPORT-F-01` and reaches `US-REPORT-01`, Epic E1, and the reporting feature set.
+* Domain traceability connects the requirement to the report, ownership, image asset, and lifecycle concepts in link:3.1.adoc[3.1.adoc].
+* Validation traceability points to Scenario 1 in link:3.3.6.adoc[3.3.6.adoc], where the report behavior is exercised in a realistic walkthrough.
+* Verification traceability points to the report and search tests in link:3.2.adoc[3.2.adoc], especially `TEST-REPORT-01` through `TEST-REPORT-05` and `TEST-SEARCH-01` through `TEST-SEARCH-05`.
+* Implementation traceability points to the report submission and storage flow in link:../../section2/subsections/2.3.1.adoc[2.3.1.adoc].
+
+The same pattern applies to search and moderation:
+
+* Search requirements trace to Scenario 4 in link:3.3.6.adoc[3.3.6.adoc] and `TEST-SEARCH-01` through `TEST-SEARCH-05` in link:3.2.adoc[3.2.adoc].
+* Moderation requirements trace to Scenario 3 in link:3.3.6.adoc[3.3.6.adoc] and `TEST-MOD-01` through `TEST-MOD-04` in link:3.2.adoc[3.2.adoc].
+
+===== Change Scenario Handling
+
+If a requirement changes, the update should be recorded once at the anchor and
+then propagated through linked artifacts:
+
+1. Update the requirement text.
+2. Review affected user stories, domain concepts, and implementation fragments.
+3. Review the matching validation scenario in link:3.3.6.adoc[3.3.6.adoc].
+4. Update the corresponding verification tests in link:3.2.adoc[3.2.adoc] if the behavior changed.
+
+This avoids duplication and keeps change impact visible without rewriting the
+same traceability narrative in multiple places.
+
+===== Traceability Maintenance Effort Assessment
+
+Maintaining traceability introduces moderate overhead, but it is manageable
+when the document has clear canonical locations.
+
+Small changes, such as adding a report attribute or adjusting validation
+constraints, usually affect:
+
+* report creation forms
+* validation schemas
+* search and filtering behavior
+* associated verification tests
+
+Larger policy changes, such as privacy rules or ownership verification
+requirements, typically propagate to:
+
+* matching and recovery workflows
+* administrative oversight
+* public report visibility
+* archival or deletion behavior
+
+The benefit of this approach is that it keeps traceability accurate while
+avoiding the maintenance burden of copying requirement text into every section.

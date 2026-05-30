@@ -1,0 +1,154 @@
+
+==== *Machine Requirements*
+
+===== Report Lifecycle State Machine (System Behavior)
+
+[.added]#The following state machine diagram models the complete lifecycle of a
+report from creation to resolution or expiration. This behavioral model
+clarifies how multiple Machine Requirements work together to enforce system
+behavior.#
+
+[.added]#**How this diagram enhances understanding:**#
+
+[.added]#- Without the diagram, the relationship between HWRQ-001 (device access),
+  SWRQ-002 (Supabase persistence), ENVRQ-006 (RLS policies), and ENVRQ-010
+  (email notifications) would appear as isolated technical constraints rather
+  than a coherent behavioral flow.#
+
+[.added]#- The explicit separation of `Draft` (client-side, before persistence)
+  from `Active` (server-side, persisted) explains why form validation (SWRQ-004)
+  must occur before the Supabase insert operation (SWRQ-002).#
+
+[.added]#- The `Expired` state demonstrates how ENVRQ-008 (FERPA compliance)
+  requires automatic cleanup of stale student data after 30 days, with admin
+  notification (ENVRQ-010) as a prerequisite to deletion.#
+
+[.added]#- The `Resolved` -> `Reopened` -> `Active` transition shows why rate
+  limiting (ENVRQ-009) is necessary to prevent abuse of the reopening mechanism.#
+
+image::report-lifecycle-state-machine.png[Report Lifecycle State Machine, align=center, pdfwidth=90%]
+_Figure: Report Lifecycle State Machine - Behavioral model linking Machine Requirements to system behavior._
+
+.Hardware, Software, and Environmental Requirements
+[cols="1,3,3,3", options="header"]
+|===
+| ID | Description | Linked Requirements | Verification Tests
+
+| [[HWRQ-001]]HWRQ-001
+| The system must support client access from desktop/laptop devices with modern web browsers and minimum 1 Mbps internet connection.
+a| * <<REQ-UX-NF-01>>
+* <<REQ-SEARCH-F-01>>
+* <<REQ-REPORT-F-01>>
+| Browser/device checks in Section 3.2
+
+| [[HWRQ-002]]HWRQ-002
+| The system must support client access from mobile devices (smartphones/tablets) with responsive design at minimum 320px screen width.
+a| * <<REQ-UX-NF-01>>
+| Mobile/responsive checks in Section 3.2
+
+| [[SWRQ-001]]SWRQ-001
+| The frontend must be developed using TypeScript 5.0+ and React 18.2+ with Node.js 18.0+ runtime.
+a| * <<REQ-UX-NF-01>>
+* <<REQ-REPORT-F-01>>
+* <<REQ-SEARCH-F-01>>
+| Build/runtime checks in Section 3.2
+
+| [[SWRQ-002]]SWRQ-002
+| The system must integrate Supabase JavaScript SDK 2.0+ for backend services including authentication, database, and storage.
+a| * <<REQ-REPORT-F-01>>
+* <<REQ-REPORT-F-02>>
+* <<REQ-CLAIM-F-01>>
+| <<TEST-REPORT-01>>, <<TEST-REPORT-04>>
+
+| [[SWRQ-003]]SWRQ-003
+| The system must utilize TailwindCSS 3.0+ for responsive UI implementation.
+a| * <<REQ-UX-NF-01>>
+| Responsive UI checks in Section 3.2
+
+| [[SWRQ-004]]SWRQ-004
+| The system must implement form validation using React Hook Form with Zod or Yup schema validation.
+a| * <<REQ-REPORT-F-01>>
+* <<REQ-REPORT-F-02>>
+| <<TEST-REPORT-01>>, <<TEST-REPORT-02>>, <<TEST-REPORT-03>>
+
+| [[SWRQ-005]]SWRQ-005
+| The system must support image upload functionality with file size limit of 10MB per image for JPEG, PNG, and GIF formats.
+a| * <<REQ-REPORT-F-02>>
+| <<TEST-REPORT-04>>, <<TEST-SEARCH-04>>
+
+| [[SWRQ-006]]SWRQ-006
+| The development environment must include Jest, React Testing Library, and Cypress/Playwright for testing.
+a| * <<REQ-UX-NF-01>>
+* <<REQ-SEARCH-F-01>>
+| Scenario-based verification suite in Section 3.2
+
+| [[ENVRQ-001]]ENVRQ-001
+| The system must maintain API response latency under 500ms for standard operations under normal load.
+a| * <<REQ-SEARCH-F-01>>
+* <<REQ-REPORT-F-01>>
+| Search/report performance checks in Section 3.2
+
+| [[ENVRQ-002]]ENVRQ-002
+| The system must support concurrent users with minimum 100 simultaneous active sessions.
+a| * <<REQ-SEARCH-F-01>>
+* <<REQ-REPORT-F-01>>
+| Load/concurrency checks in Section 3.2
+
+| [[ENVRQ-003]]ENVRQ-003
+| The system must enforce HTTPS-only communication with WSS for real-time features.
+a| * <<REQ-CLAIM-F-01>>
+* <<REQ-CLAIM-F-02>>
+| Security checks in Section 3.2
+
+| [[ENVRQ-004]]ENVRQ-004
+| The system must support latest 2 versions of Chrome, Firefox, Safari, and Edge browsers on desktop and mobile.
+a| * <<REQ-UX-NF-01>>
+| Browser compatibility checks in Section 3.2
+
+| [[ENVRQ-005]]ENVRQ-005
+| The system must integrate with UPR.edu authentication system via SSO/OAuth protocols.
+a| * <<REQ-CLAIM-F-01>>
+* <<REQ-ADMIN-F-01>>
+| <<TEST-REPORT-01>>, <<TEST-MOD-03>>
+
+| [[ENVRQ-006]]ENVRQ-006
+| The system must implement Row Level Security (RLS) policies in PostgreSQL for all data access.
+a| * <<REQ-CLAIM-F-02>>
+* <<REQ-ADMIN-F-01>>
+| <<TEST-REPORT-03>>
+
+| [[ENVRQ-007]]ENVRQ-007
+| The system must achieve page load time under 3 seconds and search query responses under 2 seconds.
+a| * <<REQ-SEARCH-F-01>>
+* <<REQ-REPORT-F-01>>
+| <<TEST-SEARCH-01>>, <<TEST-SEARCH-05>>
+
+| [[ENVRQ-008]]ENVRQ-008
+| The system must comply with FERPA regulations and university data protection policies for student information.
+a| * <<REQ-REPORT-F-01>>
+* <<REQ-REPORT-F-02>>
+* <<REQ-CLAIM-F-01>>
+| <<TEST-REPORT-05>>, <<TEST-MOD-03>>
+
+| [[ENVRQ-009]]ENVRQ-009
+| The system must implement rate limiting on all API endpoints to prevent abuse.
+a| * <<REQ-SEARCH-F-01>>
+* <<REQ-REPORT-F-01>>
+| <<TEST-MOD-01>>, <<TEST-SEARCH-01>>
+
+| [[ENVRQ-010]]ENVRQ-010
+| The system must support email notifications through configured SMTP with templated messaging.
+a| * <<REQ-CLAIM-F-01>>
+* <<REQ-CLAIM-F-02>>
+| <<TEST-MOD-03>>
+|===
+
+===== SADT Source Appendix
+
+[.added]#The source below expresses the activity-and-data. It is intentionally SADT-style: each activity callout states the main input, control, output, and mechanism so the workflow can be read as a structured process model rather than a simple sequence diagram.#
+
+[.added]#This appendix complements, rather than replaces, the verification
+anchors listed above.#
+
+image::SADT.png[Report Creation Flow, align=center, pdfwidth=80%]
+_Figure 2.3.1. - 2. Structured Analysis and Design Technique (SADT) Diagram_
