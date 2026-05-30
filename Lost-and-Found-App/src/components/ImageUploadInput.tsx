@@ -1,5 +1,8 @@
 import React, { useRef, useState } from "react";
 import "./ImageUploadInput.css";
+import imageIcon from "../assets/icons/image.svg";
+import warningIcon from "../assets/icons/warning.svg";
+import closeIcon from "../assets/icons/close.svg";
 
 
 const ACCEPTED_FORMATS = [ ".jpeg", ".png"];
@@ -106,7 +109,7 @@ export const ImageUploadInput: React.FC<ImageUploadInputProps> = ({
             />
           ) : (
             <div className="imageUpload__placeholder">
-              <span className="imageUpload__icon">🖼️</span>
+              <img src={imageIcon} alt="upload" className="imageUpload__iconImg" />
               <span className="imageUpload__hint">
                 {state.kind === "invalid"
                   ? "Try again with a supported format"
@@ -120,7 +123,7 @@ export const ImageUploadInput: React.FC<ImageUploadInputProps> = ({
         {/* ── Inline strip shown after popup is dismissed ── */}
         {state.kind === "invalid" && !showPopup && (
           <div className="imageUpload__errorStrip" role="alert">
-            <span>⚠️</span>
+            <img src={warningIcon} alt="warning" style={{width:18,height:18}} />
             <span>
               <strong>{state.fileName}</strong> is not a supported format.
             </span>
@@ -136,7 +139,7 @@ export const ImageUploadInput: React.FC<ImageUploadInputProps> = ({
 
         {state.kind === "upload-error" && (
           <div className="imageUpload__errorStrip" role="alert">
-            <span>⚠️</span>
+            <img src={warningIcon} alt="warning" style={{width:18,height:18}} />
             <span>Failed to upload <strong>{state.fileName}</strong>. Try again.</span>
           </div>
         )}
@@ -176,12 +179,12 @@ export const ImageUploadInput: React.FC<ImageUploadInputProps> = ({
               onClick={() => setShowPopup(false)}
               aria-label="Dismiss"
             >
-              ✕
+              <img src={closeIcon} alt="close" style={{width:14,height:14}} />
             </button>
 
             {/* Icon */}
             <div className="imageUpload__popupIconWrap">
-              <span className="imageUpload__popupBigIcon">⚠️</span>
+              <img src={warningIcon} alt="warning" className="imageUpload__popupBigIconImg" />
             </div>
 
             {/* Text */}

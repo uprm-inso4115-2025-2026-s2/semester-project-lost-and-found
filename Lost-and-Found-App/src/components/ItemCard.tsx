@@ -1,7 +1,11 @@
 import React, { useMemo, useState } from "react";
 import "./ItemCard.css";
+import { useNavigate } from "react-router-dom";
+import calendarIcon from "../assets/icons/calendar.svg";
+import locationIcon from "../assets/icons/location.svg";
+import imageIcon from "../assets/icons/image.svg";
 
-export type ItemStatus = "Lost" | "Found" | "Claimed" | "Returned";
+export type ItemStatus = "Active" | "Claimed" | "Closed";
 
 export interface ItemCardProps {
   imageUrl?: string;
@@ -15,28 +19,24 @@ export interface ItemCardProps {
   onClaim?: (id: string) => void;
   onReturn?: (id: string) => void; 
   onSendBackToLost?: (reportId: string) => void;
+  onCardClick?: (reportId: string) => void;
 }
 
 const STATUS_THEME: Record<
   ItemStatus,
   { bar: string; dot: string; text: string }
 > = {
-  Lost: {
+  Active: {
     bar: "#ef4444",
     dot: "#ef4444",
     text: "#b91c1c",
-  },
-  Found: {
-    bar: "#10b981",
-    dot: "#10b981",
-    text: "#047857",
   },
   Claimed: {
     bar: "#3b82f6",
     dot: "#3b82f6",
     text: "#1d4ed8",
   },
-  Returned: {
+  Closed: {
     bar: "#10b981",
     dot: "#10b981",
     text: "#047857",
@@ -55,13 +55,18 @@ export const ItemCard: React.FC<ItemCardProps> = ({
   onReturn,
   onSendBackToLost,
 }) => {
+  const navigate = useNavigate();
   const theme = useMemo(() => STATUS_THEME[status], [status]);
   const [imgFailed, setImgFailed] = useState(false);
 
   const showImage = Boolean(imageUrl) && !imgFailed;
 
   return (
-    <article className="itemCard">
+    <article 
+      className="itemCard"
+      onClick={() => navigate(`/details/${reportId}`)}
+      style={{cursor : "pointer"}}
+    >
       {/* Top colored bar */}
       <div className="topBar" style={{ background: theme.bar }} />
 
@@ -83,7 +88,10 @@ export const ItemCard: React.FC<ItemCardProps> = ({
             </div>
           </div>
         ) : (
-          <div className="placeholder">🖼️ No image</div>
+          <div className="placeholder">
+            <img src={imageIcon} alt="no image" style={{width:28,height:28,marginRight:8}} />
+            No image
+          </div>
         )}
 
         {/* Status Pill */}
@@ -107,35 +115,18 @@ export const ItemCard: React.FC<ItemCardProps> = ({
 
         <div className="metaRow">
           <span className="metaPill">
-            <span className="icon">📅</span>
+            <img src={calendarIcon} className="metaIcon" alt="date" />
             {dateLabel}
           </span>
 
           {locationLabel ? (
             <span className="metaPill">
-              <span className="icon">📍</span>
+              <img src={locationIcon} className="metaIcon" alt="location" />
               {locationLabel}
             </span>
           ) : null}
           
         <div className="cardActions">
-          {status === "Lost" && onClaim && (
-            <button className="actionBtn" onClick={() => onClaim(reportId)}>
-              Mark as Claimed
-            </button>
-          )}
-
-          {status === "Claimed" && onReturn && (
-            <button className="actionBtn" onClick={() => onReturn(reportId)}>
-              Mark as Returned
-            </button>
-          )}
-
-          {status === "Returned" && onSendBackToLost && (
-              <button className="actionBtn" onClick={() => onSendBackToLost(reportId)}>
-                Send back to Lost
-              </button>
-          )}
         </div>
         </div>
       </div>

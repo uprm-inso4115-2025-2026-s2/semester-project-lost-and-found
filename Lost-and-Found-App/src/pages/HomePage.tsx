@@ -13,13 +13,18 @@ import type { CategoryFilter } from "../components/CategoryDropdown";
 
 import { getAllReports } from "../ReportManagement/ReportDatabaseManagement";
 import type { Report } from "../ReportManagement/Reports";
+import closeIcon from "../assets/icons/close.svg";
+import homeIcon from "../assets/icons/home.svg";
+import searchIcon from "../assets/icons/search.svg";
+import plusIcon from "../assets/icons/plus.svg";
+import userIcon from "../assets/icons/user.svg";
 
 type TabKey = ItemStatus;
 
 function toItemStatus(reportStatus: string): ItemStatus | null {
-  if (reportStatus === "Active" || reportStatus === "ACTIVE") return "Lost";
+  if (reportStatus === "Active" || reportStatus === "ACTIVE") return "Active";
   if (reportStatus === "Claimed" || reportStatus === "CLAIMED") return "Claimed";
-  if (reportStatus === "Resolved" || reportStatus === "RESOLVED") return "Returned";
+  if (reportStatus === "Resolved" || reportStatus === "RESOLVED") return "Closed";
   return null;
 }
 
@@ -27,11 +32,20 @@ export default function HomePage() {
   const navigate = useNavigate();
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeTab, setActiveTab] = useState<TabKey>("Lost");
+  const [activeTab, setActiveTab] = useState<TabKey>("Active");
   const [showProfilePanel, setShowProfilePanel] = useState(false);
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>("ALL");
   const [reports, setReports] = useState<Report[]>([]);
   const [loading, setLoading] = useState(true);
+  const [userEmail, setUserEmail] = useState("");
+
+useEffect(() => {
+  supabase.auth.getUser().then(({ data: { user } }) => setUserEmail(user?.email || ""));
+  
+  getAllReports()
+    .then(setReports)
+    .finally(() => setLoading(false));
+}, []);
 
   useEffect(() => {
     getAllReports()
@@ -39,38 +53,56 @@ export default function HomePage() {
       .finally(() => setLoading(false));
   }, []);
 
-  async function handleClaim(reportId: string) {
-    try {
-      await updateReportStatus(reportId, "CLAIMED");
-  
-      const updated = await getAllReports();
-      setReports(updated);
-    } catch (error) {
-      console.error("Claim failed:", error);
-    }
-  }
-  
-  async function handleReturn(reportId: string) {
-    try {
-      await updateReportStatus(reportId, "RESOLVED");
-  
-      const updated = await getAllReports();
-      setReports(updated);
-    } catch (error) {
-      console.error("Return failed:", error);
-    }
-  }
+async function handleClaim(reportId: string) {
+  try {
+    // Get current user
+    const { data: { user } } = await supabase.auth.getUser();
+    const userId = user?.email || "";
+    
+    await updateReportStatus(reportId, "CLAIMED", userId);
 
-  async function handleSendBackToLost(reportId: string) {
-    try {
-      await updateReportStatus(reportId, "ACTIVE");
-  
-      const updated = await getAllReports();
-      setReports(updated);
-    } catch (error) {
-      console.error("Return failed:", error);
-    }
+    const updated = await getAllReports();
+    setReports(updated);
+  } catch (error) {
+    console.error("Claim failed:", error);
+    // Show error to user
+    alert(error instanceof Error ? error.message : "Failed to claim report");
   }
+}
+  
+async function handleReturn(reportId: string) {
+  try {
+    // Get current user
+    const { data: { user } } = await supabase.auth.getUser();
+    const userId = user?.email || "";
+    
+    await updateReportStatus(reportId, "RESOLVED", userId);
+
+    const updated = await getAllReports();
+    setReports(updated);
+  } catch (error) {
+    console.error("Return failed:", error);
+    // Show error to user
+    alert(error instanceof Error ? error.message : "Failed to close report");
+  }
+}
+
+async function handleSendBackToLost(reportId: string) {
+  try {
+    // Get current user
+    const { data: { user } } = await supabase.auth.getUser();
+    const userId = user?.email || "";
+    
+    await updateReportStatus(reportId, "ACTIVE", userId);
+
+    const updated = await getAllReports();
+    setReports(updated);
+  } catch (error) {
+    console.error("Return failed:", error);
+    // Show error to user
+    alert(error instanceof Error ? error.message : "Failed to reopen report");
+  }
+}
 
   const handleCreateReport = () => {
     navigate("/create-report");
@@ -121,11 +153,16 @@ export default function HomePage() {
     const categoryMatch =
       categoryFilter === "ALL" || report.getRawCategory() === categoryFilter;
 
+
+    const normalizedSearchQuery = searchQuery.trim().toLowerCase();
+
     const searchMatch =
-    searchQuery.trim() === "" ||
-    report.getTags().some(tag =>
-      tag.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+      normalizedSearchQuery === "" ||
+      report.getTitle().toLowerCase().includes(normalizedSearchQuery) ||
+      report.getDescription().toLowerCase().includes(normalizedSearchQuery) ||
+      report.getTags().some(tag =>
+      tag.toLowerCase().includes(normalizedSearchQuery)
+      );
 
     return statusMatch && categoryMatch && searchMatch;
   });
@@ -155,7 +192,7 @@ export default function HomePage() {
 
       {/* STATUS FILTER AND CATEGORY DROPDOWN */}
       <div className="statusTabs">
-        {(["Lost", "Claimed", "Returned"] as TabKey[]).map((tab) => (
+        {(["Active", "Claimed", "Closed"] as TabKey[]).map((tab) => (
           <button
             key={tab}
             className={`statusBtn ${activeTab === tab ? "active" : ""}`}
@@ -165,13 +202,14 @@ export default function HomePage() {
           </button>
         ))}
         <CategoryDropdown onCategoryChange={setCategoryFilter} />
+        <button className="tagGraphBtn" onClick={() => navigate("/tag-graph")}>📊</button>
       </div>
 
       {showSearch && (
       <div className="searchBarContainer">
         <input
           type="text"
-          placeholder="Search by tags..."
+          placeholder="Search by title, description, or tag..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="searchInput"
@@ -188,6 +226,7 @@ export default function HomePage() {
         ) : (
           filteredReports.map((report) => (
           <ItemCard
+            key={report.getID()}
             reportId={report.getID()}
             title={report.getTitle()}
             description={report.getDescription()}
@@ -196,13 +235,13 @@ export default function HomePage() {
               day: "numeric",
             })}
             locationLabel={report.getLocation()}
-            status={toItemStatus(report.getStatus()) ?? "Lost"}
+            status={toItemStatus(report.getStatus()) ?? "Active"}
             imageUrl={report.getImageURL() || undefined}
-            onClaim={handleClaim}
+            onClaim={report.getCreatedBy() !== userEmail ? handleClaim : undefined}
             onReturn={handleReturn}
             onSendBackToLost={handleSendBackToLost}
           />
-          ))
+        ))
         )}
       </section>
 
@@ -232,7 +271,7 @@ export default function HomePage() {
               color: "black",
             }}
           >
-            ✕
+            <img src={closeIcon} alt="close" style={{width:22,height:22}} />
           </button>
 
           <h2 style={{ marginBottom: "20px", color: "black" }}>Profile</h2>
@@ -256,10 +295,10 @@ export default function HomePage() {
       )}
 
       <nav className="bottomNav">
-        <button>🏠</button>
-        <button onClick={() => setShowSearch(prev => !prev)}>🔍</button>
-        <button onClick={handleCreateReport}>➕</button>
-        <button onClick={() => navigate("/profile")}>👤</button>
+        <button><img src={homeIcon} alt="home"/></button>
+        <button onClick={() => setShowSearch(prev => !prev)}><img src={searchIcon} alt="search"/></button>
+        <button onClick={handleCreateReport}><img src={plusIcon} alt="create"/></button>
+        <button onClick={() => navigate("/profile")}><img src={userIcon} alt="profile"/></button>
       </nav>
     </div>
   );

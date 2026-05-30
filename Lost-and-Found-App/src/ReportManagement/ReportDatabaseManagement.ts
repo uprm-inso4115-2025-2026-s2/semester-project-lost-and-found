@@ -1,5 +1,5 @@
 import { supabase } from "../supabaseClient.ts";
-import { Report, type Category, type ReportStatus, type ReportType } from "./Reports.ts";
+import { Report, type Category, type ReportStatus } from "./Reports.ts";
 
 export async function storeReport(report: Report): Promise<boolean> {
     const { error } = await supabase
@@ -41,6 +41,57 @@ export async function deleteReport(id: string): Promise<boolean> {
     return true;
 }
 
+/**
+ * Deletes a report only if the current authenticated user is the report author.
+ *
+ * This helper is intended for UI flows where users can delete their own report.
+ * The UI should fetch the current authenticated user email and pass it here.
+ *
+ * @param reportId - The ID of the report to delete.
+ * @param authorEmail - The current user's email.
+ * @returns success/result object describing whether deletion occurred.
+ */
+export async function deleteReportIfOwner(
+  reportId: string,
+  authorEmail: string | undefined
+): Promise<{ success: boolean; message: string }> {
+  const normalizedEmail = authorEmail?.trim().toLowerCase();
+  if (!normalizedEmail) {
+    return {
+      success: false,
+      message: "User must be authenticated to delete a report.",
+    };
+  }
+
+  const report = await getReport(reportId);
+  if (!report) {
+    return {
+      success: false,
+      message: "Report not found.",
+    };
+  }
+
+  if (report.getCreatedBy().trim().toLowerCase() !== normalizedEmail) {
+    return {
+      success: false,
+      message: "Only the author of this report can delete it.",
+    };
+  }
+
+  const success = await deleteReport(reportId);
+  if (!success) {
+    return {
+      success: false,
+      message: "Unable to delete report due to a database error.",
+    };
+  }
+
+  return {
+    success: true,
+    message: "Report deleted successfully.",
+  };
+}
+
 export async function deleteReportsByUser(userId: string): Promise<boolean> {
     const { error } = await supabase
         .from('reports')
@@ -78,20 +129,21 @@ export async function getReport(id: string): Promise<Report | null> {
     } else if (data.status === "Claimed" || data.status === "CLAIMED") {
         status = 'CLAIMED';
     }
-
-    let type: ReportType = 'LOST';
-    if (data.type === "Found") { type = 'FOUND'; }
+    
 
     const prop = {
         title: data.title,
         description: data.description,
         dateFound: new Date(data.dateFound),
+        expiresAt: new Date(data.expiresAt),
         location: data.location,
         category: category,
         tags: data.tags,
         imageUrl: data.imageURL,
         createdBy: data.createdBy,
-        type: type
+        type: data.type,
+        recoveryCode: data.recoveryCode,
+        claimedBy: data.claimedBy
     }
 
    return Report.fromSupabase(data.id, prop, status);
@@ -121,20 +173,29 @@ export async function getReport(id: string): Promise<Report | null> {
         } else if (data[i].status === "Claimed" || data[i].status === "CLAIMED") {
             status = 'CLAIMED';
         }
+        const expiresAt =new Date(data[i].expiresAt);
+        const nowDate = new Date();
+        if(expiresAt < nowDate && status === "ACTIVE"){
+            status = "RESOLVED";
 
-        let type: ReportType = 'LOST';
-        if (data[i].type === "Found") { type = 'FOUND'; }
+            await supabase.from('reports').update({status: "RESOLVED"}).eq('id', data[i].id);
+
+
+        }
 
         const prop = {
             title: data[i].title,
             description: data[i].description,
             dateFound: new Date(data[i].dateFound),
+            expiresAt : new Date(data[i].expiresAt),
             location: data[i].location,
             category: category,
             tags: data[i].tags,
             imageUrl: data[i].imageURL,
             createdBy: data[i].createdBy,
-            type: type
+            type: data[i].type,
+            recoveryCode: data[i].recoveryCode,
+            claimedBy: data[i].claimedBy
         }
 
         reports.push(Report.fromSupabase(data[i].id, prop, status));
@@ -178,21 +239,20 @@ export async function getReportByUser(id: string): Promise<Report[]> {
         if (data[i].status === "Resolved") { status = 'RESOLVED'; }
         else if (data[i].status === "Claimed") { status = 'CLAIMED'; }
 
-        //Type stored in database
-        let type: ReportType = 'LOST';
-        if (data[i].type === "Found") { type = 'FOUND'; }
-
         //Report object
         const prop = {
             title: data[i].title,
             description: data[i].description,
             dateFound: new Date(data[i].dateFound),
+            expiresAt: new Date(data[i].expiresAt),
             location: data[i].location,
             category: category,
             tags: data[i].tags,
             imageUrl: data[i].imageURL,
             createdBy: data[i].createdBy,
-            type: type
+            type: data[i].type,
+            recoveryCode: data[i].recoveryCode,
+            claimedBy: data[i].claimedBy 
         }
 
         //Creates a report object and pushes it to the array
@@ -222,4 +282,16 @@ export async function storeReportWithDuplicateCheck(report: Report): Promise<{
     success: success,
     duplicateWarning: duplicateWarning
   };
+}
+//Reopen Resolved Report(Case: Report Expired)
+export async function reOpenReport(id: string, userId: string): Promise<boolean> {
+    const {error} = await supabase.from('reports')
+    .update({status:  "ACTIVE"}).eq('id', id).eq('status', 'RESOLVED').eq('createdBy',userId ).select();
+    
+    if(error){
+        console.error(error);
+        return false;
+    }
+
+    return true;
 }
